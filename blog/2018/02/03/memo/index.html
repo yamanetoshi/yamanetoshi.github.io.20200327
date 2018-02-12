@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>memo</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 3, 2018
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/02/03/memo/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+         memo 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>一月分の控えがフッ飛んだのでこちらに控えを格納。</p>
+
+<h2 id="経緯">経緯</h2>
+
+<p>X でキーボード入力ができなくなり (リカバリモードなどでは入力可能、あと X なインストーラでも入力可能で、ログを見てみるに clutter? な何かが原因で gnome-shell が例外吐いて落ちてた模様)、頭にキて再インストールしてしまった直後に</p>
+
+<ul>
+<li>weblog エントリのバックアップ取得していない</li>
+<li>chrome の設定とか</li>
+<li>他にもありましたが忘れた</li>
+</ul>
+
+<p>という諸々に気づきましたが時スデに遅し。</p>
+
+<h2 id="ということで">ということで</h2>
+
+<p>以下に導入したパケジ含め、したことを列挙しておきます。今回色々困ったので。とりあえず導入した、と控えを取得しているパケジが以下です。</p>
+
+<p></p>
+
+<ul>
+<li>sudo</li>
+<li>emacs</li>
+<li>build-essential</li>
+<li>git</li>
+<li>docker</li>
+<li>docker-compose</li>
+<li>golang</li>
+<li>rbenv (not debian package)</li>
+<li>autoconf</li>
+<li>bison</li>
+<li>libssl-dev</li>
+<li>libyaml-dev</li>
+<li>libreadline6-dev</li>
+<li>zlib1g-dev</li>
+<li>libncurses5-dev</li>
+<li>libffi-dev</li>
+<li>libgdbm3</li>
+<li>libgdbm-dev</li>
+<li>chromium</li>
+<li>tmux</li>
+<li>uim-skk</li>
+<li>scim-skk</li>
+<li>skkdic</li>
+<li>ddskk</li>
+<li>gauche</li>
+</ul>
+
+<h2 id="日本語環境">日本語環境</h2>
+
+<p>どうにもならなくて困っていたのですが、とりあえず</p>
+
+<pre><code>update-alternatives --config uim-toolbar
+</code></pre>
+
+<p>から <code>uim-toolbar-gtk3</code> を選択してツールバーから (右下に出現) skk を選択したら変換とか日本語入力が可能になりました。ただし、現状では <code>emacs</code> にて <code>ddskk</code> が使えない状態になってて猛烈に不便。あと、<code>scratch</code> にて <code>scheme</code> な計算ができなくて微妙。</p>
+
+<h2 id="泥箱">泥箱</h2>
+
+<p><code>nautilus-dropbox</code> 導入して sync しています。</p>
+
+<h2 id="その他">その他</h2>
+
+<p>マウス関連については <code>dconf-tools</code> パケジを導入して <code>dconf-editor</code> を起動して</p>
+
+<ul>
+<li>org / gnome / desktop / wm / preferences から <code>focus-mode</code> を mouse に</li>
+</ul>
+
+<p>あと、ctrl は <code>/etc/default/keyboard</code> の以下のエントリを修正。</p>
+
+<pre><code>XKBOPTIONS=&quot;ctrl:nocaps&quot;
+</code></pre>
+
+<p>その他、以下なのかどうか。</p>
+
+<ul>
+<li>コピペも不便なので要改善</li>
+</ul>
+
+<p>そしてこれから、octopress のエントリのサルベージに着手します。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 3, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/01/31/delve/" title="delve">delve</a>
+    
+
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/02/03/memo/">memo</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

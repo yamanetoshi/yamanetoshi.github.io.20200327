@@ -6,10 +6,37 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 31 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 03 Feb 2018 16:01:01 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>memo</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/03/memo/</link>
+      <pubDate>Sat, 03 Feb 2018 16:01:01 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/03/memo/</guid>
+      <description>&lt;p&gt;一月分の控えがフッ飛んだのでこちらに控えを格納。&lt;/p&gt;
+
+&lt;h2 id=&#34;経緯&#34;&gt;経緯&lt;/h2&gt;
+
+&lt;p&gt;X でキーボード入力ができなくなり (リカバリモードなどでは入力可能、あと X なインストーラでも入力可能で、ログを見てみるに clutter? な何かが原因で gnome-shell が例外吐いて落ちてた模様)、頭にキて再インストールしてしまった直後に&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;weblog エントリのバックアップ取得していない&lt;/li&gt;
+&lt;li&gt;chrome の設定とか&lt;/li&gt;
+&lt;li&gt;他にもありましたが忘れた&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;という諸々に気づきましたが時スデに遅し。&lt;/p&gt;
+
+&lt;h2 id=&#34;ということで&#34;&gt;ということで&lt;/h2&gt;
+
+&lt;p&gt;以下に導入したパケジ含め、したことを列挙しておきます。今回色々困ったので。とりあえず導入した、と控えを取得しているパケジが以下です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>delve</title>
