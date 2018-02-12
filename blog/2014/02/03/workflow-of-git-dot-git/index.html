@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>git.git の workflow</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 3, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/02/03/workflow-of-git-dot-git/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/git/">Git </a>
+        
+    </p>
+    <h1 class="entry-title">
+         git.git の workflow 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なエントリを発見。かなりいまさらでお恥ずかしい限りですが。</p>
+
+<ul>
+<li><a href="http://daretoku-unix.blogspot.jp/2014/01/git-flowgithub-flowgit.html">git-flowでもgithub flowでもない、Git本家推奨のワークフロー</a></li>
+</ul>
+
+<p>備忘まで、確認しつつメモを控えておくことに。</p>
+
+<p></p>
+
+<p>git.git では以下の統合 branch を使っているとのこと。</p>
+
+<ul>
+<li>maint</li>
+<li>master</li>
+<li>next</li>
+<li>pu</li>
+</ul>
+
+<p>これ、採用したいな。maint と master というあたりが微妙ですが、これはリリースマネジメントの問題ですね。基本的には</p>
+
+<ul>
+<li>master でリリースな tag を打って歴史をすすめる。Linux だと 3.x なバージョン番号?</li>
+<li>maint も同様。Linux だと 3.x.x なバージョン番号にあたるのかどうか</li>
+</ul>
+
+<p>む、これって試してみたいのですが、next な branch に居るある commit を cherry-pick で上流に適用すると branch 全体を merge する時にはスルーされるのかな。されそうなカンジ。</p>
+
+<h2 id="むむ">むむ</h2>
+
+<p>以下な記述があります。</p>
+
+<blockquote>
+<p>統合ブランチを &ldquo;習慣的に&rdquo;(大した理由なく定期的に) トピックに merge する (話を広げて、定期的に上流を下流に merge する) ことには賛成できない、という点を指摘しておくべきしょう</p>
+</blockquote>
+
+<p>これって topic branch が巨大というか長く続く、みたいな形だとありがちになりそうな気がします。つうかこれやっちゃうと駄目なカンジが第六感てきにアレですが (何</p>
+
+<h2 id="使いステ統合-branch">使いステ統合 branch</h2>
+
+<p>よく作ってますw
+これは正に git の利点じゃないスかね。</p>
+
+<h2 id="つうか">つうか</h2>
+
+<p>やはりこれは凄く良質なドキュメントですね。今携わってるソレに順次適用の方向。</p>
+
+<p>あと、man gitworkflows ってしてみるに普通に端末で出力されました。これは必読ですね。</p>
+
+<h2 id="分散ワークフロー">分散ワークフロー</h2>
+
+<blockquote>
+<p>git.git においてはサブシステムのメンテナたちだけが mergeワークフローを使っており、他の人たちは皆patchを送っています。</p>
+</blockquote>
+
+<p>てやっぱ patch なのか。ぼくは実は PR よりこっちの方が分かりやすい人だったりするのですが。とは言え、PR でもなくてメイルでもない何らかの手法が見出されるべきなんだろうな、という事は痛切に感じている次第です。</p>
+
+<h2 id="もうちょい">もうちょい</h2>
+
+<p>maint と master の関係が分かってなかったのですが</p>
+
+<pre><code>$ git log master..maint
+</code></pre>
+
+<p>で commit が出てきたら maint を master に merge しなさい、と出てました。つーことは maint に何らかの変更が発生したら master に merge されているべきなのだな。
+また、master と maint の関係として</p>
+
+<pre><code>$ git checkout maint
+$ git merge --ff-only master
+</code></pre>
+
+<p>で  merge が失敗しないこと、が前提になってる模様。</p>
+
+<p>このあたり、現行なプロジェクトでどこまで適用できるのか、は確認する必要があるな。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 3, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/02/02/android-test-gradle/" title="Android とかテストとか gradle とか">Android とかテストとか gradle とか</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/02/03/callback-from-dialogfragment-to-fragment/" title="DialogFragment から呼び出し元の Fragment への callback">DialogFragment から呼び出し元の Fragment への callback</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>WebRTC 勉強会</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Mar 27, 2016
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2016/03/27/webrtc-conference/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         WebRTC 勉強会 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>開場から開始まで若干のバッファがあったので諸々確認してみるなど。</p>
+
+<ul>
+<li>とりあえず <a href="http://nttcom.github.io/skyway/">SkyWay</a> Android なるソレを使うのかどうか</li>
+</ul>
+
+<p></p>
+
+<p>とりあえず開発者登録を。</p>
+
+<p>そしてテーマ的には</p>
+
+<ul>
+<li>WebRTC を使った同時通信なナニ</li>
+</ul>
+
+<p>ということみたいです。あるいは</p>
+
+<ul>
+<li>垂直な切り口で云々できるエンジニアのニーズ</li>
+</ul>
+
+<p>が云々、という話も出ておりました。</p>
+
+<h2 id="入門編">入門編</h2>
+
+<p>大津谷さん、によるレクチャ。</p>
+
+<h3 id="webrtc-について">WebRTC について</h3>
+
+<ul>
+<li>WebRTC Conference Japan という団体もある模様</li>
+
+<li><p>SkyWay というプロダクト</p></li>
+
+<li><p>WebRTC は広義の HTML5 の一つ</p></li>
+
+<li><p>Web RealTime Communication</p></li>
+
+<li><p>初めてのオープン標準</p></li>
+
+<li><p>WebRTC はオープン標準でライセンス使用料も無料</p></li>
+
+<li><p>中身はよっつ、IETF と W3C で標準化</p></li>
+
+<li><p>NAT 超えな P2P 通信手順も</p></li>
+
+<li><p>ブラウザとネイティブの両方で使えます</p></li>
+
+<li><p>低遅延で安全なデータ送信</p></li>
+
+<li><p>家電や IoT でも活用できる (Chromecast など)</p></li>
+
+<li><p>kindle fire に標準搭載</p></li>
+
+<li><p>HO とか FB メッセンジャーとか</p></li>
+
+<li><p>Chatowork, Skype なども使っている</p></li>
+
+<li><p>SkyWay Conference というビデオ会議ソリューションもある模様</p></li>
+
+<li><p>人形ロボの遠隔制御とかスマートグラス遠隔作業支援とか</p></li>
+</ul>
+
+<h3 id="オンラインゲイムのしくみ">オンラインゲイムのしくみ</h3>
+
+<ul>
+<li>オンラインゲイムにはデータの同期が必要</li>
+<li>きー入力同期 (こんとろーらの入力情報をネットにのせるイメージ)</li>
+
+<li><p>パラメータ同期 (操作の結果発生した何かを送る)</p></li>
+
+<li><p>プロトコルについて</p></li>
+
+<li><p>TCP と UDP の違い</p></li>
+
+<li><p>WebRTC over UDP なのね</p></li>
+
+<li><p>TCP ぽく、UDP ぽく、を切り替えて使えるみたい</p></li>
+
+<li><p>経路について</p></li>
+
+<li><p>C/S と P2P</p></li>
+
+<li><p>P2P てちーと対策必要なのか</p></li>
+
+<li><p>P2P の実現</p></li>
+
+<li><p>NAT の存在がネックらしい</p></li>
+
+<li><p>外から中にアクセスできない</p></li>
+
+<li><p>NAT 超え (三つの方法)</p></li>
+
+<li><p>NAT が無いときは P2P、NAT がある時は STUN/UDP ホールパンチング</p></li>
+
+<li><p>それでもだめなら TURN</p></li>
+
+<li><p>TURN はサーバ経由</p></li>
+
+<li><p>オンラインゲームの開発手法</p></li>
+
+<li><p>ライブラリを備えるプラットフォームは少数派らしい</p></li>
+</ul>
+
+<h3 id="webrtc-とゲーム">WebRTC とゲーム</h3>
+
+<ul>
+<li>どんな時に使うのか?</li>
+<li>おんらいんげーむ用通信ぷろとこる</li>
+
+<li><p>ボイス/ビデオチャット</p></li>
+
+<li><p>Banana Bread という FPS</p></li>
+
+<li><p>Cube Slam という PONG クローン</p></li>
+
+<li><p>ボイスチャットで使われるケイス</p></li>
+
+<li><p>イカデンワ</p></li>
+
+<li><p>使いステボイスチャット</p></li>
+
+<li><p>FF14 専用、というものもあるらしい</p></li>
+
+<li><p>以下のケイスで使える?</p></li>
+
+<li><p>通信遅延を小さく、サーバ費用を安く、超多人数に対応しなくて良い</p></li>
+
+<li><p>VR にはボイスチャット必要</p></li>
+
+<li><p>WebRTC には必要なものが実装済み</p></li>
+
+<li><p>深掘りすると大変らしい</p></li>
+
+<li><p>SDK と API ぎ いきょう</p></li>
+
+<li><p>従量課金</p></li>
+
+<li><p>tokbox, skyway, twilio</p></li>
+
+<li><p>twillio は最近 WebRTC のビデオ通話はじめたもよう</p></li>
+
+<li><p>skyway は無償利用できます</p></li>
+</ul>
+
+<h3 id="まとめ">まとめ</h3>
+
+<ul>
+<li>SkyWay も思い出して!</li>
+<li>資料は別途公開の方向</li>
+</ul>
+
+<h2 id="ハンズオン">ハンズオン</h2>
+
+<p>最初にデモから。N コムのカトウさん担当。WebRTC を使ってロボの操作を行なうとのこと。ビデオチャットなシステムの紹介もあり。</p>
+
+<p>簡単なサンプルアプリの作成を行なうとのこと。ええと、以下を見つつ、とのこと</p>
+
+<ul>
+<li><a href="https://github.com/tsu-takahashi/webrtc-handson/wiki">ハンズオン資料</a></li>
+</ul>
+
+<p>そして、MBA が実機を認識しないという致命的なトラブルに見舞われている次第です。。。</p>
+
+<h2 id="動いた">動いた</h2>
+
+<p>とりあえず Kotlin とかで書き直してみたかったりします。つうか端末トラブル沢山でソース見れてない。これから見ます。</p>
+
+<h2 id="問題処理">問題処理?</h2>
+
+<p>以下実行して再起動したら認識してました。El Capitan アレだな。</p>
+
+<pre><code>$ defaults write NSGlobalDomain NSAppSleepDisabled -bool YES
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Mar 27, 2016</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2016/03/26/news-of-a-death/" title="小山田いくさんの訃報">小山田いくさんの訃報</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2016/03/28/webrtc-in-iot/" title="IoT で WebRTC てのはアリなのかどうか">IoT で WebRTC てのはアリなのかどうか</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

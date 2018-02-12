@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>bare-metal 着手</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 13, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/04/13/bare-metal/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         bare-metal 着手 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>根性無くって #gFab に行けず、フテていても仕方がないので諸々着手。</p>
+
+<p><a href="http://wiki.osdev.org/ARM_RaspberryPi_Tutorial_C">ARM RaspberryPi Tutorial C</a> からファイルを作って make してみると以下な出力が。</p>
+
+<pre><code>arm-unknown-eabi-gcc: error: fomit-frame-pointer: No such file or directory
+</code></pre>
+
+<p>これ、Makefile に以下な記述があるのが原因らしい。</p>
+
+<pre><code>Makefile:BASEFLAGS   += -ffreestanding fomit-frame-pointer -mcpu=arm1176jzf-s
+</code></pre>
+
+<p>あら、これってもしかして &ldquo;-&rdquo; が無いだけかな。</p>
+
+<p></p>
+
+<p>Makefile は以下なカンジで。</p>
+
+<p>{% gist 10571587 %}</p>
+
+<p>とりあえず、この minimal な kernel で JTAG デバッガの動作確認を。</p>
+
+<h2 id="つうか">つうか</h2>
+
+<p>スタートアップなソレを修正しないと、なのかな。baremetal 本を見つつすすめてみます。つうかその前に OpenOCD が使える状態になっていないと、なのか。</p>
+
+<p>とりあえず /usr/local 配下に openocd-0.7.0 を導入。</p>
+
+<p>あと、baremetal 本ベースで云々するとなると rpi_lib/gpio 配下のソレが必要になってくる模様。init_gpio しとけば良いのかどうか。</p>
+
+<p>とりあえず ld なシンボルを無理矢理辻褄を合わせて実行ファイルはできたのかどうか。かなり無理矢理 merge してる感がありますがとりあえず。あと Makefile を修正。</p>
+
+<p>あと、OpenOCD の設定ファイルは以下から、なのかどうか。</p>
+
+<ul>
+<li><a href="https://github.com/dwelch67/raspberrypi">dwelch67/raspberrypi</a></li>
+</ul>
+
+<p>とりあえず clone して armjtag/raspi.cfg を使えば良いのかな。</p>
+
+<h2 id="準備できたみたいなので">準備できたみたいなので</h2>
+
+<p>デバッガ接続。lsusb の出力が以下。</p>
+
+<pre><code>$ lsusb
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 001 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub
+Bus 002 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub
+Bus 002 Device 051: ID 05e3:0608 Genesys Logic, Inc. USB-2.0 4-Port HUB
+Bus 001 Device 053: ID 0a5c:217f Broadcom Corp. Bluetooth Controller
+Bus 001 Device 058: ID 0403:6001 Future Technology Devices International, Ltd FT232 USB-Serial (UART) IC
+Bus 001 Device 034: ID 17ef:4816 Lenovo 
+Bus 002 Device 052: ID 15ba:002a Olimex Ltd. ARM-USB-TINY-H JTAG interface
+</code></pre>
+
+<p>認識できてます。RasPI の電源を入れて OpenOCD 起動</p>
+
+<pre><code>$ sudo openocd  -f /usr/local/share/openocd/scripts/interface/olimex-arm-usb-tiny-h.cfg -f armjtag/raspi.cfg 
+Open On-Chip Debugger 0.7.0 (2014-04-13-15:37)
+Licensed under GNU GPL v2
+For bug reports, read
+        http://openocd.sourceforge.net/doc/doxygen/bugs.html
+Info : only one transport option; autoselect 'jtag'
+adapter speed: 1000 kHz
+none separate
+raspi.arm
+Info : max TCK change to: 30000 kHz
+Info : clock speed 1000 kHz
+Error: JTAG scan chain interrogation failed: all ones
+Error: Check JTAG interface, timings, target power, etc.
+Error: Trying to use configured scan chain anyway...
+Error: raspi.arm: IR capture error; saw 0x1f not 0x01
+Warn : Bypassing JTAG setup events due to errors
+Error: 'arm11 target' JTAG error SCREG OUT 0x1f
+Error: unexpected ARM11 ID code
+Polling target raspi.arm failed, GDB will be halted. Polling again in 100ms
+</code></pre>
+
+<p>む、Error って出てますね。これって実機側でターゲットなプログラムが動いてないと駄目なのかどうか。</p>
+
+<p>とりあえずコンパイルしてみたらコンパイルエラーになってしまってびっくりしたのですが、main.c に以下を追加したら何とかなりました。</p>
+
+<pre><code>#include &quot;rpi_lib/rpi.h&quot;
+</code></pre>
+
+<p>とは言え、JTAG scan chain interrogation failed なソレはまだ出たまま。とりあえずデバイスとして認識してるはずではあるのでここの問題を解決しないと駄目なのかどうか。</p>
+
+<h2 id="む">む</h2>
+
+<p>以下なドキュメントを見つけてますが今日はもう限界。</p>
+
+<blockquote>
+<p>Just resolved an identical looking issue by connecting the Pi&rsquo;s ground pin to pin 7 in the lower row, counting from the lower left (following the numbering convention in the referenced link). Had it plugged into the lower right most pin (lower pin 10). dwelch&rsquo;s howto specifically mentions pin 2 in the lower row as not being ground but it seems that pin 10 may not be ground either.</p>
+</blockquote>
+
+<p><a href="http://www.raspberrypi.org/forums/viewtopic.php?t=61913&amp;p=460236">JTAG scan chain interrogation failed: all ones</a> より引用</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 13, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/04/12/serial-connection-with-raspbian/" title="raspbian シリアル接続の件">raspbian シリアル接続の件</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/04/14/rake-memo/" title="rake 備忘">rake 備忘</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

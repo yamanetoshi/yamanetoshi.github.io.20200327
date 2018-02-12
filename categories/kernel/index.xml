@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kernel on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/kernel/</link>
+    <description>Recent content in Kernel on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 12 Oct 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/kernel/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>もくもくネタ発見</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/10/12/kernel-module-book/</link>
+      <pubDate>Thu, 12 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/10/12/kernel-module-book/</guid>
+      <description>以下、次回云々してみたい。Amazon ギフトてどうやって購入するのかと。 【技術書典2】Linuxカーネルモジュール自作入門を出します（ダウン</description>
+    </item>
+    
+    <item>
+      <title>kernel/fork.c の do_fork 始点で掘削してみる</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/25/drill-down-from-do-fork/</link>
+      <pubDate>Thu, 25 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/25/drill-down-from-do-fork/</guid>
+      <description>&lt;p&gt;と、言いつつ kernel/fork.c で定義されている手続きを確認したい欲もあり。とりあえず  &lt;a href=&#34;https://github.com/torvalds/linux.git&#34;&gt;https://github.com/torvalds/linux.git&lt;/a&gt; から取得した repository の master branch 見てます。先頭 branch は f3670394c29f みたいです。&lt;/p&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;system call な i/f からのソレは kernel/fork.c で定義されているのかどうか。入口としては&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;kernel_thread 手続き&lt;/li&gt;
+&lt;li&gt;fork な system call&lt;/li&gt;
+&lt;li&gt;vfork な system call&lt;/li&gt;
+&lt;li&gt;clone な system call&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;なのかどうか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

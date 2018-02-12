@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>何秒か後にこれやっといて、な実装について (Linux における C での実装)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Sep 25, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/25/do-it-after-a-few-seconds/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         何秒か後にこれやっといて、な実装について (Linux における C での実装) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>ちょっと順に色々確認してみた記録を自分メモ。手順としては</p>
+
+<ul>
+<li>signal handler を設定</li>
+<li>interval time を設定</li>
+<li>timer_settime を呼び出してタイマを設定</li>
+</ul>
+
+<p>というカンジ。まず、以下からパクッた実装を確認しつつ man sigaction を確認してみます。</p>
+
+<ul>
+<li><a href="http://linux-biyori.sakura.ne.jp/program/pr_signal02.php">シグナルとタイマー２</a></li>
+</ul>
+
+<p></p>
+
+<p>まず、signal handler を設定、というあたりから。実装は以下なカンジです。</p>
+
+<pre><code>struct sigaction action;
+
+/* set signal handler */
+action.sa_sigaction = SigHandler;
+action.sa_flags = SA_SIGINFO | SA_RESTART;
+sigemptyset(&amp;action.sa_mask);
+if (sigaction(SIGRTMIN + 1, &amp;action, NULL) &lt; 0) {
+    perror(&quot;sigaction error&quot;);
+    exit(1);
+}
+</code></pre>
+
+<p>SigHandler な手続き定義は以下です。</p>
+
+<pre><code>void SigHandler(int signum, siginfo_t *info, void *ctxt) {
+</code></pre>
+
+<p>man を確認してみるに以下な記述がありました。</p>
+
+<blockquote>
+<p>If SA_SIGINFO is specified in sa_flags, then sa_sigaction (instead of sa_handler) specifies the signal-handling function for signum.</p>
+</blockquote>
+
+<p>なので SigHandler な定義は sa_sigaction と同じ型にしているのか。あと、sa_flags 属性に設定している flag について確認してみます。</p>
+
+<p>まず、SA_RESTART からですが、以下な記述です。</p>
+
+<blockquote>
+<p>Provide behavior compatible with BSD signal semantics by making certain system calls restartable across signals.</p>
+</blockquote>
+
+<p>これ、signal (7) の man によれば <i><em>システムコールやライブラリが停止 (block) している間にシグナルハンドラが起動</em></i> された時の挙動を指定しているのか。</p>
+
+<p>また、SA_SIGINFO は上で確認した通りで</p>
+
+<blockquote>
+<p>The signal handler takes three arguments, not one.</p>
+</blockquote>
+
+<p>とのこと。また、sigemptyset は</p>
+
+<blockquote>
+<p>initializes the signal set given by set to empty, with all signals excluded from the set.</p>
+</blockquote>
+
+<p>という説明があります。struct sigaction な領域についてこれらの初期化を行なった後に sigaction という手続きを呼び出しています。man によれば</p>
+
+<blockquote>
+<p>The sigaction() system call is used to change the action taken by a process on receipt of a specific signal.</p>
+</blockquote>
+
+<p>ここではリアルタイムシグナル、というものを使っていますね。とりあえず使ってみました、という話になっている事を願う。</p>
+
+<h2 id="interval-timer-の設定">interval timer の設定</h2>
+
+<p>実装の例が以下。</p>
+
+<pre><code>struct sigevent event;
+struct timer_t timerid = 0;
+
+event.sigev_notify = SIGEV_SIGNAL;
+event.sigev_signo = SIGRTMIN + 1;
+if (timer_create(CLOCK_READTIME, &amp;event, &amp;timerid)) {
+    perror(&quot;timer_create error&quot;);
+}
+</code></pre>
+
+<p>timer_create 手続きを使って POSIX per-process timer を作ります。第一引数には CLOCK_REALTIME を渡しています。man の説明が以下。</p>
+
+<blockquote>
+<p>A settable system-wide real-time clock</p>
+</blockquote>
+
+<p>また第二引数に struct sigevent 型の領域の先頭アドレスを渡しています。see sigevent(7) とあるのでこちらも確認してみます。</p>
+
+<p>struct sigevent な sigev_notify 属性には SIGEV_SIGNAL が設定されてます。man によれば以下とのこと。</p>
+
+<blockquote>
+<p>Notify the process by sending the signal specified in sigev_signo</p>
+</blockquote>
+
+<p>シグナル番号は sigev_signo に設定されてます。リアルタイムシグナルな SIGRTMIN + 1 が設定されています。また、第三引数な struct timer なソレは適切な何か、が設定されるに違いない、という事にしておきます。</p>
+
+<h2 id="最後に">最後に</h2>
+
+<p>タイマの設定ですが以下が実装例です。ここでは 4 秒後のタイマを作っています。signal handler は一度だけしか呼び出されない形です。</p>
+
+<pre><code>struct itimerspec spec;
+
+spec.it_interval.tv_sec = 0;
+spec.it_interval.tv_nsec = 0;
+spec.it_value.tv_sec = 4;
+spec.it_value.tv_nsec = 0;
+
+if (timer_settime(timerid, 0, &amp;spec, NULL) &lt; 0) {
+    perror(&quot;timer_settime error&quot;);
+}
+</code></pre>
+
+<p>timerid は先に呼び出した timer_create に渡したものを使います。これで 4 秒後に SIGRTMIN + 1 な signal が発生して handler が呼び出されます。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Sep 25, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/09/24/behavior-of-surfaceview-when-adding-viewgroup/" title="ViewGroup を追加する場合の SurfaceView の挙動">ViewGroup を追加する場合の SurfaceView の挙動</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/09/25/update-bash/" title="とりあえず bash 更新">とりあえず bash 更新</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>docker 読みかけをもう少しすすめてみる</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jul 9, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/07/09/reading-docker/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         docker 読みかけをもう少しすすめてみる 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>土曜のもくもくで着手しかけてたメモをもうすこしすすめてみます。</p>
+
+<p></p>
+
+<h2 id="ソース取得">ソース取得</h2>
+
+<p>以下にて。</p>
+
+<pre><code>$ git clone https://github.com/dotcloud/docker.git
+</code></pre>
+
+<p>HEAD は 48982679 になってます。</p>
+
+<h2 id="掘削開始">掘削開始</h2>
+
+<p>始点は docker/docker.go です。</p>
+
+<p>見てみたところ</p>
+
+<ul>
+<li>utils.SelfPath() の戻りに &ldquo;.dockerinit&rdquo; を含んでいる場合</li>
+<li>Enable daemon mode な -d あるいは &ndash;daemon オプション指定の場合</li>
+<li>それ以外</li>
+</ul>
+
+<p>という形に見えます。</p>
+
+<h2 id="dockerinit-とは">.dockerinit とは</h2>
+
+<p>ちょっとよく分からない。どう見ても docker なパスに .dockerinit が含まれてる場合、に見えます。その場合</p>
+
+<pre><code>sysinit.SysInit()
+</code></pre>
+
+<p>が呼び出されてます。このあたり、別途確認かなと。</p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>それ以外、のナニを確認してみます。いっちゃん末端部分ですが以下。</p>
+
+<pre><code>if err := cli.ParseCommands(flag.Args()...); err != nil {
+</code></pre>
+
+<p>cli は client.DockerCli のポインタな模様。直上に以下な式が書いてあります。</p>
+
+<pre><code>    if *flTls || *flTlsVerify {
+        cli = client.NewDockerCli(os.Stdin, os.Stdout, os.Stderr, protoAddrParts[0], protoAddrParts[1], &amp;tlsConfig)
+    } else {
+        cli = client.NewDockerCli(os.Stdin, os.Stdout, os.Stderr, protoAddrParts[0], protoAddrParts[1], nil)
+    }
+</code></pre>
+
+<p>client は api/client なのか。cli.go を見れば良いのかどうか。</p>
+
+<pre><code>func NewDockerCli(in io.ReadCloser, out, err io.Writer, proto, addr string, tlsConfig *tls.Config) *DockerCli {
+</code></pre>
+
+<p>client.DockerCli は直下で定義されてて以下?</p>
+
+<pre><code>type DockerCli struct {
+    proto      string
+    addr       string
+    configFile *registry.ConfigFile
+    in         io.ReadCloser
+    out        io.Writer
+    err        io.Writer
+    isTerminal bool
+    terminalFd uintptr
+    tlsConfig  *tls.Config
+    scheme     string
+}
+</code></pre>
+
+<p>で、ParseCommands の中身が以下らしい。</p>
+
+<pre><code>func (cli *DockerCli) ParseCommands(args ...string) error {
+    if len(args) &gt; 0 {
+        method, exists := cli.getMethod(args[0])
+        if !exists {
+            fmt.Println(&quot;Error: Command not found:&quot;, args[0])
+            return cli.CmdHelp(args[1:]...)
+        }
+        return method(args[1:]...)
+    }
+    return cli.CmdHelp(args...)
+}
+</code></pre>
+
+<p>ある意味そのまんまですね。つうか lxc はどこいった。とりあえず getMethod 見てみます。</p>
+
+<pre><code>func (cli *DockerCli) getMethod(name string) (func(...string) error, bool) {
+    if len(name) == 0 {
+        return nil, false
+    }
+    methodName := &quot;Cmd&quot; + strings.ToUpper(name[:1]) + strings.ToLower(name[1:])
+    method := reflect.ValueOf(cli).MethodByName(methodName)
+    if !method.IsValid() {
+        return nil, false
+    }
+    return method.Interface().(func(...string) error), true
+}
+</code></pre>
+
+<p>戻すのは手続きオブジェクトと bool になっている模様。</p>
+
+<h2 id="その後">その後</h2>
+
+<p>色々見てるなかで lxc はスデに使われていないことを知りました。daemon な記述も以下に控えておきたいと思います。</p>
+
+<ul>
+<li>engine.New() している</li>
+<li>goroutine を kickoff して eng.Job(&ldquo;initserver&rdquo;) なオブジェクトを初期設定</li>
+<li>初期設定したオブジェクトを Run (goroutine の中)</li>
+<li>もう一つ eng.Job(&ldquo;acceptconnections&rdquo;).Run() している (goroutine の中)</li>
+<li>goroutine の kickoff 元で eng.Job(&ldquo;serveapi&rdquo;) を Run している</li>
+</ul>
+
+<h2 id="todo">TODO</h2>
+
+<p>以下なのかどうか。</p>
+
+<ul>
+<li>engine/engine.go あたりを始点に daemon な動作について確認</li>
+<li>DockerCli とは何かを確認</li>
+</ul>
+
+<p>あとは Github から取得したソレを動かしてみたいんですが、どうすりゃいいのやら。これはこれで継続課題ということで。。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jul 9, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/07/08/golang/" title="golang">golang</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/07/10/reading-docker-v1-dot-1-0/" title="docker v1.1.0 読んでみる">docker v1.1.0 読んでみる</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>wheezy な x201 に Android 開発環境導入</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 16, 2014
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/02/16/install-android-development-env-in-wheezy-x201/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/debian/">Debian </a><a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         wheezy な x201 に Android 開発環境導入 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>とりあえず、openjdk-6-jdk パケジで云々してみます。</p>
+
+<pre><code>$ sudo apt-get install -fy openjdk-6-jdk
+</code></pre>
+
+<p>で、Androdi Studio を download して展開後、bin/studio.sh を起動したのですが何も起こらない。プロセスは生きている模様。</p>
+
+<p>いったん kill -9 して端末から起動してみるに</p>
+
+<blockquote>
+<p>OpenJDK6 is not supported. Please use Oracle Java or newer OpenJDK</p>
+</blockquote>
+
+<p>と言われる。どうやら openjdk-7-jdk でないと駄目らしい。どうもこれで ADT な Eclipse もイケる模様。別途確認、ってことでとりあえず入れ直し。</p>
+
+<p>その後、studio.sh で正常に起動したので手持ちのプロジェクトを clone して云々してみました。最初の一発目なので gradlew な準備が云々とかで時間かかりましたが正常終了?</p>
+
+<p></p>
+
+<p>と思ったら SDK 方面の用意が全然できていないのか。Google Play Service を導入したら再度 gradle が起動されている模様。</p>
+
+<p>その後</p>
+
+<ul>
+<li>SDK のバージョン依存</li>
+<li>Google Repository 導入</li>
+<li>Build Tools のバージョン依存</li>
+</ul>
+
+<p>すると cannot run aapt とか言われてしまう。これは以下で解決らしい。</p>
+
+<pre><code>$ sudo apt-get install lib32stdc++6 lib32z1
+</code></pre>
+
+<p>う、鍵作ってないや。ズルしてどっかから持ってきてしまえ。つうか build.gradle 見たら OSX な $HOME が直に書いてあるorz</p>
+
+<h2 id="home-問題">$HOME 問題</h2>
+
+<p>とりあえず二点問題があったのですが、gradle.properties は ignore してるので追加が必要なのは良いのですが、build.gradle に $HOME なパスが直接書いてあるのはマズい。つうか OSX でしか弄らない、って思っていたのかどうか。</p>
+
+<p>ええと</p>
+
+<pre><code>System.getenv()['HOME']
+</code></pre>
+
+<p>で良いのかどうか。とりあえず元の環境で云々してみます。</p>
+
+<p>無問題だったので commit 作って merge して push して、どうすりゃ良いのかな。</p>
+
+<p>Android Studio の VCS なメニュから fetch して merge して、ができました。便利ですね。あとは gradle.properties を手動で追加して rebuild している所です。パスしてくれないと困るんだけどな。</p>
+
+<p>む、正常終了した。</p>
+
+<p>ところで、プロジェクトエクスプローラみたいなソレを左に表示させっぱにするにはどうすりゃ良いのかな。</p>
+
+<p>View -&gt; Tool Windows -&gt; Project でした。</p>
+
+<h2 id="端末の認識">端末の認識</h2>
+
+<p>試験してみる前に実機認識できてないと、ということで諸々確認を。</p>
+
+<p>/etc/udev/rules.d/ 配下に、なんですが以下を使いました。</p>
+
+<ul>
+<li><a href="http://rootzwiki.com/topic/258-udev-rules-for-any-device-no-more-starting-adb-with-sudo/">uDev Rules for Any Device! (No more starting adb with sudo)</a></li>
+</ul>
+
+<p>無事認識。がしかし <em>Gradle project sync failed</em> なるメセジで実行できず。build はパスします。以下に倣って Android Studio を云々。</p>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/21066598/android-studio-0-4-2-gradle-project-sync-failed-error">android studio 0.4.2: Gradle project sync failed error</a></li>
+</ul>
+
+<p>再起動して Gradle 云々が終わった後にリトライしてみると動きました。</p>
+
+<h2 id="と思ったら">と思ったら</h2>
+
+<p>INSTALL_FAILED_INSUFFICIENT_STORAGE で fail している模様。よく分からんので実機からアプリを削除してリトライ。</p>
+
+<p>動きました。と思ったら meta な情報が整合してなくてオチる。これ、com.google.android.gms.version が云々、な部分か。Google Play services とか Google Repository も revision が違うな。</p>
+
+<p>とりあえず最新が導入されちゃってて</p>
+
+<ul>
+<li>Google Play services が Rev. 15</li>
+<li>Google Repository が Rev. 6</li>
+</ul>
+
+<p>res/values/integer.xml は</p>
+
+<pre><code>    &lt;integer name=&quot;google_play_services_version&quot;&gt;4242000&lt;/integer&gt;
+</code></pre>
+
+<p>とする必要がある模様。これ、もう一方の環境もこれに追従して設定せねば。そして次は Eclipse ってことで。</p>
+
+<h2 id="android-studio-のキーバインド">Android Studio のキーバインド</h2>
+
+<p>File -&gt; Settings -&gt; Keymap か。</p>
+
+<h2 id="eclipse-adt-な環境設定">Eclipse + ADT な環境設定</h2>
+
+<p>せっとあっぷ結構大変。とりあえず d.android.com 方面から adt-bundle-linux なソレを download して展開。</p>
+
+<p>つうか adt-bundle ってことは Android Studio とは SDK なソレが異なる、ということになるんでしょうね。これはこれで微妙。</p>
+
+<p>とりあえず動作確認としては特に何もなく終了。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 16, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/02/16/docker-in-debian/" title="なんとなく docker な環境を作ってみるなど">なんとなく docker な環境を作ってみるなど</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/02/16/ibm-refreshed-pc/" title="Thinkpad の refreshed なナニ">Thinkpad の refreshed なナニ</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

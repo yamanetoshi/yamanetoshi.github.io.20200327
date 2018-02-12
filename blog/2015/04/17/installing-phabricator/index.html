@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Phabricator 導入</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 17, 2015
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2015/04/17/installing-phabricator/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/git/">Git </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Phabricator 導入 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下を見つつ導入着手。</p>
+
+<ul>
+<li><a href="http://goo.gl/UblaFf">phabricatorをインストールしてみた</a></li>
+<li><a href="https://secure.phabricator.com/book/phabricator/article/installation_guide/">Installation Guide</a></li>
+</ul>
+
+<p></p>
+
+<p>導入した環境ですが、14.10 な Ubuntu です。スクリプト終了した時点で</p>
+
+<ul>
+<li>arcanist</li>
+<li>libphutil</li>
+<li>phabricator</li>
+</ul>
+
+<p>というディレクトリが作成されていることを確認。とりあえず /etc/apache2/sites-available/000-default.conf に手を入れて</p>
+
+<pre><code>ServerAdmin webmaster@localhost
+DocumentRoot /opt/phabricator/phabricator/webroot
+
+&lt;Directory /opt/phabricator/phabricator/webroot&gt;
+        Options Indexes FollowSymLinks
+        Allowoverride All
+        Rqruire all granted
+&lt;/Directory&gt;
+
+RewriteEngine on
+RewriteRule ^/rsrc/(.*)     -                       [L,QSA]
+RewriteRule ^/favicon.ico   -                       [L,QSA]
+RewriteRule ^(.*)$          /index.php?__path__=$1  [B,L,QSA]
+
+SetEnv PHABRICATOR_ENV custom/myconfig
+</code></pre>
+
+<p>apache2 再起動しますが MySQL への接続で不具合がでている模様。myconfig.conf.php の mysql.host な記述を以下に修正。</p>
+
+<pre><code>'mysql.host' =&gt; '127.0.0.1',
+</code></pre>
+
+<p>で、以下のコマンドをナニ、という表示になりました。</p>
+
+<pre><code>phabricator/ $ ./bin/storage upgrade
+</code></pre>
+
+<p>特権ユーザではなくて導入ユーザでヤッてしまって良いのか (というか root でやると叱られた)。そして再度ブラウザからアクセスしてみるに myconfig.conf.php の phabricator.base-uri をデフォルトにしててアクセスできず。あ、あと phabricator.setup も false してました。</p>
+
+<p>ようやく Welcome a Phabricator なコンテンツがブラウザに表示されました。管理アカウントが作れるみたいですね。ここまでくれば導入は完了、ってことで良いのかどうか。</p>
+
+<h2 id="ctrl-と-caps-の-swap-について">ctrl と caps の swap について</h2>
+
+<p>蛇足ではありますが備忘まで。</p>
+
+<p>以下コンテンツを参考に</p>
+
+<ul>
+<li><a href="https://forums.ubuntulinux.jp/viewtopic.php?id=16275">Ubuntu 14.04 LTS での Ctrl と Capslock の入れ替えについて</a></li>
+</ul>
+
+<p>/etc/default/keyboard の XKBOPTIONS の記述を以下にして解決しています。</p>
+
+<pre><code>XKBOPTIONS=&quot;ctrl:nocaps&quot;
+</code></pre>
+
+<h2 id="と思ったら">と思ったら</h2>
+
+<p>別な端末からログインできない。困ったなぁ。色々確認してみたのですが <code>Authentication Failure</code> な状態になってしまったらコマンド叩いて出力される URL を使うしかないのかどうか。</p>
+
+<pre><code>$ ./bin/auth recover &lt;user-id&gt;
+</code></pre>
+
+<p>いやはや。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 17, 2015</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2015/04/16/drinking-at-sakae-machi/" title="栄町呑み">栄町呑み</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2015/04/17/after-installing-phabricator/" title="Phabricator その後">Phabricator その後</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

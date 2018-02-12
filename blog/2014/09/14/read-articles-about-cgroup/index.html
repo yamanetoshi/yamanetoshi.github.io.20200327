@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>cgroup 関連の記事読んだ</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Sep 14, 2014
+         - 4 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/14/read-articles-about-cgroup/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         cgroup 関連の記事読んだ 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>とりあえず kernel source 取得、って結構時間がかかっているな。とりあえず以下から目を通し始めています。</p>
+
+<ul>
+<li><a href="http://qiita.com/akachochin/items/1efb887aa10c45298415">cgroupsを全く知らないところから、正味一時間ちょいでソースから雰囲気つかむ</a></li>
+</ul>
+
+<p>kernel/fork.c を出発点として cgroup がプロセス ID の割当てに絡んでいるあたりの確認をしている模様。alloc_pid という手続きから掘削が始まっています。</p>
+
+<p>また、データ構造の確認、ということで</p>
+
+<ul>
+<li>alloc_pid で空間を確保している struct pid 型について</li>
+<li>alloc_pid に渡されている struct pid_namespace 型について</li>
+</ul>
+
+<p>確認をしています。</p>
+
+<p></p>
+
+<h2 id="clone-終了">clone 終了</h2>
+
+<p>GNU Global とか gtags とかが忘却の彼方で後天性記憶不全が進んでいることが分かり、かなりヘコんでいます。ともあれ</p>
+
+<pre><code>$ gtags -v
+</code></pre>
+
+<p>して emacs 起動。kernel/fork.c を開きます。</p>
+
+<h2 id="続行">続行</h2>
+
+<p>ええと、alloc_pid 手続きを呼び出しているのは copy_process って手続きですね。そうか fork か。</p>
+
+<pre><code>            pid = alloc_pid(p-&gt;nsproxy-&gt;pid_ns_for_children);
+</code></pre>
+
+<p>p って何だ、と思い逆向けにめくってみると以下な記述を発見。</p>
+
+<pre><code>    retval = -ENOMEM;
+    p = dup_task_struct(current);
+    if (!p)
+            goto fork_out;
+</code></pre>
+
+<p>task_struct の複製を作っているあたり。この手続きの定義は以下でした。</p>
+
+<pre><code>static struct task_struct *dup_task_struct(struct task_struct *orig)
+{
+</code></pre>
+
+<p>task_struct を戻すのは当然ですね。ちょっと alloc_pid に渡されているソレを手繰ってみようと思います。</p>
+
+<p>struct task_struct 型は include/linux/sched.h で定義されてます。nsproxy という属性の定義は以下な部分でした。</p>
+
+<pre><code>/* namespaces */
+        struct nsproxy *nsproxy;
+</code></pre>
+
+<p>struct nsproxy 型を確認してみます。定義は include/linux/nsproxy.h でした。pid_ns_for_children という属性の型は何かというと</p>
+
+<pre><code>    struct pid_namespace *pid_ns_for_children;
+</code></pre>
+
+<p>ということで当り前ですが struct pid_namespace 型でした。</p>
+
+<p>fork する時に task_struct を dup するのだけれど、その時に pid namespace な親子関係が云々、という事なのかどうか。</p>
+
+<h2 id="alloc-pid-に戻る">alloc_pid に戻る</h2>
+
+<p>引数で渡された pid_namespace について親に向かった手繰っていきながら struct pid の members という属性に id および pid namespace を設定してますね。</p>
+
+<p>ドキュメントには pidmap というものは pid namespace の_<i>割り当て状況を記録するためのビットマップ</i>_という記載があります。</p>
+
+<h2 id="成程">成程</h2>
+
+<p>こうした仕組みを持っておけばコンテナの中の pid 1 とその外の pid 1 って形で重複した pid を割り当てることができる、ということなのか。</p>
+
+<p>次行きます。</p>
+
+<ul>
+<li><a href="http://qiita.com/akachochin/items/cbda5d83ec220295add5">cgroupsとメモリ資源と関係を勉強する前に、Linuxの仮想記憶周りを読む&hellip;</a></li>
+</ul>
+
+<p>こんどは仮想記憶。ここでも始点が fork らしい。他にも</p>
+
+<ul>
+<li>page fault</li>
+<li>mmap</li>
+</ul>
+
+<p>などが起点としてあり得るらしいです。つうか最初からいきなりアレゲなネタが出てますね。ということで do_fork から掘削開始な模様、というか copy_process からなのか。</p>
+
+<p>子プロセスの struct task_struct を戻す、というあたりから仮想アドレス空間に関することも、との事でした。そして諸々を略して copy_mm 手続きから dup_mm へ。</p>
+
+<pre><code>    retval = -ENOMEM;
+    mm = dup_mm(tsk);
+    if (!mm)
+            goto fail_nomem;
+</code></pre>
+
+<p>dup_mm の手続き定義なコメントが以下。</p>
+
+<pre><code>/*
+ * Allocate a new mm structure and copy contents from the
+ * mm structure of the passed in task structure.
+ */
+</code></pre>
+
+<p>allocate_mm という手続きでおそらくは新しく struct mm_struct の領域を確保して current-&gt;mm からコピィをして云々、な模様。ドキュメントではここで struct mm_struct について確認をしています。include/linux/mm_types.h にて定義されています。</p>
+
+<p>とりあえずドキュメントのメモを以下に列挙。</p>
+
+<ul>
+<li><i>「プロセスアドレス空間内の様々な領域」を表現したものが vm_area_struct 構造体</i></li>
+<li>do_mmap の先頭あたりに出てくる anon_vma_fork という手続き</li>
+<li>anon は Annonymous Memory を指していると思われる</li>
+<li>Annonymous Memory とはスタックや .data などの<i>「バッキングストア (元ネタとなるファイル) のないデータを格納するためのメモリ領域」</i></li>
+</ul>
+
+<p>で、anon_vma_fork 起点で掘削が始まっています。</p>
+
+<ul>
+<li>anon_vma_fork</li>
+<li>anon_vma_clone</li>
+<li>struct anon_vma_chain とか struct anon_vma など</li>
+<li>anon_vma は private &ldquo;related&rdquo; vmas のリストの先頭</li>
+<li>struct anon_vma_chain は struct list_head な same_vma という属性を持っている</li>
+</ul>
+
+<p>む、clone てリスト手繰って親のソレを参照してるだけなのか。</p>
+
+<h2 id="annonymous-memory-と物理ページ">Annonymous Memory と物理ページ</h2>
+
+<p>そろそろ限界なカンジorz</p>
+
+<p>struct page に Annonymous Memory がどう紐付けられているか、について。</p>
+
+<ul>
+<li>page-&gt;mapping の末端 2 bit で ANON, KSM, それ以外を区別している?</li>
+<li>linear_page_index という手続きで仮想アドレスを page-&gt;index に変換</li>
+<li>Annonymous Memory の場合、vm_pgoff に vma の先頭アドレスをページ単位に丸めた値が格納</li>
+</ul>
+
+<p>page-&gt;index はオフセットというかインデクスなのか。確かに仮想アドレスから変換してる、というのは分かったような分からないような。</p>
+
+<h2 id="時間切れ">時間切れ</h2>
+
+<p><a href="http://yamanetoshi.github.io/blog/2014/08/29/found-the-neta/">ネタ見つけた</a>、なエントリの残りよっつも月曜とかで読めれば良いな。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Sep 14, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/09/13/moku-moku-09-13/" title="今日のもくもく">今日のもくもく</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/09/15/ingress-level-eight/" title="Ingress Lv.8">Ingress Lv.8</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

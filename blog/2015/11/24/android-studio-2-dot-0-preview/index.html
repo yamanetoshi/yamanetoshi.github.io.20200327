@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Android Studio 2.0 Preview</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Nov 24, 2015
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2015/11/24/android-studio-2-dot-0-preview/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Android Studio 2.0 Preview 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>出たとのことで使ってみる。とりあえず以下から download を。</p>
+
+<ul>
+<li><a href="http://tools.android.com/download/canary">Android Studio Canary Channel</a></li>
+</ul>
+
+<p></p>
+
+<p>導入したのは OSX 向けのソレです。zipped なナニを download して解凍。出てきたヤツをダブルクリックしてみました。設定は導入済みの最新のソレから持ってきています。</p>
+
+<h2 id="プロジェクト開いて直後">プロジェクト開いて直後</h2>
+
+<p>ちょっと (かなり) 色々時間がかかりました。マシンパワーも微妙だし仕方ないのかどうか。と思ったら build 時間が <code>14s 731ms</code> て出てますね。</p>
+
+<p><a data-flickr-embed="true"  href="https://www.flickr.com/photos/yamane-toshiaki/22874009627/in/dateposted-public/" title="14s 731ms"><img src="https://farm6.staticflickr.com/5663/22874009627_8569a5a209.jpg" width="459" height="77" alt="14s 731ms"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script></p>
+
+<p>で、デバイス繋いで実行を、と思ったら</p>
+
+<pre><code>Unable to obtain result of 'adb version'
+</code></pre>
+
+<p>と言われてしまいました。あら? adb が実行できてないの?</p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>AndroidStudio を再起動してみるなど。Connected Devices に出てきました。ええと build の前にデバイス確認なダイアログが出てくるようになってるんですね。今回は <code>1m 5s 716ms</code> という成績でした。</p>
+
+<h2 id="1-3-だとどうなのか">1.3 だとどうなのか</h2>
+
+<p>確認してみます。結果は <code>1m 3s 982ms</code> でした。あんま変わらんな。ふつーに bulld してるからなのかな。再度 2.0 preview 起動して確認してみます。</p>
+
+<p>んーと、instant run を利用するには設定でこの機能を有効に云々という情報あり。どれだ。</p>
+
+<h2 id="instant-run">instant run</h2>
+
+<p>設定項目が分からない。「Build, Execution, Deployment」から、とありますね。あったあった。</p>
+
+<p><a data-flickr-embed="true"  href="https://www.flickr.com/photos/yamane-toshiaki/22640628554/in/dateposted-public/" title="Build, Execution, Deployment"><img src="https://farm6.staticflickr.com/5689/22640628554_72cebf9684_m.jpg" width="226" height="167" alt="Build, Execution, Deployment"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script></p>
+
+<p>有効にしようとしたら <code>Instant Run requires a newer version of the Gradle plugin.</code> とのことで Update してみます。何が修正されたかは <code>git status</code> でわかるはず。</p>
+
+<h2 id="build-tools-23-0-2-が必要">Build Tools 23.0.2 が必要</h2>
+
+<p>とのことで導入してみます。<code>app/build.gradle</code> が書き変わっていますね。これで clean build した後にアプリ実行してみます。とりあえず clean に <code>22s 375ms</code> かかりました。</p>
+
+<p>結果は <code>1m 50s 315ms</code> でした。</p>
+
+<h2 id="ちなみに">ちなみに</h2>
+
+<p>動作確認してるの、貧弱リソースなマシンなので数値はあまり参考にならないと思われます。</p>
+
+<h2 id="とりあえず-1">とりあえず</h2>
+
+<p>ふつーに使う分には無問題みたいなので今後はこちらを使う方向にて。MBA にも入れておこう。</p>
+
+<h2 id="追記">追記</h2>
+
+<p>設定後の差分を確保してみましたが若干微妙なカンジあり。</p>
+
+<p>{% gist ba6d7a6016c44d5597eb %}</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Nov 24, 2015</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2015/11/24/ifumin-shogi-problem-book/" title="ひふみん五手詰め本">ひふみん五手詰め本</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2015/11/25/hangoutbot-memo/" title="hangoutbot 備忘">hangoutbot 備忘</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

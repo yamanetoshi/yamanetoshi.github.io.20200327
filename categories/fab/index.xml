@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fab on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/fab/</link>
+    <description>Recent content in Fab on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sun, 24 Dec 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/fab/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>AIY Voice Kit 弄ってます</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/12/24/google-aiy-voice-kit/</link>
+      <pubDate>Sun, 24 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/12/24/google-aiy-voice-kit/</guid>
+      <description>マイク装着、両面よりも hot glue 使う方が良いのではないか説。今日はモニタ取られてて検証対応できずorz</description>
+    </item>
+    
+    <item>
+      <title>AIY Voice Kit 弄ってます</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/12/23/google-aiy-voice-kit/</link>
+      <pubDate>Sat, 23 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/12/23/google-aiy-voice-kit/</guid>
+      <description>&lt;p&gt;両面テープを入手してマイクを接着。組み立ては何とかなったということでファイルを入手したのですが Etcher という道具で SD Card に、とあります。&lt;/p&gt;
+
+&lt;p&gt;CLI な道具を入手しはしたのですが dd で何とかならんかな、と言いつつ xz で展開している次第です。展開終わったらどうなるんだろ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ xz -d aiyprojects-2017-09-11.img.xz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>AIY Voice Kit 届いた</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/12/22/google-aiy-voice-kit/</link>
+      <pubDate>Fri, 22 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/12/22/google-aiy-voice-kit/</guid>
+      <description>入手諸々について Raspberry Pi Shop by KSY さまに手厚くお世話になっている次第です。別途開封して云々な方向す。</description>
+    </item>
+    
+    <item>
+      <title>Raspberry PI 3</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/11/02/raspi/</link>
+      <pubDate>Thu, 02 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/11/02/raspi/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://japanese.engadget.com/2017/10/12/ai-aiy-projects-voice-kit-11-3000/&#34;&gt;AI スピーカー&lt;/a&gt; 関連で必要、ってのもあるのですが、Android Things 云々含めて、ということで最低二つは必要なのかどうか。&lt;/p&gt;
+
+&lt;p&gt;他に必要な装備としては&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;microSD&lt;/li&gt;
+&lt;li&gt;USB ケーブル&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;なのかどうか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>IoT で WebRTC てのはアリなのかどうか</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/28/webrtc-in-iot/</link>
+      <pubDate>Mon, 28 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/28/webrtc-in-iot/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://nttcom.github.io/skyway/&#34;&gt;SkyWay&lt;/a&gt; に乗っかる、を前提に考えてみる。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>もくもくの記録</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/17/moku-moku-record/</link>
+      <pubDate>Tue, 17 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/17/moku-moku-record/</guid>
+      <description>&lt;p&gt;どうも PR が merge されない雰囲気なのでこちらにも転載。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>サンプル読んでみる</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/17/read-sample-code/</link>
+      <pubDate>Tue, 17 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/17/read-sample-code/</guid>
+      <description>&lt;p&gt;とりあえずソース入手。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ wget https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code/archive/master.zip
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解凍して以下を確認してみます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Adafruit_BMP085.py&lt;/li&gt;
+&lt;li&gt;Adafruit_I2C.py&lt;/li&gt;
+&lt;li&gt;Adafriut_BMP085_example.py&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>bmp085 を Raspberry PI に取り付けてみた</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/15/attach-bmp085-to-raspi/</link>
+      <pubDate>Sun, 15 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/15/attach-bmp085-to-raspi/</guid>
+      <description>昨日開催なもくもくにて云々してまして、plotly にグラフ表示できました。温度なデータも取得できるのは承知しているのでそちらも吐き出すように</description>
+    </item>
+    
+    <item>
+      <title>気圧センサ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/10/barometic-pressure-sensor/</link>
+      <pubDate>Tue, 10 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/10/barometic-pressure-sensor/</guid>
+      <description>&lt;p&gt;先日土曜に開催された Ingress Resistance 沖縄酒部 (兼将棋部) の会合にて&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;計測してナンボでしょ&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;という瑞慶覧さんの発信に感化されて上京時に BMP085 モジュール購入を決めました。最初マルツさんで一つ 2K yen のヤツ買おうかな、と思っていたのですが&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.marutsu.co.jp/pc/i/224728/&#34;&gt;Barometric Pressure Sensor - BMP085 Bre&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;秋月さんだともうちょい安い模様? (1.25K yen らしい)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://akizukidenshi.com/catalog/g/gM-08764/&#34;&gt;BMP085 使用気圧センサモジュール&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>寸法ぴったりすぎて逆にハマらない件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/04/it-is-impossible-to-put-the-case/</link>
+      <pubDate>Wed, 04 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/04/it-is-impossible-to-put-the-case/</guid>
+      <description>3D プリンタの出力って色々大変なのだなぁ、という事を知りました。片側の usb な端子が穴に入りません。削ったらケイスに入るのかどうか、と言いつつこち</description>
+    </item>
+    
+    <item>
+      <title>#gfab にて Edison のケイス印刷</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/01/printing-edison-case-in-gfab/</link>
+      <pubDate>Sun, 01 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/01/printing-edison-case-in-gfab/</guid>
+      <description>&lt;p&gt;stl なデータをそのまま使うのかと思ったら違いました。プリンタ付属 (?) のアプリに stl なデータを取り込んで、どんな方向で印刷するか、とか置く位置、印刷に使う素材や密度などなどのパラメータを指定して SDCard にそのデータを出力してプリンタからの印刷時にデータを指定する形でした。&lt;/p&gt;
+
+&lt;p&gt;今回使ったデータは以下から入手したものです。ありがとうございます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://t.co/drtB9g2aOt&#34;&gt;Enclosure for Intel Edison Breakout Board&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>#gfab 製 RasPI ケイス</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/11/23/raspberry-pi-case-made-by-gfab/</link>
+      <pubDate>Sun, 23 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/11/23/raspberry-pi-case-made-by-gfab/</guid>
+      <description>今日、#gfab にお邪魔して昨日からのもくもくの続きをしつつ色々な話をしつつで早々に (?) 失礼させて頂いたのですが、離脱な折にケイスを頂きました</description>
+    </item>
+    
+    <item>
+      <title>MakerClub</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/11/23/makerclub/</link>
+      <pubDate>Sun, 23 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/11/23/makerclub/</guid>
+      <description>&lt;p&gt;これ何でしょ。ちょっと色々確認してみます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://makerclub.org&#34;&gt;MakerClub&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とりあえず、59 ユーロで必要なパーツはげとできる模様。約 9K 円ですか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>使いステ顕微鏡</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/25/foldscope/</link>
+      <pubDate>Tue, 25 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/25/foldscope/</guid>
+      <description>これ、某 gFab で云々しないかな。 50円の「使い捨て顕微鏡」 これ、作るだけではなくてフィールドに出てサンプルを採取して発表、みたいなこともできそげ</description>
+    </item>
+    
+    <item>
+      <title>BLE ガジェット勉強会</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/22/ble-gadget-conference/</link>
+      <pubDate>Sat, 22 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/22/ble-gadget-conference/</guid>
+      <description>3.26 開催な以下の勉強会に参加予定。楽しみです。 BLEガジェット勉強会 第4回 (今回のテーマは「ANCSって何？」です。) つうか水曜決行なアナウン</description>
+    </item>
+    
+    <item>
+      <title>BareMetal で遊ぶ RaspberryPI</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/06/playing-with-raspberrypi-with-baremetal/</link>
+      <pubDate>Thu, 06 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/06/playing-with-raspberrypi-with-baremetal/</guid>
+      <description>こりゃ買わねば、ですね。 BareMetal で遊ぶ RaspberryPI つーか全部自分で、はアレ。</description>
+    </item>
+    
+    <item>
+      <title>Edison がアツい</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/12/intel-edison/</link>
+      <pubDate>Sun, 12 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/12/intel-edison/</guid>
+      <description>欲しいなー、と言いつつググッてて以下なドキュメントを発見。 IntelのSDカード型コンピュータ「Edison」の詳細が判明 I2C、I2S、U</description>
+    </item>
+    
+    <item>
+      <title>Make it Wearable Challenge</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/09/make-it-wearable-challenge/</link>
+      <pubDate>Thu, 09 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/09/make-it-wearable-challenge/</guid>
+      <description>&lt;p&gt;Edison って名前のデバイスを Intel が発表したとのこと。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://japanese.engadget.com/2014/01/07/sd-pc-edison-cpu-wifi/&#34;&gt;インテル、SD カードサイズの超小型PC 『Edison』 発表。デュアルコアCPU、WiFi 搭載のウェアラブル端末用&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Wifi と Bluetooth モジュール内蔵とあります。Bluetooth か。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>今日は面白い mtg に参加させて頂きました</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/19/join-interesting-meeting/</link>
+      <pubDate>Thu, 19 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/19/join-interesting-meeting/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www.gclue.com/&#34;&gt;GClue&lt;/a&gt; 佐々木さん来沖とのことで &lt;a href=&#34;http://www.mgwave.com/&#34;&gt;MGWave&lt;/a&gt; すずきさんをご紹介。&lt;/p&gt;
+
+&lt;p&gt;なんかテーブルの上にデバイスがアレされてたり&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.flickr.com/photos/yamane-toshiaki/11435407604/&#34; title=&#34;IMG_20131218_194651 by yamane.toshiaki, on Flickr&#34;&gt;&lt;img src=&#34;http://farm6.staticflickr.com/5481/11435407604_0b76af4dac.jpg&#34; width=&#34;375&#34; height=&#34;500&#34; alt=&#34;IMG_20131218_194651&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;超盛り上がっててこちらとしては嬉しい限り。某所とは違った意味で沖縄がモノづくりの特別な場所になってくれることを願いつつ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>3D プリンタの使い道</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/15/useless-of-3d-printer/</link>
+      <pubDate>Sun, 15 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/15/useless-of-3d-printer/</guid>
+      <description>以下なエントリを発見。 手作り家具のためのダウンロードしてプリントできるジョイント これネタなワークショップとか如何ですかすずきさん (を</description>
+    </item>
+    
+    <item>
+      <title>Amazon 段ボールでケースを作ってみるなど</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/07/making-raspberry-pi-case-with-cardboard/</link>
+      <pubDate>Sat, 07 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/07/making-raspberry-pi-case-with-cardboard/</guid>
+      <description>&lt;p&gt;レイアウトな業務連絡が着信しそうにないのでアマゾンな段ボールで RasPI なケイスを作ってみることに。なんとなく以下なソレを参照しつつ。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.judepullen.com/designmodelling/raspberry-pi-case/&#34;&gt;How to make a Raspberry Pi Case&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>HTML5 Caraban 沖縄 (アプリ開発セミナー)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/05/html5-caraban/</link>
+      <pubDate>Thu, 05 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/05/html5-caraban/</guid>
+      <description>GClue,Inc. 佐々木さんから連絡があり、以下なイベントが開催とのこと。 HTML5 Caraban 沖縄 (アプリ開発セミナー) 講師の一人でもある佐々木さんはおそらく iBeacon なデバイスを</description>
+    </item>
+    
+    <item>
+      <title>英語関係の本が届き CD が付録で付いてたので</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/04/dac/</link>
+      <pubDate>Wed, 04 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/04/dac/</guid>
+      <description>&lt;p&gt;届いた DAC と RasPI で音鳴らすソレについて週末対応の方向。とりあえず&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;SDCard&lt;/li&gt;
+&lt;li&gt;USB メモリ&lt;/li&gt;
+&lt;li&gt;USB なケーブル&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;を確保すれば何とかなるのかどうか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Kano</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/03/i-wanna-get-kano/</link>
+      <pubDate>Tue, 03 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/03/i-wanna-get-kano/</guid>
+      <description>&lt;p&gt;これ、良いなと思っていたのですが関係方面に確認入れてみて欲しいというのであれば $99 払う方向。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.kickstarter.com/projects/alexklein/kano-a-computer-anyone-can-make?ref=live&#34;&gt;Kano: A computer anyone can make&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;つうか駄目かなぁ。同じことをたくらんで USB なキーボードとマウスを購入してたりする件orz&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DAC 北</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/02/network-jukebox/</link>
+      <pubDate>Mon, 02 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/02/network-jukebox/</guid>
+      <description>&lt;p&gt;むむ、タイミング悪いな。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.flickr.com/photos/yamane-toshiaki/11148979755&#34; title=&#34;ブツ到着 by yamane.toshiaki, on Flickr&#34;&gt;&lt;img src=&#34;http://farm6.staticflickr.com/5474/11148979755_6907858898.jpg&#34; width=&#34;375&#34; height=&#34;500&#34; alt=&#34;ブツ到着&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;早くパーツげとして音鳴らしてみたい。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Network JukeBox の導入にあたって</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/28/in-introducing-network-jukebox/</link>
+      <pubDate>Thu, 28 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/28/in-introducing-network-jukebox/</guid>
+      <description>&lt;p&gt;導入にあたり、音源をどこに置くか、がアレ。S3 かな、とか思っていたり。そいえば自宅の外付け HDD にある画像も S3 に転送しないと微妙。&lt;/p&gt;
+
+&lt;p&gt;以下で構築するとして&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RasPI&lt;/li&gt;
+&lt;li&gt;USB DAC&lt;/li&gt;
+&lt;li&gt;USB メモリスティック&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;S3 からメモリスティックに転送する仕組みが必要なのか。つうかこの機器自体が常時ネト接続な必要があるのかというあたりも検討必要なのかどうか。&lt;/p&gt;
+
+&lt;p&gt;できれば small start で自分でメモリスティックの中を云々な方式にしたいかも。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>作る! 24bit デジタル・オーディオ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/27/24-bit-digital-audio/</link>
+      <pubDate>Wed, 27 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/27/24-bit-digital-audio/</guid>
+      <description>&lt;p&gt;RasPI なソリューションが出ててアレ。PCM2704C という IC を使った USB-DAC は色々あるみたいなのでヘッドホンなソリューションが作れるみたい。これは試してみたい。&lt;/p&gt;
+
+&lt;p&gt;つうか、こんなの入手したら家で寝てる音源含め&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ドリ&lt;/li&gt;
+&lt;li&gt;Jaco&lt;/li&gt;
+&lt;li&gt;RC&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;なナニをげとしたくなるな。あるいは NAS てきなソレなのか、あるいは Dropbox なのか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>レーザーカッターを使おう</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/24/lazer-cutter/</link>
+      <pubDate>Sun, 24 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/24/lazer-cutter/</guid>
+      <description>&lt;p&gt;#gFab にてレーザーカッターを使ってコップ敷きを作ろう、なワークショップが開催とのことでレクチャのみ、ってアレで顔を出させて頂きました。&lt;/p&gt;
+
+&lt;p&gt;以下、レクチャ聞きつつとったメモの列挙です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

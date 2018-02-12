@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>パラメトリックブートストラップ検定</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Aug 26, 2016
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2016/08/26/2016-08-26-parametric-bootstrap-test/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+         パラメトリックブートストラップ検定 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>何故か 5-4 から再開。つうか</p>
+
+<ul>
+<li><a href="https://www.amazon.co.jp/dp/4903814742/yamanetoshi-22">平均・分散から始める一般化線形モデル入門</a></li>
+</ul>
+
+<p>良書ですね。Python で云々とか緑な本とか読んだりしたいです。</p>
+
+<p></p>
+
+<p>とりあえず、何となく 5-4-8 以降をもごもごしつつ控えを。</p>
+
+<h2 id="データを用意して統計モデルを作る">データを用意して統計モデルを作る</h2>
+
+<p>以下?</p>
+
+<pre><code>d2 &lt;- data.frame(
+   length = c(2, 4, 10, 12, 6, 8),
+   medicine = c(&quot;A&quot;, &quot;A&quot;, &quot;B&quot;, &quot;B&quot;, &quot;C&quot;, &quot;C&quot;)
+)
+
+modelANOVA &lt;- lm(length ~ medicine, data=d2)
+modelNull &lt;- lm(length ~ 1, data=d2)
+</code></pre>
+
+<h2 id="標本から-f-比を計算">標本から F 比を計算</h2>
+
+<p>凄い、</p>
+
+<pre><code>anova(modelANOVA)
+</code></pre>
+
+<p>から <code>F value</code> だけ取り出せるのか。</p>
+
+<pre><code>&gt; anova(modelANOVA)$&quot;F value&quot;[1]
+[1] 16
+</code></pre>
+
+<p>R は配列参照が 1 origin なのですね。</p>
+
+<h2 id="シミュレーションデータ作成">シミュレーションデータ作成</h2>
+
+<p>こう、なのかな。</p>
+
+<pre><code>&gt; simData &lt;- cbind(
++ simulate(modelNull, 1),
++ d2$medicine)
+</code></pre>
+
+<p>で、以下なのかな。</p>
+
+<pre><code>&gt; colnames(simData) &lt;- c(&quot;length&quot;, &quot;medicine&quot;)
+&gt; simData
+     length medicine
+1  7.073384        A
+2  9.022781        A
+3  1.486284        B
+4  2.100310        B
+5 10.555131        C
+6  5.317685        C
+</code></pre>
+
+<p>ええと、値が変わらないのですが良いのかどうか。<code>simulate</code> すると値は変わりますね。</p>
+
+<h2 id="f-比を多数計算する">F 比を多数計算する</h2>
+
+<p>合わせると以下なのかな。</p>
+
+<pre><code>Nsim &lt;- 10000
+sim &lt;- simulate(modelNull, Nsim)
+
+simFValue &lt;- numeric()
+
+for(i in 1:Nsim){
+  simData &lt;- cbind(
+    sim[i],
+    c(&quot;A&quot;, &quot;A&quot;, &quot;B&quot;, &quot;B&quot;, &quot;C&quot;, &quot;C&quot;)
+  )
+  colnames(simData) &lt;- c(&quot;length&quot;, &quot;medicine&quot;)
+  model &lt;- lm(length ~ medicine, data=simData)
+  simFValue[i] &lt;- anova(model)$&quot;F value&quot;[1]
+}
+</code></pre>
+
+<p>で、値を見ても意味分からないので、以下で図示。</p>
+
+<pre><code>hist(
+  subset(simFValue, simFValue &lt; 20),
+  main=&quot;F 比のヒストグラム&quot;
+)
+</code></pre>
+
+<p>スクリプトがバグッててアレ。繰返しにブラケット付けるの忘れてました。</p>
+
+<h2 id="p-値の算出">p 値の算出</h2>
+
+<p>16 以上の F 比の数。</p>
+
+<pre><code>&gt; sum(simFValue&gt;=16)
+[1] 262
+</code></pre>
+
+<p>Nsim で割れば p 値が出る模様。</p>
+
+<pre><code>&gt; sum(simFValue&gt;=16)/Nsim
+0.0262
+</code></pre>
+
+<h2 id="正規分布から派生した確率分布">正規分布から派生した確率分布</h2>
+
+<p>正規分布偉い、らしい。とは言え、「母集団分布が推定できるわけではない」らしい。</p>
+
+<p>つうかこの 5-5 章はちゃんと確認した方が良さげ。何度か目を通して別途必要があればエントリ入れます。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Aug 26, 2016</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2016/08/25/2016-08-25-linear-model/" title="R 備忘">R 備忘</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2016/08/27/2016-08-27-derivative-works-of-the-normal-distribution/" title="正規分布の派生品">正規分布の派生品</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

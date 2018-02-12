@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Scrapy Tutorial</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Aug 19, 2014
+         - 4 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/08/19/scrapy-tutorial/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/python/">Python </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Scrapy Tutorial 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下を云々してみたメモを。</p>
+
+<ul>
+<li><a href="http://doc.scrapy.org/en/latest/intro/tutorial.html">Scrapy Tutorial</a></li>
+</ul>
+
+<p>scrapy は pip で導入済み。つうか Twisted が落ちてきたりしてるんですがどうなのか。あと、これも環境 Docker で作っておきたくはありますが、それは別途で。</p>
+
+<p></p>
+
+<h2 id="と-思ったら">と、思ったら</h2>
+
+<p>導入に失敗するな。<a href="http://doc.scrapy.org/en/latest/intro/install.html#intro-install">Installation guild</a> から見るか。</p>
+
+<p>出力見てみるに ffi.h が無いと言われてるな libffi-dev を入れてみるか。</p>
+
+<pre><code>$ sudo apt-get install -fy libffi-dev
+</code></pre>
+
+<p>で、リトライ。コンパイルが始まっているみたいなので当たりかな。そして pip install は sudo 付けなきゃ、だった模様。</p>
+
+<p>無事に導入できたみたいなので tutorial に着手します。</p>
+
+<h2 id="creating-project">Creating Project</h2>
+
+<p>プロジェクトを以下で作成、とのこと。</p>
+
+<pre><code>$ scrapy startproject tutorial
+</code></pre>
+
+<p>以下な出力を確認。</p>
+
+<pre><code>You can start your first spider with:
+    cd tutorial
+    scrapy genspider example example.com
+</code></pre>
+
+<p>あと、find tutorial の出力が以下。</p>
+
+<pre><code>$ find tutorial/
+tutorial/
+tutorial/scrapy.cfg
+tutorial/tutorial
+tutorial/tutorial/__init__.py
+tutorial/tutorial/pipelines.py
+tutorial/tutorial/spiders
+tutorial/tutorial/spiders/__init__.py
+tutorial/tutorial/items.py
+tutorial/tutorial/settings.py
+</code></pre>
+
+<p>git init しとくか。</p>
+
+<pre><code>$ cd tutorial
+$ git init
+</code></pre>
+
+<p>最初に掃き出されるファイルについて箇条書きで纏めてあるので以下に控え。</p>
+
+<ul>
+<li>scrapy.cfg はプロジェクトの設定 (configuration) ファイル</li>
+<li>tutorial はプロジェクトの python module でここに実装を追加とのこと</li>
+<li>tutorial/items.py は project&rsquo;s items file とある</li>
+<li>tutorial/pipelines.py は project&rsquo;s pipelines file とある</li>
+<li>tutorial/settings.py は project&rsquo;s setting file とある</li>
+<li>tutorial/spyders/ には別途 spiders を追加とのこと</li>
+</ul>
+
+<h2 id="defining-our-item">Defining our Item</h2>
+
+<p>Item には scraped data が load されるとある。とりあえず branch して以下を盛り込んでみます。</p>
+
+<pre><code>import scrapy
+
+class DmozItem(scrapy.Item):
+    title = scrapy.Field()
+    link = scrapy.Field()
+    desc = scrapy.Field()
+</code></pre>
+
+<p>TutorialItem というクラスがありましたが、そちらはそのままで上記を追加してます。いいのかな。</p>
+
+<h2 id="our-first-spyder">Our first spyder</h2>
+
+<p>前の branch を元にさらに branch してます。ええと、spider は user-written classes とありますね。定義されるのは</p>
+
+<ul>
+<li>list of URL to download</li>
+<li>how to follow links</li>
+<li>how to parse the contents of those pages to extact items</li>
+</ul>
+
+<p>な initial list って理解で良いのかどうか。Spyder を作るには</p>
+
+<ul>
+<li>scrapy.Spider なサブクラス作る</li>
+<li>name, start_urls, parse という三つの属性定義</li>
+<li>name は Spyder の識別子で unique でないと駄目</li>
+<li>start_urls は spider が crowl する URL のリスト (トップのみ、で良いはず)</li>
+<li>parse は download された Reponse オブジェクトが渡される spider のメソド</li>
+</ul>
+
+<p>ええと、parse についてもう少しフォローがある模様。</p>
+
+<ul>
+<li>parse は response を parse したり、scraped items を取り出したり、リンクをフォローしたりしなきゃ、なのかどうか</li>
+</ul>
+
+<p>とりあえず最初の spider を書け、とのこと。あまりしなきゃいけないことができてない印象ですがそこはスルー。</p>
+
+<p>tutorial/spiders/dmoz_spider.py に、とのこと。</p>
+
+<pre><code>import scapy
+
+class DmozSpider(scrapy.Spider):
+    name = &quot;dmoz&quot;
+    allowed_domains = [ &quot;dmoz.org&quot; ]
+    start_urls = [
+        &quot;http://www.dmoz.org/Computers/Programming/Languages/Python/Books/&quot;,
+        &quot;http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/&quot;
+        ]
+
+    def parse(self, response):
+        filename = response.url.split(&quot;/&quot;)[-2]
+        with open(filename, &quot;wb&quot;) as f:
+            f.write(response.body)
+</code></pre>
+
+<h2 id="crawling">Crawling</h2>
+
+<p>以下をプロジェクトの top level directory で、とのこと。</p>
+
+<pre><code>$ scrapy crawl dmoz
+</code></pre>
+
+<p>実行してみた。いくつかナチュラルをぶちカマしてましたが出力が以下。</p>
+
+<pre><code>2014-08-19 17:41:19+0900 [scrapy] INFO: Scrapy 0.24.4 started (bot: tutorial)
+2014-08-19 17:41:19+0900 [scrapy] INFO: Optional features available: ssl, http11
+2014-08-19 17:41:19+0900 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'tutorial.spiders', 'SPIDER_MODULES': ['tutorial.spiders'], 'BOT_NAME': 'tutorial'}
+2014-08-19 17:41:19+0900 [scrapy] INFO: Enabled extensions: LogStats, TelnetConsole, CloseSpider, WebService, CoreStats, SpiderState
+2014-08-19 17:41:19+0900 [scrapy] INFO: Enabled downloader middlewares: HttpAuthMiddleware, DownloadTimeoutMiddleware, UserAgentMiddleware, RetryMiddleware, DefaultHeadersMiddleware, MetaRefreshMiddleware, HttpCompressionMiddleware, RedirectMiddleware, CookiesMiddleware, ChunkedTransferMiddleware, DownloaderStats
+2014-08-19 17:41:19+0900 [scrapy] INFO: Enabled spider middlewares: HttpErrorMiddleware, OffsiteMiddleware, RefererMiddleware, UrlLengthMiddleware, DepthMiddleware
+2014-08-19 17:41:19+0900 [scrapy] INFO: Enabled item pipelines: 
+2014-08-19 17:41:19+0900 [dmoz] INFO: Spider opened
+2014-08-19 17:41:19+0900 [dmoz] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2014-08-19 17:41:19+0900 [scrapy] DEBUG: Telnet console listening on 127.0.0.1:6023
+2014-08-19 17:41:19+0900 [scrapy] DEBUG: Web service listening on 127.0.0.1:6080
+2014-08-19 17:41:20+0900 [dmoz] DEBUG: Crawled (200) &lt;GET http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/&gt; (referer: None)
+2014-08-19 17:41:21+0900 [dmoz] DEBUG: Crawled (200) &lt;GET http://www.dmoz.org/Computers/Programming/Languages/Python/Books/&gt; (referer: None)
+2014-08-19 17:41:21+0900 [dmoz] INFO: Closing spider (finished)
+2014-08-19 17:41:21+0900 [dmoz] INFO: Dumping Scrapy stats:
+        {'downloader/request_bytes': 516,
+         'downloader/request_count': 2,
+         'downloader/request_method_count/GET': 2,
+         'downloader/response_bytes': 16515,
+         'downloader/response_count': 2,
+         'downloader/response_status_count/200': 2,
+         'finish_reason': 'finished',
+         'finish_time': datetime.datetime(2014, 8, 19, 8, 41, 21, 174204),
+         'log_count/DEBUG': 4,
+         'log_count/INFO': 7,
+         'response_received_count': 2,
+         'scheduler/dequeued': 2,
+         'scheduler/dequeued/memory': 2,
+         'scheduler/enqueued': 2,
+         'scheduler/enqueued/memory': 2,
+         'start_time': datetime.datetime(2014, 8, 19, 8, 41, 19, 860470)}
+2014-08-19 17:41:21+0900 [dmoz] INFO: Spider closed (finished)
+</code></pre>
+
+<p>で、Books と Resources というファイルができてます。これは parse が吐き出したものですね。あと [dmoz] な出力にも着目せよ、という記述があります。</p>
+
+<p>というか parse の実装見るに、これはコンテンツをそのまんま書き出せ、って話なんですね。</p>
+
+<h2 id="extracting-items">Extracting Items</h2>
+
+<p>XPath expression の例とその意味が列挙されている。ええと XPath で云々するには Selector というクラスが用意されている模様。</p>
+
+<p>Selector が持ってる基本的なメソドが列挙されてます。</p>
+
+<ul>
+<li>xpath() : selectors の list が戻る (xpath な式を引数として取る)</li>
+<li>css() : selectors の list が戻る (CSS な式を引数として取る)</li>
+<li>extract() : 選択されたデータの unicode 文字列を戻す</li>
+<li>re() : 引数で渡された正規表現を apply して抽出された文字列のリストを戻す?</li>
+</ul>
+
+<p>shell で試せる模様。最初に出力されるソレは略。</p>
+
+<pre><code>&gt;&gt;&gt; response.xpath('//title')
+[&lt;Selector xpath='//title' data=u'&lt;title&gt;DMOZ - Computers: Programming: La'&gt;]
+&gt;&gt;&gt; response.xpath('//title').extract()
+[u'&lt;title&gt;DMOZ - Computers: Programming: Languages: Python: Books&lt;/title&gt;']
+&gt;&gt;&gt; response.xpath('//title/text()')
+[&lt;Selector xpath='//title/text()' data=u'DMOZ - Computers: Programming: Languages'&gt;]
+&gt;&gt;&gt; response.xpath('//title/text()').extract()
+[u'DMOZ - Computers: Programming: Languages: Python: Books']
+&gt;&gt;&gt; response.xpath('//title/text()').re('(\w+):')
+[u'Computers', u'Programming', u'Languages', u'Python']
+</code></pre>
+
+<p>あ、最後のソレはリストにできるのか。そして次の項の記述を見つつ</p>
+
+<pre><code>&gt;&gt;&gt; response.xpath('//ul/li/a/@href').extract()
+</code></pre>
+
+<p>を確認してみたらリンク文字列なリストが取り出せてますね。ということで parse な実装を以下に修正。</p>
+
+<pre><code>def parse(self, response):
+    for sel in response.xpath('//ul/li'):
+        title = sel.xpath('a/text()').extract()
+        link = sel.xpath('a/@href').extract()
+        desc = sel.xpath('text()').extract()
+        print title, link, desc
+</code></pre>
+
+<p>最後は print でいいのかな。これで以下を実行。</p>
+
+<pre><code>$ scrapy crawl dmoz
+</code></pre>
+
+<p>確かに print されてますが、なんとなく微妙。</p>
+
+<h2 id="using-our-item">Using our item</h2>
+
+<p>あ、ここで Item になるのか。</p>
+
+<pre><code>def parse(self, response):
+    for sel in response.xpath('//ul/li'):
+        item = DmozItem()
+        item['title'] = sel.xpath('a/text()').extract()
+        item['link'] = sel.xpath('a/@href').extract()
+        item['desc'] = sel.xpath('text()').extract()
+        yield item
+</code></pre>
+
+<p>で、以下で json にして出力できる模様。</p>
+
+<pre><code>$ scrapy crawl dmoz -o items.json
+</code></pre>
+
+<p>あら、なんか出力が微妙だなぁ。link なナニが URL になってないものがあるんですが、って思ったらこれ、相対パスなリンクなのか。ということはこのあたりをフィルタするにはは正規表現マッチとかで判断できるのかどうか。</p>
+
+<h2 id="もう少し">もう少し</h2>
+
+<p>パースの仕方 (?) は色々あるらしい。</p>
+
+<ul>
+<li>scrapy.Selector に response を食わせる方式</li>
+<li>SitemapSpider というものがあるらしい件</li>
+<li>同様に CrawlSpider というものがあるらしい件</li>
+</ul>
+
+<p>ちょっとドキュメント確認してみます。</p>
+
+<ul>
+<li><a href="http://orangain.hatenablog.com/entry/scrapy">PythonとかScrapyとか使ってクローリングやスクレイピングするノウハウを公開してみる！</a></li>
+<li><a href="http://doc.scrapy.org/en/latest">Scrapy 0.24 documentation</a></li>
+<li><a href="http://akiniwa.hatenablog.jp/entry/2013/04/15/001411">pythonのフレームワークでサクッとクローラをつくる。&rdquo;Python Framework Scrapy&rdquo;</a></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Aug 19, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/08/17/smartphone-ui-conference/" title="UI 勉強会をしてみた">UI 勉強会をしてみた</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/08/19/navigation-drawer-sample-reading/" title="Navigation Drawer 雛形掘削">Navigation Drawer 雛形掘削</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

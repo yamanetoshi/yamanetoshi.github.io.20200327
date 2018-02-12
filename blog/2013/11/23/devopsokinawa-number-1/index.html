@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>devopsOkinawa#1</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Nov 23, 2013
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/23/devopsokinawa-number-1/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a>
+        
+    </p>
+    <h1 class="entry-title">
+         devopsOkinawa#1 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>前日あるいはそれ以前に無線 AP については動作確認頂いておくべきでした。@shien_R さん、@y0ta さんご対応ありがとうございました。</p>
+
+<h2 id="と-いうことで">と、いうことで</h2>
+
+<p>アレな開始でいきなり反省文を書いている次第。とりあえず</p>
+
+<ul>
+<li>1355-1440 1 セット目</li>
+<li>1455-1540 2 セット目</li>
+<li>1555-1640 3 セット目</li>
+</ul>
+
+<p>という方向にて。</p>
+
+<p></p>
+
+<h2 id="折角なので">折角なので</h2>
+
+<p>わしもごそごそしてみることに。とりあえず仮想リソースを一つアレして、knife-solo で云々、ってあたりを纏めてみたいと思います。</p>
+
+<p>まずは端末側の用意から、なのか。ディレクトリ掘って云々します。</p>
+
+<pre><code>$ mkdir devopsokinawa#1
+</code></pre>
+
+<p>で bundle init</p>
+
+<pre><code>$ bundle init
+</code></pre>
+
+<p>以下を追加して</p>
+
+<pre><code>gem 'chef'
+gem 'knife-solo', :github =&gt; 'matschaffer/knife-solo'
+gem 'berkshelf'
+</code></pre>
+
+<p>以下を実行。</p>
+
+<pre><code>$ bundle install --path vendor/bundle
+</code></pre>
+
+<p>あら、以下なエラーが出た。</p>
+
+<pre><code>An error occurred while installing nokogiri (1.6.0), and Bundler cannot continue.
+Make sure that `gem install nokogiri -v '1.6.0'` succeeds before bundling.
+</code></pre>
+
+<p>色々試行錯誤したのですが、もしや、ということで以下。</p>
+
+<pre><code>$ xcode-select --install
+</code></pre>
+
+<p>導入失敗する。どうも今日は日が悪い模様。</p>
+
+<blockquote>
+<p>Can&rsquo;t Install the software because it is not currently available from the Software Update server.</p>
+</blockquote>
+
+<p>これや駄目だな。いったんアキラメ。つうかこれってほぼ終わりなカンジですね。</p>
+
+<h2 id="今後どうするか-という話">今後どうするか、という話</h2>
+
+<p>最後に振り帰り含めて色々ご意見を頂くなど</p>
+
+<ul>
+<li>serverspec 触ったことなかった。落ち着いてさわることができた。</li>
+<li>Chef-solo を vagrant とか serverspec とかで云々。集中できる環境だったので良かった</li>
+<li>Ruby に慣れてないのでそっちで試行錯誤。vagrant でローカルで云々なところまでは辿りつけた</li>
+<li>設定の仕方などを確認したい</li>
+<li>前にもつまづいたのが、OSX 前提が多いので困ることが多かった。</li>
+<li>使ってみたいツールを勉強会の機会で取り組む良い機会になった。</li>
+<li>OSX に Chef を入れる方法がアレだった。</li>
+<li>全部初めてだったので良い機会だと思い参加した。</li>
+<li>serverspec + Chef の触りかたについて云々した。</li>
+<li>一通りレクチャはあるのか、と思っていた。</li>
+<li>環境構築のサンプルは欲しい。</li>
+<li>次回は細かい部分までやりたい。</li>
+<li>環境構築部分が激しくハードル高い件。</li>
+<li>Chef 初めて触った。他の人達がいじっているのは見たことはあったが使ったことはなかった。環境構築はできました。</li>
+<li>実は同様のものを自分で作ってたので色々比べてみたり。</li>
+<li>何を構築するか、を検討する必要あり。サービスが動いて終わり、はちょっとアレ。</li>
+<li>Chef-solo の謎が解決できてよかった。</li>
+<li>動いたね、で終わるのは寂しい。みんなで動かして遊べるものがあったら良いのかも、と。サーバ同士で対戦なゲームとかw</li>
+<li>ベンチ勝負な方向なのか。</li>
+</ul>
+
+<p>とりあえず bundler を使って chef-solo な実行環境プロトタイプってのはアレしておきたいと思っております。また、次回開催なら参加したい、という人もいらしたみたいで有難いというか一緒に勉強会運営開催していきましょう!!</p>
+
+<h2 id="もひとつ">もひとつ</h2>
+
+<p>hashtag も付きました。名付け親は @libkinjo さんで #okidevops です。</p>
+
+<p>あと、琉大で試してた command line tools の導入は方法がおお間違いで正しくは以下な模様。</p>
+
+<ul>
+<li><a href="http://qiita.com/3yatsu/items/47470091277d46f3fde2">MavericksでCommand Line Tools for Xcodeをインストールする</a></li>
+</ul>
+
+<p>と思ったらまだ nokogiri の install に失敗するなorz</p>
+
+<p>再度自宅から</p>
+
+<pre><code>$ xcode-select --install
+</code></pre>
+
+<p>するも NG です。</p>
+
+<h2 id="と-思ったら">と、思ったら</h2>
+
+<p><a href="https://developer.apple.com/downloads/index.action#">Downloads for Apple Developers</a> に Command Line Tools(OS X Mavericks) for Xcode というナニを発見。</p>
+
+<p>しかもさっきのソレは導入さえしていないことが判明orz やっぱりわしはでびあん系がいいなぁ。</p>
+
+<h2 id="導入後の動作確認">導入後の動作確認</h2>
+
+<p>nokogiri 導入失敗。ちょっと別件対応あるのでエントリ投入させて頂いて別途問題処理します。早まったなぁ。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Nov 23, 2013</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2013/11/23/namecard-arrived/" title="名刺が早くも到着しましたの巻">名刺が早くも到着しましたの巻</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2013/11/23/cannot-bundle-install-in-mavericks/" title="Mavericks で bundle install できない件">Mavericks で bundle install できない件</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

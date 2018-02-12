@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>ansible な playbook のための環境設定メモ</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jul 24, 2014
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/07/24/memo-for-ansible-playbook/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/docker/">docker </a>
+        
+    </p>
+    <h1 class="entry-title">
+         ansible な playbook のための環境設定メモ 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>とりあえず仮想リソースをいっこ確保して</p>
+
+<pre><code>$ sudo apt-get update
+$ sudo apt-get upgrade -y
+</code></pre>
+
+<p>む、MBA からだと locale なナニが出ますね。確認してみるに locales パケジが入っておりませなんだ。これ、この時点でスナップショット取得したいのですが (ぇ</p>
+
+<p></p>
+
+<h2 id="kernel-panic">kernel panic</h2>
+
+<p>何故か <code>apt-get upgrade</code> で kernel panic してました。</p>
+
+<ul>
+<li><code>dpkg-reconfigure -a</code></li>
+<li><code>dpkg --configure -a</code></li>
+<li><code>apt-get install -f</code></li>
+</ul>
+
+<p>および再度の <code>apt-get upgrade</code> を実行しては kernel panic を繰り返した後にオチなくなりました。また locale ですが</p>
+
+<ul>
+<li>LC_CTYPE を C に</li>
+<li>LANG を C に</li>
+</ul>
+
+<p>という形で回避しました。現在 snapshot 取得なう、です。</p>
+
+<h2 id="その後">その後</h2>
+
+<p>作成されたスナップショットを元にテンプレを作成してスナップショットは削除。今度の #okidevops からはこっちのテンプレ使お。</p>
+
+<p>で、環境作っていくんですが手順としては以下?</p>
+
+<ul>
+<li>docker.io パケジ導入</li>
+<li>Rails なプロジェクトを git clone</li>
+<li>TalkingQuickly/docker_rails_dev_env を cit clone して Rails プロジェクト配下にコピィ</li>
+<li>Dockerfile 修正</li>
+<li>postgres および redis なコンテナは起動できるはず</li>
+<li>config/environments/production.rb に gmail 転送な設定をアレ</li>
+<li>scripts 配下のコマンド修正</li>
+<li>コマンド使って rake db:migrate とか rake assets:precompile とか</li>
+<li>rails なコンテナ起動</li>
+</ul>
+
+<p>控えを残しつつ修正を盛り込んでみます。</p>
+
+<h2 id="盛り込みログ">盛り込みログ</h2>
+
+<p>まず以下を。</p>
+
+<pre><code>$ sudo apt-get install -fy docker.io
+</code></pre>
+
+<p>で、某所から rails なソレを取得。</p>
+
+<pre><code>$ git clone git@hoge:yamanetoshi/fuga.git
+</code></pre>
+
+<p>もひとつ取得。</p>
+
+<pre><code>$ git clone https://github.com/TalkingQuickly/docker_rails_dev_env
+</code></pre>
+
+<p>そしてコピィ。</p>
+
+<pre><code>$ cp docker_rails_dev_env/* fuga/. -r
+</code></pre>
+
+<p>したら Dockerfike 修正します。必要な分のみ以下に diff を。まず Dockerfike から。</p>
+
+<pre><code>$ diff Dockerfile Dockerfile.ORG
+47c47
+&lt; ENV RAILS_ENV production
+---
+&gt; ENV RAILS_ENV development
+</code></pre>
+
+<p>あ、docker/redis/Dockerfile は以下です。</p>
+
+<pre><code>FROM johncosta/redis
+</code></pre>
+
+<p>Dockerfile はこれで良いはずなので redis と postgres を起動してみます。こないだのエントリだと Dockerfile を修正しておいて</p>
+
+<pre><code>$ sudo docker.io build -t redis ./docker/redis
+$ sudo docker.io run -d --name redis -p 6379 redis:latest
+</code></pre>
+
+<p>で良いのかな。postgres は以下で。</p>
+
+<pre><code>$ sudo docker.io build -t postgres ./docker/postgres
+$ sudo docker.io run -d --name postgres -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker postgres:latest
+</code></pre>
+
+<p>で起動なのかどうか。次は rails ですがとりあえず build のみ。</p>
+
+<pre><code>$ sudo docker.io build -t rails .
+</code></pre>
+
+<p>これ、ruby-build とかやってるのでちょい時間がかかります。つうか一度失敗したみたい。</p>
+
+<h2 id="と言いつつ">と言いつつ</h2>
+
+<p>rails な image はできた模様。次は docker/scripts 配下のソレについて <code>docker</code> を <code>sudo docker.io</code> にするのか。というか gmail 転送設定が先なのかな。順番はどっちが先でも良いみたいなので先に修正してしまえ。</p>
+
+<p>で、rdbm.sh を実行してみるに正常動作している模様。以下も実行。</p>
+
+<pre><code>$ ./docker/scripts/cmd.sh &quot;rake assets:precompile&quot;
+</code></pre>
+
+<p>なんとなく、ちゃんと動いてる模様。起動は以下で良いのかどうか。</p>
+
+<pre><code>$ sudo docker.io run -d -p 3000:3000 -v /home/devops/fuga:/app --link redis:redis --link postgres:db --name rails rails:latest
+</code></pre>
+
+<p>一応ブラウザからアクセスして期待してたコンテンツが出た。</p>
+
+<h2 id="動作確認">動作確認</h2>
+
+<p>devise な signup してみたらオチたな。あら、Net::SMTPAuthenticationError とか言うとりますな。どうも二段階認証に関するナニな模様。</p>
+
+<ul>
+<li><a href="http://gagapi.hatenablog.jp/entry/2013/04/21/210356">ActionMailerとGmailと2段階認証</a></li>
+</ul>
+
+<p>対処を盛り込んで container 再起動したいんですがどうなるか。</p>
+
+<pre><code>$ sudo ./docker/scripts/restart.sh
+</code></pre>
+
+<p>を、なんか正常動作している模様。メイルも送付されててログインできました。</p>
+
+<h2 id="課題">課題</h2>
+
+<p>postgresql に保存されてるデータの永続化、というか container を commit すれば良いのかどうか。今の所開発環境、って思ってるのでアレなのですがどうしたものか。</p>
+
+<p>また、別途 playbook の検討も、な方向です。あとログインから先の動作確認できてないので微妙っちゃ微妙。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jul 24, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/" title="docker な Rails 環境にて assets:precompile">docker な Rails 環境にて assets:precompile</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/07/25/resize-image-by-gimp/" title="バックグラウンドな 9.png のリサイズ">バックグラウンドな 9.png のリサイズ</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

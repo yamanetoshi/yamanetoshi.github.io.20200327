@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fpga on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/fpga/</link>
+    <description>Recent content in Fpga on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 12 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/fpga/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>BNN-PYNQ 動作確認</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/04/12/bnn-pynq-operation-check/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/04/12/bnn-pynq-operation-check/</guid>
+      <description>&lt;p&gt;対抗なホストとのやりとりについては手動にて設定します。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;名前解決については &lt;code&gt;/etc/resolvconf/resolv.conf.d/base&lt;/code&gt; に対抗なホストの IP を記載&lt;/li&gt;
+&lt;li&gt;経路の設定は手動 (&lt;code&gt;ip route add default via 192.168.3.100&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;で、&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo /etc/init.d/resolvconf restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;してみたのですが外と通信できんぞorz&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>BNN-PYNQ 動作確認</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/04/09/bnn-pynq-operation-check/</link>
+      <pubDate>Sun, 09 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/04/09/bnn-pynq-operation-check/</guid>
+      <description>&lt;p&gt;とりあえず、&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://qiita.com/ykshr/items/6c8cff881a200a781dc3&#34;&gt;FPGAでDeep Learningしてみる&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;を見つつ云々してみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>「PYNQ祭り」延長戦</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/04/04/pynq-festival-extension-game/</link>
+      <pubDate>Tue, 04 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/04/04/pynq-festival-extension-game/</guid>
+      <description>こんなのを見つけるなど。 「PYNQ祭り」延長戦 : FPGAディープラーニング実践懇親会 これは凄い。というか上記ページで紹介されてる tutorial やってみよ</description>
+    </item>
+    
+    <item>
+      <title>Intellectual Property</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/03/12/intellectual-property/</link>
+      <pubDate>Sun, 12 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/03/12/intellectual-property/</guid>
+      <description>どうも再利用可能なソレが IP という形にて云々できるらしい事が FPGA の原理と構成の 4 章の記載から知りましてとりあえず以下を確認してみます。 Vivado Design Suite ユー</description>
+    </item>
+    
+    <item>
+      <title>遠回りかもしれませんがとりあえずここから</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/03/11/principle-and-configuration-of-fpga/</link>
+      <pubDate>Sat, 11 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/03/11/principle-and-configuration-of-fpga/</guid>
+      <description>とりあえず、ぐわっと目を通してみます。 FPGA の原理と構成 積ん読がたまっててアレな上に年度末なばたばたがアレ。</description>
+    </item>
+    
+    <item>
+      <title>課題設定</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/03/10/issue-setting/</link>
+      <pubDate>Fri, 10 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/03/10/issue-setting/</guid>
+      <description>とりあえず、自分で overlay 作って外から云々、てのが最初の目標なんですが、それって某ドキュメントを踏襲するとできるはず。 なのでその上で何かの計算をさ</description>
+    </item>
+    
+    <item>
+      <title>ゼロからの、のソレを云々</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/03/07/deep-learning-from-scratch/</link>
+      <pubDate>Tue, 07 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/03/07/deep-learning-from-scratch/</guid>
+      <description>&lt;p&gt;そゆ意味では numpy みたいのを実装しないとなのだなぁ、という事に気づいている次第です。とは言え、全体だととんでもな規模なはずなので件の書籍にて使われているものを確認してみようと思います。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>verilog を云々</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/03/02/verilog-writing/</link>
+      <pubDate>Thu, 02 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/03/02/verilog-writing/</guid>
+      <description>簡単なナニをでっちあげて、以下なソレで云々してみる方向。 Zynq Verilog-HDLをZynqに書き込みFPGAを使う とりあえず、 AWS で開発環境作</description>
+    </item>
+    
+    <item>
+      <title>vivado 2016.1</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/02/28/vivado-2016-1/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/02/28/vivado-2016-1/</guid>
+      <description>&lt;p&gt;先日導入したものが 2016.4 て版らしく Github なソレがうまく動作しないということが判明。以下より再度取得しなおします。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://goo.gl/be1YIb&#34;&gt;https://goo.gl/be1YIb&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とりあえず帰宅して速攻導入。あと 2016.4 は削除します。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>xilinx の weblog なエントリ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/02/27/xilix-weblog-entry/</link>
+      <pubDate>Mon, 27 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/02/27/xilix-weblog-entry/</guid>
+      <description>以下、確認してみます。メモを残すかも。 Adam Taylor&amp;rsquo;s MicroZed Chronicles Part 155: Introducing the PYNQ (Python + Zynq) Dev Board Adam Taylor’s MicroZed Chronicles Part 156: Pynq Hardware Overlays Adam Taylor’s MicroZed Chronicles, Part 157: Exploring PYNQ’s Base</description>
+    </item>
+    
+    <item>
+      <title>Python から verilog 吐いて云々</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/02/25/python-to-verilog/</link>
+      <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/02/25/python-to-verilog/</guid>
+      <description>とりあえず、以下なエントリに沿って mmap な口を作っておく必要がありそげ。 Adam Taylor’s MicroZed Chronicles Part 158: Creating our own PYNQ hardware overlay で、ここで吐きだされる .tcl と一緒に .v</description>
+    </item>
+    
+    <item>
+      <title>Creating Overlays</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/02/24/creating-overlays/</link>
+      <pubDate>Fri, 24 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/02/24/creating-overlays/</guid>
+      <description>&lt;p&gt;Pynq なドキュメントにて以下を発見。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://pynq.readthedocs.io/en/latest/10_creating_overlays.html&#34;&gt;Creating Overlays&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;確認メモを投入してみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>自分メモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/02/23/memo/</link>
+      <pubDate>Thu, 23 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/02/23/memo/</guid>
+      <description>以下。資料見つつ自分で手を動かすこと。 Vivado HLS 勉強会 (基礎編) 以下も確認のこと。 Polyphony PyCoRAM (https://github.com/PyHDI/PyCoRAM) Pyverilog (https://github.com/PyHDI/Pyverilog) Veriloggen (https://github.com/PyHDI/veriloggen) つうか こっちのが先なのかな。 Pythonベースの高</description>
+    </item>
+    
+    <item>
+      <title>Polyphony</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/02/22/polyphony/</link>
+      <pubDate>Wed, 22 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/02/22/polyphony/</guid>
+      <description>サンプル的なナニを試してみたい。つうかやっぱ測定器必要なのかどうか。 それにしても SICP 再読したい。S 式なナニから C なソースをヒリ出す課題のあたり</description>
+    </item>
+    
+    <item>
+      <title>Vivado Design Suite HL WebPACK Edition</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/02/16/vivado-hl-webpack-edition/</link>
+      <pubDate>Thu, 16 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/02/16/vivado-hl-webpack-edition/</guid>
+      <description>&lt;p&gt;PYNQ ですが、ブラウザから polyphony とかで .v なナニをヒリ出してその後どーするのか、という疑問を識者のすずきさんにブツケてみたところ、こんなのあるみたい、という回答を頂戴した次第。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://goo.gl/jEuE5p&#34;&gt;Vivado Design Suite 評価版および WebPACK&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://goo.gl/hfmD0e&#34;&gt;チュートリアル&lt;/a&gt;もあるみたいなので、暫くこちら方面でもごもごしてみる方向。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>PYNQ: PYTHON PRODUCTIVITY FOR ZYNQ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/01/31/pynq/</link>
+      <pubDate>Tue, 31 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/01/31/pynq/</guid>
+      <description>&lt;p&gt;本日、その筋の方にお伺いした結果、購入する事に。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.pynq.io/&#34;&gt;PYNQ: PYTHON PRODUCTIVITY FOR ZYNQ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>なんかオモロそうなのを見つけてしまった件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/01/30/pynq/</link>
+      <pubDate>Mon, 30 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/01/30/pynq/</guid>
+      <description>面白そうな記事を発見。 機械学習／Deep Learningの仕事が増える2017年、ソフトウェアエンジニアがFPGAを学ぶべき理由 明日、スペシ</description>
+    </item>
+    
+  </channel>
+</rss>

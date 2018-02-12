@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Fog で firewall 操作</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Nov 19, 2013
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/19/firewall-operation-by-fog/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Fog で firewall 操作 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>とりあえず IP address の確認から、っていきなり見当たらず焦るなど。以下なのか。</p>
+
+<ul>
+<li>Address
+
+<ul>
+<li>associateIpAddress</li>
+<li>listPublicIpAddress</li>
+<li>disassociateIpAddress</li>
+</ul></li>
+</ul>
+
+<p>とは言え、今回は Fog から云々、ってのは想定してなくて、IP 確保しといて ID が分かってれば OK ですね。</p>
+
+<p></p>
+
+<p>とりあえず、近々で使うのは list_public_ip_addresses なのか。て、何も出力されません。</p>
+
+<pre><code>@compute.list_public_ip_addresses({'listall' =&gt; true})
+</code></pre>
+
+<p>こちら、固定で対応の方向なのでコンパネから拾う事に (弱</p>
+
+<h2 id="ぐぬ">ぐぬ</h2>
+
+<p>以下で確認できたorz</p>
+
+<pre><code>p @compute.list_public_ip_addresses({'listall' =&gt; true})
+</code></pre>
+
+<p>阿呆だorz</p>
+
+<h2 id="閑話休題">閑話休題</h2>
+
+<p>とりあえず listPortForwardingRules の戻りが以下な模様。</p>
+
+<pre><code>{&quot;listportforwardingrulesresponse&quot;=&gt;
+    {&quot;count&quot;=&gt;1, 
+     &quot;portforwardingrule&quot;=&gt;[{&quot;id&quot;=&gt;22222, 
+                             &quot;privateport&quot;=&gt;&quot;22&quot;, 
+                             &quot;privateendport&quot;=&gt;&quot;22&quot;, 
+                             &quot;protocol&quot;=&gt;&quot;tcp&quot;, 
+                             &quot;publicport&quot;=&gt;&quot;9999&quot;, 
+                             &quot;publicendport&quot;=&gt;&quot;9999&quot;, 
+                             &quot;virtualmachineid&quot;=&gt;33333, 
+                             &quot;virtualmachinename&quot;=&gt;&quot;fugahoge-VM&quot;, 
+                             &quot;virtualmachinedisplayname&quot;=&gt;&quot;devopsOkinawa#1&quot;, 
+                             &quot;ipaddressid&quot;=&gt;4444, 
+                             &quot;ipaddress&quot;=&gt;&quot;192.168.255.254&quot;,
+                             &quot;state&quot;=&gt;&quot;Active&quot;, 
+                             &quot;cidrlist&quot;=&gt;&quot;&quot;}]}}
+</code></pre>
+
+<p>入力してた項目としては</p>
+
+<ul>
+<li>{private, publid} な port</li>
+<li>vm な ID 指定で良いのかどうか</li>
+<li>IP も ID 指定で良いはず</li>
+</ul>
+
+<p>createPortForwardingRule に必要なパラメータとしては</p>
+
+<ul>
+<li>ipaddressid</li>
+<li>privateport</li>
+<li>protocol</li>
+<li>publicport</li>
+<li>virtualmachineid</li>
+</ul>
+
+<p>とのこと。ある意味ここが指定できれば OK ということなのか。以下なカンジなのかどうか。</p>
+
+<pre><code>@compute.create_port_forwarding_rule ({
+                                    'ipaddressid' =&gt; &quot;&quot;
+                                    'privateport' =&gt; &quot;&quot;
+                                    'protocol' =&gt; &quot;&quot;
+                                    'publicport' =&gt; &quot;&quot;
+                                    'virtualmachineid' =&gt; &quot;&quot; })
+
+p @compute.list_port_forwarding_rules({'ipaddressid' =&gt; &quot;&quot;})
+</code></pre>
+
+<p>とりあえず、仮想リソースを deploy して確認してみる。</p>
+
+<h2 id="結果">結果</h2>
+
+<p>楽勝で OK でした。すばらです。あと destroy も仕込んで試験しとく方向。何かあれば追記の方向にて。</p>
+
+<h2 id="追記">追記</h2>
+
+<p>削除も確認。destroy ではなくて delete でしたね。</p>
+
+<p>あと、いちいちスクリプトを修正しなきゃ、なあたりもなんとかしたい。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Nov 19, 2013</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2013/11/19/fog/" title="Fog で勉強会用仮想リソースの面倒を見る件">Fog で勉強会用仮想リソースの面倒を見る件</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2013/11/20/preparation-of-conference/" title="情報共有とか発信事項など">情報共有とか発信事項など</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

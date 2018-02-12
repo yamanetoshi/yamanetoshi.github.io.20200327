@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>jenkins-swarm の Dockerfile 掘削</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Mar 3, 2016
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2016/03/03/hoge-dockerfile-of-jenkins-swarm/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/docker/">docker </a>
+        
+    </p>
+    <h1 class="entry-title">
+         jenkins-swarm の Dockerfile 掘削 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>リポジトリは以下です。</p>
+
+<ul>
+<li><a href="https://github.com/blacklabelops/jenkins-swarm">blacklabelops/jenkins-swarm</a></li>
+</ul>
+
+<p>Dockerfile 見ていきます。</p>
+
+<p></p>
+
+<p>してる事順に列挙してみます。最初は簡単なはずなので。</p>
+
+<ul>
+<li>最初に jenkins グループの jenkins ユーザ作成</li>
+<li>yum で svn, mercurial, git 導入</li>
+<li>yum clean all &amp;&amp; rm -rf /var/cache/yum/* 実行してゴミ掃除</li>
+<li>git-lfs 導入 (別途くわしく</li>
+<li>swarm-slave 導入 (別途くわしく</li>
+<li>docker entrypoint な環境変数の用意</li>
+<li>起動 (別途詳しく</li>
+</ul>
+
+<p>最後のあたり、いくつか確認してみます。</p>
+
+<pre><code>VOLUME [&quot;/opt/jenkins&quot;]
+</code></pre>
+
+<p>これ、データボリュームというヤツなのですね。</p>
+
+<ul>
+<li><a href="http://qiita.com/75th/items/41393f506d223850f2c3">dockerのデータボリュームとそのバックアップ方法</a></li>
+</ul>
+
+<p>あるいはこれ</p>
+
+<pre><code>USER $CONTAINER_UID
+</code></pre>
+
+<p>この記述以降の命令はここで指定されているユーザの権限で動作する模様。</p>
+
+<pre><code>WORKDIR ${SWARM_WORKDIR}
+</code></pre>
+
+<p>はカレントワーキングディレクトリの設定で、<code>RUN cd</code> ではなくこれ使え、との事。ということは最後のあたりの以下の一団の命令は</p>
+
+<pre><code>USER $CONTAINER_UID
+WORKDIR ${SWARM_WORKDIR}
+VOLUME [&quot;/opt/jenkins&quot;]
+COPY imagescripts/docker-entrypoint.sh /home/jenkins/docker-entrypoint.sh
+ENTRYPOINT [&quot;/home/jenkins/docker-entrypoint.sh&quot;]
+CMD [&quot;swarm&quot;]
+</code></pre>
+
+<ul>
+<li>$CONTAINER_UID の権限でカレントディレクトリを ${SWARM_WORKDIR} にして</li>
+<li><code>/opt/jenkins</code> なデータボリュームを作り</li>
+<li><code>/home/jenkins/docker-entrypoint.sh swarm</code> 実行 (余計な引数が無かった場合</li>
+</ul>
+
+<p>という事になるのか。</p>
+
+<h2 id="以降で">以降で</h2>
+
+<p>以下について確認したメモを控えておく方向です。</p>
+
+<ul>
+<li>git-lfs</li>
+<li>swarm-slave 導入関連</li>
+</ul>
+
+<h2 id="git-lfs">git-lfs</h2>
+
+<p>large file 拡張、なのか。なんで導入してるのか、はまだ謎だな。基本的には導入して (install.sh 実行して)、<code>git lfs init</code> で初期化を行なっているのみ、に見えます。</p>
+
+<p>これはおそらく CI なプロジェクトで git lfs に依存していた場合の保険なのかな。</p>
+
+<h2 id="swarm-slave-導入関連">swarm-slave 導入関連</h2>
+
+<p>基本的には swarm-client-jar-with-dependencies.jar を取得して VOLUME でアレしたディレクトリに投入しているのみ、なのかな。</p>
+
+<p>結局、最後に呼ばれるスクリプトが肝なのかどうか。</p>
+
+<h2 id="docker-entrypoint-sh">docker-entrypoint.sh</h2>
+
+<p>見てみます。してることを順に列挙。</p>
+
+<ul>
+<li>SWARM_DELAYED_START 定義されてれば値で <code>sleep</code></li>
+<li>SWARM_ENV_FILE 定義されてれば <code>source</code> で読み込み</li>
+<li>SWARM_VM_PARAMETERS 定義されてれば変数に値設定</li>
+<li>SWARM_MASTER_URL 定義されてれば変数に設定</li>
+<li>SWARM_CLIENT_PARAMETERS 定義されてれば変数に設定</li>
+<li>SWARM_JENKINS_USER, SWARM_JENKINS_PASSWORD 定義されてれば変数に設定</li>
+<li>SWARM_CLIENT_EXECUTORS 定義されてれば変数に設定</li>
+<li>SWARM_CLIENT_LABELS 定義されてれば変数に設定</li>
+</ul>
+
+<p>引数 swarm なら swarm-client-jar-with-dependencies.jar 実行なのか。あと、それぞれの環境変数 (上のやつ) がどういった形でオプション文字列に変換されるか、というと</p>
+
+<ul>
+<li>SWARM_JENKINS_USER と SWARM_JENKINS_PASSWORD はセットで &ldquo;&ndash;username VAL &ndash;password VAL&rdquo; なオプション文字列に変換されます</li>
+<li>SWARM_CLIENT_LABELS は &ldquo;&ndash;labels VAL&rdquo; なオプション文字列に変換されます</li>
+<li>SWARM_CLIENT_EXECUTORS は &ldquo;&ndash;executors N&rdquo; なオプション文字列に変換されます</li>
+<li>SWARM_MASTER_URL は -master オプションの VAL として使われます</li>
+<li>デフォルトパラメータとして &ldquo;-fsroot /home/jenkins -disableSslVerification&rdquo; が使われています</li>
+<li>SWARM_VM_PARAMETERS は何が指定されるべきなのかが不明</li>
+<li>SWARM_CLIENT_PARAMETERS も同様</li>
+<li>-fsroot オプションが二重に渡されているように見えます</li>
+</ul>
+
+<p>結局、swarm-client-jar-with-dependencies.jar が何なのか、が謎なままなんですが。</p>
+
+<h2 id="swarm-plugin-の-usage-によれば">Swarm Plugin の Usage によれば</h2>
+
+<blockquote>
+<p>There&rsquo;s no required command option</p>
+</blockquote>
+
+<p>との事で特に何かを指定しなければ、って訳ではなさげですね。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Mar 3, 2016</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2016/03/02/git-no-pager/" title="git log とかでページャ使いたくない時">git log とかでページャ使いたくない時</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2016/03/04/docker-swarm/" title="Docker Swarm">Docker Swarm</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

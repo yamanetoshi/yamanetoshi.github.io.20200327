@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>edison 初期化して再設定なメモ</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 7, 2015
+         - 4 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2015/04/07/edison-initializeing-memo/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         edison 初期化して再設定なメモ 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>どうも以前初期化していたと思い込んでいたのは間違いだったようで、完全に初期化してから再度設定の確認をすることに。</p>
+
+<p>記録が微妙にしか残っていなので、なるべく詳細に残そうとしてみようと思います。</p>
+
+<p></p>
+
+<p>初期化用のイメージを以下から取得。</p>
+
+<ul>
+<li><a href="https://communities.intel.com/docs/DOC-23242">https://communities.intel.com/docs/DOC-23242</a></li>
+</ul>
+
+<p>取得して展開、中にある <code>flashall.sh</code> 実行してみたのですが初期化できていませんでした。シリアルコンソール接続した状態でリトライしてみたところ、再起動したら Yocto なログインプロンプトが確認できました。</p>
+
+<p>その後、<a href="http://www.emutexlabs.com/files/ubilinux/ubilinux-edison-150309.tar.gz">ubilinux-edison-150309.tar.gz</a> を解凍したソレの中にある <code>flashall.sh</code> 実行で初期化されたことを確認しています。</p>
+
+<p>初期状態で</p>
+
+<ul>
+<li><code>rfkill list</code> によると bluetooth は block されていません</li>
+<li><code>ifconfig</code> によれば wlan0 は未設定</li>
+<li><code>pactl</code> コマンド使えない</li>
+<li><code>uname -a</code> によると <code>Linux ubilinux 3.10.17-yocto-standard-r2</code> とのこと</li>
+</ul>
+
+<p>とりあえず wlan0 の設定をして</p>
+
+<ul>
+<li>pulseaudio 関連</li>
+<li>libasound2</li>
+<li>bluetooth</li>
+<li>bluez 関連</li>
+</ul>
+
+<p>入れてどうなるか、確認をと思っています。</p>
+
+<h2 id="導入など">導入など</h2>
+
+<p>以下を実行しています。</p>
+
+<pre><code># apt-get install pulseaudio pulseaudio-module-bluetooth pulseaudio-utils \
+libasound2 bluetooth bluez-alsa bluez-tools
+</code></pre>
+
+<p>これでどうなるか。</p>
+
+<h2 id="パンクした">パンクした</h2>
+
+<p>何だと、、、、というオチ。負けずに <code>apt-get clean</code> して <code>dpkg --configure -a</code> してみます。</p>
+
+<p>結果てきに rootfs は 89% Use という状態になりました。良かった。これで一旦再起動してみます。</p>
+
+<h2 id="再起動後">再起動後</h2>
+
+<p>状態を確認。</p>
+
+<ul>
+<li><code>rfkill list</code> 確認したところ、bluetooth は block されておりません</li>
+<li><code>bluetoothctl</code> は入力できない状態 (Ctrl-c で脱出</li>
+<li><code>pactl info</code> も実行できません</li>
+<li>pulseaudio な daemon も起動さておりません</li>
+<li><code>hciconfig</code> 実行してみたところ、UP RUNNING PSCAN という状態</li>
+<li><code>hcitool scan</code> 実行できるようです</li>
+</ul>
+
+<p>む、<code>bluetoothctl</code> が固まるのか。これ、何が原因なのか。</p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>bluetoothctl が使えない事情を確認した方が良いみたいです。一旦対応ペンディングとなります。</p>
+
+<h2 id="再開">再開</h2>
+
+<p>a2dp というキーワード? とか言いつつ以下のパケジを入れようとしたら</p>
+
+<ul>
+<li>bluez-firmware</li>
+<li>bluez-audio</li>
+<li>blueman</li>
+</ul>
+
+<p>No space left on device な状態になってしまいどうにもならなくなりました。ただ、/root 配下を確認してみるに <code>bluez-5.28</code> とか <code>mraa</code> とか <code>swig-3.0.5</code> などのディレクトリが鎮座ましましており、非常に怪しい。</p>
+
+<h2 id="再度-flash-してみた">再度 flash してみた</h2>
+
+<p>色々な意味で限界かも。edison て何故にこんな微妙なのorz</p>
+
+<p>ちなみに ubilinux は rootfs の書き込み時間が 10 minutes って出てますね。Yocto の rootfs は flash 直後だと 27% 程度の使用率でしたが ubilinux は 62% とのこと。</p>
+
+<p>そして /root には</p>
+
+<ul>
+<li>bluez-5.28</li>
+<li>mraa</li>
+<li>swig-3.0.5</li>
+</ul>
+
+<p>というディレクトリがあるのですが、これは一体何なのか。また、/usr/local/bin 配下に bluetoothctl とか hciattach とか hciconfig などのツールが存在しています。</p>
+
+<pre><code># bluetoothctl --version
+5.28
+</code></pre>
+
+<p>うーん。</p>
+
+<p>そして試しに以下のコマンドを入力してみたら</p>
+
+<pre><code># bluetoothctl
+[NEW] Controller 43:34:1B:00:1F:AC BlueZ 5.28 [default]
+</code></pre>
+
+<p>実行できたぞ xD</p>
+
+<p>そして pairing もできた xD</p>
+
+<p>がしかし、connect できないな xD</p>
+
+<h2 id="とりあえず-1">とりあえず</h2>
+
+<p>接続はできていませんが、導入したばかりの状態であれば bluetoothctl が正常動作するのは分かりました。なんとなく特殊なパケジの入り方してるので、微妙な弄り方すると駄目なのだろうなと類推。でもそれでいいのかなぁ。</p>
+
+<h2 id="syslog-確認">syslog 確認</h2>
+
+<p>以下な出力あり。</p>
+
+<pre><code>ubilinux bluetoothd[1864]: a2dp-sink profile connect failed for 00:00:16:00:2A:11: Protocol not available
+</code></pre>
+
+<p>以下ドキュメントによれば</p>
+
+<ul>
+<li><a href="https://wiki.archlinux.org/index.php/Bluetooth_headset">Bluetooth headset</a></li>
+</ul>
+
+<p>pulseaudio が、らしい。再起動せよ、とか書いてありますね。ちなみに今の状態ですと pulseaudio パケジそのものが未導入です。以下を導入して再起動してみます。</p>
+
+<ul>
+<li>pulseaudio</li>
+<li>pulseaudi-module-bluetooth</li>
+<li>pulseaudio-utils</li>
+</ul>
+
+<p>どうなるか。</p>
+
+<h2 id="と思ったら">と思ったら</h2>
+
+<p>wifi 設定しないと通信できないことが分かり設定してからパケジ導入着手 xD</p>
+
+<p>ただ、なんとなく pulseaudio のバージョンと 5.28 な bluez が整合してなくて上手く動かないのではないかという危惧があったりなかったり。</p>
+
+<h2 id="導入後">導入後</h2>
+
+<p>bluetoothctl は正常動作しています。ただ、pulseaudio なサービスが起動していません。これは確か <code>/etc/default/pulseaudio</code> の記述の修正が必要だったはず。</p>
+
+<pre><code>PULSEAUDIO_SYSTEM_START=1
+</code></pre>
+
+<p>こうしてサービス起動してリトライ。がしかし Failed to connect とのこと。</p>
+
+<h2 id="そして">そして</h2>
+
+<p>Edison 再起動で bluetoothctl が反応しなくなってしまいました。確か wifi 設定した時点では再起動したはずなので pulseaudio なサービスがガンなのかな。</p>
+
+<p>pulseaudio サービス起動しない設定にして再起動してみましたが、bluetoothctl は入力することができなくなってしまっています。</p>
+
+<p>これはどうしたものかなぁ。正直途方に暮れています。なんとなくですが alsa が使える yocto なイメージを作る、という取り組みの方が良いのかどうなのか。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 7, 2015</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2015/04/06/naha-agent-level-up-event/" title="Naha Agent Level Up Event">Naha Agent Level Up Event</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2015/04/07/rough-note-english-grammer/" title="English Grammer in Use 乱暴メモ (8)">English Grammer in Use 乱暴メモ (8)</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

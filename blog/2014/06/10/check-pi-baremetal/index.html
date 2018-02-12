@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>続 initsys.c 確認 (pi-baremetal 確認)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 10, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/06/10/check-pi-baremetal/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         続 initsys.c 確認 (pi-baremetal 確認) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>コメント確認入れてみます。</p>
+
+<p></p>
+
+<ul>
+<li>0xc0000000-0xc00fffff は coarse page table によって物理メモリにマップされる</li>
+<li>メモリにロードされた kernel data を 0xc0000000 にマップ?</li>
+</ul>
+
+<p>ええと、kerneldatatable の値は initsys.c にて 0x3c00 として定義されてます。</p>
+
+<pre><code>static unsigned int *kerneldatatable = (unsigned int * const)0x3c00; /* 1K */
+</code></pre>
+
+<p>あ、start.s に以下なコメントがありました。</p>
+
+<pre><code>/* kernel.img is loaded at 0x8000
+ * Below that, 0x4000-0x7fff is the 1MB memory page table, then
+ * 0x3c00-0x3fff is the kernel data coarse page table (see initsys.c)
+ *
+ * Stacks go below it, as follows:
+ *
+ * 0x2c00 - 0x3c00  User/system stack
+</code></pre>
+
+<p>あ、確かに initsys.c では以下な変数の定義もあります。</p>
+
+<pre><code>static unsigned int *initpagetable = (unsigned int * const)0x4000; /* 16K */
+</code></pre>
+
+<p>そりゃええんですが、0x3c00 から 0x3fff までの 1KB を 256 で分けて、で unsigned int な配列になるのか。で、基本的には _physbssend までの領域まで分が map される模様。</p>
+
+<p>その後、bss な領域を 0 で初期化して mcr という命令で</p>
+
+<ul>
+<li>変換テーブルの登録</li>
+<li>Domain 0 な Access Control List に Client な権限を設定</li>
+<li>MMU を on に</li>
+</ul>
+
+<p>してたりする模様ですがこのあたりマニュアルの確認必須ですorz</p>
+
+<p>あとは r0 から r2 までを pop して main 手続きに制御を移しています。</p>
+
+<h2 id="纏めてみます">纏めてみます</h2>
+
+<ul>
+<li>initsys 手続きは基本的にページテーブル初期化して main 手続き呼び出し</li>
+<li>0x80000000-0xz0ffffff は 0x00000000-0x29ffffff を指すようにする</li>
+<li>0x00000000-0x000fffff は同じアドレスを指すようにする</li>
+<li>0xf0000000 が 0x00000000 を指すようにする</li>
+<li>0xc0000000 は coarse page table として設定</li>
+<li>coarse page table の初期化</li>
+<li>bss 初期化</li>
+<li>page table 登録</li>
+<li>access permission の設定</li>
+<li>MMU を on に</li>
+<li>main 手続き呼び出し</li>
+</ul>
+
+<p>ということで良いのかどうか。おそらく main に突入後も色々ヤッてるのではないかな。</p>
+
+<h2 id="ちょっと-main-手続き見てみる">ちょっと main 手続き見てみる</h2>
+
+<p>先頭で initpagetable の先頭要素を 0 で初期化してます。成程。</p>
+
+<p>main 手続きが開始された時には initpagetable[0] が指してた領域は initpagetable[3840] が指してる状態になってます。で、その直後に TLB を Flush してます。その先の mem_init 手続きがまた気になりますね。</p>
+
+<p>mem_init 含めてマニュアル確認して諸々纏めておく必要あるかも。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 10, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/06/09/moku-moku-conference/" title="もくもく会">もくもく会</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/06/11/tmux-memo/" title="tmux 備忘">tmux 備忘</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>でびあん 7 導入</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 13, 2014
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/02/13/install-debian-7/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/debian/">Debian </a><a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         でびあん 7 導入 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>とりあえず USB メモリに netboot なソレを仕込む。うぶんつと違って色々大変なんスね。以下エントリを見つつ USB メモリへのコピィ完了。</p>
+
+<ul>
+<li><a href="http://inokara.hateblo.jp/entry/2013/04/06/052506">Debian squeeze を USB メモリからインストールする一部始終</a></li>
+</ul>
+
+<p>その後、メモリスティックを挿して起動。F12 で起動デバイスのリストが出るのね。起動後に iwlwifi-6000-4.ucode という firmware を起動ディスクに入れれ、と指示が入る。</p>
+
+<p>がしかしこれ、ファイルを直接入手することができないのでやっぱでびあん断念。と思ったけど有線で継いで (Ubuntu installer は download しつつ) firmware-iwlwifi パケジがあるかどうかを確認、まではヤッてみることに。</p>
+
+<p></p>
+
+<h2 id="debootstrap-が動かぬ">debootstrap が動かぬ</h2>
+
+<p>こりゃ断念かな。alt+F2 な console 開くと /cdrom が無い、とかって言ってます。USB メモリから起動、だからなぁ。メモリスティックを一回抜いたのが悪かったのか、ということでリトライ中。Default を選んだら GUI なインストーラが出てきました。昔のことを考えると一目瞭然ですね。</p>
+
+<h2 id="導入後">導入後</h2>
+
+<p>apt-line に non-free な記述を追加して</p>
+
+<pre><code># apt-get install firmware-iwlwifi
+</code></pre>
+
+<p>で導入できました。その後、端末再起動。つうか使い勝手てきに</p>
+
+<ul>
+<li>capslock と control  swap したい</li>
+<li>wireless 接続なツール</li>
+<li>rxvt 入れないと</li>
+<li>window manager どうするか</li>
+<li>トラックポイントの真ん中ボタン</li>
+<li>sudoers を云々</li>
+<li>そういや日本語入力環境をアレしないと</li>
+</ul>
+
+<p>あたりがナニ。ちなみに wireless な NIC は再起動後にきっちり認識してて画面上にある設定ツールから今見えてる SSID なんかも確認できました。接続も無問題。つうかこれを導入時に、ってのは netinst な iso じゃ無理なのかな。</p>
+
+<h2 id="順に云々してみます">順に云々してみます</h2>
+
+<p>capslock を ctrl にするのは System Setteings から Layout タブの右下 Options ボタンをクリックして Ctrl key position を At left of &lsquo;A&rsquo; にすれば良し。</p>
+
+<p>スクロールなトラックポイントについては以下エントリを参考に設定。</p>
+
+<ul>
+<li><a href="https://wiki.debian.org/InstallingDebianOn/Thinkpad/Trackpoint">InstallingDebianOn Thinkpad Trackpoint</a></li>
+</ul>
+
+<p>WM は Gnome らしい。ショートカットみたいなところから rxvt が起動できぬ。</p>
+
+<p>次、とりあえず以下を実行。</p>
+
+<pre><code>$ sudo apt-get install ddskk uim uim-skk tmux
+</code></pre>
+
+<p>デフォルトで skk にならんな。あと skkdic 入れ忘れ。uim-pref-gtk3 で Specify default IM な欄にチェック入れておけば良いのだろうか。このあたりかなりてきとーですが大丈夫な模様。</p>
+
+<h2 id="備忘まで">備忘まで</h2>
+
+<p>導入が必要と思われる道具を以下に。</p>
+
+<ul>
+<li>Eclipse + ADT</li>
+<li>Android Studio</li>
+<li>Git</li>
+<li>Skype</li>
+<li>Chrome</li>
+<li>Emacs</li>
+<li>tmux</li>
+<li>X というか window manager 何使うか</li>
+<li>Gimp</li>
+<li>Adobe Reader</li>
+<li>OOo</li>
+<li>Dropbox のクライアント</li>
+<li>dotfile なナニ</li>
+</ul>
+
+<p>とりあえず WM はデフォでいいや、ってことにしといて上記パケジ (Java が面倒そげなので別途な方向) を導入しておきたいと思います。</p>
+
+<pre><code>$ sudo apt-get install -fy chromium-browser git 
+</code></pre>
+
+<p>あと、dotfile あたりを Github から入手して云々なんですが ssh の鍵をいくつかに登録しないといけない模様。色々やることあるなぁ。</p>
+
+<h2 id="もう少し">もう少し</h2>
+
+<p>nautilus-dropbox も導入。あと、<a href="http://www.dropbox.com/">Dropbox</a> からパケジ落として導入。で、</p>
+
+<pre><code>$ dropbox autostart y
+</code></pre>
+
+<p>して再度ログインしたら Dropbox Installation って画面が出てきた。
+ # 正確には nautilus-dropbox は一旦 uninstall しました</p>
+
+<h2 id="要確認">要確認</h2>
+
+<ul>
+<li>workspace の操作</li>
+<li>java 関連の導入とか</li>
+<li>chromium がセッション保存する設定になっていない</li>
+</ul>
+
+<p>とりあえず、背景は The-Holstee-Manifesto にしといた。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 13, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/02/12/plotly/" title="Plotly">Plotly</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/02/13/change-package-name/" title="Android Studio で (無理矢理) パケジ名変更">Android Studio で (無理矢理) パケジ名変更</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

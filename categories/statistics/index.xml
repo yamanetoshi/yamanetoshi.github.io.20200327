@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statistics on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/statistics/</link>
+    <description>Recent content in Statistics on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 27 Aug 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/statistics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>正規分布の派生品</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/08/27/2016-08-27-derivative-works-of-the-normal-distribution/</link>
+      <pubDate>Sat, 27 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/08/27/2016-08-27-derivative-works-of-the-normal-distribution/</guid>
+      <description>&lt;p&gt;色々面白い。のですが学生時代に勉強してないのがバレバレで超はずかしい。&lt;/p&gt;
+
+&lt;p&gt;5-5 の正規分布から派生した確立分布、の章を確認しています。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

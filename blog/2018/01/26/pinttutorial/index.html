@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Pint Tutorial</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jan 26, 2018
+         - 6 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/01/26/pinttutorial/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/python/">python </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Pint Tutorial 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p><a href="http://pint.readthedocs.io/en/latest/tutorial.html">Pint Tutorial</a>をぐーぐる翻訳にかけつつ試してみたので以下に控えておきます。無許可です。すみません。</p>
+
+<p></p>
+
+<h2 id="converting-quantities">Converting Quantities</h2>
+
+<p>Pint には ユニットが定義されて処理されるオブジェクトとしての Unit Registry という概念があります。まず、レジストリを作成します：</p>
+
+<pre><code>&gt;&gt;&gt; from pint import UnitRegistry
+&gt;&gt;&gt; ureg = UnitRegistry()
+</code></pre>
+
+<p>コンストラクタにパラメータが与えられていない場合、Unit Registry にはユニットとプレフィックスのデフォルトリストが設定されます。これでレジストリを以下のように簡単に使用できるようになります：</p>
+
+<pre><code>&gt;&gt;&gt; distance = 24.0 * ureg.meter
+&gt;&gt;&gt; print(distance)
+24.0 meter
+&gt;&gt;&gt; time = 8.0 * ureg.second
+&gt;&gt;&gt; print(time)
+8.0 second
+&gt;&gt;&gt; print(repr(time))
+&lt;Quantity(8.0, 'second')&gt;
+</code></pre>
+
+<p>このコードでは、距離と時間は物理量オブジェクト (Quantify) です。物理量はその大きさ、単位、および次元について問い合わせることができます：</p>
+
+<pre><code>&gt;&gt;&gt; print(distance.magnitude)
+24.0
+&gt;&gt;&gt; print(distance.units)
+meter
+&gt;&gt;&gt; print(distance.dimensionality)
+[length]
+</code></pre>
+
+<p>そして、以下のような数値演算の処理が可能です：</p>
+
+<pre><code>&gt;&gt;&gt; speed = distance / time
+&gt;&gt;&gt; print(speed)
+3.0 meter / second
+</code></pre>
+
+<p>Unit Registry が異なるユニット間の関係を知っているので、数量を選択ユニットに変換することが可能です：</p>
+
+<pre><code>&gt;&gt;&gt; speed.to(ureg.inch / ureg.minute )
+&lt;Quantity(7086.614173228345, 'inch / minute')&gt;
+</code></pre>
+
+<p>このメソッドは、元のオブジェクトへの副作用はありません（値は元のままです）。</p>
+
+<pre><code>&gt;&gt;&gt; print(speed)
+3.0 meter / second
+</code></pre>
+
+<p>インプレース（別のオブジェクトを作成せずに）に変換する場合は、ito メソッドを使用することが可能です：</p>
+
+<pre><code>&gt;&gt;&gt; speed.ito(ureg.inch / ureg.minute )
+&gt;&gt;&gt; speed
+&lt;Quantity(7086.614173228345, 'inch / minute')&gt;
+&gt;&gt;&gt; print(speed)
+7086.614173228345 inch / minute
+</code></pre>
+
+<p>Pint に無効な変換を依頼する場合：</p>
+
+<pre><code>&gt;&gt;&gt; speed.to(ureg.joule)
+Traceback (most recent call last):
+...
+pint.errors.DimensionalityError: Cannot convert from 'inch / minute' ([length] / [time]) to 'joule' ([length] ** 2 * [mass] / [time] ** 2)
+</code></pre>
+
+<p>正しい次元を持つ参照単位に自動的に変換するメソッド &lsquo;to_base_units&rsquo; と ‘ito_base_units’ もあります：</p>
+
+<pre><code>&gt;&gt;&gt; height = 5.0 * ureg.foot + 9.0 * ureg.inch
+&gt;&gt;&gt; print(height)
+5.75 foot
+&gt;&gt;&gt; print(height.to_base_units())
+1.7526 meter
+&gt;&gt;&gt; print(height)
+5.75 foot
+&gt;&gt;&gt; height.ito_base_units()
+&gt;&gt;&gt; print(height)
+1.7526 meter
+</code></pre>
+
+<p>単純な次元削減を実行する、同じ次元を持つユニットを結合するが、それ以外の場合はユニット定義をそのまま維持するメソッド &lsquo;to_reduced_units&rsquo;と &lsquo;ito_reduced_units&rsquo;もあります。</p>
+
+<pre><code>&gt;&gt;&gt; density = 1.4 * ureg.gram / ureg.cm**3
+&gt;&gt;&gt; volume = 10*ureg.cc
+&gt;&gt;&gt; mass = density*volume
+&gt;&gt;&gt; print(mass)
+14.0 cc * gram / centimeter ** 3
+&gt;&gt;&gt; print(mass.to_reduced_units())
+14.0 gram
+&gt;&gt;&gt; print(mass)
+14.0 cc * gram / centimeter ** 3
+&gt;&gt;&gt; mass.ito_reduced_units()
+&gt;&gt;&gt; print(mass)
+14.0 gram
+</code></pre>
+
+<p>新しい数量を生成するときに Pint が次元削減を自動的に実行するようにするには、Unit Registry は auto_reduce_dimensions パラメータを受け取ります。 次元削減は遅くなる可能性があるため、デフォルトでは自動削減は無効になっています。</p>
+
+<p>場合によっては、クラスコンストラクタを使用して物理量オブジェクトを定義すると便利です：</p>
+
+<pre><code>&gt;&gt;&gt; Q_ = ureg.Quantity
+&gt;&gt;&gt; Q_(1.78, ureg.meter) == 1.78 * ureg.meter
+True
+</code></pre>
+
+<p>（私はQuantityをQ_と略記する傾向があります）組み込みパーサーは、定義リストにないにもかかわらず、プレフィックス付きの複数の単位を認識します:</p>
+
+<pre><code>&gt;&gt;&gt; distance = 42 * ureg.kilometers
+&gt;&gt;&gt; print(distance)
+42 kilometer
+&gt;&gt;&gt; print(distance.to(ureg.meter))
+42000.0 meter
+</code></pre>
+
+<p>レジストリにないユニットを使用しようとすると：</p>
+
+<pre><code>&gt;&gt;&gt; speed = 23 * ureg.snail_speed
+Traceback (most recent call last):
+...
+pint.errors.UndefinedUnitError: 'snail_speed' is not defined in the unit registry]
+</code></pre>
+
+<p>独自のユニットをレジストリに追加したり、独自のリストを作成することができます。<a href="http://pint.readthedocs.io/en/latest/defining.html#defining">Defining units の詳細</a></p>
+
+<h2 id="string-parsing">String parsing</h2>
+
+<p>Pintは、文字列として提供されるユニットを扱うこともできます：</p>
+
+<pre><code>&gt;&gt;&gt; 2.54 * ureg.parse_expression('centimeter')
+&lt;Quantity(2.54, 'centimeter')&gt;
+</code></pre>
+
+<p>または parse_expression の短縮形のために呼び出し可能なものとしてレジストリを使用します：</p>
+
+<pre><code>&gt;&gt;&gt; 2.54 * ureg('centimeter')
+&lt;Quantity(2.54, 'centimeter')&gt;
+</code></pre>
+
+<p>またはQuantityコンストラクタを使用します：</p>
+
+<pre><code>&gt;&gt;&gt; Q_(2.54, 'centimeter')
+&lt;Quantity(2.54, 'centimeter')&gt;
+</code></pre>
+
+<p>数値もパースされるので、式を使うことができます：</p>
+
+<pre><code>&gt;&gt;&gt; ureg('2.54 * centimeter')
+&lt;Quantity(2.54, 'centimeter')&gt;
+</code></pre>
+
+<p>または：</p>
+
+<pre><code>&gt;&gt;&gt; Q_('2.54 * centimeter')
+&lt;Quantity(2.54, 'centimeter')&gt;
+</code></pre>
+
+<p>または * 全体を省略：</p>
+
+<pre><code>&gt;&gt;&gt; Q_('2.54cm')
+&lt;Quantity(2.54, 'centimeter')&gt;
+</code></pre>
+
+<p>これにより、簡単な単位コンバータを3行で構築することができます：</p>
+
+<pre><code>&gt;&gt;&gt; user_input = '2.54 * centimeter to inch'
+&gt;&gt;&gt; src, dst = user_input.split(' to ')
+&gt;&gt;&gt; Q_(src).to(dst)
+&lt;Quantity(1.0, 'inch')&gt;
+</code></pre>
+
+<p>次元のない量は、適切なオブジェクトに解析することもできます。：</p>
+
+<pre><code>&gt;&gt;&gt; ureg('2.54')
+2.54
+&gt;&gt;&gt; type(ureg('2.54'))
+&lt;class 'float'&gt;
+</code></pre>
+
+<p>または</p>
+
+<pre><code>&gt;&gt;&gt; Q_('2.54')
+&lt;Quantity(2.54, 'dimensionless')&gt;
+&gt;&gt;&gt; type(Q_('2.54'))
+&lt;class 'pint.quantity.build_quantity_class.&lt;locals&gt;.Quantity'&gt;
+</code></pre>
+
+<blockquote>
+<p>注：数字と単位が混在した文字列を解析するための Pint の規則は、単位が数字と同じ優先順位で扱われることです。</p>
+</blockquote>
+
+<p>例えば、</p>
+
+<pre><code>&gt;&gt;&gt; Q_('3 l / 100 km')
+&lt;Quantity(0.03, 'kilometer * liter')&gt;
+</code></pre>
+
+<p>予期しないものである可能性がありますが、このルールを適用した結果です。 期待される結果を得るには括弧を使います：</p>
+
+<pre><code>&gt;&gt;&gt; Q_('3 l / (100 km)')
+&lt;Quantity(0.03, 'liter / kilometer')&gt;
+</code></pre>
+
+<blockquote>
+<p>注：バージョン0.7以来、Pint はフードの下で評価を使用しません。 この変更により、信頼されていない情報源からの情報を解析する際にシステムがさらされる重大なセキュリティ上の問題が取り除かれます。</p>
+</blockquote>
+
+<h2 id="string-formatting">String formatting</h2>
+
+<p>Pint の物理量は簡単に印字できます：</p>
+
+<pre><code>&gt;&gt;&gt; accel = 1.3 * ureg['meter/second**2']
+&gt;&gt;&gt; # The standard string formatting code
+&gt;&gt;&gt; print('The str is {!s}'.format(accel))
+The str is 1.3 meter / second ** 2
+&gt;&gt;&gt; # The standard representation formatting code
+&gt;&gt;&gt; print('The repr is {!r}'.format(accel))
+The repr is &lt;Quantity(1.3, 'meter / second ** 2')&gt;
+&gt;&gt;&gt; # Accessing useful attributes
+&gt;&gt;&gt; print('The magnitude is {0.magnitude} with units {0.units}'.format(accel))
+The magnitude is 1.3 with units meter / second ** 2
+</code></pre>
+
+<p>しかし Pint は、Unicode と LaTeX 表現のための標準フォーマット機能も拡張しています。</p>
+
+<pre><code>&gt;&gt;&gt; accel = 1.3 * ureg['meter/second**2']
+&gt;&gt;&gt; # Pretty print
+&gt;&gt;&gt; 'The pretty representation is {:P}'.format(accel)
+'The pretty representation is 1.3 meter/second²'
+&gt;&gt;&gt; # Latex print
+&gt;&gt;&gt; 'The latex representation is {:L}'.format(accel)
+'The latex representation is 1.3\\ \\frac{\\mathrm{meter}}{\\mathrm{second}^{2}}'
+&gt;&gt;&gt; # HTML print
+&gt;&gt;&gt; 'The HTML representation is {:H}'.format(accel)
+'The HTML representation is 1.3 meter/second&lt;sup&gt;2&lt;/sup&gt;'
+</code></pre>
+
+<blockquote>
+<p>注：Python 2 では、UnicodeEncodeError を防ぐために、<strong>future</strong> import unicode_literals から、またはかなりフォーマットされた文字列の前に u を付けて実行してください。</p>
+</blockquote>
+
+<p>省略されたユニット名を使用する場合は、指定に〜の前に接頭辞を付けます。</p>
+
+<pre><code>&gt;&gt;&gt; 'The str is {:~}'.format(accel)
+'The str is 1.3 m / s ** 2'
+&gt;&gt;&gt; 'The pretty representation is {:~P}'.format(accel)
+'The pretty representation is 1.3 m/s²'
+</code></pre>
+
+<p>Latex （L） と HTML （H） の仕様についても同じことが言えます。</p>
+
+<p>Pint は LaTeX の siunitx　パッケージもサポートしています：</p>
+
+<pre><code>&gt;&gt;&gt; accel = 1.3 * ureg['meter/second**2']
+&gt;&gt;&gt; # siunitx Latex print
+&gt;&gt;&gt; print('The siunitx representation is {:Lx}'.format(accel))
+The siunitx representation is \SI[]{1.3}{\meter\per\second\squared}
+</code></pre>
+
+<p>さらに、デフォルトの書式指定を指定することもできます：</p>
+
+<pre><code>&gt;&gt;&gt; 'The acceleration is {}'.format(accel)
+'The acceleration is 1.3 meter / second ** 2'
+&gt;&gt;&gt; ureg.default_format = 'P'
+&gt;&gt;&gt; 'The acceleration is {}'.format(accel)
+'The acceleration is 1.3 meter/second²'
+</code></pre>
+
+<p>最後に、Babel がインストールされている場合は、ユニット名を任意の言語に翻訳できます</p>
+
+<pre><code>&gt;&gt;&gt; accel.format_babel(locale='fr_FR')
+'1.3 mètre par seconde²'
+</code></pre>
+
+<h2 id="using-pint-in-your-projects">Using Pint in your projects</h2>
+
+<p>Pythonパッケージ内の複数のモジュールで Pint を使用する場合、Unit Registry のインスタンスを複数作成しないでください。 これを行う最善の方法は、レジストリを単一の場所でインスタンス化することです。 たとえば、次のコードをパッケージ<strong>init</strong>.pyに追加することができます:</p>
+
+<pre><code>from pint import UnitRegistry
+ureg = UnitRegistry()
+Q_ = ureg.Quantity
+</code></pre>
+
+<p>次に、yourmodule.py　のコードは次のようになります：</p>
+
+<pre><code>from . import ureg, Q_
+
+length = 10 * ureg.meter
+my_speed = Q_(20, 'm/s')
+</code></pre>
+
+<p>プロジェクト内の数量を pickling および unplicking する場合は、レジストリをアプリケーションレジストリとして定義する必要があります：</p>
+
+<pre><code>from pint import UnitRegistry, set_application_registry
+ureg = UnitRegistry()
+set_application_registry(ureg)
+</code></pre>
+
+<blockquote>
+<p>警告：Pint　にはグローバルユニットはありません。 すべてのユニットはレジストリに属し、複数のレジストリを同時にインスタンス化することができます。 ただし、異なるレジストリに属する数量の間で操作することはできません。 このようなことは絶対にしないでください：</p>
+</blockquote>
+
+<pre><code>&gt;&gt;&gt; q1 = 10 * UnitRegistry().meter
+&gt;&gt;&gt; q2 = 10 * UnitRegistry().meter
+&gt;&gt;&gt; q1 + q2
+Traceback (most recent call last):
+...
+ValueError: Cannot operate with Quantity and Quantity of different registries.
+&gt;&gt;&gt; id(q1._REGISTRY) == id(q2._REGISTRY)
+False
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jan 26, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/01/25/python-obd-memo/" title="メモ">メモ</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2018/01/27/python-obd/" title="python-OBD について">python-OBD について</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

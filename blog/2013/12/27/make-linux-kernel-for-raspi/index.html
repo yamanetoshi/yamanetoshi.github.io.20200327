@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>RasPI な Kernel 作成 (4)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Dec 27, 2013
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/12/27/make-linux-kernel-for-raspi/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         RasPI な Kernel 作成 (4) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>ようやく手が出せるナニができた。dd は無事終わっていたので RasPI に刺して電源投入。ssh では pi/raspberry で接続できました。sudo もできる模様。</p>
+
+<p>そして</p>
+
+<pre><code>rt2x00usb              11492  1 rt2800usb
+</code></pre>
+
+<p>も認識できてて wlan0 もある。これをもう一つのにも dd でコピィして DAC が認識できるかを確認してみたいと思います。</p>
+
+<p></p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>Onion Router については以下を参照しつつ、ということで。あと DAC 向けに dd しててこっちも確認入れつつすすめる方向です。</p>
+
+<ul>
+<li><a href="http://netbuffalo.doorblog.jp/archives/4585792.html">RPi - Raspberry Pi で Tor ルーター ( Onion Pi )を構築する方法</a></li>
+</ul>
+
+<p>これ、確か夏頃に、って思ってたはずなんですがorz</p>
+
+<h2 id="もう少し">もう少し</h2>
+
+<p>進めてみます。</p>
+
+<p>まず /etc/network/interfaces を編集して wlan0 に IP 付与。ええと自動で up しないな。最近のでびあんな作法が分からんぞorz</p>
+
+<p>現状、</p>
+
+<pre><code>auto lo
+auto wlan0 
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+iface wlan0 inet static
+    address 10.254.0.1
+    netmask 255.255.0.0
+</code></pre>
+
+<p>みたくなってるのですが ifup -a でも up しない。むむむ。</p>
+
+<h2 id="時間が微妙なので">時間が微妙なので</h2>
+
+<p>TODO を以下に列挙しつつ問題処理を。</p>
+
+<ul>
+<li>isc-dhcp-server パケジ導入および設定ファイルの編集など</li>
+<li>サービス起動</li>
+<li>hostapd パケジ導入および設定ファイルの編集など</li>
+<li>サービス起動</li>
+<li>tor の導入および設定ファイルの編集など</li>
+<li>サービス起動</li>
+</ul>
+
+<p>hostapd あたりで問題が発生するのかどうか。ともあれとりあえず wlan0 の自動起動云々、というあたりから。</p>
+
+<h2 id="色々確認中">色々確認中</h2>
+
+<p>とりあえず備忘まで。</p>
+
+<pre><code>$ cat /proc/sys/net/ipv4/ip_forward
+0
+</code></pre>
+
+<p>/etc/sysctl.conf に</p>
+
+<pre><code>net.ipv4.ip_forward=1
+</code></pre>
+
+<p>を追加なのかどうか。あと一時間くらいあるので hostapd まで導入して色々確認してみます。控えは別途追記を投入ということで。</p>
+
+<h2 id="追記">追記</h2>
+
+<p>控えを以下に。</p>
+
+<p>とりあえず raspi-config しておくか。</p>
+
+<ul>
+<li>Expand Filesystem した (次回 reboot から有効とのこと)</li>
+<li>Internationalisation Options から Change Localel (en_GB.UTF-8 UTF8 にチェック入ってました)</li>
+<li>Internationalisation Options から Change timezone で Asia/Tokyo に</li>
+</ul>
+
+<p>で、再起動。次に dhcp な設定ファイルを書いて起動してみたところ、以下。</p>
+
+<pre><code>$ sudo /etc/init.d/isc-dhcp-server start
+Starting ISC DHCP server: dhcpdcheck syslog for diagnostics. ... failed!
+ failed!
+</code></pre>
+
+<p>ええと、wlan0 に IP が付与されていなかったため、でした。やっぱ自動で up にできないとマズいのですがorz</p>
+
+<p>引き続き構わず hostapd 入れる。設定ファイルをアレして起動したら以下。</p>
+
+<pre><code>$ sudo hostapd /etc/hostapd/hostapd.conf 
+Configuration file: /etc/hostapd/hostapd.conf
+Line 2: invalid/unknown driver 'rt2800usb'
+Line 8: invalid key_mgmt 'WPA_PSK'
+FT (IEEE 802.11r) requires nas_identifier to be configured as a 1..48 octet string
+3 errors found in configuration file '/etc/hostapd/hostapd.conf'
+</code></pre>
+
+<p>確認してみたところ</p>
+
+<ul>
+<li>hostapd は自分でソースからバイナリ作れ</li>
+<li>wlan0 と eth0 は bridge 接続</li>
+</ul>
+
+<p>って情報がありますね。続きは別途で。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Dec 27, 2013</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2013/12/26/android-screen-orientation-memo/" title="画面回転自分メモ">画面回転自分メモ</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2013/12/28/todays-dinner/" title="晩メシ">晩メシ</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

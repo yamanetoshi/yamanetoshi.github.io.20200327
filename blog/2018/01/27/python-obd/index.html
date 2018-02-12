@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>python-OBD について</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jan 27, 2018
+         - 15 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/01/27/python-obd/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/python/">python </a>
+        
+    </p>
+    <h1 class="entry-title">
+         python-OBD について 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>ELM327 なアダプタ、本日到着。<a href="https://github.com/brendan-w/python-OBD">python-OBD</a> についてソースコード掘削してメモをアレしてますので、以下に控えを。</p>
+
+<p></p>
+
+<h3 id="readme-md">README.md</h3>
+
+<p>ソースコードが投入されているディレクトリに存在する <code>README.md</code> を以下に引用します。どのような流れでシリアルポートとのやりとりを行っているかがイメージできます。</p>
+
+<pre><code>           API
+┌───────────────────────┐
+│   obd.py / async.py   │
+└───┰───────────────────┘
+    ┃               ▲
+    ┃               ┃
+┌───╂───────────────╂───┐      ┌─────────────────┐         ┌────────────────────┐
+│   ┃               ┗━━━┿━━━━━━┥                 │◀ ━━━━━━━┥                    │
+│   ┃ OBDCommand.py     │      │   decoders.py   │ (maybe) │ UnitsAndScaling.py │
+│   ┃               ┏━━━┿━━━━ ▶│                 ┝━━━━━━━ ▶│                    │
+└───╂───────────────╂───┘      └─────────────────┘         └────────────────────┘
+    ┃               ┃
+    ┃               ┃
+┌───╂───────────────╂───┐      ┌─────────────────┐
+│   ┃               ┗━━━┿━━━━━━┥                 │
+│   ┃   elm327.py       │      │    protocol/    │
+│   ┃               ┏━━━┿━━━━ ▶│                 │
+└───╂───────────────╂───┘      └─────────────────┘
+    ┃               ┃
+    ▼               ┃
+┌───────────────────┸───┐
+│        pyserial       │
+└───────────────────────┘
+       Serial Port
+</code></pre>
+
+<p>Not pictured:</p>
+
+<ul>
+<li><code>commands.py</code> : defines the various OBD commands, and which decoder they use</li>
+<li><code>codes.py</code> : stores tables of standardized values needed by <code>decoders.py</code> (mostly check-engine codes)</li>
+<li><code>OBDResponse.py</code> : defines structures/objects returned by the API in response to a query.</li>
+</ul>
+
+<p>また、<a href="https://github.com/brendan-w/python-OBD">Github プロジェクト</a>の <code>README.md</code> にある基本的な使い方についても以下に引用します。</p>
+
+<pre><code>import obd
+
+connection = obd.OBD() # auto-connects to USB or RF port
+
+cmd = obd.commands.SPEED # select an OBD command (sensor)
+
+response = connection.query(cmd) # send the command, and parse the response
+
+print(response.value) # returns unit-bearing values thanks to Pint
+print(response.value.to(&quot;mph&quot;)) # user-friendly unit conversions
+</code></pre>
+
+<p>また、上記コードにある、resonse という変数が保持している ODBResponse 型のオブジェクトは value という属性を保持していることが分かりますが、この属性のデータ型は <a href="http://pint.readthedocs.io/en/latest/">Pint</a>　の Quantity というデータ型となっています。詳細については <a href="http://python-obd.readthedocs.io/en/latest/Responses/#pint-values">Pint Values というドキュメント</a>を確認願います。</p>
+
+<p>以降については、上記サンプルの流れに沿ってソースコードを確認して行く形で実装の確認を行っていく形で情報を記載していくこととします。</p>
+
+<ul>
+<li>obd.OBD() の呼び出しによる USB ポートとの接続</li>
+<li>OBDCommand オブジェクトを使ったコマンドの生成について</li>
+<li>obd#query の処理について</li>
+</ul>
+
+<h3 id="usb-ポートとの接続">USB ポートとの接続</h3>
+
+<p>基本的な使い方、にある以下の部分がエントリポイントです。</p>
+
+<pre><code>connection = obd.OBD() # auto-connects to USB or RF port
+</code></pre>
+
+<p>OBD というクラスのコンストラクタは以下です。</p>
+
+<pre><code>    def __init__(self, portstr=None, baudrate=None, protocol=None, fast=True):
+        self.interface = None
+        self.supported_commands = set(commands.base_commands())
+        self.fast = fast # global switch for disabling optimizations
+        self.__last_command = b&quot;&quot; # used for running the previous command with a CR
+        self.__frame_counts = {} # keeps track of the number of return frames for each command
+
+        logger.info(&quot;======================= python-OBD (v%s) =======================&quot; % __version__)
+        self.__connect(portstr, baudrate, protocol) # initialize by connecting and loading sensors
+        self.__load_commands()            # try to load the car's supported commands
+        logger.info(&quot;===================================================================&quot;)
+</code></pre>
+
+<p>supported_commands 属性に設定されるのは <code>commands.py</code> にて <code>list of commands that should always be supported by the ELM327</code> として <code>base_commands</code> から返却される以下のコマンドとなっています。</p>
+
+<pre><code>            self.PIDS_A,
+            self.MIDS_A,
+            self.GET_DTC,
+            self.CLEAR_DTC,
+            self.GET_CURRENT_DTC,
+            self.ELM_VERSION,
+            self.ELM_VOLTAGE,
+</code></pre>
+
+<p>それぞれの内容について一応確認しておきます。ODBCommand クラスのコンストラクタですが、以下の順で値を渡す形となっています。</p>
+
+<ul>
+<li>name : human readable name (also used as key in commands dict)</li>
+<li>desc : human readable description</li>
+<li>command : command string</li>
+<li>bytes : number of bytes expected in return</li>
+<li>decode : decoding function</li>
+<li>ecu : ECU ID from which this command expects messages from</li>
+
+<li><p>fast : can an extra digit be added to the end of the command?</p></li>
+
+<li><p>PIDS_A</p></li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;PIDS_A&quot;, &quot;Supported PIDs [01-20]&quot;, b&quot;0100&quot;, 6, pid, ECU.ENGINE, True),
+</code></pre>
+
+<ul>
+<li>MIDS_A</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;MIDS_A&quot;, &quot;Supported MIDs [01-20]&quot;, b&quot;0600&quot;, 0, pid, ECU.ALL, False),
+</code></pre>
+
+<ul>
+<li>GET_DTC</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;GET_DTC&quot;, &quot;Get DTCs&quot;, b&quot;03&quot;, 0, dtc, ECU.ALL, False),
+</code></pre>
+
+<ul>
+<li>CLEAR_DTC</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;CLEAR_DTC&quot;, &quot;Clear DTCs and Freeze data&quot;, b&quot;04&quot;, 0, drop, ECU.ALL, False),
+</code></pre>
+
+<ul>
+<li>GET_CURRENT_DTC</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;GET_CURRENT_DTC&quot;, &quot;Get DTCs from the current/last driving cycle&quot;, b&quot;07&quot;, 0, ECU.ALL, false),
+</code></pre>
+
+<ul>
+<li>ELM_VERSION</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;ELM_VERSION&quot;, &quot;ELM327 version string&quot;, b&quot;ATI&quot;, 0, raw_string, ECU.UNKNOWN, False),
+</code></pre>
+
+<ul>
+<li>ELM_VOLTAGE</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;ELM_VOLTAGE&quot;, &quot;Voltage detected by OBD-II adapter&quot;, b&quot;ATRV&quot;, 0, elm_voltage, ECU.UNKNOWN, False),
+</code></pre>
+
+<p>mode6 が含まれていないのは、これが CAN のみのため、ということがあるかもしれません（根拠は不明です）。これらを元にして使用可能なコマンドを列挙していく形となります。</p>
+
+<p>属性の初期化を行った後、以下の手続きを呼び出しています。</p>
+
+<pre><code>        self.__connect(portstr, baudrate, protocol) # initialize by connecting and loading sensors
+        self.__load_commands()            # try to load the car's supported commands
+</code></pre>
+
+<p>順に確認していきます。</p>
+
+<h4 id="connect-手続き"><code>__connect</code> 手続き</h4>
+
+<p>名前の通り、シリアルポートとの接続を行います。引数の portstr が無指定の場合、シリアルポートの探索を行い、それをもとにして接続を行います。処理の定義は以下となっています。</p>
+
+<pre><code>    def __connect(self, portstr, baudrate, protocol):
+        &quot;&quot;&quot;
+            Attempts to instantiate an ELM327 connection object.
+        &quot;&quot;&quot;
+
+        if portstr is None:
+            logger.info(&quot;Using scan_serial to select port&quot;)
+            portnames = scan_serial()
+            logger.info(&quot;Available ports: &quot; + str(portnames))
+
+            if not portnames:
+                logger.warning(&quot;No OBD-II adapters found&quot;)
+                return
+
+            for port in portnames:
+                logger.info(&quot;Attempting to use port: &quot; + str(port))
+                self.interface = ELM327(port, baudrate, protocol)
+
+                if self.interface.status() &gt;= OBDStatus.ELM_CONNECTED:
+                    break # success! stop searching for serial
+        else:
+            logger.info(&quot;Explicit port defined&quot;)
+            self.interface = ELM327(portstr, baudrate, protocol)
+
+        # if the connection failed, close it
+        if self.interface.status() == OBDStatus.NOT_CONNECTED:
+            # the ELM327 class will report its own errors
+            self.close()
+</code></pre>
+
+<p>scan_serial 手続きは <code>utils.py</code> にて定義されています。プラットフォーム別でデバイス名を列挙して開くことができるものを列挙する形となっています（実装の引用は略します）。シリアルポートとのやりとりについては先に引用した図の通り、ELM327 クラスを用います。ELM327 クラスのコンストラクタの実装ですが以下に列挙する内容となっています（長いので引用は略します）。</p>
+
+<ul>
+<li>属性の初期化</li>
+<li>serial クラスを用いてポートを open します</li>
+</ul>
+
+<p>次に以下の AT コマンドを発行し、異常があれば終了します。</p>
+
+<ul>
+<li>ATZ (reset)</li>
+<li>ATE0 (echo off)</li>
+<li>ATH1 (headers ON)</li>
+<li>ATL0 (linefeeds OFF)</li>
+</ul>
+
+<p>この時点で ELM への接続は成功していますので、<code>__status</code> 属性に <code>OBDStatus.ELM_CONNECTED</code> を設定します。ただし、この時点では車両との接続は完了していませんので、車両との接続のために <code>set_protocol</code> を呼び出します。この手続が <code>True</code> を戻した場合、<code>__status</code> 属性に <code>OBDStatus.CAR_CONNECTED</code> を設定し、接続処理は終了となります。</p>
+
+<h4 id="set-protocol-手続き"><code>set_protocol</code> 手続き</h4>
+
+<p>引数で渡される <code>protocol</code> が None であれば自動設定を行う <code>auto_protocol</code> を呼び出し、そうでなければ <code>manual_protocol</code> を呼び出して <code>__protocol</code> 属性の設定を行います。設定されるオブジェクトは <code>_SUPPORTED_PROTOCOLS</code> 属性として定義されている辞書に設定されている以下のいずれかのオブジェクトが設定されます。また、コンストラクタの引数には　&rdquo;0100&rdquo; コマンドの結果が渡されます。</p>
+
+<pre><code>    _SUPPORTED_PROTOCOLS = {
+        #&quot;0&quot; : None, # Automatic Mode. This isn't an actual protocol. If the
+                     # ELM reports this, then we don't have enough
+                     # information. see auto_protocol()
+        &quot;1&quot; : SAE_J1850_PWM,
+        &quot;2&quot; : SAE_J1850_VPW,
+        &quot;3&quot; : ISO_9141_2,
+        &quot;4&quot; : ISO_14230_4_5baud,
+        &quot;5&quot; : ISO_14230_4_fast,
+        &quot;6&quot; : ISO_15765_4_11bit_500k,
+        &quot;7&quot; : ISO_15765_4_29bit_500k,
+        &quot;8&quot; : ISO_15765_4_11bit_250k,
+        &quot;9&quot; : ISO_15765_4_29bit_250k,
+        &quot;A&quot; : SAE_J1939,
+        #&quot;B&quot; : None, # user defined 1
+        #&quot;C&quot; : None, # user defined 2
+    }
+
+    # used as a fallback, when ATSP0 doesn't cut it
+    _TRY_PROTOCOL_ORDER = [
+        &quot;6&quot;, # ISO_15765_4_11bit_500k
+        &quot;8&quot;, # ISO_15765_4_11bit_250k
+        &quot;1&quot;, # SAE_J1850_PWM
+        &quot;7&quot;, # ISO_15765_4_29bit_500k
+        &quot;9&quot;, # ISO_15765_4_29bit_250k
+        &quot;2&quot;, # SAE_J1850_VPW
+        &quot;3&quot;, # ISO_9141_2
+        &quot;4&quot;, # ISO_14230_4_5baud
+        &quot;5&quot;, # ISO_14230_4_fast
+        &quot;A&quot;, # SAE_J1939
+    ]
+</code></pre>
+
+<p><code>manual_protocol</code> の定義を以下に引用します。</p>
+
+<pre><code>    def manual_protocol(self, protocol):
+        r = self.__send(b&quot;ATTP&quot; + protocol.encode())
+        r0100 = self.__send(b&quot;0100&quot;)
+
+        if not self.__has_message(r0100, &quot;UNABLE TO CONNECT&quot;):
+            # success, found the protocol
+            self.__protocol = self._SUPPORTED_PROTOCOLS[protocol](r0100)
+            return True
+
+        return False
+</code></pre>
+
+<h4 id="load-commands-手続き"><code>__load_commands</code> 手続き</h4>
+
+<p>この手続で有効な PID を　<code>OBDCommand#pid_getters</code> 手続きにより検索したものを列挙して supported_commands に追加します。以下の順で処理を行います。</p>
+
+<ul>
+<li>supported command を列挙してその要素について処理を行う</li>
+<li>supported command または CAN のみに実装されたコマンドの場合はスルー</li>
+<li>コマンドを実行してレスポンスを取得、レスポンスが null の場合 invalid なコマンドとみなす</li>
+<li>valid なコマンドの場合、戻された value を順に取り出して以下の処理を行う
+-　mode、pid を取得して Command#has_pid が True の場合、supported_commands に追加</li>
+<li>mode が 1 の場合、mode 2 への追加判定を行い、必要であれば追加</li>
+</ul>
+
+<p>手続き定義を以下に引用します。また、<code>OBD.query</code> の詳細については別の説で詳細に確認します。</p>
+
+<pre><code>    def __load_commands(self):
+        &quot;&quot;&quot;
+            Queries for available PIDs, sets their support status,
+            and compiles a list of command objects.
+        &quot;&quot;&quot;
+
+        if self.status() != OBDStatus.CAR_CONNECTED:
+            logger.warning(&quot;Cannot load commands: No connection to car&quot;)
+            return
+
+        logger.info(&quot;querying for supported commands&quot;)
+        pid_getters = commands.pid_getters()
+        for get in pid_getters:
+            # PID listing commands should sequentialy become supported
+            # Mode 1 PID 0 is assumed to always be supported
+            if not self.test_cmd(get, warn=False):
+                continue
+
+            # when querying, only use the blocking OBD.query()
+            # prevents problems when query is redefined in a subclass (like Async)
+            response = OBD.query(self, get)
+
+            if response.is_null():
+                logger.info(&quot;No valid data for PID listing command: %s&quot; % get)
+                continue
+
+            # loop through PIDs bitarray
+            for i, bit in enumerate(response.value):
+                if bit:
+
+                    mode = get.mode
+                    pid  = get.pid + i + 1
+
+                    if commands.has_pid(mode, pid):
+                        self.supported_commands.add(commands[mode][pid])
+
+                    # set support for mode 2 commands
+                    if mode == 1 and commands.has_pid(2, pid):
+                        self.supported_commands.add(commands[2][pid])
+
+        logger.info(&quot;finished querying with %d commands supported&quot; % len(self.supported_commands))
+</code></pre>
+
+<p>commands.pid_getters から戻されるのは　OBDCommand オブジェクトの配列です。また、OBDCommand については以下なメソッドが定義されています。</p>
+
+<pre><code>    @property
+    def mode(self):
+        if len(self.command) &gt;= 2 and \
+           isHex(self.command.decode()):
+            return int(self.command[:2], 16)
+        else:
+            return None
+
+    @property
+    def pid(self):
+        if len(self.command) &gt; 2 and \
+           isHex(self.command.decode()):
+            return int(self.command[2:], 16)
+        else:
+            return None
+</code></pre>
+
+<p>また、commands.pid_getters の定義は以下の通りとなっており</p>
+
+<pre><code>    def pid_getters(self):
+        &quot;&quot;&quot; returns a list of PID GET commands &quot;&quot;&quot;
+        getters = []
+        for mode in self.modes:
+            getters += [ cmd for cmd in mode if (cmd and cmd.decode == pid) ]
+        return getters
+</code></pre>
+
+<p>以下の ODBCommand オブジェクトを要素として持つ配列が戻されるものと思われます　(mode2 は省略）。</p>
+
+<ul>
+<li>PIDS_A</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;PIDS_A&quot;, &quot;Supported PIDs [01-20]&quot;, b&quot;0100&quot;, 6, pid, ECU.ENGINE, True),
+</code></pre>
+
+<ul>
+<li>PIDS_B</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;PIDS_B&quot;, &quot;Supported PIDs [21-40]&quot;, b&quot;0120&quot;, 6, pid, ECU.ENGINE, True),
+</code></pre>
+
+<ul>
+<li>PIDS_C</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;PIDS_C&quot;, &quot;Supported PIDs [41-60]&quot;, b&quot;0140&quot;, 6, pid, ECU.ENGINE, True),
+</code></pre>
+
+<ul>
+<li>MIDS_A</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;MIDS_A&quot;, &quot;Supported MIDs [01-20]&quot;, b&quot;0600&quot;, 0, pid, ECU.ALL, False),
+</code></pre>
+
+<ul>
+<li>MIDS_B</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;MIDS_B&quot;, &quot;Supported MIDs [21-40]&quot;, b&quot;0620&quot;, 0, pid, ECU.ALL, False),
+</code></pre>
+
+<ul>
+<li>MIDS_C</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;MIDS_C&quot;, &quot;Supported MIDs [41-60]&quot;, b&quot;0640&quot;, 0, pid, ECU.ALL, False),
+</code></pre>
+
+<ul>
+<li>MIDS_D</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;MIDS_D&quot;, &quot;Supported MIDs [61-80]&quot;, b&quot;0660&quot;, 0, pid, ECU.ALL, False),
+</code></pre>
+
+<ul>
+<li>MIDS_E</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;MIDS_E&quot;, &quot;Supported MIDs [81-A0]&quot;, b&quot;0680&quot;, 0, pid, ECU.ALL, False),
+</code></pre>
+
+<ul>
+<li>MIDS_F</li>
+</ul>
+
+<pre><code>    OBDCommand(&quot;MIDS_F&quot;, &quot;Supported MIDs [A1-C0]&quot;, b&quot;06A0&quot;, 0, pid, ECU.ALL, False),
+</code></pre>
+
+<p>OBD クラスのコンストラクタの処理の説明については以上となります。</p>
+
+<h3 id="コマンドの生成">コマンドの生成</h3>
+
+<p>基本的な使い方にある以下の部分が使用例です。</p>
+
+<pre><code>cmd = obd.commands.SPEED # select an OBD command (sensor)
+</code></pre>
+
+<p>Commands クラスは以下の mode について ODBCommand オブジェクトの配列を modes という属性として保持しています (mode5、mode8 の追加は可能と考えていますが未確認です）。</p>
+
+<ul>
+<li>mode1</li>
+<li>mode2</li>
+<li>mode3</li>
+<li>mode4</li>
+<li>mode6</li>
+<li>mode7</li>
+<li>mode9</li>
+</ul>
+
+<p>また、この配列はオブジェクトの参照から辞書としてアクセス可能な形にもなっています。これらは Commands クラスのコンストラクタにて設定されます。また、<code>__getitem__</code> という手続きが定義されており、この手続定義のコメントにもある通り、以下な形でのアクセスが可能となっています。</p>
+
+<pre><code>            obd.commands.RPM
+            obd.commands[&quot;RPM&quot;]
+            obd.commands[1][12] # mode 1, PID 12 (RPM)
+</code></pre>
+
+<p>ODBCommand クラスは以下の属性を保持しています（コンストラクタから引用）。</p>
+
+<pre><code>        self.name      = name        # human readable name (also used as key in commands dict)
+        self.desc      = desc        # human readable description
+        self.command   = command     # command string
+        self.bytes     = _bytes      # number of bytes expected in return
+        self.decode    = decoder     # decoding function
+        self.ecu       = ecu         # ECU ID from which this command expects messages from
+        self.fast      = fast        # can an extra digit be added to the end of the command? (to make the ELM return early)
+</code></pre>
+
+<p>この他に以下の手続きの形で定義されている属性もあります。</p>
+
+<ul>
+<li>mode</li>
+<li>pid</li>
+</ul>
+
+<p>decode 属性には手続きオブジェクトが格納されます。基本的には <code>decoders.py</code> で定義されている手続きが設定されます。これらはコマンドのレスポンスを取り扱う際に使用されます。例として回転数を取得するコマンドは以下の OBDCommand オブジェクトになるのですが</p>
+
+<pre><code>    OBDCommand(&quot;RPM&quot;, &quot;Engine RPM&quot;, b&quot;010C&quot;, 4, uas(0x07), ECU.ENGINE, True),
+</code></pre>
+
+<p>decode 属性は <code>uas(0x07)</code> となっています。定義一切を以下に引用します。</p>
+
+<pre><code>&quot;&quot;&quot;
+Some decoders are simple and are already implemented in the Units And Scaling
+tables (used mainly for Mode 06). The uas() decoder is a wrapper for any
+Unit/Scaling in that table, simply to avoid redundant code.
+&quot;&quot;&quot;
+
+def uas(id):
+    &quot;&quot;&quot; get the corresponding decoder for this UAS ID &quot;&quot;&quot;
+    return functools.partial(decode_uas, id=id)
+
+def decode_uas(messages, id):
+    d = messages[0].data[2:] # chop off mode and PID bytes
+    return UAS_IDS[id](d)
+</code></pre>
+
+<p><code>UAS_IDS</code> は <code>UnitsAndScaling.py</code> にて定義されています。キーが　0x07 の定義は以下です。</p>
+
+<pre><code>    0x07 : UAS(False, 0.25,       Unit.rpm),
+</code></pre>
+
+<p>クラス定義一切を以下に引用します。</p>
+
+<pre><code>class UAS():
+    &quot;&quot;&quot;
+    Class for representing a Unit and Scale conversion
+    Used in the decoding of Mode 06 monitor responses
+    &quot;&quot;&quot;
+
+    def __init__(self, signed, scale, unit, offset=0):
+        self.signed = signed
+        self.scale = scale
+        self.unit = unit
+        self.offset = offset
+
+    def __call__(self, _bytes):
+        value = bytes_to_int(_bytes)
+
+        if self.signed:
+            value = twos_comp(value, len(_bytes) * 8)
+
+        value *= self.scale
+        value += self.offset
+        return Unit.Quantity(value, self.unit)
+</code></pre>
+
+<p>回転数の場合、与えられた byte の並びを int に変換して <sup>1</sup>&frasl;<sub>4</sub> することが分かります。こうした実装を盛り込むことで</p>
+
+<pre><code>print(response.value.to(&quot;mph&quot;)) # user-friendly unit conversions
+</code></pre>
+
+<p>という操作で value の <sup>1</sup>&frasl;<sub>4</sub> の値が表示される、ということを可能にしています。OBDCommand クラスのオブジェクトはこのように受信後のデータをどのように表現するか、という手続きも属性として保持しています。</p>
+
+<p>Pint のドキュメントは以下です。</p>
+
+<ul>
+<li><a href="http://pint.readthedocs.io/en/latest/">Pint: makes units easy</a></li>
+</ul>
+
+<h3 id="コマンドの送信とレスポンスのパースについて">コマンドの送信とレスポンスのパースについて</h3>
+
+<p>基本的な使い方、にある以下の部分がエントリポイントです。</p>
+
+<pre><code>response = connection.query(cmd) # send the command, and parse the response
+</code></pre>
+
+<p>ここでは <code>OBD.query()</code> が何をしているのか、を具体的に確認していきます。ざっくりした流れとしては以下となります（エラーチェックなどは除いています）。</p>
+
+<ul>
+<li><code>__build_command_string</code> によりコマンド文字列を取得</li>
+<li><code>ELM327#send_and_parse</code> にコマンド文字列を渡し、コマンド送信及び戻されたメッセージのパースを行います</li>
+<li><code>OBDCommand#__call__</code> により戻されたメッセージから ODBResponse オブジェクトを生成し、それを戻します</li>
+</ul>
+
+<p>ODBRespose オブジェクト生成時に上記 decode の処理も呼び出されます。まず、ODB#query の実装を以下に引用します。</p>
+
+<pre><code>    def query(self, cmd, force=False):
+        &quot;&quot;&quot;
+            primary API function. Sends commands to the car, and
+            protects against sending unsupported commands.
+        &quot;&quot;&quot;
+
+        if self.status() == OBDStatus.NOT_CONNECTED:
+            logger.warning(&quot;Query failed, no connection available&quot;)
+            return OBDResponse()
+
+        # if the user forces, skip all checks
+        if not force and not self.test_cmd(cmd):
+            return OBDResponse()
+
+        # send command and retrieve message
+        logger.info(&quot;Sending command: %s&quot; % str(cmd))
+        cmd_string = self.__build_command_string(cmd)        # 1.
+        messages = self.interface.send_and_parse(cmd_string) # 2.
+
+        # if we're sending a new command, note it
+        # first check that the current command WASN'T sent as an empty CR
+        # (CR is added by the ELM327 class)
+        if cmd_string:
+            self.__last_command = cmd_string
+
+        # if we don't already know how many frames this command returns,
+        # log it, so we can specify it next time
+        if cmd not in self.__frame_counts:
+            self.__frame_counts[cmd] = sum([len(m.frames) for m in messages])
+
+        if not messages:
+            logger.info(&quot;No valid OBD Messages returned&quot;)
+            return OBDResponse()
+
+        return cmd(messages) # compute a response object     # 3.
+</code></pre>
+
+<p>コメント追加していますが、末端に番号が付いている部分が箇条書きにて列挙した部分となります。以降にてそれぞれの手続きの実装を確認します。</p>
+
+<h4 id="obd-build-command-string"><code>OBD#__build_command_string</code></h4>
+
+<p>この手続きでは引数の ODBCommand オブジェクトの command 属性を戻します。ただし、以下の整形を行う場合があります。</p>
+
+<ul>
+<li>コマンドが戻すフレーム数がわかっているのであればその数だけ正確に待つよう設定します。ELM からのタイムアウトを回避し、クエリを高速化することができます</li>
+<li>前回 CR を送信したのであれば同様にする (CR は ELM327 クラスで追加される)</li>
+</ul>
+
+<p>以下に実装を引用します。</p>
+
+<pre><code>    def __build_command_string(self, cmd):
+        &quot;&quot;&quot; assembles the appropriate command string &quot;&quot;&quot;
+        cmd_string = cmd.command
+
+        # if we know the number of frames that this command returns,
+        # only wait for exactly that number. This avoids some harsh
+        # timeouts from the ELM, thus speeding up queries.
+        if self.fast and cmd.fast and (cmd in self.__frame_counts):
+            cmd_string += str(self.__frame_counts[cmd]).encode()
+
+        # if we sent this last time, just send a CR
+        # (CR is added by the ELM327 class)
+        if self.fast and (cmd_string == self.__last_command):
+            cmd_string = b&quot;&quot;
+
+        return cmd_string
+</code></pre>
+
+<h4 id="elm327-send-and-parse"><code>ELM327#send_and_parse</code></h4>
+
+<p>以下の処理を行う形となっています。</p>
+
+<ul>
+<li>コマンド送信処理を呼び出します</li>
+<li><code>set_protocol</code> で設定された Protocol クラスの <code>__call__</code> を呼び出します</li>
+<li>戻されたメッセージを返却します</li>
+</ul>
+
+<p>実装を以下に引用します。</p>
+
+<pre><code>    def send_and_parse(self, cmd):
+        &quot;&quot;&quot;
+            send() function used to service all OBDCommands
+
+            Sends the given command string, and parses the
+            response lines with the protocol object.
+
+            An empty command string will re-trigger the previous command
+
+            Returns a list of Message objects
+        &quot;&quot;&quot;
+
+        if self.__status == OBDStatus.NOT_CONNECTED:
+            logger.info(&quot;cannot send_and_parse() when unconnected&quot;)
+            return None
+
+        lines = self.__send(cmd)
+        messages = self.__protocol(lines)
+        return messages
+</code></pre>
+
+<p>ここで呼び出される <code>__send</code> は何をするか、というと</p>
+
+<ul>
+<li>シリアルポートへのメッセージ送信</li>
+<li>delay が設定しているのであれば待機</li>
+<li>シリアルポートからメッセージ受信</li>
+</ul>
+
+<p>となっています。実装は以下です。また、<code>__write</code> 及び <code>__read</code> 手続きの実装の引用は略します。</p>
+
+<pre><code>    def __send(self, cmd, delay=None):
+        &quot;&quot;&quot;
+            unprotected send() function
+
+            will __write() the given string, no questions asked.
+            returns result of __read() (a list of line strings)
+            after an optional delay.
+        &quot;&quot;&quot;
+
+        self.__write(cmd)
+
+        if delay is not None:
+            logger.debug(&quot;wait: %d seconds&quot; % delay)
+            time.sleep(delay)
+
+        return self.__read()
+</code></pre>
+
+<p>受信されたメッセージは <code>Protocol#__call__</code> に渡されます。実装コメントによれば以下な手順で処理が行われます。</p>
+
+<ul>
+<li>preprocess</li>
+<li>handle valid OBD lines</li>
+<li>handle invalid lines (probably from the ELM)</li>
+</ul>
+
+<p>まず、preprocess の部分では OBD 以外の行（「NO DATA」、「CAN ERROR」、「UNABLE TO CONNECT」などのメッセージ）と OBD の行を切り分けます。以降では OBD の行を valid、それ以外を invalid として処理を行います。valid な OBD の行については以下の手順で処理を行っています。</p>
+
+<ul>
+<li>行ごとに取り出して Frame オブジェクトに変換し、<code>parse_frame</code> を呼び出します。これはサブクラスで実装されるメソッドです。この手続は重要な処理を行っているため、別途内容について確認します</li>
+<li>Frame オブジェクトを tx_id 属性によりグルーピングします</li>
+<li>グループ単位で取り出して Message オブジェクトに変換し、<code>parse_message</code> を呼び出します。True を戻す場合、返却対象の配列に追加します</li>
+</ul>
+
+<p>最後に messages という配列を返却して処理終了となります。手続きの実装について以下に引用します。</p>
+
+<pre><code>    def __call__(self, lines):
+        &quot;&quot;&quot;
+            Main function
+
+            accepts a list of raw strings from the car, split by lines
+        &quot;&quot;&quot;
+
+        # ---------------------------- preprocess ----------------------------
+
+        # Non-hex (non-OBD) lines shouldn't go through the big parsers,
+        # since they are typically messages such as: &quot;NO DATA&quot;, &quot;CAN ERROR&quot;,
+        # &quot;UNABLE TO CONNECT&quot;, etc, so sort them into these two lists:
+        obd_lines = []
+        non_obd_lines = []
+
+        for line in lines:
+
+            line_no_spaces = line.replace(' ', '')
+
+            if isHex(line_no_spaces):
+                obd_lines.append(line_no_spaces)
+            else:
+                non_obd_lines.append(line) # pass the original, un-scrubbed line
+
+        # ---------------------- handle valid OBD lines ----------------------
+
+        # parse each frame (each line)
+        frames = []
+        for line in obd_lines:
+
+            frame = Frame(line)
+
+            # subclass function to parse the lines into Frames
+            # drop frames that couldn't be parsed
+            if self.parse_frame(frame):
+                frames.append(frame)
+
+
+        # group frames by transmitting ECU
+        # frames_by_ECU[tx_id] = [Frame, Frame]
+        frames_by_ECU = {}
+        for frame in frames:
+            if frame.tx_id not in frames_by_ECU:
+                frames_by_ECU[frame.tx_id] = [frame]
+            else:
+                frames_by_ECU[frame.tx_id].append(frame)
+
+        # parse frames into whole messages
+        messages = []
+        for ecu in frames_by_ECU:
+
+            # new message object with a copy of the raw data
+            # and frames addressed for this ecu
+            message = Message(frames_by_ECU[ecu])
+
+            # subclass function to assemble frames into Messages
+            if self.parse_message(message):
+                # mark with the appropriate ECU ID
+                message.ecu = self.ecu_map.get(ecu, ECU.UNKNOWN)
+                messages.append(message)
+
+        # ----------- handle invalid lines (probably from the ELM) -----------
+
+        for line in non_obd_lines:
+            # give each line its own message object
+            # messages are ECU.UNKNOWN by default
+            messages.append( Message([ Frame(line) ]) )
+
+        return messages
+</code></pre>
+
+<p>以降では上記手続きにて呼び出している　<code>parse_frame</code> 　および <code>parse_message</code> について確認します。定義元は <code>protocol_can.py</code> とします。また、手続きの規模もそれなりなので節を分けて記載します。</p>
+
+<h5 id="parse-frame"><code>parse_frame</code></h5>
+
+<p>この手続では引数で受け取った Frame オブジェクトについてデータの整形を行い、必要な属性にデータを設定します。また、データに不備がある場合には False を戻し、そうでない場合には True を戻します。手順としては以下となります。</p>
+
+<ul>
+<li>raw 属性よりデータを取り出して初期整形　(11-bit CAN の場合、先頭に 5-byte の 0 を追加)</li>
+<li>取り出した raw の length 確認し、奇数ならエラーとして扱う</li>
+<li>取り出した raw を byte 配列に変換し、length の確認 (6 以上、12 以下)</li>
+<li>header 情報 (priority、addr_mode、rx_id、tx_id 属性) の取得</li>
+<li>data 属性の取り出し</li>
+<li>PCI byte を取り出して type 属性に格納して値の確認し、data_len　または seq_index 属性に値を設定</li>
+<li>ここまでで問題なければ True を戻して終了</li>
+</ul>
+
+<p>以下に手続きの定義を引用します。コメントに詳細な情報が記載されているので確認することで受信したデータをどのように使っているかが分かります。</p>
+
+<pre><code>    def parse_frame(self, frame):
+
+        raw = frame.raw
+
+        # pad 11-bit CAN headers out to 32 bits for consistency,
+        # since ELM already does this for 29-bit CAN headers
+
+        #        7 E8 06 41 00 BE 7F B8 13
+        # to:
+        # 00 00 07 E8 06 41 00 BE 7F B8 13
+
+        if self.id_bits == 11:
+            raw = &quot;00000&quot; + raw
+
+        # Handle odd size frames and drop
+        if len(raw) &amp; 1:
+            logger.debug(&quot;Dropping frame for being odd&quot;)
+            return False
+
+        raw_bytes = bytearray(unhexlify(raw))
+
+        # check for valid size
+
+        if len(raw_bytes) &lt; 6:
+            # make sure that we have at least a PCI byte, and one following byte
+            # for FF frames with 12-bit length codes, or 1 byte of data
+            #
+            # 00 00 07 E8 10 20 ...
+
+            logger.debug(&quot;Dropped frame for being too short&quot;)
+            return False
+
+        if len(raw_bytes) &gt; 12:
+            logger.debug(&quot;Dropped frame for being too long&quot;)
+            return False
+
+
+        # read header information
+        if self.id_bits == 11:
+            # Ex.
+            #       [   ]
+            # 00 00 07 E8 06 41 00 BE 7F B8 13
+
+            frame.priority = raw_bytes[2] &amp; 0x0F  # always 7
+            frame.addr_mode = raw_bytes[3] &amp; 0xF0  # 0xD0 = functional, 0xE0 = physical
+
+            if frame.addr_mode == 0xD0:
+                #untested(&quot;11-bit functional request from tester&quot;)
+                frame.rx_id = raw_bytes[3] &amp; 0x0F  # usually (always?) 0x0F for broadcast
+                frame.tx_id = 0xF1  # made-up to mimic all other protocols
+            elif raw_bytes[3] &amp; 0x08:
+                frame.rx_id = 0xF1  # made-up to mimic all other protocols
+                frame.tx_id = raw_bytes[3] &amp; 0x07
+            else:
+                #untested(&quot;11-bit message header from tester (functional or physical)&quot;)
+                frame.tx_id = 0xF1  # made-up to mimic all other protocols
+                frame.rx_id = raw_bytes[3] &amp; 0x07
+
+        else: # self.id_bits == 29:
+            frame.priority  = raw_bytes[0]  # usually (always?) 0x18
+            frame.addr_mode = raw_bytes[1]  # DB = functional, DA = physical
+            frame.rx_id     = raw_bytes[2]  # 0x33 = broadcast (functional)
+            frame.tx_id     = raw_bytes[3]  # 0xF1 = tester ID
+
+        # extract the frame data
+        #             [      Frame       ]
+        # 00 00 07 E8 06 41 00 BE 7F B8 13
+        frame.data = raw_bytes[4:]
+
+
+        # read PCI byte (always first byte in the data section)
+        #             v
+        # 00 00 07 E8 06 41 00 BE 7F B8 13
+        frame.type = frame.data[0] &amp; 0xF0
+        if frame.type not in [self.FRAME_TYPE_SF,
+                              self.FRAME_TYPE_FF,
+                              self.FRAME_TYPE_CF]:
+            logger.debug(&quot;Dropping frame carrying unknown PCI frame type&quot;)
+            return False
+
+
+        if frame.type == self.FRAME_TYPE_SF:
+            # single frames have 4 bit length codes
+            #              v
+            # 00 00 07 E8 06 41 00 BE 7F B8 13
+            frame.data_len = frame.data[0] &amp; 0x0F
+
+            # drop frames with no data
+            if frame.data_len == 0:
+                return False
+
+        elif frame.type == self.FRAME_TYPE_FF:
+            # First frames have 12 bit length codes
+            #              v vv
+            # 00 00 07 E8 10 20 49 04 00 01 02 03
+            frame.data_len = (frame.data[0] &amp; 0x0F) &lt;&lt; 8
+            frame.data_len += frame.data[1]
+
+            # drop frames with no data
+            if frame.data_len == 0:
+                return False
+
+        elif frame.type == self.FRAME_TYPE_CF:
+            # Consecutive frames have 4 bit sequence indices
+            #              v
+            # 00 00 07 E8 21 04 05 06 07 08 09 0A
+            frame.seq_index = frame.data[0] &amp; 0x0F
+
+        return True
+</code></pre>
+
+<h5 id="parse-message"><code>parse_message</code></h5>
+
+<p>この手続では引数で受け取った Message オブジェクトについてデータの整形を行い、必要な属性にデータを設定します (data 属性にはデータ長は除かれた本来のデータが格納されます）。また、データに不備がある場合には False を戻し、そうでない場合には True を戻します。</p>
+
+<p>また、この手続では複数の Frame にまたがるメッセージを一つにする処理も行っています。以下に単一 Frame の場合の処理のみを引用します。</p>
+
+<pre><code>    def parse_message(self, message):
+
+        frames = message.frames
+
+        if len(frames) == 1:
+            frame = frames[0]
+
+            if frame.type != self.FRAME_TYPE_SF:
+                logger.debug(&quot;Recieved lone frame not marked as single frame&quot;)
+                return False
+
+            # extract data, ignore PCI byte and anything after the marked length
+            #             [      Frame       ]
+            #                [     Data      ]
+            # 00 00 07 E8 06 41 00 BE 7F B8 13 xx xx xx xx, anything else is ignored
+            message.data = frame.data[1:1+frame.data_len]
+</code></pre>
+
+<h4 id="obdcommand-call"><code>OBDCommand#__call__</code></h4>
+
+<p>この手続きは端的に言うと引数で受け取った Message 型のオブジェクト配列を ODBResponse オブジェクトに変換し、その value 属性に decode して取得した Quantity オブジェクトを設定するものです。以下に実装を引用します。</p>
+
+<pre><code>    def __call__(self, messages):
+
+        # filter for applicable messages (from the right ECU(s))
+        for_us = lambda m: (self.ecu &amp; m.ecu) &gt; 0
+        messages = list(filter(for_us, messages))
+
+        # guarantee data size for the decoder
+        for m in messages:
+            self.__constrain_message_data(m)
+
+        # create the response object with the raw data recieved
+        # and reference to original command
+        r = OBDResponse(self, messages)
+        if messages:
+            r.value = self.decode(messages)
+        else:
+            logger.info(str(self) + &quot; did not recieve any acceptable messages&quot;)
+
+        return r
+</code></pre>
+
+<p>この手続きで decode 属性に設定された手続きオブジェクトを呼び出してメッセージに対して意味付けを行っています。decode 属性に設定される手続きを確認すると、Message オブジェクトの data 属性から情報を取り出して整形を行っている事がわかります。以下に例を引用します。</p>
+
+<pre><code>def decode_uas(messages, id):
+    d = messages[0].data[2:] # chop off mode and PID bytes
+    return UAS_IDS[id](d)
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jan 27, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/01/26/pinttutorial/" title="Pint Tutorial">Pint Tutorial</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2018/01/28/low-level-programming-memo/" title="低レベルプログラミング">低レベルプログラミング</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

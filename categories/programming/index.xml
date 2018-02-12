@@ -1,0 +1,1225 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Programming on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/programming/</link>
+    <description>Recent content in Programming on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sun, 28 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>低レベルプログラミング</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/01/28/low-level-programming-memo/</link>
+      <pubDate>Sun, 28 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/01/28/low-level-programming-memo/</guid>
+      <description>&lt;p&gt;環境設定を docker にて。とりあえず debian:8 な image で &lt;code&gt;docker run&lt;/code&gt; しています。起動後に以下を導入。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;build-essential&lt;/li&gt;
+&lt;li&gt;nasm&lt;/li&gt;
+&lt;li&gt;gdb&lt;/li&gt;
+&lt;li&gt;emacs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;までの時点で commit 作成して dockerhub 方面にナニ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ゲンジツトウヒ系なドキュメント</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/</link>
+      <pubDate>Tue, 23 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/</guid>
+      <description>以下、確認の方向にて。 Building an Operating System for the Raspberry Pi</description>
+    </item>
+    
+    <item>
+      <title>すっかり忘れてた</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/07/17/i-completely-forgot/</link>
+      <pubDate>Mon, 17 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/07/17/i-completely-forgot/</guid>
+      <description>&lt;p&gt;C で書く cat な実装。ファイルは一つ限定。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Fill.asm implementation (nand2tetris)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/07/12/fill-implementation/</link>
+      <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/07/12/fill-implementation/</guid>
+      <description>I thought it would be better to separate the procedure to paint white and the procedure to paint black. Points listed below.
+ I was misunderstanding the size of screen memory I could not use expressions such as R0 and R1 M[0] stores the screen state M[1] stores the screen memory index If it is in the same state as before, it ends I described branch processing when the value of keyboard memory (M [24576]) is 0  I am unfamiliar so I can not write repetitive processing immediately.</description>
+    </item>
+    
+    <item>
+      <title>decode 検討</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/07/09/consideration-of-decode-function/</link>
+      <pubDate>Sun, 09 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/07/09/consideration-of-decode-function/</guid>
+      <description>&lt;p&gt;入力をそのままスルーで出力する回路って Add16 の片方に 0 入れれば良いのかどうか。あとはそれぞれの回路が必要としている制御ビットが整理できれば良いはず。&lt;/p&gt;
+
+&lt;p&gt;以下なのかどうか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Zero determination in Boolean arithmetic</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/07/02/zero-determination-in-boolean-arithmetic/</link>
+      <pubDate>Sun, 02 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/07/02/zero-determination-in-boolean-arithmetic/</guid>
+      <description>I did not think it would be possible to write like this.
+CHIP ALU { IN x[16], y[16], // 16-bit inputs zx, // zero the x input? nx, // negate the x input? zy, // zero the y input? ny, // negate the y input? f, // compute out = x + y (if 1) or x &amp;amp; y (if 0) no; // negate the out output? OUT out[16], // 16-bit output zr, // 1 if (out == 0), 0 otherwise ng; // 1 if (out &amp;lt; 0), 0 otherwise PARTS: // Put you code here: Not16(in=x, out=notx); Mux4Way16(a=x, b=notx, c[0.</description>
+    </item>
+    
+    <item>
+      <title>Effective Debugging 届いた</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/06/21/effective-debugging-arrived/</link>
+      <pubDate>Wed, 21 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/06/21/effective-debugging-arrived/</guid>
+      <description>職場てきに色々使えるので明日持ってきます。 というか、購入依頼かけて 2 日後に届くとかオライリーすごいな。まだ発売前のはずなんですが。</description>
+    </item>
+    
+    <item>
+      <title>TensorFlow</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/06/20/tensorflow/</link>
+      <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/06/20/tensorflow/</guid>
+      <description>自分メモ。 TensorFlow Trainer Development Considerations Cloud ML のための TensorFlow アプリケーション作法</description>
+    </item>
+    
+    <item>
+      <title>Effective Debugging</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/06/19/effective-debugging/</link>
+      <pubDate>Mon, 19 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/06/19/effective-debugging/</guid>
+      <description>これ、買お。 Effective Debugging</description>
+    </item>
+    
+    <item>
+      <title>ゼロから作る Deep Learning のソースコード読みのための諸々</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/04/30/code-reading-tool/</link>
+      <pubDate>Sun, 30 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/04/30/code-reading-tool/</guid>
+      <description>&lt;p&gt;近々にコードリーディングな集いをする事になりそうなのでメモを投入。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>読書会参加</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/04/29/reading-meeting/</link>
+      <pubDate>Sat, 29 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/04/29/reading-meeting/</guid>
+      <description>&lt;p&gt;以下なナニに参加。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://uitf.connpass.com/event/53801/&#34;&gt;ゼロから作る Deep Learning 読書会&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;諸々メモを以下に。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>やねうら王 Linux でビルドできるのか</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/09/24/build-yaneura-ou-on-linux/</link>
+      <pubDate>Sat, 24 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/09/24/build-yaneura-ou-on-linux/</guid>
+      <description>&lt;p&gt;ひさびさに&lt;a href=&#34;http://yaneuraou.yaneu.com/yaneuraou_mini/&#34;&gt;やねうら王オープンソースプロジェクト&lt;/a&gt;を見てみたら Ubuntu でビルドできる旨の記述が追加されているのを発見。てか、もしかして最初から Linux でもコンパイルできる形だったのかどうか。&lt;/p&gt;
+
+&lt;p&gt;VS 使うしかないかな、って思っていたのですがちょっとやってみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>週末サイエンティストのすすめ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/09/23/weekend-scientist/</link>
+      <pubDate>Fri, 23 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/09/23/weekend-scientist/</guid>
+      <description>このスライドでちょっと前向きになりかけていたりします。 週末サイエンティストのすすめ 最近は 何故か体力不足で休みがち 体力の不足を補うために運動 そ</description>
+    </item>
+    
+    <item>
+      <title>やねうら王オープンソースプロジェクト (2)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/06/10/yaneura-ou/</link>
+      <pubDate>Fri, 10 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/06/10/yaneura-ou/</guid>
+      <description>&lt;p&gt;以下のドキュメントですが&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://yaneuraou.yaneu.com/yaneuraou_mini&#34;&gt;やねうら王オープンソースプロジェクト&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;現状、&lt;em&gt;やねうら王で遊ぼう&lt;/em&gt; というコンテンツを確認しつつ備忘やら別途確認な諸々を列挙している所です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>やねうら王オープンソースプロジェクト</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/06/09/yaneura-ou/</link>
+      <pubDate>Thu, 09 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/06/09/yaneura-ou/</guid>
+      <description>&lt;p&gt;興味深いドキュメントをご紹介頂きました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://yaneuraou.yaneu.com/yaneuraou_mini&#34;&gt;やねうら王オープンソースプロジェクト&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;開発環境が VS なのでアレなんですが、Linux で動くのだったかどうか。とりあえず空き稼動を使って読み始めることにしました。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>gunyanza 読むことにした件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/17/gunyanza-code-reading/</link>
+      <pubDate>Thu, 17 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/17/gunyanza-code-reading/</guid>
+      <description>&lt;p&gt;とりあえず動かしてみる所から始めるのかどうか。色々アレなのでとりあえず実行環境な Docker コンテナを云々する所から開始してみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>プリンシプル オブ プログラミング</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/05/principle-of-programming/</link>
+      <pubDate>Sat, 05 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/05/principle-of-programming/</guid>
+      <description>備忘メモ。出版されたら速攻購入の方向。 書籍「プリンシプル オブ プログラミング」を執筆しました</description>
+    </item>
+    
+    <item>
+      <title>将棋プログラミングなエントリを入れたら</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/01/15/shogi-programming/</link>
+      <pubDate>Fri, 15 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/01/15/shogi-programming/</guid>
+      <description>&lt;p&gt;@zu2 先パイよりいくつかポインタを頂いたので備忘エントリ投入。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>コンピュータ将棋の進歩</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/01/14/shogi-book/</link>
+      <pubDate>Thu, 14 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/01/14/shogi-book/</guid>
+      <description>最近、将棋ブログと化してる感満点ですが、こないだちらっと立ち読みして面白かったので全部入手の方向で。 共立出版で検索した結果 とりあえず取り寄せ</description>
+    </item>
+    
+    <item>
+      <title>CodeCombat</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/11/30/codecombat/</link>
+      <pubDate>Mon, 30 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/11/30/codecombat/</guid>
+      <description>若い方々が以下なソレを見つけて云々されていらっしゃった。 CODE COMBAT 9 歳以降、ということなので試してみようか思案中。</description>
+    </item>
+    
+    <item>
+      <title>python-shogi</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/11/11/python-shogi/</link>
+      <pubDate>Wed, 11 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/11/11/python-shogi/</guid>
+      <description>&lt;p&gt;云々できる環境を作ります。とりあえず python:2.7 なナニを元に image を作成。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo docker run -i -t -d python:2.7 /bin/bash
+$ sudo docker ps -l -q
+da334369b2b8
+$ sudo docker attach da334369b2b8
+root@da334369b2b8:/usr/src/python# python --version
+Python 2.7.8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で、一旦 &lt;code&gt;C-p C-q&lt;/code&gt; で脱出して commit を作っておきます。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo docker commit da334369b2b8 yamanetoshi/python-shogi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で、ソース共有できる場所をアレするのか。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo docker run -i -t -d -v /home/rms/Documents:/opt yamanetoshi/python-shogi /bin/bash
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ということで確認作業など着手。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>java 1.8</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/10/05/java-1-dot-8/</link>
+      <pubDate>Mon, 05 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/10/05/java-1-dot-8/</guid>
+      <description>どうも Jenkins な plugin 作るためには 1.8 必須らしい。Android はどうなのかな、と思って確認してみるに、Android Studio であれば以下なファイルの /Applications/Android\ Studio.app/Contents/Info.plist の以</description>
+    </item>
+    
+    <item>
+      <title>Z80 演習本</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/08/22/z80-practice-book/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/08/22/z80-practice-book/</guid>
+      <description>&lt;p&gt;以下な tweeet に触発されて衝動的に購入。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/1re1/status/633968835758952448&#34;&gt;https://twitter.com/1re1/status/633968835758952448&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;たまたま在庫があったはず。超ラッキー。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>CPU を作る課題</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/14/making-cpu/</link>
+      <pubDate>Tue, 14 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/14/making-cpu/</guid>
+      <description>&lt;p&gt;pc が次の命令を、ではなくて A レジスタにあるアドレスを、というケイスについては&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;C 命令の j 領域&lt;/li&gt;
+&lt;li&gt;ALU の戻り (zr および ng)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;を元に判断すれば良い、というのは分かっているのですが、どうやって判定してその結果を load なフラグに保存すれば良いのか、が微妙。どのゲイトを使えば良いのかも分からない次第ス。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Machine Language</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/13/machine-language/</link>
+      <pubDate>Mon, 13 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/13/machine-language/</guid>
+      <description>&lt;p&gt;Hack 機械語の章、一昨日のもくもくでさくっとヤッツケる予定だったのですが、間接参照な書き方でハマッておりました。&lt;/p&gt;
+
+&lt;p&gt;画面なピクセルのメモリマップに白黒な情報を転送したくて&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ptr = ADDRESS + i;
+*ptr = color;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;みたいな実装を、だったのですが思ったとおりに動いてくれず。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Sequential Logic (nand to tetris(7))</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/06/nand2tetris7/</link>
+      <pubDate>Mon, 06 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/06/nand2tetris7/</guid>
+      <description>&lt;p&gt;この章ではメモリを実装する模様。プリミティブな回路として DFF が用意されているとのこと。これを基にして&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;レジスタ (DFF を基礎とする)&lt;/li&gt;
+&lt;li&gt;メモリ (レジスタを基礎とする)&lt;/li&gt;
+&lt;li&gt;カウンタ回路 (レジスタを基礎とする)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;を実装していくとのことです。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>加算器の実装など (nand to tetris(6))</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/05/nand2tetris6/</link>
+      <pubDate>Sun, 05 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/05/nand2tetris6/</guid>
+      <description>&lt;p&gt;とりあえず 02 なディレクトリに 01/*.hdl をコピィして &lt;code&gt;git init&lt;/code&gt; したり Github に push したりしておいて実装着手。&lt;/p&gt;
+
+&lt;p&gt;要件見てみるに sum は Xor の出力、carry は And の出力で良いのかな。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>マルチビットバージョン (nand to tetris(5))</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/04/nand2tetris5/</link>
+      <pubDate>Sat, 04 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/04/nand2tetris5/</guid>
+      <description>&lt;p&gt;16 ビット並列なゲートも作れとのこと。繰り返しって使えるのかな、と思い &lt;code&gt;for&lt;/code&gt; とか使ってみましたが、どうも実装されていないようで .hdl が読みこめませんでした。仕方が無いのでコピペでアレしましたが、これはなかなかに辛みのあるナニですな (何&lt;/p&gt;
+
+&lt;p&gt;とりあえずここまでの時点で作ってる部品は使って良いとのことなのでそのまんま使ってしまい multi-bit なソレは実装できました。&lt;/p&gt;
+
+&lt;p&gt;また、この HDL では変数の使いまわしはできないみたいなので Or8Way もちょっと工夫が必要らしい。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>デマルチプレクサ (nand to tetris(4))</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/03/nand2tetris4/</link>
+      <pubDate>Fri, 03 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/03/nand2tetris4/</guid>
+      <description>&lt;p&gt;間隙を縫うように検討着手。要件は以下らしい。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * Demultiplexor:
+ * {a, b} = {in, 0} if sel == 0
+ *          {0, in} if sel == 1
+ */
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ええと、a には (and in (not sel))、b には (and in sel) で良いのかな。なんとなくテストなソレと机上演算の結果は合致。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>マルチプレクサ (nand to tetris(3))</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/02/nand2tetris3/</link>
+      <pubDate>Thu, 02 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/02/nand2tetris3/</guid>
+      <description>&lt;p&gt;マルチプレクサは&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Y = ( A \cdot S) + (B \cdot \bar{S})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で表現されるとのこと。むむむ。&lt;/p&gt;
+
+&lt;p&gt;hdl てきにはこうなるのかな。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(a And sel) Or (b And (Not sel))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;こりゃ凄い。この答えを考えて出す、のが訓練なのか。つうかよく考えれば Or 使えば条件分岐を実装できるんですね。むむむ、修行が足りぬ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>nand to tetris</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/01/nand2tetris/</link>
+      <pubDate>Wed, 01 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/01/nand2tetris/</guid>
+      <description>これ、面白い。 From NAND to Tetris 次回もくもくでもすすめる方向にて。</description>
+    </item>
+    
+    <item>
+      <title>nand to tetris (2)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/01/nand2tetris2/</link>
+      <pubDate>Wed, 01 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/01/nand2tetris2/</guid>
+      <description>&lt;p&gt;1.5 Project では Nand から全てを、ということらしい。これは面白い。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>swift のチュートリアルやってみる?</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/24/try-swift-tutorial/</link>
+      <pubDate>Tue, 24 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/24/try-swift-tutorial/</guid>
+      <description>&lt;p&gt;と言いつつ Xcode を更新。どうなるか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>RasPI な GPIO で L チカなプログラム</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/26/direct-gpio-register-manipulation-in-c-code/</link>
+      <pubDate>Fri, 26 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/26/direct-gpio-register-manipulation-in-c-code/</guid>
+      <description>&lt;p&gt;ええと、以下な二種類の方法がある模様。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;sysfs を使う&lt;/li&gt;
+&lt;li&gt;レジスタを mmap して直接書き込む&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とりあえず sysfs について確認してみました。まず抵抗とか LED なんかをブレッドボードに取り付けて #1 な PIN と GND を接続しておきます。&lt;/p&gt;
+
+&lt;p&gt;あとは以下で LED が点灯。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>iOS アプリの構造について控え</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/31/about-ios-application/</link>
+      <pubDate>Thu, 31 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/31/about-ios-application/</guid>
+      <description>ええと、プロジェクトの General なプロパティ (?) に Main Interface という属性があるのでその中身を確認。Navigation Controller なる項目があるのでその中に定義されてい</description>
+    </item>
+    
+    <item>
+      <title>docker_rails_dev_env 確認</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/27/dig-docker-rails-dev-env/</link>
+      <pubDate>Sun, 27 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/27/dig-docker-rails-dev-env/</guid>
+      <description>&lt;p&gt;とりあえず d というスクリプトから確認を。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Rails4 開発環境作ってみます (2)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/22/make-development-environment-of-rails4/</link>
+      <pubDate>Tue, 22 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/22/make-development-environment-of-rails4/</guid>
+      <description>&lt;p&gt;とりあえず三つの container が動いた。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo docker.io ps -a
+CONTAINER ID        IMAGE                    COMMAND                CREATED             STATUS              PORTS                     NAMES
+7fbe569f3fbf        rails:latest             /start-server.sh       10 seconds ago      Up 10 seconds       0.0.0.0:3000-&amp;gt;3000/tcp    rails                
+c49233f54278        postgres:latest          /usr/local/bin/run     20 hours ago        Up 20 hours         5432/tcp                  postgres,rails/db    
+ed4809b7d731        johncosta/redis:latest   /usr/bin/redis-serve   21 hours ago        Up 21 hours         0.0.0.0:49153-&amp;gt;6379/tcp   rails/redis,redis    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;netstat 見ると 3000 をリスンしています。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>docker run の v オプション</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/21/v-option-of-docker-run/</link>
+      <pubDate>Mon, 21 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/21/v-option-of-docker-run/</guid>
+      <description>試してみたところ、nfsd 不要でした、 $ sudo docker.io run -t -i -v /home/devops/rails_projects/hoge:/opt ubuntu:12.04 /bin/bash でも相対パスでは NG でした。と、ゆーことで開発環境の実装すすめます。</description>
+    </item>
+    
+    <item>
+      <title>Rails4 開発環境作ってみます</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/20/make-development-environment-of-rails4/</link>
+      <pubDate>Sun, 20 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/20/make-development-environment-of-rails4/</guid>
+      <description>&lt;p&gt;とりあえず目指す構成としては&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ubuntu な仮想ホストに Docker および nfsd を導入&lt;/li&gt;
+&lt;li&gt;Rails, PostgreSQL, Redis なコンテナ&lt;/li&gt;
+&lt;li&gt;アプリのディレクトリは nfs で共有&lt;/li&gt;
+&lt;li&gt;Rails コマンド叩きたい&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;あと、仮想ホストの環境設定などは ansible を使って云々な形にしたいです。どうなるか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>pi-baremetal</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/14/pi-baremetal/</link>
+      <pubDate>Mon, 14 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/14/pi-baremetal/</guid>
+      <description>&lt;p&gt;とりあえず README から確認。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>docker v1.1.0 読んでみる</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/10/reading-docker-v1-dot-1-0/</link>
+      <pubDate>Thu, 10 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/10/reading-docker-v1-dot-1-0/</guid>
+      <description>&lt;p&gt;動かしながら、ということで。tutorial は以下を使ってみます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://apatheia.info/blog/2013/06/17/docker/&#34;&gt;仮想環境構築に docker を使う&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;今、手元にある docker が&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ docker --version
+Docker version 0.11.1, build fb99f99
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;とのことなので v1.1.0 なタグを checkout しています。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>docker 読みかけをもう少しすすめてみる</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/09/reading-docker/</link>
+      <pubDate>Wed, 09 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/09/reading-docker/</guid>
+      <description>&lt;p&gt;土曜のもくもくで着手しかけてたメモをもうすこしすすめてみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/08/golang/</link>
+      <pubDate>Tue, 08 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/08/golang/</guid>
+      <description>&lt;p&gt;Docker は golang で書いてあるみたい。ちょっとチュートリアルとかに手を出してみようかなと思い環境整備してみることに。&lt;/p&gt;
+
+&lt;p&gt;手元のでびあん端末だと以下らしい。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ apt-cache search gccgo
+gccgo-4.7 - GNU Go compiler
+gccgo-4.7-multilib - GNU Go compiler (multilib files)
+gccgo - Go compiler, based on the GCC backend
+gccgo-multilib - Go compiler, based on the GCC backend (multilib files)
+gccgo-4.6-doc - documentation for the GNU Go compiler (gccgo)
+gccgo-4.7-doc - documentation for the GNU Go compiler (gccgo)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; の構造体とか</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/02/structure-in-c-plusplus/</link>
+      <pubDate>Wed, 02 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/02/structure-in-c-plusplus/</guid>
+      <description>&lt;p&gt;ひょんなきっかけから 10 数年ぶりに C++ を云々するハメに。ぼくも C++ 廃止案に賛成のヒトなんですが、まぁ仕方無いですね。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Google Test 試してみるなど</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/01/google-test/</link>
+      <pubDate>Tue, 01 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/01/google-test/</guid>
+      <description>&lt;p&gt;とりあえず以下から download しました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://googletest.googlecode.com/files/gtest-1.7.0.zip&#34;&gt;gtest-1.7.0.zip&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;解凍して云々。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ unzip gtest-1.7.0.zip
+$ cd gtest-1.7.0
+$ mkdir lib
+$ g++ -c -Iinclude -I. src/gtest-all.cc
+$ ar -rv lib/libgtest.a gtest-all.o
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ちなみに OSX 上で作業してます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>placement new</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/30/placement-new/</link>
+      <pubDate>Mon, 30 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/30/placement-new/</guid>
+      <description>&lt;p&gt;これ、知りませなんだ。某所にてソース掘削中に以下な記述を発見。C++ です。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;template &amp;lt;typename T&amp;gt;
+
+// 中略
+
+    new (ptr) T;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ちょい略しすぎですが。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>xv6-rpi 掘削</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/15/dig-xv6-rpi/</link>
+      <pubDate>Sun, 15 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/15/dig-xv6-rpi/</guid>
+      <description>&lt;p&gt;okidevops で QEMU 向けだから駄目、って事にしかけたんですが pi-baremetal ほど真面目にヤらなくても良いのではないか、と思いはじめた次第です。&lt;/p&gt;
+
+&lt;p&gt;メモは以下に投入してます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://okinawadevops.github.io/2014/06/14/yamanetoshi/&#34;&gt;okidevops で xv6-rpi 掘削メモ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とりあえずヤリかけの set_bootpgtbl 手続きから確認開始。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>続 initsys.c 確認 (pi-baremetal 確認)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/10/check-pi-baremetal/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/10/check-pi-baremetal/</guid>
+      <description>&lt;p&gt;コメント確認入れてみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>initsys.c 確認 (pi-baremetal 確認)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/06/check-pi-baremetal/</link>
+      <pubDate>Fri, 06 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/06/check-pi-baremetal/</guid>
+      <description>&lt;p&gt;ええとコメントに以下な記述があります。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; * The memory is divided in to 4096 1MB sections. Most of these are
+ * unmapped (resulting in prefetch/data aborts), except
+ * 0x8000000-0xa1000000, which are mapped to 0x00000000-0x2a000000
+ * (physical memory and peripherals), and the kernel code and data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;何故に 2048 を引いてるのか問題について引き続き確認を。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>pi-baremetal 確認など</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/03/check-pi-baremetal/</link>
+      <pubDate>Tue, 03 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/03/check-pi-baremetal/</guid>
+      <description>&lt;p&gt;空き時間を利用してとりあえず start.s から確認開始。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>pi-baremetal</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/28/pi-baremetal/</link>
+      <pubDate>Wed, 28 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/28/pi-baremetal/</guid>
+      <description>&lt;p&gt;ちょっとヨユーをカマして確認してみたりなど。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>v6pi</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/26/pi-baremetal/</link>
+      <pubDate>Mon, 26 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/26/pi-baremetal/</guid>
+      <description>以下なリポジトリを発見しています。 brianwiddas/pi-baremetal ARM1176JZF-S manual も入手したのですが、ばたばた状態で何もできないス。</description>
+    </item>
+    
+    <item>
+      <title>RPi な U-Boot の動作確認</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/13/operation-check-of-u-boot-in-raspi/</link>
+      <pubDate>Tue, 13 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/13/operation-check-of-u-boot-in-raspi/</guid>
+      <description>&lt;p&gt;結線してシリアル接続な日曜夜。&lt;/p&gt;
+
+&lt;p&gt;以下な出力を確認。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;U-Boot 2014.04-rc1-g0b635b1-dirty (Apr 28 2014 - 21:12:34)
+
+DRAM:  448 MiB
+WARNING: Caches not enabled
+MMC:   bcm2835_sdhci: 0
+Using default environment
+
+In:    serial
+Out:   lcd
+Err:   lcd
+Net:   Net Initialization Skipped
+No ethernet found.
+** No partition table - mmc 0 **
+Hit any key to stop autoboot:  0 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Makefile を Linux 向けに修正してみるなど</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/10/modify-makefile-for-linux/</link>
+      <pubDate>Sat, 10 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/10/modify-makefile-for-linux/</guid>
+      <description>&lt;p&gt;とりあえず fork したリポジトリから clone したディレクトリで branch 作成。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git checkout -b linux
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で、Makefile を修正。完全に自分向け。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ベクタテーブル</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/08/interrupt-vector-table/</link>
+      <pubDate>Thu, 08 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/08/interrupt-vector-table/</guid>
+      <description>_start の直後で 0x0 番地にコピィされる割り込みベクタテーブルの記述があって、実行する時の挙動がイメージできてなかったんですが、よくよく見れば簡単な話</description>
+    </item>
+    
+    <item>
+      <title>v6pi の中身確認とか</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/07/v6-unix-raspi/</link>
+      <pubDate>Wed, 07 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/07/v6-unix-raspi/</guid>
+      <description>&lt;p&gt;とりあえず fork したソレからこっち側に clone して中身確認。今は以下なカンジ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ls
+base  gpio  README.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;gpio の中が以下で&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ls gpio/
+main.c   memmap    README.md vp_gpio.c vp_typedef.h 
+Makefile raspi.cfg vector.s  vp_gpio.h  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;base の中が以下。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ls base/
+base.c  Makefile  memmap  raspi.cfg  README.md  vector.s
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;とりあえず base の中から確認を。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>U-Boot を RPi で動かす</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/06/making-u-boot-in-rpi/</link>
+      <pubDate>Tue, 06 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/06/making-u-boot-in-rpi/</guid>
+      <description>&lt;p&gt;入手方法は以下で&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone git://github.com/swarren/u-boot.git
+$ cd u-boot
+$ git checkout -b rpi_dev origin/rpi_dev
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以下で make とのこと。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export CROSS_COMPILE=arm-unknown-eabi-
+make rpi_b_config
+make
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若干のソース修正も入っていますがここでは略。&lt;/p&gt;
+
+&lt;p&gt;fatls について色々確認してみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>U-Boot で fatls</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/05/fatls-in-uboot/</link>
+      <pubDate>Mon, 05 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/05/fatls-in-uboot/</guid>
+      <description>&lt;p&gt;fatls というコマンドで SDCard の情報が取得できない、という不具合がある模様。諸々確認してみます。こーゆー具体的な事案があると第六感デバッガとしては嬉しい (ぇ&lt;/p&gt;
+
+&lt;p&gt;つうか、なんとなく仕様非公開なトラップのような気がしてきつつある今日この頃。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>U-Boot で微妙な問題が出ているらしく</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/29/problem-using-u-boot/</link>
+      <pubDate>Tue, 29 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/29/problem-using-u-boot/</guid>
+      <description>&lt;p&gt;以下などを確認しつつ。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://elinux.org/RPi_U-Boot&#34;&gt;RPi U-Boot&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とりあえずソース入手など。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>UART 入力とか出力とか (2)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/28/newline-code/</link>
+      <pubDate>Mon, 28 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/28/newline-code/</guid>
+      <description>&lt;p&gt;どうも enter が &amp;lsquo;\r&amp;rsquo; (0x0d) なのが微妙、という話になっていたり。&lt;/p&gt;
+
+&lt;p&gt;文字列を入力して改行契機で出力、な例がありまして&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    do {
+        while(*UART0_FR &amp;amp; (1 &amp;lt;&amp;lt; 4));
+            c = * UART0_DR ;
+            echo[length] = c &amp;amp; 0xff ;
+            length ++;
+    } while(c != &#39;\n&#39; &amp;amp;&amp;amp; i &amp;lt; 256);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ここで改行を &amp;lsquo;\n&amp;rsquo; (0x0a) としてますが自分が使ってる環境だと screen でも minicom でも &amp;lsquo;\r&amp;rsquo; (0x0d) になってました。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>UART 入力とか出力とか</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/27/uart-input-output-in-raspi/</link>
+      <pubDate>Sun, 27 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/27/uart-input-output-in-raspi/</guid>
+      <description>&lt;p&gt;参考にさせて頂いてるサンプルには入力はないですね。このあたりを云々してみたいと思っていますがどうなるか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>UART 初期化について色々試してみた</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/26/initializing-uart-in-raspi/</link>
+      <pubDate>Sat, 26 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/26/initializing-uart-in-raspi/</guid>
+      <description>&lt;p&gt;今のサンプルの実装って&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;boot.S で JTAG の初期化してる&lt;/li&gt;
+&lt;li&gt;GPIO の初期化も boot.S でやってる&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ということになってたり。とりあえず現状含めて UART な初期化のあたりの盛り込みというか色々試験してみたいと思います。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>UART 初期化成功</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/25/initializing-uart/</link>
+      <pubDate>Fri, 25 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/25/initializing-uart/</guid>
+      <description>&lt;p&gt;何が悪いのかは未だ判明しておりません。&lt;/p&gt;
+
+&lt;p&gt;以下では初期化に成功しておらず&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    *GPPUDCLK0 = (1 &amp;lt;&amp;lt; 14) | (1 &amp;lt;&amp;lt; 15);
+    delay(150);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以下で認識しました。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    pinMode(14, INPUT_PULLDOWN);
+    pinMode(15, INPUT_PULLDOWN);
+    pinMode(14, ALT0);
+    pinMode(15, ALT0);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;おそらく、ですがこの差分が核心なのかどうか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>自分用に</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/25/pin-assign-respi/</link>
+      <pubDate>Fri, 25 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/25/pin-assign-respi/</guid>
+      <description>ピンアサインのカンペを作成。 {% gist 11290203 %}</description>
+    </item>
+    
+    <item>
+      <title>#kernelvm @沖縄</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/24/kernelvm-in-okinawa/</link>
+      <pubDate>Thu, 24 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/24/kernelvm-in-okinawa/</guid>
+      <description>&lt;p&gt;なんかあれよあれよと言ってる間に開催しちゃう? みたいな流れになってるあたりが最近のソーシャルな世の中を反映してるようでアレです。&lt;/p&gt;
+
+&lt;p&gt;とりあえずわしの微妙な tweet に @syuu1228 さんが反応してくれて&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;@yamanetoshi 主催者と会場と最低三名の発表者を確保していただけるならば参加者・ストリーミング担当として参戦しますが&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://twitter.com/syuu1228/status/458881490730745857&#34;&gt;http://twitter.com/syuu1228/status/458881490730745857&lt;/a&gt; より引用&lt;/p&gt;
+
+&lt;p&gt;となり&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;@yamanetoshi ぼくを発表者に加えていただいて+1で残り二名でもいいと思います。流石に話す人が誰もいないまま流れてしまうと勿体無いので。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://twitter.com/syuu1228/status/458884530443522048&#34;&gt;http://twitter.com/syuu1228/status/458884530443522048&lt;/a&gt; より引用&lt;/p&gt;
+
+&lt;p&gt;となり、そして琉大 i.e. 方面でももごもごしてる方がいらっしゃるとのこと。場所のアサインも可能らしくこれはやるしかないっしょ的流れです。&lt;/p&gt;
+
+&lt;p&gt;もう一名発表者な方がいらっしゃればどんどん開催に向けて準備を進める方向ですがどうなることか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>raspi な QEMU</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/23/boot-raspi-in-qemu/</link>
+      <pubDate>Wed, 23 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/23/boot-raspi-in-qemu/</guid>
+      <description>このネタ、どっかで見たなぁ、と思いつつ。以下ドキュメントに方法が載ってました。 ARM RaspberryPi Tutorial C こうして $ mkdir qemu-build $ cd qemu-build $ git clone https://github.com/Torlus/qemu/tree/rpi src $ mkdir build $ cd build $ ../src/configure --prefix=$YOURINSTALLLOCATION \ --target-list=arm-softmmu,arm-linux-user,armeb-linux-user --enable-sdl</description>
+    </item>
+    
+    <item>
+      <title>昨晩の件 (JTAG 接続なソレを書き換えてみる)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/21/modify-jtag-function-in-assembler/</link>
+      <pubDate>Mon, 21 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/21/modify-jtag-function-in-assembler/</guid>
+      <description>&lt;p&gt;何が悪いのか、と言いつつ空き稼動で再度確認してみたところ、C で書いてる kernel_main 手続き先頭にある&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;void kernel_main(uint32_t r0, uint32_t r1, uint32_t atags) {
+    init_gpio();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;がコメントアウトされておりませんでした。そりゃ駄目だわな。&lt;/p&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;JTAG 初期化な bootstrap な手続きができたのでソースを綺麗にして commit を作っておこうと思ってます。&lt;/p&gt;
+
+&lt;p&gt;続きがあれば追記するかもしれません。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>JTAG 接続なソレを書き換えてみる</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/20/modify-jtag-function-in-assembler/</link>
+      <pubDate>Sun, 20 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/20/modify-jtag-function-in-assembler/</guid>
+      <description>&lt;p&gt;以下なカンジになってるのですが&lt;/p&gt;
+
+&lt;p&gt;{% gist 11105171 %}&lt;/p&gt;
+
+&lt;p&gt;初期処理を assembler で書くとどうなるのだろうか、とか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>メモを試してみました</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/17/test-jatag-connector/</link>
+      <pubDate>Thu, 17 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/17/test-jatag-connector/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://yamanetoshi.github.io/blog/2014/04/16/rpi-micon-c85book-repository/&#34;&gt;昨日なエントリ&lt;/a&gt;を試験してみることに。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>RPi_Micon_C85book リポジトリ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/16/rpi-micon-c85book-repository/</link>
+      <pubDate>Wed, 16 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/16/rpi-micon-c85book-repository/</guid>
+      <description>&lt;p&gt;ええと baremetal 本の&lt;a href=&#34;https://github.com/jitomesky/RPi_Micon_C85book&#34;&gt;参考リポジトリ&lt;/a&gt;の jtag_connector ディレクトリを確認してみます。&lt;/p&gt;
+
+&lt;p&gt;中身を確認してみたところでは、Makefile でターゲットになってるファイルも同梱されていますね。&lt;/p&gt;
+
+&lt;p&gt;このファイル名 (rpi-micon.img) を config.txt に書いて&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kernel=rpi-micon.img
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;SD にコピィして云々、なのか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>collection of low level examples</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/15/collection-of-low-level-examples/</link>
+      <pubDate>Tue, 15 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/15/collection-of-low-level-examples/</guid>
+      <description>参考になりそうなリポジトリを発見。というかこれ、baremetal 本で OpenOCD 接続の設定ファイルの例、ということで紹介されていたものです。 dwelch67/raspberrypi 別途、</description>
+    </item>
+    
+    <item>
+      <title>bare-metal 着手</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/13/bare-metal/</link>
+      <pubDate>Sun, 13 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/13/bare-metal/</guid>
+      <description>&lt;p&gt;根性無くって #gFab に行けず、フテていても仕方がないので諸々着手。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://wiki.osdev.org/ARM_RaspberryPi_Tutorial_C&#34;&gt;ARM RaspberryPi Tutorial C&lt;/a&gt; からファイルを作って make してみると以下な出力が。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;arm-unknown-eabi-gcc: error: fomit-frame-pointer: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これ、Makefile に以下な記述があるのが原因らしい。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Makefile:BASEFLAGS   += -ffreestanding fomit-frame-pointer -mcpu=arm1176jzf-s
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;あら、これってもしかして &amp;ldquo;-&amp;rdquo; が無いだけかな。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>BeareMetal で遊ぶ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/10/playing-with-baremetal/</link>
+      <pubDate>Thu, 10 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/10/playing-with-baremetal/</guid>
+      <description>&lt;p&gt;色々確認を。とりあえず &lt;a href=&#34;http://wiki.osdev.org&#34;&gt;OSDev.org&lt;/a&gt; あたりのドキュメントから確認入れるなど。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://wiki.osdev.org/ARM_RaspberryPi&#34;&gt;ARM RaspberryPi&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://wiki.osdev.org/ARM_RaspberryPi_Tutorial_C&#34;&gt;ARM RaspberryPi Tutorial C&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;備忘まで以前見つけてたドキュメントが以下なあたり。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/index.html&#34;&gt;Baking Pi – Operating Systems Development&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;www.raspberrypi.org/wp-content/.../BCM2835-ARM-Peripherals.pdf‎&#34;&gt;BCM2835-ARM-Peripherals.pdf&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;他にもあった気がしてるんですが忘れた。とりあえず &lt;a href=&#34;http://wiki.osdev.org&#34;&gt;OSDev.org&lt;/a&gt; のソレを確認しつつ &lt;a href=&#34;http://tatsu-zine.com/books/raspi-bm&#34;&gt;BareMetal で遊ぶ Raspberry Pi&lt;/a&gt; も見つつ、という事にて。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ベアメタルなネタについて</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/08/bare-metal-in-raspberry-pi/</link>
+      <pubDate>Tue, 08 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/08/bare-metal-in-raspberry-pi/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www.mgwave.com&#34;&gt;mgwave&lt;/a&gt; すずきさんと某所にて情報交換など。&lt;/p&gt;
+
+&lt;p&gt;UNIX v6 を Raspberry PI に移植、という作戦が展開されつつある模様。とりあえず達人出版会のアレを確認しつつ、プロジェクトの開始を虎視眈々と watch させて頂こうと思っておりますです。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bourne Shell自習テキスト</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/28/bourne-shell-self-study-text/</link>
+      <pubDate>Fri, 28 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/28/bourne-shell-self-study-text/</guid>
+      <description>Linux/bash 向けに書き直して markdown にして GitHub に、ってヤッちゃって良いのかどうか。とりあえずソースは入手したので明日の移動で云々な方向。これだと回線不要だし。</description>
+    </item>
+    
+    <item>
+      <title>教養としてのプログラミング講座</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/10/programming-course-as-a-liberal-arts/</link>
+      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/10/programming-course-as-a-liberal-arts/</guid>
+      <description>む。これ買って身近なヒトと云々して試行錯誤してみる方向。とりあえず購入してどうするかを検討してみます。</description>
+    </item>
+    
+    <item>
+      <title>プロミスキャスモードな socket プログラム</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/16/program-like-wireshark/</link>
+      <pubDate>Thu, 16 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/16/program-like-wireshark/</guid>
+      <description>&lt;p&gt;とりあえずリモホに接続できるので Linux な man ができる、ということで (何&lt;/p&gt;
+
+&lt;p&gt;接続確立な初期処理では以下な手順を踏んでいます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;socket 手続き呼び出し&lt;/li&gt;
+&lt;li&gt;ifrec 構造体の初期化&lt;/li&gt;
+&lt;li&gt;ifrec 構造体にデバイスな文字列設定&lt;/li&gt;
+&lt;li&gt;ioctl に socket なデバイス番号と SIOCGIFINDEX と ifrec を渡して呼び出し&lt;/li&gt;
+&lt;li&gt;sockaddr_ll 構造体メンバの設定&lt;/li&gt;
+&lt;li&gt;bind&lt;/li&gt;
+&lt;li&gt;プロミスキャスモードの設定&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;このあたり、おもしろそうなので確認してみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>最近世話になってる十年以上の友</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/14/ansi-c-language-dictionary/</link>
+      <pubDate>Sat, 14 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/14/ansi-c-language-dictionary/</guid>
+      <description>ANSI C 言語辞典。復帰の折に購入したのですが平成 9 年ていつだろ。 本の扱いは昔から非道でこの本はかなり使い込んでもいたのでもうぼろぼろなんですがい</description>
+    </item>
+    
+    <item>
+      <title>make で云々</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/22/make-makefile/</link>
+      <pubDate>Fri, 22 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/22/make-makefile/</guid>
+      <description>あるスクリプトが出力するファイルにあるコマンドが依存している場合、どのように Makefile を書くべきか、なお題。しかもよくよく見てみるに、あるスクリプト</description>
+    </item>
+    
+  </channel>
+</rss>

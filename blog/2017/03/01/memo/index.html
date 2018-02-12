@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>自分メモ</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Mar 1, 2017
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2017/03/01/memo/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/memo/">memo </a>
+        
+    </p>
+    <h1 class="entry-title">
+         自分メモ 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>諸々、自分メモということで控えを。</p>
+
+<p></p>
+
+<h2 id="mplab-harmony-な-usb-ホストプログラム">MPLAB Harmony な USB ホストプログラム</h2>
+
+<ul>
+<li>自動生成されるソースファイルが app.c</li>
+<li>APP_Initialize に初期化を行う命令を記述</li>
+<li>APP_Tasks にメインループ内で実行を行いたい命令を記述</li>
+<li>appData.state の値ごとで条件分岐を行う部分は自動生成</li>
+<li>状態は以下
+
+<ul>
+<li>APP_STATE_INIT</li>
+<li>APP_STATE_WAIT_FOR_CONFIGURATION</li>
+<li>APP_STATE_SCHEDULE_READ</li>
+<li>APP_STATE_SCHEDULE_WRITE</li>
+<li>APP_STATE_WAIT_FOR_WRITE_COMPLETE</li>
+<li>APP_STATE_ERROR</li>
+</ul></li>
+</ul>
+
+<h3 id="app-state-schedule-read">APP_STATE_SCHEDULE_READ</h3>
+
+<ul>
+<li>この状態で appData.isReadScheduled が真なら USB_DEVICE_CDC_Read を呼び出す</li>
+<li>この手続きは読み込みが完了したら appData.isReadComplete を真にする（はず）</li>
+<li>読み込み完了したなら readBuffer よりデータの読み込みが可能になる
+
+<ul>
+<li>このタイミングで内部バッファにデータをコピィする</li>
+</ul></li>
+<li>isReadScheduled は真に、state は APP_STATE_SCHEDULE_READ に設定する必要あり（リセット</li>
+<li>シリアルへの書き込みが可能なデータがあるかをチェック
+
+<ul>
+<li>存在する場合は appData.state を APP_STATE_SCHEDULE_WRITE にする</li>
+</ul></li>
+</ul>
+
+<h3 id="app-state-schedule-write">APP_STATE_SCHEDULE_WRITE</h3>
+
+<ul>
+<li>内部バッファからデータを取得し、USB_DEVICE_CDC_WRITE 手続き呼びだし</li>
+<li>appData.state は APP_STATE_WAIT_FOR_WRITE_COMPLETE に appData.isWriteComplete は偽に</li>
+</ul>
+
+<h3 id="app-state-wait-for-write-complete">APP_STATE_WAIT_FOR_WRITE_COMPLETE</h3>
+
+<ul>
+<li>appData.isWriteComplete が真になったなら、appData.state を APP_STATE_SCHEDULE_READ に</li>
+</ul>
+
+<h2 id="fifo-によるバッファリング">FIFO によるバッファリング</h2>
+
+<ul>
+<li>リングバッファによる FIFO バッファの実装</li>
+<li>送信用、受信用を用意</li>
+<li>属性としては以下を保持
+
+<ul>
+<li>データ件数</li>
+<li>読み込み用のインデクス</li>
+<li>書き込み用のインデクス</li>
+<li>バッファ</li>
+</ul></li>
+<li>手続き
+
+<ul>
+<li>カウンタ件数により読みあるいは書きが可能かどうかが確認できる</li>
+<li>FIFO から読み込み : 読み込みインデクスがバッファサイズを越えたらインデクスの値をリセットする必要がある (リングバッファのアレです</li>
+<li>FIFO に書き込み : こちらもインデクスの設定処理が必要</li>
+</ul></li>
+
+<li><p>処理の方針としては以下？</p>
+
+<ul>
+<li>フロント側(?) のシリアルな i/f 層 : TxFIFO にデータがあれば読み込んでシリアルに出力</li>
+<li>データ受信なイベントにて RxFIFO に出力</li>
+</ul></li>
+
+<li><p>その次の層</p>
+
+<ul>
+<li>RxFIFO にデータがあれば取り出して処理</li>
+<li>必要なデータを TxFIFO に送信</li>
+</ul></li>
+
+<li><p>FIFO を連結させる、というパターンもあります</p></li>
+</ul>
+
+<h2 id="状態遷移をつかったフレームの処理について">状態遷移をつかったフレームの処理について</h2>
+
+<ul>
+<li>Start of Handler という制御文字で開始され、End of Transmission という制御文字で終端するフレーム</li>
+<li>制御文字をエスケープするための Data link escape という制御文字</li>
+
+<li><p>開始から終了までのデータの並びでかつ、そのセットが非同期で入力される場合の処理の方法</p>
+
+<ul>
+<li>状態を内部で保持してデータ列を一文字づつ順に処理します</li>
+</ul></li>
+
+<li><p>状態としては以下</p>
+
+<ul>
+<li>アイドル状態（開始、な制御文字はまだ読み込んでいない）</li>
+<li>処理中の状態 (終了、な制御文字がきたら終端、エスケープが入力される可能性もある</li>
+<li>エスケープされた状態</li>
+</ul></li>
+</ul>
+
+<h3 id="アイドル状態">アイドル状態</h3>
+
+<ul>
+<li>SOH を読み込んだら処理中の状態に移行する必要があります</li>
+</ul>
+
+<h3 id="処理中の状態-終了-な制御文字がきたら終端-エスケープが入力される可能性もある">処理中の状態 (終了、な制御文字がきたら終端、エスケープが入力される可能性もある</h3>
+
+<ul>
+<li>EOT を読み込んだらアイドル状態に移行
+
+<ul>
+<li>フレームを何らかの形で処理する必要がある</li>
+</ul></li>
+<li>DLE であればエスケープされた状態に移行（その文字自体を処理する必要はありません</li>
+<li>そのどちらでもなければフレーム内のデータとして処理します</li>
+</ul>
+
+<h3 id="エスケープされた状態">エスケープされた状態</h3>
+
+<ul>
+<li>エスケープされた文字を処理する必要がある</li>
+<li>処理中の状態に移行する必要があります</li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Mar 1, 2017</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2017/02/28/vivado-2016-1/" title="vivado 2016.1">vivado 2016.1</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2017/03/02/verilog-writing/" title="verilog を云々">verilog を云々</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

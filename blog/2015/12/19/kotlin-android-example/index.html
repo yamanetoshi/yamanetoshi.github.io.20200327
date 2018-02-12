@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>kotlin-android-example</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Dec 19, 2015
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2015/12/19/kotlin-android-example/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         kotlin-android-example 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>引き続き以下なリポジトリのソースを確認を。</p>
+
+<ul>
+<li><a href="https://github.com/cbeust/kotlin-android-example">cbeust/kotlin-android-example</a></li>
+</ul>
+
+<p>Observable に着目。</p>
+
+<p></p>
+
+<p>MockServer というクラスで Observable を戻すメソドが定義されてるのですが基本的には</p>
+
+<ul>
+<li>JsonObject を生成して</li>
+<li>Observable.just にオブジェクトを渡した戻りの Observable を戻す</li>
+</ul>
+
+<p>という事をしてます。rx.Observable か。いくつか使ってるメソドが何をしているのか、を確認してみます。</p>
+
+<h2 id="observable-just">Observable.just</h2>
+
+<p>配列やリストではない 10 個までのオブジェクトを Observable 化したい場合に使う、とのこと。ということは MockServer の場合はレスポンスをストリームに突っ込んでるようなカンジ、と言えば良いのかな。</p>
+
+<h2 id="列挙してみる">列挙してみる</h2>
+
+<p>以下?</p>
+
+<ul>
+<li>WidgetObservable</li>
+<li>doOnNext</li>
+<li>map</li>
+<li>filter</li>
+<li>debounce</li>
+<li>subscribe</li>
+<li>observeOn</li>
+<li>ViewObservable</li>
+<li>BehaviorSubject.create</li>
+</ul>
+
+<p>では順に確認を。</p>
+
+<h2 id="widgetobservable">WidgetObservable</h2>
+
+<p>Observable のメソドではありませんがこちらも確認。これは RxAndroid のクラスみたいです。View のイベントを受け取るため、ということで以下なソレが用意されている模様。</p>
+
+<ul>
+<li>ViewObservable.clicks でクリックイベント取得とか</li>
+<li>WidgetObservable.text で TextView の変更取得とか</li>
+<li>ListView の onScroll 取得のための listScrollEvents というものもある模様</li>
+</ul>
+
+<p>これ、ドキュメントて無いんかな。どこやらの Javadoc は見れない。そして <code>RxJava bindings for Android</code> なリポジトリを見つけたのですが、このあたりは別なナニにされてしまっているのかどうか、ソースも見当らない。</p>
+
+<p>で、RxAndroid な Github の releases 見てたら <a href="http://github.com/JakeWharton/RxBinding">http://github.com/JakeWharton/RxBinding</a> に、という記載を発見。だがしかし、クラスの定義を見つけることができてません。</p>
+
+<h2 id="doonnext">doOnNext</h2>
+
+<p>これも RxAndroid らしいのでパス。</p>
+
+<h2 id="map">map</h2>
+
+<p>これはストリームの要素一つづつに何かをする、というアレですね。lambda な手続きメソドが一つ引数もらって (それがストリームの要素)、その引数を加工して戻すのだったか。</p>
+
+<h2 id="filter">filter</h2>
+
+<p>こちらは名前の通りで lambda な手続きが false を戻すとストリームから取り除かれるヤツ。lambda な手続きはストリームの要素な引数を一つもらってきて、それについて何らかの判定をしてその結果で true/false を戻せば良い、はず。</p>
+
+<h2 id="debounce">debounce</h2>
+
+<p>以下な記述なのですが</p>
+
+<pre><code>            .debounce(500, TimeUnit.MILLISECONDS)
+</code></pre>
+
+<p>これ、500ms 間隔でストリームからの入力受付、なのかな。待つんじゃなくてステる的。</p>
+
+<h2 id="subscribe">subscribe</h2>
+
+<p>Observer が渡される (はず)。ただ今見てるサンプルだと lambda が渡されているように見えますね。これは kotlin だからな模様。あと、Observer が居ないのですね。これって、Observable#onNext された時に subscribe に渡された lambda な手続きオブジェクトが呼び出されてる、ってことで良いのかどうか。</p>
+
+<p>だとすると何となくイメージできるな。そもそもストリームな処理って SICP で (ry</p>
+
+<h2 id="observeon">observeOn</h2>
+
+<p>Observable がイベントを通知する先のスレッドを変更するメソドな模様。て、こんなことが簡単にできるのね。すばらです。そして subscribeOn というメソドもあり、こちらは Observable が subscribe されるスレッドを決めるものになってる模様。</p>
+
+<h2 id="なんとなく">なんとなく</h2>
+
+<p>イメージは深まっています。kotlin が lambda 使えるのも理解を早める一助になってる感あり。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Dec 19, 2015</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2015/12/18/shutdown-script/" title="shutdown なスクリプト">shutdown なスクリプト</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2015/12/20/kotlin-android-example/" title="kotlin-android-example">kotlin-android-example</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

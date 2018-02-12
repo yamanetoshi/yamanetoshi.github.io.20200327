@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>bcm2708_gpio.c 確認</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Sep 28, 2014
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/28/forge-bcm2708-gpio-dot-c/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         bcm2708_gpio.c 確認 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p><a href="https://github.com/raspberrypi/linux.git">ここ</a>に RasPI な GPIO のドライバがあると見て git clone してみました。ありますね。何故か driver 配下ではなくて arch/arm/mach-bcm2708/bcm2708_gpio.c な模様。</p>
+
+<p>とり急ぎではありますが諸々確認を。</p>
+
+<p></p>
+
+<p>とりあえず、掘削起点のあたりなコードが以下らしい。</p>
+
+<p>{% gist 7049fa8fe52a6138a4c8 %}</p>
+
+<p>ドライバが insmod された時に呼び出されるのが bcm2708_gpio_init でデバイスが見つかった時に呼び出されるのが bcm2708_gpio_probe ということでこのあたりから掘削開始。</p>
+
+<p>その前に、struct platform_driver 型から確認しといた方が良いのかどうか。定義は include/linux/platform_device.h で以下。</p>
+
+<p>{% gist 773c8b6799b98173e4d6 %}</p>
+
+<p>中の struct device_driver 型に簡単にアクセスできるマクロも定義されてますね。では掘っていきます。</p>
+
+<ul>
+<li>platform_driver_register はマクロで __platform_driver_register を呼び出す形に置き換え</li>
+<li>__platform_driver_register は drivers/base/platform.c で定義されてます</li>
+<li><i>register a driver for platform-level devices</i> とのこと</li>
+</ul>
+
+<p>で、__platform_driver_register ですが、probe, remove, shutdown に関数ポインタが設定されてる場合、driver 属性のそれぞれの属性に platform<em>drv</em>* を設定して driver_register の戻りを戻す形になってます。</p>
+
+<p>{% gist e6e24b0b5ff97479ab0f %}</p>
+
+<p>とりあえず platform_drv_probe は確認してみます。定義は同じく driver/base/platform.c です。引用略。ACPI_HANDLE 云々は必要があれば別途確認の方向。struct platform_driver オブジェクトを取得してその probe を呼び出しています。</p>
+
+<h2 id="driver-register-手続き">driver_register 手続き</h2>
+
+<p>細かい部分はスルーして</p>
+
+<ul>
+<li>driver_find 手続きで既に load 済みかどうかを確認</li>
+<li>bus_add_driver 手続き呼び出し</li>
+<li>driver_add_groups 手続き呼び出し</li>
+<li>kobject_uevent 手続き呼び出し</li>
+</ul>
+
+<p>というカンジなのかどうか。と言いつつ詳細な確認は別途にした方が良いのかどうか。ざっくりは見とくべきなのかな。</p>
+
+<p>と思ったら driver_add_groups で sysfs_create_groups を呼び出しているのを発見。もしかして bus_add_driver で drv-&gt;groups について何かをしてるのかな。</p>
+
+<p>と、思ったら bus_add_driver から呼び出されている driver_add_groups からも sysfs_create_groups が呼び出されている模様。やっぱちゃんと見ないと駄目なのかorz</p>
+
+<p>とりあえず driver_register 手続き呼び出しにより sysfs にかなり色々な形で影響が発生しているようですね。</p>
+
+<p>と、言いつつ一旦このあたりスルーします。大丈夫かな。driver が登録された時点で sysfs に影響があるのは当たり前ですが、現時点でどうなるか、をきちんと理解できていないのでそのあたりの確認を踏まえて再度確認の方向ということで。</p>
+
+<h2 id="bcm2708-gpio-probe">bcm2708_gpio_probe</h2>
+
+<p>かなり無理矢理ですが probe な実装をいきなり確認。その前に struct bcm2708_gpio 型の定義が以下ですね。</p>
+
+<p>{% gist 57fb98b6ae5d3ca12257 %}</p>
+
+<p>struct gpio_chip って何かな。GPIO コントローラの抽象型らしい。あ、ここに例の sysfs な i/f に関連する手続きポインタがありますね。成程。</p>
+
+<p>手順としては</p>
+
+<ul>
+<li>struct bcm2708_gpio な領域確保</li>
+<li>platform_get_resource 手続き呼び出し</li>
+<li>platform_set_drvdata 手続き呼び出し</li>
+<li>struct bcm2708_gpio オブジェクトの初期設定</li>
+<li>bcm2708_gpio_irq_init 手続き呼び出し</li>
+<li>gpiochip_add 手続き呼び出し</li>
+</ul>
+
+<p>となってます。</p>
+
+<h2 id="昨晩突発イベント発生により">昨晩突発イベント発生により</h2>
+
+<p>今日はあまり何もできず。ここ継続で明日以降も掘削続けます。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Sep 28, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/09/27/function-named-device-add/" title="device_add という手続き">device_add という手続き</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/09/29/memo/" title="備忘メモ">備忘メモ</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

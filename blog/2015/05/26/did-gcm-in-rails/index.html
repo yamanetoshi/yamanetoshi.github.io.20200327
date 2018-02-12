@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>rails で GCM してみた</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">May 26, 2015
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2015/05/26/did-gcm-in-rails/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/rails/">rails </a><a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         rails で GCM してみた 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>とりあえず <code>gem i rails</code> かららしい。</p>
+
+<p></p>
+
+<p>その後、Gemfile を無理やり作成。</p>
+
+<pre><code>$ cat &lt;&lt; EOS &gt;&gt; Gemfile
+source &quot;http://rubygems.org&quot;
+gem &quot;rails&quot;, &quot;4.1.1&quot;
+EOS
+</code></pre>
+
+<p>で、<code>bundle install --path vendor/bundle</code> なのかな。で、その後 rails プロジェクトを作るのか。</p>
+
+<pre><code>$ bundle exec rails new GCMSample --skip-bundle
+</code></pre>
+
+<p>そしていくつかのファイルを削除します。</p>
+
+<pre><code>$ rm -rf .bundle Gemfile Gemfile.lock vendor
+</code></pre>
+
+<p>その後、プロジェクトなディレクトリに入って</p>
+
+<pre><code>$ cd GCMSample
+</code></pre>
+
+<p>例のアレを kickoff するのか。なかなかメタな感じがアレです。</p>
+
+<pre><code>$ bundle install --path vendor/bundle
+</code></pre>
+
+<p>これが終わったらとりあえずリポジトリを作るのかな。</p>
+
+<pre><code>$ git init
+</code></pre>
+
+<p>して <code>.gitignore</code> を以下に。</p>
+
+<pre><code>$ cat .gitignore
+# Ignore bundler config.
+/.bundle
+
+# Ignore bundler gems.
+vendor/bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
+# Ignore other unneeded files.
+doc/
+*.swp
+*~
+.project
+.DS_Store
+.idea
+.secret
+</code></pre>
+
+<p>で、commit を作ります。</p>
+
+<pre><code>$ git add .
+$ git commit -m 'initial commit'
+</code></pre>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>先に端末側をでっち上げます。Github のリポジトリが以下。</p>
+
+<ul>
+<li><a href="https://github.com/yamanetoshi/GCMSample">yamanetoshi/GCMSample</a></li>
+</ul>
+
+<p>で、でっちあげてから分かったのですが、これってちょっとした動作確認程度だと AP サーバの実装は不要なんですね。</p>
+
+<pre><code>$ curl --header &quot;Authorization: key=&lt;API Key&gt;&quot; --header Content-Type:&quot;application/json&quot; \n
+https://android.googleapis.com/gcm/send \n 
+-d &quot;{\&quot;registration_ids\&quot;:[\&quot;&lt;registration ID&gt;\&quot;],\&quot;data\&quot;:{\&quot;message\&quot;:\&quot;Hello\&quot;}}&quot;
+</code></pre>
+
+<p>色々情報整理して、AP サーバ側実装に着手の方向。</p>
+
+<p>参考にさせて頂いたのは以下のエントリです。感謝を込めて。</p>
+
+<ul>
+<li><a href="http://inon29.hateblo.jp/entry/2014/04/10/220556">【Android】GCMを使ってみる</a></li>
+</ul>
+
+<h2 id="必要なコントローラ">必要なコントローラ</h2>
+
+<p>ええと以下かな。</p>
+
+<ul>
+<li>端末側から ID 送信</li>
+<li>サーバサイドから通知発信</li>
+</ul>
+
+<p>面頭なので必要な属性を洗い出して scaffold で作るか。必要な属性は</p>
+
+<h3 id="登録-id-の登録">登録 ID の登録</h3>
+
+<ul>
+<li>登録 ID</li>
+</ul>
+
+<h3 id="通知発信">通知発信</h3>
+
+<ul>
+<li>登録 ID な ID</li>
+<li>メッセージ</li>
+</ul>
+
+<p>ということでコマンドどうだっけ (を</p>
+
+<p>以下か。</p>
+
+<pre><code>$ bundle exec raile generate scaffold Register registerid:string
+</code></pre>
+
+<p>で、とりあえず DB を。</p>
+
+<pre><code>$ bundle exec rake db:migrate
+</code></pre>
+
+<p>中身とか確認してません。そして関連付けする場合は以下になるんかな。</p>
+
+<pre><code>$ bundle exec rails generate scaffold Notification message:string Register:belongs_to
+</code></pre>
+
+<p>む、model 見たら message な属性が無いな。とりあえず <code>rake db:migrate</code> して DB 確認というか db/migration 配下のテキスト確認か。一応カラムは用意されている模様。ガワはできたので POST なソレを弄れば良いのかな。</p>
+
+<h2 id="id-登録機能">ID 登録機能</h2>
+
+<p>POST なパラメータをどう渡すんかな。なんか create メソドで以下な記述になってて</p>
+
+<pre><code>    def create
+      @register = Register.new(register_params)
+</code></pre>
+
+<p>register_params て何、って思ったら同じ Controller の中で定義されてました。</p>
+
+<pre><code>      def register_params
+        params.require(:register).permit(:registerid)
+      end
+</code></pre>
+
+<p>これ、register という form は registerid という属性 (と言って良いのか?) のみを持つ、ということを保証するものらしい。この場合 params[:register] は</p>
+
+<pre><code>{:registerid =&gt; 'abcdefg'}
+</code></pre>
+
+<p>というナニになってりゃ良いのか成程。Volley だと以下なカンジなのかどうか。</p>
+
+<pre><code>try {
+    String URL = &quot;http://hoge/fuga&quot;;
+    String requestStr = &quot;{\&quot;registerid\&quot;:\&quot;example\&quot;}&quot;&quot;;
+    JSONObject jsonBody = new JSONObject(requestStr);
+    new JsonObjectRequest(URL, jsonBody, new Response.Listener&lt;JSONObject&gt;() { ... });
+</code></pre>
+
+<h2 id="通知の投稿">通知の投稿</h2>
+
+<p>色々見てたら Rpush という gem があることを確認。使ってみます。参考にしたの以下のコンテンツです。</p>
+
+<ul>
+<li><a href="http://famtom.hatenablog.com/entry/2014/09/09/184220">RailsからRpushを使用して、スマートフォンにプッシュ通知を送る</a></li>
+</ul>
+
+<p>初期化は</p>
+
+<pre><code>$ bundle exec rpush init
+</code></pre>
+
+<p>でした。で、<code>db:migrate</code> した後は <code>config/initiaizers/rpush.rg</code> 見れとあります。あと <code>rpush help</code> も見てみてねとのこと。とりあえず</p>
+
+<ul>
+<li>seed_fu な gem 導入</li>
+<li>mkdir db/fixture</li>
+<li>db/fixture/app.rb を追加</li>
+</ul>
+
+<p>以下なカンジにて。</p>
+
+<pre><code>Rpush::Gcm::App.seed do |s|
+  s.name = &quot;android_app&quot;
+  s.auth_key = &quot;fugahoge&quot;
+  s.connections = 1
+end
+</code></pre>
+
+<p>これで <code>rake db:seed_fu</code> するとデータが格納されるのかどうか。作成されました。とりあえず記述を以下に変更。</p>
+
+<pre><code>Rpush::Gcm::App.seed_once do |s|
+</code></pre>
+
+<p>あとは notify の POST にて更新成功したら</p>
+
+<pre><code>n = Rpush::Gcm::Notification.new
+n.app = Rpush::Gcm::App.find_by_name(&quot;android_app&quot;)
+n.registration_ids = [&quot;token&quot;, &quot;...&quot;]
+n.data = { message: &quot;hi mom!&quot; }
+n.save!
+</code></pre>
+
+<p>みたいなカンジのソレを追加しておけば良い模様。</p>
+
+<h2 id="そして">そして</h2>
+
+<p>なんかできたみたいなんだけど、ここからどうするのかw とりあえず Heroku にアプリを作って登録云々まですすめてみるのかどうか。</p>
+
+<h3 id="heroku-の用意">Heroku の用意</h3>
+
+<p>heroku-toolbelt 入ってませんでした。</p>
+
+<pre><code> $ brew install heroku-toolbelt
+</code></pre>
+
+<p>鍵とかも登録しなきゃ、なのか。って brew install できないな。仕方無いので <code>http://toolbelt.heroku.com</code> から download してみて導入完了。あとは</p>
+
+<ul>
+<li><code>heroku login</code> して</li>
+<li><code>heroku keys:add</code> して</li>
+</ul>
+
+<p>でタイムアウト。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>May 26, 2015</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2015/05/26/bycycle-accident/" title="転んだ">転んだ</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2015/05/27/order-n5-iquid-crystal-panel/" title="N5 液晶パネル発注">N5 液晶パネル発注</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

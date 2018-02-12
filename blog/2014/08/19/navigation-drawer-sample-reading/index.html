@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Navigation Drawer 雛形掘削</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Aug 19, 2014
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/08/19/navigation-drawer-sample-reading/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Navigation Drawer 雛形掘削 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>とりあえず Activity の onCreate から確認着手。定義が以下です。</p>
+
+<pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    Log.d(TAG, &quot;onCreate&quot;);
+    setContentView(R.layout.activity_my);
+
+    mNavigationDrawerFragment = (NavigationDrawerFragment)
+            getFragmentManager().findFragmentById(R.id.navigation_drawer);
+    mTitle = getTitle();
+
+    // Set up the drawer.
+    mNavigationDrawerFragment.setUp(
+            R.id.navigation_drawer,
+            (DrawerLayout) findViewById(R.id.drawer_layout));
+}
+</code></pre>
+
+<p></p>
+
+<p>activity_my というレイアウトを setContentView して getTitle しています。getTitle については別途確認の方向。この例では ListView を持ってる Fragment を Drawer として保持している、という形になっています。activity_my.xml が以下です。</p>
+
+<pre><code>&lt;!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. --&gt;
+&lt;android.support.v4.widget.DrawerLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/drawer_layout&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MyActivity&quot;&gt;
+
+    &lt;!-- As the main content view, the view below consumes the entire
+         space available using match_parent in both dimensions. --&gt;
+    &lt;FrameLayout
+        android:id=&quot;@+id/container&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot; /&gt;
+
+    &lt;!-- android:layout_gravity=&quot;start&quot; tells DrawerLayout to treat
+         this as a sliding drawer on the left side for left-to-right
+         languages and on the right side for right-to-left languages.
+         If you're not building against API 17 or higher, use
+         android:layout_gravity=&quot;left&quot; instead. --&gt;
+    &lt;!-- The drawer is given a fixed width in dp and extends the full height of
+         the container. --&gt;
+    &lt;fragment android:id=&quot;@+id/navigation_drawer&quot;
+        android:layout_width=&quot;@dimen/navigation_drawer_width&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:layout_gravity=&quot;start&quot;
+        android:name=&quot;com.example.rms.myapplication.NavigationDrawerFragment&quot;
+        tools:layout=&quot;@layout/fragment_navigation_drawer&quot; /&gt;
+
+&lt;/android.support.v4.widget.DrawerLayout&gt;
+</code></pre>
+
+<p>findFragmentById でオブジェクトを首都して setUp というメソドを呼び出しています。setUp の中身を確認する前に呼び出されているであろう、callback を確認しておきたいと思います。以下の順で呼びだし、なのだったかどうか。</p>
+
+<ul>
+<li>onCreate</li>
+<li>onCreateView</li>
+<li>onActivityCreated</li>
+</ul>
+
+<p>ひとまず onCreate から。</p>
+
+<pre><code>@Override
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    Log.d(TAG, &quot;onCreate&quot;);
+
+    // Read in the flag indicating whether or not the user has demonstrated awareness of the
+    // drawer. See PREF_USER_LEARNED_DRAWER for details.
+    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+    mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
+
+    if (savedInstanceState != null) {
+        mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
+        mFromSavedInstanceState = true;
+    }
+
+    // Select either the default item (0) or the last selected item.
+    selectItem(mCurrentSelectedPosition);
+}
+</code></pre>
+
+<p>PREF_USER_LEARNED_DRAWER という設定と mUserLearnedDrawer という属性が出てきます。これも別途確認ってことで。あとは private な selectItem を呼び出してます。最初の項目を選択した、って状態にしておくのかどうか。selectItem も別途確認入れます。</p>
+
+<p>次、onCreateView ですが、ここでは ListView の設定が主になっています。最後に先頭チェックしたことにして終了してます。</p>
+
+<pre><code>@Override
+public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        Bundle savedInstanceState) {
+    Log.d(TAG, &quot;onCreateView&quot;);
+
+    mDrawerListView = (ListView) inflater.inflate(
+            R.layout.fragment_navigation_drawer, container, false);
+    mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    });
+    mDrawerListView.setAdapter(new ArrayAdapter&lt;String&gt;(
+            getActionBar().getThemedContext(),
+            android.R.layout.simple_list_item_activated_1,
+            android.R.id.text1,
+            new String[]{
+                    getString(R.string.title_section1),
+                    getString(R.string.title_section2),
+                    getString(R.string.title_section3),
+            }));
+    mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+    return mDrawerListView;
+}
+</code></pre>
+
+<p>よくよく見てみるに onAttach は onCrate よりも先に (?) 呼び出されるのか。Activity なオブジェクトの参照が渡されて mCallbacks という属性に参照を保持してますね。</p>
+
+<pre><code>@Override
+public void onAttach(Activity activity) {
+    super.onAttach(activity);
+    Log.d(TAG, &quot;onAttach&quot;);
+    try {
+        mCallbacks = (NavigationDrawerCallbacks) activity;
+    } catch (ClassCastException e) {
+        throw new ClassCastException(&quot;Activity must implement NavigationDrawerCallbacks.&quot;);
+    }
+}
+</code></pre>
+
+<p>これは確か selectItem で呼び出されている callback のはず。ちなみに NavigationDrawerCallbacks という interface の定義は以下ですね。</p>
+
+<pre><code>public static interface NavigationDrawerCallbacks {
+    /**
+     * Called when an item in the navigation drawer is selected.
+     */
+    void onNavigationDrawerItemSelected(int position);
+}
+</code></pre>
+
+<p>ということで onCrate から呼び出されている selectItem メソド確認します。</p>
+
+<pre><code>private void selectItem(int position) {
+    mCurrentSelectedPosition = position;
+    if (mDrawerListView != null) {
+        mDrawerListView.setItemChecked(position, true);
+    }
+    if (mDrawerLayout != null) {
+        mDrawerLayout.closeDrawer(mFragmentContainerView);
+    }
+    if (mCallbacks != null) {
+        mCallbacks.onNavigationDrawerItemSelected(position);
+    }
+}
+</code></pre>
+
+<p>選択された位置が引数で渡されて</p>
+
+<ul>
+<li>ListView の setItemChecked メソド呼び出し</li>
+<li>DrawerLayout の closeDrawer メソド呼び出し</li>
+<li>NavigationDrawerCallbacks の callback 呼び出し</li>
+</ul>
+
+<p>という形です。</p>
+
+<h2 id="時間切れ">時間切れ</h2>
+
+<p>setUP および mUserLearnedDrawer あたりが継続ですね。あと要確認なのが</p>
+
+<ul>
+<li>setHasOptionsMenu メソド (Fragment?)</li>
+<li>ListView#setItemChecked メソド</li>
+<li>getTitle メソド (Activity?)</li>
+</ul>
+
+<p>あたりですね。</p>
+
+<h2 id="ちなみに">ちなみに</h2>
+
+<p>ってことで callback の呼び出し順を確認してみました。以下な順になっている模様。</p>
+
+<ul>
+<li>Activity#onCreate</li>
+<li>Fragment#onAttach</li>
+<li>Fragment#onCreate</li>
+<li>Fragment#onCreateView</li>
+<li>Fragment#onActivityCreated</li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Aug 19, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/08/19/scrapy-tutorial/" title="Scrapy Tutorial">Scrapy Tutorial</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/08/20/android-project-with-volley/" title="ちょい前にごにょごにょしてたプロジェクト">ちょい前にごにょごにょしてたプロジェクト</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

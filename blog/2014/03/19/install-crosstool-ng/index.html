@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>crosstool-NG 入れるなど</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Mar 19, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/19/install-crosstool-ng/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         crosstool-NG 入れるなど 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>先日入手した、BareMetalで遊ぶ RaspberryPi に出てるソレを云々してみます。</p>
+
+<p>とりあえずパケジを導入。</p>
+
+<pre><code>$ sudo apt-get install build-essential python3 python2.7 \
+python-dev libzip-dev automake libncurses5-dev gperf bison \
+flex gawk libtool libexpat1-dev expat
+</code></pre>
+
+<p>あるいは 32bit 環境用ライブラリを、とのことで以下。</p>
+
+<pre><code>$ sudo dpkg --add-architecture i386
+$ sudo apt-get update
+$ sudo apt-get install ia32-libs libgtk2.0-0:i386
+</code></pre>
+
+<p>久しぶりに apt-get update とかしたのですが apt-line に docker だの heroku の toolbelt とか入っててアレですね。ともあれ、これで crosstool-NG の導入準備は OK とのこと。</p>
+
+<p></p>
+
+<p>とりあえず環境構築の手順としては</p>
+
+<ul>
+<li>crosstool-NG の導入</li>
+<li>環境設定</li>
+<li>コンパイルとインストール</li>
+</ul>
+
+<p>とあります。とりあえずディレクトリを掘って</p>
+
+<pre><code>$ mkdir ~/cross
+$ mkdir ~/cross/rpi
+$ mkdir ~/cross/src
+</code></pre>
+
+<p>rpi にコンパイラ、src にソースを、とのこと。で <a href="http://crosstool-ng.org">http://crosstool-ng.org</a> からソースコードを取得して展開して ~/cross 配下に導入なのか。</p>
+
+<p>cross 配下ですが以下なカンジになりました。</p>
+
+<pre><code>$ ls
+bin  lib  rpi  share  src
+</code></pre>
+
+<p>次に環境設定、ということで</p>
+
+<ul>
+<li>環境設定を保存するディレクトリを掘る</li>
+<li>設定テンプレをそこに保存</li>
+</ul>
+
+<p>とのことで以下。</p>
+
+<pre><code>$ mkdir ~/cross/src/ct-ng_rpi
+$ cd ~/cross/src/ct-ng_rpi
+$ ~/cross/bin/ct-ng arm-unknown-eabi
+$ ls
+config  config.gen
+</code></pre>
+
+<p>何かができてます。glibc 使いたくないので arm-unknown-eabi 選択ですか。そしてこのテンプレのままでは RasPI への最適化が不十分とのことで以下四点の設定を、とのこと。</p>
+
+<ul>
+<li>インストール先</li>
+<li>RasPI 最適化 (hard-float 対応、arm1176jzf-s 最適化)</li>
+<li>BareMetal 環境特有の設定 (MMU 無効化、libc システムコール未実装)</li>
+<li>gcc やライブラリのバージョン指定</li>
+</ul>
+
+<p>で、何するか、というと menuconfig みたいのを出して設定を変えて build する模様。</p>
+
+<pre><code>$ ~/cross/bin/ct-ng menuconfig
+</code></pre>
+
+<p>これはこれはなソレが出てきました。諸々修正を盛り込んでいるのですが gcc を最新に、ってこれは端末に導入されている、という理解で良いのだろうか。あるいは build の中で自動取得なのかな。</p>
+
+<p>ええと gcc は 4.8.2 が最新。newlib は 2.1.0 が最新なのか。テキストでは 1.20.0 ってなってますが最新を指定してしまえ。</p>
+
+<p>と思ったら指定できる最新は 4.8.1 ですね。そして newlib は 1.20.0 でした。</p>
+
+<p>で、build を実行。</p>
+
+<pre><code>$ ~/cross/bin/ct-ng build
+</code></pre>
+
+<p>あとは PATH を通しておけば良い模様。menuconfig にて設定変更した項目を以下に列挙しておきます。</p>
+
+<ul>
+<li>Paths and misc options の Local tarballs directory</li>
+<li>Prefix directory に ~/cross/rpi/${CT_TARGET} 指定</li>
+<li>Target options の Use the MMU のチェック外す</li>
+<li>Target optimisations は以下を指定
+
+<ul>
+<li>Architecture level は armv6zk</li>
+<li>Emit assembly for CPU および Tune for CPU には arm1176jzf-s</li>
+<li>Use specific FPU は vfp</li>
+</ul></li>
+<li>C compiler および C-library のバージョンは最新を選択</li>
+<li>Companion libraries の GMP, MPFR, MPC のバージョンを全て最新に</li>
+</ul>
+
+<p>ちょっと BareMetal 本もきちんと目を通せていないので今のうちに確認しとこ。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Mar 19, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/03/18/running-test-in-android-studio/" title="Android Studio 上でテスツ動いた">Android Studio 上でテスツ動いた</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/03/19/jtag-debugger/" title="BareMetal 関連にて">BareMetal 関連にて</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

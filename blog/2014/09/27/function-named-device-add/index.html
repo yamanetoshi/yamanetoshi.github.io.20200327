@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>device_add という手続き</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Sep 27, 2014
+         - 5 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/27/function-named-device-add/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         device_add という手続き 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>drivers/base/core.c にて定義。device_create_groups_vargs 手続きから呼び出されています。struct device なオブジェクトの初期化をして device_add に渡されてます。</p>
+
+<p>で、直前エントリにて dpm_sysfs_add が核心? とかって書いたのですが、そっちではなくて device_create_file が、な模様。手続き定義のコメントが以下。</p>
+
+<pre><code> * device_create_file - create sysfs attribute file for device.
+</code></pre>
+
+<p>ここから sysfs_create_file という手続きを呼び出していますね。どんどん掘ります。</p>
+
+<p></p>
+
+<ul>
+<li>device_create_file</li>
+<li>sysfs_create_file</li>
+<li>sysfs_create_file_ns</li>
+<li>sysfs_add_file_mode_ns</li>
+</ul>
+
+<p>ここから _kernfs_create_file という手続きが呼び出されています。む、kernfs て何だろ。</p>
+
+<h2 id="というか">というか</h2>
+
+<p>kobject_add という手続きを掘ってみたあたりでも sysfs を云々してる箇所あり。むむむ。</p>
+
+<h2 id="結論">結論</h2>
+
+<p>まず、デバイスドライバと sysfs との関係をきちんと理解できてない。そこからなのかどうか。</p>
+
+<h2 id="kernel-object-って何だ">kernel object って何だ</h2>
+
+<p><em><i>sysfs is a mechanism for representing kernel objects, their attributes, and their relationships with each other.</i></em> って記述あり。</p>
+
+<ul>
+<li>Kernel Objects は Directory として</li>
+<li>Object Attributes は Regular File として</li>
+<li>Object Relationships は Symbolic Link として</li>
+</ul>
+
+<p>って記述もありますね。そういった意味では /sys/class/gpio というディレクトリが作られるのはいつなんだ、という疑問もあり。</p>
+
+<p>でもこれってある意味それ以前の話だったりするのかどうか。</p>
+
+<p>順番てきに、gpio なデバイスを発見しているのであれば</p>
+
+<ul>
+<li>/sys/class/gpio ディレクトリ作る</li>
+<li>/sys/class/gpio/gpiochip0 ディレクトリ作る</li>
+<li>/sys/class/gpio/export および /sys/class/gpio/unexport 作る</li>
+</ul>
+
+<p>までが初期処理であって、export に番号書き込んで始めて</p>
+
+<ul>
+<li>/sys/class/gpio/gpio18</li>
+</ul>
+
+<p>みたいなディレクトリができて中に direction だの value だのというもろもろの操作のためのファイルが作られるのが筋なのか。</p>
+
+<p>このへん踏まえて見ないと駄目だな。</p>
+
+<h2 id="再読">再読</h2>
+
+<p>ということで再度確認を。gpiolib_sysfs_init 手続き見てみるに、先頭で</p>
+
+<pre><code>    status = class_register(&amp;gpio_class);
+</code></pre>
+
+<p>みたいなことしてます。臭い。</p>
+
+<ul>
+<li>__class_register</li>
+<li>kset_register</li>
+<li>kobject_add_internal</li>
+<li>crate_dir</li>
+</ul>
+
+<p>で /sys/class/gpio ができるのかどうか。create_dir 手続きの中で sysfs_create_dir_ns 手続きを呼び出してらっしゃいます。</p>
+
+<p>最初の __class_register で struct subsys_private 型なオブジェクトを作ってて kset_register にはその subsys って属性のみを渡しています。呼び出しまでにそのあたりを弄っていると思われるのが</p>
+
+<pre><code>    error = kobject_set_name(&amp;cp-&gt;subsys.kobj, &quot;%s&quot;, cls-&gt;name);
+</code></pre>
+
+<p>あるいは</p>
+
+<pre><code>#if defined(CONFIG_BLOCK)
+    /* let the block class directory show up in the root of sysfs */
+    if (!sysfs_deprecated || cls != &amp;block_class)
+        cp-&gt;subsys.kobj.kset = class_kset;
+#else
+    cp-&gt;subsys.kobj.kset = class_kset;
+#endif
+    cp-&gt;subsys.kobj.ktype = &amp;class_ktype;
+</code></pre>
+
+<p>というあたりのみ。ちなみに subsys 属性は struct kset 型な模様です。その先で kobj な属性のみを先に渡してるみたいですね。create_dir に至るまでに色々な操作が入っているようです。</p>
+
+<ul>
+<li>kset_register にて struct kset なオブジェクトを kset_init しています</li>
+<li>その中で kobj 属性について kobject_init_internal 手続きを適用</li>
+<li>kobjext_add_internal にて parent な kobject を取得しようとしている</li>
+</ul>
+
+<p>とりあえず class_register という手続きで gpio というクラスが登録されて /sys/class/gpio というディレクトリができる、という理解で良いかな。</p>
+
+<h2 id="次">次</h2>
+
+<p>gpiochip_export 手続きか。おそらくここでは gpiochip0 みたいなディレクトリとその中のいくつかのファイルが作られるはず。って /sys/class/gpio/export とか /sys/class/gpio/unexport とかってどうなっているのか。</p>
+
+<p>とは言え、gpio なデバイスが内部的に登録されていないと駄目なのか。ええと掘削ですが</p>
+
+<ul>
+<li>gpiolib_sysfs_init</li>
+<li>gpiochip_export</li>
+<li>device_create</li>
+<li>device_create_vargs</li>
+<li>device_create_groups_vargs</li>
+<li>device_add</li>
+</ul>
+
+<p>なのか。以下な手続きを呼び出しているのが目に付きます。</p>
+
+<ul>
+<li>kobject_add で gpiochip0 なディレクトリが作成される?</li>
+<li>device_create_file という手続きを呼び出している</li>
+<li>device_add_class_symlinks という手続きがあるな</li>
+<li>dvice_add_attrs という手続きがあるな (ここで gpiochip0 の中のファイルが作成される?</li>
+</ul>
+
+<p>device_create_file の中を見てみるに <em><i>create sysfs attribute file for device.</i></em> というコメントを発見。ここで export とか unexport とかを、なのかな。</p>
+
+<p>呼び出しが以下になってます。</p>
+
+<pre><code>    error = device_create_file(dev, &amp;dev_attr_uevent);
+</code></pre>
+
+<p>dev_attr_uevent というのが属性にあたるのかどうか。こいつの出自は何だろ、って定義が driver/base/core.c に無いなorz</p>
+
+<p>これ、compile しないと出てこない、とかってヤツなのかな。device attribute descriptor って何なのか。定義は以下な模様。</p>
+
+<pre><code>/* interface for exporting device attributes */
+struct device_attribute {
+    struct attribute    attr;
+    ssize_t (*show)(struct device *dev, struct device_attribute *attr,
+                    char *buf);
+    ssize_t (*store)(struct device *dev, struct device_attribute *attr,
+                     const char *buf, size_t count);
+};
+</code></pre>
+
+<p>これ、属性なファイルの操作 (読むとか書くとか) に割りあてられた動作を規定しているのか。とは言え、sysfs_create_file に渡しているのは以下らしい。</p>
+
+<pre><code>error = sysfs_create_file(&amp;dev-&gt;kobj, &amp;attr-&gt;attr);
+</code></pre>
+
+<h2 id="む">む</h2>
+
+<p>sysfs_add_file_mode_ns にて show だの store だのな callback を云々していると思われる以下な記述があるのですが</p>
+
+<pre><code>        struct kobject *kobj = parent-&gt;priv;
+        const struct sysfs_ops *sysfs_ops = kobj-&gt;ktype-&gt;sysfs_ops;
+
+        /* every kobject with an attribute needs a ktype assigned */
+        if (WARN(!sysfs_ops, KERN_ERR
+                 &quot;missing sysfs attribute operations for kobject: %s\n&quot;,
+                 kobject_name(kobj)))
+            return -EINVAL;
+
+        if (sysfs_ops-&gt;show &amp;&amp; sysfs_ops-&gt;store)
+            ops = &amp;sysfs_file_kfops_rw;
+</code></pre>
+
+<p>例えば sysfs_file_kfops_rw もシンボル未解決。あと、parent とか kobj も微妙に変化しててアレです。device_create_file の呼び出しから見てみるに</p>
+
+<pre><code>device_create_file(dev, &amp;dev_attr_uevent);
+</code></pre>
+
+<p>で、dev は device_add に渡される struct device なオブジェクトです。そして device_create_file では sysfs_create_file を以下な形で呼び出します。</p>
+
+<pre><code>sysfs_create_file(&amp;dev-&gt;kobj, &amp;attr-&gt;attr);
+</code></pre>
+
+<p>kobj という struct kobject 型の属性と attr という struct attribute 型の属性。sysfs_create_file ではある意味そのままですね。</p>
+
+<pre><code>sysfs_create_file_ns(kobj, attr, NULL);
+</code></pre>
+
+<p>で、sysfs_create_file_ns ですこし代わります。</p>
+
+<pre><code>sysfs_add_file_mode_ns(kobj-&gt;sd, attr, false, attr-&gt;mode, ns);
+</code></pre>
+
+<p>sd という属性は struct kernfs_node 型の属性です。ns は三番目の引数で値は NULL ですね。device_create_file に渡している struct device 型のオブジェクトは device_add の先頭らへんで get_device という手続きにより取得しています。ここから確認しないと駄目なのかどうか。</p>
+
+<p>つうか</p>
+
+<pre><code>dev = get_device(dev);
+</code></pre>
+
+<p>ってどうなのかと。そうか、device_add に渡された struct device オブジェクトは領域確保して初期化されたばかりなのでした。get_device では <em><i>increment reference count for device.</i></em> だそうです。以下を戻しています。</p>
+
+<pre><code>return dev ? kobj_to_dev(kobject_get(&amp;dev-&gt;kobj)) : NULL;
+</code></pre>
+
+<p>掘ってみるに確かに reference count らしきものを increment してます。kobj_to_dev は kobj 属性の位置から無理矢理 struct device な先頭アドレスをひり出すアレを使っているのかどうか。</p>
+
+<p>なんか頭がふらふらしてきたのでいったん止めます。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Sep 27, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/09/27/struct-kobject/" title="struct kobject 型">struct kobject 型</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/09/28/forge-bcm2708-gpio-dot-c/" title="bcm2708_gpio.c 確認">bcm2708_gpio.c 確認</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

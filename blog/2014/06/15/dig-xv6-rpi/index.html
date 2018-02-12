@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>xv6-rpi 掘削</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 15, 2014
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/06/15/dig-xv6-rpi/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         xv6-rpi 掘削 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>okidevops で QEMU 向けだから駄目、って事にしかけたんですが pi-baremetal ほど真面目にヤらなくても良いのではないか、と思いはじめた次第です。</p>
+
+<p>メモは以下に投入してます。</p>
+
+<ul>
+<li><a href="http://okinawadevops.github.io/2014/06/14/yamanetoshi/">okidevops で xv6-rpi 掘削メモ</a></li>
+</ul>
+
+<p>とりあえずヤリかけの set_bootpgtbl 手続きから確認開始。</p>
+
+<p></p>
+
+<p>つうか、手続き先頭でアドレスなパラメータの類が全部シフトされてて笑いました。</p>
+
+<pre><code>// convert all the parameters to indexes
+virt &gt;&gt;= PDE_SHIFT;
+phy  &gt;&gt;= PDE_SHIFT;
+len  &gt;&gt;= PDE_SHIFT;
+</code></pre>
+
+<p>ちなみに PDE_SHIRT は 20 で #define されてます。最初、set_bootpgtbl 手続きの len な引数に INIT_KERNMAP が指定されてて</p>
+
+<pre><code>set_bootpgtbl(0, 0, INIT_KERNMAP, 0);
+</code></pre>
+
+<p>びっくりしてたのですが、shift されてたのか。ちなみに値は src/memlayout.h で #define されてて以下です。</p>
+
+<pre><code>// we first map 1MB low memory containing kernel code.
+#define INIT_KERNMAP    0x100000
+</code></pre>
+
+<p>コメントにもある通り、1MB な値ですね。つうかこれも 20bit なのか。ざっくりで申し訳ないのですが繰り返しの中で以下を、なのかな。</p>
+
+<pre><code>        pde |= (AP_KO &lt;&lt; 10) | PE_CACHE | PE_BUF | KPDE_TYPE;
+</code></pre>
+
+<p>で、pde が kernel_pgtbl に、なのか。</p>
+
+<pre><code>        kernel_pgtbl[virt] = pde;
+</code></pre>
+
+<p>しかもこれ、20bit shift してるので繰り返しは一回のみ、なのかどうか。</p>
+
+<h2 id="ぐぬ">ぐぬ</h2>
+
+<p>何だこれ。とりあえず 0 番地と KERNBASE (0x80000000) 番地の kernel_pgtbl を設定する、は分かったのですが次の部分。</p>
+
+<pre><code>// vector table is in the middle of first 1MB (0xF000)
+vectbl = P2V_WO (VEC_TBL &amp; PDE_MASK);
+
+if (vectbl &lt;= (uint)&amp;end) {
+    cprintf (&quot;error: vector table overlaps kernel\n&quot;);
+}
+</code></pre>
+
+<p>VEC_TBL が 0xFFFF0000 で PDE_MASK がおそらく 0xFFFFF なような。あ、&amp; なのか。つうことは vectbl は 0x800f0000 になるんですが良いのかな。</p>
+
+<p>あるいは次の VEC_TBL の扱いも謎。</p>
+
+<pre><code>set_bootpgtbl(VEC_TBL, 0, 1 &lt;&lt; PDE_SHIFT, 0);
+</code></pre>
+
+<p>0xffff0000 な番地も 0 に map してるのかなぁ。次のソレはメモリマップな番地を云々、という事になるのかどうか。</p>
+
+<pre><code>set_bootpgtbl(KERNBASE+DEVBASE, DEVBASE, DEV_MEM_SZ, 1);
+</code></pre>
+
+<p>このあたり、なんとなく眺めてる限りではマニュアルてきに色々と違いますね。</p>
+
+<h2 id="kmain-手続き呼び出しまで">kmain 手続き呼び出しまで</h2>
+
+<p>続いて以下な手続きを順に呼び出してます。</p>
+
+<pre><code>load_pgtlb (kernel_pgtbl, user_pgtbl);
+jump_stack ();
+
+// We can now call normal kernel functions at high memory
+clear_bss ();
+
+kmain ();
+</code></pre>
+
+<p>load_pgtlb 手続きあたりが pi-baremetal の initsys にあたるかどうか。突き合わせつつ確認してみます。</p>
+
+<p>とりあえず以下から。</p>
+
+<pre><code>// read the main id register to make sure we are running on ARMv6
+asm(&quot;MRC p15, 0, %[r], c0, c0, 0&quot;: [r]&quot;=r&quot; (ret)::);
+</code></pre>
+
+<p>マニュアルの 3.2.2 c0, Main ID Register という項がありますね。3-20 です。</p>
+
+<ul>
+<li>[31:24] は 0x41 であること、とありチェックしてますね</li>
+<li>[19:16] は 0xF であること、とありこれもチェックしてます</li>
+</ul>
+
+<p>以降は pi-baremetal の initsys となんとなく同じカンジ。次のソレは</p>
+
+<pre><code>// set domain access control: all domain will be checked for permission
+val = 0x55555555;
+asm(&quot;MCR p15, 0, %[v], c3, c0, 0&quot;: :[v]&quot;r&quot; (val):);
+</code></pre>
+
+<p>で、マニュアルの 3.2.16 c3, Domain Access Control Register の項です。3-63 で良いのかな。これ、D0 から D15 までの全ての domain に b01 が設定されるのか。</p>
+
+<p>次は c2 なソレの設定なんですが pi-baremetal と微妙に違いますね。xv6-pi だと以下の部分になります。</p>
+
+<pre><code>// set the page table base registers. We use two page tables: TTBR0
+// for user space and TTBR1 for kernel space
+val = 32 - UADDR_BITS;
+asm(&quot;MCR p15, 0, %[v], c2, c0, 2&quot;: :[v]&quot;r&quot; (val):);
+
+// set the kernel page table
+val = (uint)kernel_pgtbl | 0x00;
+asm(&quot;MCR p15, 0, %[v], c2, c0, 1&quot;: :[v]&quot;r&quot; (val):);
+
+// set the user page table
+val = (uint)user_pgtbl | 0x00;
+asm(&quot;MCR p15, 0, %[v], c2, c0, 0&quot;: :[v]&quot;r&quot; (val):);
+</code></pre>
+
+<p>上から順に</p>
+
+<ul>
+<li>3.2.15 c2, Translation Table Base Control Register</li>
+<li>3.2.14 c2, Translation Table Base Register 1</li>
+<li>3.2.13 c2, Translation Table Base Register 0</li>
+</ul>
+
+<p>になってます。最初の Control Register の設定から見るに [2:0] な bit が b100 になってます。これ、Translation Table Base Register 0 の boundary size を 1KB にします、という事なのかどうか。</p>
+
+<p>ちなみに pi-baremetal だと</p>
+
+<pre><code>/* Use translation table 0 for everything, for now */
+asm volatile(&quot;mcr p15, 0, %[n], c2, c0, 2&quot; : : [n] &quot;r&quot; (0));
+</code></pre>
+
+<p>となっててこれだと boundary size が 16KB になるようです。そして以降の部分ですが xv6-pi だと 1 に kernel_pgtbl、0 に user_pgtbl が設定されてます。</p>
+
+<p>pi-baremetal だと両方同じものが設定されてますね。</p>
+
+<pre><code>/* Translation table 0 - ARM1176JZF-S manual, 3-57 */
+asm volatile(&quot;mcr p15, 0, %[addr], c2, c0, 0&quot; : : [addr] &quot;r&quot; (pt_addr));
+/* Translation table 1 */
+asm volatile(&quot;mcr p15, 0, %[addr], c2, c0, 1&quot; : : [addr] &quot;r&quot; (pt_addr));
+</code></pre>
+
+<p>で、MMU を on にしてます。</p>
+
+<pre><code>// ok, enable paging using read/modify/write
+asm(&quot;MRC p15, 0, %[r], c1, c0, 0&quot;: [r]&quot;=r&quot; (val)::);
+
+val |= 0x80300D; // enable MMU, cache, write buffer, high vector tbl,
+                 // disable subpage
+asm(&quot;MCR p15, 0, %[r], c1, c0, 0&quot;: :[r]&quot;r&quot; (val):);
+</code></pre>
+
+<p>pi-baremetal だとセットされるのは以下なので</p>
+
+<pre><code>/* Turn on MMU */
+control |= 1;
+/* Enable ARMv6 MMU features (disable sub-page AP) */
+control |= (1&lt;&lt;23);
+</code></pre>
+
+<p>色々アレゲな設定を、なのかどうか。一旦止めてマニュアル確認します。</p>
+
+<h2 id="ちなみに">ちなみに</h2>
+
+<p>使ってるマニュアルは以下です。</p>
+
+<ul>
+<li><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0301h/DDI0301H_arm1176jzfs_r0p7_trm.pdf">ARM1176JZF-S Technical Reference Manual</a></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 15, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/06/14/lunch-of-todays-saturday/" title="土曜の昼">土曜の昼</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/06/15/good-and-cheap/" title="Good and Cheap">Good and Cheap</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

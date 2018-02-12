@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>intel edison</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Oct 30, 2014
+         - 4 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/10/30/intel-edison/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         intel edison 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>火を入れて接続してみました。</p>
+
+<iframe src="https://www.flickr.com/photos/yamane-toshiaki/15478455507/player/" width="375" height="500" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+<p></p>
+
+<p>Breakout Board のソレが以下。</p>
+
+<ul>
+<li><a href="http://communities.intel.com/docs/DOC-23252">Edison Breakout Board Hardware Guide</a></li>
+</ul>
+
+<p>uname の出力が以下です。</p>
+
+<pre><code>Linux edison 3.10.17-poky-edison+ #1 SMP PREEMPT Wed Aug 20 16:09:18 CEST 2014 i686 GNU/Linux
+</code></pre>
+
+<p>lsmod の出力が以下。</p>
+
+<pre><code>root@edison:~# lsmod
+Module                  Size  Used by
+usb_f_acm              14335  1 
+u_serial               18556  6 usb_f_acm
+g_multi                70540  0 
+libcomposite           39245  2 usb_f_acm,g_multi
+bcm_bt_lpm             13676  0 
+bcm4334x              578947  0 
+</code></pre>
+
+<p>ちなみにコンソールからの接続では root のパスワード入力は略でした。</p>
+
+<ul>
+<li>systemd が動いている</li>
+<li>wlan0 がある</li>
+<li>usb0 という nic があって IP address 付いてる</li>
+</ul>
+
+<p>/etc/versoin の中身が以下。</p>
+
+<pre><code># cat /etc/version 
+edison-weekly_build_56_2014-08-20_15-54-05
+</code></pre>
+
+<ul>
+<li>hciconfig は何も出力せず</li>
+</ul>
+
+<p>/etc/bluetooth の中が以下。</p>
+
+<pre><code># ls /etc/bluetooth/
+input.conf      main.conf       network.conf    proximity.conf
+</code></pre>
+
+<p>bluetooth 関連は /etc/systemd/system/bluetooth.target.wants/bluetooth.service?</p>
+
+<pre><code># cat /etc/systemd/system/bluetooth.target.wants/bluetooth.service 
+[Unit]
+Description=Bluetooth service
+Documentation=man:bluetoothd(8)
+
+[Service]
+Type=dbus
+BusName=org.bluez
+ExecStart=/usr/lib/bluez5/bluetooth/bluetoothd
+NotifyAccess=main
+#WatchdogSec=10
+#Restart=on-failure
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+LimitNPROC=1
+
+[Install]
+WantedBy=bluetooth.target
+Alias=dbus-org.bluez.service
+</code></pre>
+
+<p>bluetooth な daemon の状態が以下?</p>
+
+<pre><code>root@edison:~# systemctl status bluetooth.service
+   bluetooth.service - Bluetooth service
+   Loaded: loaded (/lib/systemd/system/bluetooth.service; enabled)
+   Active: inactive (dead)
+     Docs: man:bluetoothd(8)
+</code></pre>
+
+<p>とりあえず、BT なデバイスがあるみたいなので接続試験とかしてみます。何かあれば追記の方向。</p>
+
+<h2 id="追記">追記</h2>
+
+<p>ログイン時のナニが以下でした。</p>
+
+<pre><code>Poky (Yocto Project Reference Distro) 1.6 edison ttyMFD2
+
+edison login: 
+</code></pre>
+
+<p>そして bluetooth 関連が色々アレ。</p>
+
+<pre><code># bluetoothctl
+[bluetooth]# scan on
+No default controller available
+</code></pre>
+
+<p>とか</p>
+
+<pre><code># hcitool scan
+Device is not available: No such device
+</code></pre>
+
+<p>だったりとか。hciconfig で up を、とかってそもそもデバイスファイルが分からない。直球で「edison bluetooth no default controller available」でググッたら以下がでてきた。</p>
+
+<ul>
+<li><a href="https://communities.intel.com/message/258308">Unable to get Bluetooth working on the Intel Edison</a></li>
+</ul>
+
+<p>でびあんなイメージがあるのか、つうかどうやってアレするんでしょ。</p>
+
+<p>それは良いとして以下で認識できた模様。</p>
+
+<pre><code># rfkill unblock bluetooth
+# hciconfig hci0 up
+# bluetoothctl
+[NEW] Controller 98:4F:EE:03:90:EA BlueZ 5.18 [default]
+[bluetooth]# 
+</code></pre>
+
+<p>いやはや。その後、bluetoothctl から scan on したらデバイス発見できてますね。</p>
+
+<pre><code>[bluetooth]# scan on
+Discovery started
+[CHG] Controller 98:4F:EE:03:90:EA Discovering: yes
+[NEW] Device 00:00:16:00:2A:11 BTSP10
+</code></pre>
+
+<p>こいつとペアリングしてみます。</p>
+
+<pre><code>[bluetooth]# pair 00:00:16:00:2A:11
+Attempting to pair with 00:00:16:00:2A:11
+[CHG] Device 00:00:16:00:2A:11 Connected: yes
+[CHG] Device 00:00:16:00:2A:11 UUIDs:
+        00001108-0000-1000-8000-00805f9b34fb
+        0000110b-0000-1000-8000-00805f9b34fb
+        0000110e-0000-1000-8000-00805f9b34fb
+        0000111e-0000-1000-8000-00805f9b34fb
+[CHG] Device 00:00:16:00:2A:11 Paired: yes
+Pairing successful
+[CHG] Device 00:00:16:00:2A:11 Connected: no
+[CHG] Device 00:24:EF:67:D4:02 RSSI: -83
+</code></pre>
+
+<p>状態の確認の方法がよくわからんな。こうか。</p>
+
+<pre><code>[bluetooth]# paired-devices
+Device 00:00:16:00:2A:11 BTSP10
+</code></pre>
+
+<p>ペアリングはされている模様。その後紆余曲折の後にパケジが足りていないのでは、ということになりましてパッケージマネージャを探しております。</p>
+
+<p>どうも opkg というヤツを使っているらしい、ってことで以下ドキュメント参照しつつ設定ファイルを書き換え。</p>
+
+<ul>
+<li><a href="http://qiita.com/yoneken/items/1b24f0dd8ae00579a0c2">スタートアップ Intel Edison</a></li>
+</ul>
+
+<p>で、<code>opkg update</code> してインターネットに接続されていないことに気づいていたりなど。</p>
+
+<p>とりあえず、</p>
+
+<pre><code># systemctl start wpa_supplicant
+# wpa_cli
+</code></pre>
+
+<p>にて何とかなっているのかどうか。</p>
+
+<pre><code>&gt; add_network
+0
+&gt; set_network 0 ssid &quot;fugahoge&quot;
+OK
+&gt; set_network 0 psk &quot;hogepiyo&quot;
+OK
+&gt; enable_network 0
+OK
+</code></pre>
+
+<p>でプロンプトが戻ってこず、困っているのが今です (ぇ</p>
+
+<p>あ、enter 押したらプロンプトが出た。一応 wlan0 に IP address もらえてるみたいです。とりあえず <code>opkg update</code> を。</p>
+
+<p>なんかエラー、って言われてるのかどうか。よくよく見てみるに default route に到達できていない模様。よく見れば usb0 も同じネットワークになってて経路が微妙になってるのか。<code>ifconfig usb0 down</code> してリトライ。</p>
+
+<p>それでも駄目だったので wlan0 を down して up したら通信できるようになりました。</p>
+
+<pre><code>root@edison:~# opkg update
+Downloading http://repo.opkg.net/edison/repo/all/Packages.gz.
+Inflating http://repo.opkg.net/edison/repo/all/Packages.gz.
+Updated list of available packages in /var/lib/opkg/all.
+Downloading http://repo.opkg.net/edison/repo/edison/Packages.gz.
+Inflating http://repo.opkg.net/edison/repo/edison/Packages.gz.
+Updated list of available packages in /var/lib/opkg/edison.
+Downloading http://repo.opkg.net/edison/repo/core2-32/Packages.gz.
+Inflating http://repo.opkg.net/edison/repo/core2-32/Packages.gz.
+Updated list of available packages in /var/lib/opkg/core2-32.
+Downloading http://iotdk.intel.com/repos/1.1/intelgalactic/Packages.
+Updated list of available packages in /var/lib/opkg/intel-iotdk.
+Downloading http://iotdk.intel.com/repos/1.1/iotdk/all/Packages.
+Updated list of available packages in /var/lib/opkg/intel-all.
+Downloading http://iotdk.intel.com/repos/1.1/iotdk/i586/Packages.
+Updated list of available packages in /var/lib/opkg/intel-i586.
+Downloading http://iotdk.intel.com/repos/1.1/iotdk/x86/Packages.
+Updated list of available packages in /var/lib/opkg/intel-x86.
+</code></pre>
+
+<p>そして、スルーしてたのですがとりあえず flash しなきゃいけないの?</p>
+
+<h2 id="flash-は別途で">flash は別途で</h2>
+
+<p>以下を確認させて頂きつつ</p>
+
+<ul>
+<li><a href="https://github.com/kinneko/BBBB/wiki/Angstrom-package-management">Angstrom package management</a></li>
+</ul>
+
+<p><code>opkg list|wc</code> してみたら 24770 行って出てきてびっくりしてたら一つのパケジで一行ではなかった模様。blue で grep したら以下。</p>
+
+<pre><code>root@edison:~# opkg list |grep blue
+bluetooth-rfkill-event - 1.0-r0 - bluetooth-rfkill-event version 1.0-r0  Bluetooth rfkill event daemon for
+bluetooth-rfkill-event-dbg - 1.0-r0 - bluetooth-rfkill-event version 1.0-r0 - Debugging files  Bluetooth rfkill
+bluetooth-rfkill-event-dev - 1.0-r0 - bluetooth-rfkill-event version 1.0-r0 - Development files  Bluetooth
+bluez5 - 5.18-r0 - Linux Bluetooth Stack Userland V5  Linux Bluetooth stack V5 userland
+bluez5 - 5.18+git0+cdfdc6b2b6-r0 - Linux Bluetooth Stack Userland V5  Linux Bluetooth stack V5 userland
+bluez5-dbg - 5.18-r0 - Linux Bluetooth Stack Userland V5 - Debugging files  Linux Bluetooth
+bluez5-dbg - 5.18+git0+cdfdc6b2b6-r0 - Linux Bluetooth Stack Userland V5 - Debugging files  Linux Bluetooth
+bluez5-dev - 5.18-r0 - Linux Bluetooth Stack Userland V5 - Development files  Linux Bluetooth
+bluez5-dev - 5.18+git0+cdfdc6b2b6-r0 - Linux Bluetooth Stack Userland V5 - Development files  Linux Bluetooth
+bluez5-doc - 5.18-r0 - Linux Bluetooth Stack Userland V5 - Documentation files  Linux Bluetooth
+bluez5-doc - 5.18+git0+cdfdc6b2b6-r0 - Linux Bluetooth Stack Userland V5 - Documentation files  Linux Bluetooth
+bluez5-obex - 5.18-r0 - Linux Bluetooth Stack Userland V5  Linux Bluetooth stack V5 userland
+bluez5-obex - 5.18+git0+cdfdc6b2b6-r0 - Linux Bluetooth Stack Userland V5  Linux Bluetooth stack V5 userland
+bluez5-testtools - 5.18-r0 - Linux Bluetooth Stack Userland V5  Linux Bluetooth stack V5 userland
+bluez5-testtools - 5.18+git0+cdfdc6b2b6-r0 - Linux Bluetooth Stack Userland V5  Linux Bluetooth stack V5 userland
+kernel-module-bcm-bt-lpm - 3.10.17+git0+6ad20f049a_c03195ed6e-r0 - bcm-bt-lpm kernel module  bcm-bt-lpm kernel module; bcm43xx_bluetooth
+libasound-module-bluez - 5.18-r0 - Linux Bluetooth Stack Userland V5  Linux Bluetooth stack V5 userland
+libasound-module-bluez - 5.18+git0+cdfdc6b2b6-r0 - Linux Bluetooth Stack Userland V5  Linux Bluetooth stack V5 userland
+</code></pre>
+
+<p>libasound-module-bluez なんてのがありますね。</p>
+
+<p>あとパケジの導入は例えば <a href="http://repo.opkg.net/edison/repo/">http://repo.opkg.net/edison/repo/</a> 配下から .ipk なファイルを download してきて <code>opkg install</code> で導入、なのかな。</p>
+
+<p>とりあえず libasound-module-bluez 確認します。</p>
+
+<h2 id="蛇足ですが">蛇足ですが</h2>
+
+<p>lspci の出力が以下。</p>
+
+<pre><code>00:00.0 Host bridge: Intel Corporation Device 1170 (rev 01)
+00:01.0 SD Host controller: Intel Corporation Device 1190 (rev 01)
+00:01.2 SD Host controller: Intel Corporation Device 1190 (rev 01)
+00:01.3 SD Host controller: Intel Corporation Device 1190 (rev 01)
+00:02.0 Display controller: Intel Corporation Device 1182 (rev 01)
+00:04.0 Serial controller: Intel Corporation Device 1191 (rev 01)
+00:04.1 Serial controller: Intel Corporation Device 1191 (rev 01)
+00:04.2 Serial controller: Intel Corporation Device 1191 (rev 01)
+00:04.3 Serial controller: Intel Corporation Device 1191 (rev 01)
+00:05.0 Serial controller: Intel Corporation Device 1192 (rev 01)
+00:06.0 System peripheral: Intel Corporation Device 1193 (rev 01)
+00:06.1 System peripheral: Intel Corporation Device 1193 (rev 01)
+00:07.0 System peripheral: Intel Corporation Device 1194 (rev 01)
+00:07.1 System peripheral: Intel Corporation Device 1194 (rev 01)
+00:07.2 System peripheral: Intel Corporation Device 1194 (rev 01)
+00:08.0 Communication controller: Intel Corporation Device 1195 (rev 01)
+00:08.1 Communication controller: Intel Corporation Device 1195 (rev 01)
+00:08.2 Communication controller: Intel Corporation Device 1195 (rev 01)
+00:08.3 Communication controller: Intel Corporation Device 1195 (rev 01)
+00:09.0 Communication controller: Intel Corporation Device 1196 (rev 01)
+00:09.1 Communication controller: Intel Corporation Device 1196 (rev 01)
+00:09.2 Communication controller: Intel Corporation Device 1196 (rev 01)
+00:0a.0 Communication controller: Intel Corporation Device 1197 (rev 01)
+00:0b.0 Encryption controller: Intel Corporation Device 1198 (rev 01)
+00:0c.0 System peripheral: Intel Corporation Device 1199 (rev 01)
+00:0d.0 Multimedia audio controller: Intel Corporation Device 119a (rev 01)
+00:0e.0 System peripheral: Intel Corporation Device 119b (rev 01)
+00:11.0 USB controller: Intel Corporation Device 119e (rev 01)
+00:12.0 Signal processing controller: Intel Corporation Device 119f (rev 01)
+00:13.0 Co-processor: Intel Corporation Device 11a0 (rev 01)
+00:14.0 Co-processor: Intel Corporation Device 11a1 (rev 01)
+00:15.0 System peripheral: Intel Corporation Device 11a2 (rev 01)
+00:16.0 Co-processor: Intel Corporation Device 11a3 (rev 01)
+00:16.1 Co-processor: Intel Corporation Device 11a4 (rev 01)
+00:17.0 System peripheral: Intel Corporation Device 11a5 (rev 01)
+00:18.0 Display controller: Intel Corporation Device 11a6 (rev 01)
+</code></pre>
+
+<p>/proc/meminfo とかもとっときゃよかった。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Oct 30, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/10/30/made-a-mistake-that-describe-sendbroadcast/" title="sendBroadcast の action でハマった件">sendBroadcast の action でハマった件</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/10/30/bmx/" title="BMX">BMX</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

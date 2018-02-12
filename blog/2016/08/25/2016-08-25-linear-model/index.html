@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>R 備忘</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Aug 25, 2016
+         - 5 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2016/08/25/2016-08-25-linear-model/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+         R 備忘 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>でびあんな配布系であれば <code>r-base</code> というパケジを導入すれば良い模様。あとは全画面な <code>rxvt</code> あたりを起動して <code>emacs -nw</code> で良いのかどうか。</p>
+
+<p>とりあえず</p>
+
+<ul>
+<li><a href="https://www.amazon.co.jp/dp/4903814742/yamanetoshi-22">平均・分散から始める一般化線形モデル入門</a></li>
+</ul>
+
+<p>を入手して目を通しはじめていたりするのですが、これ良いです。R で云々した後で Python なナニでも、と思っている次第です。備忘なメモを以降で書きちらかす方向にて。</p>
+
+<p></p>
+
+<h2 id="t-検定">t 検定?</h2>
+
+<ul>
+<li>期待値</li>
+<li>分散</li>
+<li>サンプルサイズ</li>
+</ul>
+
+<p>というものが揃ったら t 値というものを求めてやれば有意差があるかどうかが分かる、との事。t 値は以下の式で求めることができる模様。</p>
+
+<pre><code>t 値 = 期待値の差 / 分散的なもの ÷ サンプルサイズ的なもの
+</code></pre>
+
+<p>これが大きければ良い、のですが大小判定のために以下の手順を踏むとのこと。</p>
+
+<ul>
+<li>t 値を p 値に変換</li>
+<li>t 値が大きければ p 値は小さくなる</li>
+<li>p 値が 0.05 を下回れば t 値は十分大きい</li>
+</ul>
+
+<p>で、この検定ですが以下なデータセットがあるとして</p>
+
+<pre><code>d &lt;- c(-1, -1, 0, 0, 1, 3, 5, 6, 7)
+</code></pre>
+
+<p>以下で良いようです。</p>
+
+<pre><code>&gt; &gt; &gt; &gt; t.test(d)
+
+        One Sample t-test
+
+data:  d 
+t = 2.5861, df = 9, p-value = 0.0294
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 0.3382386 5.0617614
+sample estimates:
+mean of x
+      2.7
+</code></pre>
+
+<p>p-value は十分小さいです。</p>
+
+<h2 id="分散分析モデル">分散分析モデル</h2>
+
+<p>「選択肢を変えることで期待値が変わるか?」を検定したい場合に ANOVA と呼ばれる分析の方法を使う、とのこと。方法としてはデータを以下のように分解し</p>
+
+<pre><code>データ = 平均値 + 効果 + 誤差
+</code></pre>
+
+<p>そのうえで F 比と呼ばれる値を計算。</p>
+
+<pre><code>F 比 = 効果の大きさ / 誤差の大きさ
+</code></pre>
+
+<p>この値が大きければ有意差あり、と見做すとのこと。検定の方法としてはこの値から p 値を計算して、という事になるようです。</p>
+
+<h2 id="用語について">用語について</h2>
+
+<ul>
+<li>自由度 : データ構造を加味したサンプルサイズ。検定によって自由度の求め方は異なるので都度調べること</li>
+<li>僅差平方和 : 分散の分子の値、誤差の僅差平方和は残差平方和あるいは RSS (Residual Sum of Squared) と呼ばれる</li>
+<li>平均平方 : 分散。F 比は効果と誤差の平均平方の比</li>
+</ul>
+
+<h2 id="分散分析の-p-値">分散分析の p 値</h2>
+
+<p>計算された F 比と効果の自由度、誤差の自由度を使って p 値は計算する。</p>
+
+<pre><code>&gt; 1 - pf(16, 2, 3)
+</code></pre>
+
+<h2 id="r-で分散分析">R で分散分析</h2>
+
+<p>以下なデータフレームが使われています。</p>
+
+<pre><code>&gt; d2 &lt;- data.frame(
+   length = c(2, 4, 10, 12, 6, 8),
+   medicine = c(&quot;A&quot;, &quot;A&quot;, &quot;B&quot;, &quot;B&quot;, &quot;C&quot;, &quot;C&quot;)
+)
+</code></pre>
+
+<p>lm という手続きでモデルを作る模様。</p>
+
+<pre><code>&gt; modelANOVA &lt;- lm(length ~ medicine, data=d2)
+</code></pre>
+
+<p>length が対象で対象の値を変化させている要素が medicine という形で第一引数を記載する模様。興味の対象 (応答変数) が左側で対象を変化させているもの (説明変数) が左側とのこと。</p>
+
+<p>以下な形でも良いとのこと。</p>
+
+<pre><code>&gt; modelANOVA &lt;- lm(d2$length ~ d2$medicine)
+</code></pre>
+
+<p>あとは anova という関数にモデルを渡せば良い模様。</p>
+
+<pre><code>&gt; anova(modelANOVA)
+Analysis of Variance Table
+
+Response: length
+          Df Sum Sq Mean Sq F value  Pr(&gt;F)
+medicine   2     64      32      16 0.02509 *
+Residuals  3      6       2
+</code></pre>
+
+<p>出力一部略してます。</p>
+
+<ul>
+<li><code>Response: length</code> は応答変数は length です、という意味</li>
+<li>DF は自由度、Sum Sq は僅差平方和、Mean Sq は平均平方、F 比、p 値</li>
+<li>medicine の行は効果の情報</li>
+<li>Residuals の行は誤差の情報</li>
+</ul>
+
+<h2 id="モデルの選択">モデルの選択</h2>
+
+<pre><code>データ = 平均値 + 効果 + 誤差
+</code></pre>
+
+<p>という構造でデータを表現しますが、効果という書き方をしている説明変数というものが妥当かどうかは</p>
+
+<pre><code>データ = 平均値 + 誤差2
+</code></pre>
+
+<p>な誤差2 から誤差を引いた値が効果の大きさとなるとのことで以下の方法で確認ができるとのこと。</p>
+
+<pre><code>&gt; model_1 &lt;- lm(length ~ medicine, data=d2)
+&gt; model_2 &lt;- lm(length ~ 1, data=d2)
+</code></pre>
+
+<p>model_2 は説明変数が固定という考え方で良いのかな。</p>
+
+<pre><code>&gt; anova(model_1, model_2)
+Analysis of Variance Table
+
+Model 1: length ~ medicine
+Model 2: length ~ 1
+  Res.Df RSS Df Sum of Sq  F  Pr(&gt;F)
+1      3   6
+2      5  70 -2       -64 16 0.02509 *
+</code></pre>
+
+<p>上の書き方がモデル選択における分散分析の記法とのこと。</p>
+
+<ul>
+<li>Res.DF は誤差の分散の自由度</li>
+<li>RSS は誤差の偏差平方和 (残差平方和)</li>
+</ul>
+
+<p>うーん、上の出力、見方がイマイチよくわからんな。Model 1 を使うことで誤差は少なくなる (効果は大きくなる?) から 1 の方が良いでしょ、という事なのかな。</p>
+
+<h2 id="回帰分析">回帰分析</h2>
+
+<p>「ある値が変化することによって、対象がどれだけ変化するか」をモデル化する手法とのこと。</p>
+
+<p>変化の対象? としては</p>
+
+<ul>
+<li>分散分析は選択肢</li>
+<li>回帰分析は数値</li>
+</ul>
+
+<p>になる模様。あと線形回帰、ということで</p>
+
+<pre><code>y = ax + b + 誤差
+</code></pre>
+
+<p>みたいな式も出てきていたり。傾きと切片というパラメータでモデルの推定を、とのこと。そしてパラメータの推定には最小二乗法という手法が出てきました。残差平方和 (予測値と実測値の差を二乗したもの) を最小とするパラメータをモデルに使う手法とのこと。</p>
+
+<h2 id="実際">実際</h2>
+
+<p>R で optim という関数を使う模様。残差平方和を計算する関数を定義して optim に渡せば良いらしい、ということでテキストを追い掛けてみます。</p>
+
+<p>以下なデータフレームを作っておきます。</p>
+
+<pre><code>d3 &lt;- data.frame(
+   beer = c(4, 3, 5, 5, 8),
+   temperature = c(1, 2, 3, 4, 5)
+)
+</code></pre>
+
+<p>R は plot という関数がある模様。</p>
+
+<pre><code>plot (beer ~ temperature, xlim=c(0,6), ylim=c(2,8), data=d3)
+</code></pre>
+
+<p>で、<code>ax + b</code> な関数作って云々、は抜きにしていきなり <code>lm</code> で何とかなる模様。</p>
+
+<pre><code>modelKaiki &lt;- lm(beer ~ temperature, data=d3)
+modelNull &lt;- lm(beer ~ 1, data=d3)
+
+anova(modelKaiki, modelNull)
+</code></pre>
+
+<p>anova の出力は以下でした。</p>
+
+<pre><code>&gt; &gt; &gt; anova(modelKaiki, modelNull)                                                                                                                                                                                
+
+Analysis of Variance Table
+
+Model 1: beer ~ temperature
+Model 2: beer ~ 1
+  Res.Df RSS Df Sum of Sq   F  Pr(&gt;F)
+1      3   4
+2      4  14 -1       -10 7.5 0.07142 .
+</code></pre>
+
+<p>p 値は 0.07 なので「有意な影響を与えているとは言えない」という結論とのこと。</p>
+
+<h2 id="正規線形モデル">正規線形モデル</h2>
+
+<p>分散分析モデルと回帰モデルを一つにまとめる、とのこと。あと、用語のフォローあり。</p>
+
+<ul>
+<li>分散分析で用いた選択肢型のデータをカテゴリ変数と呼ぶ</li>
+<li>回帰分析で用いた数値型のデータを連続変数と呼ぶ</li>
+</ul>
+
+<p>正規線形モデルにおける応答変数は必ず連続変数とのこと。説明変数はどちらでも良いし、複数ある場合は混在しても良いとのこと。また、この章では</p>
+
+<ul>
+<li>応答変数として魚の体長</li>
+<li>説明変数として薬の有無、餌の量、という二種類</li>
+</ul>
+
+<p>を使う模様。</p>
+
+<h2 id="解析の流れ">解析の流れ</h2>
+
+<p>以下とのこと。</p>
+
+<ul>
+<li>データの読み込み</li>
+<li>データの図示 (大切)</li>
+<li>統計モデルの作成</li>
+<li>検定とモデル選択</li>
+<li>選択したモデルの結果を用いた予測</li>
+</ul>
+
+<h2 id="解析">解析</h2>
+
+<p>あら? データを読み込んで</p>
+
+<pre><code>d4 &lt;- read.csv(&quot;data/data/data0_linearModel.csv&quot;)
+</code></pre>
+
+<p>図示して</p>
+
+<pre><code>pairs(d4)
+</code></pre>
+
+<p>モデルを作って</p>
+
+<pre><code>lmModel &lt;- lm(length ~ food + medicine, data=d4)
+</code></pre>
+
+<p>検定して</p>
+
+<pre><code>anova(lmModel)
+</code></pre>
+
+<p>あるいはモデルに対して summary 適用</p>
+
+<pre><code>summary(lmModel)
+
+
+Call:
+lm(formula = length ~ food + medicine, data = d4)
+
+Residuals:
+     Min       1Q   Median       3Q      Max
+-25.6371  -7.8463   0.7147   8.6351  20.4050
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept) 45.66005    2.79274   16.35   &lt;2e-16 ***
+food         1.27075    0.04109   30.92   &lt;2e-16 ***
+medicineyes 50.93025    2.12848   23.93   &lt;2e-16 ***
+---
+Signif. codes:  (ry
+
+Residual standard error: 10.58 on 97 degrees of freedom
+Multiple R-squared: 0.9346,     Adjusted R-squared: 0.9333
+F-statistic: 693.1 on 2 and 97 DF,  p-value: &lt; 2.2e-16 
+</code></pre>
+
+<p>これ、Intercept が切片で food および medicineyes が係数なのか。で、係数が導きだせれば予測ができると。</p>
+
+<h2 id="一旦終わり">一旦終わり</h2>
+
+<p>続きも面白そうですが一旦ここで止めます。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Aug 25, 2016</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2016/06/29/walk-the-asato-and-sakae-machi/" title="栄町、安里呑み歩き">栄町、安里呑み歩き</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2016/08/26/2016-08-26-parametric-bootstrap-test/" title="パラメトリックブートストラップ検定">パラメトリックブートストラップ検定</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

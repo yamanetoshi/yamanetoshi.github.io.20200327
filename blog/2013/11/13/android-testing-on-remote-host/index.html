@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>リモホに環境できたので試験してみた件</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Nov 13, 2013
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/13/android-testing-on-remote-host/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         リモホに環境できたので試験してみた件 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>準備ができたようなので動作確認含めて先日でっち上げたハロワのテストを云々してみることに。とりあえず本体とテストプロジェクトを clone してきて以下。</p>
+
+<pre><code>$ cd HelloWorld
+$ android update project -p .
+$ cd HelloWorldTest
+$ android update test-project -m ../HelloWorld -p .
+</code></pre>
+
+<p>で、以下を実行したのですが例外ダンプ吐いて止まる。</p>
+
+<pre><code>$ ant clean debug install test
+</code></pre>
+
+<p>どうも debug で死亡している模様。</p>
+
+<p></p>
+
+<p>ダンプ見るに debug.keystore が無いのかどうか。</p>
+
+<pre><code>at com.android.sdklib.build.ApkBuilder.getDebugKey(ApkBuilder.java:272)
+</code></pre>
+
+<p>で ~/.android の中を見てみるに debug.keystore は存在するけれど、0 byte という始末。以下で作成らしい。</p>
+
+<pre><code>$ keytool -genkey -v -keystore debug.keystore -alias androiddebugkey ¥
+-keyalg RSA -validity 10000 -dname &quot;CN=Android Debug,O=Android,C=US&quot;
+</code></pre>
+
+<p>できたソレを ~/.android に放り込んで ant debug はパスしました。</p>
+
+<h2 id="emulator">emulator</h2>
+
+<p>以下コマンドにて作成。</p>
+
+<pre><code>$ android create avd --force -n test -t android-15 -abi armeabi-v7a
+</code></pre>
+
+<p>で、別端末にて起動。</p>
+
+<pre><code>$ emulator -avd test -no-skin -no-audio -no-window
+</code></pre>
+
+<p>一応確認。動いてます。</p>
+
+<pre><code>$ adb devices
+List of devices attacked
+emulator-5554   offLine
+</code></pre>
+
+<p>大丈夫かな。これで ant install debug してみるに成功。emulator に HelloWorld および HelloWorldTest な apk が云々、というメセジが出力されている。</p>
+
+<h2 id="試験実行">試験実行</h2>
+
+<p>がしかし、ant test で NG でした。出力メセジが以下。BUILD SUCCESSFUL て。</p>
+
+<pre><code>$ ant test
+Buildfile: /home/rms/HelloWorldTest/build.xml
+
+-check-env:
+ [checkenv] Android SDK Tools Revision 22.3.0
+ [checkenv] Installed at /usr/local/adt-bundle-linux-x86_64-20131030/sdk
+
+-setup:
+     [echo] Project Name: MainActivityTest
+  [gettype] Project Type: Test Application
+
+-test-project-check:
+
+test:
+     [echo] Running tests ...
+     [exec] INSTRUMENTATION_STATUS: id=ActivityManagerService
+     [exec] INSTRUMENTATION_STATUS: Error=Unable to find instrumentation info for: ComponentInfo{com.example.helloworld.test/android.test.InstrumentationTestRunner}
+     [exec] INSTRUMENTATION_STATUS_CODE: -1
+     [exec] android.util.AndroidException: INSTRUMENTATION_FAILED: com.example.helloworld.test/android.test.InstrumentationTestRunner
+     [exec]     at com.android.commands.am.Am.runInstrument(Am.java:586)
+     [exec]     at com.android.commands.am.Am.run(Am.java:117)
+     [exec]     at com.android.commands.am.Am.main(Am.java:80)
+     [exec]     at com.android.internal.os.RuntimeInit.finishInit(Native Method)
+     [exec]     at com.android.internal.os.RuntimeInit.main(RuntimeInit.java:238)
+     [exec]     at dalvik.system.NativeStart.main(Native Method)
+
+BUILD SUCCESSFUL
+</code></pre>
+
+<p>で、stackoverflow あたりで AndroidManifest 見れ、という風なリプを確認して中身を見てみるに以下な記述となっておりました。</p>
+
+<pre><code>    &lt;instrumentation
+        android:name=&quot;com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner&quot;
+        android:targetPackage=&quot;com.example.helloworld&quot; /&gt;
+</code></pre>
+
+<p>むむ、<a href="http://yamanetoshi.github.io/blog/2013/11/08/testing-helloworld-by-espresso/">このエントリ</a>によれば、espresso な jar の中にあるのかどうか。</p>
+
+<h2 id="って">って</h2>
+
+<p>なんとなくどっかで見たことあるような気がしてたんですが、ソースを確認してみたら以下が抜けてました。抜けてたとゆーよりも commit 作って push してなかったよ。</p>
+
+<pre><code>    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        mActivity = getActivity();
+        mInstrumentation = getInstrumentation();
+        setActivityInitialTouchMode(false);
+    }      
+</code></pre>
+
+<p>追加してリトライ。でも駄目。むむむむ。</p>
+
+<p>つうかエラーの出力をよくよく見てみるに android.test.InstrumentationTestRunner を探しているように見えます。使ってるのはこいつじゃないのに。</p>
+
+<h2 id="別件対応後">別件対応後</h2>
+
+<p>再度着手。どうも sdk 由来の build.xml (自動作成された build.xml から import している模様) に以下な記述があるらしい。</p>
+
+<pre><code>    &lt;target name=&quot;test&quot; depends=&quot;-test-project-check&quot;
+                description&quot;Runs tests from the package defined in test.package property&quot;&gt;
+        &lt;property name=&quot;test.runner&quot; value=&quot;android.test.InstrumentationTestRunner&quot; /&gt;
+</code></pre>
+
+<p>これこれ、これを書き替えたいのだけどな。で、local.properties というファイルに以下を追加して実行してみました。</p>
+
+<pre><code>test.runner=com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner
+</code></pre>
+
+<p>例外吐いて終わってますが、明らかにこれまでとは違っているご様子。試験の実装が微妙なのかどうか。とは言え、一応テストは動いてます。</p>
+
+<pre><code> [exec] Test results for GoogleInstrumentationTestRunner$BridgeTestRunner=.E
+ [exec] Time: 20.892
+ [exec] 
+ [exec] FAILURES!!!
+ [exec] Tests run: 1,  Failures: 0,  Errors: 1
+</code></pre>
+
+<p>まだやったね、って言えないあたりが非常に微妙ですが。</p>
+
+<p>とりあえず把握できているのは RootViewPicker#get というメソドで例外を throw しているらしく、findRoot(rootMatcher) したものが ready になっていない模様。</p>
+
+<h2 id="今思い出したのですが">今思い出したのですが</h2>
+
+<p>よくよく考えてみるに、未だ試験パスしたのって見たことない気がする。そして夢では見たような気がする。とほほ。</p>
+
+<p>一応リモートで動くようになっているはずなので、今後は手元の貧弱な MBA ではなくてこちらで試験を云々な方向で考えてます。また、環境構築含め、諸々について纏めなエントリも投入の方向。完了、って訳ではないのですがここで一旦エントリ投入します。何かあれば追記するかもしれません。</p>
+
+<h2 id="参考にさせて頂いたエントリ">参考にさせて頂いたエントリ</h2>
+
+<p>感謝を込めて以下に列挙を。</p>
+
+<ul>
+<li><a href="http://sumio.hatenablog.com/entry/2013/06/23/225358">Androidのテスト実行も含めてEclipseとGradleを共存させてみる</a></li>
+<li><a href="http://nowsprinting.hatenablog.com/entry/2013/05/23/153941">Gradle+Androidプラグインでプロダクトフレーバーを試してみた</a></li>
+<li><a href="http://paulemtz.blogspot.jp/2013/04/automating-android-builds-with-gradle.html">Automating Android builds with Gradle</a></li>
+<li><a href="http://paulemtz.blogspot.jp/2013/05/android-testing-in-headless-emulator.html">Android Testing in Headless Emulator</a></li>
+<li><a href="http://319ring.net/blog/archives/1954">ant でテストを実行する</a></li>
+<li><a href="http://d.hatena.ne.jp/ksk_kbys/20130311/1363007825">Travis CI で Android アプリの CI 環境を作る</a></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Nov 13, 2013</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2013/11/13/b-mobile-new-service/" title="日本通信がデータ通信無料なナニをリリースと聞いて">日本通信がデータ通信無料なナニをリリースと聞いて</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2013/11/13/git-svn-setup-on-osx/" title="git-svn で色々アレだった件">git-svn で色々アレだった件</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

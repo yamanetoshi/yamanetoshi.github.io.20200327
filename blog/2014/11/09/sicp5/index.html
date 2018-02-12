@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>SICP5</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Nov 9, 2014
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/11/09/sicp5/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/scheme/">Scheme </a>
+        
+    </p>
+    <h1 class="entry-title">
+         SICP5 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>金曜に実装を写経して正常動作を確認後、make-machine 以降のナニを纏めたのですが scrach buffer に残したままになってて OSX がフリーズしました。見事に消失。</p>
+
+<p>記録としては自分用に有益なので再度エントリを起こすことにしました。</p>
+
+<p></p>
+
+<p>起点としては make-machine が何をしているか、という事で</p>
+
+<ul>
+<li>vm なオブジェクトを生成</li>
+<li>引数で渡されたリストな名前のレジスタなオブジェクトを生成して vm に設定</li>
+<li>引数で渡されたリストのリストで primitive な命令を登録して vm に設定</li>
+<li>引数で渡された命令のリストから命令列を生成して vm に設定</li>
+<li>vm なオブジェクトを戻す</li>
+</ul>
+
+<p>になっているのですが、命令列を生成する assemble 手続きを掘削します。</p>
+
+<h2 id="assemble-手続き">assemble 手続き</h2>
+
+<p>実装としては extract-labels を呼びだしているだけ、なのですが引数として渡しているのは例えば gcd-machine の例であれば以下のリストです。</p>
+
+<pre><code>'(test-b
+  (test (op =) (reg b) (const 0))
+  (branch (label gcd-done))
+  (assign t (op rem) (reg a) (reg b))
+  (assign a (reg b))
+  (assign b (reg t))
+  (goto (label test-b))
+  gcd-done)))
+</code></pre>
+
+<p>あと、最初に渡されるのが以下な手続きオブジェクトになります。これは一番最後に apply されます。</p>
+
+<pre><code>(lambda (insts labels)
+  (update-insts! insts labels machine)
+  insts)))
+</code></pre>
+
+<p>ので、ここでは一旦スルー。</p>
+
+<h2 id="extract-labels-手続き">extract-labels 手続き</h2>
+
+<p>引数として命令リストと手続きオブジェクトが渡されます。</p>
+
+<p>この手続き、命令リストの car について</p>
+
+<ul>
+<li>symbol? ならラベルと理解してラベルな引数リストに追加</li>
+<li>symbol? でなければ命令と理解して命令な引数リストに追加</li>
+</ul>
+
+<p>します。また、引数リストに追加する時に</p>
+
+<ul>
+<li>ラベルの場合はラベル文字列とそれ以降の命令リスト</li>
+<li>命令の場合は (対象となる命令) という形のリスト</li>
+</ul>
+
+<p>を作ります。命令の場合はリスト、って書いてますが正確には</p>
+
+<pre><code>(対象となる命令 . ())
+</code></pre>
+
+<p>で、後程 cdr に命令の実行手続き、という書き方の手続きオブジェクトが格納されます。</p>
+
+<p>extract-labels 手続きのポイントとしては</p>
+
+<ul>
+<li>命令リストの car を取り出しつつ</li>
+<li>取り出した car に対する手続きを設定しつつ</li>
+<li>命令リストの末端まで同様の処理をして</li>
+<li>命令リストの末端に到達した時点で設定された手続きを apply しつつ</li>
+<li>最後にそれらの手続きで作られたリストについて update-insts! して</li>
+<li>update-insts! が変更した何かを戻す</li>
+</ul>
+
+<p>という形になっている、はず。</p>
+
+<p>これを前提に掘削してみます。</p>
+
+<h2 id="update-insts-手続き">update-insts! 手続き</h2>
+
+<p>! 付いてるので void でありつつ二番目の引数更新、になる模様。基本的には insts なリストについて for-each で数えあげつつ</p>
+
+<pre><code> (lambda (inst)
+   (set-instruction-execution-proc!
+inst
+(make-execution-procedure
+ (instruction-text inst) labels machine pc flag stack ops)))
+</code></pre>
+
+<p>な手続きを、という形。先に書いた通り、inst として渡れるのは</p>
+
+<pre><code>(対象となる命令 . ())
+</code></pre>
+
+<p>というリストです。基本的にはこのリストに対して make-execution-procedure の戻りを set-cdr! する形です。</p>
+
+<p>make-execution-procedure は基本的に引数を取らない手続きオブジェクトを戻します (これって何って名前が付いてたのだったか忘れた)。</p>
+
+<h2 id="最終的に">最終的に</h2>
+
+<p>assemble 手続きから戻される命令リストは最終的に &lsquo;start で以下な形で動きはじめます。</p>
+
+<pre><code>   (set-contents! pc the-instruction-sequence)
+   (execute))
+</code></pre>
+
+<p>pc レジスタに assemble から戻されたリストを設定して execute を apply しています。execute の定義は以下になってて</p>
+
+<pre><code>  (define (execute)
+(let ((insts (get-contents pc)))
+  (if (null? insts)
+      'done
+      (begin
+    ((instruction-execution-proc (car insts)))
+    (execute)))))
+</code></pre>
+
+<p>リストから順に取り出しては cdr を取得して apply しては execute しています。基本的に apply される lambda な手続きの中で pc を先にすすめる形になっているのでこれだけで動作するはず。</p>
+
+<h2 id="終わりに">終わりに</h2>
+
+<p>なんか消えさったテキストはもっと色々な情報が盛り込まれていたはずなんですが、スデに何だったのかとか忘却の彼方。</p>
+
+<p>あと、make-execution-procedure から呼び出されている手続きも確認な必要あるはずなのですが、とりあえずスルー。</p>
+
+<p>5.4 ではこの vm というかシミュレータが評価できる命令で scheme の評価機を作ります。そして 5.5 では scheme の命令なリストをこの vm というかシミュレータが評価できる命令列に翻訳する翻訳系を実装して解釈系と接合する模様。</p>
+
+<p>実は 5 章はきちんと理解できていないのがトラウマになってて、何故かこの時期にリトライを思いついてしまっている次第です。どうなるか。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Nov 9, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/11/08/bicycle/" title="じてんしゃ">じてんしゃ</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/11/10/make-entries/" title="ものづくりネタ">ものづくりネタ</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

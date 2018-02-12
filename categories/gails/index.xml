@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gails on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/gails/</link>
+    <description>Recent content in Gails on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 29 May 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/gails/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rails で GCM してみた (2)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/05/29/did-gcm-in-rails/</link>
+      <pubDate>Fri, 29 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/05/29/did-gcm-in-rails/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://yamanetoshi.github.io/blog/2015/05/26/did-gcm-in-rails/&#34;&gt;Rails で GCM してみた&lt;/a&gt;の続きです。&lt;/p&gt;
+
+&lt;p&gt;とりあえず前回の継続から、ということで&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ heroku create gcmsample
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;から。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>fog 掘削および i/f 追加に関する纏め</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 24, 2014
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/04/24/fog/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a><a class="label" href="http://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
+        
+    </p>
+    <h1 class="entry-title">
+         fog 掘削および i/f 追加に関する纏め 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>とりあえず、Fog::Compute.new あたりをエントリポイントとして掘削開始。</p>
+
+<p></p>
+
+<p>基本的に</p>
+
+<pre><code>@compute = Fog::Compute.new(
+:provider =&gt; 'CloudStack',
+</code></pre>
+
+<p>みたいなことすれば Fog::Compute::Cloudstack::Real なオブジェクトが作られる、というざっくり理解を前提にすれば良いのか、それともこのあたりもきっちり掘っとく必要があるのか悩む。</p>
+
+<p>つうか、fog/lib/fog/cloudstack/core.rb に</p>
+
+<pre><code>extend Fog::Provider
+</code></pre>
+
+<p>という記述を見つけたのですがこれは一体何でしょ。extend って include とはちょっと違う mix-in の方法なのか。とは言え、Fog::Provider なモジュールの定義が見当たらない。</p>
+
+<p>む、以前掘削してたナニを見るに lib/fog/compute.rb を見てるんですが、ここには if な条件分岐は無いですね。以前掘削した以下な記録では</p>
+
+<ul>
+<li><a href="http://yamanetoshi.github.io/blog/2013/11/23/think-about-fog-abstraction/">Fog 抽象化に関する冥想</a></li>
+</ul>
+
+<p>:provider なソレを元に条件分岐してた模様。</p>
+
+<p>つうか最新見てるのが悪いのかもしれませんが、lib/fog/core の中に何も無い。あ、でも lib/fog/cloudstack/compute.rb の定義の先頭らへんが以下になってて</p>
+
+<pre><code>module Fog
+  module Compute
+    class Cloudstack &lt; Fog::Service
+</code></pre>
+
+<p>Fog::Service (これも定義が無い) の属性というかメソドを呼び出してます。</p>
+
+<pre><code>      request_path 'fog/cloudstack/requests/compute'
+</code></pre>
+
+<p>これ使え、ってことなのかどうか。Fog::Service のソースも行方知れず。</p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<pre><code>@compute = Fog::Compute.new(
+:provider =&gt; 'CloudStack',
+</code></pre>
+
+<p>で</p>
+
+<pre><code>      class Real
+
+        def initialize(options={})
+</code></pre>
+
+<p>なコンストラクタが呼ばれる、ってことにしておきます。</p>
+
+<p>で、Fog::Compute::Cloudstack には以下なメソド呼び出しがはいってて</p>
+
+<pre><code>      request :extract_template
+</code></pre>
+
+<p>これも Fog::Service なメソドで request な属性の配列に引数を push (で良いのかな) してます。この配列に格納されてるシンボルで API 発行、というあたりを掘っておく必要がある、って思っていたのですがこれはこれでどうにもならない感があります。</p>
+
+<h2 id="む">む</h2>
+
+<p>というか、こないだ追加した extract_template.rb 見てみるに Service の request ってメソドでシンボルを配列に追加しておいて以下を追加してます。</p>
+
+<pre><code>module Fog
+  module Compute
+    class Cloudstack
+      class Real
+
+        # Extracts a template.
+        #
+        # {CloudStack API Reference}[http://http://download.cloud.com/releases/3.0.0/api_3.0.0/user/extractTemplate.html]
+        def extract_template(options={})
+          options.merge!(
+            'command' =&gt; 'extractTemplate'
+          )
+
+          request(options)
+        end
+
+      end # Real
+</code></pre>
+
+<p>command に API なソレを追加して request を呼んでますね。この中では詳細略で</p>
+
+<pre><code>          response = issue_request(params,headers)
+</code></pre>
+
+<p>これも Service なメソドなのかな。や、fog 固有だった。でもざっくりで以下なカンジ。凄く抽象化されてます。</p>
+
+<pre><code>    def issue_request(params={},headers={},method='GET',expects=200)
+      begin
+        @connection.request({
+          :query =&gt; params,
+          :headers =&gt; headers,
+          :method =&gt; method,
+          :expects =&gt; expects
+        })
+</code></pre>
+
+<p>@connection はコンストラクタで作っている Fog::XML::Connection のインスタンスです。これ、SAXParserConnection のサブクラスなのか。</p>
+
+<h2 id="まとめ">まとめ</h2>
+
+<p>だらだら掘ってても時間が勿体無いので以下に纏めおよび備忘を。</p>
+
+<ul>
+<li>Fog::Service とかの記述が無いのでありかを探す</li>
+<li>Fog::Compute::Cloudstack は Fog::Service のサブクラス
+
+<ul>
+<li>他の Provider な実装も Fog::Service のサブクラスになっているはず</li>
+</ul></li>
+<li>Fog::Service#request_path で定義されてる i/f の位置を指定して request メソドを使って i/f を登録</li>
+<li>登録した i/f はファイル名、クラス名、登録した hash は全部同じ名前になってます</li>
+<li>実際の API の名前 (?) はメソドの中で command に渡す文字列</li>
+<li>ややこしいんですが、各 API な i/f から呼び出される request は Fog::Compute::Cloudstack::Real#request になります</li>
+<li>Cloudstack で通信に使われている道具は SAXParserConnection</li>
+</ul>
+
+<p>テストに関する記述については PR がパスしていないので保留。なんとなく NG な予感がしているのですがリプが付かないのでどうにもならない。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 24, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/04/23/boot-raspi-in-qemu/" title="raspi な QEMU">raspi な QEMU</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/04/24/kernelvm-in-okinawa/" title="#kernelvm @沖縄">#kernelvm @沖縄</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

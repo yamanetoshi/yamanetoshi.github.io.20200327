@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>U-Boot を RPi で動かす</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">May 6, 2014
+         - 4 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/05/06/making-u-boot-in-rpi/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         U-Boot を RPi で動かす 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>入手方法は以下で</p>
+
+<pre><code>$ git clone git://github.com/swarren/u-boot.git
+$ cd u-boot
+$ git checkout -b rpi_dev origin/rpi_dev
+</code></pre>
+
+<p>以下で make とのこと。</p>
+
+<pre><code>export CROSS_COMPILE=arm-unknown-eabi-
+make rpi_b_config
+make
+</code></pre>
+
+<p>若干のソース修正も入っていますがここでは略。</p>
+
+<p>fatls について色々確認してみます。</p>
+
+<p></p>
+
+<p>とりあえず grep してみるなど。</p>
+
+<pre><code>$ find . |xargs grep fatls 2&gt;/dev/null
+./board/mcc200/auto_update.c:           debug (&quot;Unable to use USB %d:%d for fatls\n&quot;,
+./board/freescale/m54455evb/README:fatls   - list files in a directory (default /)
+./README:               becomes available to the fat commands, i.e. fatls.
+./System.map:0013c994 D _u_boot_list_2_cmd_2_fatls
+Binary file ./u-boot.bin matches
+Binary file ./common/built-in.o matches
+./common/cmd_fat.c:     fatls,  4,      1,      do_fat_ls,
+Binary file ./common/cmd_fat.o matches
+Binary file ./u-boot matches
+./include/configs/bcm28155_ap.h: * This is necessary for the fatls command to work on an SD card
+./include/configs/zmx25.h:              &quot;fatls usb 0; fatload usb 0 0x81000000 zmx25-init.bin;&quot; \
+./include/configs/jadecpu.h:            &quot;fatls usb 0; fatload usb 0 0x40000000 jadecpu-init.bin;&quot; \
+./u-boot.map: .u_boot_list_2_cmd_2_fatls
+./u-boot.map:                0x0013c994                _u_boot_list_2_cmd_2_fatls
+./u-boot.map: .rel.u_boot_list_2_cmd_2_fatls
+./drivers/block/systemace.c: * &quot;ace&quot; that allows the user to execute &quot;fatls ace 0&quot; and the
+</code></pre>
+
+<p>./common/cmd_fat.c かな。gtags -v して emacs 起動。定義は以下なカンジらしい。</p>
+
+<pre><code>static int do_fat_fsinfo(cmd_tbl_t *cmdtp, int flag, int argc,
+                         char * const argv[])
+{
+        int dev, part;
+        block_dev_desc_t *dev_desc;
+        disk_partition_t info;
+
+        if (argc &lt; 2) {
+                printf(&quot;usage: fatinfo &lt;interface&gt; [&lt;dev[:part]&gt;]\n&quot;);
+                return 0;
+        }
+
+        part = get_device_and_partition(argv[1], argv[2], &amp;dev_desc, &amp;info, 1);
+        if (part &lt; 0)
+                return 1;
+
+        dev = dev_desc-&gt;dev;
+        if (fat_set_blk_dev(dev_desc, &amp;info) != 0) {
+                printf(&quot;\n** Unable to use %s %d:%d for fatinfo **\n&quot;,
+                        argv[1], dev, part);
+                return 1;
+        }
+        return file_fat_detectfs();
+}
+</code></pre>
+
+<p>Unrecognized filesystem type はどこで出力しているのか、というと</p>
+
+<pre><code>./fs/fs.c:      printf(&quot;** Unrecognized filesystem type **\n&quot;);
+</code></pre>
+
+<p>らしい。fs_probe_unsupported という関数。fs/fs.c で以下な定義がありますね。</p>
+
+<pre><code>    {
+            .fstype = FS_TYPE_ANY,
+            .null_dev_desc_ok = true,
+            .probe = fs_probe_unsupported,
+            .close = fs_close_unsupported,
+            .ls = fs_ls_unsupported,
+            .exists = fs_exists_unsupported,
+            .read = fs_read_unsupported,
+            .write = fs_write_unsupported,
+    },
+</code></pre>
+
+<p>これってそもそも fat な区画と思っていないのかな。って fatls の実態こちらだった模様。</p>
+
+<pre><code>static int do_fat_ls(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
+{
+        return do_ls(cmdtp, flag, argc, argv, FS_TYPE_FAT);
+}
+</code></pre>
+
+<p>do_ls は fs/fs.c で定義されてて核心は以下なのかどうか。</p>
+
+<pre><code>    if (fs_set_blk_dev(argv[1], (argc &gt;= 3) ? argv[2] : NULL, fstype))
+            return 1;
+
+    if (fs_ls(argc &gt;= 4 ? argv[3] : &quot;/&quot;))
+            return 1;
+
+    return 0;
+</code></pre>
+
+<p>で、fs_ls も fs/fs.c で以下な定義ですが、ここで unsupported が戻っているのか。</p>
+
+<pre><code>static struct fstype_info *fs_get_info(int fstype)
+{
+struct fstype_info *info;
+int i;
+
+for (i = 0, info = fstypes; i &lt; ARRAY_SIZE(fstypes) - 1; i++, info++) {
+    if (fstype == info-&gt;fstype)
+        return info;
+}
+
+/* Return the 'unsupported' sentinel */
+return info;
+}
+</code></pre>
+
+<h2 id="動かしてみます">動かしてみます</h2>
+
+<p>て、U-Boot 側で JTAG が使える形になってないと、なのか。とりあえず u-boot.lds を見てみるに</p>
+
+<pre><code>ENTRY(_start)
+</code></pre>
+
+<p>らしいのでそこを探すか。と思ったら board/raspberrypi/rpi_b/ なるディレクトリを発見。</p>
+
+<pre><code>$ ls board/raspberrypi/rpi_b/
+built-in.o  Makefile  rpi_b.c  rpi_b.o  rpi_b.su
+</code></pre>
+
+<p>rpi_b.c には board_mmc_init とかって手続きの定義があったり。あと arch/arm というディレクトリがあります。おそらく cpu/arm1176/start.S がエントリポイントになるのかどうか。</p>
+
+<p>ここに JTAG な GPIO 有効にするコードをベタで書けば良いのかどうか。</p>
+
+<h2 id="とりあえずやってみた">とりあえずやってみた</h2>
+
+<p>baremetal 本の gpio.c をコピィして Makefile に追加</p>
+
+<pre><code>obj-y   := lowlevel_init.o
+obj-y   += init.o reset.o timer.o mbox.o gpio.o
+</code></pre>
+
+<p>あー、コピィしたヤツって色々 include しとるな。無理矢理気味ですが、以下に。</p>
+
+<pre><code>typedef volatile unsigned int vu32_t;
+
+#define PHY_PERI_ADDR(x) (0x20000000 + (x))
+#define GPIO_BASE       (0x00200000)
+#define GPPUD           ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x94))
+#define GPPUDCLK0       ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x98))
+#define GPPUDCLK1       ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x9c))
+#define GPFSEL0         ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x00))
+#define GPFSEL1         ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x04))
+#define GPFSEL2         ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x08))
+#define GPFSEL3         ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x0c))
+#define GPFSEL4         ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x10))
+#define GPFSEL5         ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x14))
+
+void init_gpio(void){
+    int i;
+    // pullup all
+    *GPPUD  = 0x02;
+    // wait 150 cycle
+    for(i=0;i&lt;150;i++){
+            // nop
+            asm(&quot;mov r0,r0&quot;);
+    }
+    *GPPUDCLK0 = 0xffffffff;
+    *GPPUDCLK1 = 0xffffffff;
+    // wait 150 cycle
+    for(i=0;i&lt;150;i++){
+            // nop
+            asm(&quot;mov r0,r0&quot;);
+    }
+    *GPPUDCLK0 = 0;
+    *GPPUDCLK1 = 0;
+
+    *GPFSEL0 = 0;
+    *GPFSEL1 = 0;
+    *GPFSEL2 = 0;
+    *GPFSEL3 = 0;
+    *GPFSEL4 = 0;
+    *GPFSEL5 = 0;
+}
+</code></pre>
+
+<p>あとは arch/arm/cpu/arm1176/start.S を以下に修正。</p>
+
+<pre><code>    /*
+     * Go setup Memory and board specific bits prior to relocation.
+     */
+    bl  lowlevel_init       /* go setup pll,mux,memory */
+
+            // initialize gpio
+    bl      init_gpio
+
+    // pinMode(22 ,ALT4)
+    ldr     r3, .L2
+    ldr     r2, .L2
+    ldr     r2, [r2]
+    orr     r2, r2, #192
+    str     r2, [r3]
+
+    // pinMode(4, ALT5)
+    ldr     r3, .L2+4
+    ldr     r2, .L2+4
+    ldr     r2, [r2]
+    orr     r2, r2, #8192
+    str     r2, [r3]
+
+    // pinMode(27, ALT4)
+    ldr     r3, .L2
+    ldr     r2, .L2
+    ldr     r2, [r2]
+    orr     r2, r2, #6291456
+    str     r2, [r3]
+
+    // pinMode(25, ALT4)
+    ldr     r3, .L2
+    ldr     r2, .L2
+    ldr     r2, [r2]
+    orr     r2, r2, #98304
+    str     r2, [r3]
+
+    // pinMode(24, ALT4)
+    ldr     r3, .L2
+    ldr     r2, .L2
+    ldr     r2, [r2]
+    orr     r2, r2, #12288
+    str     r2, [r3]
+
+    bl  _main
+</code></pre>
+
+<p>どうなるか。</p>
+
+<pre><code>$ make clean
+$ export CROSS_COMPILE=arm-unknown-eabi-
+$ make rpi_b_config
+$ make
+</code></pre>
+
+<p>を、u-boot.bin ができてますね。ファイルをコピーしてデバッガの用意して電源投入してみましたが駄目。追加した部分をコメントアウトしてコンパイルし直してみます。</p>
+
+<pre><code>  AS      arch/arm/cpu/arm1176/start.o
+</code></pre>
+
+<p>一応コンパイルし直されているみたい。SD にコピィしてみると起動なメセジが出ましたね。むむむ。</p>
+
+<p>無理矢理 gdb したら以下なメセジが出た。</p>
+
+<pre><code>Dwarf Error: wrong version in compilation unit header (is 4, should be 2)
+</code></pre>
+
+<p>Makefile がアレなのかどうか。KBUILD_CFLAGS には -g 付いてるのですが、HOSTCFLAGS には付いてません。この違いが何なのかがアレです。とりあえず以下にしてみました。</p>
+
+<pre><code># HOSTCFLAGS   = -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer
+HOSTCFLAGS   = -Wall -Wstrict-prototypes -g -fomit-frame-pointer
+</code></pre>
+
+<p>どうなるか。ってコンパイルできないぞ。なので以下に修正。</p>
+
+<pre><code>HOSTCFLAGS   = -Wall -Wstrict-prototypes -O2 -g -fomit-frame-pointer
+</code></pre>
+
+<p>最適化オプション有効にしてデバッグとか微妙なんだけど仕方ない。でもコンパイル通ったけど現象変わらず。crosstools なソレを使ってるのが微妙なのかなぁ。</p>
+
+<p>現時点で何をどうすりゃ良いかも分からないので v6pi が gdb で云々できるかを確認してみたいと思います。たぶんこの件、明日以降は当分対応無理じゃないかと思いますorz</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>May 6, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/05/05/fatls-in-uboot/" title="U-Boot で fatls">U-Boot で fatls</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/05/07/v6-unix-raspi/" title="v6pi の中身確認とか">v6pi の中身確認とか</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>scp してみる</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 23, 2016
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2016/02/23/do-scp-in-golang/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/go/">Go </a>
+        
+    </p>
+    <h1 class="entry-title">
+         scp してみる 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>材料以下。</p>
+
+<ul>
+<li><a href="https://gist.github.com/jedy/3357393">jedy/go_scp.go</a></li>
+<li><a href="https://github.com/tmc/scp">tmc/scp</a></li>
+<li><a href="http://stackoverflow.com/questions/24437809/">Connect to a server using SSH and a pem / key with golang</a></li>
+<li><a href="http://golang.jp/code">Goコードの書き方</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>*.pem を使って云々、という方向です。とりあえずソースの置き場所確保。</p>
+
+<pre><code>$ mkdir -p $GOPATH/src/github.com/yamanetoshi
+</code></pre>
+
+<p>ハロワ作ってみます。</p>
+
+<pre><code>$ mkdir -p $GOPATH/src/github.com/yamanetoshi/hello
+</code></pre>
+
+<p>以下な hello/hello.go を作成。</p>
+
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+     fmt.Printf(&quot;Hello, world.\n&quot;)
+}
+</code></pre>
+
+<p>で、<code>go install</code> するのかな。</p>
+
+<pre><code>$ go install src/github.com/yamanetoshi/hello
+</code></pre>
+
+<p>で、実行。</p>
+
+<pre><code>$ $GOPATH/bin/hello
+Hello, world.
+</code></pre>
+
+<p>成程。とりあえずコマンドラインから</p>
+
+<ul>
+<li>鍵</li>
+<li>コピィ元</li>
+<li>コピィ先</li>
+</ul>
+
+<p>を受け取って云々、なのですがディレクトリごとコピィってできるのか確認してみたくはあります。つうか $GOPATH/bin の中身が ELF なのってなにげに凄いな。</p>
+
+<h2 id="動くようにはなりましたが">動くようにはなりましたが</h2>
+
+<p>ディレクトリごとコピィ、は無理らしい。とりあえず Github にアレしたコードが以下っす。</p>
+
+<pre><code>package main
+
+import (
+       &quot;fmt&quot;
+       &quot;flag&quot;
+       &quot;io/ioutil&quot;
+       &quot;log&quot;
+       &quot;strings&quot;
+       &quot;golang.org/x/crypto/ssh&quot;
+       &quot;github.com/tmc/scp&quot;
+)
+
+func split_connection_str(conn string) (user, host, path string, err error) {
+    if strings.Index(conn, &quot;@&quot;) &lt; 0 {
+        return &quot;&quot;, &quot;&quot;, &quot;&quot;, fmt.Errorf(&quot;no @&quot;)
+    }
+
+    if strings.Index(conn, &quot;:&quot;) &lt; 0 {
+        return &quot;&quot;, &quot;&quot;, &quot;&quot;, fmt.Errorf(&quot;no :&quot;)
+    }
+
+    return conn[:strings.Index(conn, &quot;@&quot;)], 
+    	   conn[strings.Index(conn, &quot;@&quot;)+1:strings.Index(conn, &quot;:&quot;)],
+	   conn[strings.Index(conn, &quot;:&quot;)+1:],
+	   nil
+}
+
+func main() {
+    flag.Parse()
+
+//     fmt.Println(&quot;arg num : &quot;, len(flag.Args()))
+//     fmt.Println(&quot;arg #1 : &quot;, flag.Args()[0])
+
+    args := flag.Args()
+
+    user, host, path, err := split_connection_str(args[2])
+
+    pemBytes, err := ioutil.ReadFile(args[0])
+    if err != nil {
+        log.Fatal(err)
+    }
+    signer, err := ssh.ParsePrivateKey(pemBytes)
+    if err != nil {
+        log.Fatalf(&quot;parse key failed:%v&quot;, err)
+    }
+    config := &amp;ssh.ClientConfig{
+        User: user,
+	Auth: []ssh.AuthMethod{ssh.PublicKeys(signer)},
+    }
+    conn, err := ssh.Dial(&quot;tcp&quot;, host + &quot;:22&quot;, config)
+    if err != nil {
+        log.Fatalf(&quot;dial failed:%v&quot;, err)
+    }
+    defer conn.Close()
+    session, err := conn.NewSession()
+    if err != nil {
+        log.Fatalf(&quot;session failed:%v&quot;, err)
+    }
+    defer session.Close()
+
+    err = scp.CopyPath(args[1], path, session)
+}
+</code></pre>
+
+<h2 id="以下だと">以下だと</h2>
+
+<p>-r な scp ができるのかどうか。別途試してみてメモを投入予定です。</p>
+
+<ul>
+<li><a href="https://github.com/laher/scp-go/">laher/scp-go</a></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 23, 2016</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2016/02/22/godeb/" title="godeb">godeb</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2016/02/24/docker/" title="Docker">Docker</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

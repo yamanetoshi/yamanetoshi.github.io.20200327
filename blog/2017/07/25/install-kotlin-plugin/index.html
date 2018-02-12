@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Kotlin plugin 導入</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jul 25, 2017
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2017/07/25/install-kotlin-plugin/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Kotlin plugin 導入 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>とりあえず手元の端末に Android Studio は導入済みなので Kotlin Plugin の導入方法のみ、ということで。環境は OSX です。</p>
+
+<ul>
+<li>Android Studio 起動</li>
+<li>Configure -&gt; Plugins 選択</li>
+<li>下に Install JetBrains Plugin というボタンがあるのでクリック</li>
+<li>Kotlin という plugin が出てくるので選択して右に出てる Install ボタンをクリック</li>
+<li>よしなに処理が終わると右に Restart なボタンが出てくるはずなのでクリックして Android Studio を再起動したら OK です</li>
+</ul>
+
+<p></p>
+
+<p>以下のリポジトリを clone して</p>
+
+<ul>
+<li><a href="https://github.com/ntaro/kotlin-android-hands-on">https://github.com/ntaro/kotlin-android-hands-on</a></li>
+</ul>
+
+<p>ビルドしてみましたが失敗。sync に失敗しているらしい。ええと、android-25 が、らしいので入れます。</p>
+
+<ul>
+<li>Build Tools 26.0.0 が入ってないので入れます</li>
+<li>SDK Manager 起動して色々導入</li>
+<li>Build Tools 26.0.1 が導入されたので app/build.gradle の buildToolsVersion の記述を修正</li>
+<li>ありゃ、AS が古いのか。な</li>
+<li><a href="http://qiita.com/k-yamada@github/items/b3544ab6ce7b708424cf">http://qiita.com/k-yamada@github/items/b3544ab6ce7b708424cf</a></li>
+<li>ずっと使ってないとハメてくれるな gradle めが</li>
+<li>gradle な daemon 再起動が必要だった?</li>
+<li>gradle のバージョンは 2.1.2 に設定 (app/build.gradle)</li>
+<li>gradle-properties の distributionUrl のバージョンを 2.14.1 にしました (<a href="https://android.benigumo.com/20161005/agpbi-%E9%96%A2%E9%80%A3%E3%81%AE%E5%A4%9A%E9%87%8F%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%92%E6%8E%92%E9%99%A4%E3%81%99%E3%82%8B/">https://android.benigumo.com/20161005/agpbi-%E9%96%A2%E9%80%A3%E3%81%AE%E5%A4%9A%E9%87%8F%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%92%E6%8E%92%E9%99%A4%E3%81%99%E3%82%8B/</a>)</li>
+<li>失敗したが Install artifact and sync project でどうか</li>
+<li>なんか Plugin Error でてますが Build はすすんでいる</li>
+<li>なんとなく成功しているみたいなので再度 build 実行</li>
+</ul>
+
+<p>Build はこれで動いたらしい。これでスタート地点に立てたのかどうか。つうかこれ、記録として酷い感満点だよ。</p>
+
+<p>いちおう Build は成功しているみたいです。なんというか色々酷いですが今日はこれで勘弁して下さひ。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jul 25, 2017</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2017/07/23/how-to-make-sugoi-hiroshima-document/" title="すごい広島てきドキュメントの作り方">すごい広島てきドキュメントの作り方</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2017/07/26/delta-go/" title="デルタ碁">デルタ碁</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

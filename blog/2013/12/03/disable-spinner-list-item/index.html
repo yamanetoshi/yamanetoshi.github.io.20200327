@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>動的に選択不可な項目を Spinner に設定</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Dec 3, 2013
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/12/03/disable-spinner-list-item/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         動的に選択不可な項目を Spinner に設定 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>簡単にできると踏んでたのですがおお間違い。かなり苦労しましたが何とかなりました。</p>
+
+<p></p>
+
+<p>お助け頂いたのは以下なエントリです。Thx a lot!!</p>
+
+<ul>
+<li><a href="http://semoncat.logdown.com/posts/21947-android-spinner-disable-item">Android Spinner 禁用選項 (Disable item)</a></li>
+</ul>
+
+<p>DialogPreference に仕込んだのですが onBindDialogView の定義が以下。</p>
+
+<pre><code>    @Override
+    protected void onBindDialogView(View view) {
+        super.onBindDialogView(view);
+
+        Spinner spinner = (Spinner)view.findViewById(R.id.spinner);
+
+        SpinnerArrayAdapter mSpinnerArrayAdapter = new SpinnerArrayAdapter(mContext, android.R.layout.simple_spinner_item, spinnerItem);
+        mSpinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinnerArrayAdapter.setItemPositionIsDisable(0,true);
+        mSpinnerArrayAdapter.setItemPositionIsDisable(1,false);
+        mSpinnerArrayAdapter.setItemPositionIsDisable(2,true);
+        spinner.setAdapter(mSpinnerArrayAdapter);
+    }
+</code></pre>
+
+<p>で、アダプタの定義が以下。ほぼ丸写し。微調整はしてますが、もう少し云々するかも。</p>
+
+<pre><code>    private class SpinnerArrayAdapter extends ArrayAdapter&lt;String&gt;{
+
+        private int[] ItemPositionIsDisable;
+
+        public SpinnerArrayAdapter(Context context, int textViewResourceId) {
+            super(context, textViewResourceId);
+        }
+
+        public SpinnerArrayAdapter(Context context, int textViewResourceId, String[] objects) {
+            super(context, textViewResourceId,objects);
+            ItemPositionIsDisable = new int[objects.length];
+        }
+
+        public SpinnerArrayAdapter(Context context,String[] objects){
+            this(context, android.R.layout.simple_spinner_item,objects);
+            this.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+         }
+
+         public SpinnerArrayAdapter(int stringArrayResourceId,Context context){
+             this(context, context.getResources().getStringArray(stringArrayResourceId));
+         }
+
+         public boolean isEnabled(int position) {
+             if (ItemPositionIsDisable[position]==0)
+                 return false;
+             return true;
+         }
+
+         public void setItemPositionIsDisable(int position,boolean IsDisable) {
+
+             ItemPositionIsDisable[position] = (IsDisable) ? 1 : 0;
+         }
+
+         @Override
+         public View getDropDownView(int position, View convertView, ViewGroup parent) {
+
+             View mView = super.getDropDownView(position, convertView, parent);
+             TextView mTextView = (TextView) mView;
+
+             if (ItemPositionIsDisable[position] == 0) {
+                 mTextView.setTextColor(Color.GRAY);
+              } else if (ItemPositionIsDisable[position] == 1) {
+                 mTextView.setTextColor(Color.BLACK);
+            }
+            return mView;
+       }
+</code></pre>
+
+<p>いやはや。</p>
+
+<h2 id="追記">追記</h2>
+
+<p>これで終わるのはいかにもアレなのでもうちょい確認。以下なドキュメントによると</p>
+
+<ul>
+<li><a href="http://developer.android.com/reference/android/widget/ListAdapter.html#isEnabled(int)">ListAdapter#isEnabled(int)</a></li>
+</ul>
+
+<p>以下の記述。</p>
+
+<blockquote>
+<p>Returns true if the item at the specified position is not a separator. (A separator is a non-selectable, non-clickable item).</p>
+</blockquote>
+
+<p>このメソドが true を戻せば選択可能、という事になるのか。ただ、これって ListAdapter のメソドなんですが、と思ったら superclass の BaseAdapter に isEnabled が定義されているようですね。成程。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Dec 3, 2013</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2013/12/02/memo-about-activity-refurbishment/" title="Activity 改修に関する自分メモ">Activity 改修に関する自分メモ</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2013/12/03/i-wanna-get-kano/" title="Kano">Kano</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

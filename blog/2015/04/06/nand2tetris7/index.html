@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Sequential Logic (nand to tetris(7))</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 6, 2015
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2015/04/06/nand2tetris7/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Sequential Logic (nand to tetris(7)) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>この章ではメモリを実装する模様。プリミティブな回路として DFF が用意されているとのこと。これを基にして</p>
+
+<ul>
+<li>レジスタ (DFF を基礎とする)</li>
+<li>メモリ (レジスタを基礎とする)</li>
+<li>カウンタ回路 (レジスタを基礎とする)</li>
+</ul>
+
+<p>を実装していくとのことです。</p>
+
+<p></p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>リポジトリを作成。以下です。</p>
+
+<ul>
+<li><a href="https://github.com/yamanetoshi/SequentialLogic">SequentialLogic</a></li>
+</ul>
+
+<p>作成用の branch を作成して実装着手。とりあえずレジスタは作れそう。</p>
+
+<h2 id="binary-cell-2-値素子">Binary cell (2 値素子)</h2>
+
+<p>ええと DFF は DFF なのか。つうか</p>
+
+<pre><code>Mux(a=in, b=out, sel=load, out=tmp);
+DFF(in=tmp, out=out);
+</code></pre>
+
+<p>みたいな書き方したら叱られたぞ。これ、out な端子をゲイトの入力にしては駄目らしい。ので以下?</p>
+
+<pre><code>Mux(a=in, b=dfftmp, sel=load, out=muxtmp);
+DFF(in=muxtmp, out=dfftmp);
+Or(a=dfftmp, b=dfftmp, out=out);
+</code></pre>
+
+<p>なんというか微妙。でもこれをシミュレータに読ませると無問題だった。でも試験にはパスしません。マルチプレクサへの入力が逆なのかな。</p>
+
+<p>引数逆にしたら試験パスしました。うーん。ちゃんと .cmp なソレを読めとorz</p>
+
+<h2 id="レジスタ">レジスタ</h2>
+
+<p>Bit ができたので Register 作成着手。これは Bit を並べれば良いはず。つうか試験の output 見てて思ったんですが flip-flop て凄いなぁ。</p>
+
+<h2 id="メモリ">メモリ</h2>
+
+<p>あれ、領域確保ってどうするんだろ。テキスト確認すると「組み合せ回路」とありますね。これは ALU の時と同様に Mux8Way16 使えば良いのか。</p>
+
+<p>なんとなく条件分岐って分岐した後に計算なイメージなんですが、並列で動くから先に答え出しちゃって問題ないのね、ってあたりの感覚にまだちょっと慣れません。</p>
+
+<p>や、最初に操作しちゃうと書込んでしまいますね。_RAM に内在する「調節アクセスロジック」_ですか。つうか_時間に依存しない操作_というあたりもヒントなのかどうか。</p>
+
+<p>どうも感覚的に記述してる順番に、ってのが身に染みているので微妙。</p>
+
+<h2 id="カウンタ">カウンタ</h2>
+
+<p>ここで必要な機能は 2 章で構築済み、とあります。インクリメンタ、というヤツかな。あ、ゼロ取得が ALU でできますね。場合分けってどうするのか。</p>
+
+<p>とりあえず、なんとなく読みこんでエラーが出ない状態にできはしたのですが、フラグが全部立ってる状態を想定しておらず玉砕。PC.cmp 見るに</p>
+
+<ul>
+<li>load と inc 両方指定だと load 優先</li>
+<li>reset と inc 両方指定だと reset 優先</li>
+<li>どうやら reset 最優先</li>
+</ul>
+
+<p>確かに「関数」な記述として</p>
+
+<pre><code>if reset(t-1) then
+else if load(t-1) then
+else if inc(t-1) then
+</code></pre>
+
+<p>て書き方になってますねorz</p>
+
+<p>最終的に場合分けは三つということで reset, load, inc な並びの 8 進で場合分けを表現しました。</p>
+
+<ul>
+<li>001 だとインクリメント</li>
+<li>010 だと load</li>
+<li>011 だと load</li>
+<li>100 だと reset でこれ以降全部 reset</li>
+</ul>
+
+<p>という形ですがなんとなく微妙。テストにはパスしてますがorz</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 6, 2015</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2015/04/06/the-elements-of-computing-systems/" title="コンピュータシステムの理論と実装">コンピュータシステムの理論と実装</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2015/04/06/naha-agent-level-up-event/" title="Naha Agent Level Up Event">Naha Agent Level Up Event</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

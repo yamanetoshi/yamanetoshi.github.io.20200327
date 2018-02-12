@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>レーザーカッターを使おう</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Nov 24, 2013
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/24/lazer-cutter/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/fab/">Fab </a>
+        
+    </p>
+    <h1 class="entry-title">
+         レーザーカッターを使おう 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>#gFab にてレーザーカッターを使ってコップ敷きを作ろう、なワークショップが開催とのことでレクチャのみ、ってアレで顔を出させて頂きました。</p>
+
+<p>以下、レクチャ聞きつつとったメモの列挙です。</p>
+
+<p></p>
+
+<ul>
+<li>レーザーカッター衝動買いw</li>
+<li>カットと表面の彫刻ができる</li>
+
+<li><p>正確、とっつきやすい (印刷感覚)</p></li>
+
+<li><p>非接触加工なので薄い紙でもカットできる</p></li>
+
+<li><p>カッティングプロッタでは切れないものも切れる</p></li>
+
+<li><p>加工できる素材も多い</p></li>
+
+<li><p>断面がわずかにナナメになる</p></li>
+
+<li><p>svg が良いとのこと</p></li>
+
+<li><p>lnkscape で切断と焼き込みのデータを作りやすいとのこと</p></li>
+
+<li><p>フォーカスの設定が必要</p></li>
+
+<li><p>レーザーは on/off しかできないのでグレースケールを直接焼きこめない</p></li>
+
+<li><p>gimp などでハーフトーン化する必要がある</p></li>
+
+<li><p>画像データに dpi 情報を埋めこむ必要がある</p></li>
+
+<li><p>ピクセル数と実サイズ (mm) と dpi の関係</p>
+
+<ul>
+<li>size = (* (/ 25.4 dpi) pixel)</li>
+<li>pixel = (* (/ dpi 25.4) size)</li>
+</ul></li>
+
+<li><p>dpi は 5, 600 程度あればよさげ</p></li>
+
+<li><p>画像 -&gt; 画像の拡大・縮小から解像度設定のみを変更</p></li>
+
+<li><p>色 -&gt; 脱色、してからトーンカーブを弄った方が良い</p>
+
+<ul>
+<li>白、黒はトび気味になるので微調整が必要とのこと</li>
+<li>ダイナミックレンジが微妙</li>
+</ul></li>
+
+<li><p>フィルタ -&gt; 変更 -&gt; 新聞印刷</p>
+
+<ul>
+<li>セルサイズは 4 or 5 程度 (500 pixel で)</li>
+<li>完成した画像は png で保存</li>
+<li>cmyk 指定、黒の角度が 60 度に、オーバーサンプルは 1</li>
+</ul></li>
+
+<li><p>今回のソレは直径 9 cm なのでそのあたりを鑑みて絵を作ってみてください</p></li>
+</ul>
+
+<h2 id="スライド">スライド</h2>
+
+<p>以下に投入とのことです。</p>
+
+<ul>
+<li><a href="http://t.co/et8Z5NBbio">レーザーカッターを使おう</a></li>
+</ul>
+
+<h2 id="例えば">例えば</h2>
+
+<p><a href="http://static.fsf.org/nosvn/stickers/gnu.svg">これ</a>だとどうなるのか。</p>
+
+<p>聞いてみるに、lnkscape で云々してサイズ調整、とのこと。このあたりの操作方法については上記スライドに記載されているとのことです。別途アプリを導入してもごもごしてみます。</p>
+
+<h2 id="そして">そして</h2>
+
+<p>頼まれたおつかいの用事を済ませてる途中に水筒忘れてます、って @k_nishijima さんからの tweet を確認。同居人が使うとのことで急ぎ取りに戻って速攻帰宅したのが今です。これから晩メシ製造着手です。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Nov 24, 2013</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2013/11/24/weekend-cooking/" title="週末メシ製造ログ">週末メシ製造ログ</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2013/11/24/configure-environment-chef-solo/" title="Chef-solo な環境構築メモ">Chef-solo な環境構築メモ</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jenkins on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/jenkins/</link>
+    <description>Recent content in Jenkins on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 16 Oct 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/jenkins/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Jenkins Plugin なハロワ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/10/16/hellow-world-in-jenkins-plugin/</link>
+      <pubDate>Fri, 16 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/10/16/hellow-world-in-jenkins-plugin/</guid>
+      <description>&lt;p&gt;以下の材料拝見しつつヤッてみました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://qiita.com/tarappo/items/d8dbe2828ada53979bbf&#34;&gt;Jenkinsプラグインを作ってみる(1) - セットアップとサンプルコード -&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;mvn は諸々の download に時間がかかるのがアレです。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

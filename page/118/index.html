@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>/var/log/messages</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  <link href="http://weblog.metacircular-evaluator.org/index.xml" rel="alternate" type="application/rss+xml" title="/var/log/messages" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+ <div id="content">
+  <div class="blog-index">
+    
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 15, 2014
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/15/merge-espresso-tests/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/git/">Git </a><a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/15/merge-espresso-tests/">branch せずに別ディレクトリで育てたナニを merge</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえず merge 先な HEAD から、ということで以下。</p>
+
+<pre><code>$ git format-patch &lt;merge 先な HEAD&gt;..HEAD -o ~/tmp/patch
+</code></pre>
+
+<p>で、取得できた patch を apply すれば OK。</p>
+
+<pre><code>$ git checkout -b feature-merge
+$ git am ~/tmp/patch/*
+</code></pre>
+
+<p>確認してみるにテスツなソレが無い。どうするのだったかと。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/15/merge-espresso-tests/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 15, 2014
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/15/remote-work-in-taipei/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/15/remote-work-in-taipei/">台北リモートワーク</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>2 泊 3 日程度の日程で、というのはアリ、だと思いました。ワイハで云々には負けてる気がしますが沖縄からだと近いし日程にもよりますが安いので。</p>
+
+<p>ピーチの便が往路も復路も昼頃着な形なので 1 泊 2 日はちょっと微妙。今回分かったのは SIM が 3 日フリーで 300NT$ だった事もありつつ飛行機の便も鑑みるに、というカンジ。</p>
+
+<h2 id="スタバで云々">スタバで云々</h2>
+
+<p>人一杯で座れない。相席させてもらったのですが電源ががが状態ス。無理矢理電源の近くに来てはみたものの、遠い。MBA な電源アダプタの延長コード持ってきてないし。</p>
+
+<p>と、思ったら電源近くが空きました。ある意味水と同じ位ポイント高い電源にありつけた。ただ、やっぱ中華電信な回線でテザはやや辛い。つうか今回は無線な相性が微妙でした。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/15/remote-work-in-taipei/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 14, 2014
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/14/micro-fiber-cross/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/14/micro-fiber-cross/">マイクロファイバークロス</a>
+    </h1>
+</header>
+
+
+        
+          <p>N1 に付いてきたヤツ、大事に使わせて頂いてたのですが紛失。大ショックです。 丁度良いのでアソコで買うか (何 それとも眼鏡屋さんで購入した時に付いて</p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/14/micro-fiber-cross/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 14, 2014
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/14/recent-raspi-package/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/14/recent-raspi-package/">最近の RasPI のパケジ</a>
+    </h1>
+</header>
+
+
+        
+          <p>以下なカンジなんすね。おやつスナップショットだったりしますが (何</p>
+
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 13, 2014
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/13/cannot-git-rebase-i/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/git/">Git </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/13/cannot-git-rebase-i/">知らなんだ (git rebase -i できないケイス)</a>
+    </h1>
+</header>
+
+
+        
+          <p>備忘な自分メモ、という事にて。 git status して modified なナニが残ってる時って git rebase -i できないんですね。何でかね、と言ってたら stash しろ、って出力されてて modified なソレ</p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/13/cannot-git-rebase-i/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 13, 2014
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/13/weekend/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/13/weekend/">週末</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえずこの週末はこっちで、な格好で良いとして 3 末の上京はどんな格好で行けば良いのかが分からない件。</p>
+
+<p>そういった意味でも台北以南楽だな。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/13/weekend/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 12, 2014
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/12/analog-oriented/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/12/analog-oriented/">アナログ志向</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>某マンガに触発されて水彩な画材を買ってしまいました。</p>
+
+<p>丁度良い (?) ので、うりずんの季節は外で本を読んだり絵を書いたりする時間を作れれば、と思っている次第です。</p>
+
+<iframe src="https://www.flickr.com/photos/yamane-toshiaki/13083897045/player/c7eb340189" height="500" width="375" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallofullscreen maallofullscreen></iframe>
+
+<p>とりあえず水彩の描きかたを勉強する必要があるのかどうか (ぇ</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/12/analog-oriented/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 12, 2014
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/12/moved-to-tokyo/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/12/moved-to-tokyo/">上京する件</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>BLE な勉強会とカーネル読書会をターゲットに上京することに。新しい何かに繋がれば良いな、と思いつつ。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/12/moved-to-tokyo/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 12, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/12/test-does-not-work/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/12/test-does-not-work/">試験が動かない件</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>試験が動かない。Empty test suite と言われてしまいます。</p>
+
+<pre><code>$ ./gradlew tasks
+</code></pre>
+
+<p>しても試験関連なナニは出てこない。Android Studio でターゲット出てきて実行できちゃう、ってのがそもそもダウトなのかどうか。</p>
+
+<p>ちょっと色々情報を整理しつつ試行錯誤してみます。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/12/test-does-not-work/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 11, 2014
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/11/drawing-tool/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/11/drawing-tool/">お絵描きどうぐ</a>
+    </h1>
+</header>
+
+
+        
+          <p>出掛ける用事があったのでジュンク堂というか丸善に寄り道。画材コーナーは微妙でした。近くにこれ系の店って無いかな、とググッてみると「画材額縁 タ</p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/11/drawing-tool/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    
+    
+
+
+
+
+<div class="pagination">
+
+    
+        
+        
+        
+        <a href="/" aria-label="First" class="label-pagination"><i class="fa fa-angle-double-left fa-lg"></i></a>
+    
+
+    
+    
+        <a href="/page/117/" aria-label="Previous" class="label-pagination"><i class="fa fa-angle-left fa-lg"></i></a>
+    
+
+    
+        <a href="/" class="label-pagination">1</a>
+    
+        <a href="/page/2/" class="label-pagination">2</a>
+    
+        <a href="/page/3/" class="label-pagination">3</a>
+    
+        <a href="/page/4/" class="label-pagination">4</a>
+    
+        <a href="/page/5/" class="label-pagination">5</a>
+    
+        <a href="/page/6/" class="label-pagination">6</a>
+    
+        <a href="/page/7/" class="label-pagination">7</a>
+    
+        <a href="/page/8/" class="label-pagination">8</a>
+    
+        <a href="/page/9/" class="label-pagination">9</a>
+    
+        <a href="/page/10/" class="label-pagination">10</a>
+    
+        <a href="/page/11/" class="label-pagination">11</a>
+    
+        <a href="/page/12/" class="label-pagination">12</a>
+    
+        <a href="/page/13/" class="label-pagination">13</a>
+    
+        <a href="/page/14/" class="label-pagination">14</a>
+    
+        <a href="/page/15/" class="label-pagination">15</a>
+    
+        <a href="/page/16/" class="label-pagination">16</a>
+    
+        <a href="/page/17/" class="label-pagination">17</a>
+    
+        <a href="/page/18/" class="label-pagination">18</a>
+    
+        <a href="/page/19/" class="label-pagination">19</a>
+    
+        <a href="/page/20/" class="label-pagination">20</a>
+    
+        <a href="/page/21/" class="label-pagination">21</a>
+    
+        <a href="/page/22/" class="label-pagination">22</a>
+    
+        <a href="/page/23/" class="label-pagination">23</a>
+    
+        <a href="/page/24/" class="label-pagination">24</a>
+    
+        <a href="/page/25/" class="label-pagination">25</a>
+    
+        <a href="/page/26/" class="label-pagination">26</a>
+    
+        <a href="/page/27/" class="label-pagination">27</a>
+    
+        <a href="/page/28/" class="label-pagination">28</a>
+    
+        <a href="/page/29/" class="label-pagination">29</a>
+    
+        <a href="/page/30/" class="label-pagination">30</a>
+    
+        <a href="/page/31/" class="label-pagination">31</a>
+    
+        <a href="/page/32/" class="label-pagination">32</a>
+    
+        <a href="/page/33/" class="label-pagination">33</a>
+    
+        <a href="/page/34/" class="label-pagination">34</a>
+    
+        <a href="/page/35/" class="label-pagination">35</a>
+    
+        <a href="/page/36/" class="label-pagination">36</a>
+    
+        <a href="/page/37/" class="label-pagination">37</a>
+    
+        <a href="/page/38/" class="label-pagination">38</a>
+    
+        <a href="/page/39/" class="label-pagination">39</a>
+    
+        <a href="/page/40/" class="label-pagination">40</a>
+    
+        <a href="/page/41/" class="label-pagination">41</a>
+    
+        <a href="/page/42/" class="label-pagination">42</a>
+    
+        <a href="/page/43/" class="label-pagination">43</a>
+    
+        <a href="/page/44/" class="label-pagination">44</a>
+    
+        <a href="/page/45/" class="label-pagination">45</a>
+    
+        <a href="/page/46/" class="label-pagination">46</a>
+    
+        <a href="/page/47/" class="label-pagination">47</a>
+    
+        <a href="/page/48/" class="label-pagination">48</a>
+    
+        <a href="/page/49/" class="label-pagination">49</a>
+    
+        <a href="/page/50/" class="label-pagination">50</a>
+    
+        <a href="/page/51/" class="label-pagination">51</a>
+    
+        <a href="/page/52/" class="label-pagination">52</a>
+    
+        <a href="/page/53/" class="label-pagination">53</a>
+    
+        <a href="/page/54/" class="label-pagination">54</a>
+    
+        <a href="/page/55/" class="label-pagination">55</a>
+    
+        <a href="/page/56/" class="label-pagination">56</a>
+    
+        <a href="/page/57/" class="label-pagination">57</a>
+    
+        <a href="/page/58/" class="label-pagination">58</a>
+    
+        <a href="/page/59/" class="label-pagination">59</a>
+    
+        <a href="/page/60/" class="label-pagination">60</a>
+    
+        <a href="/page/61/" class="label-pagination">61</a>
+    
+        <a href="/page/62/" class="label-pagination">62</a>
+    
+        <a href="/page/63/" class="label-pagination">63</a>
+    
+        <a href="/page/64/" class="label-pagination">64</a>
+    
+        <a href="/page/65/" class="label-pagination">65</a>
+    
+        <a href="/page/66/" class="label-pagination">66</a>
+    
+        <a href="/page/67/" class="label-pagination">67</a>
+    
+        <a href="/page/68/" class="label-pagination">68</a>
+    
+        <a href="/page/69/" class="label-pagination">69</a>
+    
+        <a href="/page/70/" class="label-pagination">70</a>
+    
+        <a href="/page/71/" class="label-pagination">71</a>
+    
+        <a href="/page/72/" class="label-pagination">72</a>
+    
+        <a href="/page/73/" class="label-pagination">73</a>
+    
+        <a href="/page/74/" class="label-pagination">74</a>
+    
+        <a href="/page/75/" class="label-pagination">75</a>
+    
+        <a href="/page/76/" class="label-pagination">76</a>
+    
+        <a href="/page/77/" class="label-pagination">77</a>
+    
+        <a href="/page/78/" class="label-pagination">78</a>
+    
+        <a href="/page/79/" class="label-pagination">79</a>
+    
+        <a href="/page/80/" class="label-pagination">80</a>
+    
+        <a href="/page/81/" class="label-pagination">81</a>
+    
+        <a href="/page/82/" class="label-pagination">82</a>
+    
+        <a href="/page/83/" class="label-pagination">83</a>
+    
+        <a href="/page/84/" class="label-pagination">84</a>
+    
+        <a href="/page/85/" class="label-pagination">85</a>
+    
+        <a href="/page/86/" class="label-pagination">86</a>
+    
+        <a href="/page/87/" class="label-pagination">87</a>
+    
+        <a href="/page/88/" class="label-pagination">88</a>
+    
+        <a href="/page/89/" class="label-pagination">89</a>
+    
+        <a href="/page/90/" class="label-pagination">90</a>
+    
+        <a href="/page/91/" class="label-pagination">91</a>
+    
+        <a href="/page/92/" class="label-pagination">92</a>
+    
+        <a href="/page/93/" class="label-pagination">93</a>
+    
+        <a href="/page/94/" class="label-pagination">94</a>
+    
+        <a href="/page/95/" class="label-pagination">95</a>
+    
+        <a href="/page/96/" class="label-pagination">96</a>
+    
+        <a href="/page/97/" class="label-pagination">97</a>
+    
+        <a href="/page/98/" class="label-pagination">98</a>
+    
+        <a href="/page/99/" class="label-pagination">99</a>
+    
+        <a href="/page/100/" class="label-pagination">100</a>
+    
+        <a href="/page/101/" class="label-pagination">101</a>
+    
+        <a href="/page/102/" class="label-pagination">102</a>
+    
+        <a href="/page/103/" class="label-pagination">103</a>
+    
+        <a href="/page/104/" class="label-pagination">104</a>
+    
+        <a href="/page/105/" class="label-pagination">105</a>
+    
+        <a href="/page/106/" class="label-pagination">106</a>
+    
+        <a href="/page/107/" class="label-pagination">107</a>
+    
+        <a href="/page/108/" class="label-pagination">108</a>
+    
+        <a href="/page/109/" class="label-pagination">109</a>
+    
+        <a href="/page/110/" class="label-pagination">110</a>
+    
+        <a href="/page/111/" class="label-pagination">111</a>
+    
+        <a href="/page/112/" class="label-pagination">112</a>
+    
+        <a href="/page/113/" class="label-pagination">113</a>
+    
+        <a href="/page/114/" class="label-pagination">114</a>
+    
+        <a href="/page/115/" class="label-pagination">115</a>
+    
+        <a href="/page/116/" class="label-pagination">116</a>
+    
+        <a href="/page/117/" class="label-pagination">117</a>
+    
+        <a href="/page/118/" class="label-pagination">118</a>
+    
+        <a href="/page/119/" class="label-pagination">119</a>
+    
+        <a href="/page/120/" class="label-pagination">120</a>
+    
+        <a href="/page/121/" class="label-pagination">121</a>
+    
+        <a href="/page/122/" class="label-pagination">122</a>
+    
+        <a href="/page/123/" class="label-pagination">123</a>
+    
+        <a href="/page/124/" class="label-pagination">124</a>
+    
+        <a href="/page/125/" class="label-pagination">125</a>
+    
+        <a href="/page/126/" class="label-pagination">126</a>
+    
+        <a href="/page/127/" class="label-pagination">127</a>
+    
+        <a href="/page/128/" class="label-pagination">128</a>
+    
+        <a href="/page/129/" class="label-pagination">129</a>
+    
+        <a href="/page/130/" class="label-pagination">130</a>
+    
+        <a href="/page/131/" class="label-pagination">131</a>
+    
+        <a href="/page/132/" class="label-pagination">132</a>
+    
+        <a href="/page/133/" class="label-pagination">133</a>
+    
+        <a href="/page/134/" class="label-pagination">134</a>
+    
+        <a href="/page/135/" class="label-pagination">135</a>
+    
+        <a href="/page/136/" class="label-pagination">136</a>
+    
+        <a href="/page/137/" class="label-pagination">137</a>
+    
+        <a href="/page/138/" class="label-pagination">138</a>
+    
+        <a href="/page/139/" class="label-pagination">139</a>
+    
+        <a href="/page/140/" class="label-pagination">140</a>
+    
+        <a href="/page/141/" class="label-pagination">141</a>
+    
+        <a href="/page/142/" class="label-pagination">142</a>
+    
+        <a href="/page/143/" class="label-pagination">143</a>
+    
+        <a href="/page/144/" class="label-pagination">144</a>
+    
+        <a href="/page/145/" class="label-pagination">145</a>
+    
+        <a href="/page/146/" class="label-pagination">146</a>
+    
+        <a href="/page/147/" class="label-pagination">147</a>
+    
+        <a href="/page/148/" class="label-pagination">148</a>
+    
+        <a href="/page/149/" class="label-pagination">149</a>
+    
+
+    
+    
+        <a href="/page/119/" aria-label="Next" class="label-pagination"><i class="fa fa-angle-right fa-lg"></i></a>
+    
+
+    
+    
+        <a href="/page/149/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+    
+
+</div>
+
+  
+
+  </div>
+
+  
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+    
+ </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+   

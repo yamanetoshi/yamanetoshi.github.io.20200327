@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>MultiChoiceMode 関連備忘メモ</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Dec 6, 2014
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/12/06/multichoicemode-memo/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         MultiChoiceMode 関連備忘メモ 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>凄くカン違いしてて成程って思ったので以下に控えを。</p>
+
+<p></p>
+
+<p>とりあえず github から clone して AndroidStudio に import を。特に難しいことをしている訳ではないはずなのでこのあたりはスルー。
+ # と、言いつつ import でかなりヤラれていたりしました</p>
+
+<p>そもそも何を控えておきたいか、というと MultiChoiceModeListener に関する諸々のメモです。</p>
+
+<p>とりあえず</p>
+
+<ul>
+<li>リストアイテム長押しで MultiChoiceMode に</li>
+<li>アクションバー左のアイコンクリックで処理終了</li>
+<li>処理終了のタイミングで削除実施</li>
+<li>選択されているアイテムは背景を変える</li>
+</ul>
+
+<p>というあたりを盛り込みます。</p>
+
+<h2 id="基本的な動作として">基本的な動作として</h2>
+
+<p>上にも書いたのですが MultiChoiceMode でまとめて削除を行なう、という処理にする場合の基本的な UI としては</p>
+
+<ul>
+<li>長押しで削除対象を選択する MultiChoiceMode になる</li>
+<li>選択が全て解除されたら Mode から離脱</li>
+<li>選択されている状態で ActionBar 左のアイコンをクリックすると削除実行</li>
+</ul>
+
+<p>という形。以前実装したサンプルではこうした形になってはいませんでした。ちなみに左のアイコンをクリックした時に呼び出される callback は MultiChoiceModeListener の onDestroyActionMode というメソドになります。ここに更新処理を書く訳ですね。</p>
+
+<p>ActionBar に余計な action button を付けないのであれば基本的に処理を書くのはここだけ、という形になります。あ、onCreateActionMode でタイトル設定はやらないと駄目ですね。すみません。</p>
+
+<p>で、今回 CheckedTextView などというソレがある、という話を聞きましてそいえば以前作成したナニには選択した目印がなかったよな、と思い色々試してみた次第です。ただ、CheckedTextView って MultiChoiceMode でない時にも表示されてたりして微妙だなぁ、と思っていたら、Checkable を implements してれば反応してくれるらしい、という事を今更知ってリストビューの行レイアウトの背景で、を試してみた次第です。</p>
+
+<ul>
+<li><a href="http://y-anz-m.blogspot.jp/2012/02/drawablestate-viewgroup.html">Android　DrawableState でリストアイテムの背景を変える ViewGroup を作る</a></li>
+</ul>
+
+<p>これを盛り込んだものを以下なリポジトリに置いています。Chckeable を実装してれば ViewGroup でも何かをしてくれる、というのは非常に嬉しい。</p>
+
+<p>-<a href="https://github.com/yamanetoshi/RoRAPIClient.AndroidStudio">RoRAPIClient.AndroidStudio</a></p>
+
+<h2 id="ondestroyactionmode">onDestroyActionMode</h2>
+
+<p>データはサーバにあるので UI thread とは別な thread で削除なリクエストをサーバに投げてるのですが、ここで getListView().getCheckedItemPositions() の戻りなオブジェクトが初期化されている事が判明。</p>
+
+<p>どうも onDestroyActioMode() が終了した時点でチェック状態もクリアされるのですね。</p>
+
+<h2 id="import-時の不具合">import 時の不具合</h2>
+
+<p>以下に控えを。import 後の build にて</p>
+
+<blockquote>
+<p>Manifest merger failed : uses-sdk:minSdkVersion 15 cannot be smaller than version L declared in library com.android.support:suppoert-v4:21.0.0-rc1</p>
+</blockquote>
+
+<p>という不具合が報告された上、ソースがエラーで一杯状態。どうも support-v4 あたりに起因する不具合らしい。</p>
+
+<p>build.gradle に以下に修正をして OK なのかどうか。</p>
+
+<pre><code> dependencies {
+-    compile 'com.android.support:support-v4:+'
++    compile 'com.android.support:support-v4:20.+'
+ }
+</code></pre>
+
+<p>その後、SDK が正しく設定されていないとやらで SDK Manager から API 19 なナニを導入していたりしています。むむむ。</p>
+
+<p>ちなみに手製のライブラリプロジェクトを使っていたんですが import 時に .jar にして libs 配下に投入している模様。大丈夫なのかな。</p>
+
+<p>プロジェクトを開き直してみたのですが cannot resolv symbol なエラーが出たまんまだな。ちなみに端末から <code>./gradlew aR</code> してみるに build successful とのこと。</p>
+
+<p>以下によれば</p>
+
+<ul>
+<li><a href="http://qiita.com/motodimago/items/727a3b98848a6901365d">Android Studio で問題なくビルドできるのに cannot resolv symbol が急に荒ぶった時対処</a></li>
+</ul>
+
+<p>File -&gt; Invalidate Caches / Restart との事ですが、AndroidStudio はどこかに行かれてしまわれていますなう。あ、再起動しちゃうのですね。しかし何なのこれ。</p>
+
+<p>とりあえず無事に import できたみたいなので盛り込みに取りかかります。</p>
+
+<h2 id="と-思ったら">と、思ったら</h2>
+
+<p>まだエラーが出てます。確認してみるに External Libraries に Android な SDK が居ない。そりゃ駄目だろと。</p>
+
+<p>そして何契機か分かりませんが External Libraries に API 15 なナニが表示されているのを gradle.properties 比べてみようとして別プロジェクト開いた時に確認orz</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Dec 6, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/12/05/how-to-regster-remote-rails-project/" title="remote にある Rails プロジェクトを再度 Heroku に登録する方法">remote にある Rails プロジェクトを再度 Heroku に登録する方法</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/12/07/nishi-no-ya/" title="西之屋">西之屋</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

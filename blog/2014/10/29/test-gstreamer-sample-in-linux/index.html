@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Linux で GStreamer なサンプルの動作確認メモ</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Oct 29, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/10/29/test-gstreamer-sample-in-linux/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Linux で GStreamer なサンプルの動作確認メモ 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>なんか色々とトラップばっかだったので控えを。つうか最終的に動いてませんで終わっているので参考にさえならないかも。</p>
+
+<p>環境はでびあん wheezy です。</p>
+
+<p></p>
+
+<p>まず、公式から NDK の r10c を取得。展開。また、Android な GStreamer SDK も取得して展開。</p>
+
+<p>次に <a href="https://github.com/otonchev/rtspviewersf">otonchev/rtspviewersf</a> なリポジトリから <code>git clone</code> しておいて以下の環境変数を設定。</p>
+
+<ul>
+<li>GSTREAMER_ROOT_ANDROID</li>
+<li>GSTREAMER_SDK_ROOT</li>
+</ul>
+
+<p>取得した SDK の root を設定します。</p>
+
+<h2 id="android-mk">Android.mk</h2>
+
+<p>最後の行を以下に修正。</p>
+
+<pre><code>include $(GSTREAMER_NDK_BUILD_PATH)/gstreamer.mk
+</code></pre>
+
+<h2 id="pkg-config-が無い">pkg-config が無い</h2>
+
+<p>プロジェクトの root で ndk-build 実行したところ、pkg-config が無いとのこと。以下のパケジを導入。</p>
+
+<pre><code>$ sudo apt-get install libgstreamer1.0-dev
+</code></pre>
+
+<h2 id="gstreamer-video-1-0">gstreamer-video-1.0?</h2>
+
+<p>これも build 時には無いと言われてしまうのですが以下だと動いた模様。原因不明。</p>
+
+<pre><code>GSTREAMER_EXTRA_DEPS      := gstreamer-video-0.10
+</code></pre>
+
+<p>また、libgstreamer-plugins-base1.0-dev も導入してみたのですがパケジのバージョン依存で導入できない、という事象が発生。</p>
+
+<p>wheezy-backports? という話を見つけるも sources.list には既に追加済み。<a href="http://forums.debian.net/viewtopic.php?f=6&amp;t=117769">Installing gstreamer1.0 on debian wheezy</a> を参照して以下で導入できました。</p>
+
+<pre><code>$ sudo apt-get install liborc-0.4-0=1:0.4.19-1~bpo70+1
+$ sudo apt-get install libgstreamer-plugins-base1.0-0 libgstreamer-plugins-base1.0-dev
+</code></pre>
+
+<p>これで ndk-build が動くようになったものの、libgstreamer_android.so の link で以下な不具合発現。</p>
+
+<ul>
+<li>cannot find -lGLESv2</li>
+<li>cannot find -lEGL</li>
+<li>cannot find -lOpenSLES</li>
+</ul>
+
+<p>こちらは android update で解決。</p>
+
+<pre><code>$ android update project -p . -s --target android-19
+</code></pre>
+
+<p>ただ、まだ link でのシンボル未解決は完全に解決できていません。</p>
+
+<pre><code>undefined reference to '__srget'
+</code></pre>
+
+<p>こちら、r10c でシンボルが削除された旨のアナウンスがある事を確認したのでそれ以前のバージョンの NDK を探すもなかなか見つからず。以下な URL で r9 が取得できました。</p>
+
+<ul>
+<li><a href="http://dl.google.com/android/ndk/android-ndk-r9-linux-x86_64.tar.bz2">http://dl.google.com/android/ndk/android-ndk-r9-linux-x86_64.tar.bz2</a></li>
+</ul>
+
+<h2 id="videooverlay-h-未解決">videooverlay.h 未解決</h2>
+
+<p>r9 の ndk-build で libgstreamer_android.so は作成されたもののヘッダが無い、というエラーメッセージが出力。</p>
+
+<pre><code>jni/mediaplayer.c:20:36: fatal error: gst/video/videooverlay.h: No such file or directory
+</code></pre>
+
+<p>たしかに SDK の include 配下には videooverlay.h はありません。gst/video/video.h のパスは以下なんですが</p>
+
+<pre><code>include/gstreamer-0.10/gst/video/video.h
+</code></pre>
+
+<p>SDK が 1.0 に追従してくれないと、なのかどうか。rtspviewersf の作者はどう解決しているのか、を確認した方が良いのかどうか。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Oct 29, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/10/28/intel-edison/" title="intel edison">intel edison</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/10/29/gstreamer-tutorial/" title="GStreamer の Tutorial">GStreamer の Tutorial</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

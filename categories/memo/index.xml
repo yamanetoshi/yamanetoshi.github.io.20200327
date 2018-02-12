@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Memo on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/memo/</link>
+    <description>Recent content in Memo on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 25 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/memo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>メモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/01/25/python-obd-memo/</link>
+      <pubDate>Thu, 25 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/01/25/python-obd-memo/</guid>
+      <description>&lt;p&gt;つい出来心で&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ELM327 なデバイス&lt;/li&gt;
+&lt;li&gt;OBD2 の分岐ケーブル&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;を調達してしまうなど。&lt;a href=&#34;https://github.com/brendan-w/python-OBD&#34;&gt;python-OBD&lt;/a&gt; という pip な道具があるようなのでそれを使って OBD なナニが ELM327 によってどんな CAN メセジに変換されているのか、が確認できるのかどうか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>備忘</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/12/27/memo/</link>
+      <pubDate>Wed, 27 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/12/27/memo/</guid>
+      <description>&lt;p&gt;買わねば、とか出金を伴なう諸々。年内中に何とかしたいものを以下に。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>備忘</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/11/25/memo/</link>
+      <pubDate>Sat, 25 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/11/25/memo/</guid>
+      <description>&lt;p&gt;本日のもくもくは RSS 倒す方向にて。&lt;/p&gt;
+
+&lt;h2 id=&#34;その後&#34;&gt;その後&lt;/h2&gt;
+
+&lt;p&gt;1800 に知人が栄町にてライブやるとのことで見に行ってきます。その後行ければ将棋部に、なんですがポンコツと化している可能性大なのでどうするかと。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>機材購入控え</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/10/26/memo/</link>
+      <pubDate>Thu, 26 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/10/26/memo/</guid>
+      <description>&lt;p&gt;なんかタブに買わなきゃなナニが残っているのでこちらに控えを。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>控え</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/10/24/memo/</link>
+      <pubDate>Tue, 24 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/10/24/memo/</guid>
+      <description>&lt;p&gt;買わねば、を何度も控えててアレですがorz&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>土曜日もくもく向け備忘</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/27/memo/</link>
+      <pubDate>Wed, 27 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/27/memo/</guid>
+      <description>&lt;p&gt;どこまでできるかわかりませんが。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Android6 以降の権限関連&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://thunkable.com/#/&#34;&gt;Thunkable&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://yuki312.blogspot.jp/2017/03/constraintlayout.html&#34;&gt;ConstraintLayout&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://codezine.jp/article/detail/10228&#34;&gt;Androidアプリの新レイアウト「ConstraintLayout」をCheck It Out！&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;あと、ビットコイン関連、宿題で調べてきてプレゼンしてみるとかいいかも。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>買わねば、な書籍メモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/08/16/memo/</link>
+      <pubDate>Wed, 16 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/08/16/memo/</guid>
+      <description>&lt;p&gt;本読む時間が取れてません。週休三日なので何とかしたい。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.amazon.co.jp/gp/product/B073TRC78W/yamanetoshi-22&#34;&gt;ブロックチェーン　イーサリアムへの入り口&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;これ、Kindle 版だけなんですね。&lt;/p&gt;
+
+&lt;h2 id=&#34;囲碁の参考書&#34;&gt;囲碁の参考書&lt;/h2&gt;
+
+&lt;p&gt;良さげなの探しちう。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>自分メモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/06/28/memo/</link>
+      <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/06/28/memo/</guid>
+      <description>&lt;p&gt;以下な書籍に関する自分メモを。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/4820759566/yamanetoshi-22&#34;&gt;これなら通じる技術英語ライティングの基本&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>読書会、の手法 (備忘)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/05/06/reading-meeteing-memo/</link>
+      <pubDate>Sat, 06 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/05/06/reading-meeteing-memo/</guid>
+      <description>以下、案内してなかったのだったか、というか完全に忘却の彼方でしたorz 「8 分読書会」の進め方</description>
+    </item>
+    
+    <item>
+      <title>PyMC2 の環境設定およびソース入手控え</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/05/05/configuration-memo/</link>
+      <pubDate>Fri, 05 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/05/05/configuration-memo/</guid>
+      <description>&lt;p&gt;とりあえず Anaconda 使え、とあります。なんとなく&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Anaconda&lt;/li&gt;
+&lt;li&gt;Jupyter Notebook&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;てのがトレンドなのかどうか。とりあえず標題の件、控えを以下にて。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>php.ini</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/04/26/php-ini/</link>
+      <pubDate>Wed, 26 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/04/26/php-ini/</guid>
+      <description>&lt;p&gt;うぶんつで apache2 用だと以下なパスらしい。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/etc/php/7.0/apache2/php.ini
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;知りませんでした。自分メモ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>自分メモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/03/01/memo/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/03/01/memo/</guid>
+      <description>&lt;p&gt;諸々、自分メモということで控えを。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>レシピ備忘</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/01/06/recipe-memorandum/</link>
+      <pubDate>Fri, 06 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/01/06/recipe-memorandum/</guid>
+      <description>&lt;p&gt;年が明け、ようやく冷蔵庫モディファイの日が明日。&lt;/p&gt;
+
+&lt;p&gt;備忘まで貼ってあった手書きレシピは汚ないので処分、て事でこちらに控えを残すことに。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hubot 備忘</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/04/08/hubot-memo/</link>
+      <pubDate>Fri, 08 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/04/08/hubot-memo/</guid>
+      <description>&lt;p&gt;自分メモ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>備忘</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/04/06/memo/</link>
+      <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/04/06/memo/</guid>
+      <description>&lt;p&gt;標題の件、いくつか自分メモ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>続いてスマホ移行</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/01/02/migration-memo/</link>
+      <pubDate>Sat, 02 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/01/02/migration-memo/</guid>
+      <description>&lt;p&gt;N5 の代替が届いたので移行します。メモを以下に。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

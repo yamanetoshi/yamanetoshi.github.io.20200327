@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>RuboCop なるものがあるらしい</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 25, 2015
+         - 6 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2015/02/25/translating-rubocop-readme/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
+        
+    </p>
+    <h1 class="entry-title">
+         RuboCop なるものがあるらしい 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p><a href="https://github.com/bbatsov/rubocop">Github</a> にある README を一部翻訳してみることに。</p>
+
+<p></p>
+
+<h2 id="そもそも-rubocopu-とは何か">そもそも RuboCopu とは何か</h2>
+
+<p>Rubocop は Ruby の静的コード解析ツールです。<a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a> で概説されているガイドラインの多くが強制されるでしょう。</p>
+
+<p>それらの振舞いのほとんどは様々な設定オプションによって微調整が可能です。</p>
+
+<p>コードの問題を指摘することの他に Rubocop は自動的にいくつかの問題を修正することもできます。</p>
+
+<h2 id="導入">導入</h2>
+
+<p>RuboCop の導入は標準的な以下の方法になります。</p>
+
+<pre><code>$ gem install rubocop
+</code></pre>
+
+<p>もし、bundler を使って導入する場合は Gemfile では require する必要はありません。</p>
+
+<pre><code>gem 'rubocop', require: false
+</code></pre>
+
+<h2 id="基本的な使い方">基本的な使い方</h2>
+
+<p>引数無しで <code>rubocop</code> を実行するとカレントディレクトリにある全ての Ruby ソースファイルをチェックします。</p>
+
+<pre><code>$ rubocop
+</code></pre>
+
+<p>別の方法として、チェックするファイルやディレクトリのリストを <code>rubocop</code> に渡すことができます。</p>
+
+<pre><code>$ rubocop app spec lib/something.rb
+</code></pre>
+
+<p>Rubocop の挙動を見てみましょう。以下の Ruby のソースコードを前提とします。</p>
+
+<pre><code>def badName
+  if domething
+    test
+    end
+end
+</code></pre>
+
+<p>Rubocop を実行すると以下のレポートを出力するでしょう。</p>
+
+<pre><code>Inspecting 1 file
+W
+
+Offenses:
+
+test.rb:1:5: C: Use snake_case for method names.
+def badName
+    ^^^^^^^
+test.rb:2:3: C: Use a guard clause instead of wrapping the code inside a conditional expression.
+  if something
+  ^^
+test.rb:2:3: C: Favor modifier if usage when having a single-line body. Another good alternative is the usage of control flow &amp;&amp;/||.
+  if something
+  ^^
+test.rb:4:5: W: end at 4, 4 is not aligned with if at 2, 2
+    end
+    ^^^
+
+1 file inspected, 4 offenses detected
+</code></pre>
+
+<p>されに詳細なチェックを行なうためのコマンドラインオプションは</p>
+
+<pre><code>$ rubocop -h
+</code></pre>
+
+<p>で確認しましょう。</p>
+
+<h2 id="cops">Cops</h2>
+
+<p>Rubocop においては code 上で実行される様々なチェックがあり、それらは cops と呼ばれています。</p>
+
+<h2 id="style">Style</h2>
+
+<p>略。</p>
+
+<h2 id="lint">Lint</h2>
+
+<p>Lint cops はコードの中にある非常に悪い慣習およびエラーの可能性をチェックします。Rubocop は移植性のある方法で全ての build-in MRI lint チェック (ruby -wc) を実装し、自身が拡張された lint check の多くを追加します。あなたは lint cops のみをこのように実行できます。</p>
+
+<pre><code>$ rubocop -l
+</code></pre>
+
+<p>-l/&ndash;lint オプションは有効になっている全ての lint cops に他の cops の選択を加える場合に &ndash;only と一緒に使うことができます。</p>
+
+<p>lint cops のいずれかを disable にすることは一般的には悪い考えです。</p>
+
+<h2 id="metrix">Metrix</h2>
+
+<p>略。</p>
+
+<h2 id="rails">Rails</h2>
+
+<p>Rails cops は Ruby on Rails フレームワーク固有のものです。style あるいは lint cops とは違い、デフォルトでは使用されず、使う事を明示する必要がある。</p>
+
+<pre><code>$ rubocop -R
+</code></pre>
+
+<p>あるいは 以下のディレクティブをあなたの <code>.rubocop.yml</code> に記載する必要がある。</p>
+
+<pre><code>AllCops:
+  RunRailsCops: true
+</code></pre>
+
+<h2 id="設定">設定</h2>
+
+<p>Rubocop の挙動は .rubocop.yml という設定ファイルによって制御することができます。チェックの enable/disable や任意のパラメータを受け取る場合、それらの挙動を変える事が可能です。ファイルはホームディレクトリ、あるいはいくつかのプロジェクトディレクトリに配置することが可能です。Rubocop は検査するファイルがあるディレクトリの中およびルートディレクトリに向けて上方向にで設定ファイルを探すでしょう。</p>
+
+<p>設定ファイルは以下のフォーマットになります。</p>
+
+<pre><code>inherit_from: ../.rubocop.yml
+
+Style/Encoding:
+  Enabled: false
+
+Metrics/LineLength:
+    Max: 99
+</code></pre>
+
+<p>注：cop の名前の修飾子 (例えば Style) が推奨されているが全ての type の中で cop の名前が一意であれば必ずしもそうしなければならない訳ではない。</p>
+
+<h2 id="継承">継承</h2>
+
+<p>任意のディレクティブ inherit_from は一つまたは複数のファイルから設定を読み込むために使われます。これによりプロジェクトルートの .rubocop.yml にある共通のプロジェクト設定とサブディレクトリのルールからの差分を持つことが可能になります。</p>
+
+<p>ファイルは相対パス乃至絶対パスによってそれらを参照することができます。inherit_from 以降のディレクティブは読み込まれたファイルの設定で上書きされます。</p>
+
+<p>複数のファイルが include されている時、最初のファイルが一番優先順位が低くなり、最後のものが一番高くなります。</p>
+
+<p>複数の記述が以下になります。</p>
+
+<pre><code>inherit_from:
+  - ../.rubocop.yml
+  - ../conf/.rubocop.yml
+</code></pre>
+
+<h2 id="既定値">既定値</h2>
+
+<p>Rubocop のホームディレクトリ配下の config/default.yml というファイルはすべての構成から継承するデフォルト設定を保持しています。プロジェクトや個人的な .rubocop.yml ファイルはデフォルトとは異なる設定のみを記載する必要があります。</p>
+
+<p>プロジェクト乃至ホームディレクトリに .rubocop.yml が無い場合、config/default.yml が使われます。</p>
+
+<h2 id="ファイルの-including-excluding">ファイルの Including/Excluding</h2>
+
+<p>Rubocop は実行されたディレクトリ、あるいはコマンドライン引数で渡されたディレクトリから始まる再帰的な探索で発見された全てのファイルをチェックします。しかし、それだけで .rb という拡張子を持つファイルや <code>#! .*ruby</code> という宣言のある Ruby ファイルとして認識します。</p>
+
+<p>隠しディレクトリ (. で開始する名前を持つもの) はデフォルトでは探索されません。</p>
+
+<p>デフォルトで探索対象となっていないファイルを対象とするには、コマンドライン引数でそれらを渡すか、 AllCops/Include の下にそれらをエントリに追加する必要があります。ファイルおよびディレクトリは AllCops/Exclude によって無視することもできます。</p>
+
+<p>ここに Rails プロジェクトのために使われる例を示す。</p>
+
+<pre><code>AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - !ruby/regexp /old_and_unused\.rb$/
+
+# other configuration
+# ...
+</code></pre>
+
+<p>ファイルやディレクトリは .rubocop.yml からの相対位置として記述される。</p>
+
+<p>注: Rakefile のようにファイル名のみのパターンは任意のディレクトリにおいてマッチするがこのパターンスタイルは非推奨です。任意のディレクトリにおいてファイル名をマッチさせる正しい方法はカレントを含めた <code>**/Rakefile</code> という書き方です。</p>
+
+<p>注: <code>config/**</code> というパターンは config 以下の全てのファイルについて再帰的にマッチしますが、このパターンスタイルは非推奨となり、<code>config/**/*</code> に置換されるべきです。</p>
+
+<p>注: Include および Exclude パラメータは特別です。それらは定義されている場所から始まるディレクトリツリーのために有効になっています。それらはサブディレクトリにある他の .rubocop.yml の Include および Exclude の設定によって隠されることはありません。これは 検査のための設定は一番近くの .rubocop.yml から、あるいは上向き探索という RuboCop の一般原則に従う他の全てのパラメータとは異なります。</p>
+
+<p>cops は必要な時に (例えばあなたが Rails のモデルを app/models/*.rb のパスにマッチするファイルのみチェックしたい) 特定のファイルのセットのみを実行することができます。全ての cops は Include というパラメータをサポートします。</p>
+
+<pre><code>Rails/DefaultScope:
+  Include:
+    - app/models/*.rb
+</code></pre>
+
+<p>cops は必要な時に (例えばあなたが特定のファイルにおいていくつかの cop のみを実行したい) 特定のファイルのセットのみを除外することもできます。全ての cops は Exclude というパラメータをサポートします。</p>
+
+<pre><code>Rails/DefaultScope:
+  Exclude:
+    - app/models/problematic.rb
+</code></pre>
+
+<h2 id="一般的な設定パラメータ">一般的な設定パラメータ</h2>
+
+<p>Include および Exclude に加えて、以下に示すパラメータは全ての cop のために有効になっています。</p>
+
+<h2 id="enabled">Enabled</h2>
+
+<p>特定の cops はその特定の cop のため Enabled を false に設定することで無効にすることができます。</p>
+
+<pre><code>Metrics/LineLength:
+    Enabled: false
+</code></pre>
+
+<h2 id="重要度">重要度</h2>
+
+<p>それぞれの cop は属する部署に基づいた既定の重要度を持ちます。レベルは Lint の waring や他の全ての convention です。cops はそれらの重要度レベルをカスタマイズできます。許可されているパラメータは refactor、convention、warning、error そして fatal です。上記の一般的なルールから一つの例外があり、それは Lint/Syntax という他の cop が呼び出される前に構文エラーをチェックする特別な cop です。これは無効にできず、fatal という重要度は設定で変更することができません。</p>
+
+<pre><code>Metrics/CyclomaticComplexity:
+  Severity: warning
+</code></pre>
+
+<h2 id="自動で生成される設定">自動で生成される設定</h2>
+
+<p>もしあなたが圧倒的な量の駄目なコードベースを持っているのであれば <code>rubocop --auto-gen-config</code> の使用および <code>inherit_from: .rubocop_todo.yml</code> をあなたの <code>.rubocop.yml</code> に追加するのが良い方法でしょう。生成された <code>.rubocop_todo.yml</code> はコードから検出された不備がある全ての cops を無効にします。次にあなたは生成されたエントリを一つづつ削除することで問題の解決を開始することができます。</p>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>これ下書きで Github あたりにリポジトリ作るか。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 25, 2015</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2015/02/25/ubilinux-kernel-rebuild-memo/" title="ubilinux の Kernel 再構築に関するメモ">ubilinux の Kernel 再構築に関するメモ</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2015/02/26/doing-osx-bootcamp/" title="bootcamp 弄ってみた">bootcamp 弄ってみた</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

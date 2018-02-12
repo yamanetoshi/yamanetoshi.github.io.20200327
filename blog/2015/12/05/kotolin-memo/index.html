@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Kotolin メモ</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Dec 5, 2015
+         - 5 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2015/12/05/kotolin-memo/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Kotolin メモ 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>ちょっと弄って時間が経つとすべて cache から落ちているので控えを取ってみます。自分メモです。</p>
+
+<p></p>
+
+<p>確認させて頂いてるのは</p>
+
+<ul>
+<li><a href="https://sites.google.com/site/tarokotlin/home">プログラミングKotlin（仮）（α）</a></li>
+</ul>
+
+<p>です。</p>
+
+<h2 id="代表的な機能">代表的な機能</h2>
+
+<h3 id="null-安全">NULL 安全</h3>
+
+<p>NPE を抑える記述が可能とのこと。</p>
+
+<h3 id="拡張関数">拡張関数</h3>
+
+<p>クラス定義の外でメソド追加が可能とのこと。</p>
+
+<pre><code>    fun Int.odd() = this % 2 != 0
+</code></pre>
+
+<p>手続き定義の書き方忘れてるな。あと最近 Python 弄る機会がありましてそこともごっちゃになっているxD</p>
+
+<h3 id="関数リテラル">関数リテラル</h3>
+
+<p>これ、手続きオブジェクトのことかな。lambda が使える、と。</p>
+
+<pre><code>  val sayHello = {
+    (name : String) -&gt;
+    println(&quot;Hello, $name&quot;)
+  }    
+
+  sayHello(&quot;Taro&quot;)
+</code></pre>
+
+<p>S 式で書けるようにできないかなぁ (を</p>
+
+<h3 id="クラス">クラス</h3>
+
+<p>Employee というクラス定義が例示されている。</p>
+
+<pre><code>class Employee(val name : String) {
+    
+    var birthday : #(Int, Int, Int)? = null
+    private set
+
+    fun setBirthday(val year : Int, val month : Int, val day : Int) {
+      birthday = #(year, month, day)
+    }
+}
+</code></pre>
+
+<p>birthday の型はリストになるのかどうか。</p>
+
+<h3 id="等価">等価</h3>
+
+<p>参照等価、構造等価、という概念。== という演算子が無いのか。あ、違うや。== では参照等価を調べることができない模様。identityEquals というインラインな手続きがあると書いてますね。あと、インライン関数とか中置呼び出しとかって何だろ。</p>
+
+<p>以下なコードが例示されてます。中置呼び出しの例にもなっている模様。</p>
+
+<pre><code>fun main(args : Array&lt;String&gt;) {
+    val a = java.lang.Integer(500)
+    val b = java.lang.Integer(500)
+
+    println(a == b)             // true
+    println(a identityEquals b) // false
+}
+</code></pre>
+
+<h3 id="キャスト">キャスト</h3>
+
+<p>型チェックした後はキャスト不要らしい。smart cast か。あと、cast は as という演算子を使う模様。</p>
+
+<h3 id="手続きの定義">手続きの定義</h3>
+
+<p>簡単な例として以下が記載されてます。</p>
+
+<pre><code>fun next(n : Int) : Int {
+    return n + 1
+}
+</code></pre>
+
+<p>六つの特徴がある、とのこと。</p>
+
+<ul>
+<li>トップレベルでの手続き定義</li>
+<li>fun キーワードによる手続き定義</li>
+<li>型宣言の位置</li>
+<li>変数の型宣言は不要</li>
+<li>val とか var というキーワード</li>
+<li>文末を明示しなくてよい (; が不要)</li>
+</ul>
+
+<p>以下な宣言が可能とのこと。</p>
+
+<pre><code>fun next(n : Int) = n + 1
+</code></pre>
+
+<p>一つの式のみの場合、この書き方ができる模様。</p>
+
+<h3 id="ローカル関数">ローカル関数</h3>
+
+<p>手続きの中で定義された手続きをこう呼ぶ模様。Scheme とかと同じで手続きが第一級オブジェクトなのでできるワザ。</p>
+
+<h3 id="関数リテラル-1">関数リテラル</h3>
+
+<p>_Kotlin では関数と関数リテラルは異なるものです_という記述があるな。関数リテラル、が lambda で定義できる手続きオブジェクト、って思っててよいかな。</p>
+
+<p>例示されてるソレは one という定数を定義しています。</p>
+
+<pre><code>  val one : Int = {
+    (n : Int) : Int -&gt; 
+    n + 1
+  }(0)
+</code></pre>
+
+<p>Scheme で書くと以下? (one の定義は略)</p>
+
+<pre><code>  ((lambda (n) n + 1) 0)  
+</code></pre>
+
+<p>絶対こっちのが簡単だと思うんだけどなぁ。</p>
+
+<ul>
+<li>関数リテラルはブラケット ({}) で囲まれる</li>
+<li>最後に書かれた文が表す値が戻される</li>
+<li>仮引数、戻り値の型を宣言する場合、本文との間に -&gt; を書く</li>
+<li>手続きの型は略せる</li>
+</ul>
+
+<h3 id="関数と関数リテラルの違い">関数と関数リテラルの違い</h3>
+
+<p>普通に宣言された関数は第一級オブジェクトではない、とあります。あ、関数として定義されたソレを手続きオブジェクトとして関数に渡したりすると叱られるのか。</p>
+
+<p>そして、手続きオブジェクトはオーバーロードできない、とかありますね。当り前なのかどうか。</p>
+
+<h3 id="クロージャ">クロージャ</h3>
+
+<p>以下が例示されています。いいですね。</p>
+
+<pre><code>fun main(args : Array&lt;String&gt;) {
+  var n = 0
+  
+  fun next() {
+    n++
+  }
+  
+  next()
+  println(n)
+}
+</code></pre>
+
+<h3 id="中置呼び出し">中置呼び出し</h3>
+
+<p>Infix call というらしい。以下の条件を満たせば良い模様。</p>
+
+<ul>
+<li>メンバ関数 (または拡張関数)</li>
+<li>引数一つ</li>
+</ul>
+
+<h3 id="ジェネリック関数">ジェネリック関数</h3>
+
+<p>定義が可能な模様。以下が例示。</p>
+
+<pre><code>fun head&lt;T&gt;(array : Array&lt;T&gt;) : T {
+    returnn array[0]
+}
+</code></pre>
+
+<p>あるいは拡張関数として書くと以下とのこと。</p>
+
+<pre><code>fun &lt;T&gt; Array&lt;T&gt;.head() = this[0]
+</code></pre>
+
+<h3 id="デフォルト引数と名前付き引数">デフォルト引数と名前付き引数</h3>
+
+<p>Default argument によってオーバーロードを減らすことができる、のか。Named argument ってのもあるのね。例の引用は略。</p>
+
+<h3 id="演算子オーバーロード">演算子オーバーロード</h3>
+
+<p>簡単に実現可能とのこと。<a href="https://confluence.jetbrains.com/display/Kotlin/Operator+overloading">ここ</a>に Kotlin が提供する演算子の一覧がある模様。</p>
+
+<h3 id="if">if</h3>
+
+<p>式になってて値を戻す模様。</p>
+
+<h3 id="when">when</h3>
+
+<p>switch はないけれど、とのこと。これも値を戻すのか。</p>
+
+<pre><code>fun main(args : Array&lt;String&gt;) {
+  val a = 7
+  
+  val b = when(a) {
+    1 -&gt; &quot;1st&quot;
+    2 -&gt; &quot;2nd&quot;
+    3 -&gt; &quot;3rd&quot;
+    seven() -&gt; &quot;lucky seven!&quot;
+    4, 5, 6, 7, 8, 9 -&gt; &quot;${a}th&quot;
+    else -&gt; &quot;unknown&quot;
+  }
+  
+  println(b) // &quot;lucky seven!&quot;
+}
+
+fun seven() = 7
+</code></pre>
+
+<p>これ、最初意味分かりませんでした。よくよく見てみるに <code>seven()</code> の呼び出しが when な文の中にあるのを発見した次第ス。</p>
+
+<p>そして FizzBuzz の例が出てます。</p>
+
+<pre><code>when {
+    a.isFizz() &amp;&amp; a.isBuzz() -&gt; &quot;fizzbuzz&quot;
+    a.isFizz() -&gt; &quot;fizz&quot;
+    a.isBuzz() -&gt; &quot;buzz&quot;
+    else -&gt; a
+}
+</code></pre>
+
+<p>これはこれは。また、when はパターンマチングをサポートとありますね。</p>
+
+<h3 id="for-ループ">for ループ</h3>
+
+<p>以下な書き方ができるとのこと。</p>
+
+<pre><code>  for(val arg in args) {
+    println(arg)
+  }
+</code></pre>
+
+<ul>
+<li>arg は val または var を指定 (デフォルトは val)</li>
+<li>arg はイテレータを提供するオブジェクトでなければならない</li>
+<li>関数 iterator() を持ってるオブジェクトはイテレータを提供する</li>
+<li>関数 next() を持ってて Boolean 型の関数 next() またはプロパティ next を持っているオブジェクトはイテレータを提供する</li>
+</ul>
+
+<h3 id="ラベル付き-return">ラベル付き return</h3>
+
+<p>break も continue もラベル指定の jump が可能らしい。</p>
+
+<h3 id="クラスの定義">クラスの定義</h3>
+
+<p>簡単な例として以下が例示されています。</p>
+
+<pre><code>class Person(name : String, age : Int) {
+  val name = name
+  val age = age
+}
+</code></pre>
+
+<p>これ、こう書けるみたいです。</p>
+
+<pre><code>class Person(val name : String, val age : Int)
+</code></pre>
+
+<p>匿名イニシャライザ、というものもある模様。</p>
+
+<pre><code>class Person(firstName : String, lastName : String) {
+  val name : String
+  
+  {
+    name = firstName + &quot; &quot; + lastName
+  }
+}
+</code></pre>
+
+<p>属性 name にコンストラクタの引数な文字列を空白区切で連結させて、なのか。</p>
+
+<h3 id="継承">継承</h3>
+
+<p>以下な記述。open というアノテーションで継承を許可するとのこと。</p>
+
+<pre><code>open class Foo(val a : Int)
+
+// クラス Fooを継承
+class Bar(a : Int) : Foo(a)
+</code></pre>
+
+<p>基本的には継承不可、なのか。&lt; Effective Java</p>
+
+<h3 id="override">override</h3>
+
+<p>厳しいルールがあるようで。</p>
+
+<ul>
+<li>メンバ関数はデフォルト override 不可</li>
+<li>許可するには open アノテーション付けて定義</li>
+<li>override 時には override アノテーションを付ける</li>
+</ul>
+
+<p>あるいは</p>
+
+<ul>
+<li>open 指定してないクラスのメンバ関数には open 付けれない</li>
+<li>override した関数に open アノテーションは付けれない (スデに open)</li>
+<li>override した関数の override を許可しない場合、final アノテーションを付ける</li>
+</ul>
+
+<h3 id="プロパティ">プロパティ</h3>
+
+<p>フィールドではなく、プロパティです、とのことですがどうも以降を見るに</p>
+
+<ul>
+<li>プロパティの宣言でフィールドと二つのアクセサを内部的に作成</li>
+</ul>
+
+<p>とありますね。</p>
+
+<h3 id="アクセサ">アクセサ</h3>
+
+<p>自分で定義する場合の書き方、が例示 (?) されています。</p>
+
+<pre><code>var プロパティ名 : 型 = 初期値
+　get() {
+　　return 返す値
+　}
+　set(value) {
+　}
+</code></pre>
+
+<p>値を持たないプロパティ、という面白い例が載っていますが略。</p>
+
+<h3 id="プロパティの-override">プロパティの override</h3>
+
+<p>可能とのこと。今回はここまでで残りは別途。つうかこれ、勉強会したいな。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Dec 5, 2015</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2015/12/04/kindle4mac/" title="Kindle for Mac">Kindle for Mac</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2015/12/06/shogi-opening/" title="テーマを絞って検討してみる方向">テーマを絞って検討してみる方向</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

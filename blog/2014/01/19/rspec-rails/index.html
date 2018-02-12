@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Rspec 後付けで書く</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jan 19, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/19/rspec-rails/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/rails/">rails </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Rspec 後付けで書く 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p><a href="http://matthewlehner.net/rails-api-testing-guidelines/">Rails API Testing Best Practices</a> によれば Request Spec で HTTP Status および Response Body を、とあります。これで試しに作成してみることに。</p>
+
+<p>スデに実装は書いてしまっているので</p>
+
+<pre><code>rails g rspec:response
+</code></pre>
+
+<p>とかになるのかな。とりあえず導入から。</p>
+
+<p></p>
+
+<p>Gemfile に以下を追加、なのか。</p>
+
+<pre><code>group :development, :test do
+  gem 'rspec-rails', '~&gt; 3.0.0.beta'
+end
+</code></pre>
+
+<p>で、</p>
+
+<pre><code>$ bundle install
+$ rails g rspec:install
+</code></pre>
+
+<p>とのこと。</p>
+
+<p>で、試験追加を、と思って <a href="https://www.relishapp.com/rspec/rspec-rails/docs/generators">Generators</a> 見てみるに以下とのこと。</p>
+
+<ul>
+<li>scaffold</li>
+<li>model</li>
+<li>controller</li>
+<li>helper</li>
+<li>view</li>
+<li>mailer</li>
+<li>observer</li>
+<li>integration</li>
+</ul>
+
+<p>むむ、と言いつつ <a href="http://matthewlehner.net/rails-api-testing-guidelines/">Rails API Testing Best Practices</a> を見てみるに <em>API Testing is integration Testing</em> という記述あり。成程。</p>
+
+<p>以下かな。</p>
+
+<pre><code>$ rails g rspec:integration Hoge
+</code></pre>
+
+<p>かくにんしてみます。</p>
+
+<pre><code>$ rails g rspec:integration hoge
+      create  spec/requests/hoges_spec.rb
+</code></pre>
+
+<p>あと、Redis な mock が必要ですね。FactoryGirl とかも必要なのかな。</p>
+
+<h2 id="mock-redis-かくにん">mock_redis かくにん</h2>
+
+<p>Gemfile に以下を追加して</p>
+
+<pre><code>group :development, :test do
+  gem 'rspec-rails', '~&gt; 3.0.0.beta'
+  gem &quot;mock_redis&quot;, &quot;~&gt; 0.10.0&quot;
+end
+</code></pre>
+
+<p>bundle install して rails c で確認。しようとしたのですが Redis.stub は console からは無理らしい。</p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>POST な試験を書いてみます。その前に spec/spec_helper.rb に以下を追加。</p>
+
+<pre><code>require 'mock_redis'
+
+RSpec.configure do |config|
+  config.before(:each) do
+    redis_instance = MockRedis.new
+    Redis.stub(:new).and_return{ redis_instance }
+    Redis.current = Redis.new
+  end
+end
+</code></pre>
+
+<p>で、簡単な試験をでっちあげてみたのですが Redis.stub が云々と言われたので</p>
+
+<pre><code>#    Redis.stub(:new).and_return{ redis_instance }
+    allow(Redis).to receive(:new).and_return(redis_instance)
+</code></pre>
+
+<p>みたいにしてます。エラーメッセージ (?) が以下なカンジでした。</p>
+
+<blockquote>
+<p>Using <code>stub</code> from rspec-mocks&rsquo; old <code>:should</code> syntax without explicitly enabling the syntax is deprecated. Use the new <code>:expect</code> syntax or explicitly enable <code>:should</code> instead.</p>
+</blockquote>
+
+<p>あと、Redis な mock がちゃんと動いてるのか確認してみます。まずローカルな Redis.current を掃除しておいて</p>
+
+<pre><code>&gt; Redis.current.flushall
+</code></pre>
+
+<p>試験実行。</p>
+
+<pre><code>$ bundle exec rspec spec
+</code></pre>
+
+<p>で、rails c から以下。</p>
+
+<pre><code>&gt; Redis.current.keys
+=&gt; []
+</code></pre>
+
+<p>大丈夫みたいです。</p>
+
+<h2 id="試験を一通り書いたら">試験を一通り書いたら</h2>
+
+<p>リファクタ実施の方向にて。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jan 19, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/01/19/curl-json-parameter/" title="curl に JSON パラメータ渡そうとしてハマった">curl に JSON パラメータ渡そうとしてハマった</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/01/20/boke-orz/" title="強烈なボケをカマシていた件">強烈なボケをカマシていた件</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

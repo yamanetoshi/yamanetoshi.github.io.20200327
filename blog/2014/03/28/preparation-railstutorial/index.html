@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Railstutorial の準備</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Mar 28, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/28/preparation-railstutorial/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/rails/">rails </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Railstutorial の準備 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>うぶんつ 12.04 を virtualbox に導入。昨日某所でぐにぐにしてたのですが timeup してしまってます。今日も負荷が高いようであれば止め、な方向。</p>
+
+<p>導入終わったので以下の順でツール導入、なのかな。</p>
+
+<ul>
+<li>Git</li>
+<li>Ruby</li>
+<li>RubyGems</li>
+<li>Rails</li>
+</ul>
+
+<p>以下に沿ってすすめてみます。</p>
+
+<ul>
+<li><a href="http://blog.sudobits.com/2012/05/02/how-to-install-ruby-on-rails-in-ubuntu-12-04-lts/">HOW TO INSTALL RUBY ON RAILS IN UBUNTU 12.04 LTS</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="step-1-install-git-and-curl">step 1. Install git and cURL</h2>
+
+<p>以下の手順、とのこと。</p>
+
+<pre><code>$ sudo apt-get update
+$ sudo apt-get install git
+$ sudo apt-get install curl
+</code></pre>
+
+<p>次。</p>
+
+<h2 id="step-2-install-rvm-and-dependencies">step 2. Install RVM and Dependencies</h2>
+
+<p>なるべく書いてある通り、ですすめてみます。</p>
+
+<pre><code>$ curl -L get.rvm.io | bash -s stable
+$ source ~/.rvm/scripts/rvm
+$ sudo apt-get -y install build-essential openssl libreadline6 \
+libreadline6-dev zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 \
+libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev \
+ncurses-dev automake libtool bison subversion
+$ sudo apt-add-repository ppa:chris-lea/node.js
+$ sudo apt-get update
+$ sudo apt-get install nodejs
+</code></pre>
+
+<h2 id="step-3-install-ruby">step 3. Install Ruby</h2>
+
+<pre><code>$ rvm install 1.9.3
+$ rvm use 1.9.3 --default
+$ ruby -v
+</code></pre>
+
+<p>1.9.3 で出力されること。</p>
+
+<h2 id="step-4-install-rails">step 4. Install Rails</h2>
+
+<pre><code>$ gem install rails
+$ rails new app_name
+$ cd app_name
+$ rails s
+</code></pre>
+
+<p>これでブラウザから <a href="http://localhost:3000">http://localhost:3000</a> が見れるのかな。ヤッてみます。</p>
+
+<h2 id="メモ">メモ</h2>
+
+<p>git の install で virification してないパケジが云々、と出ました。apt-get update もできなくなってるみたいなのでいったん再起動。
+あら、そもそも接続不良な現象が出てるみたい。名前解決のあたりか。</p>
+
+<p>その後、母艦の接続も微妙になってきたので再度 BT なテザリングに移行。</p>
+
+<p>また、curl で云々、な部分でも若干の不具合あり。ファイル取得、というか名前解決に失敗してたみたいですがリトライでイケた模様。</p>
+
+<p>source する部分も .bash_profile に盛り込まれてるみたいなので単純に source するだけ、で大丈夫みたいです。</p>
+
+<p>帯域消費がかなりなカンジになってきたので無線接続に戻したのですが、rails な gem の導入に手こづっている模様。</p>
+
+<h2 id="追記">追記</h2>
+
+<p>そういった意味では CUI というか bash (?) のフォローなネタを考えないと駄目なのか。昔これ系の資料作ってたはずなんだけど今それを取り出すことはできないだろうな。sgml で作った資料って GitHub に置いといた方が良いな。</p>
+
+<p>以下を発見。使おうかな。</p>
+
+<ul>
+<li><a href="http://lagendra.s.kanazawa-u.ac.jp/ogurisu/manuals/sh-text/sh/index.html">Bourne Shell自習テキスト</a></li>
+</ul>
+
+<p>特に導入についてこれをやんないと、って訳ではないのですがチュートリアルをすすめていくにあたっては必要かなということで。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Mar 28, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/03/28/sed-osx-linux/" title="sed でヤラれた件">sed でヤラれた件</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/03/28/bourne-shell-self-study-text/" title="Bourne Shell自習テキスト">Bourne Shell自習テキスト</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

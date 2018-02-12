@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>もくもくの記録</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Mar 17, 2015
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2015/03/17/moku-moku-record/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/fab/">Fab </a>
+        
+    </p>
+    <h1 class="entry-title">
+         もくもくの記録 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>どうも PR が merge されない雰囲気なのでこちらにも転載。</p>
+
+<p></p>
+
+<h2 id="bmp085">BMP085</h2>
+
+<p>今朝ピンヘッダをはんだ付けして初期動作確認済みです。</p>
+
+<ul>
+<li><a href="http://www.roshi.tv/2013/03/raspberry-pi.html">Raspberry Piに温度/気圧センサーを取り付ける</a></li>
+</ul>
+
+<p>また、無線ドングル使ってネト接続しようとしているのですが、接続に成功せずハマリ中。以下で接続成功。</p>
+
+<pre><code>pi@raspberrypi:~$ cat /etc/network/interfaces
+auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+allow-hotplug wlan0
+iface wlan0 inet dhcp
+
+wireless-essid aterm-577d46-gw
+wireless-key fuga
+
+iface default inet dhcp
+</code></pre>
+
+<p>BMP085 の動作確認とか。</p>
+
+<pre><code>pi@raspberrypi:~$ sudo i2cdetect -y 1
+0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- --
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- UU -- -- -- --
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+70: -- -- -- -- -- -- -- 77
+</code></pre>
+
+<p>あるいは以下。</p>
+
+<pre><code>$ cd Adafruit-Raspberry-Pi-Python-Code-master/Adafruit_BMP085
+$ sudo python Adafruit_BMP085_example.py
+Temperature: 24.50 C
+Pressure:    1017.53 hPa
+Altitude:    -36.07
+$
+</code></pre>
+
+<p>残り 10min で plot.ly と云々。</p>
+
+<h2 id="plot-ly-とのやりとり">plot.ly とのやりとり</h2>
+
+<p>以下を発見。</p>
+
+<ul>
+<li><a href="https://github.com/plotly/raspberrypi">Raspberry PI Realtime Streaming with Plot.ly</a></li>
+</ul>
+
+<p>ええと、まず以下?</p>
+
+<pre><code>sudo apt-get install python-dev
+wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py -O - | sudo python
+sudo easy_install -U distribute
+sudo apt-get install python-pip
+sudo pip install rpi.gpio
+sudo pip install plotly
+</code></pre>
+
+<p>rpi.gpio はスデに導入済み、と言われました。いちおう python で import もできてます。</p>
+
+<pre><code>$ python
+&gt;&gt;&gt; import plotly.plotly
+&gt;&gt;&gt;
+</code></pre>
+
+<p>で、これからどーすんの、という終了 30min 前。ええと、Adafruit のサンプルによると気圧だけなら以下で取れるのかな。</p>
+
+<pre><code>#!/usr/bin/python
+
+from Adafruit_BMP085 import BMP085
+
+bmp = BMP085(0x77)
+
+pressure = bmp.readPressure()
+</code></pre>
+
+<p>同じディレクトリに Adafruit_BMP085.py というソレがありますね。あるいは Adafruit_I2C.py も必要なのかな。</p>
+
+<h2 id="plotly-のプロジェクト登録">plotly のプロジェクト登録</h2>
+
+<p>この先どうしたものか、と思っていたら以下リポジトリを発見。</p>
+
+<ul>
+<li><a href="https://github.com/plotly/Streaming-Demos">plotly/Streaming-Demos</a></li>
+</ul>
+
+<p>ええと、以下を fork すれば良いのかな。</p>
+
+<ul>
+<li><a href="https://plot.ly/~streaming-demos/6/streaming-mock-sensor-data/">streamSimpleSensor</a></li>
+</ul>
+
+<p>save したら以下ができている。</p>
+
+<ul>
+<li><a href="https://plot.ly/~yamanetoshi/28/streaming-mock-sensor-data/">streamSimpleSensor</a></li>
+</ul>
+
+<p>とりあえずここにデータをぶち込むにはどうすれば良いのか。あるいは</p>
+
+<ul>
+<li>データの初期化</li>
+</ul>
+
+<p>とかどうするのとか。あと以下にアクセスしたら</p>
+
+<ul>
+<li><a href="https://plot.ly/python/getting-started/">Getting started: Plotly for Python</a></li>
+</ul>
+
+<p>api_key とか見れたのですが strem_ids とか一体何かと。</p>
+
+<h2 id="設定画面">設定画面?</h2>
+
+<p>確認したらデフォで token が用意されているようなのですが、そろそろ時間切れ。別場所にてもくもく続行したいと思います。</p>
+
+<h2 id="自宅にて">自宅にて</h2>
+
+<p>tor な無線 AP にデバイス接続して電源投入。一連の設定を盛り込みました。その後、</p>
+
+<ul>
+<li>Adafruit_BMP085/Adafruit_BMP085.py をコピィ</li>
+<li>Adafruit_I2C.py をコピィ</li>
+</ul>
+
+<p>して以下な plot.py をでっち上げてます。
+ # username, api_key, stream_token はダミー</p>
+
+<pre><code>#!/usr/bin/python
+
+import plotly.plotly as py
+from plotly.graph_objs import Scatter, Layout, Figure
+import time
+from Adafruit_BMP085 import BMP085
+
+# dummy
+username = 'username'
+api_key = 'api_key'
+stream_token = 'stream_token' 
+
+bmp = BMP085(0x77)
+
+py.sign_in(username, api_key)
+
+trace1 = Scatter(
+        x=[],
+        y=[],
+        stream=dict(
+                token=stream_token,
+                maxpoints=200
+        )
+)
+
+layout = Layout(
+        title='Raspberry PI Streaming BMP Sensor Data'
+)
+
+fig = Figure(data=[trace1], layout=layout)
+
+print py.plot(fig, filename='Raspberry PI Streaming Example Values')
+
+i = 0
+stream = py.Stream(stream_token)
+stream.open()
+
+while True:
+        pressure = bmp.readPressure() / 100.0
+        stream.write({'x': i, 'y': pressure})
+        i+=1
+        time.sleep(0.25)
+</code></pre>
+
+<p>これで streaming なグラフが動いていることを確認。</p>
+
+<h2 id="自動起動">自動起動</h2>
+
+<p>面倒なので /etc/rc.local に実行するコマンドを追加。再起動して自動起動していることも確認しております。以下から確認可能です。</p>
+
+<ul>
+<li><a href="https://plot.ly/~yamanetoshi/46/">Raspberry PI Streaming BMP Sensor Data</a></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Mar 17, 2015</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2015/03/17/read-sample-code/" title="サンプル読んでみる">サンプル読んでみる</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2015/03/18/execute-apery-in-debian/" title="apery をでびあんで動かしてみる">apery をでびあんで動かしてみる</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

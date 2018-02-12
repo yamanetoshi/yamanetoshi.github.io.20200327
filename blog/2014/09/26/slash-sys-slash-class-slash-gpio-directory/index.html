@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>/sys/class/gpio というディレクトリ</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Sep 26, 2014
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/26/slash-sys-slash-class-slash-gpio-directory/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         /sys/class/gpio というディレクトリ 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>標準な i/f になっているという情報を @yyuasa さんから頂きました。曰く</p>
+
+<blockquote>
+<p>GPIOだったらGPIOの共通部分見るのがいいと思います。どうやったらsysfsに出せるか見るのであれば。</p>
+</blockquote>
+
+<p>との事にて drivers/gpio/gpiolib*.c あたりと見て確認開始。</p>
+
+<p></p>
+
+<p>つうか核心部分は gpiolib-sysfs.c なのかな。末端あたりに gpiolib_sysfs_init なる手続きが定義されています。</p>
+
+<pre><code>postcore_initcall(gpiolib_sysfs_init);
+</code></pre>
+
+<p>なマクロが付いてておそらく最初に呼び出される初期化な手続きのはず。その中で gpio_chips ってリスト (おそらく見つけられてる gpio なデバイスのリスト) を手繰って export されていなければ</p>
+
+<pre><code>        spin_unlock_irqrestore(&amp;gpio_lock, flags);
+        status = gpiochip_export(chip);
+        spin_lock_irqsave(&amp;gpio_lock, flags);
+</code></pre>
+
+<p>みたいなことしてます。とりあえず</p>
+
+<ul>
+<li>gpio_chips って何</li>
+<li>list_for_each_entry て何</li>
+</ul>
+
+<p>というあたりはスルーで gpiochip_export を確認。定義は同じく drivers/gpio/gpiolib-sysfs.c でした。そしてこの中で /sys/class/gpio/gpiochip? みたいなソレを作ってるような記述がありますね。</p>
+
+<pre><code>    mutex_lock(&amp;sysfs_lock);
+    dev = device_create(&amp;gpio_class, chip-&gt;dev, MKDEV(0, 0), chip,
+                            &quot;gpiochip%d&quot;, chip-&gt;base);
+    if (!IS_ERR(dev)) {
+        status = sysfs_create_group(&amp;dev-&gt;kobj,
+                       &amp;gpiochip_attr_group);
+</code></pre>
+
+<p>このあたりが核心なのかどうか。つうか手続きの名前もアレゲですね。あと、この gpiochip_export に渡されてる引数の型も確認必要か。そっちから掘ってみます。</p>
+
+<h2 id="struct-gpio-chip-型">struct gpio_chip 型</h2>
+
+<p>drivers/gpio/driver.h にて定義。chip-&gt;dev とか chip-&gt;base とかが device_create 手続きに渡されています。つうかこの構造体オブジェクトそのものが渡されていますね。</p>
+
+<p>dev 属性は struct device 型。<em><i>optional device providing the GPIOs</i></em> ってコメントがありました。また、base 属性は int ですね。<em><i>identifies the first GPIO number handled by this chip; or, if negative during registration, requests dynamic ID allocation.</i></em> とのこと。むむむ。</p>
+
+<p>あと、いくつか手続きなポインタな属性もありますね。gpio な chip に関する i/f を抽象化してるのだな。手続きとして定義されているのは以下な属性です。</p>
+
+<ul>
+<li>request</li>
+<li>free</li>
+<li>get_direction</li>
+<li>direction_input</li>
+<li>direction_output</li>
+<li>get</li>
+<li>set</li>
+<li>set_debounce</li>
+<li>to_irq</li>
+<li>dbg_show</li>
+</ul>
+
+<p>これ、正に /sys/class/gpio な操作ですね。成程。つうことは標準化された諸々の操作で起動される手続きをここで、という事になるのかどうか。</p>
+
+<h2 id="device-create-手続き">device_create 手続き</h2>
+
+<p><em><i>creates a device and registers it with sysfs</i></em> とのこと。あと、dev 属性は parent な struct device 型のオブジェクトみたいです。</p>
+
+<p>もう少しコメント確認してみます。</p>
+
+<p><i></p>
+
+<blockquote>
+<p>This function can be used by char device classes.  A struct device will be created in sysfs, registered to the specified class.</p>
+</blockquote>
+
+<p></i></p>
+
+<p>あるいは</p>
+
+<p><i></p>
+
+<blockquote>
+<p>A &ldquo;dev&rdquo; file will be created, showing the dev_t for the device, if the dev_t is not 0,0.
+If a pointer to a parent struct device is passed in, the newly created struct device will be a child of that device in sysfs.
+The pointer to the struct device will be returned from the call. Any further sysfs files that might be required can be created using this pointer.</p>
+</blockquote>
+
+<p></i></p>
+
+<p>親子の件はとりあえずスルーで良いかな。ここでは可変な引数が渡されてくるのでそれを適切に処理して次にパスしています。</p>
+
+<pre><code>     dev = device_create_vargs(class, parent, devt, drvdata, fmt, vargs);
+</code></pre>
+
+<p>次の device_create_vargs 手続きの定義が以下。</p>
+
+<pre><code>struct device *device_create_vargs(struct class *class, struct device *parent,
+                                   dev_t devt, void *drvdata, const char *fmt,
+                                   va_list args)
+{
+    return device_create_groups_vargs(class, parent, devt, drvdata, NULL,
+                                      fmt, args);
+}
+</code></pre>
+
+<p>次で struct device な領域を確保して云々、という事をしております。ここで sysfs に何かができるのかどうか。</p>
+
+<p>device_create_groups_vargs から device_add という手続きが呼び出されていて、ここが核心ぽくてさらにここから</p>
+
+<pre><code>    error = dpm_sysfs_add(dev);
+    if (error)
+        goto DPMError;
+</code></pre>
+
+<p>みたいな事してます。このあたりが核心なのかどうか。</p>
+
+<p>なんとなくな部分は把握できてるのかどうか不明ですが、時間確保できれば詳細についてツツいてみたいと思っています。</p>
+
+<h2 id="もう少し">もう少し</h2>
+
+<p>ここまでを踏まえて以下も確認してみます。</p>
+
+<ul>
+<li><a href="https://www.kernel.org/pub/linux/kernel/people/mochel/doc/papers/ols-2005/mochel.pdf">The sysfs Filesystem</a></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Sep 26, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/09/26/direct-gpio-register-manipulation-in-c-code/" title="RasPI な GPIO で L チカなプログラム">RasPI な GPIO で L チカなプログラム</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/09/27/struct-kobject/" title="struct kobject 型">struct kobject 型</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

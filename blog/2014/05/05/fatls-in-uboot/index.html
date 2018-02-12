@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>U-Boot で fatls</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">May 5, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/05/05/fatls-in-uboot/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         U-Boot で fatls 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>fatls というコマンドで SDCard の情報が取得できない、という不具合がある模様。諸々確認してみます。こーゆー具体的な事案があると第六感デバッガとしては嬉しい (ぇ</p>
+
+<p>つうか、なんとなく仕様非公開なトラップのような気がしてきつつある今日この頃。</p>
+
+<p></p>
+
+<p>とりあえず help してみた。</p>
+
+<pre><code>help
+?       - alias for 'help'
+base    - print or set address offset
+bdinfo  - print Board Info structure
+boot    - boot default, i.e., run 'bootcmd'
+bootd   - boot default, i.e., run 'bootcmd'
+bootelf - Boot from an ELF image in memory
+bootm   - boot application image from memory
+bootp   - boot image via network using BOOTP/TFTP protocol
+bootvx  - Boot vxWorks from an ELF image
+bootz   - boot Linux zImage image from memory
+cls     - clear screen
+cmp     - memory compare
+coninfo - print console devices and information
+cp      - memory copy
+crc32   - checksum calculation
+dhcp    - boot image via network using DHCP/TFTP protocol
+echo    - echo args to console
+editenv - edit environment variable
+env     - environment handling commands
+exit    - exit script
+ext2load- load binary file from a Ext2 filesystem
+ext2ls  - list files in a directory (default /)
+ext4load- load binary file from a Ext4 filesystem
+ext4ls  - list files in a directory (default /)
+false   - do nothing, unsuccessfully
+fatinfo - print information about filesystem
+fatload - load binary file from a dos filesystem
+fatls   - list files in a directory (default /)
+fdt     - flattened device tree utility commands
+go      - start application at address 'addr'
+gpio    - input/set/clear/toggle gpio pins
+help    - print command description/usage
+iminfo  - print header information for application image
+imxtract- extract a part of a multi-image
+itest   - return true/false on integer compare
+load    - load binary file from a filesystem
+loadb   - load binary file over serial line (kermit mode)
+loads   - load S-Record file over serial line
+loadx   - load binary file over serial line (xmodem mode)
+loady   - load binary file over serial line (ymodem mode)
+loop    - infinite loop on address range
+ls      - list files in a directory (default /)
+md      - memory display
+mii     - MII utility commands
+mm      - memory modify (auto-incrementing address)
+mmc     - MMC sub system
+mmcinfo - display MMC info
+mw      - memory write (fill)
+nfs     - boot image via network using NFS protocol
+nm      - memory modify (constant address)
+part    - disk partition related commands
+ping    - send ICMP ECHO_REQUEST to network host
+printenv- print environment variables
+pxe     - commands to get and boot from pxe files
+reset   - Perform RESET of the CPU
+run     - run commands in an environment variable
+setenv  - set environment variables
+showvar - print local hushshell variables
+sleep   - delay execution for some time
+source  - run script from memory
+sysboot - command to get and boot from syslinux files
+test    - minimal test like /bin/sh
+tftpboot- boot image via network using TFTP protocol
+true    - do nothing, successfully
+usb     - USB sub-system
+usbboot - boot from USB device
+version - print monitor, compiler and linker version
+</code></pre>
+
+<p>env の出力が以下。</p>
+
+<pre><code>U-Boot&gt; env print -a
+arch=arm
+baudrate=115200
+board=rpi_b
+board_name=rpi_b
+boot_prefixes=/
+boot_scripts=boot.scr.uimg
+boot_targets=mmc0 usb0 pxe dhcp 
+bootcmd=set usb_need_init; for target in ${boot_targets}; do run bootcmd_${target}; done
+bootcmd_dhcp=run usb_init; if dhcp ${scriptaddr} boot.scr.uimg; then source ${scriptaddr}; fi
+bootcmd_mmc0=setenv devnum 0; run mmc_boot;
+bootcmd_pxe=run usb_init; dhcp; if pxe get; then pxe boot; fi
+bootcmd_usb0=setenv devnum 0; run usb_boot;
+bootdelay=2
+cpu=arm1176
+dhcpuboot=usb start; dhcp u-boot.uimg; bootm
+do_script_boot=load ${devtype} ${devnum}:${rootpart} ${scriptaddr} ${prefix}${script}; source ${scriptaddr}
+do_sysboot_boot=sysboot ${devtype} ${devnum}:${rootpart} any ${scriptaddr} ${prefix}extlinux/extlinux.conf
+ethact=sms0
+fdt_addr_r=0x02000000
+fdtfile=bcm2835-rpi-b.dtb
+kernel_addr_r=0x01000000
+loadaddr=0x00200000
+mmc_boot=setenv devtype mmc; if mmc dev ${devnum}; then run scan_boot; fi
+preboot=if load mmc 0:1 ${loadaddr} /uEnv.txt; then env import -t ${loadaddr} ${filesize}; fi
+pxefile_addr_r=0x00100000
+ramdisk_addr_r=0x02100000
+rootpart=1
+scan_boot=echo Scanning ${devtype} ${devnum}...; for prefix in ${boot_prefixes}; do run sysboot_boot; run script_boot; done
+script_boot=for script in ${boot_scripts}; do if test -e ${devtype} ${devnum}:${rootpart} ${prefix}${script}; then echo Found ${prefix}${script}; run do_script_boot; echo SCRIPT FAILED: continuing...; fi; done
+scriptaddr=0x00000000
+soc=bcm2835
+stderr=serial,lcd
+stdin=serial,lcd
+stdout=serial,lcd
+sysboot_boot=if test -e ${devtype} ${devnum}:${rootpart} ${prefix}extlinux/extlinux.conf; then echo Found ${prefix}extlinux/extlinux.conf; run do_sysboot_boot; echo SCRIPT FAILED: continuing...; fi
+usb_boot=setenv devtype usb; run usb_init; if usb dev ${devnum}; then run scan_boot; fi
+usb_init=if ${usb_need_init}; then set usb_need_init false; usb start 0; fi
+usbethaddr=b8:27:eb:79:dc:df
+vendor=raspberrypi
+
+Environment size: 1993/16380 bytes
+</code></pre>
+
+<p>何を探しているのかというと例えば以下なコマンドの</p>
+
+<pre><code>U-Boot&gt; fatinfo
+usage: fatinfo &lt;interface&gt; [&lt;dev[:part]&gt;]
+</code></pre>
+
+<p>interface だったり dev だったりなナニが調べたいのですがどうすりゃ良いのやら。</p>
+
+<h2 id="ググッてみるに">ググッてみるに</h2>
+
+<p>以下なエントリを発見。</p>
+
+<ul>
+<li><a href="http://kernelnomicon.org/?p=131">U-Boot for Raspberry Pi, step 8: SDHC support</a></li>
+</ul>
+
+<p>確認してみます。</p>
+
+<pre><code>U-Boot&gt; mmcinfo
+Device: bcm2835_sdhci
+Manufacturer ID: 28
+OEM: 4245
+Name:       
+Tran Speed: 50000000
+Rd Block Len: 512
+SD version 3.0
+High Capacity: Yes
+Capacity: 7.5 GiB
+Bus Width: 4-bit
+</code></pre>
+
+<p>あるいは以下。</p>
+
+<pre><code>U-Boot&gt; fatls mmc 0 
+** Unrecognized filesystem type **
+</code></pre>
+
+<p>む、これか。一応 /boot は fat のはずなんだけどな。別途ソース確認してみます。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>May 5, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/05/05/dinner/" title="夜御飯">夜御飯</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/05/06/making-u-boot-in-rpi/" title="U-Boot を RPi で動かす">U-Boot を RPi で動かす</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

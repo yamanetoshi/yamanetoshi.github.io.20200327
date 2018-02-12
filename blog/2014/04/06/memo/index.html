@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>諸々備忘</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 6, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/04/06/memo/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
+        
+    </p>
+    <h1 class="entry-title">
+         諸々備忘 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>gem 改造して試験してみたい。どうするか。</p>
+
+<p>探索パスが $LOAD_PATH に格納されているらしい。</p>
+
+<pre><code>$LOAD_PATH.unshift('./gems')
+</code></pre>
+
+<p>みたいにしといて、実行するディレクトリに gem を掘ってその中に gem なナニを git clone とかで持ってきとけば良いのかな。</p>
+
+<p></p>
+
+<p>もうひとつ。</p>
+
+<p>fog の cloudstack な API 呼び出しの i/f 追加したい。まだ試してないのですが、方法を以下に控えておきます。</p>
+
+<p>fog/cloudstack/compute.rb に以下を追加。</p>
+
+<pre><code>    request :extract_template
+</code></pre>
+
+<p>あとは fog/cloudstack/requests/compute に extract_template.rb を追加して中身は以下なカンジ?</p>
+
+<pre><code>module Fog
+  module Compute
+    class Cloudstack
+      class Real
+
+        def extract_template(options={})
+          options.merge!(
+            'command' =&gt; 'extractTemplates'
+          )
+
+          request(options)
+        end
+
+  end # Real
+</code></pre>
+
+<p>Mock なナニはとりあえず略。試験したら別途追記の方向ってことで。</p>
+
+<h2 id="追記">追記</h2>
+
+<p>試してみました。とりあえず <a href="http://github.com/fog/fog">http://github.com/fog/fog</a> を fork してそれを手元に clone してとりあえず branch して</p>
+
+<pre><code>$ mkdir gems
+$ cd gems
+$ cd fog
+$ git checkout -b extractTemplate
+</code></pre>
+
+<p>あと、とりあえず試験用のソレに以下の記述を追加。</p>
+
+<pre><code>$:.unshift File.dirname(__FILE__) + &quot;/gems&quot;
+</code></pre>
+
+<p>次。とりあえず fog 側に手続き追加。fog/cloudstack/compute.rb に以下を追加</p>
+
+<pre><code>      request :extract_template
+</code></pre>
+
+<p>で、fog/cloudstack/request/compute/extract_template.rb はとりあえず以下なカンジ。</p>
+
+<pre><code>    def extractt_templates(options={})
+      options.merge!(
+        'command' =&gt; 'extracttTemplate'
+      )
+
+      # request(options)
+      pp &quot;xxx&quot;
+      &quot;xxx&quot;
+    end
+</code></pre>
+
+<p>これでテスト用のスクリプトで</p>
+
+<pre><code>pp @compute.extractTemplate
+</code></pre>
+
+<p>呼び出してどうなるか。</p>
+
+<blockquote>
+<p>list_template.rb:35:in <code>&lt;main&gt;': undefined method</code>extractTemplate&rsquo; for #<a href="Fog::Compute::Cloudstack::Real:0x007f0fd0033cc0">Fog::Compute::Cloudstack::Real:0x007f0fd0033cc0</a> (NoMethodError)</p>
+</blockquote>
+
+<p>ぐぬ。パスが確認できるのか。</p>
+
+<pre><code>irb(main):009:0&gt; Gem::Specification.find_by_path(&quot;fog&quot;).full_gem_path
+=&gt; &quot;/home/rms/.rbenv/versions/2.0.0-p353/lib/ruby/gems/2.0.0/gems/fog-1.8.0&quot;
+</code></pre>
+
+<p>駄目だ。つうかこれ、gem build しないと駄目なの?</p>
+
+<pre><code>$ cd fog
+$ gem build fog.gemspec
+  Successfully build RubyGem
+  Name: fog
+  Version: 1.21.0
+  File: fog-1.21.0.gem
+</code></pre>
+
+<p>うーん、なんか違う感。これは gem i できる .gem ができただけだし。</p>
+
+<h2 id="結局入れないと駄目らしい">結局入れないと駄目らしい</h2>
+
+<p>ので、以下。</p>
+
+<pre><code>$ gem i fog-1.21.0/fog-1.21.0.gem
+</code></pre>
+
+<p>.rbenv 配下にも入ってるみたい。修正して入れかえ、は</p>
+
+<pre><code>$ gem uninstall fog-1.21.0
+</code></pre>
+
+<p>で良いのかどうか。require したら新しい方が入ってるみたい。uninstall は以下なのかどうか。</p>
+
+<pre><code>$ gem uninstall fog -v='1.21.0'
+</code></pre>
+
+<p>つうか、extract_template 手続きが盛り込まれていない。何故だ。</p>
+
+<h2 id="もっかい">もっかい</h2>
+
+<p>lib/fog/cloudstack/requests/compute/extract_template.rb 存在を確認。</p>
+
+<pre><code>$ ls lib/fog/cloudstack/requests/compute/extract_template.rb
+lib/fog/cloudstack/requests/compute/extract_template.rb
+</code></pre>
+
+<p>gem 作る。</p>
+
+<pre><code>$ gem build fog.gemspec
+</code></pre>
+
+<p>導入。</p>
+
+<pre><code>$ gem i ./fog-1.21.0.gem
+</code></pre>
+
+<p>中身確認するもやはり extract_template.rb が無い。build された gem を確認してみるにやはり無い。gem ではなくて rake で build してみるか。</p>
+
+<pre><code>$ bundle install
+$ bundle exec rake build
+</code></pre>
+
+<p>pkg の中にできるんですね。がしかし、.gem をバラしてみても lib の中にあるはずのソレが無い。むむ、と言いつつバラしたソレについて lib/fog/cloudstack/compute.rb 見てみるに、こちらの修正は反映されとるな。</p>
+
+<p>で、git add してみたら今度は反映されていた。何なのこれ。</p>
+
+<h2 id="別件にて追記">別件にて追記</h2>
+
+<p>bundler て jail みたいなもの、って理解だったんですが全然違うことに最近気が付いてたり。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 6, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/04/05/sendmail-in-ubuntu-1204/" title="Ubuntu 12.04 に postfix で">Ubuntu 12.04 に postfix で</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/04/07/python-tutorial/" title="備忘という訳ではないのですが">備忘という訳ではないのですが</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

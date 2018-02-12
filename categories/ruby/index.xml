@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ruby on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/ruby/</link>
+    <description>Recent content in Ruby on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 29 Jan 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/ruby/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>広島 Ruby Conference</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/01/29/hiroshima-ruby-conference/</link>
+      <pubDate>Fri, 29 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/01/29/hiroshima-ruby-conference/</guid>
+      <description>行ってこようかな (ある意味営業)。 HIROSHIMA RUBY CONFERENCE ついでに在広島なパイセンに連絡を取ってみよう。</description>
+    </item>
+    
+    <item>
+      <title>jekyll な問題</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/12/jekyll-problem/</link>
+      <pubDate>Sun, 12 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/12/jekyll-problem/</guid>
+      <description>&lt;p&gt;#okidevops な成果コンテンツを最近クリーンインストールした Mavericks な OSX に clone して &lt;code&gt;bundle install&lt;/code&gt; しようとしたら色々な問題が出てきたので備忘までメモを列挙しておきます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>鋸を Mavericks に導入</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/07/installing-nokogiri-in-mavericks/</link>
+      <pubDate>Sat, 07 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/07/installing-nokogiri-in-mavericks/</guid>
+      <description>&lt;p&gt;Octopress なナニを git clone して bundle install しようとして導入に失敗するという問題発生。色々な所に色々な対処が出ていたのですが&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;rbenv 導入&lt;/li&gt;
+&lt;li&gt;brew で libxml2, libxslt, libiconv 導入して link を云々&lt;/li&gt;
+&lt;li&gt;以下で nokogiri 導入&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;{% gist 73580b96fd5b4b3e60c7 %}&lt;/p&gt;
+
+&lt;p&gt;いちおう &lt;code&gt;Installing ri&lt;/code&gt; まで到達してるはずなので大丈夫のはず。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>RuboCop なるものがあるらしい</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/02/25/translating-rubocop-readme/</link>
+      <pubDate>Wed, 25 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/02/25/translating-rubocop-readme/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/bbatsov/rubocop&#34;&gt;Github&lt;/a&gt; にある README を一部翻訳してみることに。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>hook なスクリプトで bundle が無いと言われる件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/26/bundle-no-such-file/</link>
+      <pubDate>Thu, 26 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/26/bundle-no-such-file/</guid>
+      <description>仕方が無いので hook なスクリプトの中で gem environment で出力される EXECUTABLE なパスを設定。 export PATH=$HOME/.rbenv/versions/2.0.0-p247/bin:$PATH 一応動くようになってるみたいですが、git push な hook としてはまだ実行できて</description>
+    </item>
+    
+    <item>
+      <title>RHG を読むことになった件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/03/ruby-hacking-guilde-reading/</link>
+      <pubDate>Sat, 03 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/03/ruby-hacking-guilde-reading/</guid>
+      <description>&lt;p&gt;リモートで読書会、とか言ってるけど本当に成立するのだろうか。読むのは以下から手繰れる HTML 版なコンテンツです。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://i.loveruby.net/ja/rhg/&#34;&gt;『Rubyソースコード完全解説』サポートページ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Fog な PR</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/02/pull-request-in-fog/</link>
+      <pubDate>Fri, 02 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/02/pull-request-in-fog/</guid>
+      <description>&lt;p&gt;以下なコメントが入っていたけど当分対応できなかった。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;will that test work in non-mock mode as well? I just ask since it manipulates the mocks there.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;確かに&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ export FOG_MOCK=true &amp;amp;&amp;amp; bundle exec shindont
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で試験してますね。とりあえず FOG_MOCK は何もせずに試験を実行してみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>fog 掘削および i/f 追加に関する纏め</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/24/fog/</link>
+      <pubDate>Thu, 24 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/24/fog/</guid>
+      <description>&lt;p&gt;とりあえず、Fog::Compute.new あたりをエントリポイントとして掘削開始。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>md2review くっさく</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/19/md2review-reading/</link>
+      <pubDate>Sat, 19 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/19/md2review-reading/</guid>
+      <description>&lt;p&gt;とりあえず takahashim/md2review を clone して以下。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bundle install --path vendor/bundler
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;redcarpet は vendor/bundler/ruby/2.0.0/bundler/gems 配下にある模様。確認します。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>fog の extractTemplate API なナニ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/18/add-function-of-cloudstack-api/</link>
+      <pubDate>Fri, 18 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/18/add-function-of-cloudstack-api/</guid>
+      <description>&lt;p&gt;pull request をアレしたらテストも付けてくんない? って言われている件。travis なナニに失敗、ってあるけど追加機能に関する試験が無い場合も ci てきに失敗になるのかな。なかなか凄い。&lt;/p&gt;
+
+&lt;h2 id=&#34;てか&#34;&gt;てか&lt;/h2&gt;
+
+&lt;p&gt;試験書け、って話なので諸々検討を。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>fog の試験</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/18/test-of-fog/</link>
+      <pubDate>Fri, 18 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/18/test-of-fog/</guid>
+      <description>&lt;p&gt;commit 作って push してやれ、と思って念のために試験してみたらパスしてない。&lt;/p&gt;
+
+&lt;p&gt;どうも self.data の&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;        def self.data
+          @data ||= begin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;な記述で&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;      class Mock
+        def extract_template(options={})
+          Fog.credentials[:cloudstack_zone_id] = 1105
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;なことしてる影響が他に及んでいる模様。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>rake 備忘</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/14/rake-memo/</link>
+      <pubDate>Mon, 14 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/14/rake-memo/</guid>
+      <description>&lt;p&gt;いいもの見つけた。&lt;a href=&#34;https://github.com/TechBooster/FirstStepReVIEW&#34;&gt;FirstStepReVIEW&lt;/a&gt; の article/Rakefile がすばら。&lt;/p&gt;
+
+&lt;p&gt;これに加えて md を re に変換するナニを加えれば良いのかどうか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>review-init</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/09/review-init/</link>
+      <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/09/review-init/</guid>
+      <description>&lt;p&gt;review-init というコマンドで Rakefile を吐いてくれる模様。内容は以下。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>諸々備忘</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/06/memo/</link>
+      <pubDate>Sun, 06 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/06/memo/</guid>
+      <description>&lt;p&gt;gem 改造して試験してみたい。どうするか。&lt;/p&gt;
+
+&lt;p&gt;探索パスが $LOAD_PATH に格納されているらしい。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$LOAD_PATH.unshift(&#39;./gems&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;みたいにしといて、実行するディレクトリに gem を掘ってその中に gem なナニを git clone とかで持ってきとけば良いのかな。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>沖縄 Ruby 会議にて</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/01/at-okinawa-ruby-conference/</link>
+      <pubDate>Sat, 01 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/01/at-okinawa-ruby-conference/</guid>
+      <description>&lt;p&gt;もくもく部屋な 322 教場にて製造開始。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Debian 7 (wheezy) に rbenv 導入</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/15/install-rbenv-in-wheezy/</link>
+      <pubDate>Sat, 15 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/15/install-rbenv-in-wheezy/</guid>
+      <description>&lt;p&gt;apt-get で導入可能らしいので試してみます。とりあえず確認。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ apt-cache search rbenv
+rbenv - simple per-user Ruby version manager
+ruby-build - tool to compile and install different versions of Ruby
+ruby-switch - switch between different Ruby interpreters
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;とのことで、ruby-build も入れてしまえ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Ruby の配列並べかえ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/04/sort-array-in-ruby/</link>
+      <pubDate>Tue, 04 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/04/sort-array-in-ruby/</guid>
+      <description>Hash の hoge1 と hoge2 な要素の合計で並びかえ、みたいな要件が出てきた。 ret は hash な配列になってて以下で並びかえ、という事は分かったのですが ret.sort_by! { |x| x[&#39;hoge&#39;] + x[&#39;fuga&#39;] } これ</description>
+    </item>
+    
+    <item>
+      <title>沖縄 Ruby 会議</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/08/okinawa-ruby-kaigi/</link>
+      <pubDate>Sun, 08 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/08/okinawa-ruby-kaigi/</guid>
+      <description>昨晩の忘年会にて発信されていたソレが public に発信された模様。 沖縄 Ruby 会議 青木峰郎さんとかいらっしゃれば是非ご挨拶させて頂きたいです。</description>
+    </item>
+    
+    <item>
+      <title>Chef-solo な環境構築メモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/24/configure-environment-chef-solo/</link>
+      <pubDate>Sun, 24 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/24/configure-environment-chef-solo/</guid>
+      <description>&lt;p&gt;MBA で環境構築できないので某仮想リソースにて云々してみます。とりあえず /usr/local に rbenv が入ってるソレにログイン。&lt;/p&gt;
+
+&lt;p&gt;とりあえず bundler を入れておく。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo gem i bundler
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で、ディレクトリを掘ってその中で bundle init しておきます。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir devops
+$ cd dev ops
+$ bundle init
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ぐぬ。bundle が無いてorz&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Fog 抽象化に関する冥想</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/23/think-about-fog-abstraction/</link>
+      <pubDate>Sat, 23 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/23/think-about-fog-abstraction/</guid>
+      <description>&lt;p&gt;とりあえず command line tools が導入できないのでこちら方面でアレ。&lt;/p&gt;
+
+&lt;p&gt;エントリポイントとしては以下なのかどうか。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@compute = Fog::Compute.new(
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で、引数として渡してる辞書に provider というソレを持たしておいて if 文orz&lt;/p&gt;
+
+&lt;p&gt;とは言え、処理系の特殊形式と同様でこれ以上云々できないアトミックなオブジェクトなのかどうなのか。fog の実装見てみるに lib/fog/compute.rb でこの provider な値を元に分岐な記述が入ってます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;gogrid&lt;/li&gt;
+&lt;li&gt;new_servers (?)&lt;/li&gt;
+&lt;li&gt;baremetalcloud&lt;/li&gt;
+&lt;li&gt;rackspace&lt;/li&gt;
+&lt;li&gt;stormondemand&lt;/li&gt;
+&lt;li&gt;vloud&lt;/li&gt;
+&lt;li&gt;その他&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Mavericks で bundle install できない件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/23/cannot-bundle-install-in-mavericks/</link>
+      <pubDate>Sat, 23 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/23/cannot-bundle-install-in-mavericks/</guid>
+      <description>&lt;p&gt;とりあえず Xcode 5.0.2 を導入してみるなど。サイズが 2.0GB で download が進まぬ。処理終了したので、って現象変化無し。これ、そもそも的に rbenv の再導入から、なのかどうか。&lt;/p&gt;
+
+&lt;p&gt;ので、現在使ってるソレを uninstall して install してみた。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rbenv uninstall 1.9.3-p448
+$ rbenv install 1.9.3-p448
+$ rbenv global 1.9.3-p448
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;駄目。以下を発見したので盛り込んでみます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://qiita.com/14021939/items/d40668bdc6bed3f82e62&#34;&gt;MacOSをmavericksにアップグレードしたらnokogiriをインストールできなくなった&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;どうなるか。つうか Xcode 5.0 入れれとか言うとるな。再起動した方が良いのかどうか。&lt;/p&gt;
+
+&lt;p&gt;以下とか見つつアレしたんですが&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://qiita.com/14021939/items/d40668bdc6bed3f82e62&#34;&gt;MacOSをmavericksにアップグレードしたらnokogiriをインストールできなくなった&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とりあえず再起動だな。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>rake clean を使えるようになるには</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/22/how-to-use-rake-clean/</link>
+      <pubDate>Fri, 22 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/22/how-to-use-rake-clean/</guid>
+      <description>余計なファイルをさくっと消したい、ということで折角 Ruby だし rake 使うか、ということで確認してみるに clean なターゲットはデフォで存在するらしい。 Rakefile を作成</description>
+    </item>
+    
+    <item>
+      <title>ばたばたしてる中での作成</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/22/make-with-batabata/</link>
+      <pubDate>Fri, 22 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/22/make-with-batabata/</guid>
+      <description>&lt;p&gt;displayname でマッチさせて id と displayname を出力する実装を書いた。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  if /^devopsOkinawa/ =~ item[&amp;quot;displayname&amp;quot;]
+    if item[&amp;quot;state&amp;quot;] == &amp;quot;Running&amp;quot;
+      print item[&amp;quot;id&amp;quot;], &amp;quot; &amp;quot;, item[&amp;quot;displayname&amp;quot;], &amp;quot;\n&amp;quot; 
+    end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これは一応な確認用でこの出力にさらに&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; awk &#39;{print $1;}&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;なフィルタをかけて id を例えば以下な destroy に渡すというアレ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;while line = gets
+  line.chomp!
+  @compute.destroy_virtual_machine({
+    &#39;id&#39; =&amp;gt; line,
+                                   })
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これでリソース破棄は楽になります。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>メンテナンス</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/22/maintenance/</link>
+      <pubDate>Fri, 22 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/22/maintenance/</guid>
+      <description>今日の朝のこと、API タタいたら以下でオチてました。 &#39;maintenance&#39; (MultiJson::LoadError) 着信したメイルによれば障害発生してたようですが、valid な json 戻してくれればいいのに</description>
+    </item>
+    
+    <item>
+      <title>ruby 再導入の件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/21/ruby-re-install/</link>
+      <pubDate>Thu, 21 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/21/ruby-re-install/</guid>
+      <description>&lt;p&gt;昨晩色々ハマッてるログが残っているのですが大変だった模様。とりあえず&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;sudo で Chef-Solo 云々するのに一般ユーザの $HOME に rbenv 入れてたorz&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;という大失敗をしてて /usr/local 配下に再導入しようとしてハマッていた。sudo でパスが /etc/sudoers に記述されてるものに限定される、というあたりでまず駄目だったのですが、その後、rbenv install できない、という挙動が出てた記憶あり。&lt;/p&gt;
+
+&lt;p&gt;ともあれ再度仮想リソースを kickoff して再開。&lt;/p&gt;
+
+&lt;p&gt;# さくっと Running になってくれないあたりが若干アレだったり&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>もうすこし楽できんかな</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/21/laziness/</link>
+      <pubDate>Thu, 21 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/21/laziness/</guid>
+      <description>&lt;p&gt;現状、ツールで云々できるのが以下。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;仮想リソースの起動 (名前を付ける必要があるが一意でなくても良い)&lt;/li&gt;
+&lt;li&gt;仮想リソースの破棄 (破棄するリソースの ID が必要)&lt;/li&gt;
+&lt;li&gt;既に取得している GIP について port forward なオブジェクトの割当てができる&lt;/li&gt;
+&lt;li&gt;GIP に割当てられている port forward なオブジェクトの削除ができる&lt;/li&gt;
+&lt;li&gt;仮想リソースの一覧が確認できる&lt;/li&gt;
+&lt;li&gt;port forward なオブジェクトの一覧が確認できる&lt;/li&gt;
+&lt;li&gt;GIP の一覧が確認できる&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;どうしたものやら。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>sed とか ruby とか</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/18/interesting-tools/</link>
+      <pubDate>Mon, 18 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/18/interesting-tools/</guid>
+      <description>&lt;p&gt;とあるプログラムが出力した文字列を云々、なツールを云々。&lt;/p&gt;
+
+&lt;p&gt;ある目印までを削除とか。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cat log.txt | sed -e  &#39;1,/hogefuga/d&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;標準入力から読み込んで複数区切文字で split な ruby とか。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;while line = gets
+    array = line.split(/[: ]/)
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;微妙なスクリプトしかでっち上げれなくてアレな今日この頃なのかどうかorz&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>serverspec のはじめかた</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/05/how-to-begin-serverspec/</link>
+      <pubDate>Tue, 05 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/05/how-to-begin-serverspec/</guid>
+      <description>&lt;p&gt;備忘、ってことで。
+とりあえず、bundler を使ってガワを作るあたりまでを控え。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Vagrant &#43; Chef-Solo 復習など</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/02/vagrant-chef-solo/</link>
+      <pubDate>Sat, 02 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/02/vagrant-chef-solo/</guid>
+      <description>&lt;p&gt;手元の MBA はスデに Vagrant は導入済みでした。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ which vagrant
+/usr/bin/vagrant
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;どうやって導入したのかは記憶に無し。gem では無い模様。version は 1.2.7 のようです。とりあえず Qiita の以下なエントリを確認しつつ、という事にします&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://qiita.com/taiki45/items/b46a2f32248720ec2bae&#34;&gt;今っぽい Vagrant + Chef Solo チュートリアル&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

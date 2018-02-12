@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Hello World な Espresso の試験を書いてみる</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Nov 8, 2013
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/08/testing-helloworld-by-espresso/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Hello World な Espresso の試験を書いてみる 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>おそらく試験にパスしないですが記録を残すという意味で GitHub 方面にもソース登録の方向です。とりあえずハロワなプロジェクトを作成。</p>
+
+<p></p>
+
+<p>以下な属性ってことで。</p>
+
+<ul>
+<li>API15 限定</li>
+<li>こちらの修正点としては res/layout/activity_main.xml について HelloWorld な TextView に id を付与するのみ</li>
+</ul>
+
+<p>で、試験なプロジェクトを作るのか。つうか <a href="http://yamanetoshi.github.io/blog/2013/11/07/android-activity-testing-tutorial/">このエントリ</a>から jar が取得できなくて辛い。以下から取得したのですがどうなんでしょ。</p>
+
+<ul>
+<li><a href="https://android-test-kit.googlecode.com/archive/b49a13f06e5e832fa456900345ba47cb739637f7.zip">espresso-1.0-SNAPSHOT-bundled.jar</a></li>
+</ul>
+
+<p>で、解凍して bin の中にある jar を新規作成した試験プロジェクトの libs の中に投入。試験なプロジェクトの AndroidManifest を修正して</p>
+
+<pre><code>    &lt;instrumentation
+        android:name=&quot;com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner&quot;
+        android:targetPackage=&quot;com.example.helloworld&quot; /&gt;
+</code></pre>
+
+<p>あと、試験なクラスを追加しないといけないですね。</p>
+
+<ul>
+<li>HelloWorldTest という ActivityInstrumentationTestCase2 を継承したクラスを作成</li>
+
+<li><p>コンストラクタを追加</p>
+
+<pre><code>public HelloWorldTest() {
+    super(MainActivity.class);
+}
+</code></pre></li>
+</ul>
+
+<p>で、試験を追加すりゃ良いのか。</p>
+
+<h2 id="む">む</h2>
+
+<p>Run - Run Configration から作った試験が出てこない、と思ったら Android JUnit Test をクリックして新規作成したら出てきた。Manifest で指定したソレを Instrumentation runner に指定してとりあえず apply しておく。</p>
+
+<p>試験追加します。以下で良いのかどうか。</p>
+
+<pre><code>package com.example.helloworld.test;
+
+import com.example.helloworld.MainActivity;
+
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
+import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
+
+import android.test.ActivityInstrumentationTestCase2;
+
+public class HelloWorldTest extends ActivityInstrumentationTestCase2&lt;MainActivity&gt; {
+
+    public HelloWorldTest() {
+        super(MainActivity.class);
+    }
+
+    public void testHelloWorld() {
+        onView(ViewMatchers.withId(com.example.helloworld.R.id.helloworld))
+            .check(ViewAssertions.matches(ViewMatchers.withText(&quot;Hello World!&quot;)));
+    }
+}
+</code></pre>
+
+<h2 id="実行してみた">実行してみた</h2>
+
+<p>emulator が出てきたぞ。もしかして前回微妙だったのはこのあたりが原因なのかな。
+ちなみに実機接続して実行してみると前回と同じ現象。ちょっとだけ前進してはいるのでしょうが、根本的な原因がナニ。</p>
+
+<p>で、emulator を起動してみたんですが動く気配がない。ここで一旦エントリ入れて GitHub 方面にアレしたりする方向にて。
+て先に登録しますね。今の時点なナニを登録したリポジトリは以下です。</p>
+
+<ul>
+<li><a href="https://github.com/yamanetoshi/HelloWorld.git">https://github.com/yamanetoshi/HelloWorld.git</a></li>
+<li><a href="https://github.com/yamanetoshi/HelloWorldTest.git">https://github.com/yamanetoshi/HelloWorldTest.git</a></li>
+</ul>
+
+<p>今日はこれで終了。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Nov 8, 2013</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2013/11/08/octopress-todo/" title="Octopress の TODO">Octopress の TODO</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2013/11/08/fsf-donate-siyouzu/" title="FSF に donate しようず、って言って">FSF に donate しようず、って言って</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

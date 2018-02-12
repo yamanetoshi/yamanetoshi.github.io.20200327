@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>動作の確認など</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jan 26, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/26/operation-check/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/redis/">Redis </a>
+        
+    </p>
+    <h1 class="entry-title">
+         動作の確認など 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p><a href="http://robots.thoughtbot.com/redis-set-intersection-using-sets-to-filter-data">Redis Set Intersection - Using Sets to Filter Data</a> にて例示されている動作を確認しておきます。手元に Redis 使うプロジェクトがあるので redis-server 動かしておいて rails c で確認。</p>
+
+<p></p>
+
+<p><em>The flight data is stored as strings in Redis</em> ということで以下かな。</p>
+
+<pre><code>&gt; $redis = Redis.current
+&gt; $redis.set &quot;flights:1&quot;, &quot;1, Virgin America, 03/23/2013 1:30 pm, San Francisco, San Diego&quot;
+&gt; $redis.set &quot;flights:2&quot;, &quot;2, Virgin America, 03/23/2013 1:45 pm, San Francisco, New York&quot;
+&gt; $redis.set &quot;flights:3&quot;, &quot;3, American Airlines, 03/23/2013 1:45 pm, San Francisco, New York&quot;
+&gt; $redis.set &quot;flights:4&quot;, &quot;4, American Airlines, 03/23/2013 1:50 pm, Los Angels, Boston&quot;
+&gt; $redis.set &quot;flights:5&quot;, &quot;5, Southwest, 03/23/2013 2:45 pm, San Francisco, New York&quot;
+&gt; $redis.set &quot;flights:6&quot;, &quot;6, Southwest, 03/23/2013 3:30 pm, San Francisco, New York&quot;
+</code></pre>
+
+<p>set できました。で、smembers してみたのですが戻りが以下。</p>
+
+<pre><code>&gt; $redis.smembers &quot;departure_time:1364068800:flights&quot;
+=&gt; []
+</code></pre>
+
+<p>これ、sunionstore しなきゃ、なのか。確かに departure_time_keys で云々な記述があるな。なんとなくスクリプトの全体は把握できた感はありはしますがやはりキモは</p>
+
+<pre><code>redis.sunionstore('temp_set', *depature_time_keys)
+redis.sinter('temp_set', departure_cities_key, arrival_cities_key)
+</code></pre>
+
+<p>あたりなのか。でも sunionstore は「セットの結合を作成」ってマニュアルにはあります。使用例があったのですが上記な例で sinter に複数の引数ってのがアレ。って思ったら sinter には複数のキー設定が可能なのか。</p>
+
+<h2 id="やっぱこれって">やっぱこれって</h2>
+
+<p>例示されてる smembers で正しい id が戻るようにデータを設定しとく必要があるのではないかなぁ。その前提がないと flight_ids という手続きは思った通りに動かない。</p>
+
+<p>あら、でも</p>
+
+<blockquote>
+<p>smembers departure_time:1364068800:flights
+1) &ldquo;1&rdquo;
+2) &ldquo;2&rdquo;
+3) &ldquo;3&rdquo;
+4) &ldquo;4&rdquo;</p>
+</blockquote>
+
+<p>みたいな書き方になってる、ってことは id 戻す形なのか。なんだかあまり参考になっていない気がしてきました。おそらくは追加時に &ldquo;departure_time:{#epoc}:flights で flight:{#id} な id を戻す set を作る sadd とかって演算が必要になってくるのかな。</p>
+
+<p>これはデータの書式を規定しておいてそこに set を使って id を関連付ける、という手法なのかどうなのか。</p>
+
+<h2 id="む">む</h2>
+
+<p>がしかし、この set というやつはなかなか良さげ。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jan 26, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/01/25/the-work-of-android-studio/" title="Android Studio の仕業?">Android Studio の仕業?</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/01/27/how-to-finish-android-application/" title="Android のコンテンツアプリの終了のさせ方">Android のコンテンツアプリの終了のさせ方</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

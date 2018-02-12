@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>やねうら王オープンソースプロジェクト</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 9, 2016
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2016/06/09/yaneura-ou/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/shogi/">shogi </a><a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         やねうら王オープンソースプロジェクト 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>興味深いドキュメントをご紹介頂きました。</p>
+
+<ul>
+<li><a href="http://yaneuraou.yaneu.com/yaneuraou_mini">やねうら王オープンソースプロジェクト</a></li>
+</ul>
+
+<p>開発環境が VS なのでアレなんですが、Linux で動くのだったかどうか。とりあえず空き稼動を使って読み始めることにしました。</p>
+
+<p></p>
+
+<p>ドキュメント見つつで確認が必要なナニを以下に列挙してみます。</p>
+
+<ul>
+<li>pext 命令、popcnt 命令</li>
+<li>engine 配下のソース確認</li>
+<li>エンジンは標準入出力経由で、とのこと</li>
+<li>手番を表現する Color な enum は shogi.h にて定義 (別途掘削</li>
+<li>筋は File で段は Rank</li>
+<li>盤上の升目も enum で表現されてて右上 (11) が 0 で左下 (99) が 80</li>
+<li>| な operator 定義していた (別途確認</li>
+<li>class や struct ではなく enum を使う</li>
+<li>筋、段、升目、指し手も enum</li>
+<li>升目 (square) は 7bit 必要なのか (81 升)</li>
+<li>ほとんどすべての enum について is_ok という手続きを用意</li>
+<li>指し手 16bit で評価値が 16bit</li>
+<li>ループ内における shift の最適化な話が出てます</li>
+<li>指し手から情報を落とすことによる高速な指し手生成</li>
+<li>Piece という enum は先後の区別を持っていて変数名は pc</li>
+<li>先後の区別の無いものも Piece を使い、変数名は pt</li>
+<li>pr は Raw Piece (成っていない駒)</li>
+</ul>
+
+<h2 id="piece-について">Piece について</h2>
+
+<ul>
+<li>Piece のアイデアは Apery のものとのこと</li>
+<li>MoveList が指し手生成器で LEGAL が合法手の種別</li>
+<li>指し手種別は色々あるので別途確認 (shogi.h にて enum 定義)</li>
+<li>EVASIONS は王手回避の指し手種別</li>
+<li>NON_EVASIONS と王手回避のあたり、再度確認</li>
+<li>合法手であるかどうかをチェックする手続きあり (legal 手続き)</li>
+</ul>
+
+<h2 id="position-について">Position について</h2>
+
+<ul>
+<li>指し手は Move という enum</li>
+<li>do_move 手続きに渡す StateInfo というものは何か</li>
+<li>undo_move という手続き</li>
+<li>その局面で捕獲した駒の情報を保持</li>
+<li>do_move 一回につき、StateInfo のインスタンスが一つ必要</li>
+<li>探索は再帰手続きとして書くのでスタックに置いときゃ良い</li>
+<li>undo する時のために previous というポインタも保持</li>
+</ul>
+
+<h2 id="局面の-hash-値">局面の Hash 値</h2>
+
+<ul>
+<li>Position#state() が StateInfo の参照を戻すのでそのオブジェクトの key() を呼び出すことで hash が取得できる</li>
+<li>hash は辞書の鍵にする模様 (この辞書を置換表と呼んでいる模様</li>
+<li>あら? これ系のソレって何って呼んでたっけ (ナチュラル</li>
+<li>Zobrist Hash については別途確認</li>
+<li>tt て置換表のことだろうな (TranspositionTable か</li>
+<li>置換表は実装によって異なっている模様</li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 9, 2016</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2016/06/08/rough-note-english-grammer/" title="English Grammer in Use 乱暴メモ (21)">English Grammer in Use 乱暴メモ (21)</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2016/06/10/yaneura-ou/" title="やねうら王オープンソースプロジェクト (2)">やねうら王オープンソースプロジェクト (2)</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

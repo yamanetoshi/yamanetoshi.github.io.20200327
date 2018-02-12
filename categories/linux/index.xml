@@ -1,0 +1,1521 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/linux/</link>
+    <description>Recent content in Linux on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 20 Nov 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>でびあん 9 にしました</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/11/20/upgrade-debian/</link>
+      <pubDate>Mon, 20 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/11/20/upgrade-debian/</guid>
+      <description>とは言え、apt-line を stretch にして $ sudo apt-get dist-upgrade しただけ、なのですが。 そして java のバージョンは 8 ですね。。これで cordova build --release android できるのかどうか。</description>
+    </item>
+    
+    <item>
+      <title>本日のもくもく</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/11/18/moku-moku/</link>
+      <pubDate>Sat, 18 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/11/18/moku-moku/</guid>
+      <description>&lt;p&gt;先日入手した Linux カーネルモジュール自作入門を読んでみることに。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://uchan.hateblo.jp/entry/2017/03/22/074801&#34;&gt;【技術書典2】Linuxカーネルモジュール自作入門を出します（ダウンロード販売有）&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;メモ等、以下に。&lt;/p&gt;
+
+&lt;h2 id=&#34;つうか&#34;&gt;つうか&lt;/h2&gt;
+
+&lt;p&gt;ええと、docker で云々すればいいのかな。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ docker pull ubuntu
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で良いのかな。回線帯域がアレなので時間かかってるな (準備してから来いorz&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>もくもくネタ発見</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/10/12/kernel-module-book/</link>
+      <pubDate>Thu, 12 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/10/12/kernel-module-book/</guid>
+      <description>以下、次回云々してみたい。Amazon ギフトてどうやって購入するのかと。 【技術書典2】Linuxカーネルモジュール自作入門を出します（ダウン</description>
+    </item>
+    
+    <item>
+      <title>mba 2012 mid に Ubuntu 入れる</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/08/21/install-ubuntu-on-mba-2012-mid/</link>
+      <pubDate>Mon, 21 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/08/21/install-ubuntu-on-mba-2012-mid/</guid>
+      <description>&lt;p&gt;とりあえず&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;rEFIt 使う (使ったことある&lt;/li&gt;
+&lt;li&gt;Thunderbolt Ehternet げと&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;な必要がある模様。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>apt-get update が失敗する件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/08/14/core-dump/</link>
+      <pubDate>Mon, 14 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/08/14/core-dump/</guid>
+      <description>&lt;p&gt;こんなの初めて見る。何がどうなっているのかと。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MBA に Ubuntu 導入</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/08/13/install-ubuntu-on-mba/</link>
+      <pubDate>Sun, 13 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/08/13/install-ubuntu-on-mba/</guid>
+      <description>&lt;p&gt;以下を参考にしつつ。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://takuya-1st.hatenablog.jp/entry/2016/12/03/011022&#34;&gt;MacBook をEFIブートするUSBディスク作成してubuntuを起動する&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>BNN-PYNQ 動作確認</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/04/09/bnn-pynq-operation-check/</link>
+      <pubDate>Sun, 09 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/04/09/bnn-pynq-operation-check/</guid>
+      <description>&lt;p&gt;とりあえず、&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://qiita.com/ykshr/items/6c8cff881a200a781dc3&#34;&gt;FPGAでDeep Learningしてみる&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;を見つつ云々してみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Audit の stig.rules</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/01/stig-rules/</link>
+      <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/01/stig-rules/</guid>
+      <description>&lt;p&gt;以下ドキュメントですが、stig.rules の解説があるのでなんとなくな自分メモを。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://goo.gl/dtpk5X&#34;&gt;(RHEL) HOWTO configure the auditing of the system (auditd)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>起動時に何かをする方法</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/01/21/start-automatically-during-system-boot/</link>
+      <pubDate>Thu, 21 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/01/21/start-automatically-during-system-boot/</guid>
+      <description>&lt;p&gt;今、ネット越しで中国の人の面倒をながらで見てて、bitbucket で作成されたドキュメントをレビュしていたのですが、起動時に何かを、という所で &lt;code&gt;/etc/rc.local&lt;/code&gt; ではなくて cron 使う方法があるのですね。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>shutdown なスクリプト</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/12/18/shutdown-script/</link>
+      <pubDate>Fri, 18 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/12/18/shutdown-script/</guid>
+      <description>&lt;p&gt;自動で起動して何かのお仕事をするホストにて作業のためにログインした場合、その何かの仕事を kill するスクリプトを書きました。あるプロセスが所属するプロセスグループにいらっしゃるナニを全員、というやつです。備忘まで。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>shutdown について</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/12/15/about-shutdown/</link>
+      <pubDate>Tue, 15 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/12/15/about-shutdown/</guid>
+      <description>&lt;p&gt;いやはや。起動スクリプトから kickoff されるスクリプトの中で&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/sbin/shutdown -h now
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;て書いてて酷い目に会いました。しかもスクリプトが異常終了しててすぐに &lt;code&gt;shutdown&lt;/code&gt; が発令される始末。&lt;/p&gt;
+
+&lt;h2 id=&#34;とりあえずな教訓として&#34;&gt;とりあえずな教訓として&lt;/h2&gt;
+
+&lt;p&gt;こうしたケイスでは&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+/sbin/shutdown -h +30
+&lt;/code&gt;`&lt;/p&gt;
+
+&lt;p&gt;とかしようね、という事らしい。あと &lt;code&gt;/sbin/shutdown -c&lt;/code&gt; というものがあることも学びました。とほほほ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>自動で云々</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/12/11/automation/</link>
+      <pubDate>Fri, 11 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/12/11/automation/</guid>
+      <description>ええと、docker 使えば良いのでしょうが、ec2 なホスト使う前提でホストを kickoff してそれが何かの仕事をして終わり次第電源遮断、という機能を盛り</description>
+    </item>
+    
+    <item>
+      <title>hangoutbot 備忘</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/11/25/hangoutbot-memo/</link>
+      <pubDate>Wed, 25 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/11/25/hangoutbot-memo/</guid>
+      <description>&lt;p&gt;ええと、設定情報とかログは &lt;code&gt;~/.local/share/hangupsbot&lt;/code&gt; に投入される形になっています。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;config.json (設定ファイル)&lt;/li&gt;
+&lt;li&gt;cookies.json (?)&lt;/li&gt;
+&lt;li&gt;hangupsbot.log (ログ)&lt;/li&gt;
+&lt;li&gt;memory.json (アプリ内で設定を行なった情報)&lt;/li&gt;
+&lt;li&gt;memory.json.20151124003715.bak&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とりあえずログを何とかしないといかんのですが、&lt;code&gt;logrotate&lt;/code&gt; は入っているな。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>glibc-devel パケジ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/11/21/glibc-devel-package/</link>
+      <pubDate>Sat, 21 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/11/21/glibc-devel-package/</guid>
+      <description>でびあん系だと build-essential 一発なのですが。つうかひさびさに素の CentOS で言語を云々な対応でちょっと微妙でした。以下の導入、だったのかどうか。 yum groupinstall &amp;ldquo;Development tools&amp;rdquo; yum install zlib-devel bzip2-devel</description>
+    </item>
+    
+    <item>
+      <title>meta-debian</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/11/meta-debian/</link>
+      <pubDate>Sat, 11 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/11/meta-debian/</guid>
+      <description>&lt;p&gt;金曜日の #celfjp にて meta-debian なセッションがあった模様。これ、時間確保できたら弄ってみたい、というか edison にのっかるイメージ作れるか確認してみたいと思っています。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/ystk/meta-debian&#34;&gt;ystk/meta-debian&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;そういった意味では poky の作法みたいのもきちんと確認しとく必要ありますね。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>edison 初期化して再設定なメモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/07/edison-initializeing-memo/</link>
+      <pubDate>Tue, 07 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/07/edison-initializeing-memo/</guid>
+      <description>&lt;p&gt;どうも以前初期化していたと思い込んでいたのは間違いだったようで、完全に初期化してから再度設定の確認をすることに。&lt;/p&gt;
+
+&lt;p&gt;記録が微妙にしか残っていなので、なるべく詳細に残そうとしてみようと思います。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 で日本語入力できない問題</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/23/japanese-input-problem-in-ubuntu-1404/</link>
+      <pubDate>Mon, 23 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/23/japanese-input-problem-in-ubuntu-1404/</guid>
+      <description>色々困った挙句に以下なエントリを発見。 Ubuntu 14.04にMozcと窓使いの憂鬱をインストールする とりあえず上記を発見する前に fcitx-mozc を入れてました。テ</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 で無線 AP に接続できない問題</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/23/wireless-network-problem-in-ubuntu-1404/</link>
+      <pubDate>Mon, 23 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/23/wireless-network-problem-in-ubuntu-1404/</guid>
+      <description>問題解決。 /etc/NetworkManager/NetworkManager.conf の以下の箇所を [ifupdown] managed=false 以下にすることで再起動後に接続できていることを確認しております。 [ifupdown] managed=true 基本的に 12 あたりから dist-upgrade しただけなんですが何</description>
+    </item>
+    
+    <item>
+      <title>I2C 自分メモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/20/notes-for-i2c/</link>
+      <pubDate>Fri, 20 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/20/notes-for-i2c/</guid>
+      <description>&lt;p&gt;諸々のドキュメントを確認しつつ、つらつらと列挙。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Intel edison と BT なスピーカ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/19/bt-speaker-and-intel-edison/</link>
+      <pubDate>Thu, 19 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/19/bt-speaker-and-intel-edison/</guid>
+      <description>&lt;p&gt;ええと、なんとなく ubilinux なイメージを作成して焼き込んだ後に&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;bluetoothctl でペアリング&lt;/li&gt;
+&lt;li&gt;opkg install alsa-util&lt;/li&gt;
+&lt;li&gt;pactl info で状態確認&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;で、正常に認識してたようなので、試しに mplayer で音鳴らしてみたら鳴りました。&lt;/p&gt;
+
+&lt;p&gt;以下、参考にさせて頂いたコンテンツです。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://qiita.com/yoneken/items/88165cebbadcc8d6878c&#34;&gt;Intel Edisonのカーネルビルド&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://qiita.com/yoneken/items/1b24f0dd8ae00579a0c2&#34;&gt;スタートアップ Intel Edison&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://tamaxyo.hatenablog.com/entry/2014/11/25/004344&#34;&gt;Intel EdisonでBluetoothを使う&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;Intel Edisonを動かす（7）　BluetoothとUSBサウンドアダプタを関連付ける編&#34;&gt;Intel Edisonを動かす（7）　BluetoothとUSBサウンドアダプタを関連付ける編&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://ameblo.jp/new3bon/entry-11537535045.html&#34;&gt;Raspberry piでbluetoothスピーカー&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ubilinux の Kernel 再構築に関するメモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/02/25/ubilinux-kernel-rebuild-memo/</link>
+      <pubDate>Wed, 25 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/02/25/ubilinux-kernel-rebuild-memo/</guid>
+      <description>&lt;p&gt;以下を参考にしつつ。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.mamemomonga.com/2015/02/edison.html&#34;&gt;Edison(ubilinux)のカーネル再構築&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ubilinux で BT な動作の確認</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/02/18/bluetooth-operation-check-in-ubilinux/</link>
+      <pubDate>Wed, 18 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/02/18/bluetooth-operation-check-in-ubilinux/</guid>
+      <description>&lt;p&gt;なんというか Edison 色々大変なんスね。&lt;/p&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;TP なでびあんにて BT な sound デバイスの認識あたりの手順を確認。以下に諸々を列挙しておきます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>docker な sid の環境作るメモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/01/09/making-debian-sid-docker-environment/</link>
+      <pubDate>Fri, 09 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/01/09/making-debian-sid-docker-environment/</guid>
+      <description>&lt;p&gt;ええと、&lt;code&gt;sudo docker search debian&lt;/code&gt; したら Official Debian base image というソレがあったのでとりあえず pull します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo docker pull debian
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;とりあえずテンプレは sid で云々してみます。以下で起動なのかな。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo docker run -i -t 09c0c850c2f4 /bin/bash
+root@7875f0db0b6b:/#
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>JTAG デバッガ動作確認</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/11/29/jtag-debugger-operation-check/</link>
+      <pubDate>Sat, 29 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/11/29/jtag-debugger-operation-check/</guid>
+      <description>&lt;p&gt;結線して RasPI 電源投入して openocd 起動。結線は&lt;a href=&#34;http://yamanetoshi.github.io/blog/2014/04/25/pin-assign-respi/&#34;&gt;ここ&lt;/a&gt;見つつで。切り欠きがあるナニを上にして左上が 1 番 (備忘)。&lt;/p&gt;
+
+&lt;p&gt;で、localhost:4444 に telnet 接続します。&lt;a href=&#34;https://wiki.aalto.fi/display/EmbeddedLinux/Debugging+Raspberry+Pi+Linux+kernel+with+JTAG+and+GDB&#34;&gt;Debugging Raspberry Pi Linux kernel with JTAG and GDB&lt;/a&gt; によれば&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;halt&lt;/li&gt;
+&lt;li&gt;step 0x8190&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;で kernel の最初の命令に、とのこと。次に gdb 起動か。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>RasPI で動く Kernel ビルドとそのデバッグ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/11/25/building-raspi-kernel-and-debugging/</link>
+      <pubDate>Tue, 25 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/11/25/building-raspi-kernel-and-debugging/</guid>
+      <description>&lt;p&gt;自宅にて。&lt;/p&gt;
+
+&lt;p&gt;以下を参考にしつつすすめます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.aalto.fi/display/EmbeddedLinux/Debugging+Raspberry+Pi+Linux+kernel+with+JTAG=and+GDB&#34;&gt;Debugging Raspberry Pi Linux kernel with JTAG and GDB&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.raspberrypi.org/documentation/linux/kernel/building.md&#34;&gt;KERNEL BUILDING&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://qiita.com/konnyakmannan/items/37f18ddd815fea96b84d&#34;&gt;Raspberry Piのカーネルをクロスコンパイルする&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Edison にでびあん導入</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/11/21/install-debian-to-edison/</link>
+      <pubDate>Fri, 21 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/11/21/install-debian-to-edison/</guid>
+      <description>&lt;p&gt;参考にしたのは以下です。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://qiita.com/yoneken/items/dda4fdbb9f415a0db3e9&#34;&gt;Intel Edison を Debian 化して、scikit-learn とか入れる&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とりあえず電源を別な端末から Edison に接続してて Linux 端末から &lt;code&gt;flashall.sh&lt;/code&gt; する時にハマッてしまうなぁorz&lt;/p&gt;
+
+&lt;p&gt;flashall する時は母艦から Edison の電源な usb に接続すること。あと &lt;code&gt;sudo flashall.sh&lt;/code&gt; した後に (挿せ、って言われてから) usb な接続をする必要がありことをよく覚えておいて下さい &amp;lt; 自分&lt;/p&gt;
+
+&lt;p&gt;こないだメモったのを見てさえもナチュラルをカマシてしまいましたorz&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>intel edison (3)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/11/11/intel-edison/</link>
+      <pubDate>Tue, 11 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/11/11/intel-edison/</guid>
+      <description>&lt;p&gt;とりあえず初期設定ができた、ということで BT なスピーカを認識しようとしてみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>intel edison</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/10/30/intel-edison/</link>
+      <pubDate>Thu, 30 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/10/30/intel-edison/</guid>
+      <description>&lt;p&gt;火を入れて接続してみました。&lt;/p&gt;
+
+&lt;iframe src=&#34;https://www.flickr.com/photos/yamane-toshiaki/15478455507/player/&#34; width=&#34;375&#34; height=&#34;500&#34; frameborder=&#34;0&#34; allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>chromium 更新したら flash が見れなくなった件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/10/21/pepperflashplugin-nonfree/</link>
+      <pubDate>Tue, 21 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/10/21/pepperflashplugin-nonfree/</guid>
+      <description>将棋が見れないのが痛くて対応調査。pepperflashplugin-nonfree を入れれば OK って記述が沢山あるのですが apt-cache search しても出てこな</description>
+    </item>
+    
+    <item>
+      <title>kernel debug メモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/10/18/memo-about-kernel-debug/</link>
+      <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/10/18/memo-about-kernel-debug/</guid>
+      <description>殴り書きでスミマセン。今度やってみます、というか RasPI の Linux Kernel を実機デバッグというナニをアレしたみたいと考えている次第ス。 ログが以下。あと話のメモ</description>
+    </item>
+    
+    <item>
+      <title>Device /dev/ttyUSB0 is locked.</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/10/17/device-is-locked/</link>
+      <pubDate>Fri, 17 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/10/17/device-is-locked/</guid>
+      <description>たぶん備忘録を残してるはずなんですが控えておきます (ぇ $ sudo minicom Device /dev/ttyUSB0 is locked. の対処。 lock なファイルは /var/lock (実体は /run/lock) にありました。 $ ls /run/lock LCK..ttyUSB0 これを削除すれば</description>
+    </item>
+    
+    <item>
+      <title>bcm2708_gpio_probe 手続き (4)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/10/04/bcm2708-gpio-probe/</link>
+      <pubDate>Sat, 04 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/10/04/bcm2708-gpio-probe/</guid>
+      <description>&lt;p&gt;ちなみに /sys/class/gpio/gpio18/value とかに何かを書き込むと以下な手続きが起動される模様です。&lt;/p&gt;
+
+&lt;p&gt;{% gist f08a8f89bae8e0be0d72 %}&lt;/p&gt;
+
+&lt;p&gt;このへんは BCM2835 ARM Peripherals にある通りの記述なのかどうなのか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>bcm2708_gpio_probe 手続き (3)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/10/02/bcm2708-gpio-probe/</link>
+      <pubDate>Thu, 02 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/10/02/bcm2708-gpio-probe/</guid>
+      <description>&lt;p&gt;drivers/base/init.c から再度掘削着手。driver_init という手続きから platform_bus_init に向かって、というカンジです。&lt;/p&gt;
+
+&lt;p&gt;{% gist f10cad6ad9ed45e9f169 %}&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>bcm2708_gpio_probe 手続き (2)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/30/bcm2708-gpio-probe/</link>
+      <pubDate>Tue, 30 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/30/bcm2708-gpio-probe/</guid>
+      <description>&lt;p&gt;自分がササッてる bus に接続されているデバイスを順にとりだして __device_attach 手続きを呼び出している、のかどうか。引数として手続きに渡されるのは&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;next_device から取得できる struct device オブジェクト&lt;/li&gt;
+&lt;li&gt;driver_attach に渡される struct device_driver オブジェクト&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;になっている模様。next_device という手続きによれば&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;klist_next により struct klist_iter 型の引数から struct klist_node オブジェクトを取得&lt;/li&gt;
+&lt;li&gt;to_device_private_bus により struct device_private オブジェクトを取得&lt;/li&gt;
+&lt;li&gt;struct device_private オブジェクトの device 属性を戻す&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;形になっています。container_of 使って struct device_private なオブジェクトのアドレスを引っ張ってきて、なのか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>bcm2708_gpio_probe 手続き</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/29/bcm2708-gpio-probe/</link>
+      <pubDate>Mon, 29 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/29/bcm2708-gpio-probe/</guid>
+      <description>&lt;p&gt;確認できている中での手順としては&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;struct bcm2708_gpio な領域確保&lt;/li&gt;
+&lt;li&gt;platform_get_resource 手続き呼び出し&lt;/li&gt;
+&lt;li&gt;platform_set_drvdata 手続き呼び出し&lt;/li&gt;
+&lt;li&gt;struct bcm2708_gpio オブジェクトの初期設定&lt;/li&gt;
+&lt;li&gt;bcm2708_gpio_irq_init 手続き呼び出し&lt;/li&gt;
+&lt;li&gt;gpiochip_add 手続き呼び出し&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;となっている模様。丁寧気味に確認してみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>bcm2708_gpio.c 確認</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/28/forge-bcm2708-gpio-dot-c/</link>
+      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/28/forge-bcm2708-gpio-dot-c/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/raspberrypi/linux.git&#34;&gt;ここ&lt;/a&gt;に RasPI な GPIO のドライバがあると見て git clone してみました。ありますね。何故か driver 配下ではなくて arch/arm/mach-bcm2708/bcm2708_gpio.c な模様。&lt;/p&gt;
+
+&lt;p&gt;とり急ぎではありますが諸々確認を。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>device_add という手続き</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/27/function-named-device-add/</link>
+      <pubDate>Sat, 27 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/27/function-named-device-add/</guid>
+      <description>&lt;p&gt;drivers/base/core.c にて定義。device_create_groups_vargs 手続きから呼び出されています。struct device なオブジェクトの初期化をして device_add に渡されてます。&lt;/p&gt;
+
+&lt;p&gt;で、直前エントリにて dpm_sysfs_add が核心? とかって書いたのですが、そっちではなくて device_create_file が、な模様。手続き定義のコメントが以下。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; * device_create_file - create sysfs attribute file for device.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ここから sysfs_create_file という手続きを呼び出していますね。どんどん掘ります。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>struct kobject 型</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/27/struct-kobject/</link>
+      <pubDate>Sat, 27 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/27/struct-kobject/</guid>
+      <description>&lt;p&gt;あまりにアレなので ldd3 なコンテンツ見つつ struct kobject の確認をしてみた。とりあえず Chapter 14. The Linux Device Model というあたり。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.makelinux.net/ldd3/&#34;&gt;ldd3 の html コンテンツ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ざっくりな理解を以下に列挙してみます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;kobject は device model を互いに保持する基本的な構造&lt;/li&gt;
+&lt;li&gt;階層的な関係を持っていて parent 属性で親の kobject を取得できる&lt;/li&gt;
+&lt;li&gt;parent な kobject にぶら下がっている kobject を列挙できる kset という属性がある&lt;/li&gt;
+&lt;li&gt;kobject_add したら sysfs にその kobject なエントリができる、とあるな&lt;/li&gt;
+&lt;li&gt;ktype という struct kobj_type 型の属性が sysfs 関連の情報を管理しているのかどうか&lt;/li&gt;
+&lt;li&gt;struct kernfs_node 型の sd という属性が若干謎&lt;/li&gt;
+&lt;li&gt;reference count の操作は kobject_get および kobject_put を使う&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>/sys/class/gpio というディレクトリ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/26/slash-sys-slash-class-slash-gpio-directory/</link>
+      <pubDate>Fri, 26 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/26/slash-sys-slash-class-slash-gpio-directory/</guid>
+      <description>&lt;p&gt;標準な i/f になっているという情報を @yyuasa さんから頂きました。曰く&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;GPIOだったらGPIOの共通部分見るのがいいと思います。どうやったらsysfsに出せるか見るのであれば。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;との事にて drivers/gpio/gpiolib*.c あたりと見て確認開始。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>RasPI な GPIO で L チカなプログラム</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/26/direct-gpio-register-manipulation-in-c-code/</link>
+      <pubDate>Fri, 26 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/26/direct-gpio-register-manipulation-in-c-code/</guid>
+      <description>&lt;p&gt;ええと、以下な二種類の方法がある模様。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;sysfs を使う&lt;/li&gt;
+&lt;li&gt;レジスタを mmap して直接書き込む&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とりあえず sysfs について確認してみました。まず抵抗とか LED なんかをブレッドボードに取り付けて #1 な PIN と GND を接続しておきます。&lt;/p&gt;
+
+&lt;p&gt;あとは以下で LED が点灯。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>kernel/fork.c の do_fork 始点で掘削してみる</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/25/drill-down-from-do-fork/</link>
+      <pubDate>Thu, 25 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/25/drill-down-from-do-fork/</guid>
+      <description>&lt;p&gt;と、言いつつ kernel/fork.c で定義されている手続きを確認したい欲もあり。とりあえず  &lt;a href=&#34;https://github.com/torvalds/linux.git&#34;&gt;https://github.com/torvalds/linux.git&lt;/a&gt; から取得した repository の master branch 見てます。先頭 branch は f3670394c29f みたいです。&lt;/p&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;system call な i/f からのソレは kernel/fork.c で定義されているのかどうか。入口としては&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;kernel_thread 手続き&lt;/li&gt;
+&lt;li&gt;fork な system call&lt;/li&gt;
+&lt;li&gt;vfork な system call&lt;/li&gt;
+&lt;li&gt;clone な system call&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;なのかどうか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>とりあえず bash 更新</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/25/update-bash/</link>
+      <pubDate>Thu, 25 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/25/update-bash/</guid>
+      <description>でびあんであれば以下で OK なのかな。 $ sudo apt-get update $ sudo apt-get install -fy bash 以下が導入される模様。 Inst bash [4.2+dfsg-0.1] (4.2+dfsg-0.1+deb7u1 Debian-Security:7.0/stable [amd64]) Conf bash (4.2+dfsg-0.1+deb7u1 Debian-Security:7.0/stable [amd64]) 本当は全部 upgrade しないと駄目なのでしょうがごめ</description>
+    </item>
+    
+    <item>
+      <title>何秒か後にこれやっといて、な実装について (Linux における C での実装)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/25/do-it-after-a-few-seconds/</link>
+      <pubDate>Thu, 25 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/25/do-it-after-a-few-seconds/</guid>
+      <description>&lt;p&gt;ちょっと順に色々確認してみた記録を自分メモ。手順としては&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;signal handler を設定&lt;/li&gt;
+&lt;li&gt;interval time を設定&lt;/li&gt;
+&lt;li&gt;timer_settime を呼び出してタイマを設定&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;というカンジ。まず、以下からパクッた実装を確認しつつ man sigaction を確認してみます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://linux-biyori.sakura.ne.jp/program/pr_signal02.php&#34;&gt;シグナルとタイマー２&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>arecord の出力はパイプで他に渡せる</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/16/check-arecord-output-with-pipeline/</link>
+      <pubDate>Tue, 16 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/16/check-arecord-output-with-pipeline/</guid>
+      <description>&lt;p&gt;od -x に渡してヘッダを確認してみました。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>cgroup 関連の記事読んだ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/14/read-articles-about-cgroup/</link>
+      <pubDate>Sun, 14 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/14/read-articles-about-cgroup/</guid>
+      <description>&lt;p&gt;とりあえず kernel source 取得、って結構時間がかかっているな。とりあえず以下から目を通し始めています。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://qiita.com/akachochin/items/1efb887aa10c45298415&#34;&gt;cgroupsを全く知らないところから、正味一時間ちょいでソースから雰囲気つかむ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;kernel/fork.c を出発点として cgroup がプロセス ID の割当てに絡んでいるあたりの確認をしている模様。alloc_pid という手続きから掘削が始まっています。&lt;/p&gt;
+
+&lt;p&gt;また、データ構造の確認、ということで&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;alloc_pid で空間を確保している struct pid 型について&lt;/li&gt;
+&lt;li&gt;alloc_pid に渡されている struct pid_namespace 型について&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;確認をしています。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>uintptr_t が解決できない件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/11/uintptr-t-was-not-declared-in-this-scope/</link>
+      <pubDate>Thu, 11 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/11/uintptr-t-was-not-declared-in-this-scope/</guid>
+      <description>&lt;p&gt;環境は raspbian です。以下を見つつ gcc を 4.8 にしてみましたが現象変わらず。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://somewideopenspace.wordpress.com/2014/02/28/gcc-4-8-on-raspberry-pi-wheezy/&#34;&gt;GCC 4.8 ON RASPBERRY PI WHEEZY&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;出力は以下なカンジです。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;src/hoge.h:91:5: error: &#39;uintptr_t&#39; was not declared in this scope
+     uintptr_t v = (uintptr_t)val;
+     ^
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;クロスでコンパイルした方が良さげなカンジがし始めています。以下を参考にやってみます。&lt;/p&gt;
+
+&lt;p&gt;-&lt;a href=&#34;http://goo.gl/umLUOb&#34;&gt;UbuntuにRaspberry Pi向けのC++クロスビルド環境をつくる&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>daemonize</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/09/daemonize/</link>
+      <pubDate>Tue, 09 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/09/daemonize/</guid>
+      <description>&lt;p&gt;最近は daemon って手続きがある模様。何してるかというと&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;fork でプロセスのコピィを作って&lt;/li&gt;
+&lt;li&gt;daemon の呼び出し元は _exit する&lt;/li&gt;
+&lt;li&gt;コピィの親は init になる&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;おそらく他にも色々ヤッてくれてるのだろうな。標準入出力とか何とか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>gstreamer マニュアルかくにん</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/05/gstreamer-manual/</link>
+      <pubDate>Fri, 05 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/05/gstreamer-manual/</guid>
+      <description>&lt;p&gt;自分メモ、ということで控えを以下に。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>gstreamer 試してみた</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/09/04/test-gstreamer/</link>
+      <pubDate>Thu, 04 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/09/04/test-gstreamer/</guid>
+      <description>&lt;p&gt;RaspberryPI にて。&lt;/p&gt;
+
+&lt;p&gt;とりあえず USB なマイクは認識しているのでパケジを入れて様子を見てみます。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install -fy gstreamer0.10-alsa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;導入されたのは一つだけ。以下も導入した方が良いのかどうか、と言いつつ入れてしまいます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;gstreamer-tools&lt;/li&gt;
+&lt;li&gt;libgstreamer0.10-dev&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Tor relay</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/07/tor/</link>
+      <pubDate>Sat, 07 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/07/tor/</guid>
+      <description>&lt;p&gt;FSF から以下なメイルが来てて&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.eff.org/torchallenge&#34;&gt;Start a relay and register it with the Tor Challenge! It&amp;rsquo;s easy and works on all operating systems, including the best one &amp;ndash; GNU/Linux.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;公開ホストに tor を入れて云々、って思ったんですが&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ssh 接続できぬ&lt;/li&gt;
+&lt;li&gt;時刻が微妙&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ということでこちらの問題解決から。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>aplay 備忘</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/20/aplay-memo/</link>
+      <pubDate>Tue, 20 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/20/aplay-memo/</guid>
+      <description>&lt;p&gt;RasPI に持ってた USB な DAC を挿して云々してみたメモを備忘まで。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>音量調節</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/13/using-usb-sound-card-in-raspbian/</link>
+      <pubDate>Tue, 13 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/13/using-usb-sound-card-in-raspbian/</guid>
+      <description>&lt;p&gt;録音な音量の調節ができていない事が判明。試しに Windowz なタブレットで確認してみるに音量の調節は当たり前にできてました。&lt;/p&gt;
+
+&lt;p&gt;ぐぬぬ、と言いつつググッてる時に以下なコンテンツを発見したので備忘まで控えを。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://raspberryexp.blogspot.jp/2013/01/raspberry-pi-and-usb-sound-card.html&#34;&gt;Raspberry Pi and Usb Sound Card&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;曰く&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;I Have Usb Sound Card that uses cmedia chipset and im uses wheezy raspbian image, its not work properly, then im switch to Arch linux and my usb sound card work flawlessly :)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;とのことですが何故に Arch linux なら大丈夫で raspbian なら微妙なのかが謎。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Onion Router 問題解決</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/11/problem-solving-in-onion-router/</link>
+      <pubDate>Sun, 11 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/11/problem-solving-in-onion-router/</guid>
+      <description>&lt;p&gt;接続できない、という苦情が入ったのでシリアル接続して確認。サービスは動いているカンジですがどうなのか。&lt;/p&gt;
+
+&lt;p&gt;確認してみたところ、wlan0 に ip address が付いていない。これっていいのだったかどうかも忘却の彼方。&lt;/p&gt;
+
+&lt;h2 id=&#34;解&#34;&gt;解&lt;/h2&gt;
+
+&lt;p&gt;一日置いて電源入れて確認してみたのですが hostapd な起動を /etc/rc.local で云々、がダウトだったようです。&lt;/p&gt;
+
+&lt;h2 id=&#34;追記&#34;&gt;追記&lt;/h2&gt;
+
+&lt;p&gt;hostapd を /etc/rc.local で、というのはダウトではありませんでした。あと、これが悪いかも、と言っていた ntpd も今はサービス起動するよう戻しています。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>raspbian シリアル接続の件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/12/serial-connection-with-raspbian/</link>
+      <pubDate>Sat, 12 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/12/serial-connection-with-raspbian/</guid>
+      <description>&lt;p&gt;最新の 2014-01-07-wheezy-raspbian.zip を落として SD に dd してリトライしたらログインできました。後天性記憶不全なので gpio なピンアサインのナニを以下に。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.adafruit.com/blog/2013/02/01/raspberry-pi-gpio-resource-piday-raspberrypi-raspberry_pi/&#34;&gt;Raspberry Pi GPIO Resource&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とりあえず以前アレしたエントリに貼ったリンクを読む。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 12.04 に postfix で</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/05/sendmail-in-ubuntu-1204/</link>
+      <pubDate>Sat, 05 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/05/sendmail-in-ubuntu-1204/</guid>
+      <description>&lt;p&gt;なんかこれ系なこと当分スルーしてたらワケワカ状態になっててorz&lt;/p&gt;
+
+&lt;p&gt;とりあえず FQDN もらうの必須です。で、うぶんつ 12.04 な postfix の /etc/postfix/main.cf のデフォが以下のはずなんですが&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bourne shell 自習テキストのセルフレビュ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/01/review-b-shell-text/</link>
+      <pubDate>Tue, 01 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/01/review-b-shell-text/</guid>
+      <description>&lt;p&gt;以下について読みつつ試しつつ確認。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/yamanetoshi/BashSelfStudyText/blob/master/sh-text.md&#34;&gt;BashSelfStudyText&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ちなみに以下の記述&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[n]&amp;lt;&amp;amp;-  入力ディスクリプタn (省略時 0)をクローズ
+[n]&amp;gt;&amp;amp;-  出力ディスクリプタn (省略時 1)をクローズ
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使ったことないですが bash でも使える模様。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.apokalyptik.com/2007/10/24/bash-tip-closing-file-descriptors/&#34;&gt;Bash Tip:Closing File Descriptors&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;また、ブレイスでカレントシェルの環境で実行、ってのも知りませんでした。10 云年前は csh 全盛だったみたい (?) ですが Linux のお陰で bourne shell というか bourne again shell が復活して最近は zsh 全盛なんですよね。ぼくは未だに bash ですがorz&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bourne Shell 自習テキスト改変云々</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/31/bourne-shell-self-study-text/</link>
+      <pubDate>Mon, 31 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/31/bourne-shell-self-study-text/</guid>
+      <description>&lt;p&gt;木村孝道さん、という方が作られた Bourne Shell 自習テキスト、という文書を Linux な bash 向けに改変して某所で使わせて頂こうと手動で markdown に変換しようとしています。&lt;/p&gt;
+
+&lt;p&gt;まだ原文を md に変換している最中なんですが、リポジトリのリンクを以下に。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/yamanetoshi/BashSelfStudyText&#34;&gt;yamanetoshi/BashSelfStudyText&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一応 copyright を持ってる方に連絡させて頂かねば、と思ったもののリンクが無い。どうしたものやら、と困ってる次第です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Kernel Reading Party</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/29/kernel-reading-party/</link>
+      <pubDate>Sat, 29 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/29/kernel-reading-party/</guid>
+      <description>&lt;p&gt;ええと、Doorkeeper に出てる情報が以下。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;19:30 Session Start, Opening remarks, by Hiro Yoshioka,
+19:35 Open Printing, Ogasawara san
+19:45 昔のLinuxの話, Our Memories of Linux, Koyama san
+*Abstract 1991年にLinuxカーネルが公開され、日本である程度広く知られるまでの約10年間の出来事、活動、思い等の話を思い出してみます。
+- 小山裕司: 産業技術大学院大学 情報アーキテクチャ専攻 教授、『Linux入門（Addison-Wesley，1995/2）』著者
+19:55 Workqueueの話, Linux Workqueue Introduction, Yoshida san
+* Abstract Linux Workqueue is a general purpose async execution mechanism.
+This is the Linux kernel implementation of a familiar thread pool pattern.
+This session introduces Workqueue and explains how Linux resolve this problem.
+Linuxカーネルの非同期実行の仕組みとしてWorkqueueというものがあります。
+これはスレッドプールのようなものなのですが、Linuxカーネルではスケジューラに「ひと工夫」することでこの問題をうまく解決しています。ここら辺のうまい「ひと工夫」をご紹介したいと思います。
+* Linux support engineer at MIRACLE LINUX.
+I made my debut for Linux kernel community since 3.13 -- a comment typo fix ;)
+MIRACLE LINUXエンジニア。
+最近、コメントのtypo修正で念願のカーネルコミュニティーデビューを果たしました。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;昨晩同様、メモを以下に。幸運なことに上の wifi 繋がったままだw&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bourne Shell自習テキスト</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/28/bourne-shell-self-study-text/</link>
+      <pubDate>Fri, 28 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/28/bourne-shell-self-study-text/</guid>
+      <description>Linux/bash 向けに書き直して markdown にして GitHub に、ってヤッちゃって良いのかどうか。とりあえずソースは入手したので明日の移動で云々な方向。これだと回線不要だし。</description>
+    </item>
+    
+    <item>
+      <title>RaspberryPI に USB マイク付けて云々</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/24/linux-alsa/</link>
+      <pubDate>Mon, 24 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/24/linux-alsa/</guid>
+      <description>&lt;p&gt;デバイス自体は普通に認識。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install pulseaudio
+$ lsusb
+Bus 001 Device 006: ID 0d8c:000c C-Media Electronics, Inc. Audio Adapter
+$ pactl list short sources
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;出力略。認識できてるみたいです。つうか RasPI は USB がポート二つしかなくてキーボードとマイク繋ぐとマウスががが状態。困ってたら alsamixer は端末で表示できちゃうんですね。&lt;/p&gt;
+
+&lt;p&gt;なんかワケワカんねぇ、と言いつつ alsamixier で、とか alsa-oss 入れて、とかやっていたのですがよくよく見てみるに /dev/snd というディレクトリを発見。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>linux-tools</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/20/linux-tools/</link>
+      <pubDate>Thu, 20 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/20/linux-tools/</guid>
+      <description>&lt;p&gt;RasPI にとあるプログラムの実装を移植 (?) してプロファイリング、な仕事。以下で導入してみたのですが&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install linux-tools
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;導入されたのが linux-tools-3.2 でした。uname によれば Kernel は 3.10 とのことだったのですが構わずすすめてみたところ&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ perf record ./hoge
+/usr/bin/perf: line 24: exec: perf_3_10: not found
+E: linux-tools-3.10 is not installed.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;とのことでバージョン指定で導入。使いかた的には&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ perf record ./hoge
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;して&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ perf report
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;すれば良いみたい。あと perf stat とかが time よりも上等とかありますね。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>raspbian 導入</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/20/install-raspbian/</link>
+      <pubDate>Thu, 20 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/20/install-raspbian/</guid>
+      <description>間違えて NOOBS 落としたり帯域細くて download に時間がかかったりで午前中一杯かかってしまうなど。何しとるorz あと備忘ってことで image の SDCard へのコピィが以下。 $</description>
+    </item>
+    
+    <item>
+      <title>crosstool-NG 入れるなど</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/19/install-crosstool-ng/</link>
+      <pubDate>Wed, 19 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/19/install-crosstool-ng/</guid>
+      <description>&lt;p&gt;先日入手した、BareMetalで遊ぶ RaspberryPi に出てるソレを云々してみます。&lt;/p&gt;
+
+&lt;p&gt;とりあえずパケジを導入。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install build-essential python3 python2.7 \
+python-dev libzip-dev automake libncurses5-dev gperf bison \
+flex gawk libtool libexpat1-dev expat
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;あるいは 32bit 環境用ライブラリを、とのことで以下。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo dpkg --add-architecture i386
+$ sudo apt-get update
+$ sudo apt-get install ia32-libs libgtk2.0-0:i386
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;久しぶりに apt-get update とかしたのですが apt-line に docker だの heroku の toolbelt とか入っててアレですね。ともあれ、これで crosstool-NG の導入準備は OK とのこと。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>RasPI 評価なお仕事発生</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/04/assesment-raspi/</link>
+      <pubDate>Tue, 04 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/04/assesment-raspi/</guid>
+      <description>来週、TP X201 を某所に持ってく方向。モニタ接続用のケーブルもいちおう持参の方向。 あと、Intel Edison でもちょっぴり盛り上がったのですが、その後確</description>
+    </item>
+    
+    <item>
+      <title>最近はでびあんでもマウスオーバー辞書が動くのか</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/27/mouse-over-dictionary-in-debian/</link>
+      <pubDate>Thu, 27 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/27/mouse-over-dictionary-in-debian/</guid>
+      <description>Chrome 拡張、weblio ポップアップも Google Dictionary も動く。凄いなぁ。</description>
+    </item>
+    
+    <item>
+      <title>某もくもく会</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/27/moku-moku-conference/</link>
+      <pubDate>Thu, 27 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/27/moku-moku-conference/</guid>
+      <description>メインテーマがリゾルバになった模様。わくわく。以下な tweet が発端だったり。 @yamanetoshi トラブル自体はCentOS6系のネットワーク周りの設定でresolv</description>
+    </item>
+    
+    <item>
+      <title>Debian 7 (wheezy) に rbenv 導入</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/15/install-rbenv-in-wheezy/</link>
+      <pubDate>Sat, 15 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/15/install-rbenv-in-wheezy/</guid>
+      <description>&lt;p&gt;apt-get で導入可能らしいので試してみます。とりあえず確認。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ apt-cache search rbenv
+rbenv - simple per-user Ruby version manager
+ruby-build - tool to compile and install different versions of Ruby
+ruby-switch - switch between different Ruby interpreters
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;とのことで、ruby-build も入れてしまえ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>GNOME Shell</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/15/gnome-shell/</link>
+      <pubDate>Sat, 15 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/15/gnome-shell/</guid>
+      <description>でびあん 7 (wheezy) から GNOME Shell という UI が採用されている模様。面倒なのでそのまんま使ってるのですが、workspace が知らない内に増えてたり一覧で右ク</description>
+    </item>
+    
+    <item>
+      <title>古い NAS からデータをサルベイジ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/14/data-recovery-from-old-nas/</link>
+      <pubDate>Fri, 14 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/14/data-recovery-from-old-nas/</guid>
+      <description>/etc/samba/smb.conf の global なナニに以下を追加。 [global] client lanman auth = yes client ntlmv2 auth = no とりあえず smbclient で情報の確認はできました。 $ smbclient -L //192.168.255.254 -U admin Enter admin&#39;s password: Sharename Type Comment --------- ---- ------- PUBLIC Disk IPC$ IPC で、mount.</description>
+    </item>
+    
+    <item>
+      <title>でびあん 7 導入</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/13/install-debian-7/</link>
+      <pubDate>Thu, 13 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/13/install-debian-7/</guid>
+      <description>&lt;p&gt;とりあえず USB メモリに netboot なソレを仕込む。うぶんつと違って色々大変なんスね。以下エントリを見つつ USB メモリへのコピィ完了。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://inokara.hateblo.jp/entry/2013/04/06/052506&#34;&gt;Debian squeeze を USB メモリからインストールする一部始終&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;その後、メモリスティックを挿して起動。F12 で起動デバイスのリストが出るのね。起動後に iwlwifi-6000-4.ucode という firmware を起動ディスクに入れれ、と指示が入る。&lt;/p&gt;
+
+&lt;p&gt;がしかしこれ、ファイルを直接入手することができないのでやっぱでびあん断念。と思ったけど有線で継いで (Ubuntu installer は download しつつ) firmware-iwlwifi パケジがあるかどうかを確認、まではヤッてみることに。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>TP X201 にでびあん 7</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/12/thinkpad-x201-and-debian-7/</link>
+      <pubDate>Wed, 12 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/12/thinkpad-x201-and-debian-7/</guid>
+      <description>TP X201 発注してまして、届き次第 7.4 なでびあんを導入の方向なのですが、必須なツールとして Eclipse+ADT Android Studio Chrome Emacs Git Dropbox あたりが使えれば良いのかどうか。つーか発注完</description>
+    </item>
+    
+    <item>
+      <title>プロミスキャスモードな socket プログラム</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/16/program-like-wireshark/</link>
+      <pubDate>Thu, 16 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/16/program-like-wireshark/</guid>
+      <description>&lt;p&gt;とりあえずリモホに接続できるので Linux な man ができる、ということで (何&lt;/p&gt;
+
+&lt;p&gt;接続確立な初期処理では以下な手順を踏んでいます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;socket 手続き呼び出し&lt;/li&gt;
+&lt;li&gt;ifrec 構造体の初期化&lt;/li&gt;
+&lt;li&gt;ifrec 構造体にデバイスな文字列設定&lt;/li&gt;
+&lt;li&gt;ioctl に socket なデバイス番号と SIOCGIFINDEX と ifrec を渡して呼び出し&lt;/li&gt;
+&lt;li&gt;sockaddr_ll 構造体メンバの設定&lt;/li&gt;
+&lt;li&gt;bind&lt;/li&gt;
+&lt;li&gt;プロミスキャスモードの設定&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;このあたり、おもしろそうなので確認してみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>OnionRouter その後</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/28/configure-onion-router/</link>
+      <pubDate>Sat, 28 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/28/configure-onion-router/</guid>
+      <description>&lt;p&gt;とりあえず iptables なソレを保存していない。あと、&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;dhcp サーバ&lt;/li&gt;
+&lt;li&gt;hostapd サーバ&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;が自動で起動される形になっていないはず。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>RasPI な Kernel 作成 (5)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/28/make-linux-kernel-for-raspi/</link>
+      <pubDate>Sat, 28 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/28/make-linux-kernel-for-raspi/</guid>
+      <description>&lt;p&gt;とりあえず firmware を入れておく。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install firmware-ralink
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;スデに導入済みでした。後は以下を参考にしつつ進めます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://obdnmagazine.blogspot.jp/2013/03/tested-lan-w150nu2-hostapdwifi-ax3.html&#34;&gt;LAN-W150NU2 / hostapdによるWifiアクセスポイントの構築&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>RasPI な Kernel 作成 (4)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/27/make-linux-kernel-for-raspi/</link>
+      <pubDate>Fri, 27 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/27/make-linux-kernel-for-raspi/</guid>
+      <description>&lt;p&gt;ようやく手が出せるナニができた。dd は無事終わっていたので RasPI に刺して電源投入。ssh では pi/raspberry で接続できました。sudo もできる模様。&lt;/p&gt;
+
+&lt;p&gt;そして&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;rt2x00usb              11492  1 rt2800usb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;も認識できてて wlan0 もある。これをもう一つのにも dd でコピィして DAC が認識できるかを確認してみたいと思います。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>RasPI な Kernel 作成 (3)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/25/make-linux-kernel-for-raspi/</link>
+      <pubDate>Wed, 25 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/25/make-linux-kernel-for-raspi/</guid>
+      <description>&lt;p&gt;なんかだんだんインストールが目的になってたりしますがまずはそこから、ということで (ぇ&lt;/p&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;NOOBS が云々、ってのも色々面倒なので raspbian なイメージを取得してそのまま書き込む方向。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ wget http://downloads.raspberrypi.org/raspbian_latest    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;して unzip して dd で SD に書けば良いはず。どこまでヤレるか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>RasPI な Kernel 作成 (2)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/23/make-linux-kernel-for-raspi/</link>
+      <pubDate>Mon, 23 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/23/make-linux-kernel-for-raspi/</guid>
+      <description>&lt;p&gt;ええと、以下を参考に進めてみることにします。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://resin.io/docker-on-raspberry-pi/&#34;&gt;Docker on Raspberry Pi&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;つうか&#34;&gt;つうか&lt;/h2&gt;
+
+&lt;p&gt;Arch Linux て何でしょ。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://ja.wikipedia.org/wiki/Arch_Linux&#34;&gt;Arch Linux&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;む、初期設定済みな Raspbian とか無いのかな。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>FSF の Gluglug X60 Laptop 欲しいな</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/20/i-want-to-buy-gluglug-x60-laptop/</link>
+      <pubDate>Fri, 20 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/20/i-want-to-buy-gluglug-x60-laptop/</guid>
+      <description>FSF から Gluglug X60 Laptop now certified to Respect Your Freedom という標題のメイルが着信。確認してみるに 300 ユーロで 3GB RAM で 120GB SSD なモデルが入手できるみたい。 消耗品で落とせるな、と思って</description>
+    </item>
+    
+    <item>
+      <title>RasPI な kernel 作成</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/20/make-linux-kernel-for-raspi/</link>
+      <pubDate>Fri, 20 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/20/make-linux-kernel-for-raspi/</guid>
+      <description>&lt;p&gt;継続は以下でした。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://yamanetoshi.github.io/blog/2013/12/12/compilation-was-done-safely/&#34;&gt;コンパイルは無事終わっていたので&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;全然無事には終わっていないことが判明。modules install したディレクトリには .ko なファイルが一つも無い。これはイチからヤり直しですね。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>arm な Linux の理解が必要不可決な件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/17/understanding-arm-linux/</link>
+      <pubDate>Tue, 17 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/17/understanding-arm-linux/</guid>
+      <description>&lt;p&gt;昨晩、某所でそんな話題になっていたり。&lt;/p&gt;
+
+&lt;p&gt;つうか本題としては、ばたばたしてて潜行できてないよね、ってアレだったりしたかも (ぇ&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux Kernel Tester&#39;s Guide</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/16/linux-kernel-testers-guide/</link>
+      <pubDate>Mon, 16 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/16/linux-kernel-testers-guide/</guid>
+      <description>&lt;p&gt;スデに何契機だったかも忘却の彼方なのですが、以下のドキュメントを見つけていたり。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.kerneltravel.net/downloads/tester_guide.pdf&#34;&gt;Linux Kernel Tester&amp;rsquo;s Guide&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;月曜朝イチからアレなのですが、ちょっと色々確認入れつつ中身のメモを控えておこうと思います。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>コンパイルは無事終わっていたので</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/12/compilation-was-done-safely/</link>
+      <pubDate>Thu, 12 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/12/compilation-was-done-safely/</guid>
+      <description>&lt;p&gt;その後のソレを。&lt;/p&gt;
+
+&lt;p&gt;まず、module を纏めるディレクトリを掘っておいて&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd ../modules
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以下らしい。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd ../linux
+$ ARCH=arm CROSS_COMPILE=${CCPREFIX} INSTALL_MOD_PATH=../modules make modules_install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>RasPi な Kernel のクロスコンパイル</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/11/cross-compile-raspi-kernel/</link>
+      <pubDate>Wed, 11 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/11/cross-compile-raspi-kernel/</guid>
+      <description>実機の中でコンパイルしたけど駄目だったので (詳細略)、こないだ見つけた資料を参考に再度クロスで Kernel 作成に着手。最初、-mlittle-endi</description>
+    </item>
+    
+    <item>
+      <title>RPi Kernel Compilation (2)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/10/rpi-kernel-compilation/</link>
+      <pubDate>Tue, 10 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/10/rpi-kernel-compilation/</guid>
+      <description>昨晩だかに以下の対応をしていた模様。 1. Get the latest raspberrypi kernel source (https://github.com/raspberrypi/linux) 3. Get the latest raspberrypi compiler (git clone https://github.com/raspberrypi/tools) で、先程以下なあたりを云々して make を kickoff してます。 2. Set an environment variable KERNEL_SRC to point to the location of</description>
+    </item>
+    
+    <item>
+      <title>RPi Kernel Compilation</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/09/rpi-kernel-compilation/</link>
+      <pubDate>Mon, 09 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/09/rpi-kernel-compilation/</guid>
+      <description>&lt;p&gt;以下なドキュメントを発見。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://elinux.org/RPi_Kernel_Compilation&#34;&gt;RPi Kernel Compilation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;手順に沿って云々してみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>wireless ドライバの続き</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/09/make-wireless-driver-in-raspi/</link>
+      <pubDate>Mon, 09 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/09/make-wireless-driver-in-raspi/</guid>
+      <description>朝、確認してみたらコンパイルは終わってました。でも .ko なファイルが無くって色々見てると Enable loadable modules support にチェックが入ってなくてorz 特定モジュールのコ</description>
+    </item>
+    
+    <item>
+      <title>wireless ドライバ探し</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/08/linux-wireless-driver/</link>
+      <pubDate>Sun, 08 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/08/linux-wireless-driver/</guid>
+      <description>&lt;p&gt;動いてる kernel が以下らしく&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ uname -a
+Linux raspberrypi 3.6.11+ #474 PREEMPT Thu Jun 13 17:14:42 BST 2013 armv6l GNU/Linux
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ソースパケジを取得。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install linux-source-3.6
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Kano</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/03/i-wanna-get-kano/</link>
+      <pubDate>Tue, 03 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/03/i-wanna-get-kano/</guid>
+      <description>&lt;p&gt;これ、良いなと思っていたのですが関係方面に確認入れてみて欲しいというのであれば $99 払う方向。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.kickstarter.com/projects/alexklein/kano-a-computer-anyone-can-make?ref=live&#34;&gt;Kano: A computer anyone can make&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;つうか駄目かなぁ。同じことをたくらんで USB なキーボードとマウスを購入してたりする件orz&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>環境作るメモ (2)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/12/gradle-preferences/</link>
+      <pubDate>Tue, 12 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/12/gradle-preferences/</guid>
+      <description>&lt;p&gt;とりあえず ant 導入。ANDROID_HOME は以下らしい。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ env|grep ANDROID_HOME
+ANDROID_HOME=/usr/local/adt-bundle-linux-x86_64-20131030/sdk
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;あと、GRADLE_HOME と PATH への追加も ~/.profile に記載。そして以下パケジも導入。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get install lib32stdc++6
+sudo apt-get install lib32z1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>環境作るメモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/11/gradle-preferences/</link>
+      <pubDate>Mon, 11 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/11/gradle-preferences/</guid>
+      <description>&lt;p&gt;某社提供の CloudStack から仮想リソースを kickoff してます。作成直後にパスワードつきの notify なダイアログが出るんですが一度スルーしてしまいヤラれたことがあります。&lt;/p&gt;
+
+&lt;h2 id=&#34;遠隔接続設定&#34;&gt;遠隔接続設定&lt;/h2&gt;
+
+&lt;p&gt;もしかすると公開鍵を云々する AWS みたいな機能があるのかもしれませんが調べる時間無し。CloudStack はコンソールという機能があるので、そこからとりあえず ssh でパスワード認証で接続できるように設定ファイルを修正してサービス再起動。
+その後、公開鍵を ~/.ssh/authorized_keys に転送して&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;sshd_config の パスワード認証を no にしてサービス再起動&lt;/li&gt;
+&lt;li&gt;root 権限で gpasswd -a ユーザ sudo して sudo が使えるように&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>BLE ガジェット勉強会</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Mar 27, 2014
+         - 4 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/27/ble-gadget-conference/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+         BLE ガジェット勉強会 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>台東区障害学習センターにて。早々に着いて電源に近い席を確保。
+以下の予定とのアナウンスがありました。</p>
+
+<pre><code>【19:00-19:30】 「ANCS(Apple Notification Center Service)の全容」
+( 株式会社GClue 佐々木 陽)
+【19:30-20:00】 
+講演者大募集
+【20:00-20:20】「Apache cordovaで作るbleアプリ」
+(萩原 崇之)
+【20:20-20:35】「Beagle BoneでBeacon検索 」
+(渡辺 知男)
+</code></pre>
+
+<p>メモを以下に。</p>
+
+<p></p>
+
+<h2 id="ancs-の全容">ANCS の全容</h2>
+
+<p>push notification について、つうか開始前にスライドを作ってるっていうのが凄い。と思ったらアヤシげなデバイスが出てきてます。準備しつつ「面白い設計コンセプトなんですよ」というやりとりが耳に入ってきています。</p>
+
+<ul>
+<li>GShock とか iWatch とか</li>
+<li>明日も同じネタな模様</li>
+<li>BLE を通して iOS と接続されたアクセサリに iOS で発生する様々な Notification を通知するしくみ、とのこと</li>
+<li>ANCS デザイン三原則 (Simplicity, Efficiency, Scalability)</li>
+<li>ドキュメント公開されてます</li>
+<li>Anddoid は Intent</li>
+<li>デバイス提供側で SDK 提供されるケイスが増えてきている</li>
+<li>wifi, Bluetooth, BLE で</li>
+<li>BLE 使って周辺ハードを作る流れ</li>
+<li>CoreBlueTooth というフレームワークが公開されている</li>
+<li>SDK が公開されている BLE 機器結構あるとのこと</li>
+<li>kickstarter でよくでてくるソレは BLE 多い</li>
+<li>連携にはアプリが必要</li>
+<li>ANCS の位置は何処</li>
+<li>notification に特化</li>
+<li>繋がってるデバイスに notify が届く、のかな</li>
+<li>Central と Peripheral</li>
+<li>BLE デバイスは Peripheral モードで、スマホ側が Central</li>
+<li>Pheripheral に変化があった場合、Central に notify できる</li>
+<li>ANCS はこれが逆になる (iPhone が Peripheral に、ガジェットが Central に)</li>
+<li>パッケージ名とメッセージ本体が飛んでくる</li>
+<li>Central 側にソフトウェアなしくみが必要 (ガジェット側で完結する)</li>
+<li>Notification Source と Control Point と Data Source</li>
+<li>これらの値に変化があると周辺ハードに通知が飛ぶ</li>
+<li>変化があったタイミングで届く</li>
+<li>20byte 制限も複数回の読み書きでカバーしているのかどうか</li>
+<li>iPhone は Central にも Peripheral にもなれるけど iPhone 同士は無理</li>
+<li>Mac にも飛ぶとのこと</li>
+<li>Android は Peripheral になれるのかどうか</li>
+<li>電動赤べこ</li>
+<li>20byte について、length フィールド 2byte あるってことは?</li>
+<li>セキュリティ的に微妙? そうでもなくっておそらく暗号化されてるはず (他のデバイスからは覗けないはず)</li>
+<li>ふつーの Low Energy チップ、というのがアレ</li>
+<li>資料は別途今週中にどこかに upload されるとのこと</li>
+<li>ハンズオン 2h でできますよ、とのこと</li>
+</ul>
+
+<h2 id="beagle-boneでbeacon検索">Beagle BoneでBeacon検索</h2>
+
+<ul>
+<li>@tomo_watanabe さん</li>
+<li>BeagleBone Black をセントラルに、BLE デバイスを Peripheral に</li>
+<li>誰もが気にせず BLE を使われるのが良い手段だろう</li>
+<li>見守りシステム (センサ使って云々)</li>
+<li>外出かどうかの判定が難しい</li>
+<li>ドップラーセンサ (心拍、鼓動)、人感センサ (人の動き)の両方で精度を上げる</li>
+<li>BLE デバイスを持って歩いてもらると?</li>
+<li>ちっさいデバイスをどっかに入れて持ち歩いて云々</li>
+<li>外出かどうかが分かれば良い</li>
+<li>node-bleacon (Node.js ベースの Beacon 検出)</li>
+<li>BBB では動かない</li>
+<li>bignum というライブラリで build できないとのこと</li>
+<li>BLE Beacon てのを作って Github に置いている</li>
+<li>BLE の Advertise ビーコンのスキャン</li>
+<li>RasPi でも多分動く</li>
+<li>BBB では BT ドングルキツい模様</li>
+<li>BLE ドングルは機種なハードルがある模様</li>
+<li>距離計算、って何だろ</li>
+<li>パラメータの調整が必要らしい</li>
+<li>BT 受信デバイスの性能マター</li>
+<li>RSSI 測定値の変動幅が相当大きいとのこと</li>
+<li>スキャンで見つからない場合があるとのこと (デバイスマターな問題</li>
+<li>色々課題がある</li>
+<li>ID 固定でアレできるので混線な心配は無いとのこと</li>
+<li>人体と接触した状態だと微妙とか上下とか壁越しで、とか電波が微妙に、とのこと</li>
+<li>距離は信用するな、とのこと</li>
+<li>信用ならないので最後は NFC という実装例の話</li>
+<li>ガラス程度は通貨するけどコンクリはアレ</li>
+<li>見通しで 30m くらいは飛んだ模様</li>
+</ul>
+
+<h2 id="apache-cordovaで作るbleアプリ">Apache cordovaで作るbleアプリ</h2>
+
+<ul>
+<li>iPhone で画面を写すというナニ</li>
+<li>第五の情報? (センサーやガジェットに関わる情報?)</li>
+<li>cordova SDK 最新を要求するのか</li>
+<li>Linux は面倒臭い、ですと</li>
+<li>inspection て何だろ</li>
+<li>ibeacon 問題 (apple の独自拡張)</li>
+<li>cordova BLE plugin というナニがある</li>
+<li>ひと通りの機能は提供されている</li>
+<li>inspection なかなか強力らしい</li>
+<li>手軽に BLE アプリが作れるのでプロトタイピングには良い</li>
+</ul>
+
+<h2 id="その他">その他</h2>
+
+<ul>
+<li>生涯学習センターは 5K JPY くらいで借りれるとのこと。</li>
+<li>JAG の嶋さん来てらっしゃる模様</li>
+<li>おおいしさんもいらしててご挨拶させて頂きました</li>
+<li>ハンズオン週イチに、とのこと</li>
+<li>勉強会は月イチ、とのこと</li>
+</ul>
+
+<p>その後、微妙な事情にて懇親会を失礼させて頂きました。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Mar 27, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/03/27/introduced-gfab/" title="gFab 紹介させて頂きました">gFab 紹介させて頂きました</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/03/28/shinjuku-co-working-space/" title="新宿トラベラーズ・コワーキングさんにお世話になった">新宿トラベラーズ・コワーキングさんにお世話になった</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

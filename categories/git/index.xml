@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/git/</link>
+    <description>Recent content in Git on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sun, 03 Dec 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>昨日のもくもく</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/12/03/today-mokumoku/</link>
+      <pubDate>Sun, 03 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/12/03/today-mokumoku/</guid>
+      <description>&lt;p&gt;とりあえず燃料を入れつつ着手。とりあえずリポジトリを clone するなど。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/nulab/go-git-http-xfer
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>明日のもくもく</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/12/01/today-mokumoku/</link>
+      <pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/12/01/today-mokumoku/</guid>
+      <description>発見。 Go言語 で Gitサーバー を書いてみた。 雨でアレなのですが最悪自宅で云々な方向。</description>
+    </item>
+    
+    <item>
+      <title>ついうっかり</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/18/recover-from-mistake/</link>
+      <pubDate>Fri, 18 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/18/recover-from-mistake/</guid>
+      <description>$ git add . したら $ git reset てことで (自分メモ</description>
+    </item>
+    
+    <item>
+      <title>git log とかでページャ使いたくない時</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/02/git-no-pager/</link>
+      <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/02/git-no-pager/</guid>
+      <description>例えば以下らしい。 $ git --no-pager log この指定、先頭にないと駄目らしいです。 $ git log --no-pager fatal: unrecognized argument: --no-pager</description>
+    </item>
+    
+    <item>
+      <title>octopress</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/02/11/octopress/</link>
+      <pubDate>Thu, 11 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/02/11/octopress/</guid>
+      <description>ええと、_deploy 作るのは $ bundle exec rake gen_deploy なのか。。や、初期生成 (?) は $ bundle exec rake setup_github_pages でしたね。ちょい前に違うマシンで再構築したはずなのですがまるっと</description>
+    </item>
+    
+    <item>
+      <title>何これ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/12/11/what-is-this/</link>
+      <pubDate>Fri, 11 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/12/11/what-is-this/</guid>
+      <description>git push したら以下なアレが読めない色で出力。 remote: We&#39;re changing our IP addresses on 15 December 2015 at 00:00 UTC. remote: Please make sure your firewalls are up to date: remote: https://blog.bitbucket.org/?p=2677 bitbucket、GIP 変更するのか。</description>
+    </item>
+    
+    <item>
+      <title>Git 備忘</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/11/17/git-memo/</link>
+      <pubDate>Tue, 17 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/11/17/git-memo/</guid>
+      <description>とあるディレクトリ配下の差分情報の確認の方法。 $ git log -p -- path/to/directory</description>
+    </item>
+    
+    <item>
+      <title>勝手に submodule にされた件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/11/03/it-had-been-in-git-submodule-when-i-notice/</link>
+      <pubDate>Tue, 03 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/11/03/it-had-been-in-git-submodule-when-i-notice/</guid>
+      <description>&lt;p&gt;リモート見てびっくり。ディレクトリにコミットへの参照が記載されているのみ。これは .git が悪いのだろうと思ったのですが、最終的に&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git rm &amp;lt;directory&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;しないと駄目、でした。正直手を入れる前提、で作ってるので&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;clone したら &lt;code&gt;.git&lt;/code&gt; および &lt;code&gt;.gitignore&lt;/code&gt; は削除&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;てルールを徹底しないと駄目らしい。どういった運用が適切なのやら。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>git-svn 備忘</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/11/02/git-svn-memo/</link>
+      <pubDate>Mon, 02 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/11/02/git-svn-memo/</guid>
+      <description>svn update は以下で。 $ git svn fetch $ git svn rebase で、 update-index --refresh: command returned error: て言われる場合、ローカル差分があるようなので git checkout -f . とかして (問題なければ) リトライ。</description>
+    </item>
+    
+    <item>
+      <title>異なる branch で似たような修正</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/09/07/fix-between-different-branch/</link>
+      <pubDate>Mon, 07 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/09/07/fix-between-different-branch/</guid>
+      <description>&lt;p&gt;ある branch では二行、異なる branch で一行の追加。例えば以下なカンジ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hoge
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;もう片方が以下。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hoge
+fuga
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;一行追加が先に merge されて、下側の差分を merge しようとして叱られている模様。ちょっと不思議。別途時間がある時にでもツッコンで確認してみようと思います。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>svn update を git svn でヤるには</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/08/07/how-to-do-svn-update/</link>
+      <pubDate>Fri, 07 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/08/07/how-to-do-svn-update/</guid>
+      <description>$ git svn fetch $ git svn rebase で良い模様。ただ、ローカルの修正が入ってて rebase できずに困ってました。</description>
+    </item>
+    
+    <item>
+      <title>コミットのやりなおし</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/07/31/redo-commit/</link>
+      <pubDate>Fri, 31 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/07/31/redo-commit/</guid>
+      <description>備忘メモ。 何も考えずに git add . して commit を作ってしまった時の対処です。commit に含めちゃ駄目、って差分が .idea 配下にあるという前提にて。 $ git reset --soft HEAD^</description>
+    </item>
+    
+    <item>
+      <title>remote に push した branch を rebase してしまった件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/06/30/git-accident/</link>
+      <pubDate>Tue, 30 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/06/30/git-accident/</guid>
+      <description>なんか凄く HP 削られてて駄目なことヤッてしまいました。こんなことするのであれば branch の名前は変えないと駄目ですよね。ただ、branch の名前が ユー</description>
+    </item>
+    
+    <item>
+      <title>む</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/06/27/mu/</link>
+      <pubDate>Sat, 27 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/06/27/mu/</guid>
+      <description>git push したら以下な出力だったんスけど remote: remote: ++++ ++++ remote: +++++++ +++++++ remote: +++++++++++++++++++++++++++++ remote: +++++++++++++++++++++ remote: +++++++ remote: +++ +++ remote: ++++++ +++++ ++++++ remote: ++++++ +++++ ++++++ remote: +++++++ +++ +++++++ remote: ++++++++ + ++++++++ remote: ++++++++ ++++++++ remote: ++++++++ +++++++++ remote: +++++++++++++++ remote: +++++++++++++ remote: +++++++++ remote: +++++++ remote: + +++++++ remote: +++ +++++++ remote:</description>
+    </item>
+    
+    <item>
+      <title>eclipse から AndroidStudio への移行</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/05/20/change-android-project-from-eclipse-to-androidstudio/</link>
+      <pubDate>Wed, 20 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/05/20/change-android-project-from-eclipse-to-androidstudio/</guid>
+      <description>&lt;p&gt;とりあえず、build.gradle で云々するプロジェクトだったので import から build.gradle を読み込みました。&lt;/p&gt;
+
+&lt;p&gt;その後、productFlavor な機能を盛り込んでみたのでそちら方面のメモを残しておきたいと思います。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>AndroidStudio なプロジェクトの .gitignore について</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/05/15/dot-gitignore-in-androidstudio-project/</link>
+      <pubDate>Fri, 15 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/05/15/dot-gitignore-in-androidstudio-project/</guid>
+      <description>&lt;p&gt;gihyo さんのドキュメントによれば&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;必要なのは .idea/gradle.xml&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とのことで以下なカンジの .idea/.gitignore が最初の一歩なのかどうか。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;*.xml
+!/gradle.xml
+/.gradle/
+/local.properties
+.DS_Store
+*.iml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>git revert</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/05/14/git-revert/</link>
+      <pubDate>Thu, 14 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/05/14/git-revert/</guid>
+      <description>&lt;p&gt;不要な修正を盛り込んだ差分が入っている pull request についてその不要な差分を取り消したい。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Phabricator その後</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/17/after-installing-phabricator/</link>
+      <pubDate>Fri, 17 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/17/after-installing-phabricator/</guid>
+      <description>どうも様子が芳しくないので Gitlab を導入してみました。以前と比べて導入のハードルが格段に下がっているようです。 以下に導入の方法などを含めた形な download ペ</description>
+    </item>
+    
+    <item>
+      <title>Phabricator 導入</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/17/installing-phabricator/</link>
+      <pubDate>Fri, 17 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/17/installing-phabricator/</guid>
+      <description>&lt;p&gt;以下を見つつ導入着手。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://goo.gl/UblaFf&#34;&gt;phabricatorをインストールしてみた&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://secure.phabricator.com/book/phabricator/article/installation_guide/&#34;&gt;Installation Guide&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>pull request な branch を巻き戻す</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/12/rewind-pull-request-branch/</link>
+      <pubDate>Sun, 12 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/12/rewind-pull-request-branch/</guid>
+      <description>&lt;p&gt;手が滑って pull request した branch に微妙な修正を盛り込んでしまいました。この branch を元に戻しつつ、盛り込んだ修正は有効なのでこれはこれで別な branch にて pull request を発行したい。どうするか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>git init できない?</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/04/02/cannot-execute-git-init/</link>
+      <pubDate>Thu, 02 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/04/02/cannot-execute-git-init/</guid>
+      <description>OSX な端末にて git init したら以下なメセジが出力。 Agreeing to the Xcode/iOS license requires admin privileges, please re-run as root via sudo 色々確認してみるに以下で OK でした。Xcode 更新したのだったか。 $ sudo xcodebuild</description>
+    </item>
+    
+    <item>
+      <title>Phabricator</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/27/phabricator/</link>
+      <pubDate>Fri, 27 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/27/phabricator/</guid>
+      <description>なんか良さそう。某所で Git のサービスを、みたいな話が出てて色々探してみて見つけました。最近これ系サボッてたんですがこれは良い。 コードレビューな</description>
+    </item>
+    
+    <item>
+      <title>octopress で push できなくなった件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/13/cannot-push-in-octopress/</link>
+      <pubDate>Fri, 13 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/13/cannot-push-in-octopress/</guid>
+      <description>rake deploy したら pack-objects died of signal 13 というエラーが出るようになってしまいました。 どうも複数の端末で deploy するようにして _deploy ディレクトリを作り直してしまったのが原因</description>
+    </item>
+    
+    <item>
+      <title>Git の commit log</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/01/15/commit-log-in-git/</link>
+      <pubDate>Thu, 15 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/01/15/commit-log-in-git/</guid>
+      <description>備忘メモです。 Git - 英語コミットコメントに使えるオシャレフレーズ集 ネイティブと働いて分かった英語コミットメッセージの頻出動詞10つ</description>
+    </item>
+    
+    <item>
+      <title>最初の commit と rebase したい</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2015/01/13/how-to-rebase-with-first-commit/</link>
+      <pubDate>Tue, 13 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2015/01/13/how-to-rebase-with-first-commit/</guid>
+      <description>備忘メモです。 とある事情で最初の commit とこれまでの差分な commit を rebase って事になったのですがどうもそれができず。 $ git rebase -i HEAD~~ fatal: Needed a single revision invalid upstream head~~ で、ググッてみ</description>
+    </item>
+    
+    <item>
+      <title>Git なログの改変</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/12/03/modify-git-log/</link>
+      <pubDate>Wed, 03 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/12/03/modify-git-log/</guid>
+      <description>直前であれば git commit --amend で書きかえできるし、直前でなくても git rebase -i で書きかえ可能。ではありますが remote に push するまで、が作法なのか。 結構長いこと一人で云々</description>
+    </item>
+    
+    <item>
+      <title>bitbucket の pull request 失敗の巻</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/11/26/pull-request-failure-in-bitbucket/</link>
+      <pubDate>Wed, 26 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/11/26/pull-request-failure-in-bitbucket/</guid>
+      <description>なぜか development という branch を作って開発をすすめていたのに、まちがえて master に issue なナニを merge してしまうという失敗をやらかした。 とりあえず development な branch に issue な branch を pull request 作</description>
+    </item>
+    
+    <item>
+      <title>A Hackers Guide to Git (3)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/10/24/a-hackers-guide-to-git/</link>
+      <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/10/24/a-hackers-guide-to-git/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://wildlyinaccurate.com/a-hackers-guide-to-git&#34;&gt;A Hacker&amp;rsquo;s Guide to Git&lt;/a&gt; の続き。Remotes から。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>A Hackers Guide to Git (2)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/10/22/a-hackers-guide-to-git/</link>
+      <pubDate>Wed, 22 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/10/22/a-hackers-guide-to-git/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://wildlyinaccurate.com/a-hackers-guide-to-git&#34;&gt;A Hacker&amp;rsquo;s Guide to Git&lt;/a&gt; の続き。Merging から。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>A Hackers Guide to Git</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/10/20/a-hackers-guide-to-git/</link>
+      <pubDate>Mon, 20 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/10/20/a-hackers-guide-to-git/</guid>
+      <description>&lt;p&gt;週末開催な #okidevops で以下を確認しつつメモをとったので最後まで読んでみます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://wildlyinaccurate.com/a-hackers-guide-to-git&#34;&gt;A Hacker&amp;rsquo;s Guide to Git&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ぶっちゃけ、データ構造 (?) については Junio C Hamano さんの入門 Git に書いてあるのですが英語がどこまで理解できるか勝負ってことで (何&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>hook なスクリプトで bundle が無いと言われる件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/26/bundle-no-such-file/</link>
+      <pubDate>Thu, 26 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/26/bundle-no-such-file/</guid>
+      <description>仕方が無いので hook なスクリプトの中で gem environment で出力される EXECUTABLE なパスを設定。 export PATH=$HOME/.rbenv/versions/2.0.0-p247/bin:$PATH 一応動くようになってるみたいですが、git push な hook としてはまだ実行できて</description>
+    </item>
+    
+    <item>
+      <title>git push な deploy 環境作ってみた</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/23/make-git-push-deploying-environment/</link>
+      <pubDate>Mon, 23 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/23/make-git-push-deploying-environment/</guid>
+      <description>&lt;p&gt;以下を参考にしつつアレ。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://tech.fuqinho.net/?p=478&#34;&gt;Railsアプリをgit pushでデプロイする&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;現状、bare なリポジトリを作ってみました、というところまでできてたので以下を盛り込み。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;deploy 先のディレクトリを掘って clone しておく&lt;/li&gt;
+&lt;li&gt;nginx に設定追加&lt;/li&gt;
+&lt;li&gt;hook なスクリプト作って投入&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;つうかこれやっぱ最初のソレを自動化できないと色々微妙ですね。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ssh な port を変えてる場合の remote add な url の指定 (備忘)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/20/how-to-assign-remote-add-url-changed-ssh-port/</link>
+      <pubDate>Fri, 20 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/20/how-to-assign-remote-add-url-changed-ssh-port/</guid>
+      <description>&lt;p&gt;~/.ssh/config 作れ、なのか成程。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Host hoge.remote
+    HostName hoge.example.com
+    User git
+    IdentityFile ~/.ssh/id_rsa.hoge
+    Port 22222
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で、以下で追加、になるのかどうか。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git remote add ssh://hoge.remote/home/repo/hoge.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;うーむ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>git push な deploy 検討</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/19/consider-git-push-deploying/</link>
+      <pubDate>Thu, 19 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/19/consider-git-push-deploying/</guid>
+      <description>&lt;p&gt;pull request が merge された後にそれを開発機側に反映して push で deploy するにあたってサーバ側でどんな処理が必要かを控えておくことに。&lt;/p&gt;
+
+&lt;p&gt;まだ諸々のソレは手動です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>差分のあるファイルの列挙</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/17/enumeration-of-the-difference/</link>
+      <pubDate>Tue, 17 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/17/enumeration-of-the-difference/</guid>
+      <description>備忘メモ、ということにて。 $ git diff deadbeef HEAD --name-only で commit 間で差分のあるファイル名の列挙が可能。</description>
+    </item>
+    
+    <item>
+      <title>master の巻き戻し</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/05/rewind-master-branch/</link>
+      <pubDate>Thu, 05 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/05/rewind-master-branch/</guid>
+      <description>保険でバックアップ取得して remote に push しといて $ git checkout master $ git checkout -b master_backup $ git ehcckout master 巻き戻し。 $ git reset --hard 01234567 そして push。 $ git push -f origin HEAD:master 作業するときは branch して作業し</description>
+    </item>
+    
+    <item>
+      <title>はなちんくんが PR をくれた</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/04/pull-request-from-hanachin/</link>
+      <pubDate>Sun, 04 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/04/pull-request-from-hanachin/</guid>
+      <description>&lt;p&gt;試験の手順を自分メモ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>PR してコメントもらってそれに対応する commit をどうするか</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/19/github-pull-request-howto/</link>
+      <pubDate>Sat, 19 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/19/github-pull-request-howto/</guid>
+      <description>&lt;p&gt;追加でヤッておいて、なコメントを頂戴した場合、対応な commit を作って云々、な方法が分からなかったので自分メモ。&lt;/p&gt;
+
+&lt;p&gt;自分持ちの fork なリポジトリに pull request な branch に追加な commit を push すれば良いのかどうか。丁度良いので、って訳でもないですが &lt;a href=&#34;http://www.amazon.co.jp/dp/477416366X/yamanetoshi-22&#34;&gt;GitHub 実践入門&lt;/a&gt;のリポジトリで試してみたいと思います。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>GitBook</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/07/gitbook/</link>
+      <pubDate>Mon, 07 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/07/gitbook/</guid>
+      <description>&lt;p&gt;ドキュメントを markdown で、って言いつつも見る人どーすんだ、という話があったりしていたのですが、ちょっとこれを使ってみようかな、とか思っていたり。&lt;/p&gt;
+
+&lt;p&gt;ちょろっと前に何かのタイミングでチェック入ってはいたのですがスルー状態でした。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.gitbook.io/&#34;&gt;GitBook&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;その後、Sphinx? とか言ってたりしたのですが、とりあえずこちらを試してみることに。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ブラウザから pull request</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/21/pull-request-from-browser/</link>
+      <pubDate>Fri, 21 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/21/pull-request-from-browser/</guid>
+      <description>&lt;p&gt;某所の README.md な修正、いきなりヤッツケてしまうこともできるのですが、面白いのでできるかどうか、な部分含めてやってみたいと思います。&lt;/p&gt;
+
+&lt;p&gt;手順としては以下?&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;branch 作成&lt;/li&gt;
+&lt;li&gt;修正を盛り込んで commit を作成&lt;/li&gt;
+&lt;li&gt;issue 発行&lt;/li&gt;
+&lt;li&gt;pull request 発行&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ヤッてみます。記録を以下に。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Github 実践入門</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/16/github/</link>
+      <pubDate>Sun, 16 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/16/github/</guid>
+      <description>レビューに参加させて頂いた書籍が世に出る事が決まった模様。 手を動かして学べる、というのは色々な意味でポイント高いです。ハンズオンとか如何です</description>
+    </item>
+    
+    <item>
+      <title>branch せずに別ディレクトリで育てたナニを merge</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/15/merge-espresso-tests/</link>
+      <pubDate>Sat, 15 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/15/merge-espresso-tests/</guid>
+      <description>&lt;p&gt;とりあえず merge 先な HEAD から、ということで以下。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git format-patch &amp;lt;merge 先な HEAD&amp;gt;..HEAD -o ~/tmp/patch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で、取得できた patch を apply すれば OK。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git checkout -b feature-merge
+$ git am ~/tmp/patch/*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;確認してみるにテスツなソレが無い。どうするのだったかと。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>知らなんだ (git rebase -i できないケイス)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/13/cannot-git-rebase-i/</link>
+      <pubDate>Thu, 13 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/13/cannot-git-rebase-i/</guid>
+      <description>備忘な自分メモ、という事にて。 git status して modified なナニが残ってる時って git rebase -i できないんですね。何でかね、と言ってたら stash しろ、って出力されてて modified なソレ</description>
+    </item>
+    
+    <item>
+      <title>GitHub 実践入門</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/08/github/</link>
+      <pubDate>Sat, 08 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/08/github/</guid>
+      <description>3.20 発売とのこと。 GitHub実践入門 ~Pull Requestによる開発の変革 月末にお会いする予定 (?) の某社社長にもこのあたりをオススメしてみる予定 (ぇ</description>
+    </item>
+    
+    <item>
+      <title>リモートリポジトリの巻き戻し</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/06/revert-remote-repository/</link>
+      <pubDate>Thu, 06 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/06/revert-remote-repository/</guid>
+      <description>&lt;p&gt;ヤッてしまった。とりあえず誰も見てないはずなので巻き戻す。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git reset --hard HEAD~2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これで&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git push origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;するとどうなるんかな。あ、reject された。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;! [rejected]    master -&amp;gt; master (non-fast-forward)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これ、一度 branch を削除するのか。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git push origin :master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これも駄目。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>patch つくって apply するなど</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/25/git-format-patch-and-git-am/</link>
+      <pubDate>Tue, 25 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/25/git-format-patch-and-git-am/</guid>
+      <description>&lt;p&gt;備忘録です。&lt;/p&gt;
+
+&lt;p&gt;何故か branch せずに機能追加してて正気に戻り、元リポジトリで branch 作成して統合した時のメモ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Octopress を複数端末で</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/18/distributing-octopress/</link>
+      <pubDate>Tue, 18 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/18/distributing-octopress/</guid>
+      <description>どうも共有がうまくいってなくて色々ハマッてます。とりあえず以下で対処できました。 Octopress で rake deploy した際に rejected された場合の対処</description>
+    </item>
+    
+    <item>
+      <title>Git なソレも使いたい</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/17/octopress-migration/</link>
+      <pubDate>Mon, 17 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/17/octopress-migration/</guid>
+      <description>&lt;p&gt;全然 commit を作っていなかったので作ってリモートリポジトリに push した上で、引越し先にて clone して&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bundle install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これで同じ操作で投稿できるはず。分散環境素晴しす。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>git reset --hard HEAD@{0}</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/17/natural-bomb/</link>
+      <pubDate>Mon, 17 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/17/natural-bomb/</guid>
+      <description>reflog 見ながら標題なことをしてて元に戻らねぇ、とナチュラル爆弾を炸裂させていた件。</description>
+    </item>
+    
+    <item>
+      <title>git.git の workflow メモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/04/git-dot-git-workflow-memo/</link>
+      <pubDate>Tue, 04 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/04/git-dot-git-workflow-memo/</guid>
+      <description>&lt;p&gt;ちょっと稼動に余裕ができたので再読しつつメモを取ってみる。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>git.git の workflow</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/03/workflow-of-git-dot-git/</link>
+      <pubDate>Mon, 03 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/03/workflow-of-git-dot-git/</guid>
+      <description>&lt;p&gt;以下なエントリを発見。かなりいまさらでお恥ずかしい限りですが。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://daretoku-unix.blogspot.jp/2014/01/git-flowgithub-flowgit.html&#34;&gt;git-flowでもgithub flowでもない、Git本家推奨のワークフロー&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;備忘まで、確認しつつメモを控えておくことに。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>直近ではない remote に push してる commit の取り消し</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/23/git/</link>
+      <pubDate>Thu, 23 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/23/git/</guid>
+      <description>&lt;p&gt;公開している歴史を rebase とかで変更してはいけない。&lt;/p&gt;
+
+&lt;p&gt;ので、どうするかというとバージョン (commit) を特定してその時点の状態にファイルを巻戻してしまえば良いはず。git checkout で良いのかどうか。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git checkout &amp;lt;commit object の id&amp;gt; path
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で、そのまま commit を作ってしまえば良いはず。
+ # そんな対応をした訳ではないのでこんな書き方になっててスミマセン (誰&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>バイナリが conflict した件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/15/conflict-binary-file/</link>
+      <pubDate>Wed, 15 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/15/conflict-binary-file/</guid>
+      <description>どーすんだ、って思ったら普通に CONFLICT なご指摘の入ったファイルを add して commit したら解決しました。 ご指摘の入ったソレは Android の drawable リソースなファイルでした。 フ</description>
+    </item>
+    
+    <item>
+      <title>Git 備忘リンク</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/10/git/</link>
+      <pubDate>Fri, 10 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/10/git/</guid>
+      <description>某所で控えてたソレを纏め。つうかこのまま某所に投入できるのか (何 GitHubのJohn Britton氏によるGitのレッスン Git初心者に捧</description>
+    </item>
+    
+    <item>
+      <title>備忘</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/07/git-memo/</link>
+      <pubDate>Tue, 07 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/07/git-memo/</guid>
+      <description>gitlab というか gitlite ですが、branch の名前に # が付いてると push を拒否するのがデフォルトになっている模様。以下だと駄目で $ git push origin BTS#101 branch の名前変更したら</description>
+    </item>
+    
+    <item>
+      <title>後から ignore しても遅いケイス</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/05/ignored-later/</link>
+      <pubDate>Thu, 05 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/05/ignored-later/</guid>
+      <description>gradlew な branch を merge して試しに build してみてから気がついて以下を .gitignore に追加。 build/ .gradle/ git status 見てみるに .gradle/1.6 が対象になってしまってます。入門 Git 186p によれば以下で OK とのこと</description>
+    </item>
+    
+    <item>
+      <title>朝対応なナニが conflict してた件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/04/fix-conflict/</link>
+      <pubDate>Wed, 04 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/04/fix-conflict/</guid>
+      <description>&lt;p&gt;merge したはず、なソレが conflict している。この一杯なときにこれは一体orz&lt;/p&gt;
+
+&lt;p&gt;とりあえず conflict してるソレを確認&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ find . |xargs grep &#39;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&#39; 2&amp;gt;/dev/null
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;諸々修正して commit 作成。寝惚けてた訳でもないし動作確認してから commit 作ったはずなんですが一体これは何だったのだろうか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>git-svn で色々アレだった件</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/13/git-svn-setup-on-osx/</link>
+      <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/13/git-svn-setup-on-osx/</guid>
+      <description>&lt;p&gt;使わせて頂いてた端末が故障して巨大な画面の端末を使わせて頂くことになったのですが、開発環境が全く無い状況。とりあえず、ということで&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Chrome 入れて&lt;/li&gt;
+&lt;li&gt;adt-bundle な Eclipse 入れて&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;あとはリモートなリポジトリからソースツリー取得すれば、と思ったのですがここからなかなかにハメてくれたので以下に控えを。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>hotfix とそれに関するメモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/12/git-common-ancestor/</link>
+      <pubDate>Tue, 12 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/12/git-common-ancestor/</guid>
+      <description>&lt;p&gt;BTS にバグ報告があり、急ぎ対応することに。微妙なのが&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;開発ブランチにはリリースされていない修正が盛り込まれている&lt;/li&gt;
+&lt;li&gt;確認 OK であれば急ぎリリースブランチに盛り込む&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;というナニ。仕方が無いので開発ブランチとリリースブランチの共通祖先から hotfix なブランチを作成。おそらく開発ブランチの HEAD とも修正はカブらないはずなので。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>コマンド誤りを訂正されちゃいましたの巻</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/12/git-assumption/</link>
+      <pubDate>Tue, 12 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/12/git-assumption/</guid>
+      <description>先程のこと。 作った作業 branch の先祖が微妙ってことで削除しようとして以下。 $ git brannch -D 20131112 WARNING: You called a Git command named &#39;brannch&#39;, which does not exist. Continuing under the assumption that you meant &#39;branch&#39; in 0.1 seconds automatically... Deleted branch 20131112 (was 1544799). 最初</description>
+    </item>
+    
+  </channel>
+</rss>

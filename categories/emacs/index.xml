@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Emacs on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/emacs/</link>
+    <description>Recent content in Emacs on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 06 Jan 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/emacs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>replace-regexp</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2016/01/06/replace-regexp/</link>
+      <pubDate>Wed, 06 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2016/01/06/replace-regexp/</guid>
+      <description>&lt;p&gt;自分メモ。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;M-x replace-regexp&lt;/code&gt; ではかっこに対応するナニは \1, \2 で、らしい。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>csv 編集で先頭列の月日の前に年を追加なナニ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/12/add-string-in-emacs/</link>
+      <pubDate>Wed, 12 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/12/add-string-in-emacs/</guid>
+      <description>どうも手でぱかぱか入力してしまうのだけれど、さすがに面倒になって探してみると簡単に見つかった。 Emacsで選択した範囲の行頭にまとめて文字列</description>
+    </item>
+    
+    <item>
+      <title>emacs でまとめて字下げ修正</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/29/indentation-in-emacs/</link>
+      <pubDate>Wed, 29 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/29/indentation-in-emacs/</guid>
+      <description>C+M+¥ とのこと。あるいは M-x indent-region わし的には M-x の方がアレ (何 長年 emacs 使ってますが、あまり肝心なコマンドを知らない。つうか覚えないだけなのかどうか</description>
+    </item>
+    
+    <item>
+      <title>dired の並び順</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/14/emacs-dired/</link>
+      <pubDate>Thu, 14 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/14/emacs-dired/</guid>
+      <description>&lt;p&gt;変えることができる、って知らなんだ。さっき間違えて何かのキーをタイプしてしまい、並び順が変わって焦ったなど。&lt;/p&gt;
+
+&lt;p&gt;長年使ってますがまだまだ知らない事だらけですね、色々な所で色々な意味で。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

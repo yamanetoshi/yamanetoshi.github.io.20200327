@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>JTAG 接続なソレを書き換えてみる</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 20, 2014
+         - 5 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/04/20/modify-jtag-function-in-assembler/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         JTAG 接続なソレを書き換えてみる 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なカンジになってるのですが</p>
+
+<p>{% gist 11105171 %}</p>
+
+<p>初期処理を assembler で書くとどうなるのだろうか、とか。</p>
+
+<p></p>
+
+<p>ええと、gtags -v して init_gpio から確認。以下から順に。</p>
+
+<pre><code>    // pullup all
+    *GPPUD = 0x02;
+</code></pre>
+
+<p>GPUUD は rpi_lib/peripherals/rpi_peripherals.h で定義されてます。</p>
+
+<pre><code>// GPIO PULLUP/DOWN
+#define GPPUD ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x94))
+</code></pre>
+
+<p>ソースで tab 使いまくっててちょい微妙。PHY_PERI_ADDR は同じファイルで定義されてますね。</p>
+
+<pre><code>#define PHY_PERI_ADDR(x) (0x20000000 + (x))
+</code></pre>
+
+<p>これ、BCM2835 ARM Peripherals なドキュメントに <em>I/O Base set in arm loader</em> って記述があります。GPIO_BASE も同様に同じファイルで定義。</p>
+
+<pre><code>#define GPIO_BASE   (0x00200000)
+</code></pre>
+
+<p>マニュアル確認。これ、GPIO なレジスタの base address になる模様。マニュアルだと 0x7E000000 が base になってて gpio は 0x7E200000 になってます。</p>
+
+<p>で、GPPUD なマクロは、ということで見てみるに GPPUD GPIO Pin Pull-up/down Enable
+という記述になってますね。次ですが以下な記述になってます。</p>
+
+<pre><code>    // wait 150 cycle
+    for(i=0;i&lt;150;i++){
+        // nop
+        asm(&quot;mov r0,r0&quot;);
+    }
+    *GPPUDCLK0 = 0xffffffff;
+    *GPPUDCLK1 = 0xffffffff;
+    // wait 150 cycle
+    for(i=0;i&lt;150;i++){
+        // nop
+        asm(&quot;mov r0,r0&quot;);
+    }
+    *GPPUDCLK0 = 0;
+    *GPPUDCLK1 = 0;
+</code></pre>
+
+<p>wait して云々してますね。ちなみに BareMetal で遊ぶ、なソレの 4 章に GPIO なレジスタに関する記述があります。</p>
+
+<p>と、GPPUD と GPPUDCLK は設定反映とかレジスタの値削除まで 150 cycle かかる、という記述を発見。マニュアルの 101p にも確かに記載あり。</p>
+
+<ul>
+<li>最初の GPPUD を pull-up な状態にしておいて</li>
+<li>150 cycle 待って</li>
+<li>GPPUDCLK[01] なレジスタのフラグを全部立てて</li>
+<li>150 cycle 待って</li>
+<li>GPPUDCLK[01] なレジスタのフラグを全部落として</li>
+</ul>
+
+<p>ということをしているのか。最初だから全部ヤッとけ、って理解で良いのかな。</p>
+
+<p>次、以下です。</p>
+
+<pre><code>    *GPFSEL0 = 0;
+    *GPFSEL1 = 0;
+    *GPFSEL2 = 0;
+    *GPFSEL3 = 0;
+    *GPFSEL4 = 0;
+    *GPFSEL5 = 0;
+</code></pre>
+
+<p>GPFSEL は GPIO Function Selector とのことなのでこれも初期化ですね。定義は同様に rpi_peripherals.h になってて</p>
+
+<pre><code>#define GPFSEL0 ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x00))
+#define GPFSEL1 ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x04))
+#define GPFSEL2 ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x08))
+#define GPFSEL3 ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x0c))
+#define GPFSEL4 ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x10))
+#define GPFSEL5 ((vu32_t *)PHY_PERI_ADDR(GPIO_BASE + 0x14))
+</code></pre>
+
+<p>これで init_gpio 手続きは終了。言われてみれば確かに initialize gpio ですね。次は以下の記述。このあたりを boot.S あたりに書きたい訳です。</p>
+
+<pre><code>    pinMode (22 ,ALT4);
+</code></pre>
+
+<p>pinMode は C の手続きですね。rpi_lib/gpio/gpio.c で定義されています。定義が以下。</p>
+
+<pre><code>void pinMode(int pin,int mode){
+    vu32_t *res;
+
+    // GPFSEL select
+    if(0 &lt;= pin &amp;&amp; pin &lt;= 9){
+        res = GPFSEL0;
+    }else if (pin &lt;= 19)
+    {
+        res = GPFSEL1;
+    }else if (pin &lt;= 29)
+    {
+        res = GPFSEL2;
+    }else if (pin &lt;= 39)
+    {
+        res = GPFSEL3;
+    }else if (pin &lt;= 49)
+    {
+        res = GPFSEL4;
+    }else if (pin &lt;= 53)
+    {
+        res = GPFSEL5;
+    }else{
+        // pin missmuch
+        return;
+    }
+</code></pre>
+
+<p>定義が長いので、ここで一旦切ります。これは引数で渡される pin の情報をもとに設定するレジスタを選択してるんですね。</p>
+
+<pre><code>    // mode set
+    switch(mode){
+        case INPUT:
+            *res &amp;= GPFSEL_MASK_IN(pin);
+            break;
+        case INPUT_PULLUP:
+            setPullUpDown(pin,INPUT_PULLUP);
+            *res &amp;= GPFSEL_MASK_IN(pin);
+            break;
+        case INPUT_PULLDOWN:
+            setPullUpDown(pin,INPUT_PULLDOWN);
+            *res &amp;= GPFSEL_MASK_IN(pin);
+            break;
+        case OUTPUT:
+            *res |= GPFSEL_MASK_OUT(pin);
+            break;
+        case ALT0:
+            *res |= GPFSEL_MASK_ALT0(pin);
+            break;
+        case ALT1:
+            *res |= GPFSEL_MASK_ALT1(pin);
+            break;
+        case ALT2:
+            *res |= GPFSEL_MASK_ALT2(pin);
+            break;
+        case ALT3:
+            *res |= GPFSEL_MASK_ALT3(pin);
+            break;
+        case ALT4:
+            *res |= GPFSEL_MASK_ALT4(pin);
+            break;
+        case ALT5:
+            *res |= GPFSEL_MASK_ALT5(pin);
+            break;
+        default:
+            // error!
+            ;
+    }
+    return;
+}
+</code></pre>
+
+<p>で、そのレジスタに何か、を設定するのか。ここは ALT4 または 5 限定なのでそこに絞って確認します。定義が rpi_peripherals.h で以下。</p>
+
+<pre><code>#define GPFSEL_MASK_ALT4(n) (0x03 &lt;&lt; ((n % 10) * 3))
+#define GPFSEL_MASK_ALT5(n) (0x02 &lt;&lt; ((n % 10) * 3))
+</code></pre>
+
+<p>ええと、</p>
+
+<ul>
+<li>22 を ALT4 (ARM_TRST - ARM JTAG reset)</li>
+<li>4 を ALT5 (ARM_TDI - ARM JTAG Data in)</li>
+<li>27 を ALT4 (ARM_TMS ARM JTAG Mode select)</li>
+<li>25 を ALT4 (ARM_TCK ARM JTAG Clock)</li>
+<li>24 を ALT4 (ARM_TDO ARM JTAG Data out)</li>
+</ul>
+
+<p>らしい。なるほど。</p>
+
+<p>つうかこの altenative なナニについての解説が見つけられぬ。マクロ見てみるに ALT なソレは 0x0 から 0x7 までなので 3bit か。ピン番号の下一桁に 3 をかけた値で左に shift させてます。</p>
+
+<p>あ、GPFSEL なレジスタの説明に書いてあるや。しかもそれぞれ 0 から 9 な FSEL で、って形になっていますね。成程。</p>
+
+<p>最後が以下です。</p>
+
+<pre><code>    // GPIO16 を H にセット
+    digitalWrite (16 , HIGH );
+    // GPIO16 を L にセット
+    digitalWrite (16 , LOW );
+</code></pre>
+
+<p>digitalWrite という手続きも rpi_lib/gpio/gpio.c で定義されてます。二番目の引数が HIGH なら GPSET0 または GPSET1 が対象で LOW なら GPCLR0 または GPCLR1 が対象になる模様。0 か 1 かは pin の番号で決まるようです。</p>
+
+<p>GPIO16 て何に使ってるのかな、って思ったらこれ GPIO16 に繋いだ LED を云々するサンプルが所以らしいのでこれは不要ですね。</p>
+
+<h2 id="アセンブラ書き換え">アセンブラ書き換え</h2>
+
+<p>面倒なので gpio.c をコンパイルまでで止めておいて中身を確認。つうか init_gpio とかって boot.S から呼び出したりできるのか。</p>
+
+<p>つうか、ARM のアセンブラ命令から復習が必要らしい。</p>
+
+<p>出力な gpio.s によれば</p>
+
+<pre><code>    ldr     r3, .L6
+    mov     r2, #2
+    str     r2, [r3]
+</code></pre>
+
+<p>なナニで GPPUD の初期設定をしている模様。.L6 の肝心な部分が以下らしいんですが</p>
+
+<pre><code>.L6:
+        .word   538968212 //0x20200094
+        .word   538968216 //0x20200098
+        .word   538968064 //0x20200000
+        .word   538968068 //0x20200004
+        .word   538968072 //0x20200008
+        .word   538968076 //0x2020000c
+        .word   538968080 //0x20200010
+        .word   538968084 //0x20200014
+</code></pre>
+
+<p>不思議なのが GPPUDCLK[01] を初期化しているあたり。</p>
+
+<pre><code>    ldr     r3, .L6+4
+    mvn     r2, #0
+    str     r2, [r3]
+    ldr     r3, .L6+4
+    mvn     r2, #0
+    str     r2, [r3]
+</code></pre>
+
+<p>という記述になっているのですがこれだと GPPUDCLK0 しか初期化されないのではないのかな。ともあれ、-S で出てきたソレを使いまわせば init_gpio は何とかなりそう。</p>
+
+<p>pinMode もより具体的な記述の羅列にしてやれば良いだけなんだけどな。</p>
+
+<p>ということで main.c の pinMode なソレを以下にしてみて</p>
+
+<pre><code>    res = GPFSEL2;
+    *res |= GPFSEL_MASK_ALT4(22);
+
+    res = GPFSEL0;
+    *res |= GPFSEL_MASK_ALT5(4);
+
+    res = GPFSEL2;
+    *res |= GPFSEL_MASK_ALT4(27);
+
+    res = GPFSEL2;
+    *res |= GPFSEL_MASK_ALT4(25);
+
+    res = GPFSEL2;
+    *res |= GPFSEL_MASK_ALT4(24);
+</code></pre>
+
+<p>-S で見てみると以下なカンジになってます。</p>
+
+<pre><code>    ldr     r3, .L2
+    str     r3, [fp, #-8]
+    ldr     r3, [fp, #-8]
+    ldr     r3, [r3]
+    orr     r2, r3, #192
+    ldr     r3, [fp, #-8]
+    str     r2, [r3]
+    ldr     r3, .L2+4
+    str     r3, [fp, #-8]
+    ldr     r3, [fp, #-8]
+    ldr     r3, [r3]
+    orr     r2, r3, #8192
+    ldr     r3, [fp, #-8]
+    str     r2, [r3]
+    ldr     r3, .L2
+    str     r3, [fp, #-8]
+    ldr     r3, [fp, #-8]
+    ldr     r3, [r3]
+    orr     r2, r3, #6291456
+    ldr     r3, [fp, #-8]
+    str     r2, [r3]
+    ldr     r3, .L2
+    str     r3, [fp, #-8]
+    ldr     r3, [fp, #-8]
+    ldr     r3, [r3]
+    orr     r2, r3, #98304
+    ldr     r3, [fp, #-8]
+    str     r2, [r3]
+    ldr     r3, .L2
+    str     r3, [fp, #-8]
+    ldr     r3, [fp, #-8]
+    ldr     r3, [r3]
+    orr     r2, r3, #12288
+    ldr     r3, [fp, #-8]
+    str     r2, [r3]
+</code></pre>
+
+<p>or してるソレが即値になってるしw</p>
+
+<p>ちなみに init_gpio の呼び出しは以下で良い模様。</p>
+
+<pre><code>    bl      init_gpio
+</code></pre>
+
+<p>これ boot.S に盛り込んで動かしてみようかな。どうなるか。</p>
+
+<h2 id="書き換え">書き換え</h2>
+
+<p>以下を gcc -S してみました。</p>
+
+<pre><code>    *GPFSEL2 |= GPFSEL_MASK_ALT4(22);
+</code></pre>
+
+<p>これは卑怯。以下が出力されたので採用。</p>
+
+<pre><code>ldr r3, #538968072
+ldr r2, #538968072
+ldr r2, [r2]
+orr r2, r2, #192
+str     r2, [r3]
+</code></pre>
+
+<p>と思ったら ldr の記述が駄目、って叱られますね。仕方が無いのでこーゆーの追加。</p>
+
+<pre><code>.L2:
+        .word   538968072
+        .word   538968064
+</code></pre>
+
+<p>なんつーか対処の仕方が酷い。そして ld で Unknown EABI object attribute 34 って warning が出てるな。branch して tempolary な commit 作って手を入れる前のソレを確認してみるに warning は出てない模様。</p>
+
+<p>ググッてみるにアライメントなナニらしい。以下なエントリによれば問題はなさげ、ってことでそのまま使うことに。</p>
+
+<ul>
+<li><a href="http://d.hatena.ne.jp/lycoris_blog/20131210/1386696817">Unknown EABI object attribute 34が出た話。</a></li>
+</ul>
+
+<h2 id="動かしてみた">動かしてみた</h2>
+
+<p>のですが openocd がエラーっておっしゃいます。main.c を元に戻すと正常動作。</p>
+
+<p>下記を有効にするとどうなるのかな。</p>
+
+<pre><code>    *GPFSEL2 |= GPFSEL_MASK_ALT4(22);
+    *GPFSEL0 |= GPFSEL_MASK_ALT5(4);
+    *GPFSEL2 |= GPFSEL_MASK_ALT4(27);
+    *GPFSEL2 |= GPFSEL_MASK_ALT4(25);
+    *GPFSEL2 |= GPFSEL_MASK_ALT4(24);
+</code></pre>
+
+<p>これも無問題。boot.S の記述が駄目らしいことが分かったので今日はこれで終わり。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 20, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/04/20/making-repository/" title="リポジトリを作ってみる">リポジトリを作ってみる</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/04/21/modify-jtag-function-in-assembler/" title="昨晩の件 (JTAG 接続なソレを書き換えてみる)">昨晩の件 (JTAG 接続なソレを書き換えてみる)</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

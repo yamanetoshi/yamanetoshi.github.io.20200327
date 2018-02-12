@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Android Design Support Library について (2)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 18, 2015
+         - 4 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2015/06/18/about-android-design-support-library/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Android Design Support Library について (2) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なリポジトリから clone して中身を云々してみます。</p>
+
+<ul>
+<li><a href="https://github.com/recruit-mp/android-SampleDesignSupportLibrary">recruit-mp/android-SampleDesignSupportLibrary</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="navigation-view">Navigation View</h2>
+
+<p>Navigation Drawer というヤツですね。レイアウトを以下に引用します。</p>
+
+<p>{% gist 69f3d8622c1508167d81 %}</p>
+
+<ul>
+<li>DrawerLayout で全体が囲まれているのはこれまで同様</li>
+<li>Toolbar 使ってますね</li>
+<li>Drawer は NavigationView というソレを使う模様</li>
+<li>app:headerLayout でヘッダのレイアウト指定らしい</li>
+<li>app:itemIconTint は icon の tint color 指定とのこと</li>
+<li>app:itemTextColor は text color 指定とのこと</li>
+<li>app:menu で NavigationItem 指定とのこと</li>
+<li>NavigationItem は checked という属性がある (初期選択の指定)</li>
+</ul>
+
+<p>onCreate のみ以下に。</p>
+
+<p>{% gist 97ff4c0fbea119617325 %}</p>
+
+<ul>
+<li>onNavigationItemSelected メソドの引数 MenuItem から選択された項目を getItemId で取り出す</li>
+<li>DrawerLayout#closeDrawer というメソドがあるのか</li>
+<li>MenuItem#setChecked というメソドがあるのか</li>
+</ul>
+
+<p>ちなみに Toolbar 使うケイスで ActionBar として使う場合の定番も上記引用に入っています。</p>
+
+<h2 id="textinputlayout">TextInputLayout</h2>
+
+<p><em>Froating labels for editing text</em> という注釈あり。実装を見てみるに二つめの EditText にエラーを設定して (setErrorEnabled) エラーメッセージを表示したまんまにしているようです (setError)。あとはフォーカスがあたっている EditText (TextInputLayout) に floating label が表示されます。</p>
+
+<p>基本的には EditText を TextInputLayout で wrap しているのみ、ですね。ただ、Floating label は EditText 側の属性になっています。hint という名前の属性です。</p>
+
+<h2 id="floating-action-button">Floating Action Button</h2>
+
+<p>Gmail アプリの新規作成なボタンのアレ。レイアウトリソースの定義の一部を以下に引用します。</p>
+
+<p>{% gist 19552594723915bcf809 %}</p>
+
+<p>app:fabSize て何かな。つうか app:fabSize に &ldquo;normal&rdquo; 指定で app:boarderWidth に &ldquo;0dp&rdquo; って指定しないとボタンが丸くならない模様。</p>
+
+<ul>
+<li><a href="http://qiita.com/katsuki/items/f01ee4a2397eb276f17a">Android Support Library v22.2.0のFloating Action Button が丸くならない!</a></li>
+</ul>
+
+<h2 id="snackbar">Snackbar</h2>
+
+<p>onClick が拾える Toast なのか。表示は画面下部限定なのかどうか。コード引用は略しますが、基本的には</p>
+
+<ul>
+<li>Toast みたいに make して</li>
+<li>(必要なら) setAction で View.OnClickListener なオブジェクトとか設定して</li>
+<li>show で表示</li>
+</ul>
+
+<p>というカンジでした。Snackbar な表示の諸々についてカスタマイズはできるようです。</p>
+
+<h2 id="tablayout">TabLayout</h2>
+
+<p>これ、サンプルだけだとよく分からんな。TabLayout というヤツが Toolbar の下に表示されていてそれだけに見える。onCreate から呼び出される initTabLayout というメソドにて addTab されているのは見えますがそれだけだなぁ。</p>
+
+<p>基本的な使い方は次の項、ということなのかな。</p>
+
+<h2 id="tablayout-viewpager">TabLayout (ViewPager)</h2>
+
+<p>FragmentPagerAdapter なオブジェクトを TabLayout#setTabsFromPagerAdapter および setupWithViewPager というメソドでナニなさってらっしゃいます。成程、FragmentPagerAdapter なんスか。</p>
+
+<p>あと以下なメソド使って初期設定しています。</p>
+
+<ul>
+<li>TabLayout#setTabGravity で文言全部出せ、なのかどうか</li>
+<li>TabLayout#setTabMode で TabLayout.MODE_SCROLLABLE 指定</li>
+</ul>
+
+<h2 id="coordinatorlayout">CoordinatorLayout</h2>
+
+<p>略</p>
+
+<h2 id="coordinatorlayout-floating-action-button-scrolling">CoordinatorLayout (Floating action Button scrolling)</h2>
+
+<p>ちなみに Floating Action Button は FAB って略する模様。で、この例ですが onCreate にて</p>
+
+<pre><code>mLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
+</code></pre>
+
+<p>てしてて Snackbar 作る時にこれを引数として渡しています。</p>
+
+<pre><code>Snackbar snackbar = Snackbar.make(mLayout, &quot;Test&quot;, Snackbar.LENGTH_SHORT).
+</code></pre>
+
+<p>ちなみに CoordinatorLayout ですがレイアウト全体をこれで wrap しています。</p>
+
+<h2 id="coordinatorlayout-toolbar-scrolling">CoordinatorLayout (Toolbar Scrolling)</h2>
+
+<p>これ、こないだどハマッたアレだったりしますね。つうか、ぱっと見何がどうなっているかが分からない。レイアウトが以下になってて</p>
+
+<p>{% gist 5e20d280a5106b61e7c8 %}</p>
+
+<ul>
+<li>全体が CoordinatorLayout で wrap されている</li>
+<li>まず RecyclerView が定義されている</li>
+<li>愚痴に AppBarLayout で wrap された Toolbar (必要であれば TabLayout) が定義</li>
+</ul>
+
+<p>というカンジになっています。で、表示な実装としては以下のみ、というカンジになってまして</p>
+
+<p>{% gist d79b873acfe309e7f3a6 %}</p>
+
+<p>とりあえず LinearLayoutManager て何なのか。別途確認します。あと RecyclerView.Adapter というあたりも確認必要ですね。おそらく今後はリスト表示にこれが使われるケイスが増えるはず。</p>
+
+<h2 id="recyclerview-adapter">RecyclerView.Adapter?</h2>
+
+<p>ちょっと脱線 (?) してみます。アダプタのソースコードが以下。</p>
+
+<p>{% gist 237d559b1483ae41eaf5 %}</p>
+
+<ul>
+<li>private な属性として LayoutInflater および ArrayList<String> なオブジェクトの参照を持っている</li>
+<li>コンストラクタでは LayoutInflater を context 使って取得してリストを属性に格納</li>
+<li>onCreateViewHolder というメソドを定義 (override)</li>
+<li>onBindViewHolder というメソドを定義 (override)</li>
+<li>getItemCount というメソドを定義 (override)</li>
+<li>ViewHolder という static な class を定義</li>
+</ul>
+
+<p>ええと、onCreateViewHolder では行のレイアウトを inflate してその戻りを使って ViewHolder なオブジェクトを作って戻しています。</p>
+
+<p>そして onBindViewHolder ではリストからデータ取得して渡された ViewHolder から TextView を取得して setText しています。getView ではなくなるのか。そしてこのあたりが押さえられてれば応用効かせることができるのかどうか。</p>
+
+<h2 id="linearlayoutmanager">LinearLayoutManager</h2>
+
+<p>以下な例を発見。スクロールで追加読み込み、なソレも RecycleView なんか。</p>
+
+<ul>
+<li><a href="http://qiita.com/konifar/items/e57c47bfb93d0d40ef59">RecycleViewでスクロールが一番下まで行ったらロードする実装</a></li>
+</ul>
+
+<p>凄く簡単に書けてます。凄いなぁ。</p>
+
+<h2 id="coordinatorlayout-toolbar-scrolling-再び">CoordinatorLayout (Toolbar Scrolling) 再び</h2>
+
+<p>全体を見回してみるに、動作を規定しているのはレイアウトリソースの以下の記述になるのかな。</p>
+
+<pre><code>app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;
+</code></pre>
+
+<p>上記は RecyclerView の属性な記述。</p>
+
+<pre><code>app:layout_scrollFlags=&quot;scroll|enterAlways&quot;
+</code></pre>
+
+<p>上記は Toolbar の属性な記述。確認してみたところ @string/appvar_scrolling_view_behavior の定義元が分からない。これ、support library の範疇なのかな。</p>
+
+<p>あと、app:layout_scrollFlags ですが以下が指定可能なのかどうか。</p>
+
+<ul>
+<li>scroll</li>
+<li>enterAlways</li>
+<li>enterAlwaysCollapsed</li>
+<li>exitUntilCollapsed</li>
+</ul>
+
+<p>通常の出したり引っ込めたり、であれば上記の指定で良い模様。</p>
+
+<h2 id="coordinatorlayout-collapsing-toolbar">CoordinatorLayout (Collapsing Toolbar)</h2>
+
+<p>これ、スルーで。</p>
+
+<h2 id="追補">追補</h2>
+
+<p>Activity は全てが android.support.v7.app.AppCompatActivity を継承したものになっておりました。ここ、注意しておく必要がありますね。</p>
+
+<h2 id="さらに追補">さらに追補</h2>
+
+<p>以下なエントリがあるようです。</p>
+
+<ul>
+<li><a href="http://android-developers.blogspot.com/2015/05/android-design-support-library.html">Android Design Support Library</a></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 18, 2015</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2015/06/17/build-variants/" title="Build Variants">Build Variants</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2015/06/19/xara-weakness/" title="XARA weakness">XARA weakness</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

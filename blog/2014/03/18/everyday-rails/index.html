@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Everyday Rails - Rspec による Rails テスト入門</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Mar 18, 2014
+         - 4 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/18/everyday-rails/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/rails/">rails </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Everyday Rails - Rspec による Rails テスト入門 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>昨晩、Ust にて勉強会が開催されてました。電子書籍も手元にあるしってことで中身を確認しつつ手も動かしてみる方向で考えてます。</p>
+
+<p></p>
+
+<h2 id="ということで">ということで</h2>
+
+<p>諸々の件にてぶち切れ気味なのでヤケクソ半分で着手。とりあえず 01_untested な branch から branch 作成。</p>
+
+<p>Gemfile に以下を追加しました。</p>
+
+<pre><code>group :development, :test do
+  gem &quot;rspec-rails&quot;, &quot;~&gt; 2.14.0&quot;
+  gem &quot;factory_girls_rails&quot;, &quot;~&gt; 4.2.1&quot;
+end
+
+group :test do
+  gem &quot;faker&quot;, &quot;~&gt; 1.1.2&quot;
+  gem &quot;capybara&quot;, &quot;~&gt; 2.1.0&quot;
+  gem &quot;database_cleaner&quot;, &quot;~&gt; 1.0.1&quot;
+  gem &quot;launchy&quot;, &quot;~&gt; 2.3.0&quot;
+  gem &quot;selenium-webdriver&quot;, &quot;~&gt; 2.39.0&quot;
+end
+</code></pre>
+
+<p>あとはテストな DB を云々、とありますね。中身を見てみるに sqlite3 でテキストにある通りの記述でした。スルーします。データベース作成しとけ、とありますね。つうかその前に以下。</p>
+
+<pre><code>$ bundle install
+</code></pre>
+
+<p>と思ったら ruby 2.0.0 が前提らしいな。</p>
+
+<pre><code>$ cat .ruby-version
+2.0.0
+</code></pre>
+
+<p>あら、2.0.0 ですね。</p>
+
+<pre><code>$ ruby --version
+ruby 2.0.0p353 (2013-11-22 revision 43784) [x86_64-linux]
+</code></pre>
+
+<p>今、出てるのは以下な不具合です。bundle instlal できない。</p>
+
+<pre><code>$ bundle install
+rbenv: version `2.0.0' is not installed
+</code></pre>
+
+<p>rbenv global な出力が以下なので</p>
+
+<pre><code>$ rbenv global
+2.0.0-p353
+</code></pre>
+
+<p>.ruby-version も同じ中身にしたら動きました。bundle install は済んだのでデータベースの準備ということで以下。</p>
+
+<pre><code>$ bundle exec rake db:create:all
+</code></pre>
+
+<p>つうか今って 3 系な Railstutorial で出てた不具合は問題なくなっているのかどうか。と思ったら以下なメセジが出てたので控えとこ。</p>
+
+<pre><code>Post-install message from capybara:
+IMPORTANT! Some of the defaults have changed in Capybara 2.1. If you're experiencing failures,
+please revert to the old behaviour by setting:
+
+    Capybara.configure do |config|
+      config.match = :one
+      config.exact_options = true
+      config.ignore_hidden_elements = true
+      config.visible_text_only = true
+    end
+
+If you're migrating from Capybara 1.x, try:
+
+    Capybara.configure do |config|
+      config.match = :prefer_exact
+      config.ignore_hidden_elements = false
+    end
+
+Details here: http://www.elabs.se/blog/60-introducing-capybara-2-1
+
+Post-install message from twitter-bootstrap-rails:
+Important: You may need to add a javascript runtime to your Gemfile in order for bootstrap's LESS files to compile to CSS. 
+
+**********************************************
+
+ExecJS supports these runtimes:
+
+therubyracer - Google V8 embedded within Ruby
+
+therubyrhino - Mozilla Rhino embedded within JRuby
+
+Node.js
+
+Apple JavaScriptCore - Included with Mac OS X
+
+Microsoft Windows Script Host (JScript)
+
+**********************************************
+</code></pre>
+
+<p>therubyracer が無いと云々、みたいな不具合だった記憶あり。とりあえずここではスルーします。</p>
+
+<h2 id="rake-aborted">rake aborted!</h2>
+
+<pre><code>rake aborted!
+Could not find a JavaScript runtime. See https://github.com/sstephenson/execjs for a list of available runtimes.
+</code></pre>
+
+<p>出たので以下を有効にして bundle install したら db:create:all な rake は正常終了している模様。</p>
+
+<pre><code># See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+</code></pre>
+
+<p>次。config/application.rb に不要な spec を作成しないおまじない。</p>
+
+<pre><code>module ContactsExample40
+  class Application &lt; Rails::Application
+    config.generators do |g|
+      g.test_framework :rspec,
+        fixtures: true,
+        view_specs: false,
+        helper_specs: false,
+        routing_specs: false,
+        controller_specs: true,
+        request_specs: false
+      g.fixture_replacement :factory_girl, dir: &quot;spec/factories&quot;
+    end
+  end
+end
+</code></pre>
+
+<p>あと、以下を忘れるな、とのこと。</p>
+
+<pre><code>$ bundle exec rake db:test:clone
+</code></pre>
+
+<p>db:migrate とかってした後に忘れがち、とのこと。これで試験が実行できる模様。</p>
+
+<h2 id="と思ったら">と思ったら</h2>
+
+<p>いっちゃん大事な準備をスルーしてました (滝汗</p>
+
+<pre><code>$ bundle exec rails generate rspec:install
+</code></pre>
+
+<p>これで以下か。</p>
+
+<pre><code>$ bundle exec rspec
+No examples found.
+
+
+Finished in 0.00008 seconds
+0 examples, 0 failures
+</code></pre>
+
+<p>ここで一旦 commit 作っておく。</p>
+
+<pre><code>$ git add --all
+$ git commit -m '2.setup'
+</code></pre>
+
+<h2 id="3-モデルスペック">3.モデルスペック</h2>
+
+<pre><code>spec/models を掘って contact_spec.rb を新規に作って以下としてます。
+
+require 'spec_helper'
+
+describe Contact do
+  it &quot;is valid with a firstname, lastname and email&quot;
+
+  it &quot;is invalid without a firstname&quot;
+
+  it &quot;is invalid without a lastname&quot;
+
+  it &quot;is invalid without an email address&quot;
+
+  it &quot;is invalid with a duplicate email address&quot;
+
+  it &quot;returns a contact's full name as a string&quot;
+end
+</code></pre>
+
+<p>実行してみます。</p>
+
+<pre><code>$ bundle exec rspec
+</code></pre>
+
+<p>あら、PendingMigrationError が出ましたね。</p>
+
+<pre><code>$ bundle exec rake db:migrate
+</code></pre>
+
+<p>して</p>
+
+<pre><code>$ bundle exec rake db:test:clone
+</code></pre>
+
+<p>してリトライ。</p>
+
+<pre><code>$ bundle exec rspec
+******
+
+Pending:
+  Contact is invalid without an email address
+    # Not yet implemented
+    # ./spec/models/contact_spec.rb:10
+  Contact is valid with a firstname, lastname and email
+    # Not yet implemented
+    # ./spec/models/contact_spec.rb:4
+  Contact is invalid without a lastname
+    # Not yet implemented
+    # ./spec/models/contact_spec.rb:8
+  Contact is invalid without a firstname
+    # Not yet implemented
+    # ./spec/models/contact_spec.rb:6
+  Contact is invalid with a duplicate email address
+    # Not yet implemented
+    # ./spec/models/contact_spec.rb:12
+  Contact returns a contact's full name as a string
+    # Not yet implemented
+    # ./spec/models/contact_spec.rb:14
+
+Finished in 0.00196 seconds
+6 examples, 0 failures, 6 pending
+
+Randomized with seed 2578
+</code></pre>
+
+<p>expect を使いなさい、とあります。最初の試験が以下とのこと。</p>
+
+<pre><code>  it &quot;is valid with a firstname, lastname and email&quot; do
+    contact = Contact.new(
+      firstname: 'Aaron',
+      lastname: 'Summer',
+      email: 'tester@example.com')
+    expect(contact).to be_valid
+  end
+</code></pre>
+
+<p>実行してみると試験いっこパス。</p>
+
+<pre><code>$ bundle exec rspec
+.*****
+</code></pre>
+
+<p>validation の試験は以下とのこと。</p>
+
+<pre><code>  it &quot;is invalid without a firstname&quot; do
+    expect(Contact.new(firstname: nil)).to have(1).errors_on(:firstname)
+  end
+</code></pre>
+
+<p>to の逆は to_not とのこと。同じ形で他の validation の試験も追加。つうか</p>
+
+<pre><code>it &quot;returns a contact's full name as a string&quot;
+</code></pre>
+
+<p>という状態で pending というのは良いですね。あとログはスルーしますが、phone なモデルの試験も面白い。以下自分メモを列挙。</p>
+
+<ul>
+<li>等値の expectation は == より eq 使う方が良い</li>
+<li>使った matcher は be_valid、eq および include</li>
+<li>Github にある rspec-expectations リポジトリの README 見てみなさいとのこと</li>
+</ul>
+
+<h2 id="dry-化">DRY 化</h2>
+
+<p>このあたり、昨晩の勉強会で云々してたあたりなのかどうか。まず、Contact.by_letter な試験を云々なのか。確かに Contact なインスタンス作るあたり、冗長。</p>
+
+<p>属性に、というのも昨晩話してましたね。</p>
+
+<pre><code>  describe &quot;filter last name by letter&quot; do
+    before :each do
+      @smith = Contact.create(firstname: 'John', lastname: 'Smith',
+                              email: 'jsmith@example.com')
+      @jones = Contact.create(firstname: 'Tim', lastname: 'Jones',
+                              email: 'tjones@example.com')
+      @johnson = Contact.create(firstname: 'John', lastname: 'Johnson',
+                                email: 'jjohnson@example.com')
+    end
+</code></pre>
+
+<p>む、.rspec に以下を追加するのを忘れてました。</p>
+
+<pre><code>--format documentation
+</code></pre>
+
+<p>出力が以下。</p>
+
+<pre><code>$ bundle exec rspec
+
+Contact
+  is valid with a firstname, lastname and email
+  is invalid with a duplicate email address
+  is invalid without a firstname
+  is invalid without an email address
+  is invalid without a lastname
+  returns a contact's full name as a string
+  filter last name by letter
+    matching letters
+      returns a sorted array of results that match
+    non-matching letters
+      returns a sorted array of results that match
+
+Phone
+  does not allow duplicate phone numbers per contact
+  allows two contacts to share a phone number
+
+Finished in 0.40031 seconds
+10 examples, 0 failures
+
+Randomized with seed 30552
+</code></pre>
+
+<p>ええと Q&amp;A にも describe とか context の話が出てますね。このあたり、昨晩の勉強会でもいくつか云々な話が出ていたと記憶しています。</p>
+
+<h2 id="色々参考になるので">色々参考になるので</h2>
+
+<p>こちらをがっと確認してみてから espresso 方面を、と思っていたり。他にもヤること満載なんですがもう少し集中できんかな。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Mar 18, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/03/18/pinapple-cake/" title="土産">土産</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/03/18/running-test-in-android-studio/" title="Android Studio 上でテスツ動いた">Android Studio 上でテスツ動いた</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

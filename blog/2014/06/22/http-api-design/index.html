@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>http api design</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 22, 2014
+         - 5 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/06/22/http-api-design/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+         http api design 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメントを発見しておりまして。</p>
+
+<ul>
+<li><a href="https://github.com/interagent/http-api-design">HTTP API Design Guide</a></li>
+</ul>
+
+<p>なんとなくメモをとってみました。</p>
+
+<p></p>
+
+<p>Contents として以下が列挙されています。</p>
+
+<ul>
+<li>適切なステイタスコードを戻しなさい</li>
+<li>戻すことができる全てのリソースを戻しなさい</li>
+<li>リクエストボディに含まれるシリアライズされた JSON を受け付けなさい</li>
+<li>ID じゃなくて UUID 使った方が良いですよ</li>
+<li>標準的なタイムスタンプを使いましょう</li>
+<li>UTC 時刻は ISO8601 フォーマットで使いましょう</li>
+<li>一貫性のあるパスフォーマットを使いましょう</li>
+<li>小文字とダッシュを使いましょう</li>
+<li>外部キーのリレーションは入れ子に</li>
+<li>利便性をはかるため non-id dereferencing をサポートしなさい</li>
+<li>エラーの場合のレスポンスボディについて</li>
+<li>ETag ヘッダを含めなさい</li>
+<li>Request-Id ヘッダを API レスポンスに含めなさい</li>
+<li>Pagination について</li>
+<li>rate limit ステイタスを見せてあげなさい</li>
+<li>Accepts ヘッダにバージョンを</li>
+<li>パスの記述について入れ子は最小限に</li>
+<li>machine-readable な JSON schema を使いましょう</li>
+<li>human-readable なドキュメントの提供</li>
+<li>実行可能な example の提供</li>
+<li>API がどの程度安定しているかの情報開示</li>
+<li>TLS 使いなさい</li>
+<li>見やすい JSON 表示をデフォルトでサポートしなさい</li>
+</ul>
+
+<p>ということで中身をもう少しきちんと確認してみます。</p>
+
+<h2 id="適切なステイタスコードを戻しなさい">適切なステイタスコードを戻しなさい</h2>
+
+<p>例えば成功した旨のレスポンスは以下であるべき、とのこと</p>
+
+<ul>
+<li>200 : GET あるいは同期的な DELETE および PATCH リクエストが成功した場合</li>
+<li>201 : 同期的な POST が成功した場合</li>
+<li>202 : 非同期な POST, DELETE, PATCH が受け付けられた場合</li>
+<li>206 : GET は成功したけど部分的な応答のみ (paginate な記述見れ、とあります)</li>
+</ul>
+
+<p>あと エラーの場合何を戻すか、というあたりについては <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">HTTP response code spec</a> 見なさい、という事も書いてあるので別途確認してみます。</p>
+
+<h2 id="戻すことができる全てのリソースを戻しなさい">戻すことができる全てのリソースを戻しなさい</h2>
+
+<p>POST, DELETE, PATCH などのリクエストが成功した場合 (200, 201) にも必要な情報を全部戻しなさい、とのこと。ただ、202 な場合は無理だよね、とのこと。</p>
+
+<h2 id="リクエストボディに含まれるシリアライズされた-json-を受け付けなさい">リクエストボディに含まれるシリアライズされた JSON を受け付けなさい</h2>
+
+<p>リクエストボディは JSON 指定の方が助かります。つうか form から送信する訳ではないんだからこれで良かろうに、と思うのですが (ry</p>
+
+<h2 id="id-じゃなくて-uuid-使った方が良いですよ">ID じゃなくて UUID 使った方が良いですよ</h2>
+
+<p>Ruby だと uuidtools という gem で以下なカンジで生成できる模様。</p>
+
+<pre><code>UUIDTools::UUID.random_create
+</code></pre>
+
+<p>つうか PostgreSQL だと uuid なカラムを主キーにできたりするんですね。これはこれは。</p>
+
+<h2 id="標準的なタイムスタンプを使いましょう">標準的なタイムスタンプを使いましょう</h2>
+
+<p>つうか created_at と updated_at なタイムスタンプをデフォで戻しましょう、なのか。</p>
+
+<h2 id="utc-時刻は-iso8601-フォーマットで使いましょう">UTC 時刻は ISO8601 フォーマットで使いましょう</h2>
+
+<p>そしてタイムスタンプのフォーマットは ISO8601 を、とのこと。あと UTC 使え、って書かれてますね。</p>
+
+<p>以下な記述なので</p>
+
+<pre><code>&quot;finished_at&quot;: &quot;2012-01-01T12:00:00Z&quot;
+</code></pre>
+
+<p>UTC 時刻ですね。ちなみに twitter だと以下な書式。</p>
+
+<pre><code>&quot;Mon Jan 03 15:17:31 +0000 2011&quot;
+</code></pre>
+
+<p>このあたり色々な意味で興味深いですね。</p>
+
+<h2 id="一貫性のあるパスフォーマットを使いましょう">一貫性のあるパスフォーマットを使いましょう</h2>
+
+<h3 id="resource-names">Resource names</h3>
+
+<p>リソースの名前はシステムで一つだけなのが明確になっていない限りは複数形を使うべき、ということなのかどうか。</p>
+
+<h3 id="actions">Actions</h3>
+
+<p>確かに RESTful な API だと action というのがパスに入ってくることはあまり無いですね。とは言え必要な場合はこうしましょう、というのが指定されてます。</p>
+
+<h2 id="小文字とダッシュを使いましょう">小文字とダッシュを使いましょう</h2>
+
+<p>javascript なんかでアンスコ使うケイスがありますね、とありますが。とは言えダッシュとアンスコどっちが、ってソレは宗教になってそうで怖い。</p>
+
+<h2 id="外部キーのリレーションは入れ子に">外部キーのリレーションは入れ子に</h2>
+
+<p>これも確かにこうなってた方が分かりやすいです。例えば以下な形と</p>
+
+<pre><code>{
+  &quot;name&quot;: &quot;service-production&quot;,
+  &quot;owner_id&quot;: &quot;5d8201b0...&quot;,
+  ...
+n}
+</code></pre>
+
+<p>以下な形で</p>
+
+<pre><code>{
+  &quot;name&quot;: &quot;service-production&quot;,
+  &quot;owner&quot;: {
+    &quot;id&quot;: &quot;5d8201b0...&quot;
+  },
+  ...
+}
+</code></pre>
+
+<p>owner な情報に追加を、という場合のインパクトとしては (修正が入るって意味では同じかもしれませんが) 入れ子になってた方が、とは思います。</p>
+
+<p>つうかこのあたり、Rails で、ってなると戻すレスポンスボディって View とかで雛形を定義できるんでしたっけ (後で調べる</p>
+
+<h2 id="利便性をはかるため-non-id-dereferencing-をサポートしなさい">利便性をはかるため non-id dereferencing をサポートしなさい</h2>
+
+<p>これ、UUID なソレを別名で、ってことなのかどうか。</p>
+
+<h2 id="エラーの場合のレスポンスボディについて">エラーの場合のレスポンスボディについて</h2>
+
+<ul>
+<li>machine-readable なエラー id</li>
+<li>人間-readable なエラー message</li>
+<li>問題解決のための url</li>
+</ul>
+
+<p>を、とのこと。出てき得るエラーについてはドキュメントにしておけ、ってのも成程。</p>
+
+<h2 id="etag-ヘッダを含めなさい">ETag ヘッダを含めなさい</h2>
+
+<p>全てのレスポンスについて ETag ヘッダを入れれ、とのこと。これ、不勉強で知らなかったんですが良いですね。</p>
+
+<ul>
+<li>あるリクエストで ETag ヘッダ戻す</li>
+<li>クライアントでキャッシュしつつ ETag な値も保管</li>
+<li>同じリクエストを発行する時、If-None-Match ヘッダにその値を含めてリクエスト</li>
+<li>ETag 値の比較をして一致してれば 304 Not Modified を戻す</li>
+</ul>
+
+<p>HEAD で云々、よりも良いです。あと pagination がらみのソレで If-Range というヘッダもあるみたいですね。</p>
+
+<h2 id="request-id-ヘッダを-api-レスポンスに含めなさい">Request-Id ヘッダを API レスポンスに含めなさい</h2>
+
+<p>デバッグ時に、とのこと。こーゆー地味な努力って必要ですよね。なんとなくどこかに文句言ってる風ですがご容赦下さい。</p>
+
+<h2 id="pagination-について">Pagination について</h2>
+
+<p>content-Range ヘッダについて云々。というか Rails ってこのあたりどうなってるのかな。別途確認の方向にて。</p>
+
+<h2 id="rate-limit-ステイタスを見せてあげなさい">rate limit ステイタスを見せてあげなさい</h2>
+
+<p>rate limit を設定しているのであれば RateLimit-Remaining というレスポンスヘッダを戻してあげなさい、との由。</p>
+
+<h2 id="accepts-ヘッダにバージョンを">Accepts ヘッダにバージョンを</h2>
+
+<p>以下なフォーマットで、とのこと。</p>
+
+<pre><code>Accept: application/vnd.heroku+json; version=3
+</code></pre>
+
+<p>クライアント側で検知して云々、なのか。</p>
+
+<h2 id="パスの記述について入れ子は最小限に">パスの記述について入れ子は最小限に</h2>
+
+<p>入れ子になってるからと言ってその通りにするな、と。たしかに id 使ってるのであれば</p>
+
+<pre><code>/orgs/{org_id}/apps/{app_id}
+</code></pre>
+
+<p>は</p>
+
+<pre><code>/apps/{app_id}
+</code></pre>
+
+<p>で OK ですよね。</p>
+
+<h2 id="machine-readable-な-json-schema-を使いましょう">machine-readable な JSON schema を使いましょう</h2>
+
+<p>prmd って何だろ。ここ別途確認の方向ってことで。</p>
+
+<h2 id="human-readable-なドキュメントの提供">human-readable なドキュメントの提供</h2>
+
+<p>む、ここでも prmd って出てくるな。以下らしい。</p>
+
+<ul>
+<li><a href="https://github.com/interagent/prmd">interagent/prmd</a></li>
+</ul>
+
+<p>gem ですね。これ使って、なのかどうか。</p>
+
+<h2 id="実行可能な-example-の提供">実行可能な example の提供</h2>
+
+<p>ここでも prmd 出てきますね。確かにサンプルなソレで云々するのであれば API が戻すであろうサンプルな JSON を戻すことは可能なのか。</p>
+
+<h2 id="api-がどの程度安定しているかの情報開示">API がどの程度安定しているかの情報開示</h2>
+
+<p>たとえば</p>
+
+<ul>
+<li>prototype</li>
+<li>development</li>
+<li>production</li>
+</ul>
+
+<p>なフラグで安定性を表現しなさい、とのこと。以下を見なさい、とありますね。別途確認ってことで。</p>
+
+<ul>
+<li><a href="https://devcenter.heroku.com/articles/api-compatibility-policy">Heroku API compatibility policy</a></li>
+</ul>
+
+<h2 id="tls-使いなさい">TLS 使いなさい</h2>
+
+<p>できれば SSL 使おうね、という理解で良いのかどうか。</p>
+
+<h2 id="見やすい-json-表示をデフォルトでサポートしなさい">見やすい JSON 表示をデフォルトでサポートしなさい</h2>
+
+<p>属性ごとで改行入れて差し上げて、という理解で良いのかな。pretty-print なスイッチがあれば良いのかどうか。</p>
+
+<h2 id="追記">追記</h2>
+
+<p>prmd 調べてたら以下なドキュメントを発見してます。</p>
+
+<ul>
+<li><a href="http://deeeet.com/writing/2014/06/02/heroku-api-design/">HerokuのAPIデザイン</a></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 22, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/06/21/todays-dinner/" title="今日の夜メシ">今日の夜メシ</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/06/23/make-git-push-deploying-environment/" title="git push な deploy 環境作ってみた">git push な deploy 環境作ってみた</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

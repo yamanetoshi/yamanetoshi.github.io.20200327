@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Debian on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/debian/</link>
+    <description>Recent content in Debian on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 20 Nov 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/debian/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>でびあん 9 にしました</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/11/20/upgrade-debian/</link>
+      <pubDate>Mon, 20 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/11/20/upgrade-debian/</guid>
+      <description>とは言え、apt-line を stretch にして $ sudo apt-get dist-upgrade しただけ、なのですが。 そして java のバージョンは 8 ですね。。これで cordova build --release android できるのかどうか。</description>
+    </item>
+    
+    <item>
+      <title>Debian に貢献するさまざまな方法</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/15/a-variety-of-ways-to-contribute-to-debian/</link>
+      <pubDate>Sat, 15 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/15/a-variety-of-ways-to-contribute-to-debian/</guid>
+      <description>以下コンテンツより。 Debian パッケージングチュートリアル 貢献のましな方法、ということで以下が列挙されている。 パッケージングチームに参加 メンテナンス</description>
+    </item>
+    
+    <item>
+      <title>でびあん wheezy で window focus の設定</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/02/window-focus-configuration-in-debian-wheezy/</link>
+      <pubDate>Sun, 02 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/02/window-focus-configuration-in-debian-wheezy/</guid>
+      <description>以下、自分メモ。 gconf-editor を導入 org -&amp;gt; gnome -&amp;gt; desktop -&amp;gt; wm -&amp;gt; preferences focus-mode を mouse に OSX での設定方法もイマサラですが知りたい。</description>
+    </item>
+    
+    <item>
+      <title>wheezy な x201 に Android 開発環境導入</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/16/install-android-development-env-in-wheezy-x201/</link>
+      <pubDate>Sun, 16 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/16/install-android-development-env-in-wheezy-x201/</guid>
+      <description>&lt;p&gt;とりあえず、openjdk-6-jdk パケジで云々してみます。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install -fy openjdk-6-jdk
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で、Androdi Studio を download して展開後、bin/studio.sh を起動したのですが何も起こらない。プロセスは生きている模様。&lt;/p&gt;
+
+&lt;p&gt;いったん kill -9 して端末から起動してみるに&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;OpenJDK6 is not supported. Please use Oracle Java or newer OpenJDK&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;と言われる。どうやら openjdk-7-jdk でないと駄目らしい。どうもこれで ADT な Eclipse もイケる模様。別途確認、ってことでとりあえず入れ直し。&lt;/p&gt;
+
+&lt;p&gt;その後、studio.sh で正常に起動したので手持ちのプロジェクトを clone して云々してみました。最初の一発目なので gradlew な準備が云々とかで時間かかりましたが正常終了?&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>なんとなく docker な環境を作ってみるなど</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/16/docker-in-debian/</link>
+      <pubDate>Sun, 16 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/16/docker-in-debian/</guid>
+      <description>&lt;p&gt;以下をなぞってみる土曜深夜orz&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://d.hatena.ne.jp/dot_h2o2/20131202/p1&#34;&gt;Debian(wheezy)でdockerを動かす。&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;書いてあるママでとりあえず google 方面への ping の返事は戻ってきた。まだあんまりよく分かっていないので &lt;a href=&#34;https://www.docker.io/gettingstarted/&#34;&gt;Interactive commandline tutorial&lt;/a&gt; をわしもヤッてみるか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Debian 7 (wheezy) に rbenv 導入</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/15/install-rbenv-in-wheezy/</link>
+      <pubDate>Sat, 15 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/15/install-rbenv-in-wheezy/</guid>
+      <description>&lt;p&gt;apt-get で導入可能らしいので試してみます。とりあえず確認。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ apt-cache search rbenv
+rbenv - simple per-user Ruby version manager
+ruby-build - tool to compile and install different versions of Ruby
+ruby-switch - switch between different Ruby interpreters
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;とのことで、ruby-build も入れてしまえ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>でびあん 7 導入</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/13/install-debian-7/</link>
+      <pubDate>Thu, 13 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/13/install-debian-7/</guid>
+      <description>&lt;p&gt;とりあえず USB メモリに netboot なソレを仕込む。うぶんつと違って色々大変なんスね。以下エントリを見つつ USB メモリへのコピィ完了。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://inokara.hateblo.jp/entry/2013/04/06/052506&#34;&gt;Debian squeeze を USB メモリからインストールする一部始終&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;その後、メモリスティックを挿して起動。F12 で起動デバイスのリストが出るのね。起動後に iwlwifi-6000-4.ucode という firmware を起動ディスクに入れれ、と指示が入る。&lt;/p&gt;
+
+&lt;p&gt;がしかしこれ、ファイルを直接入手することができないのでやっぱでびあん断念。と思ったけど有線で継いで (Ubuntu installer は download しつつ) firmware-iwlwifi パケジがあるかどうかを確認、まではヤッてみることに。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>TP X201 にでびあん 7</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/12/thinkpad-x201-and-debian-7/</link>
+      <pubDate>Wed, 12 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/12/thinkpad-x201-and-debian-7/</guid>
+      <description>TP X201 発注してまして、届き次第 7.4 なでびあんを導入の方向なのですが、必須なツールとして Eclipse+ADT Android Studio Chrome Emacs Git Dropbox あたりが使えれば良いのかどうか。つーか発注完</description>
+    </item>
+    
+  </channel>
+</rss>

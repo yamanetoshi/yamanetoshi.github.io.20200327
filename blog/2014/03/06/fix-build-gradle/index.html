@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>build.gradle 修正など</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Mar 6, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/06/fix-build-gradle/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         build.gradle 修正など 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>Android Studio が自動で作ったのが以下。</p>
+
+<pre><code>apply plugin: 'android'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion &quot;19.0.1&quot;
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 19
+        versionCode 1
+        versionName &quot;1.0&quot;
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+}
+</code></pre>
+
+<p></p>
+
+<p>別件プロジェクトな build.gradle とはかなり違ってるんでびっくり。</p>
+
+<h2 id="sourcesets">sourceSets</h2>
+
+<p>以下は追加しとくべきなのかどうか。</p>
+
+<pre><code>sourceSets {
+    main {
+        manifest.srcFile 'AndroidManifest.xml'
+        java.srcDirs = ['src']
+        resources.srcDirs = ['src']
+        aidl.srcDirs = ['src']
+        renderscript.srcDirs = ['src']
+        res.srcDirs = ['res']
+        assets.srcDirs = ['assets']
+    }
+
+    // Move the tests to tests/java, tests/res, etc...
+    instrumentTest.setRoot('tests')
+
+    // Move the build types to build-types/&lt;type&gt;
+    // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+    // This moves them out of them default location under src/&lt;type&gt;/... which would
+    // conflict with src/ being used by the main source set.
+    // Adding new build types or product flavors should be accompanied
+    // by a similar customization.
+    debug.setRoot('build-types/debug')
+    release.setRoot('build-types/release')
+}
+</code></pre>
+
+<p>定型みたいなので追加してみる方向。あとは signingConfigs とか本番用の鍵関連の情報とか bulidTypes とかも必要なのかどうか。</p>
+
+<pre><code>signingConfigs {
+    debug {
+        storeFile file(homeDirectory + &quot;/.android/debug.keystore&quot;)
+    }
+
+    myConfig
+}
+
+if (project.hasProperty('storeFile')) {
+    android.signingConfigs.myConfig.storeFile = file(homeDirectory + storeFile)
+}
+if (project.hasProperty('storePassword')) {
+    android.signingConfigs.myConfig.storePassword = storePassword
+}
+if (project.hasProperty('keyAlias')) {
+    android.signingConfigs.myConfig.keyAlias = keyAlias
+}
+if (project.hasProperty('keyPassword')) {
+    android.signingConfigs.myConfig.keyPassword = keyPassword
+}
+
+buildTypes {
+    debug {
+        signingConfig signingConfigs.debug
+    }
+    release {
+        signingConfig signingConfigs.myConfig
+    }
+}
+</code></pre>
+
+<p>上記追加であれば gradle.properties というファイルを追加して以下を盛り込む方向。</p>
+
+<pre><code>storeFile=/.android/hoge.keystore
+storePassword=fuga
+keyAlias=fuga
+keyPassword=fuga
+</code></pre>
+
+<p>手持ちのソレは native なナニを云々してるのでもう少し色々ありますが、この程度の修正で apk 作ったりとかデバグ用な build ができるかとか確認してみます。</p>
+
+<p>問題あれば追記の方向で。</p>
+
+<h2 id="gradlew-してみた">gradlew してみた</h2>
+
+<p>とりあえず gradlew に実行権限付いてない。a+x して実行するも failure とのこと。これ、すっかり忘れてたんですが環境変数で $HOME 渡さねば、なんでした。</p>
+
+<pre><code>$ ./gradlew -PhomeDirectory=$HOME clean aR
+</code></pre>
+
+<p>次は Main Manifest missing とのこと。これ、Eclipse なプロジェクトの build.gradle を真似てるあたり、非常に危険ですね。sourceSets 云々はざくっと削除で。あと、defaultConfig も復活。</p>
+
+<p>あと、gradle.properties は .gitignore に追加必要ってのと雛形として gradle.properties.proto を追加必要。備忘です。</p>
+
+<h2 id="build-successful">BUILD SUCCESSFUL</h2>
+
+<p>と思ったら Android Studio 上で Build できぬ。</p>
+
+<p>って build.gradle に以下な記述が入ってたよorz</p>
+
+<pre><code>def homeDirectory = System.getenv()['HOME']
+</code></pre>
+
+<p>正常動作を確認。</p>
+
+<p>備忘含めて commit 作って push しときます。つうかバグ修正な commit が作成されるのか。</p>
+
+<h2 id="今のところ">今のところ</h2>
+
+<p>build.gradle は以下なカンジです。</p>
+
+<pre><code>$ cat app/build.gradle 
+apply plugin: 'android'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion &quot;19.0.1&quot;
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 19
+        versionCode 1
+        versionName &quot;1.0&quot;
+    }
+
+    def homeDirectory = System.getenv()['HOME']
+
+    signingConfigs {
+        debug {
+            storeFile file(homeDirectory + &quot;/.android/debug.keystore&quot;)
+        }
+
+        myConfig
+    }
+
+    if (project.hasProperty('storeFile')) {
+        android.signingConfigs.myConfig.storeFile = file(homeDirectory + storeFile)
+    }
+    if (project.hasProperty('storePassword')) {
+        android.signingConfigs.myConfig.storePassword = storePassword
+    }
+    if (project.hasProperty('keyAlias')) {
+        android.signingConfigs.myConfig.keyAlias = keyAlias
+    }
+    if (project.hasProperty('keyPassword')) {
+        android.signingConfigs.myConfig.keyPassword = keyPassword
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.myConfig
+        }
+    }
+}
+
+dependencies {
+}
+</code></pre>
+
+<p>そりゃ良いのですがとりあえず問題発生なので対処しますorz</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Mar 6, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/03/06/revert-remote-repository/" title="リモートリポジトリの巻き戻し">リモートリポジトリの巻き戻し</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/03/06/playing-with-raspberrypi-with-baremetal/" title="BareMetal で遊ぶ RaspberryPI">BareMetal で遊ぶ RaspberryPI</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>リポジトリを作ってみる</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 20, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/04/20/making-repository/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+         リポジトリを作ってみる 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>結局 plusjade/jekyll-bootstrap で作りました。次回以降は</p>
+
+<ul>
+<li><a href="https://github.com/OkinawaDevOps/okinawadevops.github.com">https://github.com/OkinawaDevOps/okinawadevops.github.com</a></li>
+</ul>
+
+<p>なリポジトリで云々な方向。</p>
+
+<p></p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>いくつか Issue を発行するなど。ついでなので</p>
+
+<ul>
+<li><a href="http://great-h.github.io/rule.html">すごい広島</a></li>
+</ul>
+
+<p>を確認させて頂きつつトップに盛り込む情報を纏めてみます。</p>
+
+<h2 id="はじめに">はじめに</h2>
+
+<p>OkinawaDevOps は基本的に<a href="http://www.1x1.jp/blog/2013/12/lets-try-moku-moku-study-event.html">もくもく勉強会</a>となります。また、すすめかたについては<a href="http://great-h.github.io/rule.html">すごい広島</a>のルールに沿ってみたいと考えています。</p>
+
+<h2 id="最初の手順">最初の手順</h2>
+
+<ul>
+<li><a href="https://github.com/OkinawaDevOps/okinawadevops.github.com">リポジトリ</a>の Issue でもくもくなネタを宣言します</li>
+<li>作成した Issue の ID と自分の ID をもとに branch を作ります</li>
+<li>/_posts/yyyy-mm-dd-&lt;自分のid&gt;.md を作成して、とりあえず「自分の名前」および「作成した Issue へのリンク」を作成します</li>
+<li>Pull Request を作ります</li>
+<li>もくもくしたり参加者と情報交換したりしてください</li>
+<li>もしかすると自己紹介タイムを設けるかもしれません</li>
+</ul>
+
+<h2 id="issue-について">Issue について</h2>
+
+<p>もくもくするネタを投入するだけではなく、自分が何をしているか、とか自分がどんな人なのか、という情報もあると良いかもしれません。</p>
+
+<h2 id="作成する-markdown-について">作成する markdown について</h2>
+
+<p><a href="http://great-h.github.io/rule.html">すごい広島</a>では以下のフォーマットが推奨されています。暫くこれを使わせて頂く方向で。</p>
+
+<pre><code>### [名前][URL]
+
+* [やること宣言][Issue へのリンク]
+</code></pre>
+
+<h2 id="ファイル作成や-pull-request-などについて">ファイル作成や Pull Request などについて</h2>
+
+<p>ファイルを新規に作成する場合は必ず branch を作って作業してください。また、Pull Request については二名以上のメンバによる LGTM が無いと merge できない、というルール設定をしておきたいと思っています。</p>
+
+<h2 id="とりあえず-1">とりあえず</h2>
+
+<p>これで branch 作ってファイル修正して Pull Request してしまえ。あと<a href="http://great-h.github.io/rule.html">すごい広島</a>方面への謝辞も必要ですね。</p>
+
+<p>レビュは jekyll な gem が導入されてれば</p>
+
+<pre><code>$ jekyll serve
+</code></pre>
+
+<p>で確認できるのかどうか。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 20, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/04/19/github-pull-request-howto/" title="PR してコメントもらってそれに対応する commit をどうするか">PR してコメントもらってそれに対応する commit をどうするか</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/04/20/modify-jtag-function-in-assembler/" title="JTAG 接続なソレを書き換えてみる">JTAG 接続なソレを書き換えてみる</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

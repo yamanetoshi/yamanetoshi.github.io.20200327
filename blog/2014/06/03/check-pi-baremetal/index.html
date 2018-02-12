@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>pi-baremetal 確認など</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 3, 2014
+         - 4 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/06/03/check-pi-baremetal/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         pi-baremetal 確認など 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>空き時間を利用してとりあえず start.s から確認開始。</p>
+
+<p></p>
+
+<p>コメントから確認してみます。</p>
+
+<ul>
+<li>kernel.img は 0x8000 に load される</li>
+<li>その前の 0x4000-0x7fff は 1MB なページテーブル</li>
+<li>さらにその前の 0x3c00-0x3fff はカーネルデータな粗い (?) ページテーブル (initsys.c を見れ、とあります)</li>
+<li>その下はスタックでスタックは下に伸びる</li>
+<li>スタックのアドレスは MMU が on になってなくても 0x80000000 足された番地になる</li>
+</ul>
+
+<p>イメージてきには以下なカンジなのかどうか。</p>
+
+<pre><code>       +----------------------------+
+       |                            |
+       +----------------------------+
+       |                            |
+       |                            |
+       |         kernel.img         |
+0x8000 |                            |
+       +----------------------------+
+0x7fff |                            |
+       |  1MB memory page table     |
+0x4000 |                            |
+       +----------------------------+
+0x3fff |                            |
+       | kernel coarse page table   |
+       |                            |
+0x3c00 +----------------------------+
+       |                            |
+       | User/system stack          |
+       |                            |
+0x2c00 +----------------------------+
+       |                            |
+       | IRQ stack                  |
+       |                            |
+0x2800 +----------------------------+
+       |                            |
+       | Abort stack                |
+       |                            |
+0x2400 +----------------------------+
+       |                            |
+       | Supervisor (SWI/SVC) stack |
+       |                            |
+0x2000 +----------------------------+
+       |                            |
+       |                            |
+0x0000 +----------------------------+
+</code></pre>
+
+<p>スタックは下向きに伸びます、備忘まで。</p>
+
+<p>で、start.s では cps という命令で processor mode を変えつつスタックポインタの値を設定しています。以下なカンジ。</p>
+
+<pre><code>mov r4, #0x80000000
+
+/* SVC stack (for SWIs) at 0x2000 */
+/* The processor appears to start in this mode, but change to it
+ * anyway
+ */
+cps #0x13       /* Change to supervisor (SVC) mode */
+add sp, r4, #0x2400
+</code></pre>
+
+<p>processor mode が云々、というあたりとかモード毎にスタックポインタが、というあたり含め、マニュアル確認必要。</p>
+
+<p>あと、最後に以下なことをして</p>
+
+<pre><code>/* Turn on unaligned memory access */
+mrc p15, #0, r4, c1, c0, #0
+orr r4, #0x400000   /* 1&lt;22 */
+mcr p15, #0, r4, c1, c0, #0
+</code></pre>
+
+<p>initsys 手続きに jmp しています。</p>
+
+<pre><code>/* Jump to memory map initialisation code */
+b initsys
+</code></pre>
+
+<p>mrc とか mcr とか、確認必要ですね。p15 て確か特別なレジスタだった記憶あり。レジスタに読みだして何かをして戻しているのかどうか。</p>
+
+<p>とりあえずここまでの部分をマニュアルで確認してみる方向。</p>
+
+<h2 id="system-boot-sequence">System boot sequence</h2>
+
+<p>2-8 に <em><i>The Secure OS code at the reset vector must:<i></em> という記述があり、その中の 1.c に <em><i>Set up the run time environment and program for each processor mode.</i></em> という記述があります。</p>
+
+<p>あと、2-37 に CPS という命令の説明がありますね。CPSR というレジスタがあるのか。つうか 2-20 に妙な図があるんですが processor mode 毎にレジスタが用意されているのかな。</p>
+
+<p>2-28 に mode bit な説明がありますね。</p>
+
+<ul>
+<li>b10011 (0x13) が Supervisor</li>
+<li>b10111 (0x17) が Abort</li>
+<li>b10010 (0x12) が IRQ</li>
+<li>b11111 (0x1f) が System</li>
+</ul>
+
+<h2 id="mrc-とか-mcr-とか">mrc とか mcr とか</h2>
+
+<p><em><i>Move to ARM reg from coproc</i></em> とか <em><i>Move to coproc from ARM reg</i></em> とかってありますね (1-37)。あるいは 3-12 で CP15 レジスタの操作に関する説明が出ております。あ、これマシン語のソレですね。</p>
+
+<p>命令は以下とのことですが (MRC もフォーマットは同様)</p>
+
+<pre><code>MCR{cond} P15, &lt;Opcode_1&gt;, &lt;Rd&gt;, &lt;CRn&gt;, &lt;CRm&gt;, Opcode_2&gt;
+</code></pre>
+
+<p>使ってる命令としては以下になってて</p>
+
+<pre><code>mrc p15, #0, r4, c1, c0, #0
+</code></pre>
+
+<p>これは Control というヤツで page 3-44 に説明が、とのこと。これは U bit というヤツなのかな。1 なら <em><i>Unaligned data access support enabled.</i></em> とのことです。ちなみに orr ってのは bit な or してる、って理解で良いのかな。</p>
+
+<p>まだ時間あるので次に行ってみます。</p>
+
+<h2 id="initsys-c">initsys.c</h2>
+
+<p>最後で mcr してるんですがこれ</p>
+
+<ul>
+<li>XP bit を 1 に (<em><i>Subpage AP bits disabled.</i></em>)</li>
+<li>M bit を 1 に (<em><i>MMU enabled.</i></em>)</li>
+</ul>
+
+<p>なんスけど、extended page table て何でしょ。とりあえず先頭から確認します。コメントに Virtual memory layout な説明あり。</p>
+
+<pre><code>           +----------------------------+
+0xffffffff |                            |
+           | kernel code                |
+0xf0000000 |                            |
+           +----------------------------+
+0xefffffff |                            |
+           | kernel heap/stack          |
+0xc0000000 |                            |
+           +----------------------------+
+0xa0ffffff |                            |
+           | physical memory            |
+           |  include peripherals       |
+0x80000000 |                            |
+           +----------------------------+
+0x7fffffff |                            |
+           | user process memory        |
+0x00000000 |                            |
+           +----------------------------+
+</code></pre>
+
+<p>あと、0x80000000 より上は user process からはアクセスできない、とありますね。ちょっとコメントの確認中心でコード読んだ方が良さげです。</p>
+
+<p>とりあえず r0 から r2 までをバックアップして以降。</p>
+
+<pre><code>/* Save r0-r2 as they contain the start values used by the kernel */
+asm volatile(&quot;push {r0, r1, r2}&quot;);
+</code></pre>
+
+<p>以下にメモを列挙します。</p>
+
+<ul>
+<li>MMU は二つの変換テーブルを持つ</li>
+<li>変換テーブル 0 はアドレス空間の 0x0 から始まる bottom な部分をカバーして 32MB から 4GB の間の仮想アドレス空間を扱う</li>
+<li>変換テーブル 1 はメモリの残りをカバーする</li>
+<li>今のところ両方の変換テーブルは同じものが設定される</li>
+<li>そして、初期設定としてテーブル 0 は仮想アドレス空間全体を管理する</li>
+<li>後でテーブル 0 はユーザプロセスのプロセス固有のテーブルとして登録される</li>
+</ul>
+
+<p>あと、6-39 な記述のフォローがありますね。</p>
+
+<ul>
+<li>メモリは 1MB な section で 4096 に分割される</li>
+<li>それらのほとんどは 0x80000000-0xa0ffffff を除いて unmapped な状態</li>
+<li>上記は 0x00000000-0x2a000000 (物理メモリおよび peripherals) に map される</li>
+<li>kernel code および data も_除く_ってことで良いのかどうか</li>
+</ul>
+
+<p>あとは</p>
+
+<ul>
+<li>そのページに付与される特権を表現する APX/AP bits の解説</li>
+<li>eXecute Never bit の解説</li>
+<li>0 および 1 な bit の解説</li>
+</ul>
+
+<p>になっています。0 か 3 なら変換エラーで 1 なら coarse page table で 2 なら section あるいは super section とあります。マニュアルも同様。</p>
+
+<h2 id="もう少し見てみます">もう少し見てみます</h2>
+
+<p>最初、0x80000000 から 0xa0ffffff までの間のページテーブルが初期化されます。上で列挙した通りですね。まず physical memory なソレを初期化するのか。</p>
+
+<pre><code>        /* Map physical memory to virtual
+         * Read/write for priviledged modes, no execute
+         */
+        initpagetable[x] = (x-2048)&lt;&lt;20 | 0x0410 | 2;
+</code></pre>
+
+<p>section base address に、ってなんで 2048 引いてるのか。つうかこれ</p>
+
+<ul>
+<li>末端ビット b10</li>
+<li>XN が on (not executable)</li>
+<li>APX が 0 で AP が b10 (Read/write for priviledged, Read-only for User)</li>
+</ul>
+
+<p>て理解ってことで良いのかどうか。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 3, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/06/03/rails-memo/" title="rails メモ">rails メモ</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/06/04/seat-near-the-outlet/" title="南風原ジャスコのスタバ">南風原ジャスコのスタバ</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

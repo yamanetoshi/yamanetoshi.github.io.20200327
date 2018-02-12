@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>UART 初期化について色々試してみた</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 26, 2014
+         - 4 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/04/26/initializing-uart-in-raspi/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         UART 初期化について色々試してみた 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>今のサンプルの実装って</p>
+
+<ul>
+<li>boot.S で JTAG の初期化してる</li>
+<li>GPIO の初期化も boot.S でやってる</li>
+</ul>
+
+<p>ということになってたり。とりあえず現状含めて UART な初期化のあたりの盛り込みというか色々試験してみたいと思います。</p>
+
+<p></p>
+
+<h2 id="現状確認">現状確認</h2>
+
+<p>まず、boot.S から呼び出されている GPIO の初期化が以下。</p>
+
+<p>{% gist 11282290 %}</p>
+
+<p>最初に GPPUD なレジスタの 0x2 を代入して wait 150 cycle してます。マニュアルの記述によれば Enable Pull Up controll とのこと。</p>
+
+<p>で、次に GPPUDCLK なレジスタのビットを全部立てて wait 150 cycle した後に GPPUDCLK と GPFSEL なレジスタを 0 で初期化してます。</p>
+
+<p>つうかこの実装、delay にループ使ってますね。とりあえずここではこんなもの、という理解でかつ、現状を羅列しておくと</p>
+
+<ul>
+<li>pullup all されている (GPPUD は 0x02)</li>
+<li>GPPUDCLK、GPFSEL は全て 0 で初期化</li>
+</ul>
+
+<p>ということになるのかどうか。GPPUDCLK を初期化した後に wait させてないけどいいのかな。</p>
+
+<p>で、boot.S の中で init_gpio 呼び出して戻ってきたら JTAG なレジスタの初期化をしてます。コードの断片を以下に。</p>
+
+<p>{% gist 11282860 %}</p>
+
+<p>あ、.L2 のあたり以下な記述です。</p>
+
+<pre><code>.L3:
+        .align  2
+.L2:
+        .word   538968072
+        .word   538968064
+</code></pre>
+
+<p>こうしてみるに自分で書いときながら可読性ゼロだな。で、最後におもむろに kernel_main な手続きに、という形です。ので状態としては</p>
+
+<ul>
+<li>GPFSEL0 の 4 にあたる場所が 0x04 になってる</li>
+<li>GPFSEL2 の 22、27、25、24 にあたる場所が 0x03 になってる</li>
+</ul>
+
+<p>のか。これも確認できるはず。GPFSEL は</p>
+
+<ul>
+<li>0 が 0x20200000</li>
+<li>2 が 0x20200008</li>
+</ul>
+
+<p>になるのか。先に計算するの面倒なのでとりあえず結線して kernel_main の入口で止めてレジスタ確認してみます。</p>
+
+<p>ちなみに GPPUD は 0x20200094 で良いのかな。GPPUDCLK が以下?</p>
+
+<ul>
+<li>GPPUDCLK0 : 0x20200098</li>
+<li>GPPUDCLK1 : 0x2020009c</li>
+</ul>
+
+<p>む、チュートリアルの実装に誤りがありますね。GPPUDCLK1 が 0x20200098 になってます。おそらく使っていないのだろうな。</p>
+
+<h2 id="後天性記憶不全">後天性記憶不全</h2>
+
+<p>どこかに記録してすぐ見れるように、と思いつつアレです。以下が JTAG な接続。</p>
+
+<pre><code>| raspberry pi | ARM-USB-TINY-H |
+|--------------|----------------|
+|            1 |              1 |
+|            7 |              5 |
+|           13 |              7 |
+|           15 |              3 |
+|           18 |             13 |
+|           22 |              9 |
+|           25 |              6 |
+</code></pre>
+
+<p>以下がシリアルの pin です。</p>
+
+<ul>
+<li>6 : GND</li>
+<li>8 : TX (GPIO14)</li>
+<li>10 : RX (GPIO15)</li>
+</ul>
+
+<p>ということで結線して確認開始。とりあえず以下、GPPUD と GPPUDCLK</p>
+
+<pre><code>(gdb) x/x 0x20200094
+0x20200094:     0x00000002
+(gdb) x/x 0x20200098
+0x20200098:     0x00000000
+(gdb) x/x 0x2020009c
+0x2020009c:     0x00000000
+</code></pre>
+
+<p>そのまんまですね。次は GPFSEL か。こっちはちょっと確認大変。</p>
+
+<pre><code>(gdb) x/x 0x20200000
+0x20200000:     0x00002000
+(gdb) x/x 0x20200008
+0x20200008:     0x0061b0c0
+</code></pre>
+
+<p>ズルして bit に直しました。</p>
+
+<ul>
+<li><p>0x00002000 : 10000000000000</p>
+
+<p>00 000 000 000 000 000 010 000 000 000 000</p></li>
+</ul>
+
+<p>右から 0、1、2 なので FSEL4 が 0x2?</p>
+
+<p>って思ったら ALT5 は 0x02 と、でした (滝汗</p>
+
+<p>もひとつが以下。</p>
+
+<ul>
+<li>0x0061b0c0 : 11000011011000011000000</li>
+</ul>
+
+<p>ええと、FSEL22, FSEL24, FSEL25, FSEL27 が 0x3 になってますね。</p>
+
+<pre><code>00 000 000 011 000 011 011 000 011 000 000
+</code></pre>
+
+<p>こちらも OK です。とは言え、とりあえず JTAG 接続は問題無いのでこうなってないと駄目なのか。</p>
+
+<p>ちなみに、continue でプログラム終了したら C-c でもっかい load したらプログラムが再起動されますね。これは便利。次はシリアル関連のレジスタの値の確認か。</p>
+
+<h2 id="uart-init-直後">uart_init 直後</h2>
+
+<p>レジスタ確認を、なんですが何を確認すれば良いのか、からですね。uart_init 見てみるに</p>
+
+<ul>
+<li>UART0_CR (0x20201030) が 0x301 とかになってるはず</li>
+<li>GPPUDCLK0 (0x20200098) の 14 と 15 が 1 になってるはず (0 で初期化されていた)</li>
+<li>GPFSEL1 (0x20200004) の 4 および 5 が 0x04 になってるはず</li>
+<li>UART0_ICR (0x20201044) が 0x7FF</li>
+<li>UART0_IBRD (0x20201024) が 1</li>
+<li>UART0_FBRD (0x20201028) が 40</li>
+<li>UART0_LCRH (0x2020102c) の 4, 5, 6 番目のビットが 1</li>
+<li>UART0_IMSC (0x20201038) の 1, 4, 5, 6, 7, 8, 9, 10 が 1</li>
+</ul>
+
+<p>書き方乱暴ですが確認を。とりあえず以下。</p>
+
+<pre><code>(gdb) x/x 0x20201030
+0x20201030:     0x00000301
+(gdb) x/x 0x20200098
+0x20200098:     0x00000000
+(gdb) x/x 0x20200004
+0x20200004:     0x00024000
+</code></pre>
+
+<p>期待値になってるのかどうか。GPFSEL1 が</p>
+
+<ul>
+<li>0x00024000 : 100100000000000000</li>
+</ul>
+
+<p>確かに 4 番目と 5 番目が 0x04 になってます。</p>
+
+<pre><code>100 100 000 000 000 000
+</code></pre>
+
+<p>続きが以下。</p>
+
+<pre><code>(gdb) x/x 0x20201044
+0x20201044:     0x00000000
+(gdb) x/x 0x20201024
+0x20201024:     0x00000001
+(gdb) x/x 0x20201028
+0x20201028:     0x00000028
+(gdb) x/x 0x2020102c
+0x2020102c:     0x00000070
+(gdb) x/x 0x20201038
+0x20201038:     0x000007f2
+</code></pre>
+
+<p>UART0_ICR が 0 ですね。IBRD とか FBRD の値は適正です。また、0x70 は 2 進数にすると 1110000 で 4, 5, 6 番目が 1 になってるのが分かります。最後に 7f2 な IMSC ですが以下になってて</p>
+
+<ul>
+<li>0x7f2 : 11111110010</li>
+</ul>
+
+<p>1, 4, 5, 6, 7, 8, 9, 10 が 1 になってるのが分かります。素晴しす。ICR なレジスタについてはマニュアル確認してみます。</p>
+
+<h2 id="uarticr-レジスタ">UARTICR レジスタ</h2>
+
+<p>書き込み専用らしいので読み出す事自体がアレらしいです。とりあえず UART 初期化のあたり、ソース確認してみます。</p>
+
+<h2 id="uart-初期化のあたり掘削">UART 初期化のあたり掘削</h2>
+
+<p>初期化、ということで baremetal 本では以下な手順としています。</p>
+
+<ul>
+<li>UART 無効化 (UART_CR の最下位ビット 0 とあります)</li>
+<li>GPIO14, 15 を pull down して ALT0 に</li>
+<li>ボーレートの設定 (IBRD, FBRD)</li>
+<li>LCRH レジスタの設定 (FIFO enabled, word length 8 bit)</li>
+<li>UART 有効化 (UART_CR を 0x301 に)</li>
+</ul>
+
+<p>これに加えて Tutorial のコードでは割り込みな IMSC レジスタも値を変更しているのか。別途で UART 使った情報のやりとりなサンプルを盛り込んで動作確認してみます。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 26, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/04/26/walking/" title="近所にさんぽに行ってきた">近所にさんぽに行ってきた</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/04/27/uart-input-output-in-raspi/" title="UART 入力とか出力とか">UART 入力とか出力とか</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

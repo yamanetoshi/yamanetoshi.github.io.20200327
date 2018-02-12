@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>bcm2708_gpio_probe 手続き (3)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Oct 2, 2014
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/10/02/bcm2708-gpio-probe/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         bcm2708_gpio_probe 手続き (3) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>drivers/base/init.c から再度掘削着手。driver_init という手続きから platform_bus_init に向かって、というカンジです。</p>
+
+<p>{% gist f10cad6ad9ed45e9f169 %}</p>
+
+<p></p>
+
+<p>なんとなくこれって /sys/bus/platform だったり /sys/drivers/platform だったりを、なのかどうか。device_register とか bus_register とかって名前てきにもそうであって欲しいなぁ。</p>
+
+<h2 id="リトライ">リトライ</h2>
+
+<p>よくよく考えてみるに SoC なデバイスは platform_driver_regsiter 呼び出しときゃ OK なのかな、とも思いつつ掘削リトライ。</p>
+
+<p>紆余曲折の挙句、以下な事が分かりました。おおよそ正しいはず。</p>
+
+<ul>
+<li>起動時にどこかで platform_add_devices が呼び出される (はず)</li>
+<li>platform_device_register で bcm2708_gpio が登録</li>
+<li>登録によって /sys/devices/platform/bcm2708_gpio ディレクトリが作成される</li>
+<li>device_add から kobject_add と device_create_file 呼び出し</li>
+<li>platform_driver_register 以降の処理で /sys/bus/platform/drivers/bcm2708_gpio ディレクトリが作成される</li>
+<li>driver_register -&gt; bus_add_driver -&gt; kobject_init_and_add</li>
+<li>こちらでは kobject_add ではなくて直接 create_dir している</li>
+<li>attribute に沿ってファイルも追加 (populate_dir 手続き)</li>
+<li>ここまでできてれば driver_attach 呼ばれても大丈夫</li>
+<li>driver_attach で相互リンクを作っている</li>
+<li>/sys/bus/platform/drivers/bcm2708_gpio/bcm2708_gpio</li>
+<li>/sys/devices/platform/bcm2708_gpio/driver</li>
+<li>probe で /sys/class/gpio/gpiochip0 を作っている (device_create の呼び出し)</li>
+</ul>
+
+<p>あと、以下も確認をしておきたいと思います。</p>
+
+<ul>
+<li>/sys/class/gpio/{export, unexport} へのアクセスの記述確認</li>
+<li>そもそも /sys/class/gpio 配下のファイルはいつ作成されるのか</li>
+</ul>
+
+<p>ということで確認してみます。まず、/sys/class 配下のファイルからですが gpiolib.c の gpiolib_sysfs_init 手続き確認します。gpio_class という変数を class_register という手続きに渡しています。</p>
+
+<p>{% gist 0df8bc5c957e4664d6d0 %}</p>
+
+<p>これ、/sys/class/gpio 配下の export と unexport なのが分かります。class_register から attribute に設定されてるのでファイルが作成されて手続きに紐が付くはず。</p>
+
+<p>また、gpiolib_sysfs_init では struct gpio_chip なオブジェクトを gpiochip_export 手続きに渡しています。渡す struct gpio_chip オブジェクトは保持してるリストから順に取り出して、という形。</p>
+
+<p>この手続きで /sys/class/gpio/gpiochip0 みたいなソレが作られるのか。ただ、ちょっと attr なファイルの根拠が分からない。</p>
+
+<pre><code>    error = device_create_file(dev, &amp;dev_attr_uevent);
+</code></pre>
+
+<p>ちょいここはスルーで。</p>
+
+<h2 id="export-とか-unexport-とか">export とか unexport とか</h2>
+
+<p>とりあえず export に番号を書き込んだ場合、export_store という手続きが呼びだされるはずです。gpiod_export という手続きが呼び出される模様。以下な手続き呼び出しな記述があります。</p>
+
+<pre><code>    dev = device_create(&amp;gpio_class, desc-&gt;chip-&gt;dev, MKDEV(0, 0),
+                        desc, ioname ? ioname : &quot;gpio%u&quot;,
+                        desc_to_gpio(desc));
+</code></pre>
+
+<p>/sys/class/gpio/gpio0 みたいなディレクトリができて、その中に value とか direction とかなファイルが、というヤツですね。</p>
+
+<p>渡している desc という変数は引数でして struct gpio_desc 型です。属性として struct gpio_chip 型ポインタの chip という属性を持っています。get とか set とか direction あたりを操作する手続きポインタを持っています。</p>
+
+<p>おそらくは、なんですが device_create にこのオブジェクトを渡しているので driver core 方面から gpiod_export が呼び出される時にこれが渡されるのだろうなと。</p>
+
+<p>で、device_create する時にこれを渡して value とか direction の操作に割り当てているのではないかと。</p>
+
+<p>このあたり、詳細な部分を掘りきれていないので別途時間がある折に確認してみます。</p>
+
+<p># つうか、そこが核心なのではないかとorz</p>
+
+<p>それにしても gpiolib 凄いな。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Oct 2, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/10/01/change-package-name-in-android-studio/" title="パッケージを変更したらドはまりだった件">パッケージを変更したらドはまりだった件</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/10/03/usb-micro-b-cable-recommended/" title="おすすめの micro-b なケーブル">おすすめの micro-b なケーブル</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Kernel Reading Party</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Mar 29, 2014
+         - 6 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/29/kernel-reading-party/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Kernel Reading Party 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>ええと、Doorkeeper に出てる情報が以下。</p>
+
+<pre><code>19:30 Session Start, Opening remarks, by Hiro Yoshioka,
+19:35 Open Printing, Ogasawara san
+19:45 昔のLinuxの話, Our Memories of Linux, Koyama san
+*Abstract 1991年にLinuxカーネルが公開され、日本である程度広く知られるまでの約10年間の出来事、活動、思い等の話を思い出してみます。
+- 小山裕司: 産業技術大学院大学 情報アーキテクチャ専攻 教授、『Linux入門（Addison-Wesley，1995/2）』著者
+19:55 Workqueueの話, Linux Workqueue Introduction, Yoshida san
+* Abstract Linux Workqueue is a general purpose async execution mechanism.
+This is the Linux kernel implementation of a familiar thread pool pattern.
+This session introduces Workqueue and explains how Linux resolve this problem.
+Linuxカーネルの非同期実行の仕組みとしてWorkqueueというものがあります。
+これはスレッドプールのようなものなのですが、Linuxカーネルではスケジューラに「ひと工夫」することでこの問題をうまく解決しています。ここら辺のうまい「ひと工夫」をご紹介したいと思います。
+* Linux support engineer at MIRACLE LINUX.
+I made my debut for Linux kernel community since 3.13 -- a comment typo fix ;)
+MIRACLE LINUXエンジニア。
+最近、コメントのtypo修正で念願のカーネルコミュニティーデビューを果たしました。
+</code></pre>
+
+<p>昨晩同様、メモを以下に。幸運なことに上の wifi 繋がったままだw</p>
+
+<p></p>
+
+<h2 id="開始前の">開始前の</h2>
+
+<p>いきなり自己紹介タイムになってました。年配の方が多いカンジ。</p>
+
+<p>sl に関する解説があるなど。-c ってオプションが追加になったとのこと。ソースが Github で公開されている模様。</p>
+
+<p>johnath/beep という Github プロジェクトがある。Beep の危機らしい。ioctl でコンソールを云々、とかいう話が出ていたりなど。</p>
+
+<h2 id="よしおかさんによるオープニング">よしおかさんによるオープニング</h2>
+
+<p>今後は月イチくらいのペースで開催らしい。いいなぁ。&rsquo;99 から続いているとのこと。ぼくが Linux 使いはじめたのがそれくらいなのかどうか。</p>
+
+<p>途中でビールが届いて話が中断w</p>
+
+<p>オープンソースに contribute できる人が増えたらいいなぁ、と。あと、道に迷ってる人続出らしいw</p>
+
+<h2 id="open-printing">Open Printing</h2>
+
+<ul>
+<li>OpenPrinting Japan</li>
+<li>LibreOffice Japanese Team</li>
+<li>プリンタはまだまだ死なない</li>
+<li>新しい印刷の世界がくるのではないか</li>
+<li>軽い、たためる、DPI 高い</li>
+<li>紙と IT のアライアンス</li>
+<li>新しいプリンティングシナリオ</li>
+<li>モバイルから印刷したい</li>
+<li>クラウド文書見てるかも</li>
+<li>クラウドに繋がったプリンタがあるかも</li>
+<li>近くのプリンタに出してくれ、な依頼もあり</li>
+<li>printing-ng</li>
+<li>標準化団体二つある (OpenPrinting, IEEE の Printer Working Group)</li>
+<li>PDF Direct</li>
+<li>プリンタドライバのインストールができない世界</li>
+<li>Page Description Language</li>
+<li>PDF でいいじゃん的解</li>
+<li>Printer Discovery</li>
+<li>近いのを探せるようにする必要がある</li>
+<li>Bonjour</li>
+<li>サービスディスカバリ</li>
+<li>DNS のテキストフィールドにプリンタの情報を持つ</li>
+<li>アプリケーションレイヤが頑張る</li>
+<li>Internet Printing Protocol</li>
+<li>全部 HTTP の載せる</li>
+<li>プリンタから情報をとってくる</li>
+<li>ベンダフリーな印刷システム</li>
+<li>HTTP 喋れれば良い</li>
+<li>IPP Everywhere</li>
+<li>Apple AirPrint のベンダフリーなナニ</li>
+<li>モバイルに印刷なナニをのっけるのに適している</li>
+<li>cloud?</li>
+<li>cloud working group</li>
+<li>IPPSIX というナニ</li>
+<li>クラウドアプリから近くのプリンタに</li>
+<li>要注目</li>
+<li>Future Printing Senario is now approching</li>
+<li>印刷がどんな価値をユーザに与えるか</li>
+<li>一緒に考えよう</li>
+<li>PDF のバージョン、規格のフラグメンテーションの問題</li>
+<li>印刷向け PDF 仕様を使う</li>
+<li>レベルが低いデバイスのレンダリング云々</li>
+<li>写真の印刷でふちなし印刷が欲しいんだが</li>
+<li>インクジェットでないとふちなしはできない</li>
+<li>ケイパビリティで確認してできるやつに印刷</li>
+<li>そのあたりの scheme は定義されてる</li>
+<li>スライド英語でステキ</li>
+</ul>
+
+<h2 id="our-memories-of-linux">Our Memories of Linux</h2>
+
+<ul>
+<li>日本昔話 Linux 版</li>
+<li>1991-2000 頃</li>
+<li>20 年前!!</li>
+<li>1000 万円のマシン</li>
+<li>綺麗な写真がインターネットに無い</li>
+<li>Sun-<sup>4</sup>&frasl;<sub>60</sub> 34000K</li>
+<li>Next 20000K</li>
+<li>ネットワーク環境!!</li>
+<li>テレホーダイ</li>
+<li>OCN エンタープライズ 6Mbps で 985K/m</li>
+<li>Unix は 1980s は利用許諾が厳しかった</li>
+<li>まず、インストール</li>
+<li>C で書かれてたから移植性が高い (基本アセンブラ</li>
+<li>Linux 1991/1/5 公開</li>
+<li>GPL になったのが 1992.1</li>
+<li>バージョンを上げることで完成度を高めたと主張 (0.12 の次が 0.95</li>
+<li>0.95 から 1 まで 2 年</li>
+<li>0.99 が 80 くらい</li>
+<li>95 年に Linux 1.2</li>
+<li>20 年で 1000 倍の規模になった</li>
+<li>386BSD より簡単に入る</li>
+<li>数十万の FD でインストール</li>
+<li>30 枚から 70 枚</li>
+<li>Unix 本、当時は酷かった</li>
+<li>rms から lignux とか GNU/Linux とかって言われた</li>
+<li>Linux が収録された最初の書籍</li>
+<li>書籍の PS は FTP 公開</li>
+<li>rms マメ</li>
+<li>rms を馬鹿にする Linux 書籍が出版て</li>
+<li>第三金曜に info talk というイベント開催</li>
+<li>スライド是非公開して欲しい</li>
+<li>日本語環境の進歩について</li>
+<li>ぢつはピザが来たw</li>
+</ul>
+
+<h2 id="linux-workqueue-introduction">Linux Workqueue Introduction</h2>
+
+<ul>
+<li>一通りよっぱらって work queue はなかなか、という話あり</li>
+<li>読書会なのでソースを、とのこと</li>
+<li>FM Towns 世代、というのがあるらしい</li>
+<li>そして BeOS 派閥という (ry</li>
+<li>名前オチという凄いツカミがw</li>
+<li>コメント修正なパッチを投げてます</li>
+<li>Concurrency Managed Workqueue</li>
+<li>コールバック登録と呼び出し</li>
+<li>スレッドプールの悩みどころ</li>
+<li>CPU スケジューラと JOB スケジューラの二段</li>
+<li>workqueue は全部カーネルが知ってる</li>
+<li>work_struct 構造体</li>
+<li>schedule_work という手続きがエントリポイント</li>
+<li>掘ってくと insert_work という手続きがアレ</li>
+<li>queue の末端に登録してワーカスレッドを起こす</li>
+<li>worker_thread という手続き</li>
+<li>無限ループで queue から取り出す</li>
+<li>PF_WQ_WORKER というフラグ</li>
+<li>CPU スケジューラと密接な関係?</li>
+<li>optimization path という謎</li>
+<li>schedule 手続き</li>
+<li>中に PF_WQ_WORKER というフラグが出てくる</li>
+<li>次を起こして自分が寝る、という実装に関心した次第</li>
+<li>カーネル怖くない、が存分に伝わったことと思います</li>
+<li>すりーぷしたら次を起こしてくれるよう準備</li>
+<li>書籍のいっちゃん新しいのが 2010 の 2.6.34 (英語)</li>
+<li>日本語だと 2.6 解読室が最新て</li>
+<li>情報不足してたところ読書会復活</li>
+<li>こみゅにてぃべーすでカーネルの情報増えて欲しい</li>
+<li>久しぶりに C のコードがプロジェクタにw</li>
+<li>カーネルのどのへんから素人は攻めた方が</li>
+<li>問いあわせのあった部分からw</li>
+<li>スケジューラから、というのはよく言われている</li>
+<li>sched ディレクトリあたり</li>
+<li>カーネル取得方法?</li>
+<li>Git オススメ</li>
+<li>変更が分かるので (誰が悪いか分かる</li>
+<li>2007 年の Linus の Git 動画おもしろいよ</li>
+<li>svn の dis り大会</li>
+<li>実際そーなんですよてwwww</li>
+<li>分散、がアレ</li>
+<li>従来のソレは親分子分だった</li>
+<li>pull してね、とは言え、未だに patch じゃん、ってあたりがアレ</li>
+</ul>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>ビットアイルさまより。</p>
+
+<ul>
+<li>コミュニティに場所貸し出しとのこと</li>
+<li>実は社食らしい</li>
+<li>会場を使って頂きたいとのこと</li>
+<li>無償提供</li>
+<li>ダーツルームwww</li>
+<li>ゴルフシミュレータwwww</li>
+<li>卓球台wwww</li>
+<li>営業wwwww</li>
+</ul>
+
+<h2 id="beer-bash">Beer Bash</h2>
+
+<p>目標はよしおかさんにごあいさつすること、という事で。</p>
+
+<p>締め発信。</p>
+
+<ul>
+<li>金曜日</li>
+<li>月イチで、できれば今年 10 回くらい</li>
+<li>ネタ募集</li>
+<li>英語を避けては通れない</li>
+<li>LINUXCON やるときもやりたい</li>
+<li>若い方を呼んでいただきたい</li>
+<li>よしおかさん喋る喋るww</li>
+</ul>
+
+<p>そしてようやくよしおかさんにご挨拶することできました。アイコン覚えていただいてて嬉しかったです。うれしすぎてそのまま帰っちゃいましたw</p>
+
+<p>沖縄からバイナリアン候補を  YLAG とか LINUXCON とかに送ります (を</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Mar 29, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/03/29/what-i-need-in-akiba/" title="アキバで入手したいもの">アキバで入手したいもの</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/03/30/get-some-parts-in-akiba/" title="帰りにアキバに寄ってブツ入手">帰りにアキバに寄ってブツ入手</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

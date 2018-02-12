@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Machine Learning on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/machine-learning/</link>
+    <description>Recent content in Machine Learning on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 26 Jul 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>デルタ碁</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/07/26/delta-go/</link>
+      <pubDate>Wed, 26 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/07/26/delta-go/</guid>
+      <description>最強囲碁AI アルファ碁解体新書を購入して読もうとしているのですが、ソースコードなんかも公開されている模様。別途確認の方向です。 デルタ碁(De</description>
+    </item>
+    
+    <item>
+      <title>Cloud MLE の使い方? 控え</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/06/18/cloud-mle-memo/</link>
+      <pubDate>Sun, 18 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/06/18/cloud-mle-memo/</guid>
+      <description>&lt;p&gt;メモです。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DQN 云々</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2017/05/07/dqn/</link>
+      <pubDate>Sun, 07 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2017/05/07/dqn/</guid>
+      <description>以下、ポインタのみですが。 DQNの生い立ち ＋ Deep Q-NetworkをChainerで書いた ゼロからDeepまで学ぶ強化学習 DQNをKerasと</description>
+    </item>
+    
+  </channel>
+</rss>

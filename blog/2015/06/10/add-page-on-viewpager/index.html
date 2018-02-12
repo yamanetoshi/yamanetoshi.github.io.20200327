@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>ViewPager のページ追加</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 10, 2015
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2015/06/10/add-page-on-viewpager/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         ViewPager のページ追加 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>そんな事できるのだろうか。ただ、参考にさせて頂いているエントリによれば</p>
+
+<ul>
+<li>adapter.getAll で ArrayList 取得して</li>
+<li>そこからデータの追加や削除を行ない</li>
+<li>操作した ArrayList を adapter.addAll で追加して</li>
+<li>ViewPager#setAdapter すれば良い</li>
+</ul>
+
+<p>模様。もう少し色々ヤッておく必要があるようですが、本当にこんなので何とかなるのかなぁ。</p>
+
+<p></p>
+
+<p>なんとなく、先日作った GCM な通知サンプルにひっかけてみました。</p>
+
+<h2 id="追加">追加</h2>
+
+<p>通知着信契機にて。とりあえず GcmIntentService から BroadcastIntent 投げて Acrivity で取ります。で、onReceive にて</p>
+
+<pre><code>@override
+public void onReceive(Context c, Intent i) {
+    Bundle extras = i.getExtras();
+    final String id = extras.getString(&quot;id&quot;);
+    new Handler().post(new Runnable() {
+
+        @Override
+        public void run() {
+            Receipt item = new Item(Integer.parseInt(id));
+            mAdapter.addItem(item);
+            mAdapter.notifyDataSetChanged();
+        }
+
+    });
+}
+</code></pre>
+
+<p>みたいなカンジで出ました。ちなみに IntentService#onHandleIntent から sendBroadcast する時には</p>
+
+<ul>
+<li>引数の intent の getExtras() で Bundle なオブジェクト取得</li>
+<li>Bundle なオブジェクトから getString(&ldquo;message&rdquo;) にて通知発信されたナニを取得して Broadcast な Intent に設定</li>
+<li>それ以前にサーバサイドからは <code>{data: {message: &quot;hoge&quot;}}</code> な形で通知発信</li>
+</ul>
+
+<p>という実装を盛り込んでいます。</p>
+
+<h2 id="削除">削除</h2>
+
+<p>Fragment にボタンを仕込んでおいて削除の確認もしました。クリックしたら onFragmentInteraction を呼んであげて</p>
+
+<pre><code>btn.setOnClickListener(new OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        mListener.onFragmentInteraction(mParam2);
+    }
+});
+</code></pre>
+
+<p>mParam2 ですが、Fragment 作る時に以下なカンジで int なソレを渡しています。定義はアダプタになります。</p>
+
+<pre><code>@Override
+public Fragment getItem(int i) {
+    Receipt item = mList.get(i);
+    return BlankFragment.newInstance(&quot;Fuga: &quot;, item.getId());
+}
+</code></pre>
+
+<p>Fragment 側の定義は略します。話を元に戻しまして削除ボタンクリック時には Activity 側のメソドに制御が移り、以下で事足ります。</p>
+
+<pre><code>@Override
+public void onFragmentInteraction(int id) {
+    mAdapter.removeItem(id);
+    mAdapter.notifyDataSetChanged();
+}
+</code></pre>
+
+<p>アダプタ側でリストを走査して id なデータを削除する処理を追加しています。もう少し良い方法が無いものか。</p>
+
+<h2 id="追記">追記</h2>
+
+<p>削除のあたりで地雷を踏んでいます。別途エントリを作成予定です。</p>
+
+<h2 id="そして-0-件表示">そして 0 件表示</h2>
+
+<p>どうしたものかと思案中。</p>
+
+<h2 id="参考エントリ">参考エントリ</h2>
+
+<ul>
+<li><a href="http://yusuke-hata.hatenablog.com/entry/2014/11/29/193026">ViewPager のページを動的に追加する</a></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 10, 2015</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2015/06/10/yose-ga-mieru-hon/" title="本購入">本購入</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2015/06/11/onshowfilechooser-method/" title="onShowFileChooser (2)">onShowFileChooser (2)</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

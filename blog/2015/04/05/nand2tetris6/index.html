@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>加算器の実装など (nand to tetris(6))</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 5, 2015
+         - 4 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2015/04/05/nand2tetris6/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         加算器の実装など (nand to tetris(6)) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>とりあえず 02 なディレクトリに 01/*.hdl をコピィして <code>git init</code> したり Github に push したりしておいて実装着手。</p>
+
+<p>要件見てみるに sum は Xor の出力、carry は And の出力で良いのかな。</p>
+
+<p></p>
+
+<p>以下なカンジの実装をでっち上げて、</p>
+
+<pre><code>CHIP HalfAdder {
+    IN a, b;    // 1-bit inputs
+    OUT sum,    // Right bit of a + b 
+        carry;  // Left bit of a + b
+
+    PARTS:
+    Xor(a=a, b=b, out=sum);
+    And(a=a, b=b, out=carry);
+}
+</code></pre>
+
+<p>テストにはパスしています。次は全加算器ですが半加算器二つで良いのかな。carry は or に食わせちゃって良いのかな。</p>
+
+<p>そして次はオーバーフロー無視な Add16 というソレを、とのこと。そうか全加算器って carry 加えないといけないので入力が三つなんスね。</p>
+
+<p>その次は Inc16 というソレ。Add16 の片方の引数が 1 で良いのかな。これってどう書けば良いのかと。1 の指定の方法がかなりズルかったのですが気付かなんだッスorz</p>
+
+<h2 id="alu">ALU</h2>
+
+<p>なんだかここでいきなりハードルが上がる感じがします。とりあえず戻すナニはレジスタ (?) に格納しておくとして入力なフラグをどう取り扱って条件分岐すれば良いのか、がカギなのかな。</p>
+
+<p>よくよく見てみるに、zx、nx、zy、ny なフラグは入力な x あるいは y の状態を変えるかどうかを指示するフラグになっていますね。あるいは f は x および y でどのような演算をするのかを指示するフラグになっていて out は出力にどんなフィルタかけるかを指示しているのか。</p>
+
+<p>演算子としては</p>
+
+<ul>
+<li>And16</li>
+<li>Add16</li>
+<li>Not16</li>
+</ul>
+
+<p>が使えますね。あるいは場合分けとして</p>
+
+<ul>
+<li>z が 0、n が 0 なら入力値はそのまま使う</li>
+<li>z が 1、n が 0 なら入力値は 0 に</li>
+<li>z が 0、n が 1 なら入力値は Not 演算なフィルタかける</li>
+<li>z が 1、n が 1 なら入力値は -1 になるのか</li>
+</ul>
+
+<p>これって 4way なマルチプレクサが使えるの?</p>
+
+<p>あるいは</p>
+
+<ul>
+<li>0 にするには Not したソレと And すれば良い?</li>
+<li>-1 は 0 の Not</li>
+<li>0 は false って理解で良いのかな</li>
+<li>true は -1 でした</li>
+<li>ちなみに 0 番目の要素に true 代入で 1 になる模様</li>
+</ul>
+
+<p>これを順に適用すれば良い?</p>
+
+<p>あとは出力なフラグを何とかしないと、なのか。ここはスルーで上のソレを実装してみます。実装なポイントとしてはゲートに渡す引数、あるいは逆に出力される引数を</p>
+
+<pre><code>sel[0]=nx, sel[1]=zx,
+</code></pre>
+
+<p>みたく分けたり</p>
+
+<pre><code>out[0..7]=low
+</code></pre>
+
+<p>みたく分割取得できたりできるあたりがアレです。ちょっと考えることができる手順を以下に控えておきます。</p>
+
+<ul>
+<li>x および y の Not 取得</li>
+<li>sel[0] を n、sel[1] を z で指定して Mux4Way16 を呼び出して x および y の初期値の準備</li>
+<li>x+y および x&amp;y の演算結果取得</li>
+<li>それぞれの Not 取得</li>
+<li>sel[0] を f、sel[1] を no で指定して Mux4Way16 呼び出して戻り値取得</li>
+</ul>
+
+<p>これで戻さなければならない値は取得できているはず。あとはフラグをどうするか、なのか。これって分割取得できる仕組みを使って</p>
+
+<ul>
+<li>Or8Way 使うと上、下のビットが全部 0 かを確認できる?</li>
+<li>全部ゼロだったらフラグを、ってどうやるんだろ</li>
+<li>最上位ビットを検査すれば符号が分かる</li>
+</ul>
+
+<p>あ、Or8Way 使って最後に Not すれば良いのかorz</p>
+
+<h2 id="実装してみます">実装してみます</h2>
+
+<p>微妙な試行錯誤のうちに試験にパス。微妙ながらも commit 作ってみます (リセットして差分を消したナニがあるのでバックアップ作成用途orz)。</p>
+
+<p>マルチビットバージョン (nand to tetris(5))
+nand2tetris5
+[programming]</p>
+
+<p>16 ビット並列なゲートも作れとのこと。繰り返しって使えるのかな、と思い <code>for</code> とか使ってみましたが、どうも実装されていないようで .hdl が読みこめませんでした。仕方が無いのでコピペでアレしましたが、これはなかなかに辛みのあるナニですな (何</p>
+
+<p>とりあえずここまでの時点で作ってる部品は使って良いとのことなのでそのまんま使ってしまい multi-bit なソレは実装できました。</p>
+
+<p>また、この HDL では変数の使いまわしはできないみたいなので Or8Way もちょっと工夫が必要らしい。</p>
+
+<!--more-->
+
+<h2 id="mux4way">Mux4Way</h2>
+
+<p>これ、どうすりゃ良いのかな。以下なコメントがあるのですが</p>
+
+<pre><code>* out = a if sel == 00
+        b if sel == 01
+        c if sel == 10
+        d if sel == 11
+</code></pre>
+
+<p>末端ビットからグループ絞って云々、なのか。これはムズい。これを応用すれば Mux8Way も手間ではありますができますね。</p>
+
+<h2 id="multi-way-multi-bit-demultiplexor">Multi-Way/Multi-Bit Demultiplexor</h2>
+
+<p>今度は出力先を、なのか。DMux 二度呼び出せば 4 つのうち 2 つは選択できますね。あとは sel[1] の値が 0 なら a か b で 1 なら c か d なのか。。。DMux みたいに一つづつ And 取れば良いのかな。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 5, 2015</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2015/04/04/nand2tetris5/" title="マルチビットバージョン (nand to tetris(5))">マルチビットバージョン (nand to tetris(5))</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2015/04/06/the-elements-of-computing-systems/" title="コンピュータシステムの理論と実装">コンピュータシステムの理論と実装</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

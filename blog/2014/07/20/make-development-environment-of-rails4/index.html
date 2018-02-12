@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Rails4 開発環境作ってみます</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jul 20, 2014
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/07/20/make-development-environment-of-rails4/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Rails4 開発環境作ってみます 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>とりあえず目指す構成としては</p>
+
+<ul>
+<li>Ubuntu な仮想ホストに Docker および nfsd を導入</li>
+<li>Rails, PostgreSQL, Redis なコンテナ</li>
+<li>アプリのディレクトリは nfs で共有</li>
+<li>Rails コマンド叩きたい</li>
+</ul>
+
+<p>あと、仮想ホストの環境設定などは ansible を使って云々な形にしたいです。どうなるか。</p>
+
+<p></p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>Docker および nfsd を使えるようにしとかねば。</p>
+
+<pre><code>$ sudo apt-get install -y nfs-kernel-server
+</code></pre>
+
+<p>あと</p>
+
+<pre><code>locale: Cannot set LC_CTYPE to default locale: No such file or directory
+locale: Cannot set LC_MESSAGES to default locale: No such file or directory
+locale: Cannot set LC_ALL to default locale: No such file or directory
+</code></pre>
+
+<p>な不具合も何とかしたい。ちなみに docker は 0.9.1 な模様。</p>
+
+<pre><code>$ apt-cache show docker.io
+Package: docker.io
+Priority: optional
+Section: universe/admin
+Installed-Size: 21726
+Maintainer: Ubuntu Developers &lt;ubuntu-devel-discuss@lists.ubuntu.com&gt;
+Original-Maintainer: Paul Tagliamonte &lt;paultag@debian.org&gt;
+Architecture: amd64
+Version: 0.9.1~dfsg1-2
+</code></pre>
+
+<p>入れておく。</p>
+
+<pre><code>$ sudo apt-get install -y docker.io
+</code></pre>
+
+<p>で、locale のエラーの件ですが、<a href="http://d.hatena.ne.jp/tkrd/20120828/1346123699">Ubuntu Server 12.04: 警告「Setting locale failed」への対処法</a> によれば接続元側の /etc/ssh/ssh_config の</p>
+
+<pre><code>SendEnv LANG LC_*
+</code></pre>
+
+<p>というエントリが原因なようです。コメントアウトしとこ。</p>
+
+<h2 id="とりあえず-1">とりあえず</h2>
+
+<p>某所で云々しているプロジェクトを clone して手動で docker なソレを kickoff してみます。つうか docker.io だし sudo しなきゃ、なのね。</p>
+
+<pre><code>$ sudo docker.io build -t postgres ./docker/postgres
+$ sudo docker.io build -t rails .
+$ sudo docker.io build -t redis ./docker/redis
+</code></pre>
+
+<p>rails なコンテナは kickoff に時間かかってます。ruby-build を云々してらっしゃる模様。導入終了時点で以下なカンジ。</p>
+
+<pre><code>$ sudo docker.io images
+REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+&lt;none&gt;              &lt;none&gt;              f0cb029e411e        7 minutes ago       278 MB
+rails               latest              d07448517757        12 minutes ago      937.9 MB
+postgres            latest              60fc94deeea8        36 minutes ago      416.2 MB
+stackbrew/ubuntu    12.04               ea7d6801c538        3 weeks ago         127.5 MB
+ubuntu              12.04               ea7d6801c538        3 weeks ago         127.5 MB
+</code></pre>
+
+<p>で、postgres と redis は動かしておきます。</p>
+
+<pre><code>$ sudo docker.io run -d --name postgres -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker postgres:latest
+$ sudo docker.io run -d --name redis redis:latest
+</code></pre>
+
+<p>あら、redis の方の動作が微妙。ps したら postgres しか動いていない。これ、原因を云々するにはどうすりゃ良いのやら。</p>
+
+<p>と、言いつつ contrainer に接続してみるに、文字化け。</p>
+
+<pre><code>$ sudo docker.io run -i -t 7d03a32d31ed /bin/bash
+
+*** FATAL CONFIG FILE ERROR ***
+Reading the configuration file, at line 1
+ ÀÁM&lt;¸ FX¨!@@@ ¨À&quot;$ Y&quot; ◆◆¢BP⎼ö±?B     J։]B@┐÷?X¡©¥¢F´d­\­°õ6Ź@YZ┴≤d5&gt;
+¶SýN҆O▮Wº½ ⎽┤¯¸û³▒G'[[Zb⎻RDӪ˒8┤G&lt;u$P0XsC^ü囫mB¥-&amp;FX»y                       ←*I)Y┐¢F┐
+</code></pre>
+
+<p>むむ。これ確か <code>sudo docker.io log</code> とかってした時も同様に化けたな。contrainer だけ作って、/bin/bash で接続してみるか。</p>
+
+<pre><code>$ sudo docker.io run -i -t redis /bin/bash
+</code></pre>
+
+<p>これも化けた。てことは Dockerfile が悪いのかな。手動で云々してみるのかどうか。手元には ubuntu:12.04 な image はあります。</p>
+
+<pre><code>$ sudo docker.io run -i -t ea7d6801c538 /bin/bash
+root@6cc7c8189a63:/# 
+</code></pre>
+
+<p>ええと、パケジだけ入れて、って redis な public image があるのかな。</p>
+
+<pre><code>$ sudo docker.io run johncosta/redis
+</code></pre>
+
+<p>あ、以下なのかな。</p>
+
+<pre><code>$ sudo docker.io run -d --name redis johncosta/redis -p 6379
+</code></pre>
+
+<p>なんか根本的な問題解決になっていないのですがとりあえず Dockerfile を以下にして</p>
+
+<pre><code>FROM johncosta/redis
+</code></pre>
+
+<p>以下を実行。</p>
+
+<pre><code>$ sudo docker.io build -t redis ./docker/redis
+Uploading context 3.584 kB
+Uploading context 
+Step 0 : FROM johncosta/redis
+ ---&gt; 13aaf9ab41e5
+Successfully built 13aaf9ab41e5
+</code></pre>
+
+<p>で、</p>
+
+<pre><code>$ sudo docker.io run -d --name redis -p 6379 redis:latest
+</code></pre>
+
+<p>で動いたのかな? で、postgres な container も rm して再度起動して</p>
+
+<pre><code>$ sudo docker.io run -d --name postgres -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker postgres:latest
+</code></pre>
+
+<p>二つ動いてる状態になりました。</p>
+
+<pre><code>$ sudo docker.io ps
+CONTAINER ID        IMAGE                    COMMAND                CREATED             STATUS              PORTS                     NAMES
+c49233f54278        postgres:latest          /usr/local/bin/run     6 seconds ago       Up 5 seconds        5432/tcp                  postgres            
+ed4809b7d731        johncosta/redis:latest   /usr/bin/redis-serve   2 minutes ago       Up 2 minutes        0.0.0.0:49153-&gt;6379/tcp   redis               
+</code></pre>
+
+<p>いいのかな。なんか微妙なカンジが。</p>
+
+<h2 id="次">次</h2>
+
+<p>nfs で export して Docker 側で -v で mount できるのかどうか。なんかドキュメント見てるに nfs export しなくても良さげなんですがどうなんだこれ。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jul 20, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/07/19/my-sister-comes-okinawa/" title="妹夫婦が遊びにきてくれました">妹夫婦が遊びにきてくれました</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/07/21/v-option-of-docker-run/" title="docker run の v オプション">docker run の v オプション</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

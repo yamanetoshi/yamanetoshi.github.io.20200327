@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>wireless ドライバ探し</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Dec 8, 2013
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/12/08/linux-wireless-driver/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         wireless ドライバ探し 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>動いてる kernel が以下らしく</p>
+
+<pre><code>$ uname -a
+Linux raspberrypi 3.6.11+ #474 PREEMPT Thu Jun 13 17:14:42 BST 2013 armv6l GNU/Linux
+</code></pre>
+
+<p>ソースパケジを取得。</p>
+
+<pre><code>$ sudo apt-get install linux-source-3.6
+</code></pre>
+
+<p></p>
+
+<p>で、menuconfig しなきゃ、なのか。</p>
+
+<pre><code>$ cd /usr/src/linux-source-3.6
+$ sudo make menuconfig
+</code></pre>
+
+<p>む、libncurses5-dev が必要らしい。</p>
+
+<!--more-->
+
+<h2 id="menuconfig-の依存関係">menuconfig の依存関係</h2>
+
+<p>drivers/net/wireless/rt2x00/Kconfig によれば</p>
+
+<pre><code>menuconfig RT2X00
+        tristate &quot;Ralink driver support&quot;
+        depends on MAC80211
+</code></pre>
+
+<p>とのことなんですが。それ以外にも drivers/net/wireless/Kconfig に以下な記述がありますね。</p>
+
+<pre><code>menuconfig WLAN
+        bool &quot;Wireless LAN&quot;
+        depends on !S390
+        depends on NET
+</code></pre>
+
+<p>あるいは drivers/net/Kconfig が以下。</p>
+
+<pre><code>menuconfig NETDEVICES
+        default y if UML
+        depends on NET
+</code></pre>
+
+<p>とりあえず CONFIG_NET はデフォで y ですね。で、CONFIG_NETDEVICES は CONFIG_SCSI_MOD あたりなのかどうか。</p>
+
+<h2 id="と思ったら">と思ったら</h2>
+
+<p>Network device support って項目が出てるな。見落としてたのだろうかorz</p>
+
+<p>そして CONFIG_MAC80211 も y でした。でもまだ出てこない。よくよく見てみるに</p>
+
+<pre><code>        depends on USB
+</code></pre>
+
+<p>て記述もあり、</p>
+
+<pre><code># CONFIG_USB is not set
+</code></pre>
+
+<p>というソレも確認。成程。ええと、USB support から Support for Host-side USB をチェック入れたら何とかなるもまだ menuconfig に肝心なソレが出てこない。</p>
+
+<h2 id="と思ったら-1">と思ったら</h2>
+
+<p>Ralink driver support とゆーのが出てたorz</p>
+
+<p>とりあえずこれでイケたみたい。</p>
+
+<pre><code>$ grep RT2 .config
+CONFIG_RT2X00=y
+# CONFIG_RT2500USB is not set
+CONFIG_RT2800USB=y
+CONFIG_RT2800USB_RT33XX=y
+CONFIG_RT2800USB_UNKNOWN=y
+CONFIG_RT2800_LIB=y
+CONFIG_RT2X00_LIB_USB=y
+CONFIG_RT2X00_LIB=y
+CONFIG_RT2X00_LIB_FIRMWARE=y
+CONFIG_RT2X00_LIB_CRYPTO=y
+# CONFIG_RT2X00_DEBUG is not set
+</code></pre>
+
+<p>今日はこれで終わり。</p>
+
+<h2 id="つうか">つうか</h2>
+
+<p>USB な wireless のドライバを云々するのにこんなに手間がかかると思わなんだ。あと raspbian の /boot に config なソレが無いのも色々な意味で酷いけどその位ヤれ、って事なのかorz</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Dec 8, 2013</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2013/12/08/making-rice-by-donabe/" title="土鍋で炊飯について備忘メモ">土鍋で炊飯について備忘メモ</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2013/12/09/make-wireless-driver-in-raspi/" title="wireless ドライバの続き">wireless ドライバの続き</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

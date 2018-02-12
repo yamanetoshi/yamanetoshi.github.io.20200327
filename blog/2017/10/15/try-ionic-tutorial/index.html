@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Ionic チュートリアル試してみる</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Oct 15, 2017
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2017/10/15/try-ionic-tutorial/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Ionic チュートリアル試してみる 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>とりあえず導入から。</p>
+
+<pre><code>$ sudo apt-get install npm -fy
+$ npm install -g ionic cordova
+</code></pre>
+
+<p>で、以下を読みつつすすめてみます。</p>
+
+<ul>
+<li><a href="https://ionicframework.com/docs/intro/tutorial/">Ionic Tutorial</a></li>
+</ul>
+
+<p></p>
+
+<p>以下でどうなるのか。</p>
+
+<pre><code>$ ionic start MyIonicProject tutorial
+</code></pre>
+
+<h2 id="と思ったら">と思ったら</h2>
+
+<p><code>ionic</code> が見つからない。これってでびあんにありがちな <code>npm</code> が古い、というやつなのかどうか。</p>
+
+<h2 id="こうしてみた">こうしてみた</h2>
+
+<pre><code>$ sudo npm install -g npm@latest
+npm WARN package.json path-is-inside@1.0.2 No README data
+npm WARN package.json sorted-object@2.0.1 No README data
+/usr/local/bin/npx -&gt; /usr/local/lib/node_modules/npm/bin/npx-cli.js
+/usr/local/bin/npm -&gt; /usr/local/lib/node_modules/npm/bin/npm-cli.js
+npm@5.5.1 /usr/local/lib/node_modules/npm
+</code></pre>
+
+<p>駄目らしい。いったん <code>nodejs</code> および <code>npm</code> を削除。</p>
+
+<pre><code>$ sudo apt-get remove nodejs npm
+</code></pre>
+
+<h2 id="nvm-を使います">nvm を使います</h2>
+
+<p>以下、とのこと。</p>
+
+<pre><code>$ git clone git://github.com/creationix/nvm.git ~/.nvm
+$ source ~/.nvm/nvm.sh
+</code></pre>
+
+<p>て、よくよく見てみるに $HOME に .nvm があるぞ。なので</p>
+
+<pre><code>$ cd $HOME/.nvm
+$ git fetch origin
+$ git merge origin/master
+</code></pre>
+
+<p>で、こうなのか。</p>
+
+<pre><code>$ nvm install stable
+</code></pre>
+
+<p>どうも v8.7.0 というナニが導入されたようです。で、再度 <code>ionic</code> および <code>cordova</code> 導入。<code>sudo</code> なしで大丈夫なのか。</p>
+
+<pre><code>$ npm instal -g ionic cordova
+</code></pre>
+
+<p>なんか <code>sudo</code> ナシで、って思ったら .nvm 配下に、な模様。成程。</p>
+
+<h2 id="プロジェクト作成リトライ">プロジェクト作成リトライ</h2>
+
+<p>以下にて。</p>
+
+<pre><code>$ ionic start MyIonicProject tutorial
+✔ Creating directory ./MyIonicProject - done!
+[INFO] Fetching app base 
+       (https://github.com/ionic-team/ionic2-app-base/archive/master.tar.gz)
+✔ Downloading - done!
+[INFO] Fetching starter template tutorial 
+       (https://github.com/ionic-team/ionic2-starter-tutorial/archive/master.tar.gz)
+✔ Downloading - done!
+✔ Updating package.json with app details - done!
+✔ Creating configuration file ionic.config.json - done!
+[INFO] Installing dependencies may take several minutes!
+&gt; npm install
+✔ Running command - done!
+&gt; git init
+
+? Connect this app to the Ionic Dashboard? No
+&gt; git add -A
+&gt; git commit -m &quot;Initial commit&quot; --no-gpg-sign
+
+Next Steps:
+Go to your newly created project: cd ./MyIonicProject
+</code></pre>
+
+<p>とりあえず MyIonicProject ディレクトリが作成されているようです。</p>
+
+<h2 id="動作確認">動作確認</h2>
+
+<p>以下らしく。</p>
+
+<pre><code>$ cd MyIonicProject
+$ ionic serve
+</code></pre>
+
+<p>なんか自動で <code>firefox</code> 起動してますね。</p>
+
+<h2 id="中身を見てみます">中身を見てみます</h2>
+
+<p><a href="https://ionicframework.com/docs//intro/tutorial/project-structure/">Project Structure</a> によれば <code>./src/index.html</code> が main entry point との事。ただ、このファイルはかなりスルー気味で <code>./src/</code> 配下を云々しているようです。要点? を以下に列挙してみます。</p>
+
+<ul>
+<li>src ディレクトリの中では uncompiled なコードがあります</li>
+<li>ionic アプリが仕事する場所</li>
+<li><code>ionic serve</code> した時、ブラウザが理解できる javascript に transpile される</li>
+<li>TypeScript で云々するけどそれは JS に compile down、なのか</li>
+<li>エントリポイントとしては <code>src/app/app.module.ts</code> な模様</li>
+<li>全ての app にアプリケーションを制御する root module がある</li>
+<li>ionicBootstrap というものを使っている模様</li>
+<li><code>src/app/app.component.ts</code> が root compnent らしい</li>
+<li>最初に load される component とのこと</li>
+<li>テンプレが <code>src/app/app.html</code> とのこと</li>
+</ul>
+
+<p>たしかに <code>app.component.ts</code> に以下な記述がありますね。</p>
+
+<pre><code>@Component({
+  templateUrl: 'app.html'
+})
+</code></pre>
+
+<p>root component に関する解説はないのかな、と言いつつ続きを確認してみます。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Oct 15, 2017</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2017/10/14/ai-speaker-self-made-kit/" title="AI スピーカー自作 kit">AI スピーカー自作 kit</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2017/10/18/excavation-of-mokumoku/" title="もくもくネタ発掘">もくもくネタ発掘</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

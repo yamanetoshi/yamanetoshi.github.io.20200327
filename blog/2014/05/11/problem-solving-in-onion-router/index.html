@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Onion Router 問題解決</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">May 11, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/05/11/problem-solving-in-onion-router/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Onion Router 問題解決 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>接続できない、という苦情が入ったのでシリアル接続して確認。サービスは動いているカンジですがどうなのか。</p>
+
+<p>確認してみたところ、wlan0 に ip address が付いていない。これっていいのだったかどうかも忘却の彼方。</p>
+
+<h2 id="解">解</h2>
+
+<p>一日置いて電源入れて確認してみたのですが hostapd な起動を /etc/rc.local で云々、がダウトだったようです。</p>
+
+<h2 id="追記">追記</h2>
+
+<p>hostapd を /etc/rc.local で、というのはダウトではありませんでした。あと、これが悪いかも、と言っていた ntpd も今はサービス起動するよう戻しています。</p>
+
+<p></p>
+
+<p>しかも /etc/rc2.d に S02hostapd とかあるな。とりあえず</p>
+
+<ul>
+<li>/etc/init.d/hostapd</li>
+</ul>
+
+<p>を修正。以下の部分で良いのかどうか。</p>
+
+<pre><code>DAEMON_SBIN=/usr/local/bin/hostapd
+DAEMON_CONF=/etc/hostapd/hostapd.conf
+</code></pre>
+
+<p>ファイル保存して再起動。</p>
+
+<h2 id="駄目だ">駄目だ</h2>
+
+<p>wlan0 に ip address が付与されておりません。再度 hostapd を止めて ifdown/ifup して hostapd を起動して無線 AP に接続に行ってみると接続失敗。</p>
+
+<p>ifconfig してみたら ip address が付いてない状態になっている。</p>
+
+<p>再度 ifdown/ifup して手動で hostapd 起動してみると ip address は付与されたままですが端末からの接続ができないな。確認してみるに dhcpd が動いていない。起動したら接続できました。何だこれ。</p>
+
+<p>そして /etc/init.d/hostapd を起動すると wlan0 な ip address が付与されていない状態になるな。</p>
+
+<h2 id="ということは">ということは</h2>
+
+<p>/etc/rc2.d/S02hostapd を K01hostapd に mv すれば良いのかな。あと /etc/init.d/hostapd の中身も元に戻しといた方が良いな。</p>
+
+<h2 id="再起動後">再起動後</h2>
+
+<p>接続できた。名前解決できず。ip address 付いてない。/etc/rc2.d/K01hostapd 削除して /etc/init.d/hostapd も元に戻してリトライ。</p>
+
+<p>ip address 付いてないな。うーん困った。</p>
+
+<p>と言いつつ syslog 見てみるに以下なメセジがある。</p>
+
+<pre><code>May 10 13:15:42 raspberrypi ifplugd(wlan0)[1633]: Link beat detected.
+May 10 13:15:42 raspberrypi ifplugd(wlan0)[1633]: Executing '/etc/ifplugd/ifplugd.action wlan0 up'.
+May 10 13:15:42 raspberrypi ifplugd(wlan0)[1633]: client: /sbin/ifup: interface wlan0 already configured
+May 10 13:15:42 raspberrypi ifplugd(wlan0)[1633]: Program executed successfully.
+</code></pre>
+
+<p>ifplugd て何でしょ。面倒なのでこれも止めよう。</p>
+
+<pre><code>$ sudo mv /etc/rc2.d/S01ifplugd /etc/rc2.d/K05ifplugd
+</code></pre>
+
+<p>で、再起動してみたのですが止まってないよorz</p>
+
+<p>てかよくよく見てみたら ntpd が止めてるの?</p>
+
+<pre><code>May 10 13:22:14 raspberrypi ntpd[2136]: Deleting interface #3 wlan0, 10.254.0.1#123, interface stats: received=0, sent=0, dropped=0, active_s
+</code></pre>
+
+<p>試しに /etc/rc2.d/K02ntpd にしてみて再起動。してみるも ip address は付与されておらず。つうかそもそも ifupdown なソレってどのタイミングで動くんだったか。でびあん弄るの久しぶりなので完全に忘却の彼方だ。</p>
+
+<p>面倒なのでとりあえず ifplugd を削除。そして再起動。</p>
+
+<h2 id="そろそろ疲れてきた件">そろそろ疲れてきた件</h2>
+
+<p>と思ったら正常に動いているらしい件。いやはや。</p>
+
+<p>結論としては ifplugd パケジが原因だった、という事なのかどうか。確認くんで確認してみるに tor 経由になっておりました。</p>
+
+<h2 id="つうか">つうか</h2>
+
+<p>この router 作って随分たつんですが電源入れないまま放っておいたのででき上がったものだとばかり思っていたのですが全然駄目だったんですね。</p>
+
+<p>ともあれこれで問題解決できたので良かった、ってことにしときます。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>May 11, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/05/10/training-of-docker/" title="Docker 修行">Docker 修行</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/05/13/using-usb-sound-card-in-raspbian/" title="音量調節">音量調節</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

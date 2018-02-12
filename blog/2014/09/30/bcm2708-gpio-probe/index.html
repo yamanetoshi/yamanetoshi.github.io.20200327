@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>bcm2708_gpio_probe 手続き (2)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Sep 30, 2014
+         - 6 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/30/bcm2708-gpio-probe/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         bcm2708_gpio_probe 手続き (2) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>自分がササッてる bus に接続されているデバイスを順にとりだして __device_attach 手続きを呼び出している、のかどうか。引数として手続きに渡されるのは</p>
+
+<ul>
+<li>next_device から取得できる struct device オブジェクト</li>
+<li>driver_attach に渡される struct device_driver オブジェクト</li>
+</ul>
+
+<p>になっている模様。next_device という手続きによれば</p>
+
+<ul>
+<li>klist_next により struct klist_iter 型の引数から struct klist_node オブジェクトを取得</li>
+<li>to_device_private_bus により struct device_private オブジェクトを取得</li>
+<li>struct device_private オブジェクトの device 属性を戻す</li>
+</ul>
+
+<p>形になっています。container_of 使って struct device_private なオブジェクトのアドレスを引っ張ってきて、なのか。</p>
+
+<p></p>
+
+<p>この struct device_private は何なのか、ということでコメントを見てみるに以下とのこと。</p>
+
+<blockquote>
+<ul>
+<li>struct device_private - structure to hold the private to the driver core portions of the device structure.</li>
+</ul>
+</blockquote>
+
+<p>うーん、そもそもこの構造体の役割が理解できてないのでそっちから見てみます。</p>
+
+<h2 id="struct-device-driver-型-と-struct-device-型">struct device_driver 型 と struct device 型</h2>
+
+<p>何が違うのか。struct device_driver は <em><i>The basic device driver structure</i></em> で struct device は <em><i>The basic device structure</i></em> とのこと。ぐぬぬ。</p>
+
+<p>struct device_driver 型は</p>
+
+<ul>
+<li>関数ポインタな属性があります。</li>
+<li>struct bus_type 型のポインタ</li>
+<li>なんとなくリストとは無縁に見える</li>
+</ul>
+
+<p>struct device 型は</p>
+
+<ul>
+<li>階層関係なポインタ</li>
+<li>struct kobject 型の属性</li>
+<li>struct device_driver 型のポインタ</li>
+<li>struct bus_type 型のポインタ</li>
+<li>struct klist_node 型の属性</li>
+</ul>
+
+<p>デバイスは同じ型のソレが複数 attach されてることもあり得る、ということか。</p>
+
+<h2 id="それを踏まえて再度確認">それを踏まえて再度確認。</h2>
+
+<p>__driver_attach 手続きです。記述としては</p>
+
+<ul>
+<li>driver_match_device が 0 を戻す場合は return 0</li>
+<li>引数で渡された struct device オブジェクトに親がいるようであれば親を device_lock</li>
+<li>引数で渡された struct device オブジェクトを device_lock</li>
+<li>引数で渡された struct device オブジェクトの driver 属性が未設定の場合は driver_probe_device 手続きを呼び出す</li>
+<li>unlock 操作 (親含め)</li>
+</ul>
+
+<p>で、driver_match_device 手続きの定義が以下になってまして</p>
+
+<p>{% gist 360e94aba9277c3621db %}</p>
+
+<p>drv-&gt;bus-&gt;match が NULL なら 1 が戻ります (return しない)。また、struct bus_type 型の bus ってポインタがさしてるオブジェクトの match 属性は手続きポインタになってますね。定義なコメントが以下です。</p>
+
+<pre><code> * @match:  Called, perhaps multiple times, whenever a new device or driver
+ *      is added for this bus. It should return a nonzero value if the
+ *      given device can be handled by the given driver.
+</code></pre>
+
+<p>なんというかそのまんまですね。NULL 値だったとしても can be handled 認定なのがアレです。</p>
+
+<p>もう一つは driver_probe_device です。ここから呼ばれてる really_probe が核心と見てここのみ掘削。</p>
+
+<ul>
+<li>引数で渡された struct device オブジェクトの driver 属性に引数で渡された struct device_driver オブジェクト設定</li>
+<li>driver_sysfs_add 手続き呼び出し</li>
+<li>引数で渡された struct device オブジェクトの bus-&gt;probe が NULL でなければこちらを呼び出す</li>
+<li>上記関数ポインタが NULL 値で引数で渡された struct device_driver オブジェクトの probe が NULL でなければこちらを呼び出す</li>
+</ul>
+
+<p>なのか。とりあえず driver_sysfs_add を見てみます。sysfs_create_link 手続きで</p>
+
+<ul>
+<li>引数 dev の kobj 属性</li>
+<li>引数 dev の driver 属性の p 属性の kobj 属性</li>
+</ul>
+
+<p>を互いに link しあってるのか、あるいは片側から片輪へ、なのか。確認してみるに正常なら 0 を return なのでお互いに、なのかなぁ。実機で確認してみるに</p>
+
+<ul>
+<li>/sys/bus/platform/devices/bcm2708_gpio は /sys/devices/platform/bcm2708_gpio への symlink</li>
+<li>/sys/bus/platform/drivers/bcm2708_gpio/bcm2708_gpio は /sys/devices/platform/bcm2708_gpio への symlink</li>
+</ul>
+
+<p>や、違うなこれ。お互いに、ではないぞ。よくよく見てみるに以下なのか。</p>
+
+<ul>
+<li>/sys/devices/platform/bcm2708_gpio/driver は /sys/bus/platform/drivers/bcm2708_gpio への symlink</li>
+<li>/sys/bus/platform/drivers/bcm2708_gpio/bcm2708_gpio は /sys/devices/platform/bcm2708_gpio への symlink</li>
+</ul>
+
+<p>つうことは bcm2708_gpio の場合は</p>
+
+<ul>
+<li>device の kobject は /sys/devices/platform/bcm2708_gpio で表現されている</li>
+<li>driver の kobject (という言い方が正しいのかどうか) は /sys/bus/platform/drivers/bcm2708_gpio で表現されている</li>
+</ul>
+
+<p>ということになるのかな。あら、そーゆー意味ではここに到達するまでに sysfs に登録してる手続きを呼び出してるはずなんだけど、おそらくスルーしてるのだな。</p>
+
+<h2 id="一旦戻って">一旦戻って</h2>
+
+<p>driver を register してるあたりを確認してみます。</p>
+
+<ul>
+<li>bus_add_event から呼び出される driver_create_file で drv-&gt;p-&gt;kobj で sysfs_create_file しているのを発見</li>
+</ul>
+
+<p>これが /sys/bus/platform/drivers/bcm2708_gpio か。でも device はそれを probe しないと sysfs には登録はされないはずなのではないのかと。</p>
+
+<p>あらら? と言いつつよくよく見てみるに bus_add_driver から呼び出されている kobject_init_and_add という手続きで struct driver_private なオブジェクトの kobj を渡しててその中で create_dir という手続きが呼ばれております。</p>
+
+<h2 id="ちょっとタイム">ちょっとタイム</h2>
+
+<p>どうも道に迷いまくっているようです。仕切り直し必要。/sys 配下のファイルの確認から。</p>
+
+<ul>
+<li>/sys/class/gpio はデバイスを認識してから作成されるという認識で良いのかどうか</li>
+<li>/sys/bus/platform/devices/bcm2708_gpio は /sys/devices/platform/bcm2708_gpio への symlink</li>
+<li>/sys/bus/platform/drivers/bcm2708_gpio/bcm2708_gpio は /sys/devices/platform/bcm2708_gpio への symlink</li>
+<li>/sys 配下を bcm2708_gpio で grep すると以下なディレクトリが存在する模様</li>
+<li>/sys/bus/platform/devices/bcm2708_gpio</li>
+<li>/sys/bus/platform/drovers/bcm2708_gpio</li>
+<li>/sys/devices/platform/bcm2708_gpio</li>
+</ul>
+
+<p>実は /sys/devices/platform/bcm2708_gpio はデバイス認識していなくてもディレクトリだけは作られてしまうのかな、とか勝手に思っていたり。</p>
+
+<h2 id="sysfs-関連に焦点を当ててざっくり確認">sysfs 関連に焦点を当ててざっくり確認</h2>
+
+<p>まず、bus_add_driver の中の kboject_init_and_add で struct driver_private の kobj を初期化するのかどうか。その後、create_dir しています。</p>
+
+<p>ここで作られているディレクトリは /sys/bus/platform/drivers/bcm2708_gpio という理解で良いのかな。</p>
+
+<p>その後、bus_add_driver から driver_attach という手続きが呼び出されるが、これは autoprobe なスイッチが入ってる時 (?) のみなのかどうか。bus なリンクリストを手繰って __driver_attach をそれぞれの要素について呼び出している模様。</p>
+
+<p>そしてその driver に match する device を見つけたら driver_probe_device 手続きを呼び出しています。この中で really_probe という手続きが呼び出されていてその中で driver_sysfs_add という手続きが呼び出されています。</p>
+
+<p>ただ、ざっくりな確認だけなんですが bcm2708_gpio については</p>
+
+<ul>
+<li>/sys/bus/platform/devices/bcm2708_gpio が /sys/devices/platform/bcm2708_gpio への symlink</li>
+<li>/sys/bus/platform/drivers/bcm2708_gpio/bcm2708_gpio が /sys/devices/platform/bcm2708_gpio への symlink</li>
+</ul>
+
+<p>という二つだけなんスけど、って思ったらリンクはもひとつありますな。driver という名前だ。二つめの symlink 作成な以下の手続き呼び出しで</p>
+
+<pre><code>        ret = sysfs_create_link(&amp;dev-&gt;kobj, &amp;dev-&gt;driver-&gt;p-&gt;kobj,
+                                &quot;driver&quot;);
+</code></pre>
+
+<p>/sys/devices/platform/bcm2708_gpio/driver が作られるのか。これは /sys/bus/platform/drivers/bcm2708_gpio への symlink です。もう一つの /sys/bus/platform/drivers/bcm2708_gpio/bcm2708_gpio は /sys/devices/platform/bcm2708_gpio への symlink になっています。</p>
+
+<p>成程、って思ったけれどここまでの流れを確認してみるに /sys/devices/platform/bcm2708_gpio を作っていないという認識です。</p>
+
+<p>symlink だからスルーで良くって probe からはるか彼方で呼び出される device_add でファイルが作られて、ってことなのかなぁ。でも device_add で追加されるのって /sys/class/gpio/gpiochp0 とかなはず。</p>
+
+<p>そういった意味では bcm2708_gpio 限定で言うと</p>
+
+<ul>
+<li>/sys/bus/platform/devices/bcm2708_gpio</li>
+<li>/sys/bus/platform/drivers/bcm2708_gpio</li>
+<li>/sys/devices/platform/bcm2708_gpio</li>
+</ul>
+
+<p>は driver が追加された時に作られないとまずいはず。暫く置いておいて再度確認入れる方向にて。</p>
+
+<h2 id="再開">再開</h2>
+
+<p>ええと、driver_sysfs_add で symlink を二つ作っていますが、この時点で /sys/bus/platform/drivers/bcm2708_gpio (dev-&gt;bus-&gt;p-&gt;kobj) および /sys/devices/platform/bcm2708_gpio (dev-&gt;kobj) は作成済みになっていないとマズいはず。</p>
+
+<p>この類推を前提に確認入れてみます。</p>
+
+<p>ええと、bus_add_driver から呼び出されている kobject_init_and_add では 別途 dev-&gt;p に設定される priv-&gt;kobj を渡しているので dev-&gt;bus-&gt;p-&gt;kobj のソレですね。</p>
+
+<p>あら、really_probe を呼び出す driver_probe_device 手続きで device は登録済み、が前提になっていますね。</p>
+
+<pre><code>    if (!device_is_registered(dev))
+        return -ENODEV;
+</code></pre>
+
+<p>定義が以下。</p>
+
+<pre><code>static inline int device_is_registered(struct device *dev)
+{
+    return dev-&gt;kobj.state_in_sysfs;
+}
+</code></pre>
+
+<p>ということはここよりももっと前で sysfs 配下にて create_dir されているのかどうか。それとも driver_attach では device_is_registerd ではないので、なのかどうか。</p>
+
+<p>迷走中ですが Documentation/driver.txt に以下な記述を発見</p>
+
+<blockquote>
+<p>sysfs
+~~~~~</p>
+
+<p>When a driver is registered, a sysfs directory is created in its
+bus&rsquo;s directory. In this directory, the driver can export an interface
+to userspace to control operation of the driver on a global basis;
+e.g. toggling debugging output in the driver.</p>
+
+<p>A future feature of this directory will be a &lsquo;devices&rsquo; directory. This
+directory will contain symlinks to the directories of devices it
+supports.</p>
+</blockquote>
+
+<p>/sys/bus および /sys/devices は自動なの? でも /sys/bus/platform/deivers/bcm2708gpio は自分で作ってるな。</p>
+
+<p>そして inode 番号確認してみたら /sys/devices/platform/bcm2708_gpio は 100 番台で /sys/bus/platform/drivers/bcm2708_gpio は 1400 番台でした。</p>
+
+<p>これ、かなり早い段階でデバイス見つけてなんちゃらしてますね。dmesg 見てみるに</p>
+
+<pre><code>bcm2708_gpio: bcm2708_gpio_probe c05cfed0
+</code></pre>
+
+<p>て何だろ。probe か。あと、inode 番号見てみたときにタイムスタンプも出てたのですが、16 分くらいタイムラグがある。115 ができた 16 分後に 1420 だかができてる的な。あ、これってディレクトリの中のファイルが追加されたりしたらディレクトリエントリも更新されるのだったか。むむむ。</p>
+
+<h2 id="備忘まで">備忘まで</h2>
+
+<p>理解しかねている部分を以下に列挙しておきます。</p>
+
+<ul>
+<li>kobject_add していない</li>
+<li>もしかすると kobject_init_and_add が、なのか</li>
+<li>kobject_init_and_add は bus_add_driver が呼び出している</li>
+<li>kobject_init_and_add は driver_private な kobj を渡している</li>
+</ul>
+
+<p>なんか色々駄目なカンジなのでやり方を変えてみたいと思います。drivers/base/init.c から見てみるとか (ぇ</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Sep 30, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/09/29/bcm2708-gpio-probe/" title="bcm2708_gpio_probe 手続き">bcm2708_gpio_probe 手続き</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/10/01/change-package-name-in-android-studio/" title="パッケージを変更したらドはまりだった件">パッケージを変更したらドはまりだった件</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

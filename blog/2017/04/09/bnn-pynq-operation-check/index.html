@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>BNN-PYNQ 動作確認</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 9, 2017
+         - 6 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2017/04/09/bnn-pynq-operation-check/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/fpga/">FPGA </a><a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         BNN-PYNQ 動作確認 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>とりあえず、</p>
+
+<ul>
+<li><a href="http://qiita.com/ykshr/items/6c8cff881a200a781dc3">FPGAでDeep Learningしてみる</a></li>
+</ul>
+
+<p>を見つつ云々してみます。</p>
+
+<p></p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>結線して電源投入。PC 側の eth0 が <code>192.168.2.100</code> になってますが対抗側のポートの IP が分からない。<a href="http://pynq.io/">http://pynq.io/</a> からドキュメントを探して <code>192.168.2.99</code> である、という事が判明。ping の返事も戻ってきます。</p>
+
+<p>接続できたのでとっととデモを実行してみます。</p>
+
+<h2 id="その前に">その前に</h2>
+
+<p>SD のイメージ、バックアップした方が良いのかどうか。</p>
+
+<pre><code>$ sudo dd if=/dev/sdb of=./pynq_z1_image_2017_04_07.img
+</code></pre>
+
+<p>結構な容量のはずなんでしばらく時間がかかるはず。</p>
+
+<h2 id="update">update?</h2>
+
+<p>その後、<code>ssh</code> にて接続して</p>
+
+<pre><code>$ ssh xilinx@192.168.2.99
+</code></pre>
+
+<p><code>update_pynq.sh</code> というスクリプトを実行なのか。</p>
+
+<pre><code>$ sudo ./scripts/update_pynq.sh
+[sudo] password for xilinx: 
+Updating to latest stable release (default action)
+Info: This operation will overwrite all the example notebooks
+Press any key to continue...
+Cloning Pynq repo
+Cloning into '/home/xilinx/pynq_git'...
+fatal: unable to access 'https://github.com/Xilinx/PYNQ.git/': Could not resolve host: github.com
+</code></pre>
+
+<p>ありゃ。リゾルバどうなってるんかな。確認してみたところ <code>resolvconf</code> パケジは導入済みみたいなので <code>/etc/network/interfaces.d/static</code> に以下を追加。</p>
+
+<pre><code>gateway 192.168.2.100
+dns-nameservers 192.168.3.1
+</code></pre>
+
+<p>がしかし、gateway まで疏通は問題ないのですが接続元の PC がルータになってないのかorz 面倒臭いなぁ。</p>
+
+<p>とりあえず <code>/etc/sysctl.conf</code> の以下の部分を有効にして</p>
+
+<pre><code>net.ipv4.ip_forward=1
+</code></pre>
+
+<p>再起動してみます。駄目。<code>dnsmasq</code> パケジ導入してみます。あ、違うや。pynq からルータへの ping の返事が戻ってこないのだからそれ以前か。</p>
+
+<p>以下なナニで ping の返事とか名前解決とかできるようになりました。</p>
+
+<pre><code>sudo /sbin/iptables -t nat -A POSTROUTING -s 192.168.2.0/255.255.255.0 -j MASQUERADE
+</code></pre>
+
+<h2 id="動作確認できたので">動作確認できたので</h2>
+
+<p>以下にて保存。</p>
+
+<pre><code>$ sudo su -
+# /sbin/iptables-save -c &gt; /etc/iptables.rules
+# cat &gt; /etc/network/if-pre-up.d/iptables_start
+#!/bin/sh
+/bin/iptables-restore &lt; /etc/iptables.rules
+exit0
+# chmod +x /etc/network/if-pre-up/d/iptables_start
+</code></pre>
+
+<p>で、あぷでいとします。</p>
+
+<pre><code>$ sudo ./scripts/update_pynq.sh
+</code></pre>
+
+<p>つうかこんな落とし穴があるとはorz</p>
+
+<h2 id="あぷでいと終了">あぷでいと終了</h2>
+
+<p>て、失敗してるし。</p>
+
+<pre><code>checking out v1.4
+
+Verifying current SDCard image supports this pynq release.
+
+PYNQ Github Release v1.4
+This software is not backwards-compatible with a PYNQ SDCard v1.3 image.
+Please upgrade SDCard image on www.pynq.io
+</code></pre>
+
+<p>イメージ再取得してリトライするか。</p>
+
+<h2 id="リトライ">リトライ</h2>
+
+<p>どうなるか。って PYNQ 再起動したら LAN な route への ping な返事が戻ってこなくなってるし。</p>
+
+<p>確認してみるに、親機側の <code>/etc/network/if-pre-up.d/iptables_start</code> が微妙でした。つうかイメージ書き換えたのでその影響なのか。確認してみるに <code>/etc/network/interfaces.d/static</code> が元に戻ってました。</p>
+
+<p>修正してリトライ。どうなるか。って現象変わらない。</p>
+
+<h2 id="と思ったら">と思ったら</h2>
+
+<p>v1.3 なソレを使っていたorz リトライします。そして再起動してみたら <code>/etc/network/interfaces.d</code> 配下にファイルが無い。</p>
+
+<h2 id="できた">できた</h2>
+
+<p>問題点が二点。</p>
+
+<ul>
+<li>名前解決できない</li>
+<li>default gw が設定できていない</li>
+</ul>
+
+<p>まず、<code>/etc/network/interfaces.d</code> 配下の設定ですが以下。</p>
+
+<pre><code>auto eth0:0
+iface eth0:0 inet static
+  address 192.168.2.99
+  network 192.168.2.0
+  netmask 255.255.255.0
+  broadcast 192.168.2.255
+  gateway 192.168.2.100
+  up route add default gw 192.168.2.100
+</code></pre>
+
+<p>で、名前解決は <code>dns-nameservers</code> で設定できなかったので <code>/etc/resolvconf/resolv.conf.d/base</code> に以下を追加。</p>
+
+<pre><code>nameserver 192.168.2.100
+</code></pre>
+
+<p>なのですが、強制リセットかかってる風? <code>routing table</code> が書き換えられてるな。これ、dhcp なのかな。ええと <code>dhclient</code> が云々、てのはわかったのですがどうすりゃいいのかな。</p>
+
+<h2 id="面倒なので">面倒なので</h2>
+
+<p>以下を実行。</p>
+
+<pre><code>$ sudo apt-get remove isc-dhcp-client isc-dhcp-common
+</code></pre>
+
+<p>こんな微妙なハメかたして欲しくないなぁ。</p>
+
+<h2 id="結果">結果</h2>
+
+<p>どうなったか。再起動で経過観測。何故だか LED が点灯しないのです。eth0 が dhcp で初期化された時に点灯されててこれはこれでわかりやすかったのですがどうなるか。</p>
+
+<h2 id="再現した">再現した</h2>
+
+<p>routing table が書き換えられます。意味わからんので <code>eth0:0</code> なエイリアスを使うのを止めます。再起動後、様子見中。そして現象再現。これは <code>dhcp</code> が原因じゃないみたいですね。</p>
+
+<h2 id="ちょっとこれ">ちょっとこれ</h2>
+
+<p>意味わからないので v1.3 に戻してみます。とりあえず戻してみた <code>/etc/network/interfaces.d/static</code> の中身が以下でした。</p>
+
+<pre><code>auto eth0
+iface eth0 inet static
+  address 192.168.2.99
+  network 192.168.2.0
+  netmask 255.255.255.0
+  broadcast 192.168.2.255
+  gateway 192.168.2.100
+  up route add default gw 192.168.2.100
+
+</code></pre>
+
+<p>起動時の routing table は先と変わらない。</p>
+
+<pre><code>$ /sbin/route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+192.168.2.0     0.0.0.0         255.255.255.0   U     0      0        0 eth0
+</code></pre>
+
+<p><code>resolv.conf</code> は <code>gateway</code> の IP が設定されてます。</p>
+
+<pre><code># Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)
+#     DO NOT EDIT THIS FILE BY HAND -- YOUR CHANGES WILL BE OVERWRITTEN
+nameserver 192.168.2.100
+</code></pre>
+
+<p>とりあえずこうなるのは <code>/etc/resolvconf/resolv.conf.d/base</code> にて</p>
+
+<pre><code>nameserver 192.168.2.100
+</code></pre>
+
+<p>という設定が入ってるから、なのか。ただ、この状態だと例えば <code>github.com</code> への <code>ping</code> の返事は戻ってきませんね。なんとなく、現象として同じカンジに見えます。色々な意味で微妙な感触。</p>
+
+<h2 id="現象としては変わっていない">現象としては変わっていない</h2>
+
+<p>最初に <code>eth0</code> が有効になった時点では <code>default gateway</code> の設定自体は生きています。その後、何契機かは判明していないのですが LED が点滅した時点で <code>routing table</code> が再度初期化されている模様。</p>
+
+<h2 id="動作微妙">動作微妙</h2>
+
+<p>これ、上書きしたからきちんと書き込みできていないのかも。リトライしてみて動作が微妙なようであればイメージ書き込みからリトライ。というか動作微妙なのでリトライします。</p>
+
+<p>で、紆余曲折の末に動作の確認したのですが、<code>default gateway</code> を向こうの i/f な IP addr を指定していたことが判明。再度やり直してみます。</p>
+
+<h2 id="あら">あら?</h2>
+
+<p>先程動作確認したものは最新のものでした。とりあえず</p>
+
+<ul>
+<li><code>/etc/resolvconf/resolv.conf.d/base</code></li>
+<li><code>/etc/network/interface.d/static</code></li>
+</ul>
+
+<p>を云々して再起動。いちおう <code>sync</code> もしてみました。</p>
+
+<h2 id="設定間違い">設定間違い</h2>
+
+<p>設定ファイル修正して再起動しても設定としては残っていることを確認。どこで cache されているのだろうか。ちなみに試しに手動で設定してみたら外との通信できたなぁ。</p>
+
+<p>再度再起動してみてるのですがどうなるか。</p>
+
+<h2 id="設定">設定?</h2>
+
+<p>再起動したら手動設定したナニは消えてました。つうかこれ、<code>/etc/network/interface.d/static</code> は反映されていなさげ。</p>
+
+<p>grep してみたら <code>/etc/dhcp/dhclient.conf</code> に記載があるのを発見。削除。</p>
+
+<pre><code>$ sudo apt-get remove --purge isc-dhcp-client isc-dhcp-common
+</code></pre>
+
+<p>これで再度再起動してみたのですが IP など変わらず。何が根拠であの IP なのかが一切謎で困っています。</p>
+
+<h2 id="あらら">あらら?</h2>
+
+<p>以下で反映されたぞ。</p>
+
+<pre><code>$ sudo service networking restart
+</code></pre>
+
+<p>しかも以下なメセジ出力を確認。</p>
+
+<pre><code>Warning: networking.service changed on disk. Run 'systemctl daemon-reload' to reload units.
+</code></pre>
+
+<p>上記実行して再起動してみます。</p>
+
+<h2 id="結果-1">結果</h2>
+
+<p>経路情報は反映されていない。結局、以下な <code>/etc/systemd/network/static.network</code> を作成。</p>
+
+<pre><code>[Match]
+Name=eth0
+
+[Network]
+Address=192.168.2.99/24
+Gateway=192.168.2.100
+DNS=192.168.2.100
+</code></pre>
+
+<p>で、以下を実行したら反映されました。</p>
+
+<pre><code>$ sudo systemctl restart systemd-networkd.service
+</code></pre>
+
+<p>再起動してみます。反映されてない。コマンド実行忘れている。以下リトライ。</p>
+
+<pre><code>$ sudo systemctl restart systemd-networkd.service
+$ sudo systemctl daemon-reload
+</code></pre>
+
+<p>で、再起動。どうか。反映されてない。んんと、こんなことできるんかな。</p>
+
+<pre><code>$ sudo systemctl enable systemd-networkd
+Created symlink from /etc/systemd/system/multi-user.target.wants/systemd-networkd.service to /lib/systemd/system/systemd-networkd.service.
+Created symlink from /etc/systemd/system/sockets.target.wants/systemd-networkd.socket to /lib/systemd/system/systemd-networkd.socket.
+</code></pre>
+
+<p>む、これで一旦再起動してみます?</p>
+
+<h2 id="駄目">駄目</h2>
+
+<p>そして上記で作成されたナニな symlink を /etc/systemd/system 配下に作成してみたりしてるのですが再起動で反映されず。</p>
+
+<p>再度以下を実行して再起動など。</p>
+
+<pre><code>$ sudo systemctl restart systemd-networkd.service
+$ sudo systemctl daemon-reload
+</code></pre>
+
+<p>駄目だなぁ。<code>ps</code> してみたら <code>systemd-networkd</code> は動いてない。<code>sudo systemctl -a</code> で見てみたら loaded ですが inactive で dead とのこと。</p>
+
+<p>とりあえず <code>enabled</code> であれば自動で起動するはずなんですが何なのこれ。つうか <code>ps</code> で確認してみた分には <code>systemd-networkd</code> は動いてないですね。</p>
+
+<h2 id="逆">逆?</h2>
+
+<p>接続元端末側から dhcp 経由で云々、なのかなぁ。とりあえず microSD は初期化します。で、<code>dnsmasq</code> なナニですが</p>
+
+<ul>
+<li><code>dhcp-host=00:18:3e:02:4a:8f,hoge,192.168.2.99,infinite</code> な設定</li>
+<li><code>dhcp-option=option:dns-server,192.168.2.100</code> な設定</li>
+<li><code>dhcp-option=option:router,192.168.2.100</code> な設定</li>
+</ul>
+
+<p>を盛り込む方向。</p>
+
+<h2 id="結果-2">結果</h2>
+
+<p>これも駄目。どうしたものやら、というか最早面倒なので起動する度に</p>
+
+<ul>
+<li>dns</li>
+<li>ルーティング</li>
+</ul>
+
+<p>については設定する事にしてデモの検証します。エントリについては別途で。</p>
+
+<h2 id="備忘">備忘</h2>
+
+<p>最近のでびあんホストだとルータにするには</p>
+
+<ul>
+<li>dnsmasq パケジ入れて dns サーバに見せる</li>
+<li><code>/etc/sysctl.conf</code> にて <code>net.ipv4.ip_forward=1</code> する</li>
+<li>iptables で MASQUERADE する</li>
+</ul>
+
+<p>という三点で何とかなるのかどうか。ネイムサーバの面倒まで見てくれるとか有り難いすね。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 9, 2017</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2017/04/08/get-a-fire-tv-stick/" title="Fire TV Stick 入手">Fire TV Stick 入手</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2017/04/11/cancellation-of-freetel-sim/" title="FREETEL SIM 解約">FREETEL SIM 解約</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

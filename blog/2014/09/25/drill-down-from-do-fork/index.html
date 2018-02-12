@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>kernel/fork.c の do_fork 始点で掘削してみる</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Sep 25, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/25/drill-down-from-do-fork/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a><a class="label" href="http://weblog.metacircular-evaluator.org/categories/kernel/">kernel </a>
+        
+    </p>
+    <h1 class="entry-title">
+         kernel/fork.c の do_fork 始点で掘削してみる 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>と、言いつつ kernel/fork.c で定義されている手続きを確認したい欲もあり。とりあえず  <a href="https://github.com/torvalds/linux.git">https://github.com/torvalds/linux.git</a> から取得した repository の master branch 見てます。先頭 branch は f3670394c29f みたいです。</p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>system call な i/f からのソレは kernel/fork.c で定義されているのかどうか。入口としては</p>
+
+<ul>
+<li>kernel_thread 手続き</li>
+<li>fork な system call</li>
+<li>vfork な system call</li>
+<li>clone な system call</li>
+</ul>
+
+<p>なのかどうか。</p>
+
+<p></p>
+
+<p>とりあえずメモリ空間を確保するあたりに着目して確認、ってことで</p>
+
+<pre><code>    p = copy_process(clone_flags, stack_start, stack_size,
+                     child_tidptr, NULL, trace);
+</code></pre>
+
+<p>から掘削開始。copy_process 手続きも kernel/fork.c にて定義されてます。もの凄く直感的なアレなのですが</p>
+
+<pre><code>    p = dup_task_struct(current);
+    if (!p)
+        goto fork_out;
+</code></pre>
+
+<p>に着目。この手続きも kernel/fork.c ですね。手続きの定義が以下。</p>
+
+<pre><code>static struct task_struct *dup_task_struct(struct task_struct *orig)
+</code></pre>
+
+<p>おそらくは orig なコピィを作って戻してるはず。あら、よく考えてみるに dup なソレってコピィは作らずに、なのだったような気がしてきていたり。</p>
+
+<h2 id="dup-task-struct-手続き確認">dup_task_struct 手続き確認</h2>
+
+<p>先頭の以下なあたり、順に掘ってみます。</p>
+
+<pre><code>    struct task_struct *tsk;
+    struct thread_info *ti;
+    unsigned long *stackend;
+    int node = tsk_fork_get_node(orig);
+    int err;
+
+    tsk = alloc_task_struct_node(node);
+    if (!tsk)
+            return NULL;
+
+    ti = alloc_thread_info_node(tsk, node);
+    if (!ti)
+            goto free_tsk;
+
+    err = arch_dup_task_struct(tsk, orig);
+    if (err)
+            goto free_ti;
+</code></pre>
+
+<p>まず、tsk_fork_get_node から。定義は kernel/kthread.c で以下なコメントがあります。</p>
+
+<pre><code>/* called from do_fork() to get node information for about to be created task */
+int tsk_fork_get_node(struct task_struct *tsk)
+</code></pre>
+
+<p>int 型の node って何なのかな。実装見るに NUMA 特有の実装みたい。つうか NUMA って何だったかと言いつつ wikipedia 見てみるに processor と memory の対を node と呼ぶ、とのこと。</p>
+
+<p>基本的にはコピー元の task_struct なオブジェクトが kthread_task な場合に限定されている模様。で、alloc_task_struct_node は tsk_fork_get_node から戻される int の値が渡されています。</p>
+
+<p>alloc_task_struct_node 手続きを掘削してみるに</p>
+
+<ul>
+<li>arch/ia64/include/asm/thread_info.h で定義されている</li>
+<li>kernel/fork.c で定義されている</li>
+<li>kernel/fork.c の定義は CONFIG_ARCH_TASK_STRUCT_ALLOCATOR が #define されていない場合に有効な模様</li>
+<li>kernel/fork.c の定義では kmem_cache_alloc_node の戻りを戻しています</li>
+<li>kmem_cache_alloc_node の定義は mm/slab.c, mm/slob.c, mm/slub.c に存在</li>
+</ul>
+
+<p>SLAB アロケータというやつか。slub なソレを見れば良いのかどうか。でも slub.c で定義されている kmem_cache_alloc_node は CONFIG_NUMA が定義されているの前提ですね。</p>
+
+<p>最近の、は NUMA 前提なのかな。SMP なマシンが普通だし。</p>
+
+<h2 id="とりあえず-1">とりあえず</h2>
+
+<p>mm/slub.c で定義されている slab_alloc_node 手続きをコメント見つつ確認な方向。つうかそれ以前のもっと基本的な部分について確認する必要があるはず。</p>
+
+<p>次回の #okidevops で kgdb で云々するはずなので、current から色々ほじくり回す、というのはどうなのか。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Sep 25, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/09/25/update-bash/" title="とりあえず bash 更新">とりあえず bash 更新</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/09/26/direct-gpio-register-manipulation-in-c-code/" title="RasPI な GPIO で L チカなプログラム">RasPI な GPIO で L チカなプログラム</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

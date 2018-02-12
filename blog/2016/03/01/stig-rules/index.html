@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Audit の stig.rules</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Mar 1, 2016
+         - 4 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2016/03/01/stig-rules/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Audit の stig.rules 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下ドキュメントですが、stig.rules の解説があるのでなんとなくな自分メモを。</p>
+
+<ul>
+<li><a href="http://goo.gl/dtpk5X">(RHEL) HOWTO configure the auditing of the system (auditd)</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="フォーマット">フォーマット</h2>
+
+<p>途中までメモ取りかけていたのですが書式が分からないので、先にそっち確認。確認したの以下です。</p>
+
+<ul>
+<li><a href="https://access.redhat.com/documentation/ja-JP/Red_Hat_Enterprise_Linux/6/html/Security_Guide/sec-Defining_Audit_Rules_and_Controls.html">7.5.Audit ルールの定義</a></li>
+</ul>
+
+<p>ええと -a はフィルタの追加、になるのかな。フィルタの追加、削除は</p>
+
+<pre><code>-a リスト, アクション [オプション]
+-d リスト, アクション [オプション]
+</code></pre>
+
+<p>とのこと。アクションは always で出力、never で出力しない、なのか。そして auditctl の man が以下。</p>
+
+<ul>
+<li><a href="http://linux.die.net/man/8/auditctl">auditctl(8)</a></li>
+</ul>
+
+<h2 id="メモ">メモ</h2>
+
+<p>以下、時刻な情報が更新されたイベントの記録、とのこと。</p>
+
+<pre><code>## Things that could affect time
+-a always,exit -F arch=b32 -S adjtimex -S settimeofday -S stime -k time-change
+-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change
+#-a always,exit -F arch=b32 -S clock_settime -k time-change
+#-a always,exit -F arch=b64 -S clock_settime -k time-change
+-w /etc/localtime -p wa -k time-change
+</code></pre>
+
+<ul>
+<li>adjtimex あるいは settimeofday なシステムコールが発行 (x64) されたときに time-change なキーで記録</li>
+<li>/etc/localtime が読み書きされたときに time-change なキーで記録</li>
+</ul>
+
+<p>なのか。あるいは以下はアカウント情報イベントの記録。</p>
+
+<pre><code>## Things that affect identity
+-w /etc/group -p wa -k identity
+-w /etc/passwd -p wa -k identity
+-w /etc/gshadow -p wa -k identity
+-w /etc/shadow -p wa -k identity
+-w /etc/security/opasswd -p wa -k identity
+</code></pre>
+
+<ul>
+<li>ファイルが読み書きされたとき、identity なキーで記録</li>
+</ul>
+
+<p>次はネットワーク設定の変更イベントを記録、とありますね</p>
+
+<pre><code>## Things that could affect system locale
+-a exit,always -F arch=b32 -S sethostname -S setdomainname -k system-locale
+-a exit,always -F arch=b64 -S sethostname -S setdomainname -k system-locale
+-w /etc/issue -p wa -k system-locale
+-w /etc/issue.net -p wa -k system-locale
+-w /etc/hosts -p wa -k system-locale
+-w /etc/sysconfig/network -p wa -k system-locale
+</code></pre>
+
+<ul>
+<li>sethostname, setdomainname なシステムコール呼び出しを system-locale というキーで記録</li>
+<li>/etc/issue, /etc/issue.net, /etc/hosts, /etc/sysconfig/network のファイル読み書きを system-locale というキーで保存</li>
+</ul>
+
+<p>なのか。ただ、でびあん系だと /etc/sysconfig はないですね。<code>/etc/network/interfaces</code> で良いのかどうか。</p>
+
+<p>次は SElinux 設定の変更イベント、との事で以下。</p>
+
+<pre><code>## Things that could affect MAC policy
+-w /etc/selinux/ -p wa -k MAC-policy
+</code></pre>
+
+<p>ログイン、ログアウトなソレはコメントアウトされています。</p>
+
+<pre><code>## - Logon (unsuccessful and successful) and logout (successful)
+##
+## Handled by pam, sshd, login, and gdm
+## Might also want to watch these files if needing extra information
+#-w /var/log/faillog -p wa -k logins
+#-w /var/log/lastlog -p wa -k logins
+</code></pre>
+
+<p>次のセッション初期化、なソレもコメントアウトされてます。</p>
+
+<pre><code>##- Process and session initiation (unsuccessful and successful)
+##
+## The session initiation is audited by pam without any rules needed.
+## Might also want to watch this file if needing extra information
+#-w /var/run/utmp -p wa -k session
+#-w /var/log/btmp -p wa -k session
+#-w /var/log/wtmp -p wa -k session
+</code></pre>
+
+<p>アクセス権限の変更イベントは有効にされています。</p>
+
+<pre><code>##- Discretionary access control permission modification (unsuccessful
+## and successful use of chown/chmod)
+-a always,exit -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid&gt;=500 -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid&gt;=500 -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid&gt;=500 -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid&gt;=500 -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid&gt;=500 -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid&gt;=500 -F auid!=4294967295 -k perm_mod
+</code></pre>
+
+<ul>
+<li>chmod, fchmod, fchmodat, chown, fchown, fchownat, lchown, *setxattr, *removexattr などのシステムコール呼び出しの記録 (uid 指定あり、perm_mod というキー</li>
+</ul>
+
+<p>次が権限のないファイルへのアクセス試行の記録。</p>
+
+<pre><code>##- Unauthorized access attempts to files (unsuccessful) 
+-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid&gt;=500 -F auid!=4294967295 -k access
+-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid&gt;=500 -F auid!=4294967295 -k access
+-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid&gt;=500 -F auid!=4294967295 -k access
+-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid&gt;=500 -F auid!=4294967295 -k access
+</code></pre>
+
+<ul>
+<li>EACCES か EPERM な終了コードで終わった open, openat, truncate, ftruncate の呼び出しの記録なのか (access というキーで uid 指定あり</li>
+</ul>
+
+<p>次は特権コマンドの使用記録かな。</p>
+
+<pre><code>##- Use of privileged commands (unsuccessful and successful)
+## use find /bin -type f -perm -04000 2&gt;/dev/null and put all those files in a rule like this
+-a always,exit -F path=/bin/ping -F perm=x -F auid&gt;=500 -F auid!=4294967295 -k privileged
+</code></pre>
+
+<p>なんか ping なんですが、ping は owner 権限で実行できる SetID bit が立ってますね。<code>su</code> とか <code>mount</code> とかなのかな。。</p>
+
+<p>次が mount 実行の記録。</p>
+
+<pre><code>-a always,exit -F arch=b32 -S mount -F auid&gt;=500 -F auid!=4294967295 -k export
+-a always,exit -F arch=b64 -S mount -F auid&gt;=500 -F auid!=4294967295 -k export
+</code></pre>
+
+<ul>
+<li>mount なシステムコール呼んだら export というキーで記録 (uid 制限付き</li>
+</ul>
+
+<p>次はファイル削除なイベントの記録。</p>
+
+<pre><code>-a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid&gt;=500 -F auid!=4294967295 -k delete
+-a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid&gt;=500 -F auid!=4294967295 -k delete
+</code></pre>
+
+<p>次は <code>/etc/sudoers</code> へのアクセスの記録。</p>
+
+<pre><code>-w /etc/sudoers -p wa -k actions
+</code></pre>
+
+<p>以降は若干ドキュメントと異なります。</p>
+
+<ul>
+<li>ptrace なシステムコール呼び出しの記録</li>
+<li>personality なシステムコール呼び出しの記録</li>
+</ul>
+
+<p>上記、コメントアウトされてます。</p>
+
+<p>あとは以下がオマケてきに記載されていて</p>
+
+<pre><code>## Put your own watches after this point
+# -w /your-file -p rwxa -k mykey
+</code></pre>
+
+<p>で、最後に</p>
+
+<pre><code>-e 2
+</code></pre>
+
+<p>が記載されてて終わりです。</p>
+
+<h2 id="まとめ">まとめ</h2>
+
+<ul>
+<li>logins はログイン、ログアウトなイベント (コメントアウト</li>
+<li>session はセッション情報初期化なイベント (コメントアウト</li>
+<li>perm_mod はアクセス権限の変更イベント</li>
+<li>access はアクセス権限が無いファイルへのアクセス試行</li>
+<li>privileged は特権コマンド実行なイベント (これ、設定に手を加える必要あり</li>
+<li>export は mount 実行</li>
+<li>delete はファイル削除イベント</li>
+<li>actions は <code>/etc/sudoers</code> へのアクセス</li>
+<li>tracing は ptrace なシステムコール呼び出し (コメントアウト</li>
+<li>bypass は personality なシステムコール呼び出し (コメントアウト</li>
+</ul>
+
+<p>Audit Log 関連設定ってデフォルトに手を入れないと駄目みたいですね。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Mar 1, 2016</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2016/02/29/circleci/" title="CircleCI 任意のタイミングで JOB 実行ニガテてありますが">CircleCI 任意のタイミングで JOB 実行ニガテてありますが</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2016/03/02/git-no-pager/" title="git log とかでページャ使いたくない時">git log とかでページャ使いたくない時</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

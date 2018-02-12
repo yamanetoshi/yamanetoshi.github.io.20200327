@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>今更ですが Activity Testing Tutorial をしてみた</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Nov 7, 2013
+         - 5 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/07/android-activity-testing-tutorial/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         今更ですが Activity Testing Tutorial をしてみた 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>手抜きしつつ以下を確認。</p>
+
+<ul>
+<li><a href="http://d.android.com/tools/testing/activity_test.html">Activity Testing Tutorial</a></li>
+</ul>
+
+<p>何がしたいかというと Espresso の動作確認だったりするのでさくっと進める方向にて。</p>
+
+<p></p>
+
+<p>以下から着手してます。超手抜き。</p>
+
+<p>-<a href="http://d.android.com/tools/testing/activity_test.html#InstallCompletedTestApp">Installing the Completed Test Application File</a></p>
+
+<p>どうも SDK に添付されてるサンプルにあるナニのテスト、という形らしい。とりあえず API15 で云々する方向にて。先に import しといた方が良さげ。ADT15 な SpinnerActivity を File - New - Other - Android Project from Existing Code からワークスペースに取り込んでおきます。</p>
+
+<h2 id="テスツなプロジェクト作成">テスツなプロジェクト作成</h2>
+
+<p>SpinnerActivity がワークスペースにあるのであれば以下から順に。</p>
+
+<ul>
+<li>File - New Project - Android - Android Test Project を選択</li>
+<li>とりあえず SpinnerActivityTest ってプロジェクトの名前を付けて next</li>
+<li>Test Target として SpinnerActivity を選択して next</li>
+<li>Build Target はそのままで finish</li>
+</ul>
+
+<p>で良いのかな。一応試験の方の AndroidManifest.xml に以下な記述があることを確認。</p>
+
+<pre><code>    &lt;instrumentation
+        android:name=&quot;android.test.InstrumentationTestRunner&quot;
+        android:targetPackage=&quot;com.android.example.spinner&quot; /&gt;
+</code></pre>
+
+<p>ActivityInstrumentationTestCase2 を継承したクラスを作成とのこと。まだ src 配下にはパケジはあるもののクラスはありません。以下な手順か。</p>
+
+<ul>
+<li>パケジを右クリックして New - Class を選択</li>
+<li>New Java Class なダイアログにて
+
+<ul>
+<li>SpinnerActivityTest という名前</li>
+<li>ActivityInstrumentationTestCase2<T> を superclass に指定</li>
+<li>android.test.ActivityInstrumentationTestCase2<SpinnerActivity> に手直し</li>
+</ul></li>
+</ul>
+
+<p>finish するとソースが開いてコンパイルエラーが出てるので SpinnerActivity を解決するよう、import を追加。
+あと、コンストラクタが無い、って文句を言われているのですが以下を追加する模様。</p>
+
+<pre><code>public SpinnerActivityTest() {
+    super(&quot;com.android.example.spinner&quot;, SpinnerActivity.class);
+}
+</code></pre>
+
+<p>げ、deprecated て言われるんスけどorz
+む、<a href="http://stackoverflow.com/questions/16656089/android-unit-test-super-deprecated-replacement">Android unit test, super deprecated, replacement?</a> によれば以下で良い模様。</p>
+
+<pre><code>public SpinnerActivityTest() {
+    super(&quot;com.android.example.spinner&quot;, SpinnerActivity.class);
+}
+</code></pre>
+
+<p>つうか <a href="http://d.android.com/">http://d.android.com/</a> はちゃんと記述を refine すべきだな (を
+そりゃ良いとして次に仕込むのは setUp() な模様。以下な属性を追加して</p>
+
+<pre><code>private SpinnerActivity mActivity;
+private Spinner mSpinner;
+private SpinnerAdapter mPanetData;
+</code></pre>
+
+<p>以下な setUp() を追加。</p>
+
+<pre><code>@Override
+protected void setUp() throws Exception {
+    super.setUp();
+
+    setActivityInitialTouchMode(false);
+
+    mActivity = getAtivity();
+
+    mSpinner = (Spinner) mActivity.findViewById(
+                       com.android.example.spinner.R.id.Spinner01);
+
+    mPlanetData = mSpinner.getAdapter();
+
+} // end of setUp() method definition
+</code></pre>
+
+<p>あと、import で解決できない型を fix する必要があります。これで setUp() は完成とのこと。で、この Tutorial では以下な試験を、との案内が最初にありました。</p>
+
+<ul>
+<li>initial condition test</li>
+<li>UI test</li>
+<li>state management test</li>
+</ul>
+
+<p>順番に実装していく模様です。</p>
+
+<h2 id="initial-condition-test-の追加">initial condition test の追加</h2>
+
+<p>これ、試験するにあたってその準備ができているかを確認する試験のようです。ここではテストなクラスの属性の値を確認しています。定義が以下。</p>
+
+<pre><code>public void testPreConditions() {
+    assertTrue(mSpinner.getOnItemSelectedListener() != null);
+    assertTrue(mPlanetData != null);
+    assertTrue(mPlanetData.getCount(), ADAPTER_COUNT);
+} // end of testPreConditions() method definition
+</code></pre>
+
+<p>あと、ADAPTER_COUNT の定義を追加。</p>
+
+<pre><code>public static final int ADAPTER_COUNT = 9;
+</code></pre>
+
+<p>追加したは良いのですが Call requires API level 8 とか言われてます。おそらく minSdkVersion あたりなのかどうか。確認してみるに</p>
+
+<pre><code>&lt;uses-sdk android:minSdkVersion=&quot;3&quot;
+  android:targetSdkVersion=&quot;11&quot; /&gt;
+</code></pre>
+
+<p>てなっててアレ。両方 15 にしては駄目なのかな <em>Requires a minimum platform version of Android-3 (SDK 1.5) to run</em> とか書いてあって微妙。
+試験される側のソースを見てないのでアレですがそのまま続行。</p>
+
+<h2 id="ui-test-の追加">UI test の追加</h2>
+
+<p>UI test ってことなので Espresso で置きかえるのはここになるのだろうか。とりあえず以下を追加。</p>
+
+<pre><code>    public void testSpinnerUI() {
+
+        mActivity.runOnUiThread(
+            new Runnable() {
+                public void run() {
+                    mSpinner.requestFocus();
+                    mSpinner.setSelection(INITIAL_POSITION);
+                } // end of run() method definition
+            } // end of anonymous Runnable object instantiation
+            ); // end of invocation of runOnUiThread
+
+        this.sendKeys(KeyEvent.KEYCODE_DPAD_CENTER);
+        for (int i = 1; i &lt;= TEST_POSITION; i++) {
+            this.sendKeys(KeyEvent.KEYCODE_DPAD_DOWN);
+        } // end of for loop
+
+        this.sendKeys(KeyEvent.KEYCODE_DPAD_CENTER);
+
+        mPos = mSpinner.getSelectedItemPosition();
+        mSelection = (String)mSpinner.getItemAtPosition(mPos);
+        TextView resultView =
+                (TextView) mActivity.findViewById(
+                        com.android.example.spinner.R.id.SpinnerResult
+                        );
+
+        String resultText = (String) resultView.getText();
+
+        assertEquals(resultText,mSelection);
+
+    } // end of testSpinnerUI() method definition
+</code></pre>
+
+<p>あまり深くは追及しないですが、runOnUiThread の中の run で準備してからイベントを起こしている模様。とりあえず spinner で選択してその結果を確認しているのは分かります。</p>
+
+<h2 id="state-management-tests-の追加">state management tests の追加</h2>
+
+<p>本題は Espresso なのでどんどん進めます。Activity の状態遷移なイベントでの挙動確認、と見てるのですがどうなるか。</p>
+
+<pre><code>public void testStateDestroy() {
+    mActivity.setSpinnerPosition(TEST_STATE_DESTROY_POSITION);
+    mActivity.setSpinnerSelection(TEST_STATE_DESTROY_SELECTION);
+
+    mActivity.finish();
+    mActivity = this.getActivity();
+
+    int currentPosition = mActivity.getSpinnerPosition();
+    String currentSelection = mActivity.getSpinnerSelection();
+
+    assertEquals(TEST_STATE_DESTROY_POSITION, currentPosition);
+    assertEquals(TEST_STATE_DESTROY_SELECTION, currentSelection);
+} // end of testStateDestroy() method definition
+
+@UiThreadTest
+public void testStatePause() {
+    Instrumentation mInstr = this.getInstrumentation();
+
+    mActivity.setSpinnerPosition(TEST_STATE_PAUSE_POSITION);
+    mActivity.setSpinnerSelection(TEST_STATE_PAUSE_SELECTION);
+
+    mInstr.callActivityOnPause(mActivity);
+
+    mActivity.setSpinnerPosition(0);
+    mActivity.setSpinnerSelection(&quot;&quot;);
+
+    mInstr.callActivityOnResume(mActivity);
+
+    int currentPosition = mActivity.getSpinnerPosition();
+    String currentSelection = mActivity.getSpinnerSelection();
+
+    assertEquals(TEST_STATE_PAUSE_POSITION,currentPosition);
+    assertEquals(TEST_STATE_PAUSE_SELECTION,currentSelection);
+} // end of testStatePause() method definition
+</code></pre>
+
+<p>finish させたり、あるいは明示的に onPause とか onResume とか呼び出してますね。</p>
+
+<h2 id="試験実行">試験実行</h2>
+
+<p>早速実行してみたら red だ。testSpinnerUI() が失敗している模様。面倒なのでスルーしようかな。ここを Espresso で書きかえてみたりして。
+とりあえず、以下から espresso-1.0-SNAPSHOT-bundled.jar を取得。</p>
+
+<ul>
+<li><a href="https://code.google.com/p/android-test-kit/source/bin/espresso-standalone/espresso-1.0-SNAPSHOT-bundled.jar">android-test-kit (espresso-1.0-SNAPSHOT-bundled.jar)</a></li>
+</ul>
+
+<p>で、これを libs にアレして色々変更せよ、とありますね。む、以下を見て進めた方がよさげ。</p>
+
+<ul>
+<li><a href="https://code.google.com/p/android-test-kit/wiki/Espresso#Espresso_Setup_Instructions">Espresso Setup Instructions</a></li>
+</ul>
+
+<p>で、Manifest を以下に、とある。</p>
+
+<pre><code>&lt;instrumentation
+    android:name=&quot;com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner&quot;
+    android:targetPackage=&quot;$YOUR_TARGET_APP_PACKAGE&quot; /&gt;
+</code></pre>
+
+<p>なるほど。で、Run - Run Configurations から GITR を選べ、とのこと。ちなみにこれらを盛り込んで testSpinnerUI() を空にしたら試験 green でした。
+ええと、以下で記述しろ、というナニがあります。</p>
+
+<ul>
+<li>Find (find all relevant controls for the test)</li>
+<li>Ation (perform actions on some of the controls)</li>
+<li>Check (verify that the actions had the desired outcome on the UI)</li>
+</ul>
+
+<p>なので spinner を初期設定して動かしてみてチェックすれば良いのかな。とりあえず以下を setUp() に盛り込んでみたのですが</p>
+
+<pre><code>/*
+    mSpinner =
+            (Spinner) mActivity.findViewById(
+                     com.android.example.spinner.R.id.Spinner01
+                     );
+*/
+    mSpinner = onView(withId(com.android.example.spinner.R.id.Spinner01));
+</code></pre>
+
+<p>withId を知らぬ、と仰る。何故だ。</p>
+
+<h2 id="色々確認して">色々確認して</h2>
+
+<p>import とか参照の仕方とか修正。コンパイルエラーは取れたのですが動かぬ。</p>
+
+<pre><code>import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
+import com.google.android.apps.common.testing.ui.espresso.ViewInteraction;
+import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
+import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
+</code></pre>
+
+<p>あるいは以下も No activities found. という RuntimeException でオチます。</p>
+
+<pre><code>    public void testSpinnerUI() {
+        ViewInteraction spinner = onView(ViewMatchers.withId(com.android.example.spinner.R.id.Spinner01));
+        ViewInteraction textview = onView(ViewMatchers.withId(com.android.example.spinner.R.id.SpinnerResult));
+
+        textview.check(ViewAssertions.matches(ViewMatchers.withText(&quot;Mercury&quot;)));
+    } // end of testSpinnerUI() method definition
+</code></pre>
+
+<p>むむむ、動く試験なプロジェクトを作ることはできているはずなので、ハロワを Espresso で試験するプロジェクトを作ってみるか。</p>
+
+<h2 id="ハロワ篇">ハロワ篇</h2>
+
+<p>ハロワなソレはでっちあげ、テスツなプロジェクトもできました。</p>
+
+<ul>
+<li>AndroidManifest.xml の instrumentation 修正</li>
+<li>libs 作って jar をコピィ</li>
+<li>src 配下に ActivityInstrumentationTestCase2<MainActivity> を継承したクラスを追加</li>
+<li>コンストラクタ追加</li>
+<li>試験追加</li>
+<li>Run - Run COnfiguration で instrumentation runner を指定</li>
+<li>実行</li>
+</ul>
+
+<p>動かない。ログが以下。</p>
+
+<pre><code>E/Trace(13560): error opening trace file: No such file or directory (2)
+I/dalvikvm(13560): Could not find method com.google.android.apps.common.testing.testrunner.ExposedInstrumentationApi.execStartActivity, referenced from method com.google.android.apps.common.testing.testrunner.GoogleInstrumentation.execStartActivity
+W/dalvikvm(13560): VFY: unable to resolve virtual method 228: Lcom/google/android/apps/common/testing/testrunner/ExposedInstrumentationApi;.execStartActivity (Landroid/content/Context;Landroid/os/IBinder;Landroid/os/IBinder;Landroid/app/Activity;Landroid/content/Intent;I)Landroid/app/Instrumentation$ActivityResult;
+D/dalvikvm(13560): VFY: replacing opcode 0x75 at 0x001d
+I/GoogleInstr(13560): Instrumentation Started!
+I/GoogleInstr(13560): IntentSpyImpl not loaded: com.google.android.apps.common.testing.intento.IntentSpyImpl
+I/GoogleInstrTest(13560): Test Started!
+I/dalvikvm(13560): Failed resolving Landroid/support/v4/media/TransportMediatorJellybeanMR2; interface 63 'Landroid/media/RemoteControlClient$OnGetPlaybackPositionListener;'
+W/dalvikvm(13560): Link of class 'Landroid/support/v4/media/TransportMediatorJellybeanMR2;' failed
+W/ClassPathPackageInfoSource(13560): Cannot load class. Make sure it is in your apk. Class name: 'android.support.v4.media.TransportMediatorJellybeanMR2'. Message: android.support.v4.media.TransportMediatorJellybeanMR2
+W/ClassPathPackageInfoSource(13560): java.lang.ClassNotFoundException: android.support.v4.media.TransportMediatorJellybeanMR2
+</code></pre>
+
+<p>なんとかなりそげですが時間切れ。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Nov 7, 2013</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2013/11/06/octopress/" title="Octopress 設定云々">Octopress 設定云々</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2013/11/07/super-sticker-mega-multi-pack/" title="こんなのがあるって知りませんでした">こんなのがあるって知りませんでした</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

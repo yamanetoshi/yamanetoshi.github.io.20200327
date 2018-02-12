@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>assets:precompile でオチる件</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 5, 2014
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/06/05/abnormal-termination/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/rails/">rails </a>
+        
+    </p>
+    <h1 class="entry-title">
+         assets:precompile でオチる件 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>ええと</p>
+
+<pre><code>$ bundle exec rake assets:precompile RAILS_ENV=production
+</code></pre>
+
+<p>で以下のメセジが出力されて異常終了。</p>
+
+<pre><code>Less::Error: 'twitter/bootstrap/bootstrap.less' wasn't found
+</code></pre>
+
+<p>どうしたものか。</p>
+
+<p></p>
+
+<p>とりあえず以下を試してみましたが駄目。</p>
+
+<ul>
+<li>app/assets/stylesheets/application.css に require bootstrap_and_overrides なナニを追加</li>
+<li>config/application.rb に config.assets.initialize_on_precompile = false を追加</li>
+</ul>
+
+<p>あるいは</p>
+
+<ul>
+<li>app/assets/stylesheets/application.css および app/assets/javascripts/application.js に require bootstrap を追加</li>
+<li>config/application.rb に config.assets.paths &lt;&lt; &ldquo;#{Rails}/vender/assets/fonts&rdquo; を追加</li>
+</ul>
+
+<p>でも駄目。</p>
+
+<h2 id="動いた">動いた</h2>
+
+<p>ざっくりで言うと</p>
+
+<ul>
+<li>twitter-bootstrap-rails な Gem を有効にした</li>
+<li>rails g bootstrap:install した</li>
+<li>rails g bootstrap:layout application fluid した</li>
+</ul>
+
+<p>で動いた。なんとなく CSS が当たってるぽいけど駄目、って状態からちゃんと動いてる状態になりました。詳細というか diff から読める情報を以下に列挙しときます。</p>
+
+<ul>
+<li>anjlab-bootstrap-rails を使おうとしてたけど止めた</li>
+<li>twitter-bootstrap-rails を使っています</li>
+<li>bootstrap-sass は 3.1.1</li>
+<li>assets/javascripts/application.js で require twitter/bootstrap してます</li>
+<li>assets/stylesheets/application.css で require bootstrap してます</li>
+<li>rails g bootstrap:{install, layout} でいくつかのファイルが上書きされてます</li>
+<li>config/application.rb に config.assets.paths &lt;&lt; &ldquo;#{Rails}/vendor/assets/fonts&rdquo; を追加</li>
+<li>config/application.rb に config.assets.precompile += %w( *.png *.jpg *.jpeg *.gif) を追加</li>
+<li>config/environments/production.rb に config.serve_static_assets = true 追加</li>
+<li>同じファイルに config.assets.precompile += %w( *.woff *.eot *.svg *.ttf) 追加</li>
+</ul>
+
+<p>何がアタリなのかは検証してません。</p>
+
+<h2 id="そして">そして</h2>
+
+<p>これで一段落? って思ったら不備がいくつかあって</p>
+
+<ul>
+<li>devise が送付する confirmation な URL が駄目</li>
+<li>config/route.rb に root な path が無い</li>
+<li>login/logout なリンクが出てない</li>
+<li>confirmation なメイルの送付元アドレスがデフォ</li>
+</ul>
+
+<p>あたりを何とかして関係方面に連絡を入れたいのですが、その前に commit を作って remote に push して開発端末で挙動の確認がしたいです。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 5, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/06/05/rewind-master-branch/" title="master の巻き戻し">master の巻き戻し</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/06/06/check-pi-baremetal/" title="initsys.c 確認 (pi-baremetal 確認)">initsys.c 確認 (pi-baremetal 確認)</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Android Wear 勉強会 #1</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Mar 28, 2014
+         - 6 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/28/android-wear-conference/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Android Wear 勉強会 #1 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>時間割とかは <a href="http://atnd.org/events/48832">atnd</a> 見てください。昨日同様、メモを以下に列挙。</p>
+
+<p></p>
+
+<p>電源無いのでギリまで端末の電池温存しつつ、メモ取り開始。ついった見てみるにおおいしさんが #AndroidWear でつだってるな。</p>
+
+<h2 id="android-wearのインパクトとこれから-仮">Android Wearのインパクトとこれから（仮）</h2>
+
+<ul>
+<li>wearable 界で有名な</li>
+<li>アクションカメラとブレスレット型活動量計</li>
+<li>用途開発、early adapter</li>
+<li>徐々に汎用デバイスが伸びてくる</li>
+<li>wearable は初期段階</li>
+<li>生体センシング (時計)</li>
+<li>10 くらい前から商品群が</li>
+<li>アプリ共通化</li>
+<li>必要な情報を必要な時に</li>
+<li>重要な要素として音声 (音声で質問に回答)</li>
+<li>日本人との感性の違い</li>
+<li>健康管理やフィットネス機能</li>
+<li>小バッテリ、小リソース、小画面、常に着用)</li>
+<li>最小限の UI インタラクション</li>
+<li>コンパクト化、という観点では?</li>
+<li>是非 developer preview は使ってみましょう</li>
+<li>一つは Suggest という interface (カードが出てくる)</li>
+<li>もひとつは Demand (ユーザからのアクション)</li>
+<li>UI デザイン、Google の言ってることは同意できる</li>
+<li>ユーザはできるだけ受動的に</li>
+<li>コンテキストからやりたいことを推定して操作を簡単に</li>
+<li>丸でも四角でも動くように (watch UI の design)</li>
+<li>まる 320*320 しかく 280*280</li>
+<li>丸を生かす</li>
+<li>回して入力 (ロータリーエンコーダ)</li>
+<li>パイメニュー? レーダーチャート? (後で調べる)</li>
+<li>タッチ難しい</li>
+<li>両手が塞がる</li>
+<li>手で画面が隠れる</li>
+<li>音声の問題</li>
+<li>モーションも重要</li>
+<li>つけてる手、つけてない側の手</li>
+<li>ベゼル</li>
+<li>いきなり内容を表示してはだめ</li>
+<li>ファッション性 (画面もおしゃれに)</li>
+<li>マルチスクリーン (通信方法はいろいろある</li>
+<li>かたっぽ入力かたっぽ出力</li>
+<li>最初は宴会芸てきなアレ</li>
+<li>Google Glass との連携</li>
+<li>おもしろいアプリが作りやすいのではないか</li>
+<li>マルチの場合の通信方法</li>
+<li>音声での通信か</li>
+</ul>
+
+<h2 id="android-wearの概要とポテンシャル-仮">Android Wearの概要とポテンシャル(仮)</h2>
+
+<ul>
+<li>Google Group 上限 200 てwww</li>
+<li>時間があればサンプルプロジェクトを</li>
+<li>youtube に概要ビデオがある模様 (Google が想定してるユースケイス)</li>
+<li>notify なデバイス?</li>
+<li>飛行機チェックインとか</li>
+<li>モトローラが丸で LG が四角</li>
+<li>Google Now との連携</li>
+<li>リストの選択も音声でできる</li>
+<li>最適な情報をパッシブに通知</li>
+<li>Notify が Android Wear に表示</li>
+<li>通知をまとめることができるとのこと</li>
+<li>音声入力がテキストになってスマホのアプリに渡せる</li>
+<li>カスタム UI?</li>
+<li>カスタムカードレイアウト?</li>
+<li>Activity を Wear 側で実行できる?</li>
+<li>データの送受信 (スマホと Wear)</li>
+<li>低いレイヤのやりとり不要</li>
+<li>抽象化されてるのでそのレイヤの実装がかわってもアレ</li>
+<li>やりとりはインテント</li>
+<li>一対一でペアリング</li>
+<li>Glass の場合は Cloud 経由で、らしい</li>
+<li>接続は BT と思われる</li>
+<li>スマホの notification と同じ形で対応とのこと</li>
+<li>下にひっぱると日付とバッテリ情報</li>
+<li>サンプルでレシピを見る</li>
+<li>時計にレシピ出せるの良いなwww</li>
+<li>Notification をカスタマイズする、というナニがある模様 (サンプル)</li>
+<li>音声認識で chat のやりとり</li>
+<li>入力なデバイス、なのだな</li>
+<li>エミュレータ解析</li>
+<li>gcc がカスタマイズされてるのかどうか</li>
+<li>4.6.x-google</li>
+<li>N5 の <sup>1</sup>&frasl;<sub>5</sub> 程度とのこと</li>
+<li>audio は N5 より増えてて通知に特化</li>
+<li>音も沢山 (鳴らしたりなど)</li>
+<li>Google Glass とおんなじとのこと</li>
+<li>getprop すると N5 の半分くらい</li>
+<li>heapsize が 32MB (かなりすくない)</li>
+<li>N5 にないプロパティもある</li>
+<li>10 秒で sleep (省電力</li>
+<li>カメラ、無接点充電、専用ドック、電話、Bluetooth</li>
+<li>位置情報でチェックイン、3G/LTE、Glass 連携</li>
+<li>Glass のベースが Wear になるのでは</li>
+<li>wearable のデファクトに?</li>
+<li>はらまきwww</li>
+<li>既存コンテンツがそのまま利用できる</li>
+<li>wear 向けのカスタマイズな手間も少ない</li>
+<li>シャツが光る通知w</li>
+<li>Android を越えるものは android を踏み台にした何か</li>
+</ul>
+
+<h2 id="apple-notification-center-service-ancs-とandroid-wearの比較">Apple Notification Center Service(ANCS)とAndroid Wearの比較</h2>
+
+<ul>
+<li>BLE 開発キットを作ってる</li>
+<li>BLE ガジェット勉強会</li>
+<li>appcessory 2014 1000 万台、2018 一億ななせんまん</li>
+<li>IoT</li>
+<li>wifi, BT, BLE</li>
+<li>SDK 公開な周辺ハード</li>
+<li>ハードメーカーがクラウド連携で云々 (大事</li>
+<li>ANCS デザイン三原則 (Simplicity, Efficiency, Scalability)</li>
+<li>より情報を必要とする時に</li>
+<li>フィットネス</li>
+<li>音声での質問に</li>
+<li>体につけた小さくパワフルなデバイス</li>
+<li>Fitbit, Pebble, Smart Light,</li>
+<li>ANCS は BLE のみ、Android Wear は規定されてない</li>
+<li>ANCS は GATT, Android Wear は Intent</li>
+<li>ANCS は Nofify のみ、Android はそれに加えてスマホ操作とか音声入力とか</li>
+<li>ANCS は Apple Push Notification Service, UILocalNotification</li>
+<li>Android Wear は Intent 連携</li>
+<li>ANCS はシンプル</li>
+<li>Android はデータ詰めて Intent</li>
+<li>つなぎっぱだと電気がアレ</li>
+<li>似てるけどできる範囲が結構違う</li>
+<li>L8 Notifications という youtube</li>
+<li>通知によって光らせかたを変えられる</li>
+<li>ハードウェア仕様を公開して欲しい</li>
+<li>ちょっと早く参戦できれば色々できるのに</li>
+</ul>
+
+<h2 id="android-wear-vs-pebble-vs-sony-smartwatch-vs-tizen-wearable">Android Wear vs Pebble vs Sony SmartWatch vs Tizen Wearable</h2>
+
+<ul>
+<li>cookpad で android エンジニア</li>
+<li>競合製品について</li>
+<li>Pebble は kickstarter 発</li>
+<li>android, iOS との相互通知</li>
+<li>電話操作</li>
+<li>ハードウェアボタン 4 つ</li>
+<li>SDK 提供されている (CUI)</li>
+<li>開発言語は C らしい</li>
+<li>ノリ的には NDK に近いとのこと</li>
+<li>PebbleKit</li>
+<li>Emulator 提供されていないので実機必要</li>
+<li>白黒液晶</li>
+<li>マネタイズ的には微妙とのこと</li>
+<li>Sony SmartWatch2</li>
+<li>BT, NFC</li>
+<li>タッチパネル、スライドショー、電話操作、音楽再生通知</li>
+<li>ボタンひとつ、タッチパネル操作</li>
+<li>スマホで専用アプリを入れて云々</li>
+<li>ほぼ android という印象</li>
+<li>Google Play で配布</li>
+<li>SDK 周りがややこしい</li>
+<li>ほぼ android</li>
+<li>サンプルが Eclipse 向け</li>
+<li>Andoir Wear はサポートしないらしい</li>
+<li>Tizen Wearable</li>
+<li>36540えん</li>
+<li>BT, NFC</li>
+<li>通話ができるらしい</li>
+<li>カメラついている</li>
+<li>音声メモ</li>
+<li>歩数計</li>
+<li>戻る、という操作がないらしい</li>
+<li>中身は Web App</li>
+<li>Emulator もある (不安定)</li>
+<li>開発環境は揃っている</li>
+<li>android wear</li>
+<li>かいはつとうろくしたらメイルが届いてもろもろ添付</li>
+<li>Android Studio で開発</li>
+<li>現状は Notify のみ</li>
+<li>Notification Listener service というナニ</li>
+<li>アプリでは意識して、なひつようはない</li>
+<li>既存アプリの機能拡張ってカンジ?</li>
+<li>全体</li>
+<li>アーキテクチャは大体おなじ</li>
+<li>サブディスプレイとしての</li>
+<li>UX の試行錯誤はどれでも可能</li>
+<li>Wear 向け</li>
+</ul>
+
+<h2 id="wearのuiガイドライン解説と円型画面uxのポイント">wearのUIガイドライン解説と円型画面UXのポイント</h2>
+
+<ul>
+<li>モバイルフロンティア、という本</li>
+<li>android wear という名前 (時計だけじゃない</li>
+<li>Design Principles of Android Wear</li>
+<li><a href="http://www.andoh.org">http://www.andoh.org</a></li>
+<li>Google Now</li>
+<li>glance チラ見 (一目でよういにりかいできる)</li>
+<li>一覧てき、操作を少なく、有益</li>
+<li>大きさと色の濃さ、文字の少なさ</li>
+<li>不安定な状況、かつ外で使う</li>
+<li>コントラスト強く</li>
+<li>だれに覗かれているかわからない</li>
+<li>font すくなく、おと多い (重要</li>
+<li>趣味趣向、嗜好品</li>
+<li>なんだいもかって使いわけることもありえる</li>
+<li>一人が複数の腕時計</li>
+<li>ファッションアイテム</li>
+<li>スタイルとシチュエーション</li>
+<li>「便利」だけではなくて「好み」も</li>
+<li>見ため、でのマネタイズ</li>
+<li>円形 UX</li>
+<li>MOTO360 Making ビデオかっこいいのがある</li>
+<li>ベンチャーのチャンス</li>
+<li>丸いものが世の中にはいっぱい</li>
+<li>Cathryn Briggs</li>
+<li>アイコン丸い</li>
+<li>角丸は意識が中央に</li>
+<li>ましかくは意識は外に</li>
+<li>角がない、のはけっこうツライ</li>
+<li>表示領域狭くなる</li>
+<li>これからの課題 (角が無い)</li>
+<li>多角形と円形との関連</li>
+<li>半円もあるかも</li>
+<li>上下左右があいまいなケイス</li>
+<li>ナナメな文字盤</li>
+<li>上下左右があいまい</li>
+<li>横線はっきり見せるとアレ</li>
+<li>操作に両手を使う (腕時計型</li>
+<li>チラっと見るだけのもの、がアレ</li>
+<li>画像の半分かくれる前提で</li>
+<li>ソーシャルネットのアイコンは上半分</li>
+<li>丸に関するデザインの know-how たくさん</li>
+<li>黄金比、奥行き、背景、重心、躍動、安定</li>
+<li>正方形 UX</li>
+<li>動き、断絶、領域区切る、奥行き、空間、縁、分割</li>
+<li>ふちに目立つようなもの</li>
+<li>紙のデザインからまなびつつ、wear に生かせる</li>
+<li>音のデザイン重要</li>
+<li>きれいな音はでない前提</li>
+<li>そんなスピーカでも綺麗に再生できる素材</li>
+<li>構造を考える</li>
+<li>複数の周波数帯の音</li>
+<li>おとはジャッジしにくい</li>
+<li>音のデザイン、がポイント</li>
+<li>いい音を用意するのは難しい</li>
+</ul>
+
+<p>そしてここでバッテリが切れました。以下のセッションはメモできず。</p>
+
+<ul>
+<li>Wearアプリ開発経験談(仮)</li>
+<li>iBeaconをトリガーにしたAndroid Wear</li>
+</ul>
+
+<p>UI/UX なセッションは勉強になりました。あと某所で役に立ちそげなネタが一つ。</p>
+
+<h2 id="沖縄で">沖縄で</h2>
+
+<p>フィードバックな勉強会やりたいな。あと、きんねこさんのまとめも要チェックということでポインタ貼っておきます。</p>
+
+<ul>
+<li><a href="http://togetter.com/li/647676">Android Wear勉強会#1</a></li>
+</ul>
+
+<h2 id="追記">追記</h2>
+
+<p>自分メモ、ということでまとめ記事のリンクを以下に。</p>
+
+<ul>
+<li><a href="http://unsolublesugar.com/20140328/024543/">国内最速！？Android Wear勉強会 #1 講演資料まとめ #AndroidWear | Time to live forever</a></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Mar 28, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/03/28/bourne-shell-self-study-text/" title="Bourne Shell自習テキスト">Bourne Shell自習テキスト</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/03/29/painting-tools/" title="絵の具とパレット北">絵の具とパレット北</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

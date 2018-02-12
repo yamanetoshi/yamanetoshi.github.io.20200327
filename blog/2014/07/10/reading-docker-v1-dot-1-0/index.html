@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>docker v1.1.0 読んでみる</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jul 10, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/07/10/reading-docker-v1-dot-1-0/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         docker v1.1.0 読んでみる 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>動かしながら、ということで。tutorial は以下を使ってみます。</p>
+
+<ul>
+<li><a href="http://apatheia.info/blog/2013/06/17/docker/">仮想環境構築に docker を使う</a></li>
+</ul>
+
+<p>今、手元にある docker が</p>
+
+<pre><code>$ docker --version
+Docker version 0.11.1, build fb99f99
+</code></pre>
+
+<p>とのことなので v1.1.0 なタグを checkout しています。</p>
+
+<p></p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>以下なコマンドが内部でどう評価されるのかを確認してみます。</p>
+
+<pre><code>$ docker run base /bin/echo hi
+</code></pre>
+
+<p>これ、最初は CLI モード (?) で動くのか。とりあえず ParseCommands が呼ばれて</p>
+
+<pre><code>if err := cli.ParseCommands(flag.Args()...); err != nil {
+</code></pre>
+
+<p>てのは分かります。おそらく flag.Args() は run base /bin/echo hi なリストか何かだろうというのも類推ベースでアレ。ParseCommands は api/client/cli.go で</p>
+
+<pre><code>    methodName := &quot;Cmd&quot; + strings.ToUpper(name[:1]) + strings.ToLower(name[1:])
+    method := reflect.ValueOf(cli).MethodByName(methodName)
+</code></pre>
+
+<p>みたいなことしてます。確かに api/client/commands.go に定義されてるメソドは CmdRun とかって名前になってます。なんとなくな理解で言うと</p>
+
+<ul>
+<li>reflect.ValueOf(cli) が cli オブジェクトの Value なオブジェクトを取り出して</li>
+<li>リフレクション値の共通 interface である Value interface から名前で手続きオブジェクトを取り出す</li>
+</ul>
+
+<p>という事で良いのかどうか。しかしこのあたりのヤッツケ方はなかなかアレゲです。</p>
+
+<h2 id="cmdrun">CmdRun</h2>
+
+<p>長い。とは言えざっくり把握できてるのかどうか。ともあれ以下なあたりがアレ、</p>
+
+<pre><code>    //create the container
+    stream, statusCode, err := cli.call(&quot;POST&quot;, &quot;/containers/create?&quot;+containerValues.Encode(), config, false)
+</code></pre>
+
+<p>call は api/client/utils.go で定義されている模様。これ、POST なリクエストを、なのはなんとなく分かるのですが、どこでこのリクエストを受ける人は動きはじめてるのか、が微妙。</p>
+
+<h2 id="とりあえず-1">とりあえず</h2>
+
+<p>以下な</p>
+
+<pre><code>resp, err := cli.HTTPClient().Do(req)
+</code></pre>
+
+<p>cli.HTTPClient() が何をしてるのか、なのかどうか。定義は同じく api/client/utils.go で以下とのこと。</p>
+
+<pre><code>func (cli *DockerCli) HTTPClient() *http.Client {
+    tr := &amp;http.Transport{
+        TLSClientConfig: cli.tlsConfig,
+        Dial: func(network, addr string) (net.Conn, error) {
+            return net.Dial(cli.proto, cli.addr)
+        },
+    }
+    return &amp;http.Client{Transport: tr}
+}
+</code></pre>
+
+<p>サーバ起動してる風ではないですね。つうか Do って何だろ。</p>
+
+<h2 id="do">Do</h2>
+
+<p>sync パッケージの Once 型に Do というメソドがあるんですが req は func() なのかどうかがアレ。req は http.NewRequest の戻りなのか。ええと、NewRequset の定義によれば (utils/http.go) 戻りは http.Request とあります。</p>
+
+<p>あら、でも戻すソレを先頭で</p>
+
+<pre><code>req, err := http.NewRequest(method, urlStr, body)
+</code></pre>
+
+<p>てしてるな。何だこれ。よく見てみるに net/http というソレを import してますね。<a href="http://golang.org/pkg/net/http">Package http</a> によると</p>
+
+<ul>
+<li>http.Client な client を作って</li>
+<li>http.NewRequest して req を作って</li>
+<li>client.Do(req) する</li>
+</ul>
+
+<p>というのは golang てきに通常の HTTP request の投げ方な模様。</p>
+
+<h2 id="むむむ">むむむ</h2>
+
+<p>結局、一発目の CLI の発行で daemon がどう起動するのかが分からん。ちょっと勘違いしてるかも、なので諸々確認入れてみます。</p>
+
+<p>そもそも CLI な API を受けとってるのがどこなのか、を理解しないとアレ。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jul 10, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/07/09/reading-docker/" title="docker 読みかけをもう少しすすめてみる">docker 読みかけをもう少しすすめてみる</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/07/11/build-docker/" title="Docker の build">Docker の build</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

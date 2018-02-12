@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>labs.online.net 使ってみた</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Nov 14, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/11/14/impression-i-have-used-that/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+         labs.online.net 使ってみた 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>labs.online.net の invitation を頂戴したので、使ってみます。</p>
+
+<p>とりあえず ssh のキーを登録したら dedicated なサーバを使えるらしい。とりあえず作ってみました。</p>
+
+<ul>
+<li>4 core @1.3GHz な CPU で 2GB なメモリらしい</li>
+<li>Global な IP もらえるみたい</li>
+<li>image は Ubuntu 14.04 がデフォですがでびあんも選択できる模様</li>
+<li>volume は 100GB なソレが用意されている</li>
+<li>これは別途 mount なのかどうか</li>
+<li>system volume は 20GB なのか (SSD らしい)</li>
+</ul>
+
+<p>でびあん選択で kickoff します。つうか専用物理ホストが、とか一体どんな仕掛けを使ってるのか非常に気になります。</p>
+
+<p></p>
+
+<h2 id="とりあえず起動してみた">とりあえず起動してみた</h2>
+
+<p>でびあんをチョイスした位で後はデフォ。確かに public な IP がもらえてます。一回接続に失敗したのですが、どうもサーバがまだ起動していなかったようです。</p>
+
+<p>df の出力が以下。</p>
+
+<p>{% gist c0fddce396fb4f7e0f63 %}</p>
+
+<p>まだ 100GB の volume は mount されてません。uname が以下。</p>
+
+<p>{% gist b7c433f62e73bc96eb19 %}</p>
+
+<p>/proc/cpuinfo の一部が以下。</p>
+
+<p>{% gist 81d0b0a8b500ac5ace9b %}</p>
+
+<p>確かに ARM の CPU ですね。ps 見てみるに</p>
+
+<ul>
+<li>rsyslogd</li>
+<li>cron</li>
+<li>sshd</li>
+<li>ntpd</li>
+<li>dhclient</li>
+</ul>
+
+<p>あたりが動いている模様。docker 動くよ、って聞いた気がしたのですが、って</p>
+
+<ul>
+<li><a href="http://labs.online.net/try-it">Experience the C1 cloud server with a free 15 minutes trial</a></li>
+</ul>
+
+<p>見てみるにうぶんつの image じゃないと、なのかな。もすこし確認を。</p>
+
+<h2 id="いったん-delete">いったん delete</h2>
+
+<p>コンパネから delete しようとしたらとりあえず電源 OFF に、とのこと。サーバを delete しても volume は残ったままになってました。むむ。</p>
+
+<p>image 選択する時に Apps タブから Docker 1.2 を選択すれば良いのか。今度は launch したよ、ってメセジが出るまで待機。</p>
+
+<p>出なかったのでそのまま接続 (ぇ</p>
+
+<p><code>uname -a</code> が以下。</p>
+
+<p>{% gist d00d331200d9f978f791 %}</p>
+
+<p>docker は /usr/bin 配下にいますね。こちらは <code>lsmod</code> の出力が沢山です。コンパネ見てみるに Ubuntu Utopic (14.10) って表示されてますね。</p>
+
+<h2 id="そして">そして</h2>
+
+<p>中途半端な時間に <code>docker pull python</code> とか始めちゃってるんですが大丈夫かな (ぇ</p>
+
+<h2 id="その後">その後</h2>
+
+<p>接続したままで接続元の IP が変わったら <code>ssh_exchange_identification: Connection closed by remote host</code> なエラーが出ました。ssh 接続を kill すると出るのかどうか。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Nov 14, 2014</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2014/11/13/labs-online-net/" title="labs.online.net">labs.online.net</a>
+    
+
+    
+      <a class="basic-alignment right" href="http://weblog.metacircular-evaluator.org/blog/2014/11/15/ingress-level-9/" title="CF 43 個のノルマを倒して Level 9 に">CF 43 個のノルマを倒して Level 9 に</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/26/pinttutorial/">Pint Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/24/accent/">訛</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/22/android-amazon-kindle/">amazon kindle アプリ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

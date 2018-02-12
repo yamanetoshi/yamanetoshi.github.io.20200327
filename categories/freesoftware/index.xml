@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Freesoftware on /var/log/messages</title>
+    <link>http://weblog.metacircular-evaluator.org/categories/freesoftware/</link>
+    <description>Recent content in Freesoftware on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 20 Dec 2013 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://weblog.metacircular-evaluator.org/categories/freesoftware/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>FSF の Gluglug X60 Laptop 欲しいな</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/20/i-want-to-buy-gluglug-x60-laptop/</link>
+      <pubDate>Fri, 20 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/20/i-want-to-buy-gluglug-x60-laptop/</guid>
+      <description>FSF から Gluglug X60 Laptop now certified to Respect Your Freedom という標題のメイルが着信。確認してみるに 300 ユーロで 3GB RAM で 120GB SSD なモデルが入手できるみたい。 消耗品で落とせるな、と思って</description>
+    </item>
+    
+    <item>
+      <title>GNU のステッカーが早くも到着</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/15/arrival-gnu-sticker/</link>
+      <pubDate>Fri, 15 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/15/arrival-gnu-sticker/</guid>
+      <description>&lt;p&gt;船で送付かとのんびり構えていたのでもう到着してびっくり。別途 MBA と TP にアレします。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.flickr.com/photos/yamane-toshiaki/10867891904/&#34; title=&#34;gnu ステッカーが着信 by yamane.toshiaki, on Flickr&#34;&gt;&lt;img src=&#34;http://farm3.staticflickr.com/2890/10867891904_c07268353b.jpg&#34; width=&#34;500&#34; height=&#34;375&#34; alt=&#34;gnu ステッカーが着信&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;そういえば購入する時にボケをカマシて日本語で住所書いてしまってたのですが、優しくリプライ頂いて事無きを得ております。感謝を込めて。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>FSF のソレはデータ提供されている</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/07/fsf-svg/</link>
+      <pubDate>Thu, 07 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/07/fsf-svg/</guid>
+      <description>たとえば以下。 fsf.svg これ、白黒にできたら、レーザーカッターで云々できるんかな。コースターとか作れるぞw とりあえず svg を gimp で云々する方法について、別</description>
+    </item>
+    
+    <item>
+      <title>こんなのがあるって知りませんでした</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/07/super-sticker-mega-multi-pack/</link>
+      <pubDate>Thu, 07 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/07/super-sticker-mega-multi-pack/</guid>
+      <description>不勉強でスミマセン。こんな donate ならできます。 Super Sticker Mega Multi Pack つーかこれを MBA に貼る、ってのは色々な意味でアレ。</description>
+    </item>
+    
+  </channel>
+</rss>
