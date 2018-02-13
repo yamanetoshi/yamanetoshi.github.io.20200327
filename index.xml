@@ -6,10 +6,19 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 04 Feb 2018 20:20:08 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 05 Feb 2018 20:27:40 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>slug な yaml を追加する方法</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/05/slug/</link>
+      <pubDate>Mon, 05 Feb 2018 20:27:40 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/05/slug/</guid>
+      <description>手順てきには以下? import frontmatter with open(&amp;quot;2013-11-02-book-purchase.markdown&amp;quot;) as f: post = frontmatter.loads(f.read()) post.metadata.update({&#39;slug&#39; : &amp;quot;xxxx-xxx-xxx&amp;quot;}) print(frontmatter.dumps(post)) ええと、ファイル名な文字列から最後の部分を取得するには、が確認必要なのですが、ファイル名が引数で</description>
+    </item>
     
     <item>
       <title>Hugo 導入</title>
