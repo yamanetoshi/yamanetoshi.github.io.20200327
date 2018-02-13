@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Python-obd.readthedocs.io 翻訳</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 6, 2018
+         - 19 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/02/06/python-obd/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Python-obd.readthedocs.io 翻訳 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          
+
+<p>このドキュメントは以下のドキュメントの翻訳版となります。</p>
+
+<ul>
+<li><a href="http://python-obd.readthedocs.io/en/latest/">python-OBD</a></li>
+</ul>
+
+<!-- more -->
+
+<h2 id="getting-started">Getting Started</h2>
+
+<h3 id="welcome">Welcome</h3>
+
+<p><code>Python-OBD</code> は車の<a href="https://en.wikipedia.org/wiki/On-board_diagnostics">オンボード診断ポート</a>（OBD-II）からデータを処理するためのライブラリです。 リアルタイムのセンサーデータをストリーミングしたり、エンジン診断のコードを読み取るなどの診断を実行したり、あるいはラズベリーパイに適しています。 このライブラリは、標準の<a href="http://www.amazon.com/s/ref=nb_sb_noss?field-keywords=elm327">ELM327 OBD-IIアダプタ</a>で動作するように設計されています。</p>
+
+<p>注：<code>Python-OBD</code> は 1.0.0 より下にあります。つまり、API がマイナーバージョン間で変更される可能性があります。 アップデートする前に <a href="https://github.com/brendan-w/python-OBD/releases">GitHub のリリース・ページ</a>で Changelog を調べてください。</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>pypiから最新リリースをインストールします。</p>
+
+<pre><code>$ pip install obd
+</code></pre>
+
+<p>注意：Linux で Bluetooth アダプタを使用している場合は、Bluetooth スタックをインストールして設定する必要があります。 Debian ベースのシステムでは、これは通常以下のパッケージをインストールすることを意味します：</p>
+
+<pre><code>$ sudo apt-get install bluetooth bluez-utils blueman
+</code></pre>
+
+<h3 id="basic-usage">Basic Usage</h3>
+
+<pre><code>import obd
+
+connection = obd.OBD() # auto-connects to USB or RF port
+
+cmd = obd.commands.SPEED # select an OBD command (sensor)
+
+response = connection.query(cmd) # send the command, and parse the response
+
+print(response.value) # returns unit-bearing values thanks to Pint
+print(response.value.to(&quot;mph&quot;)) # user-friendly unit conversions
+</code></pre>
+
+<p>OBD 接続は要求応答方式で動作します。 車からデータを取得するには、必要なデータ（RPM、車速など）を問い合わせるコマンドを送信する必要があります。 <code>Python-OBD</code> では、これは <code>query（）</code> 関数で行われます。 コマンド自体はオブジェクトとして表され、<code>obd.commands</code> の名前または値で参照できます。 <code>query（）</code> 関数は、<code>value</code> プロパティに解析されたデータを含むレスポンスオブジェクトを返します。</p>
+
+<h3 id="module-layout">Module Layout</h3>
+
+<pre><code>import obd
+
+obd.OBD            # main OBD connection class
+obd.Async          # asynchronous OBD connection class
+obd.commands       # command tables
+obd.Unit           # unit tables (a Pint UnitRegistry)
+obd.OBDStatus      # enum for connection status
+obd.scan_serial    # util function for manually scanning for OBD adapters
+obd.OBDCommand     # class for making your own OBD Commands
+obd.ECU            # enum for marking which ECU a command should listen to
+obd.logger         # the OBD module's root logger (for debug)
+</code></pre>
+
+<h3 id="license">License</h3>
+
+<p>GNU General Public License V2</p>
+
+<h2 id="obd-connections">OBD Connections</h2>
+
+<p>ライブラリをインストールしたら、単に <code>import obd</code> して、新しい OBD 接続オブジェクトを作成します。 デフォルトでは、<code>python-OBD</code> は Bluetooth と USB のシリアルポートを（その順番に）スキャンし、見つかった最初の接続を選択します。 ポートは OBD コンストラクタに接続文字列を渡すことで手動で指定することもできます。 また、<code>scan_serial</code> ヘルパーを使用して、接続されているポートのリストを取得することもできます。</p>
+
+<pre><code>import obd
+
+connection = obd.OBD() # auto connect
+
+# OR
+
+connection = obd.OBD(&quot;/dev/ttyUSB0&quot;) # create connection with USB 0
+
+# OR
+
+ports = obd.scan_serial()      # return list of valid USB or RF ports
+print ports                    # ['/dev/ttyUSB0', '/dev/ttyUSB1']
+connection = obd.OBD(ports[0]) # connect to the first port in the list
+</code></pre>
+
+<h3 id="obd-portstr-none-baudrate-none-protocol-none-fast-true">OBD(portstr=None, baudrate=None,protocol=None,fast=True)</h3>
+
+<p><code>portstr</code>: ご使用のアダプターの UNIX デバイス・ファイルまたは Windows COM ポートを文字列で渡します。 デフォルト値（<code>None</code>）はポートを自動的に選択します。</p>
+
+<p><code>baudrate</code>: シリアル接続を設定するボーレートを渡します。 この値ははアダプタによって異なります。 典型的な値は 9600、38400、19200、57600、115200 です。デフォルト値（None）は自動的にボーレートを選択します。</p>
+
+<p><code>protocol</code>: アダプタと通信するときに指定されたプロトコルを　<code>python-OBD</code> が強制的に使用するようにします。 可能な値については <code>protocol_id（）</code> を参照してください。 デフォルト値（<code>None</code>）はプロトコルを自動的に選択します。</p>
+
+<p><code>fast</code>: コマンドを最適化してから車に送ることができます。 <code>Python-OBD</code> は現在、このような最適化を2つ行っています。</p>
+
+<ul>
+<li>キャリッジリターンを送信することで、前のコマンドを繰り返します。</li>
+<li>応答の制限をコマンドの最後に追加し、N 応答（待機するのではなく最終的にタイムアウトする）を受け取った後でアダプタに返すよう指示します。 この機能は、個々のコマンドに対して有効または無効にすることができます。</li>
+</ul>
+
+<p>高速モードを無効にすると、python-OBDがすべての要求に対して変更されていないコマンドを出力することが保証されます。</p>
+
+<h3 id="query-command-force-true">query(command, force=True)</h3>
+
+<p><code>OBDCommand</code> を車に送り、<code>OBDResponse</code> オブジェクトを返します。 この機能は、車からの応答が受信されるまでブロックされます。 この機能は、指定されたコマンドがあなたの車によってサポートされているかどうかもチェックします。 コマンドがサポートされているとマークされていない場合、コマンドは送信されず、空の <code>OBDResponse</code> が返されます。 サポートされていないコマンドを強制的に送信するには、便宜のためにオプションの <code>force</code> パラメーターがあります。</p>
+
+<p>ノンブロッキングクエリについては、<code>Async Querying</code> を参照してください。</p>
+
+<pre><code>import obd
+connection = obd.OBD()
+
+r = connection.query(obd.commands.RPM) # returns the response from the car
+</code></pre>
+
+<h3 id="status">status()</h3>
+
+<p>接続の状態を反映する文字列を値として返します。 これらの値は、<code>OBDStatus</code> クラスと比較する必要があります。 それらが文字列であるという事実は、人間の可読性のためだけです。 現在、3つの状態があります。</p>
+
+<pre><code>from obd import OBDStatus
+
+# no connection is made
+OBDStatus.NOT_CONNECTED # &quot;Not Connected&quot;
+
+# successful communication with the ELM327 adapter
+OBDStatus.ELM_CONNECTED # &quot;ELM Connected&quot;
+
+# successful communication with the ELM327 and the vehicle
+OBDStatus.CAR_CONNECTED # &quot;Car Connected&quot;
+</code></pre>
+
+<p>中間状態の <code>ELM_CONNECTED</code> は、主にエラーを診断するためのものです。 適切な接続が確立されると、この値に遭遇することは決してありません。</p>
+
+<h3 id="is-connected">is_connected()</h3>
+
+<p>車両との接続が確立されたかどうかを示すブール値を返します。 それは以下と同一です：</p>
+
+<pre><code>connection.status() == OBDStatus.CAR_CONNECTED
+</code></pre>
+
+<h3 id="port-name">port_name()</h3>
+
+<p>現在接続されているポート名（&rdquo;<code>/dev/ttyUSB0</code>&ldquo;）の文字列を返します。 接続がない場合、この関数は空の文字列を返します。</p>
+
+<h3 id="supports-command">supports(command)</h3>
+
+<p>コマンドが車両と　<code>python-OBD</code> の両方でサポートされているかどうかを示すブール値を返します。</p>
+
+<h3 id="protocol-id">protocol_id()</h3>
+
+<h3 id="protocol-name">protocol_name()</h3>
+
+<p>どちらの関数も、現在アダプタで使用されているプロトコルの名前を文字列で返します。 プロトコルIDはアダプタで使用される短い値ですが、プロトコル名は人間が判読可能なものです。 <code>protocol_id（）</code> 関数は、OBDコンストラクタのプロトコルフィールドで渡す値を検索するのに適しています（ただし、これは主に高度な使い方です）。 これらの関数はシリアルリクエストを行いません。 接続されていない場合、これらの関数は空文字列を返します。 可能な値は次のとおりです。</p>
+
+<p>|ID|Name|
+|:-|:&mdash;|
+|1|SAE J1850 PWM|
+|2|SAE J1850 VPW|
+|3|AUTO, ISO 9141-2|
+|4|ISO 14230-4(KWP 5BAUD)|
+|5|ISO 14230-4(KWP FAST)|
+|6|ISO 15765-4(CAN <sup>11</sup>&frasl;<sub>500</sub>)|
+|7|ISO 15765-4(CAN <sup>29</sup>&frasl;<sub>500</sub>)|
+|8|ISO 15765-4(CAN <sup>11</sup>&frasl;<sub>250</sub>)|
+|9|ISO 15764-4(CAN <sup>29</sup>&frasl;<sub>250</sub>)|
+|A|SAE J1939 (CAN <sup>29</sup>&frasl;<sub>250</sub>)|</p>
+
+<h3 id="close">close()</h3>
+
+<p>接続を閉じます。</p>
+
+<h3 id="supported-commands">supported_commands</h3>
+
+<p>車両でサポートされている一連のコマンドを含むプロパティ。</p>
+
+<p>コマンドをサポートされているものとして手動でマークしたい場合（<code>query（force = True）</code> を使いたくないとき）、コマンドをこのセットに追加します。 これは <code>python-OBD</code> の組み込みコマンドを使用する場合は必要ありませんが、カスタムコマンドを作成する場合には便利です。</p>
+
+<pre><code>import obd
+connection = obd.OBD()
+
+# manually mark the given command as supported
+connection.supported_commands.add(&lt;OBDCommand&gt;)
+</code></pre>
+
+<h2 id="command-lookup">Command Lookup</h2>
+
+<p><code>OBDCommand</code> は、車両から情報を照会するために使用されるオブジェクトです。 これらは、クエリを実行するために必要なすべての情報を含み、車の応答をデコードします。 <code>Python-OBD</code> には、最も一般的なコマンド用のテーブルが組み込まれています。 それらは、名前またはモードと PID によって検索することができます。</p>
+
+<pre><code>import obd
+
+c = obd.commands.RPM
+
+# OR
+
+c = obd.commands['RPM']
+
+# OR
+
+c = obd.commands[1][12] # mode 1, PID 12 (RPM)
+</code></pre>
+
+<p><code>commands</code> テーブルには、特定の名前または PID が存在するかどうかを判断するためのヘルパーメソッドもあります。</p>
+
+<h3 id="has-command-command">has_command(command)</h3>
+
+<p>指定された <code>OBDCommand</code> オブジェクトの存在を内部コマンドテーブルでチェックします。 コマンドは、モードと PID 値で比較されます。</p>
+
+<pre><code>import obd
+obd.commands.has_command(obd.commands.RPM) # True
+</code></pre>
+
+<h3 id="has-name-name">has_name(name)</h3>
+
+<p>指定された名前のコマンドを内部コマンドテーブルでチェックします。 これは　<code>in</code> 演算子の関数でもあります。</p>
+
+<pre><code>import obd
+
+obd.commands.has_name('RPM') # True
+
+# OR
+
+'RPM' in obd.commands # True
+</code></pre>
+
+<h3 id="has-pid-mode-pid">has_pid(mode, pid)</h3>
+
+<p>指定されたモードと　PID　を持つコマンドの内部コマンドテーブルをチェックします。</p>
+
+<pre><code>import obd
+obd.commands.has_pid(1, 12) # True
+</code></pre>
+
+<h2 id="command-tables">Command Tables</h2>
+
+<h3 id="obd-ii-adapter-elm327-commands">OBD-II adapter (ELM327 commands)</h3>
+
+<table>
+<thead>
+<tr>
+<th align="left">PID</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Response Value</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">N/A</td>
+<td align="left">ELM_VERSION</td>
+<td align="left">OBD-II adapter version string</td>
+<td align="left">string</td>
+</tr>
+
+<tr>
+<td align="left">N/A</td>
+<td align="left">ELM_VOLTAGE</td>
+<td align="left">Voltage detected by OBD-II adapter</td>
+<td align="left">Unit.volt</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="mode-01">Mode 01</h3>
+
+<table>
+<thead>
+<tr>
+<th align="left">PID</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Response Value</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">00</td>
+<td align="left">PIDS_A</td>
+<td align="left">Supported PIDs [01-20]</td>
+<td align="left">bitarray</td>
+</tr>
+
+<tr>
+<td align="left">01</td>
+<td align="left">STATUS</td>
+<td align="left">Status since DTCs cleared</td>
+<td align="left"><a href="http://python-obd.readthedocs.io/en/latest/Responses/#status">special</a></td>
+</tr>
+
+<tr>
+<td align="left">02</td>
+<td align="left">FREEZE_DTC</td>
+<td align="left">DTC that triggered the freeze frame</td>
+<td align="left"><a href="http://python-obd.readthedocs.io/en/latest/Responses/#diagnostic-trouble-codes-dtcs">special</a></td>
+</tr>
+
+<tr>
+<td align="left">03</td>
+<td align="left">FUEL_STATUS</td>
+<td align="left">Fuel System Status</td>
+<td align="left"><a href="http://python-obd.readthedocs.io/en/latest/Responses/#fuel-status">(string, string)</a></td>
+</tr>
+
+<tr>
+<td align="left">04</td>
+<td align="left">ENGINE_LOAD</td>
+<td align="left">Calculated Engine Load</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">05</td>
+<td align="left">COOLANT_TEMP</td>
+<td align="left">Engine Coolant Temperature</td>
+<td align="left">Unit.celsius</td>
+</tr>
+
+<tr>
+<td align="left">06</td>
+<td align="left">SHORT_FUEL_TRIM_1</td>
+<td align="left">Short Term Fuel Trim - Bank 1</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">07</td>
+<td align="left">LONG_FUEL_TRIM_1</td>
+<td align="left">Long Term Fuel Trim - Bank 1</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">08</td>
+<td align="left">SHORT_FUEL_TRIM_2</td>
+<td align="left">Short Term Fuel Trim - Bank 2</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">0A</td>
+<td align="left">FUEL_PRESSURE</td>
+<td align="left">Fuel Pressure</td>
+<td align="left">Unit.kilopascal</td>
+</tr>
+
+<tr>
+<td align="left">0B</td>
+<td align="left">INTAKE_PRESSURE</td>
+<td align="left">Intake Manifold Pressure</td>
+<td align="left">Unit.kilopascal</td>
+</tr>
+
+<tr>
+<td align="left">0C</td>
+<td align="left">RPM</td>
+<td align="left">Engine RPM</td>
+<td align="left">Unit.rpm</td>
+</tr>
+
+<tr>
+<td align="left">0D</td>
+<td align="left">SPEED</td>
+<td align="left">Vehicle Speed</td>
+<td align="left">Unit.kph</td>
+</tr>
+
+<tr>
+<td align="left">0E</td>
+<td align="left">TIMING_ADVANCE</td>
+<td align="left">Timing Advance</td>
+<td align="left">Unit.degree</td>
+</tr>
+
+<tr>
+<td align="left">0F</td>
+<td align="left">INTAKE_TEMP</td>
+<td align="left">Intake Air Temp</td>
+<td align="left">Unit.celsius</td>
+</tr>
+
+<tr>
+<td align="left">10</td>
+<td align="left">MAF</td>
+<td align="left">Air Flow Rate (MAF)</td>
+<td align="left">Unit.grams_per_second</td>
+</tr>
+
+<tr>
+<td align="left">11</td>
+<td align="left">THROTTLE_POS</td>
+<td align="left">Throttle Position</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">12</td>
+<td align="left">AIR_STATUS</td>
+<td align="left">Secondary Air Status</td>
+<td align="left"><a href="http://python-obd.readthedocs.io/en/latest/Responses/#air-status">string</a></td>
+</tr>
+
+<tr>
+<td align="left">13</td>
+<td align="left">O2_SENSORS</td>
+<td align="left">O2 Sensors Present</td>
+<td align="left"><a href="http://python-obd.readthedocs.io/en/latest/Responses/#oxygen-sensors-present">special</a></td>
+</tr>
+
+<tr>
+<td align="left">14</td>
+<td align="left">O2_B1S1</td>
+<td align="left">O2: Bank 1 - Sensor 1 Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">15</td>
+<td align="left">O2_B1S2</td>
+<td align="left">O2: Bank 1 - Sensor 2 Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">16</td>
+<td align="left">O2_B1S3</td>
+<td align="left">O2: Bank 1 - Sensor 3 Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">17</td>
+<td align="left">O2_B1S4</td>
+<td align="left">O2: Bank 1 - Sensor 4 Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">18</td>
+<td align="left">O2_B2S1</td>
+<td align="left">O2: Bank 2 - Sensor 1 Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">19</td>
+<td align="left">O2_B2S2</td>
+<td align="left">O2: Bank 2 - Sensor 2 Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">1A</td>
+<td align="left">O2_B2S3</td>
+<td align="left">O2: Bank 2 - Sensor 3 Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">1B</td>
+<td align="left">O2_B2S4</td>
+<td align="left">O2: Bank 2 - Sensor 4 Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">1C</td>
+<td align="left">OBD_COMPLIANCE</td>
+<td align="left">OBD Standards Compliance</td>
+<td align="left">string</td>
+</tr>
+
+<tr>
+<td align="left">1D</td>
+<td align="left">O2_SENSORS_ALT</td>
+<td align="left">O2 Sensors Present (alternate)</td>
+<td align="left">special</td>
+</tr>
+
+<tr>
+<td align="left">1E</td>
+<td align="left">AUX_INPUT_STATUS</td>
+<td align="left">Auxiliary input status (power take off)</td>
+<td align="left">boolean</td>
+</tr>
+
+<tr>
+<td align="left">1F</td>
+<td align="left">RUN_TIME</td>
+<td align="left">Engine Run Time</td>
+<td align="left">Unit.second</td>
+</tr>
+
+<tr>
+<td align="left">20</td>
+<td align="left">PIDS_B</td>
+<td align="left">Supported PIDs [21-40]</td>
+<td align="left">bitarray</td>
+</tr>
+
+<tr>
+<td align="left">21</td>
+<td align="left">DISTANCE_W_MIL</td>
+<td align="left">Distance Traveled with MIL on</td>
+<td align="left">Unit.kilometer</td>
+</tr>
+
+<tr>
+<td align="left">22</td>
+<td align="left">FUEL_RAIL_PRESSURE_VAC</td>
+<td align="left">Fuel Rail Pressure (relative to vacuum)</td>
+<td align="left">Unit.kilopascal</td>
+</tr>
+
+<tr>
+<td align="left">23</td>
+<td align="left">FUEL_RAIL_PRESSURE_DIRECT</td>
+<td align="left">Fuel Rail Pressure (direct inject)</td>
+<td align="left">Unit.kilopascal</td>
+</tr>
+
+<tr>
+<td align="left">24</td>
+<td align="left">O2_S1_WR_VOLTAGE</td>
+<td align="left">02 Sensor 1 WR Lambda Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">25</td>
+<td align="left">O2_S2_WR_VOLTAGE</td>
+<td align="left">02 Sensor 2 WR Lambda Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">26</td>
+<td align="left">O2_S3_WR_VOLTAGE</td>
+<td align="left">02 Sensor 3 WR Lambda Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">27</td>
+<td align="left">O2_S4_WR_VOLTAGE</td>
+<td align="left">02 Sensor 4 WR Lambda Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">28</td>
+<td align="left">O2_S5_WR_VOLTAGE</td>
+<td align="left">02 Sensor 5 WR Lambda Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">29</td>
+<td align="left">O2_S6_WR_VOLTAGE</td>
+<td align="left">02 Sensor 6 WR Lambda Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">2A</td>
+<td align="left">O2_S7_WR_VOLTAGE</td>
+<td align="left">02 Sensor 7 WR Lambda Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">2B</td>
+<td align="left">O2_S8_WR_VOLTAGE</td>
+<td align="left">02 Sensor 8 WR Lambda Voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">2C</td>
+<td align="left">COMMANDED_EGR</td>
+<td align="left">Commanded EGR</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">2D</td>
+<td align="left">EGR_ERROR</td>
+<td align="left">EGR Error</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">2E</td>
+<td align="left">EVAPORATIVE_PURGE</td>
+<td align="left">Commanded Evaporative Purge</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">2F</td>
+<td align="left">FUEL_LEVEL</td>
+<td align="left">Fuel Level Input</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">30</td>
+<td align="left">WARMUPS_SINCE_DTC_CLEAR</td>
+<td align="left">Number of warm-ups since codes cleared</td>
+<td align="left">Unit.count</td>
+</tr>
+
+<tr>
+<td align="left">31</td>
+<td align="left">DISTANCE_SINCE_DTC_CLEAR</td>
+<td align="left">Distance traveled since codes cleared</td>
+<td align="left">Unit.kilometer</td>
+</tr>
+
+<tr>
+<td align="left">32</td>
+<td align="left">EVAP_VAPOR_PRESSURE</td>
+<td align="left">Evaporative system vapor pressure</td>
+<td align="left">Unit.pascal</td>
+</tr>
+
+<tr>
+<td align="left">33</td>
+<td align="left">BAROMETRIC_PRESSURE</td>
+<td align="left">Barometric Pressure</td>
+<td align="left">Unit.kilopascal</td>
+</tr>
+
+<tr>
+<td align="left">34</td>
+<td align="left">O2_S1_WR_CURRENT</td>
+<td align="left">02 Sensor 1 WR Lambda Current</td>
+<td align="left">Unit.milliampere</td>
+</tr>
+
+<tr>
+<td align="left">35</td>
+<td align="left">O2_S2_WR_CURRENT</td>
+<td align="left">02 Sensor 2 WR Lambda Current</td>
+<td align="left">Unit.milliampere</td>
+</tr>
+
+<tr>
+<td align="left">36</td>
+<td align="left">O2_S3_WR_CURRENT</td>
+<td align="left">02 Sensor 3 WR Lambda Current</td>
+<td align="left">Unit.milliampere</td>
+</tr>
+
+<tr>
+<td align="left">37</td>
+<td align="left">O2_S4_WR_CURRENT</td>
+<td align="left">02 Sensor 4 WR Lambda Current</td>
+<td align="left">Unit.milliampere</td>
+</tr>
+
+<tr>
+<td align="left">38</td>
+<td align="left">O2_S5_WR_CURRENT</td>
+<td align="left">02 Sensor 5 WR Lambda Current</td>
+<td align="left">Unit.milliampere</td>
+</tr>
+
+<tr>
+<td align="left">39</td>
+<td align="left">O2_S6_WR_CURRENT</td>
+<td align="left">02 Sensor 6 WR Lambda Current</td>
+<td align="left">Unit.milliampere</td>
+</tr>
+
+<tr>
+<td align="left">3A</td>
+<td align="left">O2_S7_WR_CURRENT</td>
+<td align="left">02 Sensor 7 WR Lambda Current</td>
+<td align="left">Unit.milliampere</td>
+</tr>
+
+<tr>
+<td align="left">3B</td>
+<td align="left">O2_S8_WR_CURRENT</td>
+<td align="left">02 Sensor 8 WR Lambda Current</td>
+<td align="left">Unit.milliampere</td>
+</tr>
+
+<tr>
+<td align="left">3C</td>
+<td align="left">CATALYST_TEMP_B1S1</td>
+<td align="left">Catalyst Temperature: Bank 1 - Sensor 1</td>
+<td align="left">Unit.celsius</td>
+</tr>
+
+<tr>
+<td align="left">3D</td>
+<td align="left">CATALYST_TEMP_B2S1</td>
+<td align="left">Catalyst Temperature: Bank 2 - Sensor 1</td>
+<td align="left">Unit.celsius</td>
+</tr>
+
+<tr>
+<td align="left">3E</td>
+<td align="left">CATALYST_TEMP_B1S2</td>
+<td align="left">Catalyst Temperature: Bank 1 - Sensor 2</td>
+<td align="left">Unit.celsius</td>
+</tr>
+
+<tr>
+<td align="left">3F</td>
+<td align="left">CATALYST_TEMP_B2S2</td>
+<td align="left">Catalyst Temperature: Bank 2 - Sensor 2</td>
+<td align="left">Unit.celsius</td>
+</tr>
+
+<tr>
+<td align="left">40</td>
+<td align="left">PIDS_C</td>
+<td align="left">Supported PIDs [41-60]</td>
+<td align="left">bitarray</td>
+</tr>
+
+<tr>
+<td align="left">41</td>
+<td align="left">STATUS_DRIVE_CYCLE</td>
+<td align="left">Monitor status this drive cycle</td>
+<td align="left"><a href="http://python-obd.readthedocs.io/en/latest/Responses/#status">special</a></td>
+</tr>
+
+<tr>
+<td align="left">42</td>
+<td align="left">CONTROL_MODULE_VOLTAGE</td>
+<td align="left">Control module voltage</td>
+<td align="left">Unit.volt</td>
+</tr>
+
+<tr>
+<td align="left">43</td>
+<td align="left">ABSOLUTE_LOAD</td>
+<td align="left">Absolute load value</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">44</td>
+<td align="left">COMMANDED_EQUIV_RATIO</td>
+<td align="left">Commanded equivalence ratio</td>
+<td align="left">Unit.ratio</td>
+</tr>
+
+<tr>
+<td align="left">45</td>
+<td align="left">RELATIVE_THROTTLE_POS</td>
+<td align="left">Relative throttle position</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">46</td>
+<td align="left">AMBIANT_AIR_TEMP</td>
+<td align="left">Ambient air temperature</td>
+<td align="left">Unit.celsius</td>
+</tr>
+
+<tr>
+<td align="left">47</td>
+<td align="left">THROTTLE_POS_B</td>
+<td align="left">Absolute throttle position B</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">48</td>
+<td align="left">THROTTLE_POS_C</td>
+<td align="left">Absolute throttle position C</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">49</td>
+<td align="left">ACCELERATOR_POS_D</td>
+<td align="left">Accelerator pedal position D</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">4A</td>
+<td align="left">ACCELERATOR_POS_E</td>
+<td align="left">Accelerator pedal position E</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">4B</td>
+<td align="left">ACCELERATOR_POS_F</td>
+<td align="left">Accelerator pedal position F</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">4C</td>
+<td align="left">THROTTLE_ACTUATOR</td>
+<td align="left">Commanded throttle actuator</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">4D</td>
+<td align="left">RUN_TIME_MIL</td>
+<td align="left">Time run with MIL on</td>
+<td align="left">Unit.minute</td>
+</tr>
+
+<tr>
+<td align="left">4E</td>
+<td align="left">TIME_SINCE_DTC_CLEARED</td>
+<td align="left">Time since trouble codes cleared</td>
+<td align="left">Unit.minute</td>
+</tr>
+
+<tr>
+<td align="left">4F</td>
+<td align="left">unsupported</td>
+<td align="left">unsupported</td>
+<td align="left"></td>
+</tr>
+
+<tr>
+<td align="left">50</td>
+<td align="left">MAX_MAF</td>
+<td align="left">Maximum value for mass air flow sensor</td>
+<td align="left">Unit.grams_per_second</td>
+</tr>
+
+<tr>
+<td align="left">51</td>
+<td align="left">FUEL_TYPE</td>
+<td align="left">Fuel Type</td>
+<td align="left">string</td>
+</tr>
+
+<tr>
+<td align="left">52</td>
+<td align="left">ETHANOL_PERCENT</td>
+<td align="left">Ethanol Fuel Percent</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">53</td>
+<td align="left">EVAP_VAPOR_PRESSURE_ABS</td>
+<td align="left">Absolute Evap system Vapor Pressure</td>
+<td align="left">Unit.kilopascal</td>
+</tr>
+
+<tr>
+<td align="left">54</td>
+<td align="left">EVAP_VAPOR_PRESSURE_ALT</td>
+<td align="left">Evap system vapor pressure</td>
+<td align="left">Unit.pascal</td>
+</tr>
+
+<tr>
+<td align="left">54</td>
+<td align="left">EVAP_VAPOR_PRESSURE_ALT</td>
+<td align="left">Evap system vapor pressure</td>
+<td align="left">Unit.pascal</td>
+</tr>
+
+<tr>
+<td align="left">55</td>
+<td align="left">SHORT_O2_TRIM_B1</td>
+<td align="left">Short term secondary O2 trim - Bank 1</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">56</td>
+<td align="left">LONG_O2_TRIM_B1</td>
+<td align="left">Long term secondary O2 trim - Bank 1</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">57</td>
+<td align="left">SHORT_O2_TRIM_B2</td>
+<td align="left">Short term secondary O2 trim - Bank 2</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">58</td>
+<td align="left">LONG_O2_TRIM_B2</td>
+<td align="left">Long term secondary O2 trim - Bank 2</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">59</td>
+<td align="left">FUEL_RAIL_PRESSURE_ABS</td>
+<td align="left">Fuel rail pressure (absolute)</td>
+<td align="left">Unit.kilopascal</td>
+</tr>
+
+<tr>
+<td align="left">5A</td>
+<td align="left">RELATIVE_ACCEL_POS</td>
+<td align="left">Relative accelerator pedal position</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">5B</td>
+<td align="left">HYBRID_BATTERY_REMAINING</td>
+<td align="left">Hybrid battery pack remaining life</td>
+<td align="left">Unit.percent</td>
+</tr>
+
+<tr>
+<td align="left">5C</td>
+<td align="left">OIL_TEMP</td>
+<td align="left">Engine oil temperature</td>
+<td align="left">Unit.celsius</td>
+</tr>
+
+<tr>
+<td align="left">5D</td>
+<td align="left">FUEL_INJECT_TIMING</td>
+<td align="left">Fuel injection timing</td>
+<td align="left">Unit.degree</td>
+</tr>
+
+<tr>
+<td align="left">5E</td>
+<td align="left">FUEL_RATE</td>
+<td align="left">Engine fuel rate</td>
+<td align="left">Unit.liters_per_hour</td>
+</tr>
+
+<tr>
+<td align="left">5F</td>
+<td align="left">unsupported</td>
+<td align="left">unsupported</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="mode-02">Mode 02</h3>
+
+<p>Mode 02 コマンドは Mode 01 と同じですが、最後の DTC が発生した時点（フリーズフレーム）からのメトリックです。 名前でアクセスするには、Mode 01 のコマンド名の前にDTC_を付加します。</p>
+
+<pre><code>import obd
+
+obd.commands.RPM # the Mode 01 command
+# vs.
+obd.commands.DTC_RPM # the Mode 02 command
+</code></pre>
+
+<h3 id="mode-03">Mode 03</h3>
+
+<p>Mode 03 には、車両からのすべての診断トラブルコードを要求する単一のコマンド GET_DTC が含まれています。 レスポンスにはコード自体と記述（<code>python-OBD</code> に記述がある場合）が含まれます。 詳細については、<a href="http://python-obd.readthedocs.io/en/latest/Responses/#diagnostic-trouble-codes-dtcs">DTC の応答</a>セクションを参照してください。</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">PID</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Response Value</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">N/A</td>
+<td align="left">GET_DTC</td>
+<td align="left">Get Diagnostic Trouble Codes</td>
+<td align="left"><a href="http://python-obd.readthedocs.io/en/latest/Responses/#diagnostic-trouble-codes-dtcs">special</a></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="mode-04">Mode 04</h3>
+
+<table>
+<thead>
+<tr>
+<th align="left">PID</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Response Value</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">N/A</td>
+<td align="left">CLEAR_DTC</td>
+<td align="left">Clear DTCs and Freeze data</td>
+<td align="left">N/A</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="mode-06">Mode 06</h3>
+
+<p>警告：モード06は実験的なものです。 ソフトウェアテストに合格していますが、実際の車両ではテストされていません。 このモード用のデバッグ出力は非常に高く評価されます。</p>
+
+<p>モード06コマンドは、車両からのさまざまなテスト結果を監視するために使用されます。 このモードのすべてのコマンドは、Monitor Response セクションで説明したのと同じデータ型を返します。 現在、Mode 06 コマンドは CAN プロトコル（ISO 15765-4）に対してのみ実装されています。</p>
+
+<p>表は略</p>
+
+<h3 id="mode-07">Mode 07</h3>
+
+<p>戻り値は、Mode 03 <code>GET_DTC</code>　コマンドと同じ構造体でエンコードされます。</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">PID</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Response Value</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">N/A</td>
+<td align="left">GET_CURRENT_DTC</td>
+<td align="left">Get DTCs from the current/last driving cycle</td>
+<td align="left"><a href="http://python-obd.readthedocs.io/en/latest/Responses/#diagnostic-trouble-codes-dtcs">special</a></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="responses">Responses</h2>
+
+<p><code>query（）</code> 関数は <code>OBDResponse</code> オブジェクトを返します。 これらのオブジェクトには、次のプロパティがあります。</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Property</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">value</td>
+<td align="left">The decoded value from the car</td>
+</tr>
+
+<tr>
+<td align="left">command</td>
+<td align="left">The <code>OBDCommand</code> object that triggered this response</td>
+</tr>
+
+<tr>
+<td align="left">message</td>
+<td align="left">The internal <code>Message</code> object containing the raw response from the car</td>
+</tr>
+
+<tr>
+<td align="left">time</td>
+<td align="left">Timestamp of response (as given by <code>time.time()</code>)</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="is-null">is_null()</h3>
+
+<p>この機能を使用して、応答が空であるかどうかを確認します。 <code>Python-OBD</code> は、車からデータを取得できないときに空の応答を出します。</p>
+
+<pre><code>r = connection.query(obd.commands.RPM)
+
+if not r.is_null():
+    print(r.value)
+</code></pre>
+
+<h3 id="pint-values">Pint Values</h3>
+
+<p><code>value</code> プロパティには通常、Pint <code>Quantity</code> オブジェクトが含まれますが、要求に応じて複雑な構造も保持できます。 Pint の量は、値と単位を1つのクラスにまとめ、「4 秒」や「88 mph」などの物理的な値を表すために使用されます。 これにより、数学や単位変換を行う際に一貫性が得られます。 Pint は、<code>Python-OBD</code> で <code>obd.Unit</code> として公開されている単位のレジストリを管理しています。</p>
+
+<p>以下は、Pint の単位と数量で行える一般的な操作です。 詳細については、Pint Documentation を参照してください。</p>
+
+<p>注：以前のバージョンの <code>python-OBD</code> との下位互換性のために、<code>response.value</code> の代わりに <code>response.value.magnitude</code> を使用してください</p>
+
+<pre><code>import obd
+
+&gt;&gt;&gt; response.value
+&lt;Quantity(100, 'kph')&gt;
+
+# get the raw python datatype
+&gt;&gt;&gt; response.value.magnitude
+100
+
+# converts quantities to strings
+&gt;&gt;&gt; str(response.value)
+'100 kph'
+
+# convert strings to quantities
+&gt;&gt;&gt; obd.Unit(&quot;100 kph&quot;)
+&lt;Quantity(100, 'kph')&gt;
+
+# handles conversions nicely
+&gt;&gt;&gt; response.value.to('mph')
+&lt;Quantity(62.13711922373341, 'mph')&gt;
+
+# scaler math
+&gt;&gt;&gt; response.value / 2
+&lt;Quantity(50.0, 'kph')&gt;
+
+# non-scaler math requires you to specify units yourself
+&gt;&gt;&gt; response.value + (20 * obd.Unit.kph)
+&lt;Quantity(120, 'kph')&gt;
+
+# non-scaler math with different units
+# handles unit conversions transparently
+&gt;&gt;&gt; response.value + (20 * obd.Unit.mph)
+&lt;Quantity(132.18688, 'kph')&gt;
+</code></pre>
+
+<h3 id="status-1">Status</h3>
+
+<p>status コマンドは、故障インジケータライト（チェックエンジンライト）、スローされるトラブルコードの数、およびエンジンのタイプに関する情報を返します。</p>
+
+<pre><code>response.value.MIL              # boolean for whether the check-engine is lit
+response.value.DTC_count        # number (int) of DTCs being thrown
+response.value.ignition_type    # &quot;spark&quot; or &quot;compression&quot;
+</code></pre>
+
+<p>status　コマンドは、さまざまなシステムテストの可用性とステータスに関する情報も提供します。 これらは　<code>StatusTest</code> オブジェクトとして公開され、名前付きプロパティに読み込まれます。 各テストオブジェクトには、可用性と完了のためのブーリアンフラグがあります。</p>
+
+<pre><code>response.value.MISFIRE_MONITORING.available    # boolean for test availability
+response.value.MISFIRE_MONITORING.complete     # boolean for test completion
+</code></pre>
+
+<p>以下は、python-OBDが報告するすべてのテスト名です：</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Tests</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">MISFIRE_MONITORING</td>
+</tr>
+
+<tr>
+<td align="left">FUEL_SYSTEM_MONITORING</td>
+</tr>
+
+<tr>
+<td align="left">COMPONENT_MONITORING</td>
+</tr>
+
+<tr>
+<td align="left">CATALYST_MONITORING</td>
+</tr>
+
+<tr>
+<td align="left">HEATED_CATALYST_MONITORING</td>
+</tr>
+
+<tr>
+<td align="left">EVAPORATIVE_SYSTEM_MONITORING</td>
+</tr>
+
+<tr>
+<td align="left">SECONDARY_AIR_SYSTEM_MONITORING</td>
+</tr>
+
+<tr>
+<td align="left">OXYGEN_SENSOR_MONITORING</td>
+</tr>
+
+<tr>
+<td align="left">OXYGEN_SENSOR_HEATER_MONITORING</td>
+</tr>
+
+<tr>
+<td align="left">EGR_VVT_SYSTEM_MONITORING</td>
+</tr>
+
+<tr>
+<td align="left">NMHC_CATALYST_MONITORING</td>
+</tr>
+
+<tr>
+<td align="left">NOX_SCR_AFTERTREATMENT_MONITORING</td>
+</tr>
+
+<tr>
+<td align="left">BOOST_PRESSURE_MONITORING</td>
+</tr>
+
+<tr>
+<td align="left">EXHAUST_GAS_SENSOR_MONITORING</td>
+</tr>
+
+<tr>
+<td align="left">PM_FILTER_MONITORING</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="diagnostic-trouble-codes-dtcs">Diagnostic Trouble Codes(DTCs)</h3>
+
+<p>各 DTC は、DTC コードと記述（<code>Python-OBD</code> に1つがある場合）を含むタプルで表されます。 複数の DTC を返すコマンドの場合は、リストが使用されます。</p>
+
+<pre><code># obd.commands.GET_DTC
+response.value = [
+    (&quot;P0104&quot;, &quot;Mass or Volume Air Flow Circuit Intermittent&quot;),
+    (&quot;B0003&quot;, &quot;&quot;), # unknown error code, it's probably vehicle-specific
+    (&quot;C0123&quot;, &quot;&quot;)
+]
+
+# obd.commands.FREEZE_DTC
+response.value = (&quot;P0104&quot;, &quot;Mass or Volume Air Flow Circuit Intermittent&quot;)
+</code></pre>
+
+<h3 id="fuel-status">Fuel Status</h3>
+
+<p>燃料の状態は、第1および第2の燃料システムの状態を示す2つのストリングのタプルである。 ほとんどの車には1つのシステムしかないので、2番目の要素は空の文字列になる可能性が高いです。 可能な燃料状態は次のとおりです。</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Fuel Status</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left"><code>&quot;&quot;</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>&quot;Open loop due to insufficient engine temperature&quot;</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>&quot;Closed loop, using oxygen sensor feedback to determine fuel mix&quot;</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>&quot;Open loop due to engine load OR fuel cut due to deceleration&quot;</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>&quot;Open loop due to system failure&quot;</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>&quot;Closed loop, using at least one oxygen sensor but there is a fault in the feedback system&quot;</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="air-status">Air Status</h3>
+
+<p>空気の状態は、次の文字列のいずれかになります。</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Air Status</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left"><code>&quot;Upstream&quot;</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>&quot;Downstream of catalytic converter&quot;</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>&quot;From the outside atmosphere or off&quot;</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>&quot;Pump commanded on for diagnostics&quot;</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="oxygen-sensors-present">Oxygen Sensors Present</h3>
+
+<p>センサーの存在のブール値を保持するタプル（バンクとセンサー番号を表す）の 2 次元構造を返します。</p>
+
+<pre><code># obd.commands.O2_SENSORS
+response.value = (
+    (),                           # bank 0 is invalid, this is merely for correct indexing
+    (True,  True,  True,  False), # bank 1
+    (False, False, False, False)  # bank 2
+)
+
+# obd.commands.O2_SENSORS_ALT
+response.value = (
+    (),             # bank 0 is invalid, this is merely for correct indexing
+    (True,  True),  # bank 1
+    (True,  False), # bank 2
+    (False, False), # bank 3
+    (False, False)  # bank 4
+)
+
+# example usage:
+response.value[1][2] == True # Bank 1, Sensor 2 is present
+</code></pre>
+
+<h3 id="monitors-mode-06-responses">Monitors (Mode 06 Responses)</h3>
+
+<p>すべての Mode 06コマンドは、要求されたセンサのさまざまなテスト結果を保持する <code>Monitor</code> オブジェクトを返します。 1つのモニター応答は、複数のテストを <code>MonitorTest</code> オブジェクトの形式で保持できます。 OBD 規格ではいくつかのテストが定義されていますが、車両は常に標準を超えてカスタムテストを実装できます。 <code>Python-OBD</code> が認識する標準のテストID（TID）は次のとおりです。</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">TID</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">01</td>
+<td align="left">RTL_THRESHOLD_VOLTAGE</td>
+<td align="left">Rich to lean sensor threshold voltage</td>
+</tr>
+
+<tr>
+<td align="left">02</td>
+<td align="left">LTR_THRESHOLD_VOLTAGE</td>
+<td align="left">Lean to rich sensor threshold voltage</td>
+</tr>
+
+<tr>
+<td align="left">03</td>
+<td align="left">LOW_VOLTAGE_SWITCH_TIME</td>
+<td align="left">Low sensor voltage for switch time calculation</td>
+</tr>
+
+<tr>
+<td align="left">04</td>
+<td align="left">HIGH_VOLTAGE_SWITCH_TIME</td>
+<td align="left">High sensor voltage for switch time calculation</td>
+</tr>
+
+<tr>
+<td align="left">05</td>
+<td align="left">RTL_SWITCH_TIME</td>
+<td align="left">Rich to lean sensor switch time</td>
+</tr>
+
+<tr>
+<td align="left">06</td>
+<td align="left">LTR_SWITCH_TIME</td>
+<td align="left">Lean to rich sensor switch time</td>
+</tr>
+
+<tr>
+<td align="left">07</td>
+<td align="left">MIN_VOLTAGE</td>
+<td align="left">Minimum sensor voltage for test cycle</td>
+</tr>
+
+<tr>
+<td align="left">08</td>
+<td align="left">MAX_VOLTAGE</td>
+<td align="left">Maximum sensor voltage for test cycle</td>
+</tr>
+
+<tr>
+<td align="left">09</td>
+<td align="left">TRANSITION_TIME</td>
+<td align="left">Time between sensor transitions</td>
+</tr>
+
+<tr>
+<td align="left">0A</td>
+<td align="left">SENSOR_PERIOD</td>
+<td align="left">Sensor period</td>
+</tr>
+
+<tr>
+<td align="left">0B</td>
+<td align="left">MISFIRE_AVERAGE</td>
+<td align="left">Average misfire counts for last ten driving cycles</td>
+</tr>
+
+<tr>
+<td align="left">0C</td>
+<td align="left">MISFIRE_COUNT</td>
+<td align="left">Misfire counts for last/current driving cycles</td>
+</tr>
+</tbody>
+</table>
+
+<p>テスト結果は、プロパティ名またはTID（<code>obd.commands</code> 表と同じ）によってアクセスできます。 上記の標準テストはすべて存在しますが、一部のテストでは null になることがあります。 <code>MonitorTest.is_null（）</code> 関数を使用して、テストが null かどうかを判別します。</p>
+
+<pre><code>response.value.MISFIRE_COUNT
+
+# OR
+
+response.value[&quot;MISFIRE_COUNT&quot;]
+
+# OR
+
+response.value[0x0C] # TID for MISFIRE_COUNT
+</code></pre>
+
+<p>すべての <code>MonitorTest</code> オブジェクトには、次のプロパティがあります（null テストの場合、<code>None</code> に設定されます）</p>
+
+<pre><code>result = response.value.MISFIRE_COUNT
+
+result.tid      # integer Test ID for this test
+result.name     # test name
+result.desc     # test description
+result.value    # value of the test (will be a Pint value, or in rare cases, a boolean)
+result.min      # maximum acceptable value
+result.max      # minimum acceptable value
+result.passed   # boolean marking the test as passing
+</code></pre>
+
+<p>エンジンの第2気筒の失火カウントを調べる例を以下に示します。</p>
+
+<pre><code>import obd
+
+connection = obd.OBD()
+
+response = connection.query(obd.commands.MONITOR_MISFIRE_CYLINDER_2)
+
+# in the test results, lookup the result for MISFIRE_COUNT
+result = response.value.MISFIRE_COUNT
+
+# check that we got data for this test
+if not result.is_null():
+    print(result.value) # will be a Pint value
+else:
+    print(&quot;Misfire count wasn't reported&quot;)
+</code></pre>
+
+<h2 id="async-connections">Async Connections</h2>
+
+<p>標準の <code>query（）</code> 関数はブロックされているため、UIイベントループの危険があります。 これを処理するために、<code>python-OBD</code> には、標準の <code>OBD</code> オブジェクトの代わりに使用できる <code>Async</code> 接続オブジェクトがあります。 <code>Async</code> は <code>OBD</code> のサブクラスであるため、すべての標準メソッドを継承します。 しかし、<code>Async</code> はスレッド更新ループを制御するためにいくつかを追加します。 このループは、あなたのコマンドの値を車両と最新の状態に保ちます。 このようにして、ユーザーが自動車を <code>query</code> すると、直ちに最新の応答が返されます。</p>
+
+<p>更新ループは、<code>start（）</code> および <code>stop（）</code> を呼び出すことによって制御されます。 更新用のコマンドを購読するには、要求された <code>OBDCommand</code> で <code>watch（）</code> を呼び出します。 更新ループはスレッド化されているため、ループが「停止」している間だけコマンドを「監視」することができます。</p>
+
+<pre><code>import obd
+
+connection = obd.Async() # same constructor as 'obd.OBD()'
+
+connection.watch(obd.commands.RPM) # keep track of the RPM
+
+connection.start() # start the async update loop
+
+print connection.query(obd.commands.RPM) # non-blocking, returns immediately
+</code></pre>
+
+<p>コールバックは <code>watch（）</code> で指定することもでき、利用可能な場合は新しい <code>Response</code> を返します。</p>
+
+<pre><code>import obd
+import time
+
+connection = obd.Async()
+
+# a callback that prints every new value to the console
+def new_rpm(r):
+    print r.value
+
+connection.watch(obd.commands.RPM, callback=new_rpm)
+connection.start()
+
+# the callback will now be fired upon receipt of new values
+
+time.sleep(60)
+connection.stop()
+</code></pre>
+
+<h3 id="start">start()</h3>
+
+<p>更新ループを開始します。</p>
+
+<h3 id="stop">stop()</h3>
+
+<p>更新ループを停止します。</p>
+
+<h3 id="paused">paused()</h3>
+
+<p>更新ループを一時的に停止するためのコンテキストマネージャ（<code>with</code> ステートメント）で使用するヘルパ関数。 これにより、<code>watch（）</code> と <code>unwatch（）</code> 呼び出しを簡単に保護することができます。 一時停止中に更新ループが実行されていた場合は、コンテキストブロックを終了すると再起動されます。 例えば：</p>
+
+<pre><code>with connection.paused() as was_running:
+    # connection is stopped within this block
+    # your code here
+</code></pre>
+
+<p>上記のコードは次のものと等価です：</p>
+
+<pre><code>was_running = connection.running
+connection.stop()
+
+# your code here
+
+if was_running:
+    connection.start()
+</code></pre>
+
+<h3 id="watch-command-callback-none-force-false">watch(command, callback=None, force=false)</h3>
+
+<p>注意：この関数を呼び出すには、非同期ループを停止または一時停止する必要があります</p>
+
+<p>継続的に更新するコマンドを登録します。 <code>watch（）</code> を呼び出した後、<code>query（）</code> 関数はそのコマンドから最新の <code>Response</code> を返します。 オプションのコールバックも設定することができ、新しい値を受け取ると起動されます。 同じコマンドに対する複数のコールバックは大歓迎です。 オプションの <code>force</code> パラメーターを指定すると、サポートされていないコマンドが強制的に送信されます。</p>
+
+<h3 id="unwatch-command-callback-none">unwatch(command, callback=None)</h3>
+
+<p>注意：この関数を呼び出すには、非同期ループを停止または一時停止する必要があります</p>
+
+<p>コマンドの更新を取り消します。 コールバックが指定されていない場合、そのコマンドのすべてのコールバックは破棄されます。 コールバックが指定されている場合、そのコールバックのみが登録解除されます（他はすべてライブ状態のままです）。</p>
+
+<h3 id="unwatch-all">unwatch_all()</h3>
+
+<p>注意：この関数を呼び出すには、非同期ループを停止または一時停止する必要があります</p>
+
+<p>すべてのコマンドとコールバックの登録を解除します。</p>
+
+<h2 id="custom-commands">Custom Commands</h2>
+
+<p>必要なコマンドがPython-OBDテーブルにない場合は、新しいOBDCommandオブジェクトを作成できます。 コンストラクタは次の引数を受け取ります（それぞれはプロパティになります）。</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">name</td>
+<td align="left">string</td>
+<td align="left">(human readability only)</td>
+</tr>
+
+<tr>
+<td align="left">desc</td>
+<td align="left">string</td>
+<td align="left">(human readability only)</td>
+</tr>
+
+<tr>
+<td align="left">command</td>
+<td align="left">bytes</td>
+<td align="left">OBD command in hex (typically mode + PID)</td>
+</tr>
+
+<tr>
+<td align="left">bytes</td>
+<td align="left">int</td>
+<td align="left">Number of bytes expected in response (zero means unknown)</td>
+</tr>
+
+<tr>
+<td align="left">decoder</td>
+<td align="left">callable</td>
+<td align="left">Function used for decoding messages from the OBD adapter</td>
+</tr>
+
+<tr>
+<td align="left">ecu(optional)</td>
+<td align="left">ECU</td>
+<td align="left">ID of the ECU this command should listen to (<code>ECU.ALL</code> by default)</td>
+</tr>
+
+<tr>
+<td align="left">fast(optional)</td>
+<td align="left">bool</td>
+<td align="left">Allows python-OBD to after this command for effecieny (<code>False</code> by default)</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example">Example</h3>
+
+<pre><code>from obd import OBDCommand, Unit
+from obd.protocols import ECU
+from obd.utils import bytes_to_int
+
+def rpm(messages):
+    &quot;&quot;&quot; decoder for RPM messages &quot;&quot;&quot;
+    d = messages[0].data
+    v = bytes_to_int(d) / 4.0  # helper function for converting byte arrays to ints
+    return v * Unit.RPM # construct a Pint Quantity
+
+c = OBDCommand(&quot;RPM&quot;, \          # name
+               &quot;Engine RPM&quot;, \   # description
+               b&quot;010C&quot;, \        # command
+               2, \              # number of return bytes to expect
+               rpm, \            # decoding function
+               ECU.ENGINE, \     # (optional) ECU filter
+               True)             # (optional) allow a &quot;01&quot; to be added for speed
+</code></pre>
+
+<p>デフォルトでは、カスタムコマンドは「車両によってサポートされていません」と扱われます。 これを処理する方法は2つあります。</p>
+
+<pre><code>o = obd.OBD()
+
+# use the `force` parameter when querying
+o.query(c, force=True)
+
+# OR
+
+# add your command to the set of supported commands
+o.supported_commands.add(c)
+o.query(c)
+</code></pre>
+
+<p><code>OBDCommand</code>　のあまり直感的ではないフィールドの詳細は次のとおりです。</p>
+
+<h3 id="obdcommand-decoder">OBDCommand.decoder</h3>
+
+<p><code>decoder</code> 引数は、以下の形式の関数です。</p>
+
+<pre><code>def &lt;name&gt;(&lt;list_of_messages&gt;):
+    ...
+    return &lt;value&gt;
+</code></pre>
+
+<p>デコーダの戻り値は、<code>OBDResponse.value</code> フィールドにロードされます。デコーダには引数として <code>Message</code> オブジェクトのリストが与えられます。デコーダが呼び出された場合、このリストには少なくとも1つの <code>Message</code> オブジェクトがあることが必要です。各 <code>Message</code> オブジェクトには、解析された <code>bytearray</code> を保持する <code>data</code> プロパティがあります。また、コマンドで指定されたバイト数を取得する必要があります。</p>
+
+<p>注：古いバージョンの <code>Python-OBD</code> （デコーダが生の16進文字列を引数として渡した）から移行する場合は、<code>Message.hex（）</code> 関数をパッチとして使用できます。</p>
+
+<pre><code>def &lt;name&gt;(messages):
+    _hex = messages[0].hex()
+    ...
+    return &lt;value&gt;
+</code></pre>
+
+<p>また、<code>Message.raw（）</code> 関数を使用してアダプタから送信された元の文字列にアクセスすることもできます。</p>
+
+<h3 id="obdcommand-ecu">OBDCommand.ecu</h3>
+
+<p><code>ecu</code> 引数は、受信メッセージをフィルタリングするために使用される定数です。いくつかのコマンドは、複数の ECU（DTCデコーダなど） を聴くことができ、他のものはエンジン （RPMなど） にのみ関係する場合があります。現在、<code>python-OBD</code> はエンジンを区別することしかできませんが、このリストは時間の経過と共に拡張される可能性があります：</p>
+
+<ul>
+<li><code>ECU.ALL</code></li>
+<li><code>ECU.ALL_KNOWN</code></li>
+<li><code>ECU.UNKNOWN</code></li>
+<li><code>ECU.ENGINE</code></li>
+</ul>
+
+<h3 id="obdcommand-fast">OBDCommand.fast</h3>
+
+<p><code>fast</code> 引数は、コマンドの最後に &ldquo;01&rdquo; を追加するのが安全かどうかを <code>python-OBD</code> に伝えます。これにより、アダプターは受信を待つのではなく、受信した最初の応答を返すように指示します（最終的にはタイムアウトに達する）。これはリクエストを大幅に高速化し、ほとんどの <code>python-OBD</code> の内部コマンドで有効になります。ただし、異常なコマンドの場合は、これを無効にしておくのが最も安全です。</p>
+
+<h2 id="debug">Debug</h2>
+
+<p><code>python-OBD</code> は python の組み込みログシステムを使用します。 デフォルトでは、stderr に出力を WARNING レベルで送信するように設定されています。 モジュールのロガーは、モジュールのルートにあるロガー変数を介してアクセスできます。 たとえば、すべてのデバッグメッセージのコンソール印刷を有効にするには、次のスニペットを使用します。</p>
+
+<pre><code>import obd
+
+obd.logger.setLevel(obd.logging.DEBUG) # enables all debug information
+</code></pre>
+
+<p>または、<code>python-OBD</code> からすべてのログ出力を無音にする：</p>
+
+<pre><code>import obd
+
+obd.logger.removeHandler(obd.console_handler)
+</code></pre>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<h3 id="debug-output">Debug Output</h3>
+
+<p><code>Python-OBD</code> が正しく動作していない場合、まずデバッグ出力を有効にする必要があります。 すべてのデバッグ情報をコンソールに出力するには、接続コードの前に次の行を追加します。</p>
+
+<pre><code>obd.logger.setLevel(obd.logging.DEBUG)
+</code></pre>
+
+<p><code>python-OBD</code> の一般的なログとその意味は次のとおりです。</p>
+
+<h3 id="successful-connection">Successful Connection</h3>
+
+<pre><code>[obd] ========================== python-OBD (v0.4.0) ==========================
+[obd] Explicit port defined
+[obd] Opening serial port '/dev/pts/2'
+[obd] Serial port successfully opened on /dev/pts/2
+[obd] write: 'ATZ\r\n'
+[obd] wait: 1 seconds
+[obd] read: 'ATZ\rELM327 v2.1\r'
+[obd] write: 'ATE0\r\n'
+[obd] read: 'ATE0\rOK\r'
+[obd] write: 'ATH1\r\n'
+[obd] read: 'OK\r'
+[obd] write: 'ATL0\r\n'
+[obd] read: 'OK\r'
+[obd] write: 'ATSPA8\r\n'
+[obd] read: 'OK\r'
+[obd] write: '0100\r\n'
+[obd] read: '7E8 06 41 00 FF FF FF FF FC\r'
+[obd] write: 'ATDPN\r\n'
+[obd] read: 'A8\r'
+[obd] Connection successful
+[obd] querying for supported PIDs (commands)...
+[obd] Sending command: 0100: Supported PIDs [01-20]
+[obd] write: '0100\r\n'
+[obd] read: '7E8 06 41 00 FF FF FF FF FC\r'
+[obd] Sending command: 0120: Supported PIDs [21-40]
+[obd] write: '0120\r\n'
+[obd] read: '7E8 06 41 20 FF FF FF FF FC\r'
+[obd] Sending command: 0140: Supported PIDs [41-60]
+[obd] write: '0140\r\n'
+[obd] read: '7E8 06 41 40 FF FF FF FE FB\r'
+[obd] finished querying with 93 commands supported
+[obd] =========================================================================
+</code></pre>
+
+<h3 id="unresponsive-elm">Unresponsive ELM</h3>
+
+<pre><code>[obd] ========================== python-OBD (v0.4.0) ==========================
+[obd] Explicit port defined
+[obd] Opening serial port '/dev/pts/2'
+[obd] Serial port successfully opened on /dev/pts/2
+[obd] write: 'ATZ\r\n'
+[obd] wait: 1 seconds
+[obd] __read() found nothing
+[obd] __read() found nothing
+[obd] __read() never recieved prompt character
+[obd] read: ''
+[obd] write: 'ATE0\r\n'
+[obd] __read() found nothing
+[obd] __read() found nothing
+[obd] __read() never recieved prompt character
+[obd] read: ''
+[obd] Connection Error:
+[obd]     ATE0 did not return 'OK'
+[obd] Failed to connect
+[obd] =========================================================================
+</code></pre>
+
+<p>これは、OBD-II アダプタとコンピュータのシリアル接続に問題がある可能性があります。 以下を確認してください：</p>
+
+<ul>
+<li>Bluetooth デバイスが正しくペア設定されている</li>
+<li>/dev の正しいポートに接続しているか（まったくポートがありません）</li>
+<li>ポートに書き込むための正しいアクセス許可を持っている</li>
+</ul>
+
+<p><code>scan_serial（）</code> ヘルパー関数を使用して、書き込み可能なポートを判別できます。</p>
+
+<pre><code>import obd
+
+ports = obd.scan_serial()       # return list of valid USB or RF ports
+print ports                    # ['/dev/ttyUSB0', '/dev/ttyUSB1']
+</code></pre>
+
+<h3 id="unresponsive-vehicle">Unresponsive Vehicle</h3>
+
+<pre><code>[obd] ========================== python-OBD (v0.4.0) ==========================
+[obd] Explicit port defined
+[obd] Opening serial port '/dev/pts/2'
+[obd] Serial port successfully opened on /dev/pts/2
+[obd] write: 'ATZ\r\n'
+[obd] wait: 1 seconds
+[obd] read: 'ATZ\rELM327 v2.1\r'
+[obd] write: 'ATE0\r\n'
+[obd] read: 'ATE0\rOK\r'
+[obd] write: 'ATH1\r\n'
+[obd] read: 'OK\r'
+[obd] write: 'ATL0\r\n'
+[obd] read: 'OK\r'
+[obd] write: 'ATSPA8\r\n'
+[obd] read: 'OK\r'
+[obd] write: '0100\r\n'
+[obd] read: 'SEARCHING...\rUNABLE TO CONNECT\r'
+[obd] write: 'ATDPN\r\n'
+[obd] read: '0\r'
+[obd] Connection Error:
+[obd]     ELM responded with unknown protocol
+[obd] Failed to connect
+[obd] =========================================================================
+</code></pre>
+
+<p>これは、ELM アダプタと車の接続の問題です。 車両に電源が供給されていること、アダプタと車の OBD-II ポート間の電気的接続は健全であることを確認してください。</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 6, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/02/05/slug/" title="slug な yaml を追加する方法">slug な yaml を追加する方法</a>
+    
+
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/02/06/python-obd/">Python-obd.readthedocs.io 翻訳</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/05/slug/">slug な yaml を追加する方法</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/04/hugo/">Hugo 導入</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/03/octopress/">octopress</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/03/memo/">memo</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
