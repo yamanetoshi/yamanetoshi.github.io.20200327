@@ -98,6 +98,52 @@
 <header>
     <p class="meta">Jul 22, 2014
          - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/07/22/make-development-environment-of-rails4/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/07/22/make-development-environment-of-rails4/">Rails4 開発環境作ってみます (2)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえず三つの container が動いた。</p>
+
+<pre><code>$ sudo docker.io ps -a
+CONTAINER ID        IMAGE                    COMMAND                CREATED             STATUS              PORTS                     NAMES
+7fbe569f3fbf        rails:latest             /start-server.sh       10 seconds ago      Up 10 seconds       0.0.0.0:3000-&gt;3000/tcp    rails                
+c49233f54278        postgres:latest          /usr/local/bin/run     20 hours ago        Up 20 hours         5432/tcp                  postgres,rails/db    
+ed4809b7d731        johncosta/redis:latest   /usr/bin/redis-serve   21 hours ago        Up 21 hours         0.0.0.0:49153-&gt;6379/tcp   rails/redis,redis    
+</code></pre>
+
+<p>netstat 見ると 3000 をリスンしています。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/07/22/make-development-environment-of-rails4/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jul 22, 2014
+         - 1 minute read 
          - <a href="http://weblog.metacircular-evaluator.org/blog/2014/07/22/noma-dong/#disqus_thread">Comments</a>
 
         
@@ -407,54 +453,6 @@
           
               <footer>
                   <a href="http://weblog.metacircular-evaluator.org/blog/2014/07/13/make-jam-and-sangria/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jul 12, 2014
-         - 1 minute read 
-         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/07/12/implement-mvc-android/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="http://weblog.metacircular-evaluator.org/blog/2014/07/12/implement-mvc-android/">Model の Android コンテンツアプリへの導入検討</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>Activity (presentation layer) と疎結合な model なのか。問題になってくるのは Model Locator なソレをどうやって実装するか、なのかどうか。</p>
-
-<p>要件てきには以下らしい。</p>
-
-<ul>
-<li>データの提供、取得、更新の責任者</li>
-<li>機能やデータグループ毎に存在</li>
-<li>基本 Singleton 的な非常に長寿命な Object</li>
-<li>データの更新があれば「通知」で変更を伝える</li>
-</ul>
-
-<p>Model Locator は Model を保持するためのコンポーネント、とのこと。Locator は singleton なオブジェクトで Model の Getter/Setter しかない、と思って良い模様。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/07/12/implement-mvc-android/" rel="full-article">Read On &rarr;</a>
               </footer>
           
 
@@ -781,6 +779,8 @@
     
         <a href="/page/149/" class="label-pagination">149</a>
     
+        <a href="/page/150/" class="label-pagination">150</a>
+    
 
     
     
@@ -789,7 +789,7 @@
 
     
     
-        <a href="/page/149/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/150/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -857,6 +857,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/02/03/octopress/">octopress</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/02/03/memo/">memo</a>
             </li>
           
@@ -890,10 +894,6 @@
           
             <li class="post">
               <a href="/blog/2018/01/24/accent/">訛</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/01/23/building-an-operating-system-for-the-raspberry-pi/">ゲンジツトウヒ系なドキュメント</a>
             </li>
           
         </ul>

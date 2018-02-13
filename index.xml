@@ -6,10 +6,39 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 03 Feb 2018 16:01:01 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 03 Feb 2018 16:25:08 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>octopress</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/03/octopress/</link>
+      <pubDate>Sat, 03 Feb 2018 16:25:08 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/03/octopress/</guid>
+      <description>&lt;p&gt;とりあえず、ソースを入手して &lt;code&gt;bundle install&lt;/code&gt; してみるに &lt;code&gt;yajl-ruby&lt;/code&gt; の導入に失敗しているとのこと。&lt;code&gt;ruby&lt;/code&gt; のバージョンを &lt;code&gt;1.9.3-p448&lt;/code&gt; して確認してみる方向。&lt;/p&gt;
+
+&lt;h2 id=&#34;rbenv-で云々&#34;&gt;rbenv で云々&lt;/h2&gt;
+
+&lt;p&gt;とりあえず以下にトライ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rbenv install 1.9.3-p448
+$ rbenv local 1.3.8-p448
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;でいいのかな。BUILD FAILED って叱られていたのですが、どうも必要なパケジの導入が足りていなかったようです。でも 2.4.2 って導入できてたのですが何かが違うのだろうな。。&lt;/p&gt;
+
+&lt;p&gt;とりあえず以下を導入してリトライ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get install build-essential bison openssl libreadline7 \
+    libreadline-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev \
+    libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf \
+    libc6-dev libncurses6-dev
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>memo</title>
