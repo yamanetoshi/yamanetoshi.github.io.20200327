@@ -6,10 +6,19 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 06 Feb 2018 20:31:22 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 08 Feb 2018 20:35:34 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux における ELM327 を使った OBD 接続について</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/08/about-obd-connection-using-elm-327/</link>
+      <pubDate>Thu, 08 Feb 2018 20:35:34 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/08/about-obd-connection-using-elm-327/</guid>
+      <description>はじめに Debian 9 を使用して Bluetooth 経由で ELM327 に接続し、実車に接続する方法などについて以下に纏めます。ELM327 との接続については Python 及び python-OBD を使用するもの</description>
+    </item>
     
     <item>
       <title>Python-obd.readthedocs.io 翻訳</title>

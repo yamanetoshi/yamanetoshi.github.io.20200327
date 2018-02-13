@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Linux における ELM327 を使った OBD 接続について</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 8, 2018
+         - 6 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/02/08/about-obd-connection-using-elm-327/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Linux における ELM327 を使った OBD 接続について 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          
+
+<h2 id="はじめに">はじめに</h2>
+
+<p>Debian 9 を使用して Bluetooth 経由で　ELM327 に接続し、実車に接続する方法などについて以下に纏めます。ELM327 との接続については Python 及び python-OBD を使用するものとします。また、不具合が出た事情より、当初はコンソールモードで Linux を使用する形をとりますが、別途動作の確認が取れれば X-Window を使う形での手順についても纏める方向です。</p>
+
+<p>以下に設定手順を列挙します。</p>
+
+<ul>
+<li>環境設定</li>
+<li>Bluetooth 接続</li>
+<li>シリアルデバイスとの接続</li>
+<li>python-OBD での接続</li>
+<li>出現した不具合について</li>
+<li>X-Window を使った接続の方法について</li>
+</ul>
+
+<h2 id="環境設定">環境設定</h2>
+
+<p>Debian9 導入後、以下のパッケージを導入しています。</p>
+
+<ul>
+<li>rxvt-unicode-ml</li>
+<li>emacs</li>
+<li>git</li>
+<li>tmux</li>
+</ul>
+
+<p>また、Python については　Anaconda を使っています。以下より download を行います。</p>
+
+<ul>
+<li><a href="https://www.continuum.io/downloads">https://www.continuum.io/downloads</a></li>
+</ul>
+
+<p>導入後、<code>.bashrc</code> を読み込んだ後に以下のコマンドを実行しておきます。</p>
+
+<pre><code>$ pip install pyserial pint
+</code></pre>
+
+<p>また、一般ユーザとしてシリアルデバイスに接続する権限に関する設定が必要です。一点目はログインユーザ (ここでは rms とします) を　<code>dialout</code> グループに所属させます。</p>
+
+<pre><code>$ adduser rms dialout
+</code></pre>
+
+<p>その後、<code>/etc/udev/rules.d/50-udev-default.rules</code> を新規作成し、以下を入力しておきます。</p>
+
+<pre><code>KERNEL==&quot;tty[A-Z]*[0-9]|pppox[0-9]*|ircomm[0-9]*|noz[0-9]*|rfcomm[0-9]*&quot;, GROUP=&quot;dialout&quot;, MODE=&quot;0666&quot;
+</code></pre>
+
+<p>その後、udev サービスの再起動が必要です。</p>
+
+<pre><code>$ sudo service udev restart
+</code></pre>
+
+<p>また、ELM327 が通常 Modem などのデバイスに割り当てられる <code>/dev/rfcomm</code>　に割り当てられるため、色々な不具合が生じます。<code>modemmanager</code> というパッケージは削除しておきます。</p>
+
+<pre><code>$ sudo apt-get remove --purge modemmanager
+</code></pre>
+
+<p>当初はこの ModemManager が引き起こす問題により X-Window が使えないということとなり、コンソールモードで検証を行っています。Debian9 においてコンソールモードでログインする方法についても以下に記載しておきます。</p>
+
+<p>以下のドキュメントによれば <code>default-display-manager</code> を編集する、という手法が推奨されていました。</p>
+
+<ul>
+<li><a href="http://note.kurodigi.com/debian8-cuilaunch/">Debian 8 JessieをCUIで起動する方法</a></li>
+</ul>
+
+<p>このため、<code>/etc/X11/default-display-manager</code> を以下のように編集しています。</p>
+
+<pre><code>#/usr/sbin/lightdm
+</code></pre>
+
+<p>上記ですが、導入時に display manager を <code>lightdb</code> として選択していることから上記の記述となっています。基本的にはコメントアウトすることでコンソールモードでログインすることが可能となります。</p>
+
+<p>また、当初の検証においてはコンソールモードでの操作となっておりますので、各種接続などについてもコマンドを使っており、以下にその方法などんついて記載していくこととします。</p>
+
+<h3 id="正常に情報を取得した例">正常に情報を取得した例</h3>
+
+<p>以下に Android のコンテンツアプリ (OBD Car Doctor free) にて取得した情報を列挙します。この情報が取得できれば　Linux における接続は成功ということになります。</p>
+
+<ul>
+<li>protocol : 6 - ISO15764-4(CAN11/500)</li>
+<li>adaptor : ELM32V1.5</li>
+<li>スタンダード OBD-II : JOBD(Japan)</li>
+<li>サポートされているコマンド
+
+<ul>
+<li><code>0100 10111110001111111010100000010011</code></li>
+<li><code>0120 10010000000101011011000000010101</code></li>
+<li><code>0140 01111110110111000000000000000000</code></li>
+<li><code>0900 00010100010000000000000000000000</code></li>
+</ul></li>
+</ul>
+
+<h2 id="bluetooth-接続">Bluetooth 接続</h2>
+
+<p>GUI 操作では <code>blueman-manager</code> というツールを使うことで接続までの一切が可能ですが、コンソールモードでは <code>bluetoothctl</code> というコマンドを使ってペアリングまでの操作を行います。手順としては</p>
+
+<ul>
+<li><code>bluetoothctl</code> コマンドにより bluetooth の　REPL　(コマンド入力、評価機能）　を起動します</li>
+<li><code>scan on</code> コマンドを発行して周辺デバイスの探索を行います</li>
+<li>obd2 デバイスが見つかったら <code>scan off</code> しておきます</li>
+<li>ELM327 については PIN の入力が必要ですのでその用意をします
+
+<ul>
+<li><code>agent off</code> コマンド発行</li>
+<li><code>agent KeyboardOnly</code> コマンドの発行</li>
+</ul></li>
+<li><code>pair</code> コマンドにデバイス ID を渡す形でコマンドを発行すると以下のような形で　PIN の入力を要求されます</li>
+</ul>
+
+<pre><code>[bluetooth]# agent off         # unregister agent
+Agent unregistered
+[bluetooth]# agent KeyboardOnly   # register proper agent
+Agent registered
+[bluetooth]# pair XX:XX:XX:04:F5:7C 
+Attempting to pair with XX:XX:XX:04:F5:7C 
+[CHG] Device XX:XX:XX:04:F5:7C Connected: yes
+Request passkey
+[agent] Enter passkey (number in 0-999999): 1234
+[MoarBacon]# pair XX:XX:XX:04:F5:7C 
+Attempting to pair with XX:XX:XX:04:F5:7C 
+[CHG] Device XX:XX:XX:04:F5:7C Paired: yes
+Pairing successful
+</code></pre>
+
+<p>上記のように <code>Pairing successful</code> と表示されればペアリングに成功しています。</p>
+
+<h2 id="シリアルデバイスとの接続">シリアルデバイスとの接続</h2>
+
+<p>この状態ではまだペアリングした bluetooth デバイスをシリアルデバイスとして使うことができる状態にはなっていません。以下のコマンドを発行する必要があります。</p>
+
+<pre><code>$ sudo rfcomm bind 0 XX:XX:XX:04:F5:7C
+</code></pre>
+
+<p>接続遮断のコマンドは以下です。</p>
+
+<pre><code>$ sudo rfcomm unbind 0 XX:XX:XX:04:F5:7C
+</code></pre>
+
+<p>上記接続コマンドの発行により、<code>/dev/rfcomm0</code> というデバイスファイルが作成され、これを使って ELM327 との通信を行う形となります。</p>
+
+<h2 id="python-obd-での接続">python-OBD での接続</h2>
+
+<p>python-OBD については <code>pip</code> による導入ではなく、ソースコードを入手してこれを使う形をとります。ソースコードは以下のコマンドで入手します。</p>
+
+<pre><code>$ git clone https://github.com/brendan-w/python-OBD
+</code></pre>
+
+<p>カレントディレクトリは上記コマンドを実行した後に <code>python-OBD</code> ディレクトリにしておく必要があります。</p>
+
+<pre><code>$ cd python-OBD
+</code></pre>
+
+<p>ここまで正常に設定をすすめているのであれば以下のように接続を行うことができるはずです。</p>
+
+<pre><code>$ python 
+Python 3.6.3 |Anaconda, Inc. | (default, Oct 13 2017, 12:02:49)
+[GCC 7.2.0] on Linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot;, or &quot;license&quot; for more information.
+&gt;&gt; import obd.obd
+&gt;&gt; con = obd.OBD()
+[obd.obd] ================ python-OBD (v0.6.1) ================
+[obd.obd] Using scan_serial to select port
+[obd.obd] Available ports: ['/dev/rfcomm0']
+[obd.obd] Attempting to use port: /dev/rfcomm0
+[obd.elm327] Initializing ELM327: PORT=/dev/rfcomm0 BAUD=auto PROTOCOL=auto
+[obd.elm327] Response from baud 38400: b'\x7f\x7f\r?\r\r&gt;''
+[obd.elm327] Choosing baud 38400
+[obd.elm327] write: b'ATZ\r\n'
+[obd.elm327] wait: 1 seconds
+[obd.elm327] read: b'ATZ\r\r\rELM327 v1.5\r\r&gt;'
+[obd.elm327] write: b'ATE0\r\n'
+[obd.elm327] read: b'ATE0\rOK\r\r&gt;'
+[obd.elm327] write b'ATE0\r\n'
+[obd.elm327] read: b'OK\r\r&gt;'
+[obd.elm327] write: b'ATH1\r\n'
+[obd.elm327] read: b'OK\r\r&gt;'
+[obd.elm327] write: b'ATL0\r\n'
+[obd.elm327] read: b'OK\r\r&gt;''
+[obd.elm327] write: b'ATST62\r\n'
+[obd.elm327] read: b'OK\r\r&gt;'
+[obd.elm327] write: b'ATSP0\r\n'
+[obd.elm327] read: b'OK\r\r'
+[obd.elm327] write: b'0100\r\n'
+[obd.elm327] read: b'SEARCHING...\r7E8 06 41 00 BE 3F A8 13 \r\r&gt;'
+[obd.elm327] write: b'ATDPN\r\n'
+[obd.elm327] read: b'A6\r\r'
+[obd.protocols.protocol] map ECU 0 -&gt; ENGINE
+[obd.elm327] connected Successfully: PORT=/dev/rfcomm0 BAUD=38400 PROTOCOL=4
+[obd.obd] querying for supported commands
+[obd.obd] Sending command: b'0100' : Supported PIDs [01-20]
+[obd.elm327] write: b'0100\r\n'
+[obd.elm327] read: b'7E8 06 41 00 BE 3F A8 13 \r\r&gt;'
+[obd.obd] Sending command: b'0120' : Supported PIDs [21-40]
+[obd.elm327] write: b'0120\r\n'
+[obd.elm327] read: b'7E8 06 41 20 90 15 B0 15 \r\r&gt;'
+[obd.obd] Sending command: b'0140' : Supported PIDs [41-60]
+[obd.elm327] write b'0140\r\n'
+[obd.elm327] read: b'7E8 06 41 40 7E DC 00 00 \r\r&gt;'
+[obd.obd] Sending command: b'0600' : Supported MIDs [01-20]
+[obd.elm327] write b'0600\r\n'
+[obd.elm327] read: b'7E8 06 46 00 C0 00 00 01 \r\r&gt;'
+[obd.obd] Sending command: b'0620' : Supported MIDs [21-40]
+[obd.elm327] write b'0620\r\n'
+[obd.elm327] read: b'7E8 06 46 20 80 00 80 01 \r\r&gt;'
+[obd.obd] Sending command: b'0640' : Supported MIDs [41-60]
+[obd.elm327] write b'0640\r\n'
+[obd.elm327] read: b'7E8 06 46 40 00 00 00 01 \r\r&gt;'
+[obd.obd] Sending command: b'0660' : Supported MIDs [61-80]
+[obd.elm327] write b'0660\r\n'
+[obd.elm327] read: b'7E8 06 46 60 00 00 00 01 \r\r&gt;'
+[obd.obd] Sending command: b'0680' : Supported MIDs [81-A0]
+[obd.elm327] write b'0680\r\n'
+[obd.elm327] read: b'7E8 06 46 80 00 00 00 01 \r\r&gt;'
+[obd.obd] Sending command: b'06A0' : Supported MIDs [A1-C0]
+[obd.elm327] write b'06A0\r\n'
+[obd.elm327] read: b'7E8 06 46 A0 F8 00 00 00 \r\r&gt;'
+[obd.obd] finished querying with 101 commands supported
+[obd.obd] =====================================================
+
+</code></pre>
+
+<p>上記ですが、ログレベルを DEBUG にしているために出力されているものです。ログレベルの設定は <code>__init__.py</code> の以下の部分です。</p>
+
+<pre><code>logger.setLevel(logging.WARNING)
+</code></pre>
+
+<p>上記の通り、登録されているソースコードにおいてはログレベルは　<code>WARNING</code>    となっています。</p>
+
+<h2 id="出現した不具合について">出現した不具合について</h2>
+
+<p>確認された不具合は以下となります。個別に詳細情報を記載します。</p>
+
+<ul>
+<li>X-Window が使用不可能となる</li>
+<li>ペアリングできない (bluetoothctl)</li>
+<li>接続できない</li>
+<li>初期化はできるがコマンドの発行ができない不具合</li>
+</ul>
+
+<h3 id="x-window-が使用不可能となる">X-Window が使用不可能となる</h3>
+
+<p>原因は未だに不明なのですが、これまでの試行錯誤を鑑みるに X-Window-System と ModemManager が何らかの形で競合し、gnome-shell が sigfault で異常終了しているようです。</p>
+
+<p>これまで、二度ほど ELM327 との接続完了後にストールしてしまっていることを確認しています。現象としては以下です。</p>
+
+<ul>
+<li>X-Window においては入力ができない状態となる</li>
+<li>コンソールモードであれば入力は可能</li>
+</ul>
+
+<p>この現象を回避するため、コンソールモードにて検証を行うこととしました。</p>
+
+<h3 id="ペアリングできない-bluetoothctl">ペアリングできない (bluetoothctl)</h3>
+
+<p>PIN の入力方法が不明でしたが、agent コマンドの確認により、上記の通りペアリングを行う方法を確認し、ペアリングに成功しています。</p>
+
+<h3 id="接続できない">接続できない</h3>
+
+<p>こちらも rfcomm コマンドの確認により、デバイスへの接続については動作の確認ができております。</p>
+
+<h3 id="初期化はできるがコマンドの発行ができない不具合">初期化はできるがコマンドの発行ができない不具合</h3>
+
+<p>これについても modemmanager パッケージの何かとの競合が発生していたようです。パッケージを除去することでコマンドの発行ができました。</p>
+
+<pre><code>$ sudo apt-get remove --purge modemmanager
+</code></pre>
+
+<h2 id="x-window-を使った接続の方法について">X-Window を使った接続の方法について</h2>
+
+<ul>
+<li>この節については別途動作確認でき次第情報投入の方向です。</li>
+</ul>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 8, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/02/06/python-obd/" title="Python-obd.readthedocs.io 翻訳">Python-obd.readthedocs.io 翻訳</a>
+    
+
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/02/08/about-obd-connection-using-elm-327/">Linux における ELM327 を使った OBD 接続について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/06/python-obd/">Python-obd.readthedocs.io 翻訳</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/05/slug/">slug な yaml を追加する方法</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/04/hugo/">Hugo 導入</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/03/octopress/">octopress</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/03/memo/">memo</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/30/study-group-ideas/">勉強会ネタ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/29/okinawa-dialog/">OKINAWA Dialog 行ってきた</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

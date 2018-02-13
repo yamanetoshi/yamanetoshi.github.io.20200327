@@ -98,6 +98,52 @@
 <header>
     <p class="meta">Nov 27, 2013
          - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/27/eopl-ex-2-23/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/eopl/">EoPL </a><a class="label" href="http://weblog.metacircular-evaluator.org/categories/scheme/">Scheme </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/27/eopl-ex-2-23/">EoPL の Exercise 2.24</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>2.1.2 の subst あたりを復習。subst の定義が以下。</p>
+
+<pre><code>(define subst
+  (lambda (new old slist)
+    (if (null? slist)
+        '()
+        (cons
+          (subst-in-symbol-expression new old (car slist))
+          (subst new old (cdr subst))))))
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/27/eopl-ex-2-23/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 27, 2013
+         - 1 minute read 
          - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/27/24-bit-digital-audio/#disqus_thread">Comments</a>
 
         
@@ -468,45 +514,6 @@ $ bundle init
           
               <footer>
                   <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/24/configure-environment-chef-solo/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 24, 2013
-         - 2 minute read 
-         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/24/lazer-cutter/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/fab/">Fab </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/24/lazer-cutter/">レーザーカッターを使おう</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>#gFab にてレーザーカッターを使ってコップ敷きを作ろう、なワークショップが開催とのことでレクチャのみ、ってアレで顔を出させて頂きました。</p>
-
-<p>以下、レクチャ聞きつつとったメモの列挙です。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/24/lazer-cutter/" rel="full-article">Read On &rarr;</a>
               </footer>
           
 
@@ -911,6 +918,10 @@ $ bundle init
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/02/08/about-obd-connection-using-elm-327/">Linux における ELM327 を使った OBD 接続について</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/02/06/python-obd/">Python-obd.readthedocs.io 翻訳</a>
             </li>
           
@@ -944,10 +955,6 @@ $ bundle init
           
             <li class="post">
               <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
             </li>
           
         </ul>

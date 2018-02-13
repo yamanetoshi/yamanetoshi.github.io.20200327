@@ -98,6 +98,43 @@
 <header>
     <p class="meta">Jan 11, 2014
          - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/11/update-android-fragment/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/11/update-android-fragment/">Fragment の更新</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>PreferenceFragment を使っているのですが、ある一部の設定項目は internet の向こう側から download する仕組みになっていて、最初の取得は PreferenceActivity から戻る時に実行されるので問題は無いのですが、設定の再取得を行なう機能も追加されてて、それはその項目を選択して AlertDialog が出てきて確認 OK であればすぐに取得、という形になっておりました。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/11/update-android-fragment/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jan 11, 2014
+         - 2 minute read 
          - <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/11/redis/#disqus_thread">Comments</a>
 
         
@@ -448,55 +485,6 @@
           
               <footer>
                   <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/06/redis/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 5, 2014
-         - 2 minute read 
-         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/05/notes-for-myself/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/rails/">rails </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/05/notes-for-myself/">自分メモ (集計)</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>ええと、以下な構成のアンケート回答なクラスがあって</p>
-
-<pre><code>&gt; SecurityQ
-=&gt; SecurityQ(id: integer, part: string, rating: string, created_at: datetime, updated_at: datetime)
-</code></pre>
-
-<p>part 毎に五つ程度の回答カテゴリがある、が前提ってことで集計するための AR なメソドが以下になる模様。</p>
-
-<pre><code>&gt; SecurityQ.where([&quot;part = '0'&quot;]).group(:rating).order('count_rating desc').count('rating')
-=&gt; {&quot;4&quot;=&gt;2, &quot;0&quot;=&gt;1, &quot;1&quot;=&gt;2}
-</code></pre>
-
-<p>とは言えこれってどこかの時点でクエリだと駄目になるはずですね。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/05/notes-for-myself/" rel="full-article">Read On &rarr;</a>
               </footer>
           
 
@@ -901,6 +889,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/02/08/about-obd-connection-using-elm-327/">Linux における ELM327 を使った OBD 接続について</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/02/06/python-obd/">Python-obd.readthedocs.io 翻訳</a>
             </li>
           
@@ -934,10 +926,6 @@
           
             <li class="post">
               <a href="/blog/2018/01/28/low-level-programming-memo/">低レベルプログラミング</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/01/27/python-obd/">python-OBD について</a>
             </li>
           
         </ul>
