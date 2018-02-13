@@ -98,6 +98,50 @@
 <header>
     <p class="meta">Jan 22, 2014
          - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/22/android-dialog-dismiss/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/22/android-dialog-dismiss/">Dialog から設定値入力させて Alert 表示後に両方 dismiss</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>DialogFragment から DialogFragment 表示するような真似をしてまして、一つは dismiss できるけどもう一つが、な現象が出てしまいハマってました。</p>
+
+<p><a href="http://eggdev.mobaegg.com/2012/08/blog-post_4.html">ダイアログが重ならないように制御する</a> にて以下な対処が紹介されており、これでイケました。</p>
+
+<pre><code>FragmentManager manager = getFragmentManager();
+final HogeDialogFragment prev = (HogeDialogFragment)manager.findFragmentByTag(&quot;hoge_dialog&quot;);
+prev.dismiss();
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/22/android-dialog-dismiss/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jan 22, 2014
+         - 1 minute read 
          - <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/22/operation-of-revision-in-svn/#disqus_thread">Comments</a>
 
         
@@ -418,51 +462,6 @@
         
           <p>curl に -X POST 指定して -d で JSON なパラメータを渡そうとして &quot;{'security':{'part':'1','rating':'4'}}&quot; って指定してて軽くハマるなど。正しくは以下でしたorz '{&quot;security&quot;:{&quot;part&quot;:&quot;1&quot;,&quot;rating&quot;:&quot;4&quot;}}' いけません。</p>
 
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 19, 2014
-         - 1 minute read 
-         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/19/oyster-rice/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/19/oyster-rice/">牡蠣御飯</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>作ってみた。牡蠣は広島産の冷凍で。レシピは以下を参考にさせて頂きました。</p>
-
-<ul>
-<li><a href="http://orecipe.hatenablog.com/entry/2014/01/16/152600">カキ出汁が最高にウマイ。土鍋で炊いた「牡蠣めし」</a></li>
-</ul>
-
-<p>今回、土鍋でこげ無しでできました。判断てきとーだったのですが流石第六感デバッガだな (ぇ</p>
-
-<iframe src="https://www.flickr.com/photos/yamane-toshiaki/12026570614/player/0c2fe2a549" height="500" width="375"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/19/oyster-rice/" rel="full-article">Read On &rarr;</a>
-              </footer>
           
 
         
@@ -866,6 +865,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/02/04/hugo/">Hugo 導入</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/02/03/octopress/">octopress</a>
             </li>
           
@@ -899,10 +902,6 @@
           
             <li class="post">
               <a href="/blog/2018/01/25/python-obd-memo/">メモ</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/01/24/accent/">訛</a>
             </li>
           
         </ul>
