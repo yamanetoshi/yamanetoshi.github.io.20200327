@@ -6,10 +6,19 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 08 Feb 2018 20:35:34 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 14 Feb 2018 20:13:22 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>書籍購入</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/14/books/</link>
+      <pubDate>Wed, 14 Feb 2018 20:13:22 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/14/books/</guid>
+      <description>以下、発注。 プログラマの数学 第2版 Kindle版 ディジタル作法 −カーニハン先生の「情報」教室 Androidアプリ開発のためのKotlin実践</description>
+    </item>
     
     <item>
       <title>Linux における ELM327 を使った OBD 接続について</title>
