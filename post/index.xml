@@ -17,7 +17,15 @@
       <pubDate>Wed, 14 Feb 2018 20:13:22 +0900</pubDate>
       
       <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/14/books/</guid>
-      <description>以下、発注。 プログラマの数学 第2版 Kindle版 ディジタル作法 −カーニハン先生の「情報」教室 Androidアプリ開発のためのKotlin実践</description>
+      <description>&lt;p&gt;以下、発注。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/B079JLW5YN/yamanetoshi-22&#34;&gt;プログラマの数学 第2版 Kindle版&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/4274069095/yamanetoshi-22&#34;&gt;ディジタル作法 −カーニハン先生の「情報」教室&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.amazon.co.jp/Android/dp/479805366X/yamanetoshi-22&#34;&gt;Androidアプリ開発のためのKotlin実践プログラミング&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -26,7 +34,11 @@
       <pubDate>Thu, 08 Feb 2018 20:35:34 +0900</pubDate>
       
       <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/08/about-obd-connection-using-elm-327/</guid>
-      <description>はじめに Debian 9 を使用して Bluetooth 経由で ELM327 に接続し、実車に接続する方法などについて以下に纏めます。ELM327 との接続については Python 及び python-OBD を使用するもの</description>
+      <description>&lt;h2 id=&#34;はじめに&#34;&gt;はじめに&lt;/h2&gt;
+
+&lt;p&gt;Debian 9 を使用して Bluetooth 経由で　ELM327 に接続し、実車に接続する方法などについて以下に纏めます。ELM327 との接続については Python 及び python-OBD を使用するものとします。また、不具合が出た事情より、当初はコンソールモードで Linux を使用する形をとりますが、別途動作の確認が取れれば X-Window を使う形での手順についても纏める方向です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -35,7 +47,13 @@
       <pubDate>Tue, 06 Feb 2018 20:31:22 +0900</pubDate>
       
       <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/06/python-obd/</guid>
-      <description>このドキュメントは以下のドキュメントの翻訳版となります。 python-OBD Getting Started Welcome Python-OBD は車のオンボード診断ポート（OBD-II）からデータを処理するためのライブ</description>
+      <description>&lt;p&gt;このドキュメントは以下のドキュメントの翻訳版となります。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://python-obd.readthedocs.io/en/latest/&#34;&gt;python-OBD&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -44,7 +62,18 @@
       <pubDate>Mon, 05 Feb 2018 20:27:40 +0900</pubDate>
       
       <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/05/slug/</guid>
-      <description>手順てきには以下? import frontmatter with open(&amp;quot;2013-11-02-book-purchase.markdown&amp;quot;) as f: post = frontmatter.loads(f.read()) post.metadata.update({&#39;slug&#39; : &amp;quot;xxxx-xxx-xxx&amp;quot;}) print(frontmatter.dumps(post)) ええと、ファイル名な文字列から最後の部分を取得するには、が確認必要なのですが、ファイル名が引数で</description>
+      <description>&lt;p&gt;手順てきには以下?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import frontmatter
+
+with open(&amp;quot;2013-11-02-book-purchase.markdown&amp;quot;) as f:
+    post = frontmatter.loads(f.read())
+
+post.metadata.update({&#39;slug&#39; : &amp;quot;xxxx-xxx-xxx&amp;quot;})
+print(frontmatter.dumps(post))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -53,7 +82,14 @@
       <pubDate>Sun, 04 Feb 2018 20:20:08 +0900</pubDate>
       
       <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/04/hugo/</guid>
-      <description>apt で導入した golang はバージョン古いらしくて /usr/local 配下に 1.9.3 を導入しました。それを使って以下。 $ go get github.com/kardianos/govendor $ govendor get github.com/gohugoio/hugo % go install github.com/gohugoio/hugo GOPATH などはよしなに設定されています。</description>
+      <description>&lt;p&gt;apt で導入した &lt;code&gt;golang&lt;/code&gt; はバージョン古いらしくて /usr/local 配下に 1.9.3 を導入しました。それを使って以下。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ go get github.com/kardianos/govendor
+$ govendor get github.com/gohugoio/hugo
+% go install github.com/gohugoio/hugo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -138,7 +174,9 @@ package github.com/derekparker/delve/cmd/dlv
       <pubDate>Tue, 30 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>http://weblog.metacircular-evaluator.org/blog/2018/01/30/study-group-ideas/</guid>
-      <description>妄想レベルですが。 Android アプリ設計パターン読書会 ぐーぐるのサンプルソースコード読書会 低レベルプログラミング読書会 囲碁、入門な勉強会 将棋、入門な勉</description>
+      <description>&lt;p&gt;妄想レベルですが。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
