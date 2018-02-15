@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/02/15/hugo-more/</loc>
+    <lastmod>2018-02-15T21:38:52+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/02/14/books/</loc>
     <lastmod>2018-02-14T20:13:22+09:00</lastmod>
   </url>
@@ -7484,7 +7489,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-02-14T20:13:22+09:00</lastmod>
+    <lastmod>2018-02-15T21:38:52+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7640,7 +7645,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/misc/</loc>
-    <lastmod>2018-02-08T20:35:34+09:00</lastmod>
+    <lastmod>2018-02-15T21:38:52+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7658,7 +7663,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-02-14T20:13:22+09:00</lastmod>
+    <lastmod>2018-02-15T21:38:52+09:00</lastmod>
     <priority>0</priority>
   </url>
   
