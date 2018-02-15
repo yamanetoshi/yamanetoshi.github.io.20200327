@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Unit Test の Hands-on 資料まとめ</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 15, 2018
+         - 12 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/02/15/unit-test-hands-on/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Unit Test の Hands-on 資料まとめ 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下資料について確認を行い、纏めを作成しています。</p>
+
+<ul>
+<li><a href="https://github.com/srym/DroidKaigi2018UnitTestHandOn">Android Unit Testing Hands-On</a></li>
+</ul>
+
+<p></p>
+
+<p>初級、中級という形で以下の項目に関する記述が列挙されています。</p>
+
+<ul>
+<li><p>ウォーミングアップ</p>
+
+<ul>
+<li>はじめてのアサーション</li>
+<li>はじめての Unit Test</li>
+<li>Robolectric を使った Unit Test</li>
+<li>List のアサーション</li>
+<li>Mockito を使った stubbing</li>
+<li>Mockito を使った spying</li>
+<li>非同期処理の Unit Test</li>
+</ul></li>
+
+<li><p>実践編</p>
+
+<ul>
+<li>MockWebServer を使ってリモートデータソースのテストを書こう</li>
+<li>Robolectric と Room を使ってローカルデータソースのテストを書こう</li>
+<li>各データソースを束ねたレポジトリのテストを書こう</li>
+<li>ユースケースのテストを書こう</li>
+<li>Presenter のテストを書こう</li>
+</ul></li>
+</ul>
+
+<!-- more -->
+
+<h2 id="assertthat">assertThat</h2>
+
+<p>この hands-on で使っているのは　org.assertj 提供のものとなります。ソース上で以下な <code>import</code> 記述があります。</p>
+
+<pre><code>import static org.assertj.core.api.Assertions.AssertThat;
+</code></pre>
+
+<p>assert に関する Tutorial も存在しているようです。別途確認の方向。</p>
+
+<ul>
+<li><a href="http://www.vogella.com/tutorials/AssertJ/article.html">Testing with AssertJ assertions - Tutorial</a></li>
+</ul>
+
+<h2 id="はじめての-unit-test">はじめての Unit Test</h2>
+
+<p>ここでは通常の assert による確認以外に例外の発生を確認するための試験についての記載があります。</p>
+
+<pre><code>  /**
+   * 不正な入力（null）で&lt;code&gt;NullPointerException&lt;/code&gt;が上がることを確認するテストケースを書いてみよう。
+   * &lt;p&gt;
+   * 例: &lt;code&gt;String input = null;&lt;/code&gt;
+   * &lt;p&gt;
+   * ヒント: &lt;code&gt;@Test(expected = 例外.class)&lt;/code&gt;
+   */
+  @Test(expected = NullPointerException.class)
+  public void isValid_inputNull_resultsNPE() throws Exception {
+    String input = null;
+    inputChecker.isValid(input);
+  }
+</code></pre>
+
+<p>annotation による切り分けとなっています。</p>
+
+<h2 id="robolectric-を使った-unit-test">Robolectric を使った Unit Test</h2>
+
+<p>ここは Android の TextUtil というクラスを使っているので以下な形で試験の定義をしてあげれば Android フレームワークのコードが含まれた手続きの試験が可能になります、とのこと。</p>
+
+<pre><code>@RunWith(RobolectricTestRunner.class)
+public class BetterInputCheckerTest {
+  private BetterInputChecker inputChecker;
+
+  @Before
+  public void setUp() throws Exception {
+    inputChecker = new BetterInputChecker();
+  }
+</code></pre>
+
+<h2 id="list-のアサーション">List のアサーション</h2>
+
+<p>List の検証、ということで以下なメソッドが使われています。</p>
+
+<ul>
+<li>isNotEmpty</li>
+<li>hasSize</li>
+<li>containsExactly</li>
+<li>isEmpty</li>
+</ul>
+
+<h2 id="mockito-を使った-stubbing">Mockito を使った stubbing</h2>
+
+<p>この節で出てくる <code>TweetRepository</code> は private 属性として <code>LocalTweetDataSource</code> なオブジェクトを持っています。このオブジェクトを <code>mock</code> を使って stub してみよう、という例です。setup が以下な形です。</p>
+
+<pre><code>  /**
+   * {@link TweetRepository} は {@link LocalTweetDataSource} に依存している。
+   * テストのやり方は色々あるが、ここでは {@link Mockito#mock(Class)} を利用してみよう。
+   * &lt;p&gt;
+   * ヒント: {@link Mockito#when(Object)} と &lt;code&gt;thenReturn()&lt;/code&gt; を組み合わせると、メソッドのスタブを作ることができる。
+   */
+  @Before
+  public void setUp() throws Exception {
+    LocalTweetDataSource mock = mock(LocalTweetDataSource.class);
+
+    tweetRepository = new TweetRepository(mock);
+
+    tweetList = new ArrayList&lt;Tweet&gt;();
+
+    tweetList.add(Tweet.bodyOf(str1));
+    tweetList.add(Tweet.bodyOf(str2));
+
+    when(mock.getTimeline()).thenReturn(tweetList);
+  }
+</code></pre>
+
+<p>ヒントも一緒に載せておきます。</p>
+
+<ul>
+<li><code>LocalTweetDataSource</code> の mock を作って</li>
+<li>それを <code>TweetRepository</code> のコンストラクタに渡して</li>
+<li>getTimeline というメソッドの stub を設定しています</li>
+</ul>
+
+<p>この例では <code>LocalTweetDataSource</code> は interface として定義されているので stubbing している、という形になります。具体的なクラスができてきても unit test はこちらで行っておく方が良いものと思われます。</p>
+
+<h2 id="mockito-を使った-spying">Mockito を使った spying</h2>
+
+<p>元オブジェクトの一部の機能の書き換えであれば <code>Mockito#spy</code> を使ったほうがよいとのことです。以下な記載があります。</p>
+
+<pre><code>  @Before
+  public void setUp() throws Exception {
+    converter = spy(new TweetConverter());
+
+    spy = spy(new LocalTweetDataSource() {
+      @NonNull
+      @Override
+      public List&lt;Tweet&gt; getTimeline() {
+        ArrayList&lt;Tweet&gt; ret = new ArrayList&lt;Tweet&gt;();
+        ret.add(Tweet.bodyOf(&quot;tmp&quot;));
+        return ret;
+      }
+    });
+
+    repository = new TweetRepositoryWithConverter(spy, converter);
+  }
+</code></pre>
+
+<p>また、資料では <code>Spying を利用して、内部でこの変換メソッドが呼ばれていることを検証するのにチャレンジしてみましょう</code> という記載があります。<code>TweetRepositoryWithConverter</code> の定義ですが以下のようになっており</p>
+
+<pre><code>  @NonNull
+  public List&lt;Tweet&gt; getTimeline() {
+    return localDataSource.getTimeline();
+  }
+
+  @NonNull
+  public List&lt;String&gt; getTimelineBody() {
+    return converter.convertList(localDataSource.getTimeline());
+  }
+</code></pre>
+
+<p><code>getTimeLine</code> からだと <code>TweetConverter</code> のメソッドは呼びませんが、<code>getTimelineBody</code> からだと呼び出す形になっています。これを検証するための仕組みとして <code>veriry</code> という手続きが用意されています。</p>
+
+<ul>
+<li><code>repository.getTimeline</code> の呼び出しでは <code>converter.convertList</code> は呼び出されない</li>
+<li><code>repository.getTimelineBody</code> の呼び出しでは <code>converter.convertList</code> が一度呼び出される</li>
+</ul>
+
+<p>ということが検証できます。また、<code>convertList</code> の呼び出しにおいて渡す引数について以下の違いはどこに根拠があるのかなどの情報については</p>
+
+<ul>
+<li><code>verify(converter, never()).convertList(null);</code></li>
+<li><code>verify(converter, times(1)).convertList(spy.getTimeline());</code></li>
+</ul>
+
+<p>下記のドキュメントが参考になります。</p>
+
+<ul>
+<li><a href="http://y-anz-m.blogspot.jp/2013/06/android-mockito_6954.html">http://y-anz-m.blogspot.jp/2013/06/android-mockito_6954.html</a></li>
+</ul>
+
+<h3 id="追記-引数について">追記 (引数について)</h3>
+
+<p><code>Mockito#verify</code> についてはメソッドが呼び出されているかどうかをテストするためのもので、引数の値がどんなものであっても良い場合には以下のような書き方ができます。</p>
+
+<pre><code>    verify(converter, never()).convertList(anyList());
+</code></pre>
+
+<p>また、以下の記法であれば</p>
+
+<ul>
+<li><code>verify(converter, never()).convertList(null);</code></li>
+<li><code>verify(converter, times(1)).convertList(spy.getTimeline());</code></li>
+</ul>
+
+<p>引数の値もチェックされる形になります。あるいは引数が複数あるケイスである引数に <code>any*()</code> を使う場合には他の引数で実際の値を記載することはできないようです。上記エントリには以下な形で例示されています。</p>
+
+<pre><code>    verify(mockResultListener, only()).handleStatus(eq(&quot;hoge1&quot;), anyLong());
+</code></pre>
+
+<h2 id="非同期処理の-unit-test">非同期処理の Unit Test</h2>
+
+<p>非同期処理、以下な手続きがテーマになっています。</p>
+
+<pre><code>  void fetch(OnSuccess&lt;T&gt; onSuccess, OnFailure onFailure) {
+    new Thread(() -&gt; {
+      try {
+        Thread.sleep(1000L); // time intensive task
+        onSuccess.onSuccess(fetcher.fetch());
+      } catch (Exception e) {
+        onFailure.onFailure(e);
+      }
+    }).start();
+  }
+</code></pre>
+
+<p>別 thread にて 1 秒 wait して <code>fetcher.fetch()</code> を呼び出した戻りを云々、という形。<code>fetcher</code> は属性で <code>AsyncFetcher.java</code> と同じディレクトリに <code>Fetcher.java</code> が投入されています。ここで諸々定義されています。</p>
+
+<p>で、この非同期処理が別 thread で実行されてる間にテストケースを抜けてしまうと成功扱いになってしまうようです。ここでは待機させるために <code>CountDownLatch</code> というクラスを使っています。ヒントを確認しましょう。</p>
+
+<p>また、非同期処理が失敗に終わる場合の検証方法ですが <code>Mockito#doThrow</code> を使って例外を発生させています。</p>
+
+<pre><code>    doThrow(new RuntimeException(&quot;NG&quot;)).when(fetcher).fetch();
+</code></pre>
+
+<p>これで <code>fetcher.fetch()</code> 呼び出し時に RuntimeException を発生させることができるようです。</p>
+
+<h2 id="mockwebserver-を使ってリモートデータソースのテストを書こう">MockWebServer を使ってリモートデータソースのテストを書こう</h2>
+
+<p>以降は実践編に関する項目となります。</p>
+
+<p>試験については、下層から上に向かって作っていく形になっています。まずは通信部分からとなります。テスト対象は <code>GitHubRestDataSource</code> になります。ここでは</p>
+
+<ul>
+<li>Retrofit</li>
+<li>MockWebServer</li>
+</ul>
+
+<p>というものを使っているようです。<code>Retrofit</code> は API 通信の記述に関する面倒な部分を引き受けてくれるようで、<code>Retrofit</code> を介して <code>MockWebServer</code> に接続する形となるようです。</p>
+
+<h3 id="retrofit">Retrofit</h3>
+
+<p>不慣れなのでいくつか控えを。この実装では</p>
+
+<ul>
+<li>GitHubService が API の設定として interface 定義されている</li>
+<li>GithubService のインスタンスは <code>Retrofit#create</code> で生成</li>
+<li>Retrofit なオブジェクトは <code>mockWebServer</code> なインスタンスとやりとりする形になっている</li>
+<li>通信に使っている <code>GitHubRestDataSource</code> オブジェクトは <code>GitHubService</code> のインスタンスを使用</li>
+</ul>
+
+<p>ということになっているようです。そしてこのレイヤが動作確認できているのであればここから上の層は stub で　OK というのも素晴らしいですね。試験に必要なオブジェクトの用意は <code>setUp</code> で行われていますのでそのあたりは実装を確認しましょう。</p>
+
+<ul>
+<li><a href="https://github.com/srym/DroidKaigi2018UnitTestHandOn/blob/master/app/src/test/java/us/shiroyama/android/my_repositories/infrastructure/repository/datasource/remote/GitHubRestDataSourceTest.java">GitHubRestDataSource.java</a></li>
+</ul>
+
+<p>また、Retrofit に関する資料を以下に列挙します。</p>
+
+<ul>
+<li><a href="http://outofmem.hatenablog.com/entry/2016/04/15/005541">Retrofit 2.0.1 使い方メモ</a></li>
+</ul>
+
+<h3 id="テスト対象になっているクラスについて">テスト対象になっているクラスについて</h3>
+
+<p><code>GitHubRestDataSource</code> というクラスです。<code>GitHubRemoteDataSource</code> というインターフェースで定義されている <code>getUserRepositories</code> という手続きを実装しています。以下なあたりは特有の書き方なのだろう、という理解で。</p>
+
+<pre><code>    Response&lt;List&lt;RepositoryEntity&gt;&gt; response = gitHubService.getUserRepositories(
+        account,
+        Sort.UPDATED.value,
+        Direction.DESC.value
+    ).execute();
+</code></pre>
+
+<p>戻りを super class にて定義されている <code>stripResult</code> に渡してその戻りを戻しています。戻り値の型である <code>List&lt;RepositoryEntity&gt;</code> ですが、JSON なキーの値で自動的に属性に設定される形になっているものと思われます。定義の一部が以下。</p>
+
+<pre><code>public class RepositoryEntity {
+  @SerializedName(&quot;id&quot;)
+  private long id;
+</code></pre>
+
+<p>試験についてはテスト対象クラスのメソッドに用意済みのユーザ ID 文字列を渡して</p>
+
+<ul>
+<li>結果が空ではない</li>
+<li>先頭要素の名前のチェック</li>
+</ul>
+
+<p>を行っています。また、未定義のユーザへのアクセスは例外が戻ること、を確認しています。</p>
+
+<pre><code>  @Test(expected = ApiException.class)
+  public void getUserRepositories_inputInvalidAccount_causedApiException() throws Exception {
+    gitHubRestDataSource.getUserRepositories(&quot;xxx&quot;);
+  }
+</code></pre>
+
+<p>例外発生、な検証が簡易なのが有り難いです。</p>
+
+<h2 id="robolectric-と-room-を使ってローカルデータソースのテストを書こう">Robolectric と Room を使ってローカルデータソースのテストを書こう</h2>
+
+<p>テスト対象となっているのが以下のクラス</p>
+
+<ul>
+<li>RoomRepositoryDAO</li>
+<li>GitHubRoomDataSource</li>
+</ul>
+
+<p>確認の前に Room というアーキテクチャに関する確認が必要です。Room に関する資料を以下に列挙します。</p>
+
+<ul>
+<li><a href="https://tech.recruit-mp.co.jp/mobile/post-12311/">[Android Architecture Components] - Room 詳解</a></li>
+</ul>
+
+<p>基本的な使い方として</p>
+
+<ul>
+<li>DB の定義：基本的にはこれを i/f として操作を行う</li>
+<li>DAO の定義：テーブルへのアクセスなどについて定義を行う (DB 経由で定義された手続きを呼び出す形となる)</li>
+<li>Entity の定義：テーブルに定義された属性の定義を行う</li>
+</ul>
+
+<p>という三点を定義しておいて操作を行う形となります。今回の実装のように SQLite に cache を行うような場合に使われるアーキテクチャと思われます。</p>
+
+<h3 id="dao-のテスト">DAO のテスト</h3>
+
+<p>RoomRepositoryDAO の試験から確認します。とりえあず、先頭部分がこうなっているのは</p>
+
+<pre><code>@RunWith(RobolectricTestRunner.class)
+public class RoomRepositoryDaoTest {
+  private AppDatabase db;
+</code></pre>
+
+<p>SQLite を云々するのに Context が必要で、Robolectric だと簡易に取得可能だから、ということだと理解しています。</p>
+
+<p>Context を使う必要があるから、という理解で良いのかな。また、<code>DatabaseProvider</code> クラスは非常に参考になりました。こうした形でデータベースが使えるのであればテストの作成も負荷が下がります。ただし、insert な処理に渡す引数については注意が必要です（確認も必要です）。</p>
+
+<pre><code>    RoomRepositoryDao roomRepositoryDao = db.repositoryDao();
+    roomRepositoryDao.insertAllRepositories(repositoriesYmnder.toArray(new RoomRepositoryEntity[repositoriesYmnder.size()]));
+    roomRepositoryDao.insertAllRepositories(repositoriesSrym.toArray(new RoomRepositoryEntity[repositoriesSrym.size()]));
+</code></pre>
+
+<p>基本的にはデータの読み書きが正常にできているか、という確認ができれば良いという形になっています。</p>
+
+<h3 id="ローカルデータソースのテスト">ローカルデータソースのテスト</h3>
+
+<p>DAO の試験でデータベースへのアクセスの確認はできているので、<code>RoomRepositoryDAO</code> に関する操作については mock する形での実装となっています。試験の記述もですが、このあたりについても確認を行っていきます。まず、<code>setUp</code>　の記述から</p>
+
+<pre><code>  @Before
+  public void setUp() throws Exception {
+    AppDatabase db = mock(AppDatabase.class);
+    repositoryDao = mock(RoomRepositoryDao.class);
+
+    when(db.repositoryDao()).thenReturn(repositoryDao);
+
+    mapper = spy(RepositoryEntityMapper.Factory.INSTANCE.get());
+
+    gitHubRoomDataSource = new GitHubRoomDataSource(db, mapper);
+  }
+</code></pre>
+
+<p>db および repositoryDao にはハリボテなオブジェクトが設定されます。これではまずいので <code>db.repositoryDao</code> は repositoryDao を戻すようにしています。また、 mapper にはハリボテではなく、spy を使って RepositoryEntityMapper オブジェクトを設定します。そして最後にこれらを使ってテスト対象となる <code>GitHubRoomDataSource</code> オブジェクトを生成しています。</p>
+
+<p>次に <code>getUserRepositories</code> のテストを確認してみます。流れとしては stub を用意して</p>
+
+<pre><code>    when(repositoryDao.findByAccount(eq(&quot;srym&quot;))).thenReturn(Arrays.asList(
+            new RepoWithAccount(repositoriesSrym.get(0), srym),
+            new RepoWithAccount(repositoriesSrym.get(1), srym)
+    ));
+</code></pre>
+
+<p>試験対象の手続きを呼び出して</p>
+
+<pre><code>    List&lt;RepositoryEntity&gt; list = gitHubRoomDataSource.getUserRepositories(&quot;srym&quot;);
+</code></pre>
+
+<p>確認を行う形です。</p>
+
+<pre><code>    verify(repositoryDao, times(1)).findByAccount(anyString());
+    assertThat(list).hasSize(2);
+    verify(mapper, times(1)).convertList(anyList());
+</code></pre>
+
+<p>この手続の定義は以下のようになっており</p>
+
+<pre><code>  @Override
+  public List&lt;RepositoryEntity&gt; getUserRepositories(@NonNull String account) {
+    List&lt;RepoWithAccount&gt; repoWithAccountList = db.repositoryDao().findByAccount(account);
+    return repositoryEntityMapper.convertList(repoWithAccountList);
+  }
+</code></pre>
+
+<p>db は mock オブジェクトのため</p>
+
+<ul>
+<li><code>db.repositoryDao</code> の stub が必要</li>
+<li><code>findByAccount</code> の stub が必要</li>
+</ul>
+
+<p>なのですが、mapper は spy しているので stub の定義が不要となっています。また、この試験においては値の精査は行わず</p>
+
+<ul>
+<li>戻ったリストのサイズ</li>
+<li>内部から呼び出されている手続き呼び出しおよび引数の値の精査（必要なもののみ）</li>
+</ul>
+
+<p>と言うかたちになっています。</p>
+
+<h2 id="各データソースを束ねたレポジトリのテストを書こう">各データソースを束ねたレポジトリのテストを書こう</h2>
+
+<p>リポジトリ層では基本的に呼び出されるメソッドを確認することが主な確認となるようです。データソースも mock で定義されています。</p>
+
+<pre><code>  /**
+   * 各データソースを束ねたレポジトリのテストをする。
+   * ここまでくれば、各データソースはすべてモックで良い。
+   * &lt;p&gt;
+   * レポジトリ層では、各データソースのどこでデータにヒットするかによって呼ばれるメソッドが変わるので、確実に&lt;code&gt;verify()&lt;/code&gt;で確かめる。
+   * その際、呼ばれないものはきちんと&lt;code&gt;never()&lt;/code&gt;しておくとなお良いだろう。
+   */
+  @Before
+  public void setUp() throws Exception {
+    remoteDataSource = mock(GitHubRemoteDataSource.class);
+    localDataSource = mock(GitHubLocalDataSource.class);
+    repository = new GitHubInfraRepository(remoteDataSource, localDataSource);
+  }
+</code></pre>
+
+<p><code>GitHubInfraRepository#getUserRepositories</code> については以下のような流れになっており</p>
+
+<ul>
+<li><code>GitHubLocalDataSource#getUserRepositories</code> の戻りが空でない場合、戻り値を戻す</li>
+<li>local および remote からの戻りが空の場合、空を戻す</li>
+<li>それ以外の場合、remote からの戻りを local に保存する処理を行った後に remote からの戻りを戻す</li>
+</ul>
+
+<p>それぞれの場合について確認を行っています。また、もう一つ定義されている <code>refreshUserRepositories</code> についても似たような場合分けがあるために、条件にに応じた試験を書いていることを確認して見てください。</p>
+
+<h2 id="ユースケースのテストを書こう">ユースケースのテストを書こう</h2>
+
+<p>ここではリポジトリ層を使うユースケース層に関する試験を書きます。MVP アーキテクチャによればユースケース層は、リポジトリ層とプレゼンター層の中間に位置するもの、とのことです。テスト観点についてコメントから引用したものを以下に列挙してみます。</p>
+
+<ul>
+<li><code>GetRepositories#enqueue</code> のテスト：実際に処理が行われるま確認するのは困難なので、<code>TaskQueue#enqueue</code> を <code>verify()</code> する</li>
+<li><code>GetRepositories#buildTask</code> のテスト：これで組み立てた <code>Task#run</code> を呼んでやることで、依存関係のライブラリが内部的に呼ばれたかどうかを <code>verify()</code> できる</li>
+<li><code>GetRepositories#buildTask</code> のテスト：パラメータが <code>GetRepositories.Param.newInstance(&quot;srym&quot;)</code> で<code>GitHubRepository#getUserRepositories</code> でエラーが起きた場合のテスト</li>
+<li><code>GetRepositories#buildTask</code> のテスト：パラメータが <code>GetRepositories.Param.newInstance(&quot;srym&quot;)</code> の場合のテスト</li>
+<li><code>GetRepositories#buildTask</code> のテスト：パラメータが <code>GetRepositories.Param.newInstance(&quot;srym&quot;)</code> で <code>GitHubRepository#refreshUserRepositories</code> でエラーが発生した場合のテスト</li>
+</ul>
+
+<p>エラーを発生させる方法についてはエラーが発生する手続きについて以下な方法で例外を投げさせています。</p>
+
+<pre><code>    when(repository.refreshUserRepositories(&quot;srym&quot;)).thenThrow(new ApiException());
+</code></pre>
+
+<p>以下な書き方をしていたのですが、間違いなのかどうか。</p>
+
+<pre><code>    doThrow(new ApiException()).when(repository).refreshUserRepositories(eq(&quot;srym&quot;));
+</code></pre>
+
+<p>同じことなのかな。。。</p>
+
+<h2 id="presenter-のテストを書こう">Presenter のテストを書こう</h2>
+
+<p>Github にある解説によれば、</p>
+
+<pre><code>PresenterはViewのイベントを受けてビジネスロジックの実行を依頼し、結果をイベントで受け取ってViewに変更通知する役割を担うコンポーネントです。
+</code></pre>
+
+<p>とのことです。アカウント入力画面およびリポジトリ一覧の Presenter が試験の対象とのこと。<code>AccountInputPresenter</code> については入力値が</p>
+
+<ul>
+<li>空文字列</li>
+<li>不正な文字列</li>
+<li>正しい文字列</li>
+</ul>
+
+<p>についてのテストを行っています。<code>verify</code> を使ってそれぞれの状態で呼び出されるべき手続きを確認しています。</p>
+
+<h3 id="repolistpresentertest">RepoListPresenterTest</h3>
+
+<p>最後なので実装を確認しつつ、どのような試験が必要なのかを確認しつつで精査してみます。まず、属性の定義が以下。</p>
+
+<pre><code>  @NonNull
+  private final GetRepositories getRepositories;
+
+  @NonNull
+  private final RepoViewModelMapper mapper;
+
+  @Nullable
+  TaskTicket ticket;
+</code></pre>
+
+<p>この三点はテスト実装でも保持しておく必要があります。また、<code>RepoListPresenter</code> も同様に必要です。これまでにも似たようなケイスがありましたが、<code>RepoViewModelMapper</code> は <code>spy</code> しておく必要があると思われます。また、上記で列挙した属性についてはオブジェクト生成時に他のオブジェクトが必要、ということはありません。<code>RepoListPresenter</code> のスーパークラスにおいて以下の属性が定義されていますので、こちらも用意が必要と思われます。</p>
+
+<pre><code>public abstract class BasePresenter&lt;V extends BaseView&gt; {
+  protected V view;
+</code></pre>
+
+<p>ちなみに <code>RepoListPresenter</code> のクラス定義の先頭は以下な形になっています。</p>
+
+<pre><code>public class RepoListPresenter extends BasePresenter&lt;RepoListContract.View&gt; implements RepoListContract.Interaction {
+</code></pre>
+
+<p>ので、V は <code>RepoListContract.View</code> となります。この <code>RepoListContract</code> は <code>presentation/view/contract</code> 配下にて定義されています。該当部分の定義を以下に引用します。</p>
+
+<pre><code>public interface RepoListContract {
+  interface View extends BaseView {
+    void showRepositoryList(@NonNull List&lt;RepoViewModel&gt; repositoryList);
+
+    void showProgressBar();
+
+    void hideProgressBar();
+
+    void showError(@NonNull String message);
+  }
+</code></pre>
+
+<p>また、<code>View</code> が継承している <code>BaseView</code> は <code>presentation/view/fragment</code> 配下にて定義されています。先頭部分のみ以下に引用します。</p>
+
+<pre><code>public interface BaseView {
+  void startActivity(@NonNull Intent intent);
+
+  void startActivityForResult(@NonNull Intent intent, int requestCode);
+
+  void finishActivity();
+
+  @Nullable
+  Context getContext();
+
+  @Nullable
+  FragmentActivity getActivity();
+}
+</code></pre>
+
+<p>これ、何を意味しているかというと <code>Presenter</code> は <code>View</code> を保持していて、この interface は <code>Fragment</code> が継承している、ということです（類推）。で、その <code>Fragment</code> はいろいろな手続きを実装しなければならないようですが、この仕組みを使って <code>Presenter</code> から <code>View (Fragment)</code> への通信などが可能になっているはずです。</p>
+
+<p>引き続き <code>Presenter</code> の実装を確認します。コンストラクタは NonNull な属性のオブジェクトを受け取って設定しています。</p>
+
+<pre><code>  public RepoListPresenter(@NonNull GetRepositories getRepositories, @NonNull RepoViewModelMapper mapper) {
+    this.getRepositories = getRepositories;
+    this.mapper = mapper;
+  }
+</code></pre>
+
+<p>これ以外に定義されているメソッドとその機能を行かに列挙します。</p>
+
+<ul>
+<li><p>getRepositoryList</p>
+
+<ul>
+<li>文字列 account を引数で受け取る</li>
+<li>view.showProgressBar を呼び出す</li>
+<li><code>GetRepositories#enqueue</code> を呼び出して戻り値を ticket に格納、引数は <code>GetRepositories.Param.newInstance(account)</code></li>
+</ul></li>
+
+<li><p>refreshRepositoryList</p>
+
+<ul>
+<li>文字列 account を引数で受け取る</li>
+<li><code>GetRepositories#enqueue</code> を呼び出して戻り値を ticket に格納、引数は <code>GetRepositories.Param.newInstance(account, true)</code></li>
+</ul></li>
+
+<li><p>onDestroyView</p>
+
+<ul>
+<li>ticket が null でなくて存在するのであれば ticket.cancel(true) を呼び出す</li>
+</ul></li>
+
+<li><p>onSuccess</p>
+
+<ul>
+<li>view.hideProgressBar を呼び出す</li>
+<li>引数で受け取った <code>GetRepositories.OnSuccessGetRepositories</code> オブジェクトが保持する <code>List&lt;Repository&gt;</code> を取得</li>
+<li>取得したリストを <code>mapper.convertList</code> に渡してその戻りを view.showRepositoryList に渡す</li>
+</ul></li>
+
+<li><p>onError</p>
+
+<ul>
+<li>view.hideProgressBar を呼び出す</li>
+<li>view.showError に <code>GetRepositories.OnFailureGetRepositories</code> オブジェクトが保持するメッセージを渡す</li>
+<li>finishActivity を呼び出す</li>
+</ul></li>
+</ul>
+
+<p>これがテストの実装とほぼ同一、というのが分かります。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 15, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/02/15/hugo-more/" title="Content Summaries">Content Summaries</a>
+    
+
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/02/15/unit-test-hands-on/">Unit Test の Hands-on 資料まとめ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/15/hugo-more/">Content Summaries</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/14/books/">書籍購入</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/08/about-obd-connection-using-elm-327/">Linux における ELM327 を使った OBD 接続について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/06/python-obd/">Python-obd.readthedocs.io 翻訳</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/05/slug/">slug な yaml を追加する方法</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/04/hugo/">Hugo 導入</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/03/octopress/">octopress</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/03/memo/">memo</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/01/31/delve/">delve</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
