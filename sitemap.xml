@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/02/16/unit-test-hands-on/</loc>
+    <lastmod>2018-02-16T20:09:58+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/02/15/unit-test-hands-on/</loc>
     <lastmod>2018-02-15T22:10:59+09:00</lastmod>
   </url>
@@ -7494,13 +7499,13 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-02-15T22:10:59+09:00</lastmod>
+    <lastmod>2018-02-16T20:09:58+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/android/</loc>
-    <lastmod>2018-01-08T00:00:00+00:00</lastmod>
+    <lastmod>2018-02-16T20:09:58+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7512,7 +7517,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/</loc>
-    <lastmod>2018-01-08T00:00:00+00:00</lastmod>
+    <lastmod>2018-02-16T20:09:58+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7668,7 +7673,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-02-15T22:10:59+09:00</lastmod>
+    <lastmod>2018-02-16T20:09:58+09:00</lastmod>
     <priority>0</priority>
   </url>
   
