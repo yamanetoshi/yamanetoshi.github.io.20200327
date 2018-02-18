@@ -6,10 +6,28 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 16 Feb 2018 20:09:58 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 18 Feb 2018 14:50:53 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hugo-Octopress テーマ修正</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/18/hugo-octopress/</link>
+      <pubDate>Sun, 18 Feb 2018 14:50:53 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/18/hugo-octopress/</guid>
+      <description>&lt;p&gt;いくつか手を入れていますので控えを。したことは以下です。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;pagination なリンクの修正&lt;/li&gt;
+&lt;li&gt;エントリなページの下に広告表示&lt;/li&gt;
+&lt;li&gt;サイドバーの下に amazon 書籍リンク表示&lt;/li&gt;
+&lt;li&gt;サイドバーの下 (amazon のさらに下) に広告表示&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>DroidKaigi2018UnitTestHandsOn 実装掘削メモ</title>
