@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>DroidKaigi2018UnitTestHandsOn 実装掘削メモ</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 19, 2018
+         - 7 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/02/19/unit-test-hands-on/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         DroidKaigi2018UnitTestHandsOn 実装掘削メモ 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <h2 id="要確認事項について">要確認事項について</h2>
+
+<p>以下、順に確認してみます。</p>
+
+<ul>
+<li>onViewCreated にて呼び出されている bindView について　(unbinder 属性に戻り値設定)</li>
+<li>onResume にて呼び出されている BusProvider のメソッドについて</li>
+<li>onPause にて呼び出されている BusProvider のメソッドについて</li>
+<li>onDestroyView でも　unbinder 属性が使われている</li>
+</ul>
+
+<p></p>
+
+<p>先ず bindView という abstract なメソッドについて。サブクラスの <code>AccountInputFragment</code> の定義を見てみるに以下。</p>
+
+<pre><code>  @NonNull
+  @Override
+  protected Unbinder bindView(@NonNull View fragmentView) {
+    return ButterKnife.bind(this, fragmentView);
+  }
+</code></pre>
+
+<p>Butterknife って View Injection なライブラリらしい。確かに以下な記述がありますね。これで紐をつけてくれる模様。</p>
+
+<pre><code>  @BindView(R.id.account)
+  EditText accountView;
+</code></pre>
+
+<p>次は BusProvider について。これは例えば Activity - Fragment 間でのメッセージのやりとり？なんかに使えるらしい。<code>BaseFragment</code> では以下な形で register/unregister しています。</p>
+
+<pre><code>  @Override
+  public void onResume() {
+    super.onResume();
+    BusProvider.INSTANCE.get().register(presenter);
+    presenter.onResume();
+  }
+
+  @Override
+  public void onPause() {
+    presenter.onPause();
+    BusProvider.INSTANCE.get().unregister(presenter);
+    super.onPause();
+  }
+</code></pre>
+
+<p>presenter が登録されている、ということは Fragment - Presenter なやりとりなのかどうか。</p>
+
+<p>あと、onDestroy で云々、な以下の件ですが</p>
+
+<pre><code>  @Override
+  public void onDestroyView() {
+    presenter.onDestroyView();
+    unbinder.unbind();
+    super.onDestroyView();
+  }
+</code></pre>
+
+<p>最後で解放はしておこうね、という理解にとどめておきます。</p>
+
+<h2 id="再度全体整理">再度全体整理？</h2>
+
+<p>以下に列挙しておきます。</p>
+
+<ul>
+<li>Fragment は BaseFragment を継承</li>
+<li>BaseFragment は BasePresenter を保持</li>
+<li>Fragment は BaseView を実装して getViewContract にて自分を戻す</li>
+<li>Framgment と Presenter はお互いの参照を保持している形</li>
+</ul>
+
+<p>ここまで確認できている状態で <code>AccoutInputFragment</code> に関する定義の周辺を確認します。</p>
+
+<h2 id="accountinput">AccountInput</h2>
+
+<p>以下を確認の方向です。</p>
+
+<ul>
+<li>presentation/fragnment/AccountInputFragment.java</li>
+<li>presentation/contract/AccountInputContract.java</li>
+<li>presentation/presenter/AccountInputPresenter.java</li>
+</ul>
+
+<p>もしかすると Activity のあたりまで確認が必要かもしれません。とりあえず、<code>AccountInputFragment</code> については簡易な実装なのでポイントを以下に列挙するにとどめます。</p>
+
+<ul>
+<li>@BindView なアノテーション (id が指定されている) が付いた EditText 属性</li>
+<li>public static な newInstance メソッド</li>
+<li>AccountInputCntract.View (BaseView 継承) を戻す getViewContract メソッド</li>
+<li>実は AccountInputFragment は AccountInputContract.View を実装していて getViewContract では this を戻します</li>
+<li>getPresenter では毎回 new でオブジェクト生成して戻しています</li>
+<li>レイアウト XML の ID を戻す getLayoutRes メソッド</li>
+<li>ButterKnife.bind の戻り値を戻す bindView メソッド</li>
+<li>showInputError も実装しています</li>
+</ul>
+
+<p>bindView はこっちで実装しなくても、という気はしますが、基本的に固有の記述、という形になっています。また、AcountInputContract の定義が以下です。</p>
+
+<pre><code>public interface AccountInputContract {
+  interface View extends BaseView {
+    void showInputError(@StringRes int errorRes);
+  }
+
+  interface Interaction {
+    void onClickViewRepositoryButton(@Nullable String input);
+  }
+}
+</code></pre>
+
+<p>おそらく、Interaction は presenter 側で実装しているのではないかと思われます。これから確認します。</p>
+
+<p><code>AccountInputPresenter</code> の定義を以下に引用します。</p>
+
+<pre><code>public class AccountInputPresenter extends BasePresenter&lt;AccountInputContract.View&gt; implements AccountInputContract.Interaction {
+  @NonNull
+  private final AccountValidator accountValidator;
+
+  public AccountInputPresenter(@NonNull AccountValidator accountValidator) {
+    this.accountValidator = accountValidator;
+  }
+
+  @Override
+  public void onClickViewRepositoryButton(@Nullable String input) {
+    AccountValidator.Result result = accountValidator.validate(input);
+    if (!result.isValid()) {
+      view.showInputError(result.getReasonRes());
+      return;
+    }
+    assert input != null;
+    startRepoListScreen(input);
+  }
+
+  void startRepoListScreen(@NonNull String account) {
+    ofNullable(getActivity()).ifPresent(context -&gt; startActivity(RepoListActivity.newIntent(context, account)));
+  }
+}
+</code></pre>
+
+<p>一つ一つが簡潔で読みやすいです　(仕組みがわかってさえいれば)。以下にポイントを列挙します。</p>
+
+<ul>
+<li>BasePresenter<AccountInputContract.View> を継承</li>
+<li>AccountInputContract.Interaction を実装</li>
+<li>AccountValidator 型の属性を保持 (コンストラクタの引数でオブジェクト取得するので @NonNull なアノテーション付き)</li>
+<li>onClickViewRepositoryButton 実装　(accountInputContract.Interaction 実装による)</li>
+</ul>
+
+<p><code>AccountValidator</code> も確認します。domain/usecase/AccountValidator.java です。実装以下です。これもつくり的に非常に面白いです。</p>
+
+<pre><code>public class AccountValidator {
+  public Result validate(@Nullable String account) {
+    if (TextUtils.isEmpty(account)) {
+      return new Result(false, R.string.error_field_required);
+    }
+    if (!isValid(account)) {
+      return new Result(false, R.string.error_invalid_account);
+    }
+    return new Result(true, 0);
+  }
+
+  private boolean isValid(@NonNull String account) {
+    return account.length() &gt; 0 &amp;&amp; account.matches(&quot;[a-zA-Z0-9]+&quot;);
+  }
+
+  public enum Factory implements Singleton&lt;AccountValidator&gt; {
+    INSTANCE;
+
+    private final AccountValidator instance = new AccountValidator();
+
+    @NonNull
+    @Override
+    public AccountValidator get() {
+      return instance;
+    }
+  }
+
+  public static class Result {
+    private final boolean isValid;
+
+    @StringRes
+    private final int reasonRes;
+
+    public Result(boolean isValid, int reasonRes) {
+      this.isValid = isValid;
+      this.reasonRes = reasonRes;
+    }
+
+    public boolean isValid() {
+      return isValid;
+    }
+
+    public int getReasonRes() {
+      return reasonRes;
+    }
+  }
+}
+</code></pre>
+
+<p>こんな形になっていれば試験作るのも楽そうですね。Activity ですが、以下な定義になっています。こちらも簡潔。</p>
+
+<pre><code>public class AccountInputActivity extends BaseActivity {
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.container);
+    replaceFragment(AccountInputFragment.newInstance(), R.id.container);
+  }
+
+}
+</code></pre>
+
+<p>replaceFragment は BaseActivity で定義されてます。</p>
+
+<pre><code>public abstract class BaseActivity extends AppCompatActivity {
+
+  protected final void replaceFragment(@NonNull Fragment fragment, @IdRes int containerId) {
+    final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    ft.replace(containerId, fragment, fragment.getClass().getSimpleName());
+    ft.commit();
+  }
+
+}
+</code></pre>
+
+<p>これで AccountInput 関連は確認できているはずなので、もう一つの RepoList な画面を確認してみます。以下、なのかどうか。</p>
+
+<ul>
+<li>presentation/activity/RepoListActivity.java</li>
+<li>presentation/adapter/RepoListAdapter.java</li>
+<li>presentation/contract/RepoListContract.java</li>
+<li>presentation/fragment/RepoListFragment.java</li>
+</ul>
+
+<h2 id="repolistactivity">RepoListActivity</h2>
+
+<p>viewmodel とか mapper というディレクトリに Repo ソレが見えますがとりあえずスルーで。おそらくこちらは色々やってるはずなので上記以外への広がりはあると思っています。今回は上から確認すすめます。まず <code>RepoListActivity</code> から以下に引用。</p>
+
+<pre><code>public class RepoListActivity extends BaseActivity {
+  public enum BundleKey {
+    ACCOUNT
+  }
+
+  @NonNull
+  public static Intent newIntent(@NonNull Context context, @NonNull String account) {
+    Intent intent = new Intent(context, RepoListActivity.class);
+    intent.putExtra(BundleKey.ACCOUNT.name(), account);
+    return intent;
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.container);
+
+    String account = getIntent().getStringExtra(BundleKey.ACCOUNT.name());
+    replaceFragment(RepoListFragment.newInstance(account), R.id.container);
+  }
+
+}
+</code></pre>
+
+<p>以下にポイント列挙します。</p>
+
+<ul>
+<li>次画面遷移時に使用されている newIntent メソッド</li>
+<li>BundleKey という enum な属性の使い方も、へぇぇ、となってしまいました</li>
+<li>onCreate では RepoListFragment 生成時にアカウント文字列を渡しているところが AccountInput との違い</li>
+</ul>
+
+<h2 id="repolistfragment">RepoListFragment</h2>
+
+<p>Fragment も確認します。こちらは少々ボリューム大きめになっています。ので、少しづつ引用しつつで確認します。</p>
+
+<pre><code>public class RepoListFragment extends BaseFragment&lt;RepoListContract.View, RepoListPresenter&gt; implements RepoListContract.View {
+  @BindView(R.id.progress)
+  View progressBar;
+
+  @BindView(R.id.list)
+  RecyclerView recyclerView;
+
+  @BindView(R.id.swipe_refresh)
+  SwipeRefreshLayout swipeRefreshLayout;
+
+  private String account;
+
+  private RepoListAdapter adapter;
+</code></pre>
+
+<ul>
+<li>BaseFragment<RepoListContract.View, RepoListPresenter> を継承</li>
+<li>RepoListContrace.View を実装</li>
+<li>三点ほど injection する View が定義されています</li>
+<li>アカウント文字列、リストアダプタを属性として保持</li>
+</ul>
+
+<p>リストが絡んでくるとどんな実装になるのかな、と思いつつ続きを確認。</p>
+
+<pre><code>public static RepoListFragment newInstance(@NonNull String account) {
+    Bundle args = new Bundle();
+    args.putString(RepoListActivity.BundleKey.ACCOUNT.name(), account);
+    RepoListFragment fragment = new RepoListFragment();
+    fragment.setArguments(args);
+    return fragment;
+  }
+
+  @NonNull
+  @Override
+  protected RepoListContract.View getViewContract() {
+    return this;
+  }
+
+  @NonNull
+  @Override
+  protected RepoListPresenter getPresenter() {
+    return new RepoListPresenter(GetRepositories.Factory.get(getContext()), RepoViewModelMapper.Factory.INSTANCE.get());
+  }
+
+  @Override
+  protected int getLayoutRes() {
+    return R.layout.fragment_repo_list;
+  }
+
+  @NonNull
+  @Override
+  protected Unbinder bindView(@NonNull View fragmentView) {
+    return ButterKnife.bind(this, fragmentView);
+  }
+</code></pre>
+
+<p>このあたりはおおよそこんなカンジ、なのかどうか。</p>
+
+<ul>
+<li>newInstance ではアカウント文字列を Bundle に詰めて setArguments した上で Fragment オブジェクトを戻しています</li>
+<li>getViewContract では RepoListContract.View を実装している this を戻しています</li>
+<li>getPresenter でも RepoListPresenter オブジェクトを生成して戻しています</li>
+<li>getLayoutRes はこの画面固有の id を返却</li>
+<li>bindView では ButterKnife.bind の戻りを返却</li>
+</ul>
+
+<p>次は onViewCreated のあたりの手続き定義です。</p>
+
+<pre><code>  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+
+    ofNullable(getArguments()).ifPresent(bundle -&gt; {
+      account = bundle.getString(RepoListActivity.BundleKey.ACCOUNT.name());
+      Timber.d(&quot;account: %s&quot;, account);
+      initRecycler();
+      initSwipe();
+    });
+  }
+
+  private void initRecycler() {
+    ofNullable(getActivity()).ifPresent(activity -&gt; {
+      adapter = new RepoListAdapter(activity);
+      recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+      recyclerView.setAdapter(adapter);
+      presenter.getRepositoryList(account);
+    });
+  }
+
+  private void initSwipe() {
+    swipeRefreshLayout.setOnRefreshListener(() -&gt; presenter.refreshRepositoryList(account));
+  }
+</code></pre>
+
+<p>onViewCreated ではアカウント文字列を取得して初期化してますね。</p>
+
+<ul>
+<li>Timber.d は別途確認</li>
+<li>initRecycler はリスト初期化かな、これも別途確認します</li>
+<li>initSwipe はリストのてっぺんからさらに上、な操作で、なのかどうか、これも別途確認</li>
+</ul>
+
+<p>先に残った定義を全部確認します。</p>
+
+<pre><code>  @Override
+  public void showRepositoryList(@NonNull List&lt;RepoViewModel&gt; repositoryList) {
+    if (swipeRefreshLayout.isRefreshing()) {
+      swipeRefreshLayout.setRefreshing(false);
+    }
+    adapter.setViewModels(repositoryList);
+  }
+
+  @Override
+  public void showProgressBar() {
+    progressBar.setVisibility(View.VISIBLE);
+  }
+
+  @Override
+  public void hideProgressBar() {
+    progressBar.setVisibility(View.GONE);
+  }
+
+  @Override
+  public void showError(@NonNull String message) {
+    message = isEmpty(message)
+        ? getString(R.string.default_error_while_getting_repositories)
+        : message;
+    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+  }
+</code></pre>
+
+<p>ここは RepoListContract.View で実装が強制されているメソッドの定義になります。いくつか別途確認必要なものを以下に列挙しておきます。</p>
+
+<ul>
+<li>リストアダプタの実装確認必要</li>
+<li>progressBar についてはレイアウト確認必要</li>
+</ul>
+
+<p>ここまでで出てきた要確認事項を先に確認します。</p>
+
+<h3 id="timber-d-について">Timber.d について</h3>
+
+<p>ログ用のユーティリティのようです。詳細以下。</p>
+
+<ul>
+<li><a href="https://qiita.com/hkusu/items/d4f24141d11e05f57451">Timber で debug ビルド時のみにログを出力する</a></li>
+</ul>
+
+<h3 id="initrecycler-について">initRecycler について</h3>
+
+<p>いくつかの　wrapper 経由で以下な処理を行っています。</p>
+
+<ul>
+<li>RepoListAdapter オブジェクト生成して adapter 属性に設定</li>
+<li>RecyclerView#setLayoutManager 呼び出し (LinearLayoutManager オブジェクトを生成して渡している)</li>
+<li>RecyclerView#setAdapter 呼び出し（adapter 属性を渡している）</li>
+<li>RepoListPresenter#getRepositoryList 呼び出し</li>
+</ul>
+
+<p>RepoListPresenter#getRepositoryList ですが</p>
+
+<ul>
+<li>プログレスバー表示して</li>
+<li>GetRepositories#enqueue 呼び出し（GetRepositories.Param.newInstance(account) の戻りを渡しています）</li>
+</ul>
+
+<p>という処理を行っています。GetRepositories は domain/usecase 配下にて定義されているようです。このあたりは UnitTest な Hands-on で確認したあたりになります。Otto の Bus を使って通信結果の通知なども行っておりますが、詳細は別途とします。</p>
+
+<h3 id="initswipe-について">initSwipe について</h3>
+
+<p>というか、SwipeRefreshLayout について。以下のドキュメントによれば、以前 PullToRefresh と呼ばれていた機能を、との記載あり。</p>
+
+<ul>
+<li><a href="https://qiita.com/nein37/items/c9ae7c8e3489b1276c14">SwipeRefreshLayout覚え書き</a></li>
+</ul>
+
+<p>ということは</p>
+
+<pre><code>  private void initSwipe() {
+    swipeRefreshLayout.setOnRefreshListener(() -&gt; presenter.refreshRepositoryList(account));
+  }
+</code></pre>
+
+<p>という記述は Refresh な操作時には <code>RepoListPresenter#refreshRepositoryList</code> を呼び出すという理解で良いはず。処理の実装については別途確認</p>
+
+<h3 id="リストアダプタの実装確認必要">リストアダプタの実装確認必要</h3>
+
+<p>実装については別途確認するのでここでは一旦スルーします。</p>
+
+<h3 id="progressbar-についてはレイアウト確認必要">progressBar についてはレイアウト確認必要</h3>
+
+<p>レイアウト確認したら RelativeLayout でリストにかぶせる形になっています。以下な形です。</p>
+
+<pre><code>&lt;RelativeLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.presentation.view.activity.AccountInputActivity&quot;&gt;
+
+    &lt;RelativeLayout
+        android:id=&quot;@+id/progress&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:visibility=&quot;gone&quot;&gt;
+
+        &lt;ProgressBar
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_centerInParent=&quot;true&quot;/&gt;
+
+    &lt;/RelativeLayout&gt;
+
+    &lt;android.support.v4.widget.SwipeRefreshLayout
+        android:id=&quot;@+id/swipe_refresh&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;&gt;
+</code></pre>
+
+<p>Fragment の確認はこの程度で Presenter にすすめます。</p>
+
+<h2 id="repolistpresenter-java">RepoListPresenter.java</h2>
+
+<p>順に実装を確認します。先頭部分から。</p>
+
+<pre><code>public class RepoListPresenter extends BasePresenter&lt;RepoListContract.View&gt; implements RepoListContract.Interaction {
+  @NonNull
+  private final GetRepositories getRepositories;
+
+  @NonNull
+  private final RepoViewModelMapper mapper;
+
+  @Nullable
+  TaskTicket ticket;
+
+  public RepoListPresenter(@NonNull GetRepositories getRepositories, @NonNull RepoViewModelMapper mapper) {
+    this.getRepositories = getRepositories;
+    this.mapper = mapper;
+  }
+</code></pre>
+
+<ul>
+<li>BasePresenter<RepoListContract.View> を継承</li>
+<li>RepoListContract.Interaction を実装</li>
+<li>GetRepositories 型、RepoViewModelMapper 型の属性はコンストラクタで設定</li>
+</ul>
+
+<p>以下は RepoListCOntrace.Interaction で実装を強制されているメソッドです。</p>
+
+<pre><code>  @Override
+  public void getRepositoryList(@NonNull String account) {
+    view.showProgressBar();
+    ticket = getRepositories.enqueue(GetRepositories.Param.newInstance(account));
+  }
+
+  @Override
+  public void refreshRepositoryList(@NonNull String account) {
+    ticket = getRepositories.enqueue(GetRepositories.Param.newInstance(account, true));
+  }
+</code></pre>
+
+<p>どちらも Getrepositories#enqueue にて問い合わせを行う処理です。以下は Fragment 破棄時に問い合わせをキャンセルする処理の記述で</p>
+
+<pre><code>  @Override
+  public void onDestroyView() {
+    ofNullable(ticket).ifPresent(ticket -&gt; ticket.cancel(true));
+  }
+</code></pre>
+
+<p>以降の記述は問い合わせ成功、失敗時に呼び出される処理と思われます（Otto の Bus がよしなに呼び出してくれる模様）。</p>
+
+<pre><code>  @Subscribe
+  public void onSuccess(GetRepositories.OnSuccessGetRepositories success) {
+    view.hideProgressBar();
+    List&lt;Repository&gt; repositories = success.getItem();
+    view.showRepositoryList(mapper.convertList(repositories));
+  }
+
+  @Subscribe
+  public void onError(GetRepositories.OnFailureGetRepositories failure) {
+    view.hideProgressBar();
+    view.showError(failure.getItem().getMessage());
+    finishActivity();
+  }
+</code></pre>
+
+<p>annotation で紐がつく、というのは良いですね。あと、view は　<code>RepoListFragment</code> なオブジェクトの参照なので</p>
+
+<pre><code>  @Override
+  public void showRepositoryList(@NonNull List&lt;RepoViewModel&gt; repositoryList) {
+    if (swipeRefreshLayout.isRefreshing()) {
+</code></pre>
+
+<p>を呼び出しているはずなのですが、List<Repository> を mapper.convertList で List<RepoViewModel> に変換しているのですね。これも別途実装確認必要ですね。</p>
+
+<p>現時点で以下な実装未確認です。</p>
+
+<ul>
+<li>RepoListContract.java</li>
+<li>RepoListAdapter.java</li>
+<li>RepoViewModelMapper.java</li>
+<li>GetRepositories.java</li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 19, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/02/18/hugo-octopress/" title="Hugo-Octopress テーマ修正">Hugo-Octopress テーマ修正</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/02/19/unit-test-hands-on/">DroidKaigi2018UnitTestHandsOn 実装掘削メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/18/hugo-octopress/">Hugo-Octopress テーマ修正</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/16/unit-test-hands-on/">DroidKaigi2018UnitTestHandsOn 実装掘削メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/15/unit-test-hands-on/">Unit Test の Hands-on 資料まとめ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/15/hugo-more/">Content Summaries</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/14/books/">書籍購入</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/08/about-obd-connection-using-elm-327/">Linux における ELM327 を使った OBD 接続について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/06/python-obd/">Python-obd.readthedocs.io 翻訳</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/05/slug/">slug な yaml を追加する方法</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/04/hugo/">Hugo 導入</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
