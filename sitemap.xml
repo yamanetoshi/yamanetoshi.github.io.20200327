@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/</loc>
+    <lastmod>2018-02-21T10:47:40+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/02/19/unit-test-hands-on/</loc>
     <lastmod>2018-02-19T20:02:15+09:00</lastmod>
   </url>
@@ -7509,7 +7514,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-02-19T20:02:15+09:00</lastmod>
+    <lastmod>2018-02-21T10:47:40+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7659,7 +7664,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/memo/</loc>
-    <lastmod>2018-01-25T00:00:00+00:00</lastmod>
+    <lastmod>2018-02-21T10:47:40+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7683,7 +7688,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-02-19T20:02:15+09:00</lastmod>
+    <lastmod>2018-02-21T10:47:40+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7725,7 +7730,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/shogi/</loc>
-    <lastmod>2017-12-07T00:00:00+00:00</lastmod>
+    <lastmod>2018-02-21T10:47:40+09:00</lastmod>
     <priority>0</priority>
   </url>
   

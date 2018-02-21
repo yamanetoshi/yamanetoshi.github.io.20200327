@@ -6,10 +6,63 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 19 Feb 2018 20:02:15 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 21 Feb 2018 10:47:40 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>石田流メモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/</link>
+      <pubDate>Wed, 21 Feb 2018 10:47:40 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/</guid>
+      <description>&lt;p&gt;何故か最近振り飛車の本ばっか見てる感。なんとなく纏めを作成してみます。見てるのは Kindle Unlimited で見ることができる_&lt;a href=&#34;https://www.amazon.com/dp/B01COJUH5W/yamanetoshi-22&#34;&gt;石田流を破るための9つの鉄則と15の技術&lt;/a&gt;_です。&lt;/p&gt;
+
+&lt;p&gt;鉄則と技術、は以下らしく。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;鉄則&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;石田流の怖さを知ろう&lt;/li&gt;
+&lt;li&gt;棒金を狙おう&lt;/li&gt;
+&lt;li&gt;▲56銀型は△63金へ&lt;/li&gt;
+&lt;li&gt;速攻の是非&lt;/li&gt;
+&lt;li&gt;右四間飛車を狙おう&lt;/li&gt;
+&lt;li&gt;戦術としての千日手&lt;/li&gt;
+&lt;li&gt;穴熊には後手石田あり&lt;/li&gt;
+&lt;li&gt;相手の理想形を阻もう&lt;/li&gt;
+&lt;li&gt;警戒すべき後手の作戦&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;技術&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;駒の効率&lt;/li&gt;
+&lt;li&gt;▲79銀型の脅威&lt;/li&gt;
+&lt;li&gt;▲79銀型に対応しよう&lt;/li&gt;
+&lt;li&gt;△73角の対処法&lt;/li&gt;
+&lt;li&gt;△53角 - △52金左の対抗策&lt;/li&gt;
+&lt;li&gt;△53角 - △32金の対抗策&lt;/li&gt;
+&lt;li&gt;中盤の入口&lt;/li&gt;
+&lt;li&gt;隙を狙ってみよう&lt;/li&gt;
+&lt;li&gt;攻めの手筋&lt;/li&gt;
+&lt;li&gt;7筋から攻めてみよう&lt;/li&gt;
+&lt;li&gt;8筋から攻めてみよう&lt;/li&gt;
+&lt;li&gt;端を攻めてみよう&lt;/li&gt;
+&lt;li&gt;美濃崩し - 大技&lt;/li&gt;
+&lt;li&gt;手を稼ぐ手筋を覚えよう&lt;/li&gt;
+&lt;li&gt;相手の狙いを見破れ&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;これ、良書ですね。序盤、中盤と終盤についての記載があり、色々と参考になります。というか何故に美濃囲い派閥に所属しているはずなのにこれを読んでいるのかという。&lt;/p&gt;
+
+&lt;p&gt;とりあえず纏め作成してそれを確認しつつ再読の方向にて。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>DroidKaigi2018UnitTestHandsOn 実装掘削メモ</title>
