@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/02/21/architecture-pattern/</loc>
+    <lastmod>2018-02-21T16:50:42+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/</loc>
     <lastmod>2018-02-21T10:47:40+09:00</lastmod>
   </url>
@@ -7514,13 +7519,13 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-02-21T10:47:40+09:00</lastmod>
+    <lastmod>2018-02-21T16:50:42+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/android/</loc>
-    <lastmod>2018-02-19T20:02:15+09:00</lastmod>
+    <lastmod>2018-02-21T16:50:42+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7532,7 +7537,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/</loc>
-    <lastmod>2018-02-19T20:02:15+09:00</lastmod>
+    <lastmod>2018-02-21T16:50:42+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7688,7 +7693,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-02-21T10:47:40+09:00</lastmod>
+    <lastmod>2018-02-21T16:50:42+09:00</lastmod>
     <priority>0</priority>
   </url>
   

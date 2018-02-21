@@ -6,10 +6,25 @@
     <description>Recent content in Android on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 19 Feb 2018 20:02:15 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 21 Feb 2018 16:50:42 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/categories/android/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Android アプリ設計パターン入門</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/21/architecture-pattern/</link>
+      <pubDate>Wed, 21 Feb 2018 16:50:42 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/21/architecture-pattern/</guid>
+      <description>&lt;p&gt;以下の書籍、情報発信からのタイムラグが相当少くて限りなく最新の情報が盛り込まれています。早め購入おすすめです。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://peaks.cc/yamanetoshi/architecture_patterns&#34;&gt;Android アプリ設計パターン入門&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>DroidKaigi2018UnitTestHandsOn 実装掘削メモ</title>
