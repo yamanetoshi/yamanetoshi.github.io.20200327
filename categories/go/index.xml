@@ -6,10 +6,25 @@
     <description>Recent content in Go on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 22 Oct 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 22 Feb 2018 20:15:16 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/categories/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux におけるスクリプト言語としての Go の使用</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/22/using-go-as-a-scripting-language-in-linux/</link>
+      <pubDate>Thu, 22 Feb 2018 20:15:16 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/22/using-go-as-a-scripting-language-in-linux/</guid>
+      <description>&lt;p&gt;はてブから以下なエントリを見つけたのですが面白かったので確認エントリ投入してみます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.cloudflare.com/using-go-as-a-scripting-language-in-linux/&#34;&gt;Using Go as a scripting language in Linux&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>昨日の PR について</title>

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/02/22/using-go-as-a-scripting-language-in-linux/</loc>
+    <lastmod>2018-02-22T20:15:16+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/02/21/architecture-pattern/</loc>
     <lastmod>2018-02-21T16:50:42+09:00</lastmod>
   </url>
@@ -7519,7 +7524,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-02-21T16:50:42+09:00</lastmod>
+    <lastmod>2018-02-22T20:15:16+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7621,7 +7626,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/go/</loc>
-    <lastmod>2017-10-22T00:00:00+00:00</lastmod>
+    <lastmod>2018-02-22T20:15:16+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7657,7 +7662,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/linux/</loc>
-    <lastmod>2017-11-20T00:00:00+00:00</lastmod>
+    <lastmod>2018-02-22T20:15:16+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7693,7 +7698,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-02-21T16:50:42+09:00</lastmod>
+    <lastmod>2018-02-22T20:15:16+09:00</lastmod>
     <priority>0</priority>
   </url>
   

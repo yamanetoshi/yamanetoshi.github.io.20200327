@@ -97,6 +97,41 @@
 
 <header>
     <p class="meta">Feb 4, 2014
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/02/04/sort-array-in-ruby/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/02/04/sort-array-in-ruby/">Ruby の配列並べかえ</a>
+    </h1>
+</header>
+
+
+        
+          <p>Hash の hoge1 と hoge2 な要素の合計で並びかえ、みたいな要件が出てきた。 ret は hash な配列になってて以下で並びかえ、という事は分かったのですが ret.sort_by! { |x| x['hoge'] + x['fuga'] } これ</p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/02/04/sort-array-in-ruby/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Feb 4, 2014
          - 2 minute read 
          - <a href="http://weblog.metacircular-evaluator.org/blog/2014/02/04/git-dot-git-workflow-memo/#disqus_thread">Comments</a>
 
@@ -472,67 +507,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 30, 2014
-         - 1 minute read 
-         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/30/twitter-bot-trouble/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/30/twitter-bot-trouble/">某 twitter-bot が動いていない件</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>気が付いたら 1.14 あたりから動いていない。API の仕様変更があったとのことですが</p>
-
-<ul>
-<li><a href="http://nlab.itmedia.co.jp/nl/articles/1401/15/news073.html">Twitter APIの仕様変更でJanetterなど一部アプリが閲覧不能に　対処方法は？</a></li>
-</ul>
-
-<p>プロトコルを https にしても駄目。で、ローカルに環境作って云々、ってのも色々ハマッた挙句に json なナニを import できなくなっている事が判明。</p>
-
-<p>で、GAE なログ見ると For more information see <a href="https://developers.google.com/appengine/docs/python/tools/libraries#Django">https://developers.google.com/appengine/docs/python/tools/libraries#Django</a> とあったので中身を確認。</p>
-
-<p>どうも以下を main.py に追加、ということなのかどうか。ちなみにわしは Django 0.96 を使っているらしい。</p>
-
-<pre><code>import os
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
-
-from google.appengine.dist import use_library
-use_library('django', '0.96')
-</code></pre>
-
-<p>盛り込んでみます。で、deploy もしてみる。</p>
-
-<pre><code>$ ./google_appengine/appcfg.py --oauth2 update hoge/
-</code></pre>
-
-<p>どうなるか。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/01/30/twitter-bot-trouble/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -628,6 +602,10 @@ use_library('django', '0.96')
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/02/22/using-go-as-a-scripting-language-in-linux/">Linux におけるスクリプト言語としての Go の使用</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/02/21/architecture-pattern/">Android アプリ設計パターン入門</a>
             </li>
           
@@ -661,10 +639,6 @@ use_library('django', '0.96')
           
             <li class="post">
               <a href="/blog/2018/02/08/about-obd-connection-using-elm-327/">Linux における ELM327 を使った OBD 接続について</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/02/06/python-obd/">Python-obd.readthedocs.io 翻訳</a>
             </li>
           
         </ul>
