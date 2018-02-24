@@ -6,10 +6,32 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 23 Feb 2018 20:13:29 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 24 Feb 2018 15:22:03 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>DroidKaigi2018UnitTestHandsOn 実装掘削メモ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/24/unit-test-hands-on/</link>
+      <pubDate>Sat, 24 Feb 2018 15:22:03 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/24/unit-test-hands-on/</guid>
+      <description>&lt;h2 id=&#34;presenter-より下のレイヤについて&#34;&gt;Presenter より下のレイヤについて&lt;/h2&gt;
+
+&lt;p&gt;unit test の対象となるレイヤについても一応の確認をしておきます。ここより先はドキュメントとしての unit test を確認したほうが良いと思いますが、構造的な部分について注力して確認をすすめておく形ですすめます。&lt;/p&gt;
+
+&lt;p&gt;以下の順で確認を行います&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;UseCase、GetRepositories
+　- 呼び出し元は Presenter&lt;/li&gt;
+&lt;li&gt;GitHubRepository、GitHubInfraRepository&lt;/li&gt;
+&lt;li&gt;GitHubRemoteDatasource、GitHubLocalDataSource&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>DroidKaigi2018UnitTestHandsOn 実装掘削メモ</title>

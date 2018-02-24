@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>DroidKaigi2018UnitTestHandsOn 実装掘削メモ</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 24, 2018
+         - 7 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/02/24/unit-test-hands-on/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+         DroidKaigi2018UnitTestHandsOn 実装掘削メモ 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <h2 id="presenter-より下のレイヤについて">Presenter より下のレイヤについて</h2>
+
+<p>unit test の対象となるレイヤについても一応の確認をしておきます。ここより先はドキュメントとしての unit test を確認したほうが良いと思いますが、構造的な部分について注力して確認をすすめておく形ですすめます。</p>
+
+<p>以下の順で確認を行います</p>
+
+<ul>
+<li>UseCase、GetRepositories
+　- 呼び出し元は Presenter</li>
+<li>GitHubRepository、GitHubInfraRepository</li>
+<li>GitHubRemoteDatasource、GitHubLocalDataSource</li>
+</ul>
+
+<p></p>
+
+<p>UseCase あたりは domain 配下でそれより下は infrastructure 配下にて定義されています。順に確認をすすめます。</p>
+
+<h2 id="usecase">UseCase</h2>
+
+<p>以下な形で <code>RepoListPresenter</code> にて使用されています。</p>
+
+<pre><code>  @Override
+  public void getRepositoryList(@NonNull String account) {
+    view.showProgressBar();
+    ticket = getRepositories.enqueue(GetRepositories.Param.newInstance(account));
+  }
+
+  @Override
+  public void refreshRepositoryList(@NonNull String account) {
+    ticket = getRepositories.enqueue(GetRepositories.Param.newInstance(account, true));
+  }
+</code></pre>
+
+<p>先ず、基底クラスの <code>UseCase</code> から確認します。定義が以下。</p>
+
+<pre><code>public abstract class UseCase&lt;PARAM&gt; {
+  @NonNull
+  private final TaskQueue taskQueue;
+
+  @NonNull
+  protected final Bus bus;
+
+  protected UseCase(@NonNull TaskQueue taskQueue, @NonNull Bus bus) {
+    this.taskQueue = taskQueue;
+    this.bus = bus;
+  }
+
+  @NonNull
+  public TaskTicket enqueue(PARAM param) {
+    Task task = buildTask(param);
+    Future&lt;?&gt; future = taskQueue.enqueue(task);
+    return new TaskTicket(task.getId(), future);
+  }
+
+  protected abstract Task buildTask(PARAM param);
+}
+</code></pre>
+
+<p>インターフェースを提供して <code>buildTask</code> の実装はサブクラスに、という形です。<code>GetRepositories</code> の定義を順に確認します。</p>
+
+<pre><code>public class GetRepositories extends UseCase&lt;GetRepositories.Param&gt; {
+  @NonNull
+  private final GitHubRepository gitHubRepository;
+
+  @NonNull
+  private final RepositoryMapper repositoryMapper;
+
+  public GetRepositories(@NonNull TaskQueue taskQueue, @NonNull Bus bus, @NonNull GitHubRepository gitHubRepository, @NonNull RepositoryMapper repositoryMapper) {
+    super(taskQueue, bus);
+    this.gitHubRepository = gitHubRepository;
+    this.repositoryMapper = repositoryMapper;
+  }
+</code></pre>
+
+<p>@NonNull な属性二点 (GitHubRepository 型、RepositoryMapper 型) とコンストラクタの定義です。<code>RepositoryMapper</code> については別途確認の方向です。</p>
+
+<p>次に定義されているのは <code>buildTask</code> メソッドです。定義を以下に引用します。</p>
+
+<pre><code>  @Override
+  protected Task buildTask(Param param) {
+    return new Task() {
+      @Override
+      public void run() {
+        try {
+          List&lt;RepositoryEntity&gt; entities = param.refresh
+              ? gitHubRepository.refreshUserRepositories(param.account)
+              : gitHubRepository.getUserRepositories(param.account);
+          List&lt;Repository&gt; repositories = repositoryMapper.convertList(entities);
+          bus.post(new OnSuccessGetRepositories(repositories));
+        } catch (ApiException e) {
+          GitHubErrorEntity gitHubErrorEntity = e.getGitHubErrorEntity();
+          String message = gitHubErrorEntity == null
+              ? e.getMessage()
+              : gitHubErrorEntity.getMessage();
+          bus.post(new OnFailureGetRepositories(new Exception(message)));
+        } catch (Exception e) {
+          bus.post(new OnFailureGetRepositories(e));
+        }
+      }
+    };
+  }
+</code></pre>
+
+<p>基本的には <code>param.refresh</code> の値によって</p>
+
+<ul>
+<li><code>GitHubRepository#refreshUserRepositories</code></li>
+<li><code>GitHubRepository#getUserRepositories</code></li>
+</ul>
+
+<p>のどちらかを呼び出してその戻りを entities に格納し、<code>RepositoryMapper#convertList</code> により List<Repository> に変換して callback する形です。以下のいずれも</p>
+
+<ul>
+<li>OnSuccessGetRepositories</li>
+<li>OnFailureGetRepositories</li>
+</ul>
+
+<p><code>RepoListPresenter</code>　にて定義されています　(引用は略します)。また、このクラス定義ファイルにおいては</p>
+
+<ul>
+<li>Factory クラス</li>
+<li>PARAM の定義</li>
+</ul>
+
+<p>の記述がありますが、詳細は略します。また、<code>GetRepositories</code> の試験において確認されている事項を以下に列挙しておきます。</p>
+
+<ul>
+<li><code>GetRepositories#enqueue</code> の呼び出し時、<code>TaskQueue#enqueue</code> が一度呼び出されていることの確認</li>
+<li><code>GetRepositories.Param.newInstance(&quot;srym&quot;)</code> により作成したオブジェクトを使って <code>GetRepositories#buildTask().run()</code> した時に依存しているライブラリ手続きが呼び出されていることの確認 (詳細略)</li>
+<li>エラーとなる状態を作った上で <code>GetRepositories#buildTask().run()</code> を呼び出して想定しているライブラリ手続きが呼び出されていることの確認</li>
+<li>buildTask に渡すパラメータの refresh が　true の場合に想定しているライブラリ手続きが呼び出されていることの確認</li>
+<li>buildTask に渡すパラメータの refresh が　true の場合のエラー処理において想定しているライブラリ手続きが呼び出されていることの確認</li>
+</ul>
+
+<h2 id="repository">Repository</h2>
+
+<p>interface は <code>datasource/GitHubRepository</code> で定義が以下です。</p>
+
+<pre><code>public interface GitHubRepository {
+  @NonNull
+  List&lt;RepositoryEntity&gt; getUserRepositories(@NonNull String account) throws IOException, ApiException;
+
+  List&lt;RepositoryEntity&gt; refreshUserRepositories(@NonNull String account) throws IOException, ApiException;
+}
+</code></pre>
+
+<p>これを実装しているのが <code>datasource/GitHubInfraRepository</code> になります。実装の引用は略します。属性は以下二点で @NonNull です。</p>
+
+<ul>
+<li>private final GitHubRemoteDataSource remoteDataSource</li>
+<li>private final GitHubLocalDataSource localDataSource</li>
+</ul>
+
+<p>これらは両方コンストラクタにて値が設定されます。また、以降にて定義されているのは @Override な以下二点のメソッドと</p>
+
+<ul>
+<li>public List<RepositoryEntity> getUserRepositories(@NonNull String account)</li>
+<li>public List<RepositoryEntity> refreshUserRepositories(@NonNull String account)</li>
+</ul>
+
+<p>プライベートな変換メソッド二点と</p>
+
+<ul>
+<li>private RoomRepositoryEntity entityToRoom(RepositoryEntity)</li>
+<li>private RoomAccountEntity entityRoom(AccountEntity)</li>
+</ul>
+
+<p>Factory クラスとなっています。singleton クラスというわけではなく、生成要求があれば都度オブジェクトを生成する形に見えます。また、このクラスの試験において確認されている事項を以下に列挙しておきます。</p>
+
+<ul>
+<li>ローカルデータソースにデータが存在する場合のテスト、この場合リモートデータソースの呼び出しは行われないことも検証</li>
+<li>ローカルデータソースもリモートデータソースも空の場合のテスト、呼び出されないメソッドなどの確認なども行う</li>
+<li>ローカルデータソースは空でリモートデータソースが結果を戻す場合のテスト、リモートデータソース取得時にはローカルデータソースへの書き込みも行われるため、その検証も行う</li>
+<li>リモートデータソースが空を戻す場合のテスト</li>
+<li>リモートデータソースが値を戻す場合のテスト</li>
+</ul>
+
+<h2 id="datasource">Datasource</h2>
+
+<p>先ず、<code>datasource/local/</code> 側から確認をすすめていきます。<code>GitHubLocalDataSource</code> は interface 定義となっています。以下に引用します。</p>
+
+<pre><code>public interface GitHubLocalDataSource {
+  List&lt;RepositoryEntity&gt; getUserRepositories(@NonNull String account);
+
+  void insertRepositoriesAndAccounts(@NonNull List&lt;RoomRepositoryEntity&gt; repositories, @NonNull List&lt;RoomAccountEntity&gt; accounts);
+
+  void deleteAndInsertRepositoriesAndAccounts(@NonNull String account, @NonNull List&lt;RoomRepositoryEntity&gt; repositories, @NonNull List&lt;RoomAccountEntity&gt; accounts);
+}
+</code></pre>
+
+<p>この interaface を実装しているのが <code>GitHubRoomDataSource</code> です。属性は @NonNull でコンストラクタにて設定されています。</p>
+
+<pre><code>public class GitHubRoomDataSource implements GitHubLocalDataSource {
+  @NonNull
+  private final AppDatabase db;
+
+  @NonNull
+  private final RepositoryEntityMapper repositoryEntityMapper;
+
+  public GitHubRoomDataSource(@NonNull AppDatabase db, @NonNull RepositoryEntityMapper repositoryEntityMapper) {
+    this.db = db;
+    this.repositoryEntityMapper = repositoryEntityMapper;
+  }
+</code></pre>
+
+<p>以降は interface で実装を強制されているメソッドの定義となります。</p>
+
+<pre><code>  @Override
+  public List&lt;RepositoryEntity&gt; getUserRepositories(@NonNull String account) {
+    List&lt;RepoWithAccount&gt; repoWithAccountList = db.repositoryDao().findByAccount(account);
+    return repositoryEntityMapper.convertList(repoWithAccountList);
+  }
+
+  @Override
+  public void insertRepositoriesAndAccounts(@NonNull List&lt;RoomRepositoryEntity&gt; repositories, @NonNull List&lt;RoomAccountEntity&gt; accounts) {
+    db.repositoryDao().insertRepositoriesAndAccounts(repositories, Stream.of(accounts).distinct().toList());
+  }
+
+  @Override
+  public void deleteAndInsertRepositoriesAndAccounts(@NonNull String account, @NonNull List&lt;RoomRepositoryEntity&gt; repositories, @NonNull List&lt;RoomAccountEntity&gt; accounts) {
+    db.repositoryDao().deleteAndInsertRepositoriesAndAccounts(account, repositories, Stream.of(accounts).distinct().toList());
+  }
+}
+</code></pre>
+
+<p>以下に機能と用途を列挙します。基本的にデータのやりとりが発生するのはローカルにある SQLite となります。</p>
+
+<ul>
+<li>getUserRepositories はデータを取得して RepositoryEntity のリストに変換して戻します</li>
+<li>insertRepositoriesAndAccounts は Repositories および Accounts というテーブルにデータを insert する処理</li>
+<li>deleteAndInsertRepositoriesAndAccounts は指定されたデータを一旦消去して再度 insert する手続きとなります</li>
+</ul>
+
+<p>ここで Room に関するざっくりとした確認をしておきます。先ず <code>room/db/AppDataBase</code> にて dao と言うかたちでデータベースに存在するテーブルの定義をしておきます。</p>
+
+<p>AppDatabase.java</p>
+
+<pre><code>@Database(entities = {RoomAccountEntity.class, RoomRepositoryEntity.class}, version = 1, exportSchema = false)
+@TypeConverters({DateConverter.class})
+public abstract class AppDatabase extends RoomDatabase {
+  public abstract RoomAccountDao accountDao();
+
+  public abstract RoomRepositoryDao repositoryDao();
+}
+</code></pre>
+
+<p>dao ではデータ操作の方法を以下のような形で規定します。</p>
+
+<pre><code>@Dao
+public abstract class RoomRepositoryDao {
+  @Query(&quot;SELECT * FROM repository&quot;)
+  public abstract List&lt;RoomRepositoryEntity&gt; getAll();
+</code></pre>
+
+<p>あるいは <code>insertRepositoriesAndAccounts</code> の定義は以下のようになっています。</p>
+
+<pre><code>  @Transaction
+  public void insertRepositoriesAndAccounts(List&lt;RoomRepositoryEntity&gt; repositories, List&lt;RoomAccountEntity&gt; accounts) {
+    insertAllRepositories(repositories.toArray(new RoomRepositoryEntity[repositories.size()]));
+    insertAllAccounts(accounts.toArray(new RoomAccountEntity[accounts.size()]));
+  }
+</code></pre>
+
+<p>呼び出されている二点の手続きについては同じクラスにて定義済みです。</p>
+
+<pre><code>  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  public abstract void insertAllRepositories(RoomRepositoryEntity... repositories);
+
+  @Delete
+  public abstract void deleteAllRepositories(RoomRepositoryEntity... repositories);
+
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  public abstract void insertAllAccounts(RoomAccountEntity... accounts);
+</code></pre>
+
+<p>また上記の他にオブジェクトとして表現するための Entity クラスと検索結果などを Entity に変換するための Mapper クラスが定義されています。最後に定義されている試験の確認をしておきます。 <code>local</code> 配下には以下の試験があるようです。</p>
+
+<ul>
+<li>room/dao/RoomAccountDaoTest</li>
+<li>room/dao/RoomRepositoryDaoTest</li>
+<li>room/RoomTest</li>
+<li>GitHubRoomDataSourceTest</li>
+</ul>
+
+<p>ここがおそらく最下層の試験となっているはずです。順に確認していきます。<code>RoomRepositoryDaoTest</code> から</p>
+
+<ul>
+<li>DB に保存された全てのリポジトリデータの取得する <code>getAll</code> を検証</li>
+<li>ユーザのリポジトリデータを取得する <code>findByAccountId</code> を検証</li>
+<li>ユーザ ID のユーザのリポジトリデータを取得する <code>findByAccount</code> を検証</li>
+<li>指定したリポジトリデータをすべて挿入する <code>insertAllRepositories</code> を検証</li>
+<li>指定したリポジトリデータをすべて削除する <code>deleteAllRepositories</code> を検証</li>
+<li>指定したユーザ情報をすべて挿入する <code>insertAllAccounts</code> を検証</li>
+<li>指定したリポジトリとユーザをすべて挿入する <code>insertRepositoriesAndAccounts</code> を検証</li>
+<li>指定したアカウントが持つリポジトリ情報をすべて消して後から追加する <code>deleteAndInsertRepositoriesAndAccounts</code> を検証</li>
+</ul>
+
+<p>次は <code>RoomAccountDaoTest</code> です。</p>
+
+<ul>
+<li>DB に保存された全てのユーザデータの取得する <code>getAll</code> を検証</li>
+<li>ユーザ ID のユーザのユーザデータを取得する <code>findByAccount</code> を検証</li>
+<li>指定したユーザデータをすべて挿入する <code>insertAll</code> を検証</li>
+<li>指定したユーザデータをすべて削除する <code>deleteAll</code> を検証</li>
+</ul>
+
+<p>次は <code>RoomTest</code> です。</p>
+
+<ul>
+<li>ユーザデータを格納する <code>accountDao</code> の取得およびアクセサの動作確認を行う <code>account_dao_test</code></li>
+<li>リポジトリデータを格納する <code>repositoryDao</code> の取得およびアクセサの動作確認を行う <code>repository_dao_test</code></li>
+<li>ユーザデータとリポジトリデータの連携を確認する <code>repo_with_account_test</code></li>
+<li><code>RoomRepositoryDao#insertRepositoriesAndAccounts</code> の動作確認を行う <code>deleteAndInsert</code></li>
+</ul>
+
+<p>最後に <code>GitHubRoomDataSourceTest</code> です。</p>
+
+<ul>
+<li><code>GitHubRoomDataSource#getUserRepositories(String)</code> を呼ぶと内部で <code>RoomRepositoryDao#findByAccount(String)</code> が呼ばれることを検証し、<code>RepositoryEntityMapper#convertList(List)</code> が内部で呼ばれることも検証</li>
+<li><code>GitHubRoomDataSource#insertRepositoriesAndAccounts(List, List)</code> を呼ぶと内部で <code>RepositoryDao#insertRepositoriesAndAccounts(List, List)</code> が呼ばれることを検証</li>
+<li><code>GitHubRoomDataSource#deleteAndInsertRepositoriesAndAccounts(String, List, List)</code> を呼ぶと内部で <code>RoomRepositoryDao#deleteAndInsertRepositoriesAndAccounts(String, List, List)</code> が呼ばれることを検証</li>
+</ul>
+
+<p>次は <code>datasource/remote</code> 側の実装の確認を行っていきます。こちらも <code>GitHubRemoteDataSource</code> から確認を。こちらも interface な定義になっています。</p>
+
+<pre><code>public interface GitHubRemoteDataSource {
+  @NonNull
+  List&lt;RepositoryEntity&gt; getUserRepositories(@NonNull String account) throws IOException, ApiException;
+}
+</code></pre>
+
+<p>これを実装しているのが <code>GitHubRestDataSource</code> で定義の先頭部分から確認すすめます。</p>
+
+<pre><code>public class GitHubRestDataSource extends BaseRestDataSource&lt;List&lt;RepositoryEntity&gt;&gt; implements GitHubRemoteDataSource {
+  @NonNull
+  private final GitHubService gitHubService;
+
+  public GitHubRestDataSource(@NonNull Gson gson, @NonNull GitHubService gitHubService) {
+    super(gson);
+    this.gitHubService = gitHubService;
+  }
+</code></pre>
+
+<p><code>GitHubService</code> 型の属性は @NonNull でコンストラクタで渡されています。後は実装を強制されているメソッドと sort key と並び順な enum になっています。メソッド定義は以下で</p>
+
+<pre><code>  @NonNull
+  @Override
+  public List&lt;RepositoryEntity&gt; getUserRepositories(@NonNull String account) throws IOException, ApiException {
+    Response&lt;List&lt;RepositoryEntity&gt;&gt; response = gitHubService.getUserRepositories(
+        account,
+        Sort.UPDATED.value,
+        Direction.DESC.value
+    ).execute();
+    return stripResult(response);
+  }
+</code></pre>
+
+<p>って、このあたりで派手に道に迷っていたのですが、そもそも <code>GitHubInfraRepository</code> の Factory method にて <code>GitHubRemoteDataSource</code> が生成されているのでした。</p>
+
+<pre><code>        GitHubRemoteDataSource remote = new GitHubRestDataSource(
+            GsonProvider.INSTANCE.get(),
+            RetrofitProvider.INSTANCE.get().create(GitHubService.class)
+        );
+</code></pre>
+
+<p>ええと、<code>GitHubService</code> 型な属性には <code>datasource/remote/service</code> 配下に定義されている <code>RetrofitProvider</code> の instance 属性 (Retrofit 型) の create が戻すオブジェクトが、という事なのか。</p>
+
+<p>そしてそのオブジェクトであるところの <code>GitHubService</code> は <code>datasource/remote/service</code> 配下にて定義されています。interface ですね。以下に定義を引用します。</p>
+
+<pre><code>public interface GitHubService {
+  @GET(&quot;users/{user}/repos&quot;)
+  Call&lt;List&lt;RepositoryEntity&gt;&gt; getUserRepositories(
+      @Path(&quot;user&quot;) String user,
+      @Query(&quot;sort&quot;) String sort,
+      @Query(&quot;direction&quot;) String direction
+  );
+}
+</code></pre>
+
+<p>このあたりはこんなもんだ、って理解で良いのかどうか。別途で再確認した方が良さげですね。このまますすめます。</p>
+
+<p>あと、以下な記述を再度引用するんですが</p>
+
+<pre><code>    Response&lt;List&lt;RepositoryEntity&gt;&gt; response = gitHubService.getUserRepositories(
+        account,
+        Sort.UPDATED.value,
+        Direction.DESC.value
+    ).execute();
+</code></pre>
+
+<p>execute しないと非同期通信しない、という理解で良いのかどうか (別途確認</p>
+
+<h2 id="要確認">要確認</h2>
+
+<ul>
+<li><code>RepositoryMapper</code></li>
+<li><code>RepositoryEntityMapper</code></li>
+<li>Retrfit のあたり諸々</li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 24, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/02/23/unit-test-hands-on/" title="DroidKaigi2018UnitTestHandsOn 実装掘削メモ">DroidKaigi2018UnitTestHandsOn 実装掘削メモ</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/02/24/unit-test-hands-on/">DroidKaigi2018UnitTestHandsOn 実装掘削メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/23/unit-test-hands-on/">DroidKaigi2018UnitTestHandsOn 実装掘削メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/22/using-go-as-a-scripting-language-in-linux/">Linux におけるスクリプト言語としての Go の使用</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/21/architecture-pattern/">Android アプリ設計パターン入門</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/21/shogi-memo/">石田流メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/19/unit-test-hands-on/">DroidKaigi2018UnitTestHandsOn 実装掘削メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/18/hugo-octopress/">Hugo-Octopress テーマ修正</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/16/unit-test-hands-on/">DroidKaigi2018UnitTestHandsOn 実装掘削メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/15/unit-test-hands-on/">Unit Test の Hands-on 資料まとめ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/02/15/hugo-more/">Content Summaries</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
