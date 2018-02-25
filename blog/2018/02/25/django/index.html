@@ -131,6 +131,41 @@
 <h2 id="あと">あと</h2>
 
 <p>隙を見て雛形なコンテナイメージ作って dockerhub あたりに放り込んでおく方向で。</p>
+
+<h2 id="docker-image-作成してみます">docker image 作成してみます</h2>
+
+<p>でびあんベースの docker てどうなのか。</p>
+
+<pre><code>$ docker pull debian
+</code></pre>
+
+<p>して</p>
+
+<pre><code>$ docker run -i -t debian /bin/bash
+</code></pre>
+
+<p>して以下。</p>
+
+<pre><code># apt update
+# apt install python3.5 python3-pip
+# apt install apache2 libapache2-mod-wsgi-py3
+# apt install sqlite3
+</code></pre>
+
+<p>で、さらに以下を実行して</p>
+
+<pre><code># pip3 install django==2.0.2
+</code></pre>
+
+<p>イメージ作って dockerhub に push しています。</p>
+
+<pre><code>$ docker commit epic_colden debian-django
+$ docker login
+$ docker tag debian-django yamanetoshi/debian-django
+$ docker push yamanetoshi/debian-django
+</code></pre>
+
+<p>これ、もう少し工夫が必要ですね。</p>
         </div>
         
 
