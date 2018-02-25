@@ -96,6 +96,52 @@
         
 
 <header>
+    <p class="meta">Sep 26, 2014
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/26/direct-gpio-register-manipulation-in-c-code/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/programming/">programming </a><a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/26/direct-gpio-register-manipulation-in-c-code/">RasPI な GPIO で L チカなプログラム</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>ええと、以下な二種類の方法がある模様。</p>
+
+<ul>
+<li>sysfs を使う</li>
+<li>レジスタを mmap して直接書き込む</li>
+</ul>
+
+<p>とりあえず sysfs について確認してみました。まず抵抗とか LED なんかをブレッドボードに取り付けて #1 な PIN と GND を接続しておきます。</p>
+
+<p>あとは以下で LED が点灯。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/26/direct-gpio-register-manipulation-in-c-code/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Sep 25, 2014
          - 2 minute read 
          - <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/25/drill-down-from-do-fork/#disqus_thread">Comments</a>
@@ -440,41 +486,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Sep 18, 2014
-         - 1 minute read 
-         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/18/about-level-four-portal/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/18/about-level-four-portal/">level 4 な portal について</a>
-    </h1>
-</header>
-
-
-        
-          <p>今日、市役所の所を焼いて作ろうとしてみたのですがまとめて焼いてしまったので 青なエージェントさんに速攻で Lv.8 を置かれた 上に 置いたレゾネータを upgrade さ</p>
-
-          
-              <footer>
-                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/18/about-level-four-portal/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -570,6 +581,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/02/25/django/">django いいな</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/02/24/unit-test-hands-on/">DroidKaigi2018UnitTestHandsOn 実装掘削メモ</a>
             </li>
           
@@ -603,10 +618,6 @@
           
             <li class="post">
               <a href="/blog/2018/02/15/unit-test-hands-on/">Unit Test の Hands-on 資料まとめ</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/02/15/hugo-more/">Content Summaries</a>
             </li>
           
         </ul>

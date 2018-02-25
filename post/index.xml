@@ -6,10 +6,26 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 24 Feb 2018 15:22:03 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 25 Feb 2018 10:54:05 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>django いいな</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/25/django/</link>
+      <pubDate>Sun, 25 Feb 2018 10:54:05 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/25/django/</guid>
+      <description>&lt;p&gt;ずいぶんご無沙汰ですが、以下なエントリ見るに勉強会開催してもいいんじゃないかと思い始めていたりしてる次第。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://tokyodebian.alioth.debian.org/pdf/debianmeetingresume201802-osc2018spring-presentation.pdf&#34;&gt;apache に django の web アプリをデプロイしてみよう&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://qiita.com/kimihiro_n/items/86e0a9e619720e57ecd8&#34;&gt;Django REST Framework を使って爆速で API を実装する&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>DroidKaigi2018UnitTestHandsOn 実装掘削メモ</title>

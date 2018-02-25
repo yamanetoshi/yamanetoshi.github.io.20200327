@@ -96,6 +96,51 @@
         
 
 <header>
+    <p class="meta">Feb 13, 2014
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/02/13/install-debian-7/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/debian/">Debian </a><a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/02/13/install-debian-7/">でびあん 7 導入</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえず USB メモリに netboot なソレを仕込む。うぶんつと違って色々大変なんスね。以下エントリを見つつ USB メモリへのコピィ完了。</p>
+
+<ul>
+<li><a href="http://inokara.hateblo.jp/entry/2013/04/06/052506">Debian squeeze を USB メモリからインストールする一部始終</a></li>
+</ul>
+
+<p>その後、メモリスティックを挿して起動。F12 で起動デバイスのリストが出るのね。起動後に iwlwifi-6000-4.ucode という firmware を起動ディスクに入れれ、と指示が入る。</p>
+
+<p>がしかしこれ、ファイルを直接入手することができないのでやっぱでびあん断念。と思ったけど有線で継いで (Ubuntu installer は download しつつ) firmware-iwlwifi パケジがあるかどうかを確認、まではヤッてみることに。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/02/13/install-debian-7/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Feb 12, 2014
          - 1 minute read 
          - <a href="http://weblog.metacircular-evaluator.org/blog/2014/02/12/plotly/#disqus_thread">Comments</a>
@@ -395,60 +440,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 6, 2014
-         - 1 minute read 
-         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/02/06/application-of-color/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="http://weblog.metacircular-evaluator.org/blog/2014/02/06/application-of-color/">色の適用について</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>以下な指定をしてて disabled にして色が変わらない、と言ってたのですが</p>
-
-<pre><code>&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; &gt;
-    &lt;item android:state_pressed=&quot;true&quot;&gt;
-        &lt;color android:color=&quot;@color/hogekey_pressed&quot;&gt;&lt;/color&gt;
-    &lt;/item&gt;
-    &lt;item android:state_pressed=&quot;false&quot;&gt;
-        &lt;color android:color=&quot;@color/hogekey_normal&quot;&gt;&lt;/color&gt;
-    &lt;/item&gt;
-    &lt;item android:state_disabled=&quot;false&quot;&gt;
-        &lt;color android:color=&quot;@color/hogekey_disabled&quot;&gt;&lt;/color&gt;
-    &lt;/item&gt;
-&lt;/selector&gt;
-</code></pre>
-
-<p>上から順に評価されてて disabled な状態でも真ん中に合致しちゃって、というオチでした。</p>
-
-<p>後天性記憶不全なのかも最初から知らないのかも分からない始末orz</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/02/06/application-of-color/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -544,6 +535,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/02/25/django/">django いいな</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/02/24/unit-test-hands-on/">DroidKaigi2018UnitTestHandsOn 実装掘削メモ</a>
             </li>
           
@@ -577,10 +572,6 @@
           
             <li class="post">
               <a href="/blog/2018/02/15/unit-test-hands-on/">Unit Test の Hands-on 資料まとめ</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/02/15/hugo-more/">Content Summaries</a>
             </li>
           
         </ul>
