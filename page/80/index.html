@@ -96,6 +96,47 @@
         
 
 <header>
+    <p class="meta">Feb 6, 2015
+         - 1 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2015/02/06/how-to-check-to-see-whether-it-has-been-deleted-from-youtube/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2015/02/06/how-to-check-to-see-whether-it-has-been-deleted-from-youtube/">youtube から削除された動画かどうかを確認する方法</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>どうやら <code>http://gdata.youtube.com/feeds/api/videos/[ID]</code> にアクセスして HTTP レスポンスなソレが 200 以外だと削除、ということらしい。</p>
+
+<p>最初ステイタスではなくてレスポンスな文字列そのものを判定しようとしてて (ry</p>
+
+<p>なんかイキオイで HttpURLConnection なオブジェクトで connect して getResponseCode メソドの戻りで云々してしまったのですが、なんとなく微妙な気がしています。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2015/02/06/how-to-check-to-see-whether-it-has-been-deleted-from-youtube/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Feb 5, 2015
          - 2 minute read 
          - <a href="http://weblog.metacircular-evaluator.org/blog/2015/02/05/gradation-background-in-opengl-es/#disqus_thread">Comments</a>
@@ -461,41 +502,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 26, 2015
-         - 1 minute read 
-         - <a href="http://weblog.metacircular-evaluator.org/blog/2015/01/26/ingress-api/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/ingress/">ingress </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="http://weblog.metacircular-evaluator.org/blog/2015/01/26/ingress-api/">いんぐれすの API 提供というか公開はまだなのか</a>
-    </h1>
-</header>
-
-
-        
-          <p>つうかローカルでプロキシ起動して intel へのアクセスなソレを見てやれ、って思ってたのですがよくよく考えてみるにこれって API 叩いてる訳ではないな。 折角</p>
-
-          
-              <footer>
-                  <a href="http://weblog.metacircular-evaluator.org/blog/2015/01/26/ingress-api/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -591,6 +597,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/02/26/cloud9-django/">cloud9 な django を試してみるなど</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/02/25/django/">django いいな</a>
             </li>
           
@@ -624,10 +634,6 @@
           
             <li class="post">
               <a href="/blog/2018/02/16/unit-test-hands-on/">DroidKaigi2018UnitTestHandsOn 実装掘削メモ</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/02/15/unit-test-hands-on/">Unit Test の Hands-on 資料まとめ</a>
             </li>
           
         </ul>

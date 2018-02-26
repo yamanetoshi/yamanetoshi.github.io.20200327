@@ -6,10 +6,21 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 25 Feb 2018 10:54:05 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 26 Feb 2018 21:35:52 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cloud9 な django を試してみるなど</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/26/cloud9-django/</link>
+      <pubDate>Mon, 26 Feb 2018 21:35:52 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/26/cloud9-django/</guid>
+      <description>&lt;p&gt;今日、とあるやりとりで思い出したので使ってみました。何故か RabbitMQ に接続できない的なメッセージが出力されてプロジェクトが作れなかったのですが、契機不明にてプロジェクト作成できるようになっていました。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>django いいな</title>
