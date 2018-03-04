@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/03/04/how-linux-works/</loc>
+    <lastmod>2018-03-04T18:37:40+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/03/03/usage-record/</loc>
     <lastmod>2018-03-03T14:28:00+09:00</lastmod>
   </url>
@@ -7564,7 +7569,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-03-03T14:28:00+09:00</lastmod>
+    <lastmod>2018-03-04T18:37:40+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7702,7 +7707,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/linux/</loc>
-    <lastmod>2018-03-02T21:41:41+09:00</lastmod>
+    <lastmod>2018-03-04T18:37:40+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7738,7 +7743,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-03-03T14:28:00+09:00</lastmod>
+    <lastmod>2018-03-04T18:37:40+09:00</lastmod>
     <priority>0</priority>
   </url>
   
