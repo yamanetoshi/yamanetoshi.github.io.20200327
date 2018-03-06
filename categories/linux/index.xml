@@ -6,10 +6,21 @@
     <description>Recent content in Linux on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 05 Mar 2018 21:25:48 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 06 Mar 2018 21:33:35 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>strace の出力</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/03/06/output-of-strace/</link>
+      <pubDate>Tue, 06 Mar 2018 21:33:35 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/03/06/output-of-strace/</guid>
+      <description>&lt;p&gt;なんとなくハロワを比べてみました。&lt;code&gt;golang&lt;/code&gt; と &lt;code&gt;python&lt;/code&gt; のハロワで。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Linux のしくみ</title>
