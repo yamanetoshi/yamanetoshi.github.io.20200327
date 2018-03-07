@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/03/07/reading-rss-feed-in-slack/</loc>
+    <lastmod>2018-03-07T20:13:46+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/03/06/output-of-strace/</loc>
     <lastmod>2018-03-06T21:33:35+09:00</lastmod>
   </url>
@@ -7579,7 +7584,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-03-06T21:33:35+09:00</lastmod>
+    <lastmod>2018-03-07T20:13:46+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7735,7 +7740,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/misc/</loc>
-    <lastmod>2018-03-03T14:28:00+09:00</lastmod>
+    <lastmod>2018-03-07T20:13:46+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7753,7 +7758,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-03-06T21:33:35+09:00</lastmod>
+    <lastmod>2018-03-07T20:13:46+09:00</lastmod>
     <priority>0</priority>
   </url>
   
