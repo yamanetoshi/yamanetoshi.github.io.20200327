@@ -6,10 +6,27 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 07 Mar 2018 20:13:46 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 08 Mar 2018 21:06:24 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>PyEcom における複数フレーム送信処理について</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/03/08/sending-multiple-frame-in-pyecom/</link>
+      <pubDate>Thu, 08 Mar 2018 21:06:24 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/03/08/sending-multiple-frame-in-pyecom/</guid>
+      <description>&lt;p&gt;メータ関連のテストにて&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;10,0B,30,0B,00,02,00,00
+21,00,00,00,00,00,00,00
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;みたいな ISO-TP の複数フレームなメッセージが送出されているのを確認しています。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>slack で RSS 読めるのか</title>
