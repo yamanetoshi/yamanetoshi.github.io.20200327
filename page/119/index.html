@@ -96,6 +96,53 @@
         
 
 <header>
+    <p class="meta">Mar 24, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/24/linux-alsa/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/24/linux-alsa/">RaspberryPI に USB マイク付けて云々</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>デバイス自体は普通に認識。</p>
+
+<pre><code>$ sudo apt-get install pulseaudio
+$ lsusb
+Bus 001 Device 006: ID 0d8c:000c C-Media Electronics, Inc. Audio Adapter
+$ pactl list short sources
+</code></pre>
+
+<p>出力略。認識できてるみたいです。つうか RasPI は USB がポート二つしかなくてキーボードとマイク繋ぐとマウスががが状態。困ってたら alsamixer は端末で表示できちゃうんですね。</p>
+
+<p>なんかワケワカんねぇ、と言いつつ alsamixier で、とか alsa-oss 入れて、とかやっていたのですがよくよく見てみるに /dev/snd というディレクトリを発見。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/24/linux-alsa/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Mar 23, 2014
          - 2 minute read 
          - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/23/android-test-kit/#disqus_thread">Comments</a>
@@ -475,59 +522,6 @@ E: linux-tools-3.10 is not installed.
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Mar 19, 2014
-         - 2 minute read 
-         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/19/install-crosstool-ng/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/19/install-crosstool-ng/">crosstool-NG 入れるなど</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>先日入手した、BareMetalで遊ぶ RaspberryPi に出てるソレを云々してみます。</p>
-
-<p>とりあえずパケジを導入。</p>
-
-<pre><code>$ sudo apt-get install build-essential python3 python2.7 \
-python-dev libzip-dev automake libncurses5-dev gperf bison \
-flex gawk libtool libexpat1-dev expat
-</code></pre>
-
-<p>あるいは 32bit 環境用ライブラリを、とのことで以下。</p>
-
-<pre><code>$ sudo dpkg --add-architecture i386
-$ sudo apt-get update
-$ sudo apt-get install ia32-libs libgtk2.0-0:i386
-</code></pre>
-
-<p>久しぶりに apt-get update とかしたのですが apt-line に docker だの heroku の toolbelt とか入っててアレですね。ともあれ、これで crosstool-NG の導入準備は OK とのこと。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/03/19/install-crosstool-ng/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -623,6 +617,10 @@ $ sudo apt-get install ia32-libs libgtk2.0-0:i386
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/03/10/wood-gas-stove/">ウッドガスストーブ</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/03/10/blogger-namecard/">ブロガー名刺</a>
             </li>
           
@@ -656,10 +654,6 @@ $ sudo apt-get install ia32-libs libgtk2.0-0:i386
           
             <li class="post">
               <a href="/blog/2018/03/02/how-linux-works/">sar</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/02/28/strange-story/">以前確認していた資料</a>
             </li>
           
         </ul>
