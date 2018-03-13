@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/03/13/bo-by-examples/</loc>
+    <lastmod>2018-03-13T21:45:27+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/03/10/wood-gas-stove/</loc>
     <lastmod>2018-03-10T19:12:44+09:00</lastmod>
   </url>
@@ -7604,7 +7609,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-03-10T19:12:44+09:00</lastmod>
+    <lastmod>2018-03-13T21:45:27+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7706,7 +7711,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/go/</loc>
-    <lastmod>2018-02-22T20:15:16+09:00</lastmod>
+    <lastmod>2018-03-13T21:45:27+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7778,7 +7783,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-03-10T19:12:44+09:00</lastmod>
+    <lastmod>2018-03-13T21:45:27+09:00</lastmod>
     <priority>0</priority>
   </url>
   
