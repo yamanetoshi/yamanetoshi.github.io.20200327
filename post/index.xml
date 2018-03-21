@@ -6,13 +6,24 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 14 Mar 2018 22:16:55 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 21 Mar 2018 20:56:58 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Go by Examples</title>
+      <title>Go by Examples (3)</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/03/21/bo-by-examples/</link>
+      <pubDate>Wed, 21 Mar 2018 20:56:58 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/03/21/bo-by-examples/</guid>
+      <description>&lt;p&gt;続き、は Switch の次ですね。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go by Examples (2)</title>
       <link>http://weblog.metacircular-evaluator.org/blog/2018/03/14/bo-by-examples/</link>
       <pubDate>Wed, 14 Mar 2018 22:16:55 +0900</pubDate>
       
