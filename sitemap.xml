@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/03/22/hiroshima-starters/</loc>
+    <lastmod>2018-03-22T20:25:36+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/03/21/bo-by-examples/</loc>
     <lastmod>2018-03-21T20:56:58+09:00</lastmod>
   </url>
@@ -7619,7 +7624,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-03-21T20:56:58+09:00</lastmod>
+    <lastmod>2018-03-22T20:25:36+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7775,7 +7780,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/misc/</loc>
-    <lastmod>2018-03-10T19:12:44+09:00</lastmod>
+    <lastmod>2018-03-22T20:25:36+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7793,7 +7798,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-03-21T20:56:58+09:00</lastmod>
+    <lastmod>2018-03-22T20:25:36+09:00</lastmod>
     <priority>0</priority>
   </url>
   

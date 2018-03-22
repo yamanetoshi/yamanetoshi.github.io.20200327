@@ -6,10 +6,39 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 21 Mar 2018 20:56:58 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 22 Mar 2018 20:25:36 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>広島スターターズ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/03/22/hiroshima-starters/</link>
+      <pubDate>Thu, 22 Mar 2018 20:25:36 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/03/22/hiroshima-starters/</guid>
+      <description>&lt;p&gt;先週の週末に交流会が開催されたので行ってみました。イベントのサイトが以下。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://hiroshima-starters.com/event/event_meetup_hiroshima201803.html&#34;&gt;創業支援サイト「ひろしまスターターズ」交流会 「Starter&amp;rsquo;s Bar（スターバー）」in 広島&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;いっちゃん前に誘導されたのですが年齢層てきにご年配の方が多そうな印象。若い人もいらっしゃいますね。あと、女性の起業支援ってことで女性の姿もそれなりに、に見えます。スタッフの方に女性多いです。&lt;/p&gt;
+
+&lt;p&gt;プログラムてきには&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;自治体挨拶&lt;/li&gt;
+&lt;li&gt;サイトの紹介&lt;/li&gt;
+&lt;li&gt;ゲストトーク&lt;/li&gt;
+&lt;li&gt;コワーキングスペース見学&lt;/li&gt;
+&lt;li&gt;懇親会&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;という流れとのことです。そろそろ開始時間ということで控えを取ってみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Go by Examples (3)</title>

@@ -96,6 +96,43 @@
         
 
 <header>
+    <p class="meta">Oct 10, 2014
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/10/10/livewallpaper-in-android/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/10/10/livewallpaper-in-android/">LiveWallPaper</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>なんか色々弄る機会があり、調べてもみたのでそのあたりについて備忘控えを。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/10/10/livewallpaper-in-android/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Oct 9, 2014
          - 1 minute read 
          - <a href="http://weblog.metacircular-evaluator.org/blog/2014/10/09/discussion-about-venture/#disqus_thread">Comments</a>
@@ -431,58 +468,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Sep 30, 2014
-         - 6 minute read 
-         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/30/bcm2708-gpio-probe/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/30/bcm2708-gpio-probe/">bcm2708_gpio_probe 手続き (2)</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>自分がササッてる bus に接続されているデバイスを順にとりだして __device_attach 手続きを呼び出している、のかどうか。引数として手続きに渡されるのは</p>
-
-<ul>
-<li>next_device から取得できる struct device オブジェクト</li>
-<li>driver_attach に渡される struct device_driver オブジェクト</li>
-</ul>
-
-<p>になっている模様。next_device という手続きによれば</p>
-
-<ul>
-<li>klist_next により struct klist_iter 型の引数から struct klist_node オブジェクトを取得</li>
-<li>to_device_private_bus により struct device_private オブジェクトを取得</li>
-<li>struct device_private オブジェクトの device 属性を戻す</li>
-</ul>
-
-<p>形になっています。container_of 使って struct device_private なオブジェクトのアドレスを引っ張ってきて、なのか。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/30/bcm2708-gpio-probe/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -578,6 +563,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/03/22/hiroshima-starters/">広島スターターズ</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/03/21/bo-by-examples/">Go by Examples (3)</a>
             </li>
           
@@ -611,10 +600,6 @@
           
             <li class="post">
               <a href="/blog/2018/03/06/output-of-strace/">strace の出力</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/03/05/how-linux-works/">Linux のしくみ</a>
             </li>
           
         </ul>
