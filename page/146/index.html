@@ -97,6 +97,66 @@
 
 <header>
     <p class="meta">Nov 22, 2013
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/22/make-with-batabata/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a><a class="label" href="http://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/22/make-with-batabata/">ばたばたしてる中での作成</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>displayname でマッチさせて id と displayname を出力する実装を書いた。</p>
+
+<pre><code>  if /^devopsOkinawa/ =~ item[&quot;displayname&quot;]
+    if item[&quot;state&quot;] == &quot;Running&quot;
+      print item[&quot;id&quot;], &quot; &quot;, item[&quot;displayname&quot;], &quot;\n&quot; 
+    end
+</code></pre>
+
+<p>これは一応な確認用でこの出力にさらに</p>
+
+<pre><code> awk '{print $1;}'
+</code></pre>
+
+<p>なフィルタをかけて id を例えば以下な destroy に渡すというアレ。</p>
+
+<pre><code>while line = gets
+  line.chomp!
+  @compute.destroy_virtual_machine({
+    'id' =&gt; line,
+                                   })
+end
+</code></pre>
+
+<p>これでリソース破棄は楽になります。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/22/make-with-batabata/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 22, 2013
          - 1 minute read 
          - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/22/think-about-tool/#disqus_thread">Comments</a>
 
@@ -491,41 +551,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 19, 2013
-         - 1 minute read 
-         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/19/weekend-cooking-reminder/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/19/weekend-cooking-reminder/">備忘</a>
-    </h1>
-</header>
-
-
-        
-          <p>美味そげなギョーザのレシピを発見。 餃子（完全食）の作り方 週末はこれだな。午前中にタネを仕込んでおく方向。カワは 50 枚のヤツを買って小さめに作り</p>
-
-          
-              <footer>
-                  <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/19/weekend-cooking-reminder/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -621,6 +646,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/03/28/rental-bicycle/">自転車レンタル</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/03/25/google-maps/">ぐぐるまっぷ</a>
             </li>
           
@@ -654,10 +683,6 @@
           
             <li class="post">
               <a href="/blog/2018/03/08/sending-multiple-frame-in-pyecom/">PyEcom における複数フレーム送信処理について</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/03/07/reading-rss-feed-in-slack/">slack で RSS 読めるのか</a>
             </li>
           
         </ul>
