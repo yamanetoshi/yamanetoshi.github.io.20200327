@@ -6,10 +6,21 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 28 Mar 2018 13:36:51 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 29 Mar 2018 20:33:00 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Git Tutorial</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/03/29/git-tutorial/</link>
+      <pubDate>Thu, 29 Mar 2018 20:33:00 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/03/29/git-tutorial/</guid>
+      <description>&lt;p&gt;cloud9 でできるか、試してみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>自転車レンタル</title>
