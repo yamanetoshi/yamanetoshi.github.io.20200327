@@ -117,9 +117,15 @@
           
           <p>auth0 な認証まわりで良い資料がない、と思ってたら本家にあったのでぐーぐる訳使って動作の確認してみましたので翻訳の一部を以下に。</p>
 
-<p>なんでこんな作りにしているのかは謎。</p>
+<p>なんでこんな作りにしているのかは謎。以下なコンテンツの Admin Authorization の部分のみ、です。</p>
+
+<ul>
+<li><a href="https://auth0.com/blog/real-world-angular-series-part-2/">Real-World Angular Series - Part 2: Authentication and Data Modeling</a></li>
+</ul>
 
 <p></p>
+
+<h2 id="admin-authorization">Admin Authorization</h2>
 
 <p>私たちのRSVPアプリでは、管理者権限を持つユーザーだけがイベントの作成、編集、削除ができるはずです。 他のすべてのユーザーは、これらのイベントにのみRSVPすることができます。 これを実装するには、Node.js APIとAngularアプリの両方でユーザーロールを割り当ててから利用する必要があります。
 まず、関連するステップを見てみましょう。</p>

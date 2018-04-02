@@ -19,7 +19,11 @@
       <guid>http://weblog.metacircular-evaluator.org/blog/2018/04/02/admin-authorization/</guid>
       <description>&lt;p&gt;auth0 な認証まわりで良い資料がない、と思ってたら本家にあったのでぐーぐる訳使って動作の確認してみましたので翻訳の一部を以下に。&lt;/p&gt;
 
-&lt;p&gt;なんでこんな作りにしているのかは謎。&lt;/p&gt;
+&lt;p&gt;なんでこんな作りにしているのかは謎。以下なコンテンツの Admin Authorization の部分のみ、です。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://auth0.com/blog/real-world-angular-series-part-2/&#34;&gt;Real-World Angular Series - Part 2: Authentication and Data Modeling&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>
