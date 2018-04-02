@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Admin Authorization</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 2, 2018
+         - 8 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/04/02/admin-authorization/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/angular/">angular </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Admin Authorization 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>auth0 な認証まわりで良い資料がない、と思ってたら本家にあったのでぐーぐる訳使って動作の確認してみましたので翻訳の一部を以下に。</p>
+
+<p>なんでこんな作りにしているのかは謎。</p>
+
+<p></p>
+
+<p>私たちのRSVPアプリでは、管理者権限を持つユーザーだけがイベントの作成、編集、削除ができるはずです。 他のすべてのユーザーは、これらのイベントにのみRSVPすることができます。 これを実装するには、Node.js APIとAngularアプリの両方でユーザーロールを割り当ててから利用する必要があります。
+まず、関連するステップを見てみましょう。</p>
+
+<ul>
+<li>Auth0ルールを使用してユーザーロールを確立し、ID（クライアント）トークンとアクセス（API）トークンに追加します。</li>
+<li>Node.js APIにミドルウェアを実装して、管理者ユーザーだけが特定のAPIルートにアクセスできるようにします。</li>
+<li>特定のルートと機能へのアクセスを制限するには、角度アプリの役割情報を使用します。</li>
+</ul>
+
+<p>始めましょう！</p>
+
+<h2 id="use-an-auth0-rule-for-admin-authorization"><strong>Use an Auth0 Rule for Admin Authorization</strong></h2>
+
+<p>ルールは、ユーザーが認証するたびにAuth0が実行するJavaScript関数です。 これらは、認証機能を拡張する簡単な方法を提供します。
+まず、Auth0ダッシュボードにログインし、新しいルールを作成します。 [ユーザーに役割を設定する]ルールテンプレートを選択します。</p>
+
+<p><img src="https://d2mxuefqeaa7sj.cloudfront.net/s_B01E02CE0FA4D191496FFCCB9680B9A4B6D0C35A34193DA34960678C122322D9_1522642699588_rule-new.jpg" alt="" /></p>
+
+<p>これにより、JavaScriptテンプレートが開きます。 現時点では、自分のアカウントに管理者の役割を割り当てたいだけです。 このルールの名前を変更して、そのルールの内容を一目で確認できるようにすることをお勧めします。 特定の電子メールドメインのindexOf（）に対するユーザーの電子メールをチェックするテンプレートを簡単に変更できます。
+これをGoogleのフルメールアドレスに変更します。これは、管理者の役割を割り当てるIDを表すためです。 ルールを次のように変更します。</p>
+
+<pre><code>// Set me as 'admin' role, and all others to 'user'
+// Save app_metadata to ID and access tokens
+function (user, context, callback) {
+  user.app_metadata = user.app_metadata || {};
+  var addRolesToUser = function(user, cb) {
+    if (user.email &amp;&amp; user.email === '[MY_FULL_GOOGLE_ACCOUNT_EMAIL]') {
+      cb(null, ['admin']);
+    } else {
+      cb(null, ['user']);
+    }
+  };
+
+  addRolesToUser(user, function(err, roles) {
+    if (err) {
+      callback(err);
+    } else {
+      user.app_metadata.roles = roles;
+      auth0.users.updateAppMetadata(user.user_id, user.app_metadata)
+        .then(function(){
+          // Add metadata to both ID token and access token
+          var namespace = 'http://myapp.com/roles';
+          var userRoles = user.app_metadata.roles;
+          context.idToken[namespace] = userRoles;
+          context.accessToken[namespace] = userRoles;
+          callback(null, user, context);
+        })
+        .catch(function(err){
+          callback(err);
+        });
+    }
+  });
+}
+</code></pre>
+
+<p>[MY_FULL_GOOGLE_ACCOUNT_EMAIL]を自分の資格情報で置き換えます。 例のルールテンプレートのように、単にドメインではなく完全な電子メールアドレスに一致させるため、indexOf（）を厳密な等式で置き換えています。</p>
+
+<p>注：Google以外のアカウントを使用する場合は、適切なプロパティでアカウントを識別してください。 すべての接続タイプによってすべてのプロパティが返されるわけではありません。 また、その電子メールのすべてのアカウントを管理者として設定する場合や、Googleアカウントとユーザー名/パスワードの両方のアカウントのみをチェックに一致させたい場合は、アカウントの詳細をより明示的に指定することもできます。 Auth0ユーザーを確認するか、Auth0ソーシャルコネクションをテストして、異なるアイデンティティプロバイダからのログインから返され格納されるデータの種類を確認することができます。</p>
+
+<p>ロール配列を持つapp_metadataをユーザーに追加しましたが、これはOpenID標準のクレームの一部ではないため、updateAppMetadata（）約束が解決されたときにIDとアクセストークンにロールデータを含めるためにカスタムクレームを追加する必要があります 。
+名前空間識別子は、Auth0以外のHTTPまたはHTTPS URLでもかまいません。実際のリソースを指す必要はありません。 Auth0は、追加の申し立てについてOIDCからのこの勧告を強制し、名前空間を持たないクレームを黙って除外します。 ここでAuth0を使用してカスタムクレームを実装する方法について詳しく読むことができます。
+私たちのカスタムクレームの鍵は<a href="http://myapp.com/rolesです。">http://myapp.com/rolesです。</a> これは、AngularアプリとNode APIのIDとアクセストークンからロール配列を取得する方法です。 私たちのルールは、Auth0ユーザーのapp_metadata.rolesをこのプロパティに割り当てます。</p>
+
+<p>終了したら、このルールを保存するために &ldquo;保存&rdquo;ボタンをクリックしてください。</p>
+
+<h2 id="sign-in-with-admin-account"><strong>Sign In with Admin Account</strong></h2>
+
+<p>次に行う必要があるのは、意図した管理者のユーザーでログインすることです。 これによりルールが実行され、アプリのメタデータがターゲットアカウントに追加されます。 その後、ユーザーがログインするたびに、ロールデータもトークンで利用できるようになります。
+すでにAngularアプリでログインを実装しているので、私たちが行う必要があるのは、Set rolesで指定したアカウントでユーザールールにサインインするだけです。 ブラウザーのAngularアプリにhttp：// localhost：4200でアクセスし、ヘッダーに追加した「ログイン」リンクをクリックします。</p>
+
+<p>注：Setロールをユーザールールに設定するときはGoogleアカウントを使用したので、Google OAuthを使用してログインします。 （Auth0アカウントとセットアップの第1部のAuth0 DashboardソーシャルコネクションのGoogle OAuthを有効にしました。）</p>
+
+<p>ログインしたら、適切なロールがAuth0 Dashboard Usersセクションのユーザーアカウントに追加されたことを確認することができます。 ログインしたユーザーを探し、名前をクリックして詳細を表示します。 このユーザーのメタデータセクションは次のようになります。</p>
+
+<p><img src="https://d2mxuefqeaa7sj.cloudfront.net/s_B01E02CE0FA4D191496FFCCB9680B9A4B6D0C35A34193DA34960678C122322D9_1522643346444_user-metadata.png" alt="" /></p>
+
+<h2 id="admin-middleware-in-node-api"><strong>Admin Middleware in Node API</strong></h2>
+
+<p>認証で役割サポートができたので、これを使用して管理者のアクセスが必要なAPIルートを保護できます。
+サーバーのconfig.jsファイルを開き、Add user role to tokens ruleを作成するときに使用した名前空間を持つNAMESPACEプロパティーを追加します。</p>
+
+<pre><code>// server/config.js
+module.exports = {
+  ...,
+  NAMESPACE: 'http://myapp.com/roles'
+};
+</code></pre>
+
+<p>注：Auth0 Rulesダッシュボードで既存のルールテンプレートを変更し、上記のサンプルコードと一致するように名前空間を変更しなかった場合は、設定を設定する際に注意が必要です。</p>
+
+<p>ユーザーが認証され、APIエンドポイントにアクセスするための管理者権限を持つことを確認するミドルウェアを実装できるようになりました。</p>
+
+<p>server api.jsファイルに次のように追加します。</p>
+
+<pre><code>// server/api.js
+...
+module.exports = function(app, config) {
+  // Authentication middleware
+  const jwtCheck = jwt({
+    ...
+  });
+
+  // Check for an authenticated admin user
+  const adminCheck = (req, res, next) =&gt; {
+    const roles = req.user[config.NAMESPACE] || [];
+    if (roles.indexOf('admin') &gt; -1) {
+      next();
+    } else {
+      res.status(401).send({message: 'Not authorized for admin access'});
+    }
+  }
+
+...
+</code></pre>
+
+<p>私たちのユーザーロールをトークンに追加ルールは、IDとアクセストークンに以下のキー/値のペアを追加しました：</p>
+
+<pre><code>http://myapp.com/roles&quot;: [&quot;admin&quot;]
+</code></pre>
+
+<p>express-jwtパッケージは、デコードされたトークンをデフォルトでreq.userに追加します。 adminCheckミドルウェアはこのプロパティーを見つけ、配列内のadminの値を探します。 見つかった場合、要求は続行されます。 そうでない場合は、401 Unauthorizedステータスが返され、短いエラーメッセージが返されます。
+現在、APIは管理者の役割を処理するように設定されています。</p>
+
+<h2 id="admin-authorization-in-angular-app"><strong>Admin Authorization in Angular App</strong></h2>
+
+<p>フロントエンドは、ユーザーが管理者であるかどうかを知りたいので、AuthServiceを更新してこの情報を取得して保存してみましょう。
+まず、AUTH_CONFIGに名前空間を格納する必要があります。 auth.config.tsファイルを開き、NAMESPACEキーを追加します。</p>
+
+<pre><code>// src/app/auth/auth.config.ts
+...
+interface AuthConfig {
+  ...,
+  NAMESPACE: string;
+};
+
+export const AUTH_CONFIG: AuthConfig = {
+  ...,
+  NAMESPACE: 'http://myapp.com/roles'
+};
+</code></pre>
+
+<p>名前空間が保存されたので、管理ステータスをauth.service.tsファイルに保存するサポートを追加しましょう：</p>
+
+<pre><code>// src/app/auth/auth.service.ts
+...
+export class AuthService {
+  ...
+  isAdmin: boolean;
+  ...
+  constructor(private router: Router) {
+    // If authenticated, set local profile property,
+    // admin status, and update login status subject.
+    // If token is expired but user data still in localStorage, log out
+    if (this.tokenValid) {
+      this.userProfile = JSON.parse(localStorage.getItem('profile'));
+      this.isAdmin = localStorage.getItem('isAdmin') === 'true';
+      this.setLoggedIn(true);
+    }
+  }
+
+  ...
+
+  private _setSession(authResult, profile) {
+    // Save session data and update login status subject
+    ...
+    this.isAdmin = this._checkAdmin(profile);
+    localStorage.setItem('isAdmin', this.isAdmin.toString());
+    this.setLoggedIn(true);
+  }
+
+  private _checkAdmin(profile) {
+    // Check if the user has admin role
+    const roles = profile[AUTH_CONFIG.NAMESPACE] || [];
+    return roles.indexOf('admin') &gt; -1;
+  }
+
+  logout() {
+    // Ensure all auth items removed from localStorage
+    ...
+    localStorage.removeItem('isAdmin');
+    // Reset local properties, update loggedIn$ stream
+    this.userProfile = undefined;
+    this.isAdmin = undefined;
+    this.setLoggedIn(false);
+  }
+
+  ...
+</code></pre>
+
+<p>最初にisAdmin：booleanという新しいプロパティを追加します。 これにより、ユーザーの管理ステータスが保存され、フロントエンドで使用できるようになります。
+コンストラクタでは、ユーザが認証されると、ローカルストレージ内のisAdminキーが検索されます。 ローカルストレージは値を文字列として格納するので、ブール値としてキャストします。
+次に、_setSession（）関数を更新します。 ローカルのuserProfileプロパティを設定した後は、private _checkAdmin（）メソッドを使用して、そのユーザーが自分の役割にadminを持っているかどうかを判断します。</p>
+
+<p>注意：型はbooleanですが、ローカルストレージは文字列を要求するため、isAdminを文字列にキャストする必要があります。</p>
+
+<p>最後に、ローカルストレージからisAdminデータを削除し、logout（）メソッドでサービスを削除します。
+ユーザーがクライアント側で管理者権限を持っているかどうかを確認できるようになりました。</p>
+
+<p>セキュリティ上の注意：これは決してクライアント側では行わないでください。 上記のAPIミドルウェアのセクションで行ったように、APIルートも常に保護されていることを確認してください。</p>
+
+<p>APIとAngularアプリの両方で管理者権限が設定されました。 私たちはアプリケーションを開発する際に、これをさらに多くします！</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 2, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/03/29/git-tutorial/" title="Git Tutorial">Git Tutorial</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/04/02/admin-authorization/">Admin Authorization</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/03/29/git-tutorial/">Git Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/03/28/rental-bicycle/">自転車レンタル</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/03/25/google-maps/">ぐぐるまっぷ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/03/22/hiroshima-starters/">広島スターターズ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/03/21/bo-by-examples/">Go by Examples (3)</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/03/14/bo-by-examples/">Go by Examples (2)</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/03/13/bo-by-examples/">Go by Examples</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/03/10/wood-gas-stove/">ウッドガスストーブ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/03/10/blogger-namecard/">ブロガー名刺</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

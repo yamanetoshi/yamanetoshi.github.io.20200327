@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/04/02/admin-authorization/</loc>
+    <lastmod>2018-04-02T14:39:32+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/03/29/git-tutorial/</loc>
     <lastmod>2018-03-29T20:33:00+09:00</lastmod>
   </url>
@@ -7639,13 +7644,19 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-03-29T20:33:00+09:00</lastmod>
+    <lastmod>2018-04-02T14:39:32+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/android/</loc>
     <lastmod>2018-02-27T22:06:41+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://weblog.metacircular-evaluator.org/categories/angular/</loc>
+    <lastmod>2018-04-02T14:39:32+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7813,7 +7824,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-03-29T20:33:00+09:00</lastmod>
+    <lastmod>2018-04-02T14:39:32+09:00</lastmod>
     <priority>0</priority>
   </url>
   
