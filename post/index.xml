@@ -6,10 +6,25 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 02 Apr 2018 14:39:32 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 03 Apr 2018 19:30:02 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ナイスユカリ</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/04/03/nice-yukari/</link>
+      <pubDate>Tue, 03 Apr 2018 19:30:02 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/04/03/nice-yukari/</guid>
+      <description>&lt;p&gt;広島で小学生の頃の同級生が、な昼呑みのお店です。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://goo.gl/maps/fuKASBFi25q&#34;&gt;ナイスユカリ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Admin Authorization</title>
