@@ -97,6 +97,50 @@
 
 <header>
     <p class="meta">Sep 27, 2014
+         - 5 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/27/function-named-device-add/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/27/function-named-device-add/">device_add という手続き</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>drivers/base/core.c にて定義。device_create_groups_vargs 手続きから呼び出されています。struct device なオブジェクトの初期化をして device_add に渡されてます。</p>
+
+<p>で、直前エントリにて dpm_sysfs_add が核心? とかって書いたのですが、そっちではなくて device_create_file が、な模様。手続き定義のコメントが以下。</p>
+
+<pre><code> * device_create_file - create sysfs attribute file for device.
+</code></pre>
+
+<p>ここから sysfs_create_file という手続きを呼び出していますね。どんどん掘ります。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/27/function-named-device-add/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Sep 27, 2014
          - 1 minute read 
          - <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/27/struct-kobject/#disqus_thread">Comments</a>
 
@@ -475,37 +519,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Sep 21, 2014
-         - 1 minute read 
-         - <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/21/list-of-items/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="http://weblog.metacircular-evaluator.org/blog/2014/09/21/list-of-items/">買わねばリスト</a>
-    </h1>
-</header>
-
-
-        
-          <p>以下。 アマゾン提供の micro-b な USB ケーブル 4 本くらい 英語本 Intel Edison ($50 らしい)</p>
-
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -601,6 +614,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/04/07/introduction-to-tsume-shogi/">詰将棋入門</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/04/03/nice-yukari/">ナイスユカリ</a>
             </li>
           
@@ -634,10 +651,6 @@
           
             <li class="post">
               <a href="/blog/2018/03/13/bo-by-examples/">Go by Examples</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/03/10/wood-gas-stove/">ウッドガスストーブ</a>
             </li>
           
         </ul>

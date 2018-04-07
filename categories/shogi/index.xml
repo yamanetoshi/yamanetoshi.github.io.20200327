@@ -6,10 +6,27 @@
     <description>Recent content in Shogi on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 21 Feb 2018 10:47:40 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 07 Apr 2018 18:30:09 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/categories/shogi/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>詰将棋入門</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/04/07/introduction-to-tsume-shogi/</link>
+      <pubDate>Sat, 07 Apr 2018 18:30:09 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/04/07/introduction-to-tsume-shogi/</guid>
+      <description>&lt;p&gt;先パイよりご紹介頂いた以下なドキュメント。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://vivafan.com/tsumes/tsume_nyumon_V1_0.pdf&#34;&gt;詰将棋入門&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;手順パターンと詰めあがり図の脳内再生名目にて、とりあえず手順云々ではなくて回答をなぞって云々、な読みかたをしてみようと思います。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>石田流メモ</title>
