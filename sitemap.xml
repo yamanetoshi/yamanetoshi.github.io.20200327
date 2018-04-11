@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/04/11/goldfish/</loc>
+    <lastmod>2018-04-11T22:23:11+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/04/07/introduction-to-tsume-shogi/</loc>
     <lastmod>2018-04-07T18:30:09+09:00</lastmod>
   </url>
@@ -7654,7 +7659,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-04-07T18:30:09+09:00</lastmod>
+    <lastmod>2018-04-11T22:23:11+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7816,7 +7821,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/misc/</loc>
-    <lastmod>2018-04-03T19:30:02+09:00</lastmod>
+    <lastmod>2018-04-11T22:23:11+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7834,7 +7839,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-04-07T18:30:09+09:00</lastmod>
+    <lastmod>2018-04-11T22:23:11+09:00</lastmod>
     <priority>0</priority>
   </url>
   
