@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/04/25/getting-google-calendar-data/</loc>
+    <lastmod>2018-04-25T13:57:34+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/04/24/r-i-p-kinu-san/</loc>
     <lastmod>2018-04-24T17:20:12+09:00</lastmod>
   </url>
@@ -7664,7 +7669,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-04-24T17:20:12+09:00</lastmod>
+    <lastmod>2018-04-25T13:57:34+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7844,7 +7849,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-04-24T17:20:12+09:00</lastmod>
+    <lastmod>2018-04-25T13:57:34+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7856,7 +7861,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/python/</loc>
-    <lastmod>2018-02-26T21:35:52+09:00</lastmod>
+    <lastmod>2018-04-25T13:57:34+09:00</lastmod>
     <priority>0</priority>
   </url>
   

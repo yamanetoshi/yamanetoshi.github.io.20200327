@@ -6,10 +6,27 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 24 Apr 2018 17:20:12 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 25 Apr 2018 13:57:34 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Python から Google Calendar のデータを入手する実装</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/04/25/getting-google-calendar-data/</link>
+      <pubDate>Wed, 25 Apr 2018 13:57:34 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/04/25/getting-google-calendar-data/</guid>
+      <description>&lt;p&gt;これ、RoR から、ってできないのかどうか。とりあえず&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://bitbucket.org/kingmray/django-google-calendar&#34;&gt;django-google-calendar&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;な実装を使って検証をしてみましたので、控えを以下に。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>キヌさん</title>
