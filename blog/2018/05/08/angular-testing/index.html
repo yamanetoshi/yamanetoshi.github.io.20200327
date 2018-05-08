@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Angular Testing Guide</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">May 8, 2018
+         - 22 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/05/08/angular-testing/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/angular/">angular </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Angular Testing Guide 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下に目を通していたのですがぐぐる翻訳にかけてみたので控えを以下に。</p>
+
+<ul>
+<li><a href="https://angular.io/guide/testing">Testing</a></li>
+</ul>
+
+<p>断りは入れておりません。ドラフトです。</p>
+
+<p></p>
+
+<p>このガイドでは、単位アプリケーションと統合テストのヒントとテクニックについて説明します。</p>
+
+<p>このガイドでは、Tour of Heroesチュートリアルによく似たサンプルCLIアプリケーションのテストを紹介します。 サンプルアプリケーションとこのガイドのすべてのテストは、検査と実験に使用できます。</p>
+
+<ul>
+<li><a href="https://angular.io/generated/live-examples/testing/stackblitz.html">live example</a> / <a href="https://angular.io/generated/zips/testing/testing.zip">download example</a></li>
+
+<li><p><a href="https://angular.io/generated/live-examples/testing/specs.stackblitz.html">live example</a> / <a href="https://angular.io/generated/zips/testing/specs.testing.zip">download example</a></p>
+
+<h2 id="setup">Setup</h2></li>
+</ul>
+
+<p>Angular CLIは、<a href="http://jasmine.github.io/2.4/introduction.html">Jasmine test framework</a> でAngularアプリケーションをテストするために必要なものをすべてダウンロードしてインストールします。</p>
+
+<p>CLIを使用して作成したプロジェクトは、すぐにテストする準備ができています。 この1つのCLIコマンドを実行するだけです。</p>
+
+<pre><code>ng test
+</code></pre>
+
+<p>ng testコマンドは watch mode でアプリをビルドし、<a href="https://karma-runner.github.io/1.0/index.html">karma test runner</a> を起動します。</p>
+
+<p>コンソール出力は次のように少し見えます：</p>
+
+<pre><code>10% building modules 1/1 modules 0 active
+...INFO [karma]: Karma v1.7.1 server started at http://0.0.0.0:9876/
+...INFO [launcher]: Launching browser Chrome ...
+...INFO [launcher]: Starting browser Chrome
+...INFO [Chrome ...]: Connected on socket ... 
+Chrome ...: Executed 3 of 3 SUCCESS (0.135 secs / 0.205 secs)
+</code></pre>
+
+<p>ログの最後の行が最も重要です。 それは Karma がすべて3つのテストを実行したことを示しています。</p>
+
+<p>クロムブラウザも開き、このように &ldquo;Jasmine HTML Reporter&rdquo;にテスト出力を表示します。</p>
+
+<p><img src="https://angular.io/generated/images/guide/testing/initial-jasmine-html-reporter.png" alt="Jasmine HTML Reporter in the browser" /></p>
+
+<p>ほとんどの人は、このブラウザの出力がコンソールログより読みやすくなっています。 テスト行をクリックしてそのテストだけを再実行するか、説明をクリックして、選択したテストグループ（「テストスイート」）でテストを再実行することができます。</p>
+
+<p>一方、ng testコマンドは変更を監視しています。</p>
+
+<p>この動作を確認するには、app.component.tsを少し変更して保存します。 テストが再度実行され、ブラウザがリフレッシュされ、新しいテスト結果が表示されます。</p>
+
+<p><strong>Configuration</strong></p>
+
+<p>CLIはJasmineとKarma の構成を担当します。</p>
+
+<p>src/フォルダー内のkarma.conf.jsファイルとtest.tsファイルを編集することで、多くのオプションを微調整できます。</p>
+
+<p>karma.conf.jsファイルはカルマ構成ファイルの一部です。 CLIは、angular.jsonファイルで指定されたアプリケーション構造に基づいて、karma.conf.jsによって補完されたメモリ内の完全な実行時設定を構築します。</p>
+
+<p>JasmineとKarma の構成の詳細については、Webで検索してください。</p>
+
+<p><strong>Other Test Framework</strong></p>
+
+<p>他のテストライブラリやテストランナーとAngularアプリをユニットテストすることもできます。 各ライブラリとランナーには、独自のインストール手順、構成、および構文があります。</p>
+
+<p>詳細はウェブで検索してください。</p>
+
+<p><strong>Test file name and location</strong></p>
+
+<p>src/appフォルダーを見てください。</p>
+
+<p>CLIはapp.component.spec.tsという名前のAppComponentのテストファイルを生成しました。</p>
+
+<blockquote>
+<p>テストファイル拡張子は.spec.tsでなければなりません。これにより、ツールでファイルをテストファイル（AKA、スペックファイル）として識別できるようになります。</p>
+</blockquote>
+
+<p>app.component.tsファイルとapp.component.spec.tsファイルは、同じフォルダ内の兄弟です。 ルートファイル名（app.component）は、両方のファイルで同じです。</p>
+
+<p>すべての種類のテストファイルに対して、この2つの規則を自分のプロジェクトで採用してください。</p>
+
+<h2 id="service-test">Service Test</h2>
+
+<p>サービスはしばしばユニットテストのための最も簡単なファイルです。 ここでは、Angular testingユーティリティの助けなしに書かれたValueServiceの同期テストと非同期テストのいくつかを示します。</p>
+
+<p>app/demo/demo.spec.ts</p>
+
+<pre><code>    1. // Straight Jasmine testing without Angular's testing support
+    2. describe('ValueService', () =&gt; {
+    3.   let service: ValueService;
+    4.   beforeEach(() =&gt; { service = new ValueService(); });
+    5.  
+    6.   it('#getValue should return real value', () =&gt; {
+    7.     expect(service.getValue()).toBe('real value');
+    8.   });
+    9.  
+    10.   it('#getObservableValue should return value from observable',
+    11.     (done: DoneFn) =&gt; {
+    12.     service.getObservableValue().subscribe(value =&gt; {
+    13.       expect(value).toBe('observable value');
+    14.       done();
+    15.     });
+    16.   });
+    17.  
+    18.   it('#getPromiseValue should return value from a promise',
+    19.     (done: DoneFn) =&gt; {
+    20.     service.getPromiseValue().then(value =&gt; {
+    21.       expect(value).toBe('promise value');
+    22.       done();
+    23.     });
+    24.   });
+    25. });
+</code></pre>
+
+<p><strong>Services with dependencies</strong></p>
+
+<p>サービスは、Angularがコンストラクタに注入する他のサービスに依存することがよくあります。 多くの場合、サービスのコンストラクタを呼び出している間に、これらの依存関係を手作業で作成して注入するのは簡単です。</p>
+
+<p>MasterServiceは簡単な例です：</p>
+
+<p>app/demo/demo.ts</p>
+
+<pre><code>@Injectable()
+export class MasterService {
+  constructor(private valueService: ValueService) { }
+  getValue() { return this.valueService.getValue(); }
+}
+</code></pre>
+
+<p>MasterServiceは、唯一のメソッドgetValueを注入されたValueServiceに委譲します。</p>
+
+<p>テストする方法はいくつかあります。</p>
+
+<p>app/demo/demo.spec.ts</p>
+
+<pre><code>    1. describe('MasterService without Angular testing support', () =&gt; {
+    2.   let masterService: MasterService;
+    3.  
+    4.   it('#getValue should return real value from the real service', () =&gt; {
+    5.     masterService = new MasterService(new ValueService());
+    6.     expect(masterService.getValue()).toBe('real value');
+    7.   });
+    8.  
+    9.   it('#getValue should return faked value from a fakeService', () =&gt; {
+    10.     masterService = new MasterService(new FakeValueService());
+    11.     expect(masterService.getValue()).toBe('faked service value');
+    12.   });
+    13.  
+    14.   it('#getValue should return faked value from a fake object', () =&gt; {
+    15.     const fake =  { getValue: () =&gt; 'fake value' };
+    16.     masterService = new MasterService(fake as ValueService);
+    17.     expect(masterService.getValue()).toBe('fake value');
+    18.   });
+    19.  
+    20.   it('#getValue should return stubbed value from a spy', () =&gt; {
+    21.     // create `getValue` spy on an object representing the ValueService
+    22.     const valueServiceSpy =
+    23.       jasmine.createSpyObj('ValueService', ['getValue']);
+    24.  
+    25.     // set the value to return when the `getValue` spy is called.
+    26.     const stubValue = 'stub value';
+    27.     valueServiceSpy.getValue.and.returnValue(stubValue);
+    28.  
+    29.     masterService = new MasterService(valueServiceSpy);
+    30.  
+    31.     expect(masterService.getValue())
+    32.       .toBe(stubValue, 'service returned stub value');
+    33.     expect(valueServiceSpy.getValue.calls.count())
+    34.       .toBe(1, 'spy method was called once');
+    35.     expect(valueServiceSpy.getValue.calls.mostRecent().returnValue)
+    36.       .toBe(stubValue);
+    37.   });
+    38. });
+</code></pre>
+
+<p>最初のテストでは、newでValueServiceを作成し、それをMasterServiceコンストラクタに渡します。</p>
+
+<p>しかし、実際のサービスを注入することは、ほとんどの依存サービスが作成および制御するのが難しいため、ほとんど機能しません。</p>
+
+<p>その代わりに、依存関係を模擬したり、ダミー値を使用したり、適切なサービス方法でスパイを作成することができます。</p>
+
+<blockquote>
+<p>彼らは通常、サービスを模擬する最も簡単な方法なので、スパイを好む。</p>
+</blockquote>
+
+<p>これらの標準的なテスト手法は、単体テストサービスに最適です。</p>
+
+<p>しかし、Angular dependency injectionを使用してアプリケーションクラスにサービスを注入する場合は、ほとんどの場合、その使用パターンを反映したテストが必要です。 Angular testing utility を使用すると、注入されたサービスの動作を簡単に調べることができます。</p>
+
+<p><strong>Testing services with the TestBed</strong></p>
+
+<p>あなたのアプリは Angular の依存性注入（DI）を利用してサービスを作成しています。 サービスに従属サービスがある場合、DIはその従属サービスを検出または作成します。 その依存サービスが独自の依存関係を持っている場合、DIはそれらを検出または作成します。</p>
+
+<p>サービス消費者として、あなたはこれについて心配する必要はありません。 あなたはコンストラクタの引数の順序や生成方法について心配する必要はありません。</p>
+
+<p>サービス・テスターとしては、少なくともサービス依存の第1レベルについて考える必要がありますが、TestBedテスト・ユーティリティーを使用してサービスを提供し、作成するときに、Angular DIにサービス作成を依頼し、コンストラクター・アーギュメントの順序を処理させることができます。</p>
+
+<p><strong>Angular TestBed</strong></p>
+
+<p>TestBedはAngular testingユーティリティの中で最も重要です。 TestBedは、Angular @NgModuleをエミュレートする動的に構築されたAngularテストモジュールを作成します。</p>
+
+<p>TestBed.configureTestingModule() メソッドは、@NgModuleのほとんどのプロパティを持つことができるメタデータオブジェクトを取ります。</p>
+
+<p>サービスをテストするには、プロバイダのメタデータプロパティを、テストまたはモックする一連のサービスで設定します。</p>
+
+<p>app/demo/demo.testbed.spec.ts (provide ValueService in beforeEach</p>
+
+<pre><code>let service: ValueService;
+
+beforeEach(() =&gt; {
+  TestBed.configureTestingModule({ providers: [ValueService] });
+});
+</code></pre>
+
+<p>次に、サービスクラスを引数としてTestBed.get（）を呼び出すことで、テスト内に注入します。</p>
+
+<pre><code>it('should use ValueService', () =&gt; {
+  service = TestBed.get(ValueService);
+  expect(service.getValue()).toBe('real value');
+});
+</code></pre>
+
+<p>または、あなたの設定の一部としてサービスを注入したい場合は、beforeEach() の中に入れます。</p>
+
+<pre><code>beforeEach(() =&gt; {
+  TestBed.configureTestingModule({ providers: [ValueService] });
+  service = TestBed.get(ValueService);
+});
+</code></pre>
+
+<p>依存関係を持つサービスをテストするときは、プロバイダ配列にモックを提供してください。</p>
+
+<p>次の例では、モックはスパイオブジェクトです。</p>
+
+<pre><code>let masterService: MasterService;
+let valueServiceSpy: jasmine.SpyObj&lt;ValueService&gt;;
+
+beforeEach(() =&gt; {
+  const spy = jasmine.createSpyObj('ValueService', ['getValue']);
+
+  TestBed.configureTestingModule({
+    // Provide both the service-to-test and its (spy) dependency
+    providers: [
+      MasterService,
+      { provide: ValueService, useValue: spy }
+    ]
+  });
+  // Inject both the service-to-test and its (spy) dependency
+  masterService = TestBed.get(MasterService);
+  valueServiceSpy = TestBed.get(ValueService);
+});
+</code></pre>
+
+<p>このテストは以前と同じようにスパイを消費します。</p>
+
+<pre><code>it('#getValue should return stubbed value from a spy', () =&gt; {
+  const stubValue = 'stub value';
+  valueServiceSpy.getValue.and.returnValue(stubValue);
+
+  expect(masterService.getValue())
+    .toBe(stubValue, 'service returned stub value');
+  expect(valueServiceSpy.getValue.calls.count())
+    .toBe(1, 'spy method was called once');
+  expect(valueServiceSpy.getValue.calls.mostRecent().returnValue)
+    .toBe(stubValue);
+});
+</code></pre>
+
+<p><strong>Teting without BeforeEach()</strong></p>
+
+<p>このガイドのほとんどのテストスイートはbeforeEach（）を呼び出してit（）テストの前提条件を設定し、TestBedを使用してクラスを作成し、サービスを注入します。</p>
+
+<p>beforeEach() とtestBedを使用するのではなく、明示的にクラスを作成することを決して望んでいないテストの別の学校があります。</p>
+
+<p>MasterServiceテストの1つをそのスタイルで書き直す方法は次のとおりです。</p>
+
+<p>beforeEach（）の代わりに、再利用可能な準備コードをセットアップ関数に入れて始めます。</p>
+
+<p>app/demo/demo.spec.ts (setup)</p>
+
+<pre><code>function setup() {
+  const valueServiceSpy =
+    jasmine.createSpyObj('ValueService', ['getValue']);
+  const stubValue = 'stub value';
+  const masterService = new MasterService(valueServiceSpy);
+
+  valueServiceSpy.getValue.and.returnValue(stubValue);
+  return { masterService, stubValue, valueServiceSpy };
+}
+</code></pre>
+
+<p>setup（）関数は、テストによって参照される変数（masterServiceなど）を含むオブジェクトリテラルを返します。 describe（）の本体に準グローバル変数（たとえば、masterService：MasterService）を定義しません。</p>
+
+<p>次に、各テストでは、最初の行でsetup（）を呼び出してから、テスト対象を操作して期待値をアサートします。</p>
+
+<pre><code>it('#getValue should return stubbed value from a spy', () =&gt; {
+  const { masterService, stubValue, valueServiceSpy } = setup();
+  expect(masterService.getValue())
+    .toBe(stubValue, 'service returned stub value');
+  expect(valueServiceSpy.getValue.calls.count())
+    .toBe(1, 'spy method was called once');
+  expect(valueServiceSpy.getValue.calls.mostRecent().returnValue)
+    .toBe(stubValue);
+});
+</code></pre>
+
+<p>テストでは、必要なセットアップ変数を抽出するために、非構造化割り当てを使用する方法に注目してください。</p>
+
+<pre><code>const { masterService, stubValue, valueServiceSpy } = setup();
+</code></pre>
+
+<p>多くの開発者は、このアプローチが従来のbeforeEach（）スタイルよりも明快で明確であると感じています。</p>
+
+<p>このテストガイドは伝統的なスタイルに従いますが、デフォルトのCLI回路はbeforeEach() とTestBedでテストファイルを生成しますが、自分のプロジェクトでこの代替アプローチを採用することは自由です。</p>
+
+<p><strong>Testing HTTP Service</strong></p>
+
+<p>リモートサーバーへのHTTP呼び出しを行うデータサービスは、通常、XHR呼び出しのためにAngular HttpClientサービスに注入し、委任します。</p>
+
+<p>依存関係を持つサービスをテストする場合と同様に、注入されたHttpClientスパイでデータサービスをテストすることができます。</p>
+
+<pre><code>    1. let httpClientSpy: { get: jasmine.Spy };
+    2. let heroService: HeroService;
+    3.  
+    4. beforeEach(() =&gt; {
+    5.   // TODO: spy on other methods too
+    6.   httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
+    7.   heroService = new HeroService(&lt;any&gt; httpClientSpy);
+    8. });
+    9.  
+    10. it('should return expected heroes (HttpClient called once)', () =&gt; {
+    11.   const expectedHeroes: Hero[] =
+    12.     [{ id: 1, name: 'A' }, { id: 2, name: 'B' }];
+    13.  
+    14.   httpClientSpy.get.and.returnValue(asyncData(expectedHeroes));
+    15.  
+    16.   heroService.getHeroes().subscribe(
+    17.     heroes =&gt; expect(heroes).toEqual(expectedHeroes, 'expected heroes'),
+    18.     fail
+    19.   );
+    20.   expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
+    21. });
+    22.  
+    23. it('should return an error when the server returns a 404', () =&gt; {
+    24.   const errorResponse = new HttpErrorResponse({
+    25.     error: 'test 404 error',
+    26.     status: 404, statusText: 'Not Found'
+    27.   });
+    28.  
+    29.   httpClientSpy.get.and.returnValue(asyncError(errorResponse));
+    30.  
+    31.   heroService.getHeroes().subscribe(
+    32.     heroes =&gt; fail('expected an error, not heroes'),
+    33.     error  =&gt; expect(error.message).toContain('test 404 error')
+    34.   );
+    35. });
+</code></pre>
+
+<blockquote>
+<p>HeroServiceメソッドはObservablesを返します。 オブザーバブルに加入して、（a）実行させ、（b）メソッドが成功するか失敗するかを宣言する必要があります。</p>
+
+<p>subscribe() メソッドは、成功（次）および失敗（エラー）コールバックをとります。 両方のコールバックを提供して、エラーをキャプチャするようにしてください。 これを怠ると、テストランナーが完全に異なるテストに属している可能性が高い、非同期で観察不能なエラーが生成されます。</p>
+</blockquote>
+
+<p><strong>HttpClientTestingModule</strong></p>
+
+<p>データサービスとHttpClientとの間の拡張されたやりとりは、スパイと偽装するのが複雑で難しい場合があります。</p>
+
+<p>HttpClientTestingModuleは、これらのテストシナリオをより管理しやすくすることができます。</p>
+
+<p>このガイドに付随するコードサンプルはHttpClientTestingModuleを示していますが、このページはHttpClientTestingModuleを使ったテストについて詳しく説明している<a href="https://angular.io/guide/http#testing-http-requests">Http guide</a>を参照してください。</p>
+
+<blockquote>
+<p>このガイドのサンプルコードでは、app/model/http-hero.service.spec.ts の従来のHttpModuleのテストも示しています。</p>
+
+<h2 id="component-test-basics">Component Test Basics</h2>
+</blockquote>
+
+<p>コンポーネントは、Angularアプリケーションの他のすべての部分と異なり、HTMLテンプレートとTypeScriptクラスを組み合わせています。 コンポーネントは本当にテンプレートと一緒に働くクラスです。 コンポーネントを適切にテストするには、それらが意図したとおりに動作することをテストする必要があります。</p>
+
+<p>このようなテストでは、AngularのようにブラウザのDOMにコンポーネントのホスト要素を作成し、そのテンプレートに記述されているようにコンポーネントクラスのDOMとのやりとりを調べる必要があります。</p>
+
+<p>Angular TestBedは、以下のセクションで説明するように、この種のテストを容易にします。 しかし、多くの場合、DOM関与なしでコンポーネントクラスだけをテストすると、コンポーネントの動作の多くをより簡単でより明白な方法で検証できます。</p>
+
+<p><strong>Component class testing</strong></p>
+
+<p>サービスクラスをテストするのと同じように、コンポーネントクラスを独自にテストします。</p>
+
+<p>ユーザーがボタンをクリックしたときにライトをオン/オフ（オンスクリーンメッセージで表される）に切り替えるこのLightswitchComponentを考えてみましょう。</p>
+
+<p>app/demo/demo.ts (LightswitchComp)</p>
+
+<pre><code>@Component({
+  selector: 'lightswitch-comp',
+  template: `
+    &lt;button (click)=&quot;clicked()&quot;&gt;Click me!&lt;/button&gt;
+    &lt;span&gt;{{message}}&lt;/span&gt;`
+})
+export class LightswitchComponent {
+  isOn = false;
+  clicked() { this.isOn = !this.isOn; }
+  get message() { return `The light is ${this.isOn ? 'On' : 'Off'}`; }
+}
+</code></pre>
+
+<p>clicked（）メソッドがライトのオン/オフ状態を切り替えるだけで、メッセージを適切に設定することをテストすることができます。</p>
+
+<p>このコンポーネントクラスは依存関係がありません。 依存関係のないサービスをテストするには、新しいサービスを作成し、そのAPIを突き刺して、パブリック状態の期待を表明します。 コンポーネントクラスと同じ操作を行います。</p>
+
+<p>app/demo/demo.spec.ts (Lightswitch tests)</p>
+
+<pre><code>describe('LightswitchComp', () =&gt; {
+  it('#clicked() should toggle #isOn', () =&gt; {
+    const comp = new LightswitchComponent();
+    expect(comp.isOn).toBe(false, 'off at first');
+    comp.clicked();
+    expect(comp.isOn).toBe(true, 'on after click');
+    comp.clicked();
+    expect(comp.isOn).toBe(false, 'off after second click');
+  });
+
+  it('#clicked() should set #message to &quot;is on&quot;', () =&gt; {
+    const comp = new LightswitchComponent();
+    expect(comp.message).toMatch(/is off/i, 'off at first');
+    comp.clicked();
+    expect(comp.message).toMatch(/is on/i, 'on after clicked');
+  });
+});
+</code></pre>
+
+<p>ここでは、Tour of HeroesチュートリアルのDashboardHeroComponentを紹介します。</p>
+
+<p>app/dashboard/dashboard-hero.component.ts (component)</p>
+
+<pre><code>export class DashboardHeroComponent {
+  @Input() hero: Hero;
+  @Output() selected = new EventEmitter&lt;Hero&gt;();
+  click() { this.selected.emit(this.hero); }
+}
+</code></pre>
+
+<p>hero を@Inputプロパティにバインドし、選択された@Outputプロパティを使用して生成されたイベントをリッスンする親コンポーネントのテンプレート内に表示されます。</p>
+
+<p>DashboardHeroComponentまたはその親コンポーネントを作成せずにクラスコードが動作することをテストできます。</p>
+
+<p>app/dashboard/dashboard-hero.component.spec.ts (class tests)</p>
+
+<pre><code>it('raises the selected event when clicked', () =&gt; {
+  const comp = new DashboardHeroComponent();
+  const hero: Hero = { id: 42, name: 'Test' };
+  comp.hero = hero;
+
+  comp.selected.subscribe(selectedHero =&gt; expect(selectedHero).toBe(hero));
+  comp.click();
+});
+</code></pre>
+
+<p>コンポーネントに依存関係がある場合、TestBedを使用してコンポーネントとその依存関係を作成することができます。</p>
+
+<p>次のWelcomeComponentは、UserServiceに依存して、挨拶するユーザーの名前を知っています。</p>
+
+<p>app/welcome/welcome.component.ts</p>
+
+<pre><code>export class WelcomeComponent  implements OnInit {
+  welcome: string;
+  constructor(private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.welcome = this.userService.isLoggedIn ?
+      'Welcome, ' + this.userService.user.name : 'Please log in.';
+  }
+}
+</code></pre>
+
+<p>まず、このコンポーネントの最小限のニーズを満たすUserServiceのモックを作成します。</p>
+
+<p>app/welcome/welcome.component.spec.ts (MockUserService)</p>
+
+<pre><code>class MockUserService {
+  isLoggedIn = true;
+  user = { name: 'Test User'};
+};
+</code></pre>
+
+<p>次に、コンポーネントとサービスの両方をTestBed構成で提供して注入します。</p>
+
+<p>app/welcome/welcome.component.spec.ts (class-only setup)</p>
+
+<pre><code>beforeEach(() =&gt; {
+  TestBed.configureTestingModule({
+    // provide the component-under-test and dependent service
+    providers: [
+      WelcomeComponent,
+      { provide: UserService, useClass: MockUserService }
+    ]
+  });
+  // inject both the component and the dependent service.
+  comp = TestBed.get(WelcomeComponent);
+  userService = TestBed.get(UserService);
+});
+</code></pre>
+
+<p>次に、コンポーネントクラスを実行し、ライフサイクルフックメソッドをAngularがアプリケーションの実行時に呼び出すことを覚えておいてください。</p>
+
+<p>app/welcome/welcome.component.spec.ts (class-only tests)</p>
+
+<pre><code>it('should not have welcome message after construction', () =&gt; {
+  expect(comp.welcome).toBeUndefined();
+});
+
+it('should welcome logged in user after Angular calls ngOnInit', () =&gt; {
+  comp.ngOnInit();
+  expect(comp.welcome).toContain(userService.user.name);
+});
+
+it('should ask user to log in if not logged in after ngOnInit', () =&gt; {
+  userService.isLoggedIn = false;
+  comp.ngOnInit();
+  expect(comp.welcome).not.toContain(userService.user.name);
+  expect(comp.welcome).toContain('log in');
+});
+</code></pre>
+
+<p><strong>Component DOM testing</strong></p>
+
+<p>コンポーネントクラスのテストは、サービスをテストするのと同じくらい簡単です。</p>
+
+<p>しかし、コンポーネントはクラスだけではありません。 コンポーネントは、DOMや他のコンポーネントと対話します。 クラスのみのテストでは、クラスの動作について教えてくれます。 コンポーネントが適切にレンダリングされるか、ユーザーの入力とジェスチャーに応答するか、または親コンポーネントと子コンポーネントと統合するかどうかは、ユーザーからはわかりません。</p>
+
+<p>上記のクラスのみのテストでは、コンポーネントが実際に画面上でどのように動作するかについての重要な質問に答えることはできません。</p>
+
+<ul>
+<li>Lightswitch.clicked（）はユーザーが呼び出せるようなものにバインドされていますか？</li>
+<li>Lightswitch.messageは表示されていますか？</li>
+<li>ユーザーは実際にDashboardHeroComponentによって表示されるヒーローを選択できますか？</li>
+<li>主人公の名前は、大文字で表示されますか？</li>
+<li>WelcomeComponentのテンプレートによってウェルカムメッセージが表示されていますか？</li>
+</ul>
+
+<p>これらは、上に示した単純なコンポーネントの問題ではないかもしれません。 しかし、多くのコンポーネントは、テンプレートに記述されているDOM要素と複雑なやり取りをしているため、コンポーネントの状態が変わるとHTMLが表示され消えます。</p>
+
+<p>これらの種類の質問に答えるには、コンポーネントに関連付けられたDOM要素を作成する必要があります。DOMを調べて、コンポーネント状態が適切なタイミングで適切に表示されることを確認し、画面とのユーザー対話をシミュレートして、 コンポーネントが期待どおりに動作するようにします。</p>
+
+<p>この種のテストを作成するには、TestBedのその他の機能と他のテストヘルパを使用します。</p>
+
+<p><strong>CLI-generated tests</strong></p>
+
+<p>CLIは、新しいコンポーネントの生成を要求すると、デフォルトで初期テストファイルを作成します。</p>
+
+<p>たとえば、次のCLIコマンドは、app / bannerフォルダ（インラインのテンプレートとスタイルを含む）にBannerComponentを生成します。</p>
+
+<pre><code>ng generate component banner --inline-template --inline-style --module app
+</code></pre>
+
+<p>また、次のようなコンポーネントbanner-external.component.spec.tsの初期テストファイルを生成します。</p>
+
+<p>app/banner/banner-external.component.spec.ts (initial)</p>
+
+<pre><code>import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { BannerComponent } from './banner.component';
+
+describe('BannerComponent', () =&gt; {
+  let component: BannerComponent;
+  let fixture: ComponentFixture&lt;BannerComponent&gt;;
+
+  beforeEach(async(() =&gt; {
+    TestBed.configureTestingModule({
+      declarations: [ BannerComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() =&gt; {
+    fixture = TestBed.createComponent(BannerComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () =&gt; {
+    expect(component).toBeDefined();
+  });
+});
+</code></pre>
+
+<p><strong>Reduce the setup</strong></p>
+
+<p>このファイルの最後の3行だけが実際にコンポーネントをテストし、Angularがコンポーネントを作成できると主張します。</p>
+
+<p>ファイルの残りの部分は、構成要素が相当なものに発展した場合に必要となるより高度なテストを予期する定型的なセットアップコードです。</p>
+
+<p>以下のこれらの高度なテスト機能について学びます。 今のところ、このテストファイルをもっと管理しやすいサイズに大幅に縮小することができます：</p>
+
+<p>app/banner/banner-initial.component.spec.ts (minimal)</p>
+
+<pre><code>describe('BannerComponent (minimal)', () =&gt; {
+  it('should create', () =&gt; {
+    TestBed.configureTestingModule({
+      declarations: [ BannerComponent ]
+    });
+    const fixture = TestBed.createComponent(BannerComponent);
+    const component = fixture.componentInstance;
+    expect(component).toBeDefined();
+  });
+});
+</code></pre>
+
+<p>この例では、TestBed.configureTestingModuleに渡されたメタデータオブジェクトは、単にテストするコンポーネントBannerComponentを宣言します。</p>
+
+<pre><code>TestBed.configureTestingModule({
+  declarations: [ BannerComponent ]
+});
+</code></pre>
+
+<blockquote>
+<p>宣言したり、他のものをインポートする必要はありません。 デフォルトのテストモジュールは、@angular/platform-browserのBrowserModuleのようなものがあらかじめ設定されています。</p>
+
+<p>後で、テストニーズに合わせて、インポート、プロバイダ、およびその他の宣言でTestBed.configureTestingModule() を呼び出します。 オプションのオーバーライドメソッドを使用すると、構成の側面をさらに細かく調整できます。</p>
+</blockquote>
+
+<p><strong>createComponent()</strong></p>
+
+<p>TestBedを設定したら、そのcreateComponent() メソッドを呼び出します。</p>
+
+<pre><code>const fixture = TestBed.createComponent(BannerComponent);
+</code></pre>
+
+<p>TestBed.createComponent() は、BannerComponentのインスタンスを作成し、対応する要素をテストランナーDOMに追加し、ComponentFixtureを返します。</p>
+
+<blockquote>
+<p>createComponentの呼び出し後にTestBedを再構成しないでください。</p>
+
+<p>createComponentメソッドは現在のTestBedDefinitionをフリーズさせ、それを閉じてさらに設定します。</p>
+
+<p>configureTestingModule()、get()、override &hellip;メソッドのいずれも、TestBed設定メソッドを呼び出すことはできません。 試してみると、TestBedはエラーを投げます。</p>
+</blockquote>
+
+<p><strong>ComponentFixture</strong></p>
+
+<p>ComponentFixtureは、作成されたコンポーネントおよび対応する要素と対話するためのテストハーネスです。</p>
+
+<p>フィクスチャを介してコンポーネントインスタンスにアクセスし、Jasmine の期待通りに存在することを確認します。</p>
+
+<pre><code>const component = fixture.componentInstance;
+expect(component).toBeDefined();
+</code></pre>
+
+<p><strong>beforeEach()</strong></p>
+
+<p>このコンポーネントが進化するにつれて、より多くのテストを追加します。 各テストでTestBed設定を複製するのではなく、リファクタを使用して設定をJasmine beforeEach() といくつかのサポート変数にプルします。</p>
+
+<pre><code>describe('BannerComponent (with beforeEach)', () =&gt; {
+  let component: BannerComponent;
+  let fixture: ComponentFixture&lt;BannerComponent&gt;;
+
+  beforeEach(() =&gt; {
+    TestBed.configureTestingModule({
+      declarations: [ BannerComponent ]
+    });
+    fixture = TestBed.createComponent(BannerComponent);
+    component = fixture.componentInstance;
+  });
+
+  it('should create', () =&gt; {
+    expect(component).toBeDefined();
+  });
+});
+</code></pre>
+
+<p>次に、fixture.nativeElementからコンポーネントの要素を取得し、期待されるテキストを探すテストを追加します。</p>
+
+<pre><code>it('should contain &quot;banner works!&quot;', () =&gt; {
+  const bannerElement: HTMLElement = fixture.nativeElement;
+  expect(bannerElement.textContent).toContain('banner works!');
+});
+</code></pre>
+
+<p><strong>nativeElement</strong></p>
+
+<p>ComponentFixture.nativeElementの値には、任意の型があります。 後でDebugElement.nativeElementが出現し、それにも任意の型があります。</p>
+
+<p>Angularは、コンパイル時にnativeElementのHTML要素の種類やHTML要素であるかどうかを知ることはできません。 アプリケーションは、サーバーやWebワーカーなどの非ブラウザプラットフォームで実行されている可能性があります。このプラットフォームでは、要素のAPIが減少しているか、まったく存在していない可能性があります。</p>
+
+<p>このガイドのテストは、ブラウザで実行するように設計されているため、nativeElementの値は常にHTMLElementまたはその派生クラスの1つになります。</p>
+
+<p>それが何らかのHTMLElementであることがわかっている場合は、標準のHTML querySelectorを使用して要素ツリーに深く入り込むことができます。</p>
+
+<p>段落要素を取得し、バナーテキストを探すためにHTMLElement.querySelectorを呼び出す別のテストを次に示します。</p>
+
+<pre><code>it('should have &lt;p&gt; with &quot;banner works!&quot;', () =&gt; {
+  const bannerElement: HTMLElement = fixture.nativeElement;
+  const p = bannerElement.querySelector('p');
+  expect(p.textContent).toEqual('banner works!');
+});
+</code></pre>
+
+<p><strong>DebugElement</strong></p>
+
+<p>Angular fixtureは、fixture.nativeElementを通じてコンポーネントの要素を直接提供します。</p>
+
+<pre><code>const bannerElement: HTMLElement = fixture.nativeElement;
+</code></pre>
+
+<p>これは実際には便利なメソッドで、fixture.debugElement.nativeElementとして実装されています。</p>
+
+<pre><code>const bannerDe: DebugElement = fixture.debugElement;
+const bannerEl: HTMLElement = bannerDe.nativeElement;
+</code></pre>
+
+<p>要素へのこの迂回路には正当な理由があります。</p>
+
+<p>nativeElementのプロパティは、実行時環境によって異なります。 これらのテストは、DOMを持たない、またはDOMエミュレーションがHTMLElement API全体をサポートしていないブラウザ以外のプラットフォームで実行することができます。</p>
+
+<p>Angularは、サポートされているすべてのプラットフォームで安全に動作するよう、DebugElement抽象化に依存しています。 Angularは、HTML要素ツリーを作成する代わりに、ランタイムプラットフォームのネイティブ要素をラップするDebugElementツリーを作成します。 nativeElementプロパティはDebugElementを展開し、プラットフォーム固有の要素オブジェクトを返します。</p>
+
+<p>このガイドのサンプルテストはブラウザでのみ実行されるように設計されているため、これらのテストのnativeElementは、常にテスト内で探索できる使い慣れたメソッドとプロパティを持つHTMLElementです。</p>
+
+<p>以前のテストはfixture.debugElement.nativeElementで再実装されています：</p>
+
+<pre><code>it('should find the &lt;p&gt; with fixture.debugElement.nativeElement)', () =&gt; {
+  const bannerDe: DebugElement = fixture.debugElement;
+  const bannerEl: HTMLElement = bannerDe.nativeElement;
+  const p = bannerEl.querySelector('p');
+  expect(p.textContent).toEqual('banner works!');
+});
+</code></pre>
+
+<p>DebugElementには、このガイドの他の部分で説明するように、テストに役立つ他のメソッドとプロパティがあります。</p>
+
+<p>AngularコアライブラリからDebugElementシンボルをインポートします。</p>
+
+<pre><code>import { DebugElement } from '@angular/core';
+</code></pre>
+
+<p><strong>By.css()</strong></p>
+
+<p>このガイドのテストはすべてブラウザ上で実行されますが、一部のアプリケーションは、少なくとも一部のプラットフォームで異なるプラットフォームで動作することがあります。</p>
+
+<p>たとえば、接続の悪いデバイスでアプリケーションをより早く起動させる戦略の一環として、コンポーネントをサーバー上で最初にレンダリングすることがあります。 サーバー側のレンダラーは、完全なHTML要素APIをサポートしていない可能性があります。 querySelectorをサポートしていない場合、前のテストは失敗する可能性があります。</p>
+
+<p>DebugElementは、サポートされているすべてのプラットフォームで動作するクエリメソッドを提供します。 これらのクエリメソッドは、DebugElementツリーのノードが選択基準に一致するとtrueを返す述語関数を使用します。</p>
+
+<p>ランタイムプラットフォームのライブラリからインポートされたByクラスの助けを借りて述語を作成します。 ブラウザプラットフォームのByのインポートは次のとおりです。</p>
+
+<pre><code>import { By } from '@angular/platform-browser';
+</code></pre>
+
+<p>次の例では、DebugElement.query（）とブラウザのBy.cssメソッドを使用して前のテストを再実装しています。</p>
+
+<pre><code>it('should find the &lt;p&gt; with fixture.debugElement.query(By.css)', () =&gt; {
+  const bannerDe: DebugElement = fixture.debugElement;
+  const paragraphDe = bannerDe.query(By.css('p'));
+  const p: HTMLElement = paragraphDe.nativeElement;
+  expect(p.textContent).toEqual('banner works!');
+});
+</code></pre>
+
+<p>注目すべきいくつかの観察：</p>
+
+<ul>
+<li>By.css（）静的メソッドは、標準のCSSセレクタを持つDebugElementノードを選択します。</li>
+<li>クエリは、段落のDebugElementを返します。</li>
+<li>段落要素を取得するには、その結果を展開する必要があります。</li>
+<li>CSSセレクタでフィルタリングし、ブラウザのネイティブ要素のプロパティのみをテストする場合、By.cssの手法は過度のものになる可能性があります。</li>
+</ul>
+
+<p>次の一連のテストで示すように、querySelector（）やquerySelectorAll（）などの標準的なHTMLElementメソッドを使用してフィルタ処理する方が簡単で、より明確になることがよくあります。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>May 8, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/05/02/agm-memo/" title="agm 云々">agm 云々</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/05/08/angular-testing/">Angular Testing Guide</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/02/agm-memo/">agm 云々</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/04/25/getting-google-calendar-data/">Python から Google Calendar のデータを入手する実装</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/04/24/r-i-p-kinu-san/">キヌさん</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/04/11/goldfish/">金魚</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/04/07/introduction-to-tsume-shogi/">詰将棋入門</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/04/03/nice-yukari/">ナイスユカリ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/04/02/admin-authorization/">Admin Authorization</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/03/29/git-tutorial/">Git Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/03/28/rental-bicycle/">自転車レンタル</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
