@@ -95,7 +95,7 @@
 
 <header>
     <p class="meta">May 8, 2018
-         - 22 minute read 
+         - 53 minute read 
          - <a href="http://weblog.metacircular-evaluator.org/blog/2018/05/08/angular-testing/#disqus_thread">Comments</a>
 
         
@@ -883,6 +883,1067 @@ const bannerEl: HTMLElement = bannerDe.nativeElement;
 </ul>
 
 <p>次の一連のテストで示すように、querySelector（）やquerySelectorAll（）などの標準的なHTMLElementメソッドを使用してフィルタ処理する方が簡単で、より明確になることがよくあります。</p>
+
+<h2 id="component-test-scenarios">Component Test Scenarios</h2>
+
+<p>以下のセクションでは、このガイドのほとんどを構成し、一般的なコンポーネントのテストシナリオについて説明します。</p>
+
+<p><strong>Component binding</strong></p>
+
+<p>現在のBannerComponentは、静的タイトルテキストをHTMLテンプレートに表示します。</p>
+
+<p>いくつか変更を加えた後、BannerComponentは、このようなコンポーネントのtitleプロパティにバインドすることによって、動的なタイトルを表示します。</p>
+
+<p>app/banner/banner.component.ts</p>
+
+<pre><code>@Component({
+  selector: 'app-banner',
+  template: '&lt;h1&gt;{{title}}&lt;/h1&gt;',
+  styles: ['h1 { color: green; font-size: 350%}']
+})
+export class BannerComponent {
+  title = 'Test Tour of Heroes';
+}
+</code></pre>
+
+<p>これは簡単なので、テストを追加して、コンポーネントが実際に正しいと思われる場所にコンテンツが表示されることを確認します。</p>
+
+<p><strong>Query for the <code>&lt;h1&gt;</code></strong></p>
+
+<p>タイトルプロパティ補間バインディングをラップする <code>&lt;h1&gt;</code> 要素の値を検査する一連のテストを記述します。</p>
+
+<p>beforeEachを更新して、その要素を標準HTML querySelectorで検索し、それをh1変数に割り当てます。</p>
+
+<p>app/banner/banner.component.spec.ts (setup)</p>
+
+<pre><code>let component: BannerComponent;
+let fixture:   ComponentFixture&lt;BannerComponent&gt;;
+let h1:        HTMLElement;
+
+beforeEach(() =&gt; {
+  TestBed.configureTestingModule({
+    declarations: [ BannerComponent ],
+  });
+  fixture = TestBed.createComponent(BannerComponent);
+  component = fixture.componentInstance; // BannerComponent test instance
+  h1 = fixture.nativeElement.querySelector('h1');
+});
+</code></pre>
+
+<p><strong>createComponent() does not bind data</strong></p>
+
+<p>最初のテストでは、画面にデフォルトのタイトルが表示されていることを確認したいと思います。 あなたの本能は、このように<code>&lt;h1&gt;</code>を直ちに検査するテストを書くことです：</p>
+
+<pre><code>it('should display original title', () =&gt; {
+  expect(h1.textContent).toContain(component.title);
+});
+</code></pre>
+
+<p>そのテストは次のメッセージで失敗します。</p>
+
+<pre><code>expected '' to contain 'Test Tour of Heroes'.
+</code></pre>
+
+<p>Angularが変更検出を実行するとバインディングが発生します。</p>
+
+<p>プロダクションでは、Angularがコンポーネントを作成するか、ユーザーがキーストロークを入力するか、非同期アクティビティ（AJAXなど）が完了すると、変更検出が自動的に開始されます。</p>
+
+<p>TestBed.createComponentは変更検出をトリガーしません。 改訂されたテストで確認された事実：</p>
+
+<pre><code>it('no title in the DOM after createComponent()', () =&gt; {
+  expect(h1.textContent).toEqual('');
+});
+</code></pre>
+
+<p><strong>detectChanges()</strong></p>
+
+<p>fixture.detectChanges（）を呼び出すことによって、データバインディングを実行するようにTestBedに指示する必要があります。 それでは、<code>&lt;h1&gt;</code>は予期されたタイトルを持っています。</p>
+
+<pre><code>it('should display original title after detectChanges()', () =&gt; {
+  fixture.detectChanges();
+  expect(h1.textContent).toContain(component.title);
+});
+</code></pre>
+
+<p>遅延変化検出は意図的かつ有用である。 テスターは、Angularがデータバインディングを開始してライフサイクルフックを呼び出す前に、コンポーネントの状態を検査して変更する機会をテスターに与えます。</p>
+
+<p>fixture.detectChanges（）を呼び出す前にコンポーネントのtitleプロパティを変更する別のテストがあります。</p>
+
+<pre><code>it('should display a different test title', () =&gt; {
+  component.title = 'Test Title';
+  fixture.detectChanges();
+  expect(h1.textContent).toContain('Test Title');
+});
+</code></pre>
+
+<p>Automatic change detection</p>
+
+<p>BannerComponentは、頻繁にdetectChangesを呼び出します。 いくつかのテスターは、Angularテスト環境が自動的に変更検出を実行することを好みます。</p>
+
+<p>これはComponentFixtureAutoDetectプロバイダーでTestBedを設定することで可能です。 まず、テストユーティリティーライブラリーからインポートします。</p>
+
+<p>app/banner/banner.component.detect-changes.spec.ts (import)</p>
+
+<pre><code>import { ComponentFixtureAutoDetect } from '@angular/core/testing';
+</code></pre>
+
+<p>次に、それをテストモジュール設定のプロバイダ配列に追加します。</p>
+
+<p>app/banner/banner.component.detect-changes.spec.ts (AutoDetect)</p>
+
+<pre><code>TestBed.configureTestingModule({
+  declarations: [ BannerComponent ],
+  providers: [
+    { provide: ComponentFixtureAutoDetect, useValue: true }
+  ]
+});
+</code></pre>
+
+<p>自動変更検出がどのように機能するかを示す3つのテストがあります。</p>
+
+<p>app/banner/banner.component.detect-changes.spec.ts (AutoDetect Tests)</p>
+
+<pre><code>it('should display original title', () =&gt; {
+  // Hooray! No `fixture.detectChanges()` needed
+  expect(h1.textContent).toContain(comp.title);
+});
+
+it('should still see original title after comp.title change', () =&gt; {
+  const oldTitle = comp.title;
+  comp.title = 'Test Title';
+  // Displayed title is old because Angular didn't hear the change :(
+  expect(h1.textContent).toContain(oldTitle);
+});
+
+it('should display updated title after detectChanges', () =&gt; {
+  comp.title = 'Test Title';
+  fixture.detectChanges(); // detect changes explicitly
+  expect(h1.textContent).toContain(comp.title);
+});
+</code></pre>
+
+<p>最初のテストでは、自動変更検出の利点が示されています。</p>
+
+<p>2回目と3回目のテストで重要な制限が明らかになりました。 Angular テスト環境では、テストでコンポーネントのタイトルが変更されたことがわかりません。 ComponentFixtureAutoDetectサービスは、約束の解決、タイマー、DOMイベントなどの非同期アクティビティに応答します。 ただし、コンポーネントプロパティの直接的な同期更新は不可視です。 このテストでは、fixture.detectChanges() を手動で呼び出して、変更検出の別のサイクルをトリガする必要があります。</p>
+
+<blockquote>
+<p>テストフィクスチャが変更検出を実行するかどうかを知るのではなく、このガイドのサンプルは常にdetectChanges（）を明示的に呼び出します。 detectChanges（）を厳密に必要以上に頻繁に呼び出しても問題ありません。</p>
+</blockquote>
+
+<p><strong>Change an input value with dispatchEvent()</strong></p>
+
+<p>ユーザー入力をシミュレートするには、input要素を見つけてvalueプロパティを設定します。</p>
+
+<p>fixture.detectChanges（）を呼び出してAngularの変更検出をトリガーします。 しかし、本質的な中間段階があります。</p>
+
+<p>Angularは、input要素のvalueプロパティを設定していることを認識していません。 dispatchEvent（）を呼び出して要素の入力イベントを発生させるまで、そのプロパティは読み取られません。 次に、detectChanges（）を呼び出します。</p>
+
+<p>次の例は、正しいシーケンスを示しています。</p>
+
+<p>app/hero/hero-detail.component.spec.ts (pipe test)</p>
+
+<pre><code>    1. it('should convert hero name to Title Case', () =&gt; {
+    2.   // get the name's input and display elements from the DOM
+    3.   const hostElement = fixture.nativeElement;
+    4.   const nameInput: HTMLInputElement = hostElement.querySelector('input');
+    5.   const nameDisplay: HTMLElement = hostElement.querySelector('span');
+    6.  
+    7.   // simulate user entering a new name into the input box
+    8.   nameInput.value = 'quick BROWN  fOx';
+    9.  
+    10.   // dispatch a DOM event so that Angular learns of input value change.
+    11.   nameInput.dispatchEvent(newEvent('input'));
+    12.  
+    13.   // Tell Angular to update the display binding through the title pipe
+    14.   fixture.detectChanges();
+    15.  
+    16.   expect(nameDisplay.textContent).toBe('Quick Brown  Fox');
+    17. });
+</code></pre>
+
+<p><strong>Component with external files</strong></p>
+
+<p>上記のBannerComponentは、@Component.templateプロパティと@Component.stylesプロパティでそれぞれ指定されたインラインテンプレートとインラインCSSで定義されています。</p>
+
+<p>多くのコンポーネントは、BannerComponentの以下のバリアントが行うように、@Component.templateUrlプロパティと@Component.styleUrlsプロパティでそれぞれ外部テンプレートと外部CSSを指定します。</p>
+
+<p>app/banner/banner-external.component.ts (metadata)</p>
+
+<pre><code>@Component({
+  selector: 'app-banner',
+  templateUrl: './banner-external.component.html',
+  styleUrls:  ['./banner-external.component.css']
+})
+</code></pre>
+
+<p>この構文は、コンポーネントコンパイル時に外部ファイルを読み込むようにAngularコンパイラに指示します。</p>
+
+<p>テストを実行する前にアプリをコンパイルするので、CLI ng testコマンドを実行すると問題はありません。</p>
+
+<p>ただし、非CLI環境でテストを実行すると、このコンポーネントのテストが失敗することがあります。 たとえば、プランナーなどのWebコーディング環境でBannerComponentテストを実行すると、次のようなメッセージが表示されます。</p>
+
+<pre><code>Error: This test module uses the component BannerComponent 
+which is using a &quot;templateUrl&quot; or &quot;styleUrls&quot;, but they were never compiled. 
+Please call &quot;TestBed.compileComponents&quot; before your test.
+</code></pre>
+
+<p>テスト中にランタイム環境がソースコードをコンパイルすると、このテストエラーメッセージが表示されます。</p>
+
+<p>問題を解決するには、<a href="https://angular.io/guide/testing#compile-components">below</a>で説明するようにcompileComponents（）を呼び出します。</p>
+
+<p><strong>Component with a dependency</strong></p>
+
+<p>コンポーネントにはしばしばサービスの依存関係があります。</p>
+
+<p>WelcomeComponentは、ログインしたユーザーへのウェルカムメッセージを表示します。 ユーザーが注入されたUserServiceのプロパティに基づいているかどうかを知る：</p>
+
+<p>app/welcome/welcome.component.ts</p>
+
+<pre><code>import { Component, OnInit } from '@angular/core';
+import { UserService }       from '../model/user.service';
+
+@Component({
+  selector: 'app-welcome',
+  template: '&lt;h3 class=&quot;welcome&quot;&gt;&lt;i&gt;{{welcome}}&lt;/i&gt;&lt;/h3&gt;'
+})
+export class WelcomeComponent  implements OnInit {
+  welcome: string;
+  constructor(private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.welcome = this.userService.isLoggedIn ?
+      'Welcome, ' + this.userService.user.name : 'Please log in.';
+  }
+}
+</code></pre>
+
+<p>WelcomeComponentには、サービスとやり取りする決定ロジックがあり、このコンポーネントをテストに値するロジックにします。 specファイルapp/welcome/welcome.component.spec.tsのテストモジュールの設定は次のとおりです。</p>
+
+<p>app/welcome/welcome.component.spec.ts</p>
+
+<pre><code>TestBed.configureTestingModule({
+   declarations: [ WelcomeComponent ],
+// providers:    [ UserService ]  // NO! Don't provide the real service!
+                                  // Provide a test-double instead
+   providers:    [ {provide: UserService, useValue: userServiceStub } ]
+});
+</code></pre>
+
+<p>今回は、テスト中のコンポーネントを宣言することに加えて、プロバイダリストにUserServiceプロバイダを追加します。 しかし、実際のUserServiceではありません。</p>
+
+<p><strong>Provide service test doubles</strong></p>
+
+<p>テスト中のコンポーネントには、実際のサービスを注入する必要はありません。 実際には、テストの倍数（スタブ、フェイク、スパイ、またはモック）であれば通常はより良いです。 仕様の目的は、サービスではなくコンポーネントをテストすることであり、実際のサービスは問題になる可能性があります。</p>
+
+<p>実際のUserServiceを注入することは悪夢になる可能性があります。 実際のサービスは、ユーザーにログイン資格情報を要求し、認証サーバーに到達しようとします。 これらの動作は傍受するのが難しい場合があります。 実際のUserServiceの代わりにテストダブルを作成して登録する方がはるかに簡単で安全です。</p>
+
+<p>この特定のテストスイートは、WelcomeComponentとそのテストのニーズを満たすUserServiceの最小限のモックを提供します。</p>
+
+<p>app/welcome/welcome.component.spec.ts</p>
+
+<pre><code>let userServiceStub: Partial&lt;UserService&gt;;
+
+userServiceStub = {
+  isLoggedIn: true,
+  user: { name: 'Test User'}
+};
+</code></pre>
+
+<p><strong>Get injected service</strong></p>
+
+<p>テストでは、WelcomeComponentに注入された（スタブ）UserServiceへのアクセスが必要です。</p>
+
+<p>Angularは階層的な注入システムを持っています。 TestBedによって作成されたルートインジェクタからコンポーネントツリーまで、複数のレベルのインジェクタがあります。</p>
+
+<p>注入されたサービスを取得する最も安全な方法は、常に動作する方法で、テスト中のコンポーネントのインジェクタから取得することです。 コンポーネントインジェクタは、フィクスチャのDebugElementのプロパティです。</p>
+
+<p>WelcomeComponent&rsquo;s injector</p>
+
+<pre><code>// UserService actually injected into the component
+userService = fixture.debugElement.injector.get(UserService);
+</code></pre>
+
+<p><strong>TestBed.get()</strong></p>
+
+<p>TestBed.get（）経由でルートインジェクタからサービスを取得することもできます。 これは覚えやすく、あまり冗長ではありません。 しかし、Angularがコンポーネントのインスタンスをテストのルートインジェクタに注入する場合にのみ機能します。</p>
+
+<p>このテストスイートでは、UserServiceの唯一のプロバイダはルートテストモジュールなので、TestBed.get（）を次のように呼び出すことは安全です。</p>
+
+<p>TestBed injector</p>
+
+<pre><code>// UserService from the root injector
+userService = TestBed.get(UserService);
+</code></pre>
+
+<blockquote>
+<p>TestBed.get（）が機能しないユースケースについては、「 <a href="https://angular.io/guide/testing#component-override">Override a component&rsquo;s providers</a>」のセクションを参照して、コンポーネントのインジェクタからサービスを取得する必要があるときと理由を説明します。</p>
+</blockquote>
+
+<p><strong>Always get the service from an injector</strong></p>
+
+<p>テスト本体にあるテストモジュールに提供されているuserServiceStubオブジェクトを参照しないでください。 それは動作しません！ コンポーネントに注入されたuserServiceインスタンスは、完全に異なるオブジェクトであり、提供されたuserServiceStubのクローンです。</p>
+
+<pre><code>it('stub object and injected UserService should not be the same', () =&gt; {
+  expect(userServiceStub === userService).toBe(false);
+
+  // Changing the stub object has no effect on the injected service
+  userServiceStub.isLoggedIn = false;
+  expect(userService.isLoggedIn).toBe(true);
+});
+</code></pre>
+
+<p><strong>Final setup and tests</strong></p>
+
+<p>TestBed.get() を使ってbeforeEach() を完成させましょう：</p>
+
+<p>app/welcome/welcome.component.spec.ts</p>
+
+<pre><code>let userServiceStub: Partial&lt;UserService&gt;;
+
+beforeEach(() =&gt; {
+  // stub UserService for test purposes
+  userServiceStub = {
+    isLoggedIn: true,
+    user: { name: 'Test User'}
+  };
+
+  TestBed.configureTestingModule({
+     declarations: [ WelcomeComponent ],
+     providers:    [ {provide: UserService, useValue: userServiceStub } ]
+  });
+
+  fixture = TestBed.createComponent(WelcomeComponent);
+  comp    = fixture.componentInstance;
+
+  // UserService from the root injector
+  userService = TestBed.get(UserService);
+
+  //  get the &quot;welcome&quot; element by CSS selector (e.g., by class name)
+  el = fixture.nativeElement.querySelector('.welcome');
+});
+</code></pre>
+
+<p>いくつかのテストがあります：</p>
+
+<p>app/welcome/welcome.component.spec.ts</p>
+
+<pre><code>it('should welcome the user', () =&gt; {
+  fixture.detectChanges();
+  const content = el.textContent;
+  expect(content).toContain('Welcome', '&quot;Welcome ...&quot;');
+  expect(content).toContain('Test User', 'expected name');
+});
+
+it('should welcome &quot;Bubba&quot;', () =&gt; {
+  userService.user.name = 'Bubba'; // welcome message hasn't been shown yet
+  fixture.detectChanges();
+  expect(el.textContent).toContain('Bubba');
+});
+
+it('should request login if not logged in', () =&gt; {
+  userService.isLoggedIn = false; // welcome message hasn't been shown yet
+  fixture.detectChanges();
+  const content = el.textContent;
+  expect(content).not.toContain('Welcome', 'not welcomed');
+  expect(content).toMatch(/log in/i, '&quot;log in&quot;');
+});
+</code></pre>
+
+<p>最初は健全性テストです。 スタブされたUserServiceが呼び出され、動作していることを確認します。</p>
+
+<blockquote>
+<p>ジャスミン・マッチャーに対する第2のパラメータ（例えば、「予想される名前」）は、オプションの故障ラベルである。 予想が失敗した場合、Jasmineディスプレイはこのラベルを期待失敗メッセージに付加します。 複数の期待値を持つ仕様では、何が間違っていて、どの期待値が失敗したかを明確にするのに役立ちます。</p>
+</blockquote>
+
+<p>残りのテストは、サービスが異なる値を返すときにコンポーネントのロジックを確認します。 2番目のテストでは、ユーザー名の変更の影響を検証します。 3番目のテストでは、ログインしているユーザーがいない場合、コンポーネントが適切なメッセージを表示していることを確認します。</p>
+
+<p><strong>Component with async service</strong></p>
+
+<p>このサンプルでは、AboutComponentテンプレートはTwainComponentをホストします。 TwainComponentはMark Twainの引用符を表示します。</p>
+
+<p>app/twain/twain.component.ts (template)</p>
+
+<pre><code>template: `
+  &lt;p class=&quot;twain&quot;&gt;&lt;i&gt;{{quote | async}}&lt;/i&gt;&lt;/p&gt;
+  &lt;button (click)=&quot;getQuote()&quot;&gt;Next quote&lt;/button&gt;
+  &lt;p class=&quot;error&quot; *ngIf=&quot;errorMessage&quot;&gt;{{ errorMessage }}&lt;/p&gt;`,
+</code></pre>
+
+<p>コンポーネントのquoteプロパティの値は、AsyncPipeを通過することに注意してください。 つまり、プロパティはPromiseまたはObservableのいずれかを返します。</p>
+
+<p>この例では、TwainComponent.getQuote() メソッドは、quoteプロパティがObservableを返すことを示しています。</p>
+
+<pre><code>getQuote() {
+  this.errorMessage = '';
+  this.quote = this.twainService.getQuote().pipe(
+    startWith('...'),
+    catchError( (err: any) =&gt; {
+      // Wait a turn because errorMessage already set once this turn
+      setTimeout(() =&gt; this.errorMessage = err.message || err.toString());
+      return of('...'); // reset message to placeholder
+    })
+  );
+</code></pre>
+
+<p>TwainComponentは、注入されたTwainServiceから引用符を取得します。 コンポーネントは、サービスが最初の引用符を返す前に、返されたObservableをプレースホルダ値（ &lsquo;&hellip;&lsquo;）で開始します。</p>
+
+<p>catchErrorはサービスエラーを傍受し、エラーメッセージを作成し、成功チャネルのプレースホルダ値を返します。 同じ変更検出サイクルでそのメッセージを2回更新するのを避けるために、エラーメッセージを設定するには、チェックを待つ必要があります。</p>
+
+<p>これらはすべてテストしたい機能です。</p>
+
+<p><strong>Testing with a spy</strong></p>
+
+<p>コンポーネントをテストするときは、サービスのパブリックAPIだけが重要です。 一般に、テスト自体はリモートサーバーを呼び出すべきではありません。 彼らはそのような呼び出しをエミュレートする必要があります。 このapp/twain/twain.component.spec.tsの設定は、これを行う1つの方法を示しています：</p>
+
+<p>app/twain/twain.component.spec.ts (setup)</p>
+
+<pre><code>beforeEach(() =&gt; {
+  testQuote = 'Test Quote';
+
+  // Create a fake TwainService object with a `getQuote()` spy
+  const twainService = jasmine.createSpyObj('TwainService', ['getQuote']);
+  // Make the spy return a synchronous Observable with the test data
+  getQuoteSpy = twainService.getQuote.and.returnValue( of(testQuote) );
+
+  TestBed.configureTestingModule({
+    declarations: [ TwainComponent ],
+    providers:    [
+      { provide: TwainService, useValue: twainService }
+    ]
+  });
+
+  fixture = TestBed.createComponent(TwainComponent);
+  component = fixture.componentInstance;
+  quoteEl = fixture.nativeElement.querySelector('.twain');
+});
+</code></pre>
+
+<p>spy に焦点を当てる。</p>
+
+<pre><code>// Create a fake TwainService object with a `getQuote()` spy
+const twainService = jasmine.createSpyObj('TwainService', ['getQuote']);
+// Make the spy return a synchronous Observable with the test data
+getQuoteSpy = twainService.getQuote.and.returnValue( of(testQuote) );
+</code></pre>
+
+<p>スパイは、getQuoteへの任意の呼び出しがテスト見積もりで観測値を受け取れるように設計されています。 実際のgetQuote（）メソッドとは異なり、このスパイはサーバをバイパスし、その値がすぐに利用できる同期観測値を返します。</p>
+
+<p>Observableが同期していても、このスパイで多くの有用なテストを書くことができます。</p>
+
+<p><strong>Synchronous tests</strong></p>
+
+<p>同期Observableの主な利点は、非同期プロセスを同期テストにすることができることです。</p>
+
+<pre><code>it('should show quote after component initialized', () =&gt; {
+  fixture.detectChanges(); // onInit()
+
+  // sync spy result shows testQuote immediately after init
+  expect(quoteEl.textContent).toBe(testQuote);
+  expect(getQuoteSpy.calls.any()).toBe(true, 'getQuote called');
+});
+</code></pre>
+
+<p>スパイの結果が同期的に返されるため、getQuote（）メソッドは、AngularがngOnInitを呼び出す最初の変更検出サイクルの直後に画面上のメッセージを更新します。</p>
+
+<p>エラー・パスをテストするときにあなたはとてもラッキーです。 サービススパイはエラーを同期的に返しますが、コンポーネントメソッドはsetTimeout（）を呼び出します。 このテストは、JavaScriptエンジンが少なくとも1回転以上待ってから値を取得できるようにする必要があります。 テストは非同期にする必要があります。</p>
+
+<p><strong>Async test with fakeAsync()</strong></p>
+
+<p>次のテストは、サービスがErrorObservableを返すときの予想される動作を確認します。</p>
+
+<pre><code>    1. it('should display error when TwainService fails', fakeAsync(() =&gt; {
+    2.   // tell spy to return an error observable
+    3.   getQuoteSpy.and.returnValue(
+    4.     throwError('TwainService test failure'));
+    5.  
+    6.   fixture.detectChanges(); // onInit()
+    7.   // sync spy errors immediately after init
+    8.  
+    9.   tick(); // flush the component's setTimeout()
+    10.  
+    11.   fixture.detectChanges(); // update errorMessage within setTimeout()
+    12.  
+    13.   expect(errorMessage()).toMatch(/test failure/, 'should display error');
+    14.   expect(quoteEl.textContent).toBe('...', 'should show placeholder');
+    15. }));
+</code></pre>
+
+<p>it() 関数は次の形式の引数を受け取ることに注意してください。</p>
+
+<pre><code>fakeAsync(() =&gt; { /* test body */ })`
+</code></pre>
+
+<p>fakeAsync関数は、特定のfakeAsyncテストゾーンでテスト本体を実行することによって、線形コーディングスタイルを有効にします。 テスト本体は同期しているように見えます。 Promise.then（）のようなネストされた構文はなく、制御の流れを混乱させることはありません。</p>
+
+<p><strong>The tick() function</strong>
+（仮想）クロックを進めるには、tick() を呼び出さなければなりません。</p>
+
+<p>tick() を呼び出すと、保留中のすべての非同期アクティビティが終了するまでの時間がシミュレートされます。 この場合、エラーハンドラのsetTimeout() を待機します。</p>
+
+<p>ティック機能は、TestBedでインポートするAngularテストユーティリティの1つです。 これはfakeAsyncのコンパニオンであり、fakeAsync本体内でのみ呼び出すことができます。</p>
+
+<p><strong>Async obserbables</strong></p>
+
+<p>これらのテストのテストカバレッジに満足しているかもしれません。</p>
+
+<p>しかし、あなたは本当のサービスがこのように振る舞わないという事実に悩まされるかもしれません。 実際のサービスは、要求をリモートサーバーに送信します。 サーバーは応答するのに時間がかかり、前の2つのテストのように応答がすぐに利用できなくなります。</p>
+
+<p>このようなgetQuote（）スパイから非同期観測を返すと、あなたのテストは実世界をより忠実に反映します。</p>
+
+<pre><code>// Simulate delayed observable values with the `asyncData()` helper
+getQuoteSpy.and.returnValue(asyncData(testQuote));
+</code></pre>
+
+<p>Async obserbable helpers</p>
+
+<p>Async Observableは、asyncDataヘルパーによって生成されました。asyncDataヘルパーは、自分で作成する必要があるユーティリティ関数です。 または、サンプルコードからこれをコピーすることもできます。</p>
+
+<p>testing/async-observable-helpers.ts</p>
+
+<pre><code>/** Create async observable that emits-once and completes
+ *  after a JS engine turn */
+export function asyncData&lt;T&gt;(data: T) {
+  return defer(() =&gt; Promise.resolve(data));
+}
+</code></pre>
+
+<p>このヘルパーの観測結果は、JavaScriptエンジンの次のターンでデータ値を出力します。</p>
+
+<p>RxJS defer（）演算子は、観測値を返します。 プロミスかオブザーバブルのどちらかを返すファクトリ関数を取ります。 あるものがdeferのobservableにサブスクライブすると、そのファクトリで作成された新しいobservableにサブスクライバが追加されます。</p>
+
+<p>defer（）演算子は、HttpClientのようにPromise.resolve（）を新しい観測値に変換して、一度放出して完了します。 購読者は、データ値を受け取った後、購読を解除されます。</p>
+
+<p>非同期エラーを生成するための同様のヘルパーがあります。</p>
+
+<pre><code>/** Create async observable error that errors
+ *  after a JS engine turn */
+export function asyncError&lt;T&gt;(errorObject: any) {
+  return defer(() =&gt; Promise.reject(errorObject));
+}
+</code></pre>
+
+<p><strong>More async tests</strong></p>
+
+<p>getQuote() パイが非同期オブザーバブルを返すようになったので、ほとんどのテストは非同期でなければなりません。</p>
+
+<p>現実世界で期待されるデータフローを示すfakeAsync() テストがあります。</p>
+
+<pre><code>it('should show quote after getQuote (fakeAsync)', fakeAsync(() =&gt; {
+  fixture.detectChanges(); // ngOnInit()
+  expect(quoteEl.textContent).toBe('...', 'should show placeholder');
+
+  tick(); // flush the observable to get the quote
+  fixture.detectChanges(); // update view
+
+  expect(quoteEl.textContent).toBe(testQuote, 'should show quote');
+  expect(errorMessage()).toBeNull('should not show error');
+}));
+</code></pre>
+
+<p>quote要素は、ngOnInit（）の後にプレースホルダ値（ &lsquo;&hellip;&lsquo;）を表示することに注意してください。 最初の見積もりはまだ届いていません。</p>
+
+<p>最初の見積もりをobservableからフラッシュするには、tick（）を呼び出します。 次に、detectChanges（）を呼び出して、Angularに画面を更新するように指示します。</p>
+
+<p>次に、quote要素が予想されるテキストを表示することをアサートすることができます。</p>
+
+<p><strong>Async test with async()</strong></p>
+
+<p>fakeAsync（）ユーティリティ関数にはいくつかの制限があります。 特に、テスト本体がXHR呼び出しを行う場合は動作しません。</p>
+
+<p>テスト中のXHR呼び出しはまれであるため、一般的にfakeAsync（）を使うことができます。 しかし、XHRを呼び出す必要がある場合は、async（）について知りたいでしょう。</p>
+
+<blockquote>
+<p>TestBed.compileComponents（）メソッド（下記参照）は、 &ldquo;ジャストインタイム&rdquo;コンパイル時に外部テンプレートとcssファイルを読み込むためにXHRを呼び出します。 async（）ユーティリティを使用してcompileComponents（）を呼び出すテストを作成します。</p>
+</blockquote>
+
+<p>以前のfakeAsync（）テストは、async（）ユーティリティで再記述したものです。</p>
+
+<pre><code>it('should show quote after getQuote (async)', async(() =&gt; {
+  fixture.detectChanges(); // ngOnInit()
+  expect(quoteEl.textContent).toBe('...', 'should show placeholder');
+
+  fixture.whenStable().then(() =&gt; { // wait for async getQuote
+    fixture.detectChanges();        // update view with quote
+    expect(quoteEl.textContent).toBe(testQuote);
+    expect(errorMessage()).toBeNull('should not show error');
+  });
+}));
+</code></pre>
+
+<p>async（）ユーティリティは、テスターのコードを特別な非同期テストゾーンで実行するように設定することによって、非同期ボイラープレートを非表示にします。 Jasmineのdone（）をテストに渡す必要はなく、約束されたコールバックや観測可能なコールバックでdone（）を呼び出す必要はありません。</p>
+
+<p>しかし、テストの非同期性はfixture.whenStable（）の呼び出しによって明らかになります。これは制御の線形フローを壊します。</p>
+
+<p><strong>whenStable</strong></p>
+
+<p>テストは、getQuote() observableが次のクォートを発行するのを待つ必要があります。 tick() を呼び出す代わりに、fixture.whenStable() を呼び出します。</p>
+
+<p>fixture.whenStable() は、JavaScriptエンジンのタスクキューが空になったときに解決する約束を返します。 この例では、オブザーバブルが最初のクォートを発行すると、タスクキューは空になります。</p>
+
+<p>テストは、promiseコールバック内で再開し、detectChanges() を呼び出してquote要素を期待されるテキストで更新します。</p>
+
+<p><strong>Jasmine done()</strong></p>
+
+<p>async関数とfakeAsync関数はAngular非同期テストを大幅に簡素化しますが、従来の技術に戻って、コールバックを完了させる関数を渡すことができます。</p>
+
+<p>これで、約束事を連鎖させ、エラーを処理し、適切な時にdone() を呼び出す責任があります。</p>
+
+<p>done() でテスト関数を書くことは、asyncとfakeAsyncよりも面倒です。 しかし時折必要です。 たとえば、intervalTimer() またはRxJS delay() 演算子を含むコードをテストするときは、asyncまたはfakeAsyncを呼び出すことはできません。</p>
+
+<p>done() で書かれた前のテストの2つのムーバーバージョンがあります。 最初のコンポーネントは、コンポーネントのquoteプロパティによってテンプレートに公開されたObservableにサブスクライブします。</p>
+
+<pre><code>it('should show last quote (quote done)', (done: DoneFn) =&gt; {
+  fixture.detectChanges();
+
+  component.quote.pipe( last() ).subscribe(() =&gt; {
+    fixture.detectChanges(); // update view with quote
+    expect(quoteEl.textContent).toBe(testQuote);
+    expect(errorMessage()).toBeNull('should not show error');
+    done();
+  });
+});
+</code></pre>
+
+<p>RxJS last() 演算子は、完了する前に観測値の最後の値を出力します。これはテスト見積もりになります。 subscribeコールバックは、以前のテストと同じ方法で、クォート要素をテスト引用符で更新するためにdetectChanges() を呼び出します。</p>
+
+<p>いくつかのテストでは、インジェクションされたサービスメソッドがどのように呼び出され、返された値が画面に表示されるかに、より関心があります。</p>
+
+<p>偽のTwainServiceのqetQuote() スパイなどのサービススパイは、その情報を提供し、ビューの状態についてアサーションを行うことができます。</p>
+
+<pre><code>it('should show quote after getQuote (spy done)', (done: DoneFn) =&gt; {
+  fixture.detectChanges();
+
+  // the spy's most recent call returns the observable with the test quote
+  getQuoteSpy.calls.mostRecent().returnValue.subscribe(() =&gt; {
+    fixture.detectChanges(); // update view with quote
+    expect(quoteEl.textContent).toBe(testQuote);
+    expect(errorMessage()).toBeNull('should not show error');
+    done();
+  });
+});
+</code></pre>
+
+<p><strong>Component marble tests</strong></p>
+
+<p>以前のTwainComponentテストでは、asyncDataとasyncErrorユーティリティを使用して、TwainServiceからの非同期観測可能な応答をシミュレートしました。</p>
+
+<p>これらはあなた自身で書くことができる簡単で簡単な機能です。 残念ながら、多くの一般的なシナリオでは単純すぎます。 可観測性はしばしば重大な遅延の後に、複数回出現する。 コンポーネントは、重複している値とエラーのシーケンスで複数のオブザーバブルを調整できます。</p>
+
+<p>RxJS大理石テストは、シンプルかつ複雑な観測可能なシナリオをテストするうえで最適な方法です。 あなたは、観測可能物がどのように働くかを示す大理石図を見たことがあります。 大理石テストでは、同様の大理石言語を使用して、テストで観測可能なストリームと期待値を指定します。</p>
+
+<p>次の例では、大理石テストを使用したTwainComponentテストの2つを再訪します。</p>
+
+<p>まず、jasmine-marbles npmパッケージをインストールします。 次に、必要なシンボルをインポートします。</p>
+
+<p>app/twain/twain.component.marbles.spec.ts (import marbles)</p>
+
+<pre><code>import { cold, getTestScheduler } from 'jasmine-marbles';
+</code></pre>
+
+<p>見積もりを取得するための完全なテストは次のとおりです。</p>
+
+<pre><code>it('should show quote after getQuote (marbles)', () =&gt; {
+  // observable test quote value and complete(), after delay
+  const q$ = cold('---x|', { x: testQuote });
+  getQuoteSpy.and.returnValue( q$ );
+
+  fixture.detectChanges(); // ngOnInit()
+  expect(quoteEl.textContent).toBe('...', 'should show placeholder');
+
+  getTestScheduler().flush(); // flush the observables
+
+  fixture.detectChanges(); // update view
+
+  expect(quoteEl.textContent).toBe(testQuote, 'should show quote');
+  expect(errorMessage()).toBeNull('should not show error');
+});
+</code></pre>
+
+<p>ジャスミンテストは同期的であることに注意してください。 fakeAsync（）はありません。 大理石テストは、テストスケジューラを使用して、同期テストにおける時間の経過をシミュレートします。</p>
+
+<p>marble test の美しさは、観測可能なストリームの視覚的定義にあります。 このテストでは、3つのフレーム（&mdash;）を待ち、値（x）を出力し、完了（|）するコールドオブザーバブルを定義します。 2番目の引数では、値マーカー（x）を出力値（testQuote）にマップします。</p>
+
+<pre><code>const q$ = cold('---x|', { x: testQuote });
+</code></pre>
+
+<p>marble ライブラリは、対応する観測値を構築します。この観測値は、getQuoteスパイの戻り値として設定されます。</p>
+
+<p>大理石の観測値をアクティブにする準備ができたら、TestSchedulerにこのような用意されたタスクのキューをフラッシュするように指示します。</p>
+
+<pre><code>getTestScheduler().flush(); // flush the observables
+</code></pre>
+
+<p>このステップは、以前のfakeAsync() およびasync() の例のtick() およびwhenStable() に似た目的を果たします。 テストのバランスは、それらの例と同じです。</p>
+
+<p><strong>Marble error testing</strong></p>
+
+<p>getQuote（）エラーテストの marble テストバージョンです。</p>
+
+<pre><code>it('should display error when TwainService fails', fakeAsync(() =&gt; {
+  // observable error after delay
+  const q$ = cold('---#|', null, new Error('TwainService test failure'));
+  getQuoteSpy.and.returnValue( q$ );
+
+  fixture.detectChanges(); // ngOnInit()
+  expect(quoteEl.textContent).toBe('...', 'should show placeholder');
+
+  getTestScheduler().flush(); // flush the observables
+  tick();                     // component shows error after a setTimeout()
+  fixture.detectChanges();    // update error message
+
+  expect(errorMessage()).toMatch(/test failure/, 'should display error');
+  expect(quoteEl.textContent).toBe('...', 'should show placeholder');
+}));
+</code></pre>
+
+<p>コンポーネント自体がエラーを処理するときにsetTimeout() を呼び出すため、fakeAsync() とtick() を呼び出すことはまだ非同期テストです。</p>
+
+<p>marble observable の定義を見てください。</p>
+
+<pre><code>const q$ = cold('---#|', null, new Error('TwainService test failure'));
+</code></pre>
+
+<p>これは、3つのフレームを待ってからエラーを発するコールド・オブザーバブルです。ハッシュ（＃）は、3番目の引数で指定されたエラーのタイミングを示します。 オブザーバブルが決して値を出力しないため、2番目の引数はnullです。</p>
+
+<p><strong>Laern about marble testing</strong></p>
+
+<p>marble フレームは、テスト時間の仮想単位です。 各記号（ - 、x、|、＃）は、1つのフレームの通過をマークします。</p>
+
+<p>あなたがそれを購読するまで、冷たい観察可能値は値を生成しません。 あなたのアプリケーションのオブザーバブルのほとんどは寒いです。 すべての<a href="https://angular.io/guide/http"><em>HttpClient</em></a> メソッドはコールドオブザーバブルを返します。</p>
+
+<p>あなたがそれを購読する前に熱い観察可能なものがすでに価値を生み出しています。 ルーターの活動を報告する<a href="https://angular.io/api/router/Router#events"><em>Router.events</em></a> observableは注目に値するものです。</p>
+
+<p>RxJS marble テストは、このガイドの範囲を超えて、豊富なテーマです。 <a href="https://github.com/ReactiveX/rxjs/blob/master/doc/writing-marble-tests.md">official documentation</a>から始めて、ウェブ上で学んでください。</p>
+
+<p><strong>Component with inputs and outputs</strong></p>
+
+<p>入力と出力を持つコンポーネントは、通常、ホストコンポーネントのビューテンプレート内に表示されます。 ホストは、プロパティー・バインディングを使用して入力プロパティーを設定し、イベント・バインディングを使用して出力プロパティーによって発生したイベントをlistenします。</p>
+
+<p>テストの目的は、そのようなバインディングが期待どおりに機能することを確認することです。 テストでは入力値を設定し、出力イベントを待機する必要があります。</p>
+
+<p>DashboardHeroComponentは、このロール内のコンポーネントの小さな例です。 DashboardComponentによって提供される個々のヒーローを表示します。 そのヒーローをクリックすると、ユーザーがヒーローを選択したことをDashboardComponentに伝えます。</p>
+
+<p>DashboardHeroComponentは、次のようにDashboardComponentテンプレートに埋め込まれています。</p>
+
+<p>app/dashboard/dashboard.component.html (excerpt)</p>
+
+<pre><code>&lt;dashboard-hero *ngFor=&quot;let hero of heroes&quot;  class=&quot;col-1-4&quot;
+  [hero]=hero  (selected)=&quot;gotoDetail($event)&quot; &gt;
+&lt;/dashboard-hero&gt;
+</code></pre>
+
+<p>DashboardHeroComponentは* ngForリピータに表示され、各コンポーネントのヒーロー入力プロパティをループ値に設定し、コンポーネントの選択したイベントをリッスンします。</p>
+
+<p>コンポーネントの完全な定義は次のとおりです。</p>
+
+<p>app/dashboard/dashboard-hero.component.ts (component)</p>
+
+<pre><code>@Component({
+  selector: 'dashboard-hero',
+  template: `
+    &lt;div (click)=&quot;click()&quot; class=&quot;hero&quot;&gt;
+      {{hero.name | uppercase}}
+    &lt;/div&gt;`,
+  styleUrls: [ './dashboard-hero.component.css' ]
+})
+export class DashboardHeroComponent {
+  @Input() hero: Hero;
+  @Output() selected = new EventEmitter&lt;Hero&gt;();
+  click() { this.selected.emit(this.hero); }
+}
+</code></pre>
+
+<p>この単純なコンポーネントのテストは本質的な価値はほとんどありませんが、それを知ることは価値があります。 次のいずれかの方法を使用できます。</p>
+
+<ul>
+<li>Test it as used by DashboardComponent.</li>
+<li>Test it as a stand-alone component.</li>
+<li>Test it as used by a substitute for DashboardComponent.</li>
+</ul>
+
+<p>DashboardComponentコンストラクタを簡単に見てみると、最初のアプローチが難しくなります。</p>
+
+<p>app/dashboard/dashboard.component.ts (constructor)</p>
+
+<pre><code>constructor(
+  private router: Router,
+  private heroService: HeroService) {
+}
+</code></pre>
+
+<p>DashboardComponentはAngularルーターとHeroServiceによって異なります。 おそらくそれらを両方ともテストダブルと置き換える必要があります。これは多くの作業です。 ルータは特に難しいようです。</p>
+
+<blockquote>
+<p><a href="https://angular.io/guide/testing#routing-component">discussion below</a> では、ルータを必要とするコンポーネントのテストについて説明します。</p>
+</blockquote>
+
+<p>すぐに目標は、DashboardComponentではなくDashboardHeroComponentをテストすることです。したがって、2番目と3番目のオプションを試してみてください。</p>
+
+<p><strong>Test</strong> <strong><em>DashboardHeroComponent</em></strong> <strong>stand-alone</strong></p>
+
+<p>スペックファイルの設定は次のとおりです。</p>
+
+<p>app/dashboard/dashboard-hero.component.spec.ts (setup)</p>
+
+<pre><code>TestBed.configureTestingModule({
+  declarations: [ DashboardHeroComponent ]
+})
+fixture = TestBed.createComponent(DashboardHeroComponent);
+comp    = fixture.componentInstance;
+
+// find the hero's DebugElement and element
+heroDe  = fixture.debugElement.query(By.css('.hero'));
+heroEl = heroDe.nativeElement;
+
+// mock the hero supplied by the parent component
+expectedHero = { id: 42, name: 'Test Name' };
+
+// simulate the parent setting the input property with that hero
+comp.hero = expectedHero;
+
+// trigger initial data binding
+fixture.detectChanges();
+</code></pre>
+
+<p>セットアップコードがコンポーネントのヒーロープロパティにテストヒーロー（expectedHero）を割り当て、DashboardComponentがリピータのプロパティバインディングを介して設定する方法をエミュレートする方法に注意してください。</p>
+
+<p>次のテストでは、ヒーロー名がバインディングを介してテンプレートに伝播することを確認します。</p>
+
+<pre><code>it('should display hero name in uppercase', () =&gt; {
+  const expectedPipedName = expectedHero.name.toUpperCase();
+  expect(heroEl.textContent).toContain(expectedPipedName);
+});
+</code></pre>
+
+<p>テンプレートはヒーロー名をAngular UpperCasePipeで渡すので、テストでは要素の値と大文字の名前が一致する必要があります。</p>
+
+<blockquote>
+<p>この小さなテストは、Angularテストがコンポーネントクラスのテストでは不可能だったコンポーネントのビジュアル表現を低コストで、はるかに遅く複雑なエンドツーエンドのテストに頼らずに検証する方法を示しています。</p>
+</blockquote>
+
+<p><strong>Clicking</strong></p>
+
+<p>ヒーローをクリックすると、ホストコンポーネント（おそらくDashboardComponent）が聞くことができる選択されたイベントが発生するはずです。</p>
+
+<pre><code>it('should raise selected event when clicked (triggerEventHandler)', () =&gt; {
+  let selectedHero: Hero;
+  comp.selected.subscribe((hero: Hero) =&gt; selectedHero = hero);
+
+  heroDe.triggerEventHandler('click', null);
+  expect(selectedHero).toBe(expectedHero);
+});
+</code></pre>
+
+<p>コンポーネントの <code>selected</code>プロパティは<code>EventEmitter</code>を返します。これは消費者にRxJS同期 <code>Observable</code>のように見えます。 テストは、ホストコンポーネントが暗黙的に行うのと同じように、明示的にサブスクライブします。
+コンポーネントが期待どおりに動作する場合、ヒーローの要素をクリックすると、コンポーネントの <code>selected</code>プロパティに<code>hero</code>オブジェクトを送出するよう指示する必要があります。
+テストでは、「選択された」サブスクリプションを通じてそのイベントが検出されます。</p>
+
+<p><strong>triggerEventHandler</strong></p>
+
+<p>前のテストのheroDeは、ヒーロー<div>を表すDebugElementです。</p>
+
+<p>Angularプロパティと、ネイティブ要素との相互作用を抽象化するメソッドがあります。 このテストでは、 &ldquo;click&rdquo;イベント名でDebugElement.triggerEventHandlerを呼び出します。 「クリック」イベントバインディングは、DashboardHeroComponent.click（）を呼び出して応答します。</p>
+
+<p>Angular DebugElement.triggerEventHandlerは、イベント名でデータバインドされたイベントを発生させることができます。 2番目のパラメータは、ハンドラに渡されるイベントオブジェクトです。</p>
+
+<p>このテストでは、nullイベントオブジェクトを持つ「クリック」イベントがトリガされました。</p>
+
+<pre><code>heroDe.triggerEventHandler('click', null);
+</code></pre>
+
+<p>テストでは、ランタイムイベントハンドラ（コンポーネントのclick（）メソッド）がイベントオブジェクトを気にかけていないことを前提としています（ここでは正しく）。</p>
+
+<p>他のハンドラーはあまり寛容ではありません。 たとえば、RouterLinkディレクティブは、クリック中にどのマウスボタン（ある場合）が押されたのかを識別するbuttonプロパティを持つオブジェクトを想定しています。 イベントオブジェクトがない場合、RouterLinkディレクティブはエラーをスローします。</p>
+
+<p>Click the element</p>
+
+<p>次のテストの代替方法では、ネイティブエレメント自身のclick（）メソッドが呼び出されます。このメソッドは、このコンポーネントにとっては問題ありません。</p>
+
+<pre><code>it('should raise selected event when clicked (element.click)', () =&gt; {
+  let selectedHero: Hero;
+  comp.selected.subscribe((hero: Hero) =&gt; selectedHero = hero);
+
+  heroEl.click();
+  expect(selectedHero).toBe(expectedHero);
+});
+</code></pre>
+
+<p><strong>Click helper</strong></p>
+
+<p>ボタン、アンカー、または任意のHTML要素をクリックすることは、一般的なテスト作業です。</p>
+
+<p>以下のclick（）関数のようなヘルパーにクリックトリガプロセスをカプセル化することで、一貫性があり簡単になります：</p>
+
+<p>testing/index.ts (click helper)</p>
+
+<pre><code>/** Button events to pass to `DebugElement.triggerEventHandler` for RouterLink event handler */
+export const ButtonClickEvents = {
+   left:  { button: 0 },
+   right: { button: 2 }
+};
+
+/** Simulate element click. Defaults to mouse left-button click event. */
+export function click(el: DebugElement | HTMLElement, eventObj: any = ButtonClickEvents.left): void {
+  if (el instanceof HTMLElement) {
+    el.click();
+  } else {
+    el.triggerEventHandler('click', eventObj);
+  }
+}
+</code></pre>
+
+<p>最初のパラメータは要素からクリックまでです。 必要に応じて、カスタムイベントオブジェクトを2番目のパラメータとして渡すことができます。 デフォルトは、RouterLinkディレクティブを含む多くのハンドラで受け入れられる（一部の）左ボタンマウスイベントオブジェクトです。</p>
+
+<p>click（）ヘルパー関数はAngularテストユーティリティの1つではありません。 このガイドのサンプルコードで定義されている関数です。 すべてのサンプルテストで使用されています。 あなたが好きなら、あなた自身のヘルパーのコレクションに追加してください。</p>
+
+<p>以前のテストは、クリックヘルパーを使って書き直しました。</p>
+
+<p>app/dashboard/dashboard-hero.component.spec.ts (test with click helper)</p>
+
+<pre><code>it('should raise selected event when clicked (click helper)', () =&gt; {
+  let selectedHero: Hero;
+  comp.selected.subscribe(hero =&gt; selectedHero = hero);
+
+  click(heroDe); // click helper with DebugElement
+  click(heroEl); // click helper with native element
+
+  expect(selectedHero).toBe(expectedHero);
+});
+</code></pre>
+
+<p><strong>Component inside a test host</strong></p>
+
+<p>以前のテストは、ホストDashboardComponent自身の役割を果たしました。 しかし、DashboardHeroComponentは、ホストコンポーネントに適切にデータバインドされていると正常に動作しますか？</p>
+
+<p>実際のDashboardComponentでテストできます。 しかし、特に、そのテンプレートが* ngFor Repeater、他のコンポーネント、レイアウトHTML、追加のバインディング、複数のサービスを注入するコンストラクタを備えていて、それらのサービスとすぐにやりとりを開始するときに、多くの設定が必要になる可能性があります。</p>
+
+<p>これらの注意散漫を無効にするための努力を想像してみましょう。これは、このようなテストホストで満足できるようにできる点を証明することです。</p>
+
+<p>app/dashboard/dashboard-hero.component.spec.ts (test host)</p>
+
+<pre><code>@Component({
+  template: `
+    &lt;dashboard-hero
+      [hero]=&quot;hero&quot; (selected)=&quot;onSelected($event)&quot;&gt;
+    &lt;/dashboard-hero&gt;`
+})
+class TestHostComponent {
+  hero: Hero = {id: 42, name: 'Test Name' };
+  selectedHero: Hero;
+  onSelected(hero: Hero) { this.selectedHero = hero; }
+}
+</code></pre>
+
+<p>このテストホストは、DashboardComponentがDashboardHeroComponentにバインドしますが、ルータ、HeroService、または* ngForリピータのノイズはありません。</p>
+
+<p>テストホストは、コンポーネントのヒーロー入力プロパティをテストヒーローに設定します。 コンポーネントのselectedイベントをonSelectedハンドラにバインドします。このハンドラは、selectedHeroプロパティに放出されたヒーローを記録します。</p>
+
+<p>その後、テストではselectedHeroを簡単にチェックして、DashboardHeroComponent.selectedイベントが予想されるヒーローを発行したことを確認できます。</p>
+
+<p>テストホストテストの設定は、スタンドアロンテストの設定と似ています。</p>
+
+<p>app/dashboard/dashboard-hero.component.spec.ts (test host setup)</p>
+
+<pre><code>TestBed.configureTestingModule({
+  declarations: [ DashboardHeroComponent, TestHostComponent ]
+})
+// create TestHostComponent instead of DashboardHeroComponent
+fixture  = TestBed.createComponent(TestHostComponent);
+testHost = fixture.componentInstance;
+heroEl   = fixture.nativeElement.querySelector('.hero');
+fixture.detectChanges(); // trigger initial data binding
+</code></pre>
+
+<p>このテストモジュールの構成には、3つの重要な違いがあります。</p>
+
+<ol>
+<li>DashboardHeroComponentとTestHostComponentの両方を宣言します。</li>
+<li>これは、DashboardHeroComponentの代わりにTestHostComponentを作成します。</li>
+<li>TestHostComponentはDashboardHeroComponent.heroにバインディングを設定します。</li>
+<li>createComponentは、DashboardHeroComponentのインスタンスの代わりにTestHostComponentのインスタンスを保持するフィクスチャを返します。</li>
+</ol>
+
+<p>TestHostComponentを作成すると、前者のテンプレート内にDashboardHeroComponentが表示されるため、DashboardHeroComponentを作成するという副作用があります。 ヒーロー要素（heroEl）のクエリは、以前よりも要素ツリーの深さが深いものの、テストDOMでそれを検出します。</p>
+
+<p>テスト自体は、スタンドアロンバージョンとほとんど同じです。</p>
+
+<p>app/dashboard/dashboard-hero.component.spec.ts (test-host)</p>
+
+<pre><code>it('should display hero name', () =&gt; {
+  const expectedPipedName = testHost.hero.name.toUpperCase();
+  expect(heroEl.textContent).toContain(expectedPipedName);
+});
+
+it('should raise selected event when clicked', () =&gt; {
+  click(heroEl);
+  // selected hero should be the same data bound hero
+  expect(testHost.selectedHero).toBe(testHost.hero);
+});
+</code></pre>
+
+<p>選択したイベントテストのみが異なります。 これは、選択されたDashboardHeroComponentのヒーローが実際にホストコンポーネントへのイベントバインディングを通じてその方法を見つけることを確認します。</p>
+
+<p><strong>Routing component</strong></p>
+
+<p>ルーティングコンポーネントは、ルータに別のコンポーネントにナビゲートするように指示するコンポーネントです。 DashboardComponentは、ユーザーがダッシュボード上のヒーローボタンの1つをクリックしてHeroDetailComponentにナビゲートできるため、ルーティングコンポーネントです。</p>
+
+<p>ルーティングはかなり複雑です。 DashboardComponentのテストは、HeroServiceと一緒に注入されるルータが関係しているため、部分的には難しいようでした。</p>
+
+<p>app/dashboard/dashboard.component.ts (constructor)</p>
+
+<pre><code>constructor(
+  private router: Router,
+  private heroService: HeroService) {
+}
+</code></pre>
+
+<p>HeroServiceをスパイで嘲笑するのはおなじみの話です。 しかし、ルータには複雑なAPIがあり、他のサービスやアプリケーションの前提条件と絡み合っています。 嘲笑するのは難しいかもしれませんか？</p>
+
+<p>幸いなことに、このケースでは、DashboardComponentがルータであまり働いていないためです</p>
+
+<p>app/dashboard/dashboard.component.ts (goToDetail)</p>
+
+<pre><code>gotoDetail(hero: Hero) {
+  let url = `/heroes/${hero.id}`;
+  this.router.navigateByUrl(url);
+}
+</code></pre>
+
+<p>これはルーティングコンポーネントでよく発生します。 原則として、ルータではなくコンポーネントをテストし、指定された条件の下でコンポーネントが正しいアドレスでナビゲートする場合にのみ注意してください。</p>
+
+<p>このコンポーネントテストスイートのためのルータースパイを提供することは、HeroServiceスパイを提供するのと同じくらい簡単です。</p>
+
+<p>app/dashboard/dashboard.component.spec.ts (spies)</p>
+
+<pre><code>const routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
+const heroServiceSpy = jasmine.createSpyObj('HeroService', ['getHeroes']);
+
+TestBed.configureTestingModule({
+  providers: [
+    { provide: HeroService, useValue: heroServiceSpy },
+    { provide: Router,      useValue: routerSpy }
+  ]
+})
+</code></pre>
+
+<p>次のテストでは、表示されたヒーローをクリックし、Router.navigateByUrlが期待されるURLで呼び出されたことを確認します。</p>
+
+<p>app/dashboard/dashboard.component.spec.ts (navigate test)</p>
+
+<pre><code>it('should tell ROUTER to navigate when hero clicked', () =&gt; {
+
+  heroClick(); // trigger click on first inner &lt;div class=&quot;hero&quot;&gt;
+
+  // args passed to router.navigateByUrl() spy
+  const spy = router.navigateByUrl as jasmine.Spy;
+  const navArgs = spy.calls.first().args[0];
+
+  // expecting to navigate to id of the component's first hero
+  const id = comp.heroes[0].id;
+  expect(navArgs).toBe('/heroes/' + id,
+    'should nav to HeroDetail for first hero');
+});
+</code></pre>
         </div>
         
 
