@@ -97,6 +97,50 @@
 
 <header>
     <p class="meta">Nov 12, 2013
+         - 2 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/12/git-common-ancestor/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/git/">Git </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/12/git-common-ancestor/">hotfix とそれに関するメモ</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>BTS にバグ報告があり、急ぎ対応することに。微妙なのが</p>
+
+<ul>
+<li>開発ブランチにはリリースされていない修正が盛り込まれている</li>
+<li>確認 OK であれば急ぎリリースブランチに盛り込む</li>
+</ul>
+
+<p>というナニ。仕方が無いので開発ブランチとリリースブランチの共通祖先から hotfix なブランチを作成。おそらく開発ブランチの HEAD とも修正はカブらないはずなので。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/12/git-common-ancestor/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 12, 2013
          - 1 minute read 
          - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/12/git-assumption/#disqus_thread">Comments</a>
 
@@ -483,57 +527,6 @@ sudo apt-get install lib32z1
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 8, 2013
-         - 1 minute read 
-         - <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/08/eopl-ex-2-14/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/eopl/">EoPL </a><a class="label" href="http://weblog.metacircular-evaluator.org/categories/scheme/">Scheme </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/08/eopl-ex-2-14/">EoPL の Exercise 2.14 (2)</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>なんか昨晩書いた試験が微妙、って思ったら pop は状態を変えるだけで値を取り出す手続きは別で存在してたんすね。いやはや。とりあえず微妙なのは以下の部分だった模様。</p>
-
-<pre><code>(test* &quot;get top of stack&quot;
-       1
-       (pop (push 1 (empty-stack))))
-</code></pre>
-
-<p>pop は値を戻すのではなくて stack を戻さないと。</p>
-
-<pre><code>(test* &quot;get top of stack&quot;
-       empty-stack
-       (pop (push 1 (empty-stack))))
-</code></pre>
-
-<p>ということで実装書く。つうか書いてみたら試験も色々駄目でした。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="http://weblog.metacircular-evaluator.org/blog/2013/11/08/eopl-ex-2-14/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -629,6 +622,10 @@ sudo apt-get install lib32z1
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/05/15/memo/">那覇市徒歩移動メモ</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/05/08/memo/">Android のパケジ名変更メモ</a>
             </li>
           
@@ -662,10 +659,6 @@ sudo apt-get install lib32z1
           
             <li class="post">
               <a href="/blog/2018/04/02/admin-authorization/">Admin Authorization</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/03/29/git-tutorial/">Git Tutorial</a>
             </li>
           
         </ul>
