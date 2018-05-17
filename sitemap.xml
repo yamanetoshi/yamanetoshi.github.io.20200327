@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/05/17/sakae-machi/</loc>
+    <lastmod>2018-05-17T09:33:11+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/05/15/memo/</loc>
     <lastmod>2018-05-15T14:32:36+09:00</lastmod>
   </url>
@@ -7689,7 +7694,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-05-15T14:32:36+09:00</lastmod>
+    <lastmod>2018-05-17T09:33:11+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7845,7 +7850,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/memo/</loc>
-    <lastmod>2018-05-15T14:32:36+09:00</lastmod>
+    <lastmod>2018-05-17T09:33:11+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7869,7 +7874,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-05-15T14:32:36+09:00</lastmod>
+    <lastmod>2018-05-17T09:33:11+09:00</lastmod>
     <priority>0</priority>
   </url>
   
