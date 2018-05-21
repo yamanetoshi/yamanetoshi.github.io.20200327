@@ -6,10 +6,27 @@
     <description>Recent content in Angular on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 08 May 2018 14:01:49 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 21 May 2018 18:57:36 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/categories/angular/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Overview</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/05/21/overview/</link>
+      <pubDate>Mon, 21 May 2018 18:57:36 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/05/21/overview/</guid>
+      <description>&lt;p&gt;以下なドキュメントを機械翻訳にかけて確認してみたので控えをこちらにも保存してみます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/overview&#34;&gt;Overview&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以降のナニについても順に投入の方向にて。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Angular Testing Guide</title>
