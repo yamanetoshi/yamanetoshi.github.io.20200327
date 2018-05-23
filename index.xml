@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 21 May 2018 18:57:36 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 23 May 2018 19:42:00 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Jasmine and Karma</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/05/23/jasmine-and-karma/</link>
+      <pubDate>Wed, 23 May 2018 19:42:00 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/05/23/jasmine-and-karma/</guid>
+      <description>&lt;p&gt;以下なドキュメント機械翻訳控えを投入。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/jasmine-and-karma/&#34;&gt;Jasmine and Karma&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Overview</title>

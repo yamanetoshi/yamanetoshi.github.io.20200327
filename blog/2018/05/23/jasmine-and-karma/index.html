@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Jasmine and Karma</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">May 23, 2018
+         - 9 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/05/23/jasmine-and-karma/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/angular/">Angular </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Jasmine and Karma 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメント機械翻訳控えを投入。</p>
+
+<ul>
+<li><a href="https://codecraft.tv/courses/angular/unit-testing/jasmine-and-karma/">Jasmine and Karma</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="jasmine-and-karma">Jasmine and Karma</h2>
+
+<p>純粋なjavascript関数を記述して実行することで、Angularアプリケーションを最初からテストすることができます。 関連するクラスのインスタンスを作成し、関数を呼び出し、実際の結果と期待される結果を確認します。</p>
+
+<p>しかし、テストはjavascriptのような共通のアクティビティなので、テストを書くのにかかる時間を短縮するために使用できる多数のテストライブラリとフレームワークがあります。</p>
+
+<p>Angularのテストに使用されるツールとフレームワークの2つがJasmineとKarmaであり、それらの議論がこの講義のトピックです。</p>
+
+<h2 id="learning-objectives">Learning Objectives</h2>
+
+<ul>
+<li>Jasmine test framework とは何ですか？</li>
+<li>Jasmine でテストを書くには？</li>
+<li>Karma test runner とは何ですか？</li>
+<li>Angular CLIを使用してテストを作成して実行するにはどうすればよいですか？</li>
+
+<li><p>Plunkerでテストを作成して実行するには？</p>
+
+<h2 id="jasmine">Jasmine</h2></li>
+</ul>
+
+<p>Jasmineは、Behavior Driven Development（BDD）と呼ばれるソフトウェア開発の実践をサポートするjavascriptのテストフレームワークです。 それはテスト駆動開発（TDD）の特定の風味です。</p>
+
+<p>Jasmine、BDDは一般に、人間が読める形式でテストを記述しようとするため、技術者以外の人が何がテストされているのかを理解することができます。 しかし、BDD形式の技術的な読み上げテストであっても、何が起こっているのかを理解するのがずっと簡単です。</p>
+
+<p>たとえば、この関数をテストする場合は次のようになります。</p>
+
+<pre><code>function helloWorld() {
+  return 'Hello world!';
+}
+</code></pre>
+
+<p>次のようなジャスミンテスト仕様を書いてみましょう：</p>
+
+<pre><code>describe('Hello world', () =&gt; {  // 1.
+  it('says hello', () =&gt; {  // 2.
+    expect(helloWorld())  // 3.
+        .toEqual('Hello world!');  // 4.
+  });
+});
+</code></pre>
+
+<ol>
+<li>describe（string、function）関数は、個々のテスト仕様の集合であるテストスイートと呼ばれるものを定義します。</li>
+<li>it（string、function）関数は個々のTest Specを定義します。これは1つ以上のTest Expectationsを含みます。</li>
+<li>expect（実際の）式は、Expectationと呼ばれるものです。 Matcherと組み合わせることで、アプリケーションで予想される動作が記述されます。</li>
+
+<li><p>matcher（expected）式はMatcherと呼ばれるものです。 これは、渡された期待値と期待値関数とに渡された実際の値との論理比較を行い、偽の場合にはその仕様が失敗します。</p>
+
+<h2 id="built-in-matchers">Built-in matchers</h2></li>
+</ol>
+
+<p>ジャスミンには、いくつかの事前に作られたマッチャーが付属しています。</p>
+
+<pre><code>expect(array).toContain(member);
+expect(fn).toThrow(string);
+expect(fn).toThrowError(string);
+expect(instance).toBe(instance);
+expect(mixed).toBeDefined();
+expect(mixed).toBeFalsy();
+expect(mixed).toBeNull();
+expect(mixed).toBeTruthy();
+expect(mixed).toBeUndefined();
+expect(mixed).toEqual(mixed);
+expect(mixed).toMatch(pattern);
+expect(number).toBeCloseTo(number, decimalPlaces);
+expect(number).toBeGreaterThan(number);
+expect(number).toBeLessThan(number);
+expect(number).toBeNaN();
+expect(spy).toHaveBeenCalled();
+expect(spy).toHaveBeenCalledTimes(number);
+expect(spy).toHaveBeenCalledWith(...arguments);
+</code></pre>
+
+<p>ここでジャスミンのドキュメントを見ると、これらのマッチャーがどのように使用されているかの具体的な例を見ることができます：
+<a href="http://jasmine.github.io/edge/introduction.html#section-Included_Matchers">http://jasmine.github.io/edge/introduction.html#section-Included_Matchers</a></p>
+
+<h2 id="setup-and-teardown">Setup and teardown</h2>
+
+<p>場合によっては、設定を行う必要があるフィーチャをテストするために、テストオブジェクトを作成することがあります。 また、テストが終了した後で、いくつかのファイルを削除する必要があるかもしれません。</p>
+
+<p>これらのアクティビティはセットアップとティアダウン（クリーンアップ）と呼ばれ、ジャスミンにはこれを簡単にするために使用できるいくつかの機能があります。</p>
+
+<p><strong>beforeAll</strong>
+この関数は、記述されたテストスイート内のすべての仕様が実行される前に、一度呼び出されます。</p>
+
+<p><strong>afterAll</strong>
+この関数は、テストスイート内のすべての仕様が完了した後に一度呼び出されます。</p>
+
+<p><strong>beforeEach</strong>
+この関数は、実行された各テスト仕様が機能する前に呼び出されます。</p>
+
+<p><strong>afterEach</strong>
+この関数は、各テスト仕様が実行された後に呼び出されます。</p>
+
+<p>これらの関数は次のように使用できます。</p>
+
+<pre><code>describe('Hello world', () =&gt; {
+
+  let expected = &quot;&quot;;
+
+  beforeEach(() =&gt; {
+    expected = &quot;Hello World&quot;;
+  });
+
+  afterEach(() =&gt; {
+    expected = &quot;&quot;;
+  });
+
+  it('says hello', () =&gt; {
+    expect(helloWorld())
+        .toEqual(expected);
+  });
+});
+</code></pre>
+
+<h2 id="running-jasmine-tests">Running Jasmine tests</h2>
+
+<p>ジャスミンテストを手動で実行するには、HTMLファイルを作成し、必要なjasmine javascriptファイルとcssファイルを次のように組み込みます。</p>
+
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;jasmine.css&quot;&gt;
+&lt;script src=&quot;jasmine.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;jasmine-html.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;boot.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+
+<p>hello world関数がmain.jsにある場合など、テストしたいアプリケーションコードの部分をロードします。</p>
+
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;jasmine.css&quot;&gt;
+&lt;script src=&quot;jasmine.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;jasmine-html.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;boot.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;main.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+
+<blockquote>
+<p>重要
+スクリプトタグの順序は重要です。</p>
+</blockquote>
+
+<p>次に、個々のテストスイートファイルをロードします。たとえば、上記のテストスイートコードをtest.jsというファイルに配置した場合、次のようにロードします。</p>
+
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;jasmine.css&quot;&gt;
+&lt;script src=&quot;jasmine.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;jasmine-html.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;boot.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;main.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;test.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+
+<p>テストを実行するには、単にブラウザでHTMLファイルを開きます。</p>
+
+<p>スクリプトとリンクを介して要求されたすべてのファイルがブラウザによってロードされると、関数window.onloadが呼び出されます。これはJasmineが実際にテストを実行するときです。</p>
+
+<p>結果はブラウザウィンドウに表示され、失敗した実行は次のようになります。</p>
+
+<p><img src="https://codecraft.tv/assets/images/courses/angular/13.unit-testing/jasmine-fail.png" alt="jasmine fail" /></p>
+
+<p>パスした場合は次のようになります。</p>
+
+<p><img src="https://codecraft.tv/assets/images/courses/angular/13.unit-testing/jasmine-pass.png" alt="jasmine pass" /></p>
+
+<p>異なるブラウザでコードをテストする場合は、テストするブラウザにHTMLファイルをロードするだけです。</p>
+
+<p>コードをデバッグしたい場合は、そのブラウザで利用可能な開発ツールを使用します。</p>
+
+<h2 id="karma">Karma</h2>
+
+<p>コードを編集するたびにブラウザのタブでブラウザのタブを繰り返しリフレッシュして手動でJasmineテストを実行すると、面倒な作業になる可能性があります。</p>
+
+<p>カルマは、ブラウザを起動し、コマンドラインからジャスミンテストを実行するためのツールです。 テストの結果は、コマンドラインにも表示されます。</p>
+
+<p>Karmaは開発ファイルを見て変更を確認し、テストを自動的に再実行することもできます。</p>
+
+<p>Karmaでは、開発ツールチェーンの一環としてジャスミンテストを実行することができます。開発ツールチェーンでは、テストを実行可能にし、結果をコマンドラインで調べる必要があります。</p>
+
+<p>カルマの仕組みの内部を知る必要はありません。 Angular CLIを使用している場合は、この設定を処理します。このセクションの残りの部分では、Jasmineのみを使用してテストを実行します。</p>
+
+<h2 id="angular-cli">Angular CLI</h2>
+
+<p>Angular CLIを使用してAngularプロジェクトを作成する場合は、デフォルトでJasmineとKarmaを使用してユニットテストを作成して実行します。</p>
+
+<p>CLIを使用してファイルを作成し、メインコードファイルを作成するたびに、メインコードファイルと同じ名前の単純なジャスミン仕様ファイルが作成されますが、末尾は.spec.tsです。</p>
+
+<p>次のようにCLIを使ってPipeを作成した場合：</p>
+
+<pre><code>ng generate pipe My
+</code></pre>
+
+<p>これにより、2つのファイルが作成されます。</p>
+
+<ul>
+<li>my-pipe.ts - これはメインコードファイルで、パイプのコードを記述します。</li>
+<li>my-pipe.spec.ts - パイプ用のジャスミンテストスイートです。</li>
+</ul>
+
+<p>スペックファイルには、既に次のようないくつかのコードがブートストラップされています：</p>
+
+<pre><code>/* tslint:disable:no-unused-variable */
+
+import { TestBed, async } from '@angular/core/testing';
+import { MyPipe } from './my.pipe';
+
+describe('Pipe: My', () =&gt; {
+  it('create an instance', () =&gt; {
+    let pipe = new MyPipe();
+    expect(pipe).toBeTruthy();
+  });
+});
+</code></pre>
+
+<blockquote>
+<p>注意
+ブートストラップされるコードは、作成するアイテムによって異なります。</p>
+</blockquote>
+
+<p>アプリケーションですべてのテストを実行するには、プロジェクトルートにng testと入力するだけです。</p>
+
+<p>これはカルマを経てJasmineでプロジェクトのすべてのテストを実行します。</p>
+
+<p>開発ファイルの変更を監視し、すべての開発者ファイルをまとめてバンドルし、テストを自動的に再実行します。</p>
+
+<h2 id="angular-plunker">Angular Plunker</h2>
+
+<p>実際のAngularアプリケーションを作成するときは、Angular CLIで定義されたファイルとフォルダ構造だけでなく、組み込みテストランナーを使用することをお勧めします。</p>
+
+<p>しかし、このセクションでは、コードを表示して再生する簡単な方法を提供するために、Jasmineのみを使用し、ブラウザをリフレッシュしてテストを実行します。</p>
+
+<p>これで、このコースの他のすべてのセクションで行ったように、Plunker経由でコードを簡単に共有できます。</p>
+
+<p>Angular Jasmine Plunkerは、いくつかの主要な違いから通常のJasmine Plunker appartと非常によく似ています。</p>
+
+<ol>
+<li>また、必要なAngularライブラリとJasmine用のパッチも含まれていますので、Angularでよりうまく動作します。
+<script src="https://unpkg.com/systemjs@0.19.27/dist/system.src.js"></script>
+<script src="https://unpkg.com/reflect-metadata@0.1.3"></script>
+<script src="https://unpkg.com/zone.js@0.6.25?main=browser"></script>
+<script src="https://unpkg.com/zone.js/dist/long-stack-trace-zone.js?main=browser"></script>
+<script src="https://unpkg.com/zone.js/dist/proxy.js?main=browser"></script>
+<script src="https://unpkg.com/zone.js/dist/sync-test.js?main=browser"></script>
+<script src="https://unpkg.com/zone.js/dist/jasmine-patch.js?main=browser"></script>
+<script src="https://unpkg.com/zone.js/dist/async-test.js?main=browser"></script>
+<script src="https://unpkg.com/zone.js/dist/fake-async-test.js?main=browser"></script></li>
+<li>次に、テストするspecファイルをspec_filesという特別な配列に追加します。
+var <strong>spec_files</strong> = [  &lsquo;app/auth.service.spec&rsquo;];</li>
+<li>次に、変換されたファイルをブラウザに転送して読み込んだら、テスト仕様の実行をトリガーするshim javascriptファイルをロードします。
+<script src="browser-test-shim.js"></script></li>
+</ol>
+
+<h2 id="disabled-and-focused-test">Disabled and focused test</h2>
+
+<p>あなたは私たちにコメントすることなくテストを無効にすることができます。単にxを記述や関数に先行するだけです：</p>
+
+<pre><code>xdescribe('Hello world', () =&gt; {  // 1.
+  xit('says hello', () =&gt; {  // 1.
+    expect(helloWorld())
+        .toEqual('Hello world!');
+  });
+});
+</code></pre>
+
+<ol>
+<li>これらのテストは実行されません。</li>
+</ol>
+
+<p>逆に、fで事前に保留することで特定のテストに集中することもできます：</p>
+
+<pre><code>fdescribe('Hello world', () =&gt; {  // 1.
+  fit('says hello', () =&gt; {  // 1.
+    expect(helloWorld())
+        .toEqual('Hello world!');
+  });
+});
+</code></pre>
+
+<ol>
+<li><p>すべてのテストスイートとテスト仕様のすべてのテストのうち、これらは実行される唯一のものです。</p>
+
+<h2 id="summary">Summary</h2></li>
+</ol>
+
+<p>JasmineはBehavior Driven Developmentをサポートするテストフレームワークです。 テストスイートには、1つまたは複数のテスト仕様で構成されたテストが書き込まれます。これらのテスト仕様自体は、1つまたは複数のテストの期待から構成されています。</p>
+
+<p>HTMLファイルを設定して読み込むことで、ブラウザでJasmineテストを実行できますが、より一般的にはKarmaというコマンドラインツールを使用します。 Karmaは、HTMLファイルの作成、ブラウザの起動、テストの実行、およびそれらのテストの結果のコマンドラインへの返信処理を処理します。</p>
+
+<p>Angular CLIを使用してプロジェクトを管理すると、コード生成時に自動的にスタブジャスミン仕様ファイルが作成されます。 また、カラマの設定、ファイルの転送とバンドルを処理するので、テストを実行するために必要な作業は、コマンドng testと入力します。</p>
+
+<p>このセクションでは、簡単なブラウザベースのJasmineテストランナーを使用していますので、コードを簡単に共有することができます。</p>
+
+<h2 id="listing">Listing</h2>
+
+<p><a href="http://plnkr.co/edit/8ApdkvletoEc4Q0maXSN?p=preview">http://plnkr.co/edit/8ApdkvletoEc4Q0maXSN?p=preview</a></p>
+
+<p><em>Listing 1. index.html</em></p>
+
+<pre><code>&lt;!-- Run application specs in a browser --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Jasmine Running&lt;/title&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.4.1/jasmine.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.4.1/jasmine.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.4.1/jasmine-html.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.4.1/boot.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;main.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;test.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+
+<p><em>Listing 2. main.js</em></p>
+
+<pre><code>function helloWorld() {
+  return 'Hello world!';
+}
+</code></pre>
+
+<p><em>Listing 3. test.js</em></p>
+
+<pre><code>describe('Hello world', () =&gt; {
+
+  let expected = &quot;&quot;;
+
+  beforeEach(() =&gt; {
+    expected = &quot;Hello world!&quot;;
+  });
+
+  afterEach(() =&gt; {
+    expected = &quot;&quot;;
+  });
+
+  it('says hello', () =&gt; {
+    expect(helloWorld())
+        .toEqual(expected);
+  });
+});
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>May 23, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/05/21/overview/" title="Overview">Overview</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/05/23/jasmine-and-karma/">Jasmine and Karma</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/21/overview/">Overview</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/17/sakae-machi/">栄町</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/15/memo/">那覇市徒歩移動メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/08/memo/">Android のパケジ名変更メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/08/angular-testing/">Angular Testing Guide</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/02/agm-memo/">agm 云々</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/04/25/getting-google-calendar-data/">Python から Google Calendar のデータを入手する実装</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/04/24/r-i-p-kinu-san/">キヌさん</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/04/11/goldfish/">金魚</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
