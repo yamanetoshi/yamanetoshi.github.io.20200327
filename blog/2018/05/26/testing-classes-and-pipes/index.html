@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Testing Classes &amp; Pipes</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">May 26, 2018
+         - 5 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/05/26/testing-classes-and-pipes/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/angular/">Angular </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Testing Classes &amp; Pipes 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメント機械翻訳控えを投入。</p>
+
+<ul>
+<li><a href="https://codecraft.tv/courses/angular/unit-testing/classes-and-pipes/">Testing Classes &amp; Pipes</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="testing-classes-pipes">Testing Classes &amp; Pipes</h2>
+
+<h2 id="learning-objectives">Learning Objectives</h2>
+
+<ul>
+<li>クラスのインスタンスを単体テストする方法。</li>
+</ul>
+
+<h2 id="sample-class-test-suite">Sample class &amp; test suite</h2>
+
+<p>あなたが知る必要があること、クラスをテストする方法、ユニットテストの旅を始めます。</p>
+
+<blockquote>
+<p>Tip
+Angularのすべては、コンポーネント、ディレクティブ、パイプなどのクラスのインスタンスです。 だから、基本クラスをテストする方法が分かれば、すべてをテストできます。</p>
+</blockquote>
+
+<p>AuthServiceという単純なクラスがあるとしましょう。これは、Angulars DIフレームワークに提供したいものですが、テストする方法には関係しません。</p>
+
+<p><em>Listing 1. app/auth.service.ts</em></p>
+
+<pre><code>export class AuthService {
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
+}
+</code></pre>
+
+<p>isAuthenticatedという1つの関数があり、ブラウザlocalStorageにトークンが格納されている場合はtrueを返します。</p>
+
+<p>このクラスをテストするために、auth.service.tsファイルの隣にあるauth.service.spec.tsというテストファイルを作成します。</p>
+
+<p><em>Listing 2. app/auth.service.spec.ts</em></p>
+
+<pre><code>import {AuthService} from './auth.service';  // 1.
+
+describe('Service: Auth', () =&gt; {  // 2.
+});
+</code></pre>
+
+<ol>
+<li>まず、テストを実行するAuthServiceクラスをインポートします。</li>
+
+<li><p>個々のテスト仕様をすべて保持するテストスイート機能の記述を追加します。</p>
+
+<h2 id="setup-teardown">Setup &amp; teardown</h2></li>
+</ol>
+
+<p>beforeEach関数とafterEach関数を使用してインスタンスを設定してクリーンアップするため、AuthServiceの新しいインスタンスに対してテスト仕様を実行する必要があります。</p>
+
+<p><em>Listing 3. app/auth.service.spec.ts</em></p>
+
+<pre><code>describe('Service: Auth', () =&gt; {
+  let service: AuthService;
+
+  beforeEach(() =&gt; {  // 1.
+    service = new AuthService();
+  });
+
+  afterEach(() =&gt; {  // 2.
+    service = null;
+    localStorage.removeItem('token');
+  });
+});
+</code></pre>
+
+<ol>
+<li>各テスト仕様を実行する前に、AuthServiceの新しいインスタンスを作成し、サービス変数に格納します。</li>
+<li>各テスト仕様が終了した後、私たちはサービスを無効にし、localStorageに保存したトークンもすべて削除します。</li>
+</ol>
+
+<h2 id="creating-test-specs">Creating test specs</h2>
+
+<p>ここで、いくつかのテスト仕様を作成します。作成する最初の仕様は、トークンがあるときにisAuthenticated関数がtrueを返すかどうかを確認する必要があります。</p>
+
+<pre><code>it('should return true from isAuthenticated when there is a token', () =&gt; {  // 1.
+  localStorage.setItem('token', '1234');  // 2.
+  expect(service.isAuthenticated()).toBeTruthy();  // 3.
+});
+</code></pre>
+
+<ol>
+<li>私たちは it 関数に私たちがテストしているものの人間が読める記述を渡します。 これはテストレポートに示されており、どの機能が動作していないのかを簡単に理解できます。</li>
+<li>私たちは、私たちが望む効果を引き起こすはずのローカルストレージにいくつかの仕様のみのデータを設定しました。</li>
+<li>service.isAuthenticated（）関数がtrueに解決する何かを返すという期待をテストします。</li>
+</ol>
+
+<p>また、トークンが存在しない場合に関数がfalseを返す必要がある場合、逆の場合をテストします。</p>
+
+<pre><code>it('should return false from isAuthenticated when there is no token', () =&gt; {
+  expect(service.isAuthenticated()).toBeFalsy();
+});
+</code></pre>
+
+<p>この関数では、afterEach関数でトークンをクリアすることを確認しているので、トークンは設定されていません。</p>
+
+<p>今、service.isAuthenticated（）関数がfalseに解決する何かを返すとの期待をテストします。</p>
+
+<h2 id="running-the-tests">Running the tests</h2>
+
+<p>テストを実行するには、単にブラウザでHTMLファイルを開きます。単にプランカリンクをクリックし、ツールバーのrunを押すことができます。</p>
+
+<p><img src="https://codecraft.tv/assets/images/courses/angular/13.unit-testing/class-suite-pass.png" alt="class suite pass" /></p>
+
+<h2 id="pipes">Pipes</h2>
+
+<p>パイプはAngularのはるかに単純な部分ですが、1つの関数を持つクラスとして実装できるため、これまでに得られた知識だけでなく、ジャスミンだけでテストすることができます。</p>
+
+<p>DefaultPipeというパイプを作成したパイプのセクションでは、このパイプを使用してテンプレートの変数のデフォルト値を提供することができます。</p>
+
+<pre><code>{{ image | default:&quot;http://example.com/default-image.png&quot; }}
+</code></pre>
+
+<p>このパイプのコードは次のようになっています：</p>
+
+<pre><code>import {Pipe, PipeTransform} from '@angular/core';
+
+@Pipe({
+  name: 'default'
+})
+export class DefaultPipe implements PipeTransform {
+
+  transform(value: string, fallback: string, forceHttps: boolean = false): string {
+    let image = &quot;&quot;;
+    if (value) {
+      image = value;
+    } else {
+      image = fallback;
+    }
+    if (forceHttps) {
+      if (image.indexOf(&quot;https&quot;) == -1) {
+        image = image.replace(&quot;http&quot;, &quot;https&quot;);
+      }
+    }
+    return image;
+  }
+}
+</code></pre>
+
+<p>開始テストスイートファイルは次のようになります：</p>
+
+<pre><code>describe('Pipe: Default', () =&gt; {
+  let pipe: DefaultPipe;
+
+  beforeEach(() =&gt; {
+    pipe = new DefaultPipe();
+  });
+});
+</code></pre>
+
+<p>セットアップ関数では、パイプクラスのインスタンスを作成します。</p>
+
+<p>パイプクラスにはtransformと呼ばれる関数が1つあります。パイプをテストするには、入力と出力を渡してこの関数をテストするだけです。</p>
+
+<p>私たちの最初のテスト仕様では、パイプが入力を受け取らない場合、次のようにデフォルト値を返します：</p>
+
+<pre><code>it('providing no value returns fallback', () =&gt; {
+  expect(pipe.transform('', 'http://place-hold.it/300')).toBe('http://place-hold.it/300');
+});
+</code></pre>
+
+<p>変換関数への入力として空文字列を渡すので、2番目の引数が返されます。</p>
+
+<p>パイプをテストするためにそれほど多くのことはありません。変換関数のさまざまな入力と予想される出力をチェックするだけです。</p>
+
+<blockquote>
+<p>注
+このテスト仕様ファイルをテストPlunkerで実行するには、それをspec_files配列のテスト仕様ファイルのリストに追加してください。</p>
+
+<p>Tip
+パイプにコンストラクタに依存関係を注入する必要がある場合は、このセクションで後述する Angular TestBed を使用する方がよいでしょう。</p>
+
+<h2 id="summary">Summary</h2>
+</blockquote>
+
+<p>それは本当に、単純なジャスミン仕様ファイルで何も必要ない分離されたクラスをテストすることができます。複雑なものは必要ありません。</p>
+
+<p>Angularのすべてがクラスとして表現されているので、ここでは止めることができます。ほとんどのツールは、すでにディレクティブ、コンポーネント、パイプなどのテストを記述しています。</p>
+
+<p>しかし、私たちのコードはしばしば他のコードを動作させる必要があります。 だから、自然に分離されておらず、依存関係が必要なコードのための分離されたテストを書く方法は、次の講義の話題です。</p>
+
+<h2 id="listing">Listing</h2>
+
+<p><em>Listing 4. auth.service.ts</em></p>
+
+<pre><code>export class AuthService {
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
+}
+</code></pre>
+
+<p><em>Listing 5. auth.service.spec.ts</em></p>
+
+<pre><code>import {AuthService} from './auth.service';
+
+describe('Service: Auth', () =&gt; {
+
+  let service: AuthService;
+
+  beforeEach(() =&gt; {
+    service = new AuthService();
+  });
+
+  afterEach(() =&gt; {
+    service = null;
+    localStorage.removeItem('token');
+  });
+
+  it('should return true from isAuthenticated when there is a token', () =&gt; {
+    localStorage.setItem('token', '1234');
+    expect(service.isAuthenticated()).toBeTruthy();
+  });
+
+  it('should return false from isAuthenticated when there is no token', () =&gt; {
+    expect(service.isAuthenticated()).toBeFalsy();
+  });
+
+});
+</code></pre>
+
+<p><em>Listing 6. default.pipe.ts</em></p>
+
+<pre><code>import {Pipe, PipeTransform} from '@angular/core';
+
+@Pipe({
+  name: 'default'
+})
+export class DefaultPipe implements PipeTransform {
+
+  transform(value: string, fallback: string, forceHttps: boolean = false): string {
+    let image = &quot;&quot;;
+    if (value) {
+      image = value;
+    } else {
+      image = fallback;
+    }
+    if (forceHttps) {
+      if (image.indexOf(&quot;https&quot;) == -1) {
+        image = image.replace(&quot;http&quot;, &quot;https&quot;);
+      }
+    }
+    return image;
+  }
+}
+</code></pre>
+
+<p><em>Listing 7. default.pipe.spec.ts</em></p>
+
+<pre><code>/* tslint:disable:no-unused-variable */
+
+import {DefaultPipe} from './default.pipe';
+
+describe('Pipe: Default', () =&gt; {
+  let pipe: DefaultPipe;
+
+  beforeEach(() =&gt; {
+    pipe = new DefaultPipe();
+  });
+
+  it('providing no value returns fallback', () =&gt; {
+    expect(pipe.transform('', 'http://place-hold.it/300')).toBe('http://place-hold.it/300');
+  });
+
+  it('providing a value returns value', () =&gt; {
+    expect(pipe.transform('http://place-hold.it/300', 'fallback')).toBe('http://place-hold.it/300');
+  });
+
+  it('asking for https returns https', () =&gt; {
+    expect(pipe.transform('', 'http://place-hold.it/300', true)).toBe('https://place-hold.it/300');
+  });
+});
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>May 26, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/05/23/jasmine-and-karma/" title="Jasmine and Karma">Jasmine and Karma</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/05/26/testing-classes-and-pipes/">Testing Classes &amp; Pipes</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/23/jasmine-and-karma/">Jasmine and Karma</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/21/overview/">Overview</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/17/sakae-machi/">栄町</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/15/memo/">那覇市徒歩移動メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/08/memo/">Android のパケジ名変更メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/08/angular-testing/">Angular Testing Guide</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/02/agm-memo/">agm 云々</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/04/25/getting-google-calendar-data/">Python から Google Calendar のデータを入手する実装</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/04/24/r-i-p-kinu-san/">キヌさん</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

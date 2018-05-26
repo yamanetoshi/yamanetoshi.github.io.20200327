@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 23 May 2018 19:42:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 26 May 2018 15:14:52 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Testing Classes &amp; Pipes</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/05/26/testing-classes-and-pipes/</link>
+      <pubDate>Sat, 26 May 2018 15:14:52 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/05/26/testing-classes-and-pipes/</guid>
+      <description>&lt;p&gt;以下なドキュメント機械翻訳控えを投入。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/classes-and-pipes/&#34;&gt;Testing Classes &amp;amp; Pipes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Jasmine and Karma</title>
