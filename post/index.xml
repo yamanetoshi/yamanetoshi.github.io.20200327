@@ -6,10 +6,21 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 26 May 2018 15:14:52 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 30 May 2018 20:57:43 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Amazon Kindle Unlimited の領収</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/05/30/amazon-kindle-unlimited-receipt/</link>
+      <pubDate>Wed, 30 May 2018 20:57:43 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/05/30/amazon-kindle-unlimited-receipt/</guid>
+      <description>&lt;p&gt;領収確保の方法が分からなくて問合せしたのですが忘れそうなので自分メモ&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Testing Classes &amp; Pipes</title>
