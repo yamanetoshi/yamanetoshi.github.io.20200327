@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/06/01/kotlin-codelab/</loc>
+    <lastmod>2018-06-01T09:15:22+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/05/30/amazon-kindle-unlimited-receipt/</loc>
     <lastmod>2018-05-30T20:57:43+09:00</lastmod>
   </url>
@@ -7714,13 +7719,13 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-05-30T20:57:43+09:00</lastmod>
+    <lastmod>2018-06-01T09:15:22+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/android/</loc>
-    <lastmod>2018-05-08T14:01:49+09:00</lastmod>
+    <lastmod>2018-06-01T09:15:22+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7738,7 +7743,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/</loc>
-    <lastmod>2018-05-08T14:01:49+09:00</lastmod>
+    <lastmod>2018-06-01T09:15:22+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7857,6 +7862,12 @@
   </url>
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/categories/kotlin/</loc>
+    <lastmod>2018-06-01T09:15:22+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/linux/</loc>
     <lastmod>2018-03-06T21:33:35+09:00</lastmod>
     <priority>0</priority>
@@ -7894,7 +7905,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-05-30T20:57:43+09:00</lastmod>
+    <lastmod>2018-06-01T09:15:22+09:00</lastmod>
     <priority>0</priority>
   </url>
   

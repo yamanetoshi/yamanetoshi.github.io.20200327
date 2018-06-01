@@ -6,10 +6,27 @@
     <description>Recent content in Android on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 08 May 2018 14:01:49 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 01 Jun 2018 09:15:22 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/categories/android/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kotlin Codelab</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/06/01/kotlin-codelab/</link>
+      <pubDate>Fri, 01 Jun 2018 09:15:22 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/06/01/kotlin-codelab/</guid>
+      <description>&lt;p&gt;あんざいゆきさんの以下の tweet を見かけまして&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/yanzm/status/1001800819946094592&#34;&gt;https://twitter.com/yanzm/status/1001800819946094592&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;これはいいな、と思っている次第。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Android のパケジ名変更メモ</title>
