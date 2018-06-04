@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Testing With Mocks and Spies</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 4, 2018
+         - 7 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/06/04/testing-with-mocks-and-spies/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/angular/">Angular </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Testing With Mocks and Spies 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメント機械翻訳控えを投入。</p>
+
+<ul>
+<li><a href="https://codecraft.tv/courses/angular/unit-testing/mocks-and-spies/">Testing with Mocks &amp; Spies</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="testing-with-mocks-spies">Testing with Mocks &amp; Spies</h2>
+
+<p>この講義では、Mockを使用して独立性のあるクラスをテストする方法について説明します。</p>
+
+<h2 id="learning-objectives">Learning objectives</h2>
+
+<ul>
+<li>偽のクラスでモックする方法。</li>
+<li>クラスをオーバーライドして関数をオーバーライドする方法。</li>
+
+<li><p>実際のインスタンスとスパイを使って模擬する方法。</p>
+
+<h2 id="sample-code">Sample code</h2></li>
+</ul>
+
+<p>前の講義でテストしたAuthServiceで動作するLoginComponentがあるとしましょう。</p>
+
+<p><em>Listing 1. login.component.ts</em></p>
+
+<pre><code>import {Component} from '@angular/core';
+import {AuthService} from &quot;./auth.service&quot;;
+
+@Component({
+  selector: 'app-login',
+  template: `&lt;a [hidden]=&quot;needsLogin()&quot;&gt;Login&lt;/a&gt;`
+})
+export class LoginComponent {
+
+  constructor(private auth: AuthService) {
+  }
+
+  needsLogin() {
+    return !this.auth.isAuthenticated();
+  }
+}
+</code></pre>
+
+<p>AuthServiceをLoginComponentに注入し、AuthServiceにユーザーが認証されていないと表示された場合、コンポーネントにLoginボタンが表示されます。</p>
+
+<p>AuthServiceは前の講義と同じです：</p>
+
+<p><em>Listing 2. auth.service.ts</em></p>
+
+<pre><code>export class AuthService {
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
+}
+</code></pre>
+
+<h2 id="testing-with-the-real-authservice">Testing with the real AuthService</h2>
+
+<p>AuthServiceの実際のインスタンスを使用してLoginComponentをテストできましたが、isAuthenticated関数のためにAuthServiceを真に戻すことを忘れた場合は、localStorage経由でデータを設定する必要がありました。</p>
+
+<pre><code>import {LoginComponent} from './login.component';
+import {AuthService} from &quot;./auth.service&quot;;
+
+describe('Component: Login', () =&gt; {
+
+  let component: LoginComponent;
+  let service: AuthService;
+
+  beforeEach(() =&gt; {  // 1.
+    service = new AuthService();
+    component = new LoginComponent(service);
+  });
+
+  afterEach(() =&gt; {  // 2.
+    localStorage.removeItem('token');
+    service = null;
+    component = null;
+  });
+
+
+  it('canLogin returns false when the user is not authenticated', () =&gt; {
+    expect(component.needsLogin()).toBeTruthy();
+  });
+
+  it('canLogin returns false when the user is not authenticated', () =&gt; {
+    localStorage.setItem('token', '12345');  // 3.
+    expect(component.needsLogin()).toBeFalsy();
+  });
+});
+</code></pre>
+
+<ol>
+<li>AuthServiceのインスタンスを作成し、それを作成するときにLoginComponentに注入します。</li>
+<li>各テスト仕様が実行された後、データとlocalStorageをクリーンアップします。</li>
+<li>AuthServiceから必要な動作を得るために、localStorageにいくつかのデータを設定しました。</li>
+</ol>
+
+<p>したがって、LoginComponentをテストするには、AuthServiceの内部動作を知る必要があります。</p>
+
+<p>それはあまり孤立していませんが、このシナリオではあまり頼りにしていません。しかし、LoginComponentが実行するために他の多くの依存関係を必要とする場合、LoginComponentをテストするために他の多くのクラスの内部動作を知る必要があります。</p>
+
+<p>その結果、タイトカップリングが起こり、テストが非常に脆くなり、容易に破損する可能性があります。たとえば、AuthServiceがトークンをどのように格納したかをlocalStorageからCookieに変更した場合、loginComponentテストはlocalStorageを介してトークンを設定するため、テストが中断されます。</p>
+
+<p>このため、クラスを独立してテストする必要があるのです.InterfaceComponentが頼りにしている無数のものではなく、LoginComponentについて心配したいだけです。</p>
+
+<p>私たちは依存関係を mocking することでこれを実現します。mocking は、依存関係のように見えるものを作成する行為ですが、テストで制御するものです。モックの作成にはいくつかの方法があります。</p>
+
+<h2 id="mocking-with-fake-classes">Mocking with fake classes</h2>
+
+<p>MockedAuthServiceという偽のAuthServiceを作成することができます。このサービスは、テストのために必要なものを返します。</p>
+
+<p>私たちが望むならAuthServiceのインポートを削除することもできます。本当に他のものに依存することはありません。 LoginComponentは単独でテストされます：</p>
+
+<pre><code>import {LoginComponent} from './login.component';
+
+class MockAuthService {  // 1.
+  authenticated = false;
+
+  isAuthenticated() {
+    return this.authenticated;
+  }
+}
+
+describe('Component: Login', () =&gt; {
+
+  let component: LoginComponent;
+  let service: MockAuthService;
+
+  beforeEach(() =&gt; {  // 2.
+    service = new MockAuthService();
+    component = new LoginComponent(service);
+  });
+
+  afterEach(() =&gt; {
+    service = null;
+    component = null;
+  });
+
+
+  it('canLogin returns false when the user is not authenticated', () =&gt; {
+    service.authenticated = false;  // 3.
+    expect(component.needsLogin()).toBeTruthy();
+  });
+
+  it('canLogin returns false when the user is not authenticated', () =&gt; {
+    service.authenticated = true;  // 3.
+    expect(component.needsLogin()).toBeFalsy();
+  });
+});
+</code></pre>
+
+<ol>
+<li>実際のAuthServiceクラスと同じisAuthenticated関数を持つMockAuthServiceというクラスを作成します。 1つの違いは、authenticatedプロパティの値を設定することによってisAuthenticatedが返すものを制御できることです。</li>
+<li>実際のAuthServiceではなくMockAuthServiceのインスタンスをLoginComponentに注入します。</li>
+<li>テストでは、認証されたプロパティを設定して、サービスから必要な動作をトリガします。</li>
+</ol>
+
+<p>偽のMockAuthServiceを使用することにより、</p>
+
+<ul>
+<li>実際のAuthServiceに依存しないでください。実際には、仕様にインポートする必要はありません。</li>
+
+<li><p>実際のAuthServiceの内部動作が変更された場合でも、テストは有効で依然として有効です。</p>
+
+<h2 id="mocking-by-overriding-functions">Mocking by overriding functions</h2></li>
+</ul>
+
+<p>実際のクラスの完全な擬似コピーを作成することは、複雑で時間がかかり、不要になることがあります。</p>
+
+<p>代わりに、単にクラスを拡張し、1つ以上の特定の関数をオーバーライドして、必要なテスト応答を返すようにすることができます。</p>
+
+<pre><code>class MockAuthService extends AuthService {
+  authenticated = false;
+
+  isAuthenticated() {
+    return this.authenticated;
+  }
+}
+</code></pre>
+
+<p>上のクラスでは、MockAuthServiceはAuthServiceを拡張しています。 AuthService上に存在する他のすべての関数やプロパティにアクセスできますが、isAuthenticated関数をオーバーライドするだけで簡単に動作を制御し、LoginComponentテストを分離することができます。</p>
+
+<blockquote>
+<p>注
+オーバーライド関数によるモックを使用するテストスイートの残りの部分は、偽のクラスを使用した以前のバージョンと同じです。</p>
+
+<h2 id="mock-by-using-a-real-instance-by-spy">Mock by using a real instance by Spy</h2>
+</blockquote>
+
+<p>スパイはJasmineの機能で、既存のクラス、関数、オブジェクトをモックして、関数から返されるものを制御できるようにします。</p>
+
+<p>代わりにAuthServiceの実際のインスタンスにスパイを使用するテストを書き直してみましょう。</p>
+
+<pre><code>import {LoginComponent} from './login.component';
+import {AuthService} from &quot;./auth.service&quot;;
+
+describe('Component: Login', () =&gt; {
+
+  let component: LoginComponent;
+  let service: AuthService;
+  let spy: any;
+
+  beforeEach(() =&gt; {  // 1.
+    service = new AuthService();
+    component = new LoginComponent(service);
+  });
+
+  afterEach(() =&gt; {  // 2.
+    service = null;
+    component = null;
+  });
+
+
+  it('canLogin returns false when the user is not authenticated', () =&gt; {
+    spy = spyOn(service, 'isAuthenticated').and.returnValue(false);  // 3.
+    expect(component.needsLogin()).toBeTruthy();
+    expect(service.isAuthenticated).toHaveBeenCalled();  // 4.
+
+  });
+
+  it('canLogin returns false when the user is not authenticated', () =&gt; {
+    spy = spyOn(service, 'isAuthenticated').and.returnValue(true);
+    expect(component.needsLogin()).toBeFalsy();
+    expect(service.isAuthenticated).toHaveBeenCalled();
+  });
+});
+</code></pre>
+
+<ol>
+<li>AuthServiceの実際のインスタンスを作成し、LoginComponentに注入します。</li>
+<li>ティアダウン機能では、トークンをlocalStorageから削除する必要はありません。</li>
+<li>isAuthenticated関数が呼び出された場合はfalseを返すように、サービス上にスパイを作成します。</li>
+<li>isAuthenticated関数が呼び出されたかどうかを確認することさえできます。</li>
+</ol>
+
+<p>ジャスミンのスパイ機能を使うことで、どんな関数でも必要なものを返すことができます：</p>
+
+<pre><code>spyOn(service, 'isAuthenticated').and.returnValue(false);
+</code></pre>
+
+<p>上記の例では、isAuthenticated関数は、必要に応じて各テスト仕様でfalseまたはtrueを返します。</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>依存関係の実際のインスタンスを使ったテストでは、テストコードが他のクラスの内部動作について知り、結果としてタイトなカップリングと脆弱なコードを生成します。</p>
+
+<p>目的は、依存関係の内部動作について知る必要なしに、コードを単体でテストすることです。</p>
+
+<p>私たちはMockを作成することでこれを行います。 既存のクラスを拡張するか、クラスの実際のインスタンスを使用することによって、偽のクラスを使用してMockを作成できますが、Spysでそれらを制御します。</p>
+
+<h2 id="listing">Listing</h2>
+
+<p><a href="http://plnkr.co/edit/08ppx8olCnTMpkPdW3eC?p=preview">http://plnkr.co/edit/08ppx8olCnTMpkPdW3eC?p=preview</a></p>
+
+<p><em>Listing 3. login.component.ts</em></p>
+
+<pre><code>import {Component} from '@angular/core';
+import {AuthService} from &quot;./auth.service&quot;;
+
+@Component({
+  selector: 'app-login',
+  template: `&lt;a [hidden]=&quot;needsLogin()&quot;&gt;Login&lt;/a&gt;`
+})
+export class LoginComponent {
+
+  constructor(private auth: AuthService) {
+  }
+
+  needsLogin() {
+    return !this.auth.isAuthenticated();
+  }
+}
+</code></pre>
+
+<p><em>Listing 4. login.component.spec.ts</em></p>
+
+<pre><code>/* tslint:disable:no-unused-variable */
+import {LoginComponent} from './login.component';
+import {AuthService} from &quot;./auth.service&quot;;
+
+describe('Component: Login', () =&gt; {
+
+  let component: LoginComponent;
+  let service: AuthService;
+  let spy: any;
+
+  beforeEach(() =&gt; {
+    service = new AuthService();
+    component = new LoginComponent(service);
+  });
+
+  afterEach(() =&gt; {
+    service = null;
+    component = null;
+  });
+
+
+  it('canLogin returns false when the user is not authenticated', () =&gt; {
+    spy = spyOn(service, 'isAuthenticated').and.returnValue(false);
+    expect(component.needsLogin()).toBeTruthy();
+    expect(service.isAuthenticated).toHaveBeenCalled();
+
+  });
+
+  it('canLogin returns false when the user is not authenticated', () =&gt; {
+    spy = spyOn(service, 'isAuthenticated').and.returnValue(true);
+    expect(component.needsLogin()).toBeFalsy();
+    expect(service.isAuthenticated).toHaveBeenCalled();
+  });
+});
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 4, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/06/01/kotlin-codelab/" title="Kotlin Codelab">Kotlin Codelab</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/06/04/testing-with-mocks-and-spies/">Testing With Mocks and Spies</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/01/kotlin-codelab/">Kotlin Codelab</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/30/amazon-kindle-unlimited-receipt/">Amazon Kindle Unlimited の領収</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/26/testing-classes-and-pipes/">Testing Classes &amp; Pipes</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/23/jasmine-and-karma/">Jasmine and Karma</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/21/overview/">Overview</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/17/sakae-machi/">栄町</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/15/memo/">那覇市徒歩移動メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/08/memo/">Android のパケジ名変更メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/08/angular-testing/">Angular Testing Guide</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

@@ -6,10 +6,25 @@
     <description>Recent content in Angular on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 26 May 2018 15:14:52 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 04 Jun 2018 19:22:09 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/categories/angular/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Testing With Mocks and Spies</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/06/04/testing-with-mocks-and-spies/</link>
+      <pubDate>Mon, 04 Jun 2018 19:22:09 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/06/04/testing-with-mocks-and-spies/</guid>
+      <description>&lt;p&gt;以下なドキュメント機械翻訳控えを投入。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/mocks-and-spies/&#34;&gt;Testing with Mocks &amp;amp; Spies&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Testing Classes &amp; Pipes</title>
