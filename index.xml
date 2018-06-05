@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 04 Jun 2018 19:22:09 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 05 Jun 2018 10:41:14 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Angular Test Bed</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/06/05/angular-test-bed/</link>
+      <pubDate>Tue, 05 Jun 2018 10:41:14 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/06/05/angular-test-bed/</guid>
+      <description>&lt;p&gt;以下なドキュメント機械翻訳控えを投入。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/angular-test-bed/&#34;&gt;Angular Test Bed&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Testing With Mocks and Spies</title>
