@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Testing Change Detection</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 6, 2018
+         - 5 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/06/06/testing-change-detection/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/angular/">Angular </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Testing Change Detection 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメント機械翻訳控えを投入。</p>
+
+<ul>
+<li><a href="https://codecraft.tv/courses/angular/unit-testing/change-detection/">Testing Change Detection</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="testing-change-detection">Testing Change Detection</h2>
+
+<p>Angular Test Bedを使用せずに、アプリケーショントリガの状態の変化がビュー内で変化するかどうかをテストしようとするのは複雑です。 しかし、ATBではずっと簡単です。</p>
+
+<p>この講義では、コンポーネントテンプレートとのやりとりを開始します。 ビュー内のバインディングが、コンポーネント内の変数が変更されたときに期待どおりに更新されることを確認するテストを追加します。</p>
+
+<h2 id="learning-objectives">Learning Objectives</h2>
+
+<ul>
+<li>コンポーネントビューを検査する方法。</li>
+
+<li><p>変更検出をトリガーして、コンポーネントがアプリケーションの状態変化に基づいて更新を表示する方法。</p>
+
+<h2 id="setup">Setup</h2></li>
+</ul>
+
+<p>以前の講義からLoginComponentをテストしていきますが、今度はテンプレートを更新して、LoginとLogoutの両方のボタンが表示されるようにします：</p>
+
+<pre><code>@Component({
+  selector: 'app-login',
+  template: `
+  &lt;a&gt;
+    &lt;span *ngIf=&quot;needsLogin()&quot;&gt;Login&lt;/span&gt;
+    &lt;span *ngIf=&quot;!needsLogin()&quot;&gt;Logout&lt;/span&gt;
+  &lt;/a&gt;
+`
+})
+export class LoginComponent {
+
+  constructor(private auth: AuthService) {
+  }
+
+  needsLogin() {
+    return !this.auth.isAuthenticated();
+  }
+}
+</code></pre>
+
+<p>私たちのテスト仕様ファイルは、最後の講義でのバージョンに近いところから始めます。</p>
+
+<pre><code>/* tslint:disable:no-unused-variable */
+import {TestBed, async, ComponentFixture} from '@angular/core/testing';
+import {LoginComponent} from './login.component';
+import {AuthService} from &quot;./auth.service&quot;;
+import {DebugElement} from &quot;@angular/core&quot;;    // 1.
+import {By} from &quot;@angular/platform-browser&quot;;  // 1.
+
+describe('Component: Login', () =&gt; {
+
+  let component: LoginComponent;
+  let fixture: ComponentFixture&lt;LoginComponent&gt;;
+  let authService: AuthService;
+  let el: DebugElement;  // 2.
+
+  beforeEach(() =&gt; {
+
+    // refine the test module by declaring the test component
+    TestBed.configureTestingModule({
+      declarations: [LoginComponent],
+      providers: [AuthService]
+    });
+
+    // create component and test fixture
+    fixture = TestBed.createComponent(LoginComponent);
+
+    // get test component from the fixture
+    component = fixture.componentInstance;
+
+    // UserService provided to the TestBed
+    authService = TestBed.get(AuthService);
+
+    //  get the &quot;a&quot; element by CSS selector (e.g., by class name)
+    el = fixture.debugElement.query(By.css('a'));  // 3.
+  });
+});
+</code></pre>
+
+<ol>
+<li>コンポーネントビュー、DebugElement、およびByと対話するときに必要ないくつかのクラスをインポートしました。</li>
+<li>DebugElementというものを保持するelという別の変数があります。</li>
+<li>私たちはel変数にDOM要素への参照を格納します。</li>
+</ol>
+
+<p>Fixtureは、コンポーネントのインスタンスを保持するだけでなく、DebugElementという名前のリファレンスも保持します。これは、debugElementプロパティを使用してコンポーネントビューを表す低レベルのDOM要素へのラッパーです。</p>
+
+<p>このdebugElementをByクラスで照会することによって、他の子ノードへの参照を取得できます。 Byクラスは、いくつかのメソッドを使用してクエリーを実行します。1つは、この例ではBy.directive（MyDirective）のようなディレクティブのタイプによってリクエストする方法です。</p>
+
+<p>コンポーネントビューにあるaタグへの参照を要求します。これは、AuthServiceからユーザーが認証されているかどうかによって、ログインまたはログアウトと呼ばれるボタンです。</p>
+
+<p>el.nativeElement.textContent.trim（）を呼び出すことによって、タグのテキストコンテンツを見つけることができます。後でテスト仕様でそのスニペットを使用します。</p>
+
+<p>次のような基本的なテスト仕様を追加できるようになりました：</p>
+
+<pre><code>it('login button hidden when the user is authenticated', () =&gt; {
+  // TODO
+});
+</code></pre>
+
+<h2 id="detect-changes">Detect Changes</h2>
+
+<p>私たちのテスト仕様に最初に期待しているのはちょっと変わったかもしれません</p>
+
+<pre><code>it('login button hidden when the user is authenticated', () =&gt; {
+  expect(el.nativeElement.textContent.trim()).toBe('');
+});
+</code></pre>
+
+<p>当初、aタグ内のテキストは空白になると考えています。</p>
+
+<p>これは、Angularが最初にロードされても変更検出がトリガーされていないため、ビューにログインまたはログアウトのテキストが表示されないためです。</p>
+
+<p>fixtureはコンポーネント環境用のラッパーであるため、変更の検出などを制御できます。</p>
+
+<p>変更検出をトリガするために関数fixture.detectChanges（）を呼び出すと、今度はテスト仕様を次のように更新できます：</p>
+
+<pre><code>it('login button hidden when the user is authenticated', () =&gt; {
+  expect(el.nativeElement.textContent.trim()).toBe('');
+  fixture.detectChanges();
+  expect(el.nativeElement.textContent.trim()).toBe('Login');
+});
+</code></pre>
+
+<p>変更検出をトリガーするとAngularはプロパティーのバインディングをチェックし、AuthServiceのデフォルトは認証されていないので、Loginというテキストが表示されます。</p>
+
+<p>AuthServiceを変更して、今度は認証されたものを返すようにしましょう。</p>
+
+<pre><code>it('login button hidden when the user is authenticated', () =&gt; {
+  expect(el.nativeElement.textContent.trim()).toBe('');
+  fixture.detectChanges();
+  expect(el.nativeElement.textContent.trim()).toBe('Login');
+  spyOn(authService, 'isAuthenticated').and.returnValue(true);
+  expect(el.nativeElement.textContent.trim()).toBe('Login');
+});
+</code></pre>
+
+<p>しかし、この時点でボタンの内容はまだログアウトではありませんので、次のような別の変更検出をトリガーする必要があります。</p>
+
+<pre><code>it('login button hidden when the user is authenticated', () =&gt; {
+  expect(el.nativeElement.textContent.trim()).toBe('');
+  fixture.detectChanges();
+  expect(el.nativeElement.textContent.trim()).toBe('Login');
+  spyOn(authService, 'isAuthenticated').and.returnValue(true);
+  expect(el.nativeElement.textContent.trim()).toBe('Login');
+  fixture.detectChanges();
+  expect(el.nativeElement.textContent.trim()).toBe('Logout');
+});
+</code></pre>
+
+<p>これで、2回目の変更検出実行が開始されました.Angularは、AuthServiceがtrueを返し、ボタンテキストがそれに応じてLogoutに更新されることを検出しました。</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>ATBとフィクスチャを使用することで、fixture.debugElementを介してコンポーネントのビューを検査し、fixture.detectChanges（）を呼び出して変更の検出をトリガすることもできます。</p>
+
+<p>次に、非同期関数をAngularでテストする方法を見ていきます。</p>
+
+<h2 id="listing">Listing</h2>
+
+<p><em>Listing 1. login.component.ts</em></p>
+
+<pre><code>import {Component} from '@angular/core';
+import {AuthService} from &quot;./auth.service&quot;;
+
+@Component({
+  selector: 'app-login',
+  template: `
+  &lt;a&gt;
+    &lt;span *ngIf=&quot;needsLogin()&quot;&gt;Login&lt;/span&gt;
+    &lt;span *ngIf=&quot;!needsLogin()&quot;&gt;Logout&lt;/span&gt;
+  &lt;/a&gt;
+`
+})
+export class LoginComponent {
+
+  constructor(private auth: AuthService) {
+  }
+
+  needsLogin() {
+    return !this.auth.isAuthenticated();
+  }
+}
+</code></pre>
+
+<p><em>Listing 2. login.component.spec.ts</em></p>
+
+<pre><code>/* tslint:disable:no-unused-variable */
+import {TestBed, async, ComponentFixture} from '@angular/core/testing';
+import {LoginComponent} from './login.component';
+import {AuthService} from &quot;./auth.service&quot;;
+import {DebugElement} from &quot;@angular/core&quot;;
+import {By} from &quot;@angular/platform-browser&quot;;
+
+describe('Component: Login', () =&gt; {
+
+  let component: LoginComponent;
+  let fixture: ComponentFixture&lt;LoginComponent&gt;;
+  let authService: AuthService;
+  let el: DebugElement;
+
+  beforeEach(() =&gt; {
+
+    // refine the test module by declaring the test component
+    TestBed.configureTestingModule({
+      declarations: [LoginComponent],
+      providers: [AuthService]
+    });
+
+    // create component and test fixture
+    fixture = TestBed.createComponent(LoginComponent);
+
+    // get test component from the fixture
+    component = fixture.componentInstance;
+
+    // UserService provided to the TestBed
+    authService = TestBed.get(AuthService);
+
+    //  get the &quot;a&quot; element by CSS selector (e.g., by class name)
+    el = fixture.debugElement.query(By.css('a'));
+  });
+
+  it('login button hidden when the user is authenticated', () =&gt; {
+    // To being with Angular has not done any change detection so the content is blank.
+    expect(el.nativeElement.textContent.trim()).toBe('');
+
+    // Trigger change detection and this lets the template update to the initial value which is Login since by
+    // default we are not authenticated
+    fixture.detectChanges();
+    expect(el.nativeElement.textContent.trim()).toBe('Login');
+
+    // Change the authetication state to true
+    spyOn(authService, 'isAuthenticated').and.returnValue(true);
+
+    // The label is still Login! We need changeDetection to run and for angular to update the template.
+    expect(el.nativeElement.textContent.trim()).toBe('Login');
+    // Which we can trigger via fixture.detectChange()
+    fixture.detectChanges();
+
+    // Now the label is Logout
+    expect(el.nativeElement.textContent.trim()).toBe('Logout');
+  });
+});
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 6, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/06/05/angular-test-bed/" title="Angular Test Bed">Angular Test Bed</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/06/06/testing-change-detection/">Testing Change Detection</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/05/angular-test-bed/">Angular Test Bed</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/04/testing-with-mocks-and-spies/">Testing With Mocks and Spies</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/01/kotlin-codelab/">Kotlin Codelab</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/30/amazon-kindle-unlimited-receipt/">Amazon Kindle Unlimited の領収</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/26/testing-classes-and-pipes/">Testing Classes &amp; Pipes</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/23/jasmine-and-karma/">Jasmine and Karma</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/21/overview/">Overview</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/17/sakae-machi/">栄町</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/15/memo/">那覇市徒歩移動メモ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
