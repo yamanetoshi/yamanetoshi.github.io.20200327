@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Testing Asynchronous Code</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 7, 2018
+         - 7 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/06/07/testing-asynchronous-code/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/angular/">Angular </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Testing Asynchronous Code 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメント機械翻訳控えを投入。</p>
+
+<ul>
+<li><a href="https://codecraft.tv/courses/angular/unit-testing/asynchronous/">Testing Asynchronous Code</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="testing-asynchronous-code">Testing Asynchronous Code</h2>
+
+<h2 id="learning-objectives">Learning Objectives</h2>
+
+<ul>
+<li>Jasmineで非同期コードをテストする際に直面する問題を理解する。</li>
+<li>Jasmine done関数を使用して非同期コードを処理する方法を理解する。</li>
+
+<li><p>非同期コードをテストするための代替のAngular onlyソリューションの使用方法を理解する。</p>
+
+<h2 id="test-setup">Test setup</h2></li>
+</ul>
+
+<p>我々は、非同期関数をどのようにテストできるかを知りたい。</p>
+
+<p>そこでAuthService.isAuthenticated（）関数を非同期のものに変更し、後でブール値に解決する Promise を返します。</p>
+
+<pre><code>export class AuthService {
+  isAuthenticated(): Promise&lt;boolean&gt; {
+    return Promise.resolve(!!localStorage.getItem('token'));
+  }
+}
+</code></pre>
+
+<p>また、LoginComponentを変更します。</p>
+
+<pre><code>export class LoginComponent implements  OnInit {
+
+  needsLogin: boolean = true;
+
+  constructor(private auth: AuthService) {
+  }
+
+  ngOnInit()  {
+    this.auth.isAuthenticated().then((authenticated) =&gt; {
+      this.needsLogin = !authenticated;
+    })
+  }
+}
+</code></pre>
+
+<p>needsLoginを関数からプロパティに変更し、AuthServiceから返された約束からコールバックでこのプロパティの値を設定しました。</p>
+
+<p>重要なことは、上記のngOnInit（）ライフサイクル関数で行いました。 時間の経過とともに値が変化するかもしれないが、デモンストレーションの目的には適しているので、この機能を配置するのに最適な場所ではないでしょう。</p>
+
+<h2 id="no-asynchronous-handling">No asynchronous handling</h2>
+
+<p>私たちの最初の試みは、アプリケーションの非同期性を考慮せずにアプリケーションをテストしようとすることです：</p>
+
+<pre><code>  it('Button label via jasmine.done', () =&gt; {
+    fixture.detectChanges();  // 1.
+    expect(el.nativeElement.textContent.trim()).toBe('Login');  // 2.
+    spyOn(authService, 'isAuthenticated').and.returnValue(Promise.resolve(true)); // 3.
+    component.ngOnInit();  // 4.
+    fixture.detectChanges();  // 5.
+    expect(el.nativeElement.textContent.trim()).toBe('Logout');  // 6.
+  });
+</code></pre>
+
+<ol>
+<li>ビューが最初の更新を行うように、最初の変更検出を実行します。</li>
+<li>ボタンテキストにはログインが表示されます</li>
+<li>私たちはAuthServiceを変更して、それが本当に解決された約束を返すようにします。</li>
+<li>component.ngOnInit（）を呼び出します。</li>
+<li>2回目の変更検出を実行します。</li>
+<li>ボタンのテキストは[ログアウト]と表示されるはずです。</li>
+</ol>
+
+<blockquote>
+<p>重要
+テストを行うときは、ngOnInit（）のように、コンポーネントのライフサイクルフックを自分で呼び出す必要があります。 Angularは、テスト環境でこれを実行しません。</p>
+</blockquote>
+
+<p>上記のコードを実行した場合、それは合格しません。</p>
+
+<p><img src="https://codecraft.tv/assets/images/courses/angular/13.unit-testing/failed-async-test.png" alt="failed async test" /></p>
+
+<p>それは最後の期待に失敗しています。 最後の予想を実行するまでに、AuthService.isAuthenticated（）関数はまだ値に解決されていません。 したがって、LoginComponentのneedsLoginプロパティは更新されていません。</p>
+
+<p>テストで非同期コードを処理できる方法はいくつかあります。1つは Jasmine、もう1つは Angular 固有であり、Jasmine の方法から始めることができます。</p>
+
+<h2 id="jasmine-s-done-function">Jasmine’s done function</h2>
+
+<p>Jasmineには、非同期コードを処理する組み込みの方法があり、それはテスト仕様のdone関数で渡されます。</p>
+
+<p>これまでは、パラメータを指定せずにテスト仕様を定義していましたが、すべての非同期処理が完了したときに呼び出すdone関数をパラメータとして使用できます。</p>
+
+<pre><code>it('Button label via jasmine.done', (done) =&gt; {  // 1.
+  fixture.detectChanges();
+  expect(el.nativeElement.textContent.trim()).toBe('Login');
+  let spy = spyOn(authService, 'isAuthenticated').and.returnValue(Promise.resolve(true));
+  component.ngOnInit();
+  spy.calls.mostRecent().returnValue.then(() =&gt; {  // 2.
+    fixture.detectChanges();
+    expect(el.nativeElement.textContent.trim()).toBe('Logout');
+    done();  // 3.
+  });
+});
+</code></pre>
+
+<ol>
+<li>ジャスミンテスト仕様関数は、最初のパラメータとして関数に渡されます。通常、このパラメータは完了です。</li>
+<li>isAuthenticated関数が返す約束が解決されたときに呼び出されるコールバック関数（スパイを使用）を追加できます。 この関数では、コンポーネントにneedsLoginの新しい値があり、追加の期待値を追加できることがわかります。</li>
+<li>私たちの非同期タスクが完了したら、done関数を使ってJasmineに伝えます。</li>
+</ol>
+
+<p>Jasmineは、テストが完了したときに呼び出すExplict done関数を与えて、非同期テストを作成することができます。</p>
+
+<p>コードを理解しようとしているにもかかわらず、コードがジャンプして書かれた順序で実行されないため、コードが難しい場合があります。</p>
+
+<h2 id="async-and-whenstable">async and whenStable</h2>
+
+<p>AngularにはasyncとwhenStable関数を使って非同期コードをテストする別の方法があります。</p>
+
+<p>これらを使用するために上記のテストを書き直し、その違いを説明しましょう。</p>
+
+<pre><code>it('Button label via async() and whenStable()', async(() =&gt; {  // 1.
+  fixture.detectChanges();
+  expect(el.nativeElement.textContent.trim()).toBe('Login');
+  spyOn(authService, 'isAuthenticated').and.returnValue(Promise.resolve(true));
+  fixture.whenStable().then(() =&gt; {  // 2.
+    fixture.detectChanges();
+    expect(el.nativeElement.textContent.trim()).toBe('Logout');
+  });
+  component.ngOnInit();
+}));
+</code></pre>
+
+<ol>
+<li>テスト仕様関数をasyncと呼ばれる別の関数でラップします。</li>
+<li>isAuthenticated約束がこの関数の中で解決された後に実行する必要のあるテストを配置します。</li>
+</ol>
+
+<p>この非同期関数は、特別な非同期テストゾーンで本体内部のコードを実行します。 これは、その身体の中で作られたすべての約束を傍受して追跡します。</p>
+
+<p>それらの保留中の約束がすべて解決されたときのみ、それは、安定性から返された約束を解決する。</p>
+
+<p>async関数とwhenStable関数を使用することで、前の例のように、isAuthenticated約束がいつ解決されたかを検出するジャスミンスパイメカニズムを使用する必要がなくなりました。</p>
+
+<p>このメカニズムは、単純なジャスミンソリューションを使用するよりも若干優れていますが、きめ細かな制御を提供する別のバージョンがあり、テストコードを同期しているかのようにレイアウトすることもできます。</p>
+
+<h2 id="fakeasync-and-tick">fakeAsync and tick</h2>
+
+<pre><code>it('Button label via fakeAsync() and tick()', fakeAsync(() =&gt; {  // 1.
+  expect(el.nativeElement.textContent.trim()).toBe('');
+  fixture.detectChanges();
+  expect(el.nativeElement.textContent.trim()).toBe('Login');
+  spyOn(authService, 'isAuthenticated').and.returnValue(Promise.resolve(true));
+  component.ngOnInit();
+
+  tick();  // 2.
+  fixture.detectChanges();
+  expect(el.nativeElement.textContent.trim()).toBe('Logout');
+}));
+</code></pre>
+
+<ol>
+<li>asyncと同様に、テスト仕様関数をfakeAsyncという関数でラップします。</li>
+<li>保留中の非同期アクティビティが完了したら、tick（）を呼び出します。</li>
+</ol>
+
+<p>async関数と同様に、fakeAsync関数は特別な偽の非同期テストゾーンで本体内部のコードを実行します。 これは、その身体の中で作られたすべての約束を傍受して追跡します。</p>
+
+<p>tick（）関数は実行をブロックし、保留中のすべての非同期アクティビティが完了するまでの時間の経過をシミュレートします。</p>
+
+<p>だからtick（）を呼び出すと、アプリケーションは座って、isAuthenticatedから返された約束が解決されるのを待ち、実行を次の行に移します。</p>
+
+<p>上記のコードは線形にレイアウトされています。つまり、同期コードを実行しているかのように、心を混乱させるコールバックはなく、すべてを理解するのが簡単です。</p>
+
+<blockquote>
+<p>重要
+fakeAsyncにはいくつかの欠点があります。たとえば、XHR要求は追跡されません。</p>
+</blockquote>
+
+<h2 id="summary">Summary</h2>
+
+<p>テストしているコードが非同期の場合、テストを書くときにこれを考慮する必要があります。</p>
+
+<p>我々が使用できるメカニズムは3つある。</p>
+
+<p>jasmine done機能とスパイコールバック。 特定のコールバックをスパイに付けることで、約束がいつ解決されるかを知り、コールバックにテストコードを追加し、done関数を呼び出します。 これは機能しますが、アプリケーションのすべての約束を知り、それにつなぐ必要があることを意味します。</p>
+
+<p>Angular async関数とwhenStable関数を使うことができます。私たちは自分自身で約束を追跡する必要はありませんが、読みにくいコールバック関数を使ってコードを作成する必要があります。</p>
+
+<p>Angular fakeAsync関数とtick関数を使うことができます。これにより、非同期テストコードを同期しているかのようにレイアウトすることができます。</p>
+
+<h2 id="listing">Listing</h2>
+
+<p><a href="http://plnkr.co/edit/83TAHD1hE3s7XBhz5sL3?p=preview">http://plnkr.co/edit/83TAHD1hE3s7XBhz5sL3?p=preview</a></p>
+
+<p><em>Listing 1. auth.service.ts</em></p>
+
+<pre><code>export class AuthService {
+  isAuthenticated(): Promise&lt;boolean&gt; {
+    return Promise.resolve(!!localStorage.getItem('token'));
+  }
+}
+</code></pre>
+
+<p><em>Listing 2. login.component.ts</em></p>
+
+<pre><code>import {Component} from '@angular/core';
+import {AuthService} from &quot;./auth.service&quot;;
+
+@Component({
+  selector: 'app-login',
+  template: `
+  &lt;a&gt;
+    &lt;span *ngIf=&quot;needsLogin&quot;&gt;Login&lt;/span&gt;
+    &lt;span *ngIf=&quot;!needsLogin&quot;&gt;Logout&lt;/span&gt;
+  &lt;/a&gt;
+`
+})
+export class LoginComponent implements  OnInit {
+
+  needsLogin: boolean = true;
+
+  constructor(private auth: AuthService) {
+  }
+
+  ngOnInit()  {
+    this.auth.isAuthenticated().then((authenticated) =&gt; {
+      this.needsLogin = !authenticated;
+    })
+  }
+}
+</code></pre>
+
+<p><em>Listing 3. login.component.spec.ts</em></p>
+
+<pre><code>/* tslint:disable:no-unused-variable */
+import {TestBed, async, whenStable, fakeAsync, tick, ComponentFixture} from '@angular/core/testing';
+import {LoginComponent} from './login.component';
+import {AuthService} from &quot;./auth.service&quot;;
+import {DebugElement} from &quot;@angular/core&quot;;
+import {By} from &quot;@angular/platform-browser&quot;;
+
+describe('Component: Login', () =&gt; {
+
+  let component: LoginComponent;
+  let fixture: ComponentFixture&lt;LoginComponent&gt;;
+  let authService: AuthService;
+  let el: DebugElement;
+
+  beforeEach(() =&gt; {
+
+    // refine the test module by declaring the test component
+    TestBed.configureTestingModule({
+      declarations: [LoginComponent],
+      providers: [AuthService]
+    });
+
+    // create component and test fixture
+    fixture = TestBed.createComponent(LoginComponent);
+
+    // get test component from the fixture
+    component = fixture.componentInstance;
+
+    // UserService provided to the TestBed
+    authService = TestBed.get(AuthService);
+
+    //  get the &quot;a&quot; element by CSS selector (e.g., by class name)
+    el = fixture.debugElement.query(By.css('a'));
+  });
+
+  it('Button label via fakeAsync() and tick()', fakeAsync(() =&gt; {
+    expect(el.nativeElement.textContent.trim()).toBe('');
+    fixture.detectChanges();
+    expect(el.nativeElement.textContent.trim()).toBe('Login');
+
+    spyOn(authService, 'isAuthenticated').and.returnValue(Promise.resolve(true));
+
+    component.ngOnInit();
+    // Simulates the passage of time until all pending asynchronous activities complete
+    tick();
+    fixture.detectChanges();
+    expect(el.nativeElement.textContent.trim()).toBe('Logout');
+  }));
+
+  it('Button label via async() and whenStable()', async(() =&gt; {
+    // async() knows about all the pending promises defined in it's function body.
+    fixture.detectChanges();
+    expect(el.nativeElement.textContent.trim()).toBe('Login');
+    spyOn(authService, 'isAuthenticated').and.returnValue(Promise.resolve(true));
+
+    fixture.whenStable().then(() =&gt; {
+      // This is called when ALL pending promises have been resolved
+      fixture.detectChanges();
+      expect(el.nativeElement.textContent.trim()).toBe('Logout');
+    });
+
+    component.ngOnInit();
+
+  }));
+
+  it('Button label via jasmine.done', (done) =&gt; {
+    fixture.detectChanges();
+    expect(el.nativeElement.textContent.trim()).toBe('Login');
+
+    // Make the authService return a promise that resolves to true
+    let spy = spyOn(authService, 'isAuthenticated').and.returnValue(Promise.resolve(true));
+    // We trigger the component to check the authService again
+    component.ngOnInit();
+
+    // We now want to call a function when the Promise returned from authService.isAuthenticated() is resolved
+    spy.calls.mostRecent().returnValue.then(() =&gt; {
+      // The needsChanged boolean has been updated on the Component so to update the template we trigger change detection
+      fixture.detectChanges();
+      // Now the label is Logout
+      expect(el.nativeElement.textContent.trim()).toBe('Logout');
+      // We tell jasmine we are done with this test spec
+      done();
+    });
+  });
+});
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 7, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/06/06/testing-change-detection/" title="Testing Change Detection">Testing Change Detection</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/06/07/testing-asynchronous-code/">Testing Asynchronous Code</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/06/testing-change-detection/">Testing Change Detection</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/05/angular-test-bed/">Angular Test Bed</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/04/testing-with-mocks-and-spies/">Testing With Mocks and Spies</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/01/kotlin-codelab/">Kotlin Codelab</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/30/amazon-kindle-unlimited-receipt/">Amazon Kindle Unlimited の領収</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/26/testing-classes-and-pipes/">Testing Classes &amp; Pipes</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/23/jasmine-and-karma/">Jasmine and Karma</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/21/overview/">Overview</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/17/sakae-machi/">栄町</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
