@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/06/09/testing-components/</loc>
+    <lastmod>2018-06-09T11:12:56+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/06/08/testing-dependency-injection/</loc>
     <lastmod>2018-06-08T13:38:49+09:00</lastmod>
   </url>
@@ -7744,7 +7749,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-06-08T13:38:49+09:00</lastmod>
+    <lastmod>2018-06-09T11:12:56+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7756,7 +7761,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/angular/</loc>
-    <lastmod>2018-06-08T13:38:49+09:00</lastmod>
+    <lastmod>2018-06-09T11:12:56+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7930,7 +7935,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-06-08T13:38:49+09:00</lastmod>
+    <lastmod>2018-06-09T11:12:56+09:00</lastmod>
     <priority>0</priority>
   </url>
   
