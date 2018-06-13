@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Testing Directives</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 13, 2018
+         - 3 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/06/13/testing-directives/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/angular/">Angular </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Testing Directives 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメント機械翻訳控えを投入。</p>
+
+<ul>
+<li><a href="https://codecraft.tv/courses/angular/unit-testing/directives/">Testing Directives</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="testing-directives">Testing Directives</h2>
+
+<h2 id="learning-objectives">Learning Objectives</h2>
+
+<ul>
+<li><p>ラッパーコンポーネントを使用してディレクティブをテストする方法を理解する。</p>
+
+<h2 id="test-setup">Test setup</h2></li>
+</ul>
+
+<p>HoverFocusDirectiveというディレクティブをテストします。 それはhoverfocusの属性セレクタを持ち、その要素の上にホバリングする要素にアタッチされている場合、背景色が青に設定されます。</p>
+
+<pre><code>import {
+    Directive,
+    HostListener,
+    HostBinding
+} from '@angular/core';
+
+@Directive({
+  selector: '[hoverfocus]'
+})
+export class HoverFocusDirective {
+
+  @HostBinding(&quot;style.background-color&quot;) backgroundColor: string;
+
+  @HostListener('mouseover') onHover() {
+    this.backgroundColor = 'blue';
+  }
+
+  @HostListener('mouseout') onLeave() {
+    this.backgroundColor = 'inherit';
+  }
+}
+</code></pre>
+
+<p>@HostListenerを使用して、ホスト要素のmouseoverイベントとmouseoutイベントを監視し、@HostBindingを使用してホスト要素のstyleプロパティを設定します。</p>
+
+<p>テストスイートの出発点は、これまでの例と非常に似ています。</p>
+
+<pre><code>import {TestBed} from '@angular/core/testing';
+import {HoverFocusDirective} from './hoverfocus.directive';
+
+describe('Directive: HoverFocus', () =&gt; {
+  beforeEach(() =&gt; {
+    TestBed.configureTestingModule({
+      declarations: [HoverFocusDirective]
+    });
+  });
+});
+</code></pre>
+
+<h2 id="test-wrapper-component">Test wrapper component</h2>
+
+<p>ディレクティブをテストするには、通常、ダミーのテストコンポーネントを作成します。ディレクティブと対話し、コンポーネントビューに影響を与えるかどうかをテストします。</p>
+
+<pre><code>@Component({
+  template: `&lt;input type=&quot;text&quot; hoverfocus&gt;`  // 1.
+})
+class TestHoverFocusComponent {
+}
+</code></pre>
+
+<ol>
+<li>このディレクティブは、コンポーネントビューの入力コントロールに関連付けられています。</li>
+</ol>
+
+<p>これで、TestBed を設定し、テストのために必要な参照を取得できるようになりました。</p>
+
+<pre><code>describe('Directive: HoverFocus', () =&gt; {
+
+  let component: TestHoverFocusComponent;
+  let fixture: ComponentFixture&lt;TestHoverFocusComponent&gt;;
+  let inputEl: DebugElement;
+
+  beforeEach(() =&gt; {
+    TestBed.configureTestingModule({
+      declarations: [TestHoverFocusComponent, HoverFocusDirective]  // 1.
+    });
+    fixture = TestBed.createComponent(TestHoverFocusComponent);  // 2.
+    component = fixture.componentInstance;
+    inputEl = fixture.debugElement.query(By.css('input'));
+  });
+});
+</code></pre>
+
+<ol>
+<li>私たちは、テストしたいディレクティブとダミーのテストコンポーネントの両方を宣言します。</li>
+
+<li><p>コンポーネントビューから、コンポーネントフィクスチャとコンポーネント、入力DebugElementへの参照を取得します。</p>
+
+<h2 id="intracting-and-inspecting-the-view">Intracting and inspecting the view</h2></li>
+</ol>
+
+<p>これで、ディレクティブ自体のテスト仕様を作成するために必要なすべての部分が完成しました。</p>
+
+<pre><code>it('hovering over input', () =&gt; {
+  inputEl.triggerEventHandler('mouseover', null);  // 1.
+  fixture.detectChanges();
+  expect(inputEl.nativeElement.style.backgroundColor).toBe('blue');  // 2.
+
+  inputEl.triggerEventHandler('mouseout', null);
+  fixture.detectChanges();
+  console.log(inputEl.nativeElement.style.backgroundColor);
+  expect(inputEl.nativeElement.style.backgroundColor).toBe('inherit');
+});
+</code></pre>
+
+<ol>
+<li>triggerEventHandlerを使用してイベントをシミュレートします。</li>
+
+<li><p>nativeElementのstyleプロパティは、要素に適用されている現在のスタイルを調べるために調べることができます。</p>
+
+<h2 id="summary">Summary</h2></li>
+</ol>
+
+<p>ディレクティブをテストするために、我々は角度テストベッドを使用して作成することができ、コンポーネントフィクスチャを使用して対話できるダミーテストコンポーネントを使用します。</p>
+
+<p>triggerEventHandler関数を使用してDebugElementsのイベントをトリガーできます。どのようなスタイルが適用されているかを確認したい場合は、nativeElement.styleプロパティを使用してそのイベントを見つけることができます。</p>
+
+<h2 id="listing">Listing</h2>
+
+<p><a href="http://plnkr.co/edit/snp12WgkVCemGf8s5XKW?p=preview">http://plnkr.co/edit/snp12WgkVCemGf8s5XKW?p=preview</a>
+<em>Listing 1. hoverfocus.directive.ts</em></p>
+
+<pre><code>import {
+    Directive,
+    HostListener,
+    HostBinding
+} from '@angular/core';
+
+@Directive({
+  selector: '[hoverfocus]'
+})
+export class HoverFocusDirective {
+
+  @HostBinding(&quot;style.background-color&quot;) backgroundColor: string;
+
+  @HostListener('mouseover') onHover() {
+    this.backgroundColor = 'blue';
+  }
+
+  @HostListener('mouseout') onLeave() {
+    this.backgroundColor = 'inherit';
+  }
+}
+</code></pre>
+
+<p><em>Listing 2. hoverfocus.directive.spec.ts</em></p>
+
+<pre><code>/* tslint:disable:no-unused-variable */
+import {TestBed, ComponentFixture} from '@angular/core/testing';
+import {Component, DebugElement} from &quot;@angular/core&quot;;
+import {By} from &quot;@angular/platform-browser&quot;;
+import {TestBed} from '@angular/core/testing';
+import {HoverFocusDirective} from './hoverfocus.directive';
+
+@Component({
+  template: `&lt;input type=&quot;text&quot; hoverfocus&gt;`
+})
+class TestHoverFocusComponent {
+}
+
+
+describe('Directive: HoverFocus', () =&gt; {
+
+  let component: TestHoverFocusComponent;
+  let fixture: ComponentFixture&lt;TestHoverFocusComponent&gt;;
+  let inputEl: DebugElement;
+
+  beforeEach(() =&gt; {
+    TestBed.configureTestingModule({
+      declarations: [TestHoverFocusComponent, HoverFocusDirective]
+    });
+    fixture = TestBed.createComponent(TestHoverFocusComponent);
+    component = fixture.componentInstance;
+    inputEl = fixture.debugElement.query(By.css('input'));
+  });
+
+  it('hovering over input', () =&gt; {
+    inputEl.triggerEventHandler('mouseover', null);
+    fixture.detectChanges();
+    expect(inputEl.nativeElement.style.backgroundColor).toBe('blue');
+
+    inputEl.triggerEventHandler('mouseout', null);
+    fixture.detectChanges();
+    expect(inputEl.nativeElement.style.backgroundColor).toBe('inherit');
+  });
+});
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 13, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/06/09/testing-components/" title="Testing Components">Testing Components</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/06/13/testing-directives/">Testing Directives</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/09/testing-components/">Testing Components</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/08/testing-dependency-injection/">Testing Dependency Injection</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/07/testing-asynchronous-code/">Testing Asynchronous Code</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/06/testing-change-detection/">Testing Change Detection</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/05/angular-test-bed/">Angular Test Bed</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/04/testing-with-mocks-and-spies/">Testing With Mocks and Spies</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/01/kotlin-codelab/">Kotlin Codelab</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/30/amazon-kindle-unlimited-receipt/">Amazon Kindle Unlimited の領収</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/26/testing-classes-and-pipes/">Testing Classes &amp; Pipes</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
