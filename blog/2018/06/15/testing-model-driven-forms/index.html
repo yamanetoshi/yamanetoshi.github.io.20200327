@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <title>Testing Model Driven Forms</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 15, 2018
+         - 6 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/06/15/testing-model-driven-forms/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/angular/">Angular </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Testing Model Driven Forms 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメント機械翻訳控えを投入。</p>
+
+<ul>
+<li><a href="https://codecraft.tv/courses/angular/unit-testing/model-driven-forms/">Testing Model Driven Forms</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="testing-model-driven-forms">Testing Model Driven Forms</h2>
+
+<h2 id="learning-objectives">Learning Objectives</h2>
+
+<ul>
+<li>フォームで作業するためにTestBedを設定する方法。</li>
+<li>フォームの妥当性をテストするテスト仕様を作成する方法</li>
+
+<li><p>フォーム提出をテストする方法。</p>
+
+<h2 id="test-setup">Test setup</h2></li>
+</ul>
+
+<p>フォームをテストするために、ここまでで作業してきたLoginComponentを拡張します。 ただし、単純な電子メール、パスワードフィールドフォームをモデル駆動型フォームに変換し、入力可能なプロパティを削除します。</p>
+
+<pre><code>@Component({
+  selector: 'app-login',
+  template: `
+&lt;form (ngSubmit)=&quot;login()&quot;  // 1.
+      [formGroup]=&quot;form&quot;&gt;   // 2.
+  &lt;label&gt;Email&lt;/label&gt;
+  &lt;input type=&quot;email&quot;
+         formControlName=&quot;email&quot;&gt;     // 3.
+  &lt;label&gt;Password&lt;/label&gt;
+  &lt;input type=&quot;password&quot;
+         formControlName=&quot;password&quot;&gt;  // 3.
+  &lt;button type=&quot;submit&quot;&gt;Login&lt;/button&gt;
+&lt;/form&gt;
+`
+})
+export class LoginComponent {
+  @Output() loggedIn = new EventEmitter&lt;User&gt;();
+  form: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+  }
+
+  ngOnInit() {  //4.
+    this.form = this.fb.group({
+      email: ['', [
+        Validators.required,
+        Validators.pattern(&quot;[^ @]*@[^ @]*&quot;)]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8)]],
+    });
+  }
+
+  login() {
+    console.log(`Login ${this.form.value}`);
+    if (this.form.valid) {
+      this.loggedIn.emit(
+          new User(
+              this.form.value.email,
+              this.form.value.password
+          )
+      );
+    }
+  }
+}
+</code></pre>
+
+<ol>
+<li>ユーザーがフォームを送信すると、login（）関数が呼び出されます。</li>
+<li>このテンプレートフォームエレメントは、コンポーネントのモデルフォームに関連付けます。</li>
+<li>特定のテンプレートフォームコントロールをフォームモデルのFormControlにリンクします。</li>
+<li>ngOnInitライフサイクルフックでフォームモデルを初期化します。</li>
+</ol>
+
+<p>残りのLoginComponentは以前と同じように見えます。</p>
+
+<p>私たちのテストスイートはほとんど同じですが、いくつかの重要な違いがあります：</p>
+
+<pre><code>describe('Component: Login', () =&gt; {
+
+  let component: LoginComponent;
+  let fixture: ComponentFixture&lt;LoginComponent&gt;;
+
+  beforeEach(() =&gt; {
+    TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule, FormsModule],  // 1.
+      declarations: [LoginComponent]
+    });
+
+    // create component and test fixture
+    fixture = TestBed.createComponent(LoginComponent);
+
+    // get test component from the fixture
+    component = fixture.componentInstance;
+    component.ngOnInit();  // 2.
+  });
+});
+</code></pre>
+
+<ol>
+<li>必要なReactiveFormsModuleとFormsModuleをテストベッドのインポートリストに追加します。</li>
+<li>コンポーネントでngOnInitライフサイクル関数を手動で起動すると、Angularはこれを呼び出しません。</li>
+</ol>
+
+<p>ここでフォームの妥当性をテストする方法を見てみましょう。</p>
+
+<h2 id="form-validity">Form validity</h2>
+
+<p>確認したい最初のテスト仕様は、空白のフォームが無効であることです。 モデル駆動型を使用しているので、次のようにフォームモデル自体の有効なプロパティをチェックすることができます。</p>
+
+<pre><code>it('form invalid when empty', () =&gt; {
+  expect(component.form.valid).toBeFalsy();
+});
+</code></pre>
+
+<p>component.form.validの値をチェックすることで、フォームが有効かどうかを簡単に確認できます。</p>
+
+<blockquote>
+<p>Tip
+このモデル駆動型の理由の1つは、テンプレート駆動型よりもテストする方が簡単です。テスト仕様から正しさを検査できるコンポーネントについては、すでにオブジェクトがあります。</p>
+
+<p>テンプレートドリブンフォームでは状態がビューにあり、コンポーネントにViewChildデコレータを使用したテンプレートフォームへの参照がない場合、単体テストを使用してフォームをテストする方法はありません。 ボタンクリックをシミュレートし、フォームに値を入力する完全なE2Eテストを実行する必要があります。</p>
+
+<h2 id="field-validity">Field validity</h2>
+</blockquote>
+
+<p>個々のフィールドが有効かどうかを確認することもできます。たとえば、電子メールフィールドは最初は無効にする必要があります。</p>
+
+<pre><code>it('email field validity', () =&gt; {
+  let email = component.form.controls['email'];  // 1.
+  expect(email.valid).toBeFalsy();  // 2.
+});
+</code></pre>
+
+<ol>
+<li>form.controlsプロパティから実際のフィールド自体への参照を取得します。</li>
+
+<li><p>フォームのように、フィールドがemail.validで有効かどうかを確認できます。</p>
+
+<h2 id="field-errors">Field errors</h2></li>
+</ol>
+
+<p>フィールドが有効かどうかを調べるだけでなく、特定のバリデータがemail.errorsプロパティを使って何が失敗しているのかを確認することもできます。</p>
+
+<p>必須で電子メールフィールドが設定されていないので、requriredバリデーターが失敗すると予想されますので、次のようにテストできます：</p>
+
+<pre><code>  it('email field validity', () =&gt; {
+    let errors = {};
+    let email = component.form.controls['email'];
+    errors = email.errors || {};
+    expect(errors['required']).toBeTruthy();  // 1.
+  });
+</code></pre>
+
+<ol>
+<li>エラーには必須のキーが含まれており、これには値があるため、必要なバリデータが期待通りに機能していないことを意味します。</li>
+</ol>
+
+<p>setValue（&hellip;）を次のように呼び出すことで、入力コントロールのデータを設定できます。</p>
+
+<pre><code>email.setValue(&quot;test&quot;);
+</code></pre>
+
+<p>電子メールフィールドをテストするように設定した場合、パターンバリデーターに失敗するはずです。これは、電子メールに@が含まれることを期待しているからです。 次に、パターンバリデーターが失敗したかどうかを確認することができます。</p>
+
+<pre><code>email.setValue(&quot;test&quot;);
+errors = email.errors || {};
+expect(errors['pattern']).toBeTruthy();
+</code></pre>
+
+<h2 id="submitting-a-form">Submitting a form</h2>
+
+<p>送信ボタンをクリックしてフォームを提出することもできますが、これまでの講義ですでに説明しました。</p>
+
+<p>ngSubmitディレクティブは独自のテストセットを持っているので、（ngSubmit）= login（）式が期待どおりに動作していると考えることは安全です。</p>
+
+<p>したがって、モデル駆動フォームでフォームのサブミットをテストするには、コントローラーでlogin（）関数を呼び出すだけです：</p>
+
+<pre><code>component.login();
+</code></pre>
+
+<p>フォームはloggedIn出力イベントプロパティからイベントを発行するので、このフォームの送信をテストするためのコンポーネントのテストのセクションで説明したのと同じメソッドを使用できます。 つまり、observableに登録し、後で比較するために放出されたイベントへの参照を格納します。</p>
+
+<pre><code>  it('submitting a form emits a user', () =&gt; {
+    expect(component.form.valid).toBeFalsy();
+    component.form.controls['email'].setValue(&quot;test@test.com&quot;);
+    component.form.controls['password'].setValue(&quot;123456789&quot;);
+    expect(component.form.valid).toBeTruthy();
+
+    let user: User;
+    // Subscribe to the Observable and store the user in a local variable.
+    component.loggedIn.subscribe((value) =&gt; user = value);
+
+    // Trigger the login function
+    component.login();
+
+    // Now we can check to make sure the emitted value is correct
+    expect(user.email).toBe(&quot;test@test.com&quot;);
+    expect(user.password).toBe(&quot;123456789&quot;);
+  });
+</code></pre>
+
+<h2 id="summary">Summary</h2>
+
+<p>フォームモデル自体をテストするだけで、Angularでテストモデル駆動型を簡単にユニット化できます。</p>
+
+<p>テンプレート駆動フォームをAngularでテストするには、テスト環境を終了するためにフル・エンドを起動し、フォームをテストするためにブラウザと対話する必要があります。</p>
+
+<p>次に、http要求を行うアプリケーションをテストする方法を見ていきます。</p>
+
+<h2 id="listing">Listing</h2>
+
+<p><em>Listing 1. login.component.ts</em></p>
+
+<pre><code>import {
+    Component,
+    EventEmitter,
+    Output
+} from '@angular/core';
+import {
+    FormGroup,
+    Validators,
+    FormBuilder
+} from &quot;@angular/forms&quot;;
+
+export class User {
+  constructor(public email: string,
+              public password: string) {
+  }
+}
+
+@Component({
+  selector: 'app-login',
+  template: `
+&lt;form (ngSubmit)=&quot;login()&quot;
+      [formGroup]=&quot;form&quot;&gt;
+  &lt;label&gt;Email&lt;/label&gt;
+  &lt;input type=&quot;email&quot;
+         formControlName=&quot;email&quot;&gt;
+  &lt;label&gt;Password&lt;/label&gt;
+  &lt;input type=&quot;password&quot;
+         formControlName=&quot;password&quot;&gt;
+  &lt;button type=&quot;submit&quot;&gt;Login&lt;/button&gt;
+&lt;/form&gt;
+`
+})
+export class LoginComponent {
+  @Output() loggedIn = new EventEmitter&lt;User&gt;();
+  form: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+  }
+
+  ngOnInit() {
+    this.form = this.fb.group({
+      email: ['', [
+        Validators.required,
+        Validators.pattern(&quot;[^ @]*@[^ @]*&quot;)]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8)]],
+    });
+  }
+
+  login() {
+    console.log(`Login ${this.form.value}`);
+    if (this.form.valid) {
+      this.loggedIn.emit(
+          new User(
+              this.form.value.email,
+              this.form.value.password
+          )
+      );
+    }
+  }
+}
+</code></pre>
+
+<p><em>Listing 2. login.component.spec.ts</em></p>
+
+<pre><code>/* tslint:disable:no-unused-variable */
+
+import {TestBed, ComponentFixture} from '@angular/core/testing';
+import {ReactiveFormsModule, FormsModule} from &quot;@angular/forms&quot;;
+import {LoginComponent, User} from &quot;./login.component&quot;;
+
+
+describe('Component: Login', () =&gt; {
+
+  let component: LoginComponent;
+  let fixture: ComponentFixture&lt;LoginComponent&gt;;
+
+  beforeEach(() =&gt; {
+
+    // refine the test module by declaring the test component
+    TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule, FormsModule],
+      declarations: [LoginComponent]
+    });
+
+    // create component and test fixture
+    fixture = TestBed.createComponent(LoginComponent);
+
+    // get test component from the fixture
+    component = fixture.componentInstance;
+    component.ngOnInit();
+  });
+
+  it('form invalid when empty', () =&gt; {
+    expect(component.form.valid).toBeFalsy();
+  });
+
+  it('email field validity', () =&gt; {
+    let errors = {};
+    let email = component.form.controls['email'];
+    expect(email.valid).toBeFalsy();
+
+    // Email field is required
+    errors = email.errors || {};
+    expect(errors['required']).toBeTruthy();
+
+    // Set email to something
+    email.setValue(&quot;test&quot;);
+    errors = email.errors || {};
+    expect(errors['required']).toBeFalsy();
+    expect(errors['pattern']).toBeTruthy();
+
+    // Set email to something correct
+    email.setValue(&quot;test@example.com&quot;);
+    errors = email.errors || {};
+    expect(errors['required']).toBeFalsy();
+    expect(errors['pattern']).toBeFalsy();
+  });
+
+  it('password field validity', () =&gt; {
+    let errors = {};
+    let password = component.form.controls['password'];
+
+    // Email field is required
+    errors = password.errors || {};
+    expect(errors['required']).toBeTruthy();
+
+    // Set email to something
+    password.setValue(&quot;123456&quot;);
+    errors = password.errors || {};
+    expect(errors['required']).toBeFalsy();
+    expect(errors['minlength']).toBeTruthy();
+
+    // Set email to something correct
+    password.setValue(&quot;123456789&quot;);
+    errors = password.errors || {};
+    expect(errors['required']).toBeFalsy();
+    expect(errors['minlength']).toBeFalsy();
+  });
+
+  it('submitting a form emits a user', () =&gt; {
+    expect(component.form.valid).toBeFalsy();
+    component.form.controls['email'].setValue(&quot;test@test.com&quot;);
+    component.form.controls['password'].setValue(&quot;123456789&quot;);
+    expect(component.form.valid).toBeTruthy();
+
+    let user: User;
+    // Subscribe to the Observable and store the user in a local variable.
+    component.loggedIn.subscribe((value) =&gt; user = value);
+
+    // Trigger the login function
+    component.login();
+
+    // Now we can check to make sure the emitted value is correct
+    expect(user.email).toBe(&quot;test@test.com&quot;);
+    expect(user.password).toBe(&quot;123456789&quot;);
+  });
+})
+;
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 15, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/06/13/testing-directives/" title="Testing Directives">Testing Directives</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/06/15/testing-model-driven-forms/">Testing Model Driven Forms</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/13/testing-directives/">Testing Directives</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/09/testing-components/">Testing Components</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/08/testing-dependency-injection/">Testing Dependency Injection</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/07/testing-asynchronous-code/">Testing Asynchronous Code</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/06/testing-change-detection/">Testing Change Detection</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/05/angular-test-bed/">Angular Test Bed</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/04/testing-with-mocks-and-spies/">Testing With Mocks and Spies</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/01/kotlin-codelab/">Kotlin Codelab</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/05/30/amazon-kindle-unlimited-receipt/">Amazon Kindle Unlimited の領収</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
