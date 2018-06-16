@@ -16,6 +16,15 @@
   
 
   
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js').then(function() { console.log('Service Worker Registered'); });
+   }
+  </script>
+
+  
   <title>5.4 は新人王戦の中継らしく</title>
 
   

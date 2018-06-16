@@ -16,6 +16,15 @@
   
 
   
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js').then(function() { console.log('Service Worker Registered'); });
+   }
+  </script>
+
+  
   <title>相振り飛車な可能性も入れた 3 手目 (あるいは 4 手目) 問題</title>
 
   

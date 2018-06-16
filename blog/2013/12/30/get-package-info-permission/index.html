@@ -16,6 +16,15 @@
   
 
   
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js').then(function() { console.log('Service Worker Registered'); });
+   }
+  </script>
+
+  
   <title>アプリの権限の取得について (備忘)</title>
 
   

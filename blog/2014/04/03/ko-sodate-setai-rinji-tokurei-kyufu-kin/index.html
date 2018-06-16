@@ -16,6 +16,15 @@
   
 
   
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js').then(function() { console.log('Service Worker Registered'); });
+   }
+  </script>
+
+  
   <title>子育て世帯臨時特例給付金について那覇市役所に問合せてみた</title>
 
   
