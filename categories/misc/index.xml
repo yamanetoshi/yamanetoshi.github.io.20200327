@@ -6,10 +6,21 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 30 May 2018 20:57:43 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 17 Jun 2018 17:13:05 +0900</lastBuildDate>
     
 	<atom:link href="http://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GitHub Pages &#43; original domain &#43; HTTPS(SSL) support</title>
+      <link>http://weblog.metacircular-evaluator.org/blog/2018/06/17/GitHub_Pages_plus_original_domain_plus_HTTPS_SSL_support/</link>
+      <pubDate>Sun, 17 Jun 2018 17:13:05 +0900</pubDate>
+      
+      <guid>http://weblog.metacircular-evaluator.org/blog/2018/06/17/GitHub_Pages_plus_original_domain_plus_HTTPS_SSL_support/</guid>
+      <description>&lt;p&gt;色々と面倒そうだな、と思っていたら意外に簡単でした。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Amazon Kindle Unlimited の領収</title>

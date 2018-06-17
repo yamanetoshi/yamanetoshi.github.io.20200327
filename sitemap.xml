@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://weblog.metacircular-evaluator.org/blog/2018/06/17/GitHub_Pages_plus_original_domain_plus_HTTPS_SSL_support/</loc>
+    <lastmod>2018-06-17T17:13:05+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://weblog.metacircular-evaluator.org/blog/2018/06/15/testing-model-driven-forms/</loc>
     <lastmod>2018-06-15T20:37:51+09:00</lastmod>
   </url>
@@ -7759,7 +7764,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-06-15T20:37:51+09:00</lastmod>
+    <lastmod>2018-06-17T17:13:05+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7927,7 +7932,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/categories/misc/</loc>
-    <lastmod>2018-05-30T20:57:43+09:00</lastmod>
+    <lastmod>2018-06-17T17:13:05+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7945,7 +7950,7 @@
   
   <url>
     <loc>http://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-06-15T20:37:51+09:00</lastmod>
+    <lastmod>2018-06-17T17:13:05+09:00</lastmod>
     <priority>0</priority>
   </url>
   
