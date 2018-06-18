@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js').then(function() { console.log('Service Worker Registered'); });
+   }
+  </script>
+
+  
+  <title>Testing Routing</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="http://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="http://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 18, 2018
+         - 4 minute read 
+         - <a href="http://weblog.metacircular-evaluator.org/blog/2018/06/18/testing-routing/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="http://weblog.metacircular-evaluator.org/categories/angular/">Angular </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Testing Routing 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメント機械翻訳控えを投入。</p>
+
+<ul>
+<li><a href="https://codecraft.tv/courses/angular/unit-testing/routing/">Testing Routing</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="testing-routing">Testing Routing</h2>
+
+<h2 id="learning-objectives">Learning Objectives</h2>
+
+<ul>
+<li>ルーティングをテストするためにATBを設定する方法を理解する。</li>
+
+<li><p>ルーティングを含むテスト仕様の記述方法を理解する。</p>
+
+<h2 id="test-setup">Test setup</h2></li>
+</ul>
+
+<p>ルーティングをテストするには、いくつかのコンポーネントとルート設定が必要です。</p>
+
+<pre><code>import {Component} from &quot;@angular/core&quot;;
+import {Routes} from &quot;@angular/router&quot;;
+
+@Component({
+  template: `Search`
+})
+export class SearchComponent {
+}
+
+@Component({
+  template: `Home`
+})
+export class HomeComponent {
+}
+
+@Component({
+  template: `&lt;router-outlet&gt;&lt;/router-outlet&gt;`
+})
+export class AppComponent {
+}
+
+export const routes: Routes = [
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'home', component: HomeComponent},
+  {path: 'search', component: SearchComponent}
+];
+</code></pre>
+
+<p>3つのコンポーネントHomeComponent、SearchComponent、および <router-outlet> 付きのAppComponentを作成します。</p>
+
+<p>また、 ‘&rsquo; は home にリダイレクトし、home および search それぞれのコンポーネントを表示するルート設定を作成します。</p>
+
+<p>基本的なテストスイートは次のようになります：</p>
+
+<pre><code>import {Location} from &quot;@angular/common&quot;;
+import {TestBed, fakeAsync, tick} from '@angular/core/testing';
+import {RouterTestingModule} from &quot;@angular/router/testing&quot;;
+import {Router} from &quot;@angular/router&quot;;
+
+import {
+    HomeComponent,
+    SearchComponent,
+    AppComponent,
+    routes
+} from &quot;./router&quot;
+
+describe('Router: App', () =&gt; {
+  beforeEach(() =&gt; {
+    TestBed.configureTestingModule({
+      declarations: [  // 1.
+        HomeComponent,
+        SearchComponent,
+        AppComponent
+      ]
+    });
+  });
+});
+</code></pre>
+
+<ol>
+<li><p>テストベッド構成でコンポーネントをインポートおよび宣言します。</p>
+
+<h2 id="router-setup">Router setup</h2></li>
+</ol>
+
+<p>通常、Angularアプリケーションでルーティングを設定するには、RouterModuleをインポートし、RouterModule.withRoutes（ルート）でNgModuleへのルートを提供します。</p>
+
+<p>しかし、ルーティングをテストするときは代わりにRouterTestingModuleを使用します。 このモジュールは、実際にURLを変更しないロケーション戦略のスパイ実装でルータを設定します。</p>
+
+<p>また、テスト仕様で使用できるように、注入されたルータとロケーションも取得する必要があります。</p>
+
+<p>私たちのテストスイートファイルは次のようになります：</p>
+
+<pre><code>describe('Router: App', () =&gt; {
+
+  let location: Location;
+  let router: Router;
+  let fixture;
+
+  beforeEach(() =&gt; {
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule.withRoutes(routes)],  // 1.
+      declarations: [
+        HomeComponent,
+        SearchComponent,
+        AppComponent
+      ]
+    });
+
+    router = TestBed.get(Router);  // 2.
+    location = TestBed.get(Location);  // 3.
+
+    fixture = TestBed.createComponent(AppComponent);  // 4.
+    router.initialNavigation();  // 5.
+  });
+});
+</code></pre>
+
+<ol>
+<li>RouterTestingModuleをルートでインポートします。</li>
+<li>注入されたルータへの参照を取得します。</li>
+<li>注入された場所への参照を取得します。</li>
+<li>テストベッドに、ルートAppComponentのインスタンスを作成するよう依頼します。 私たちのテスト仕様ではこのリファレンスは必要ありませんが、ルーターがコンポーネントをどこかに挿入できるようにルーター・コンセントでルート・コンポーネントを作成する必要があります。</li>
+<li>これにより、ロケーション変更リスナーが設定され、初期ナビゲーションが実行されます。</li>
+</ol>
+
+<p>テスト仕様を作成する準備が整いました。</p>
+
+<h2 id="testing-routing-1">Testing Routing</h2>
+
+<p>私たちの設定では、ルートの空のURLに着いたら/ homeにリダイレクトされるように設定しました。このためのテスト仕様を追加することができます：</p>
+
+<pre><code>it('navigate to &quot;&quot; redirects you to /home', fakeAsync(() =&gt; {  // 1.
+  router.navigate(['']);  // 2.
+  tick();  // 3.
+  expect(location.path()).toBe('/home');  // 4.
+}));
+</code></pre>
+
+<ol>
+<li>ルーティングは非同期アクティビティですので、非同期テストメソッドの1つ、ここではfakeAsyncメソッドを使います。</li>
+<li>ルータが空のパスにナビゲートするようにトリガーします。</li>
+<li>保留中の約束がすべて解決されるのを待つ。</li>
+<li>次に、location.path（）を使用して、アプリケーションのパスを調べることができます。</li>
+</ol>
+
+<p>次のように、検索ルートに移動するためのテスト仕様を追加することもできます。</p>
+
+<pre><code>it('navigate to &quot;search&quot; takes you to /search', fakeAsync(() =&gt; {
+  router.navigate(['search']);
+  tick();
+  expect(location.path()).toBe('/search');
+}));
+</code></pre>
+
+<p>スペックは前のものとまったく同じですが、私たちのリンクパラメタの配列は違っています。なぜなら、私たちは別のルートを起動していて、私たちの期待はやはり異なっていますが、残りは同じです。</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>RouterModuleではなくRouterTestingModuleを使用してルートを提供することで、RoutingをAngularでテストできます。</p>
+
+<p>これはLocationのスパイ実装を使用します。これは新しいURLのリクエストをトリガーしませんが、テスト仕様で使用できるターゲットURLをGoogleに知らせます。</p>
+
+<h2 id="listing">Listing</h2>
+
+<p><a href="http://plnkr.co/edit/mTYEDNRlgGjdwv3M5b28?p=preview">http://plnkr.co/edit/mTYEDNRlgGjdwv3M5b28?p=preview</a>
+<em>Listing 1. router.ts</em></p>
+
+<pre><code>import {Component} from &quot;@angular/core&quot;;
+import {Routes} from &quot;@angular/router&quot;;
+
+@Component({
+  template: `Search`
+})
+export class SearchComponent {
+}
+
+@Component({
+  template: `Home`
+})
+export class HomeComponent {
+}
+
+@Component({
+  template: `&lt;router-outlet&gt;&lt;/router-outlet&gt;`
+})
+export class AppComponent {
+}
+
+export const routes: Routes = [
+  // {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'home', component: HomeComponent},
+  {path: 'search', component: SearchComponent}
+];
+</code></pre>
+
+<p><em>Listing 2. router.spec.ts</em></p>
+
+<pre><code>/* tslint:disable:no-unused-variable */
+import {Location} from &quot;@angular/common&quot;;
+import {TestBed, fakeAsync, tick} from '@angular/core/testing';
+import {RouterTestingModule} from &quot;@angular/router/testing&quot;;
+import {Router} from &quot;@angular/router&quot;;
+
+import {
+    HomeComponent,
+    SearchComponent,
+    AppComponent,
+    routes
+} from &quot;./router&quot;
+
+describe('Router: App', () =&gt; {
+
+  let location: Location;
+  let router: Router;
+  let fixture;
+
+  beforeEach(() =&gt; {
+    TestBed.configureTestingModule({
+      imports: [    RouterTestingModule.withRoutes(routes)],
+      declarations: [
+        HomeComponent,
+        SearchComponent,
+        AppComponent
+      ]
+    });
+
+    router = TestBed.get(Router);
+    location = TestBed.get(Location);
+
+    fixture = TestBed.createComponent(AppComponent);
+    router.initialNavigation();
+  });
+
+  it('fakeAsync works', fakeAsync(() =&gt; {
+    let promise = new Promise((resolve) =&gt; {
+      setTimeout(resolve, 10)
+    });
+    let done = false;
+    promise.then(() =&gt; done = true);
+    tick(50);
+    expect(done).toBeTruthy();
+  }));
+
+  it('navigate to &quot;&quot; redirects you to /home', fakeAsync(() =&gt; {
+    router.navigate(['']);
+    tick(50);
+    expect(location.path()).toBe('/home');
+  }));
+
+  it('navigate to &quot;search&quot; takes you to /search', fakeAsync(() =&gt; {
+    router.navigate(['/search']);
+    tick(50);
+    expect(location.path()).toBe('/search');
+  }));
+});
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 18, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="http://weblog.metacircular-evaluator.org/blog/2018/06/17/GitHub_Pages_plus_original_domain_plus_HTTPS_SSL_support/" title="GitHub Pages &#43; original domain &#43; HTTPS(SSL) support">GitHub Pages &#43; original domain &#43; HTTPS(SSL) support</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="http://www.catb.org/hacker-emblem/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="http://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/06/18/testing-routing/">Testing Routing</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/17/GitHub_Pages_plus_original_domain_plus_HTTPS_SSL_support/">GitHub Pages &#43; original domain &#43; HTTPS(SSL) support</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/15/testing-model-driven-forms/">Testing Model Driven Forms</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/13/testing-directives/">Testing Directives</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/09/testing-components/">Testing Components</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/08/testing-dependency-injection/">Testing Dependency Injection</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/07/testing-asynchronous-code/">Testing Asynchronous Code</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/06/testing-change-detection/">Testing Change Detection</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/05/angular-test-bed/">Angular Test Bed</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/04/testing-with-mocks-and-spies/">Testing With Mocks and Spies</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='http://ecx.images-amazon.com/images/I/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="http://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
