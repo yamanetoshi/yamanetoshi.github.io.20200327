@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker on /var/log/messages</title>
-    <link>http://weblog.metacircular-evaluator.org/categories/docker/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/docker/</link>
     <description>Recent content in Docker on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Tue, 26 Dec 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://weblog.metacircular-evaluator.org/categories/docker/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/docker/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Elasticsearch/kibana 検証</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/12/26/elasticsearch-and-kibana-verification/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/12/26/elasticsearch-and-kibana-verification/</link>
       <pubDate>Tue, 26 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/12/26/elasticsearch-and-kibana-verification/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/12/26/elasticsearch-and-kibana-verification/</guid>
       <description>&lt;p&gt;色々ハマッていたのですがちょっとずつ前に進みはじめているのでメモを控え。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -24,19 +24,19 @@
     
     <item>
       <title>Elasticsearch/kibana 検証</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/12/21/elasticsearch-and-kibana-verification/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/12/21/elasticsearch-and-kibana-verification/</link>
       <pubDate>Thu, 21 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/12/21/elasticsearch-and-kibana-verification/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/12/21/elasticsearch-and-kibana-verification/</guid>
       <description>以下のエントリを参考にさせて頂き、検証環境作成しています。 ElasticのDockerイメージを使って、ElasticsearchとKiba</description>
     </item>
     
     <item>
       <title>Docker-ce</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/12/18/docker-ce/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/12/18/docker-ce/</link>
       <pubDate>Mon, 18 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/12/18/docker-ce/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/12/18/docker-ce/</guid>
       <description>&lt;p&gt;自宅メイン端末で確認したところでは導入してるパケジは&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ dpkg --get-selections|grep docker
@@ -50,10 +50,10 @@ docker-engine                                   install
     
     <item>
       <title>Docker-compose</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/11/17/docker-compose/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/11/17/docker-compose/</link>
       <pubDate>Fri, 17 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/11/17/docker-compose/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/11/17/docker-compose/</guid>
       <description>&lt;p&gt;手持ちの貧相な端末にて&lt;/p&gt;
 
 &lt;ul&gt;
@@ -67,10 +67,10 @@ docker-engine                                   install
     
     <item>
       <title>Movidius NCS</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/08/08/movidius-ncs/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/08/08/movidius-ncs/</link>
       <pubDate>Tue, 08 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/08/08/movidius-ncs/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/08/08/movidius-ncs/</guid>
       <description>&lt;p&gt;前日エントリよりこっちの方が先でしたorz
 以下、最初の試行錯誤となっております。&lt;/p&gt;
 
@@ -87,10 +87,10 @@ docker-engine                                   install
     
     <item>
       <title>Movidius NCS</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/08/07/movidius-ncs/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/08/07/movidius-ncs/</link>
       <pubDate>Mon, 07 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/08/07/movidius-ncs/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/08/07/movidius-ncs/</guid>
       <description>&lt;p&gt;色々忘れている。とりあえず作成したイメージを云々コマンドを以下に。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ docker run -t -i -v ~/Documents/mvncsdk/:/opt yamanetoshi/ubuntu /bin/bash
@@ -103,10 +103,10 @@ docker-engine                                   install
     
     <item>
       <title>Python 機械学習プログラミングな環境構築</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/10/11/python-programming-environment/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/10/11/python-programming-environment/</link>
       <pubDate>Tue, 11 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/10/11/python-programming-environment/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/10/11/python-programming-environment/</guid>
       <description>&lt;p&gt;自分メモ、という事にて以下。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -114,19 +114,19 @@ docker-engine                                   install
     
     <item>
       <title>Repository does not exist</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/06/24/repository-does-not-exist/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/06/24/repository-does-not-exist/</link>
       <pubDate>Fri, 24 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/06/24/repository-does-not-exist/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/06/24/repository-does-not-exist/</guid>
       <description>dockerhub に push できない、って思ってたら image を username/image という形にするの忘れてました。 気付くまで少々時間がかかる後天性記憶不全orz</description>
     </item>
     
     <item>
       <title>作業控え</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/05/26/docker-memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/05/26/docker-memo/</link>
       <pubDate>Thu, 26 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/05/26/docker-memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/05/26/docker-memo/</guid>
       <description>&lt;p&gt;なんというか、久々に弄ってみるに完全に忘れてるしメモも探せない。&lt;/p&gt;
 
 &lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
@@ -153,10 +153,10 @@ Docker version 1.10.2 build c3959b1
     
     <item>
       <title>Docker Registry</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/12/docker-registry/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/03/12/docker-registry/</link>
       <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/12/docker-registry/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/12/docker-registry/</guid>
       <description>&lt;p&gt;問題処理。どうやって不具合の原因特定するんだ、と思ってたら&lt;/p&gt;
 
 &lt;ul&gt;
@@ -170,10 +170,10 @@ Docker version 1.10.2 build c3959b1
     
     <item>
       <title>Docker Registry</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/11/docker-registry/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/03/11/docker-registry/</link>
       <pubDate>Fri, 11 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/11/docker-registry/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/11/docker-registry/</guid>
       <description>&lt;p&gt;以下、確認しつつリトライしてみます。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -186,10 +186,10 @@ Docker version 1.10.2 build c3959b1
     
     <item>
       <title>Docker Registry</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/10/docker-registry/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/03/10/docker-registry/</link>
       <pubDate>Thu, 10 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/10/docker-registry/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/10/docker-registry/</guid>
       <description>&lt;p&gt;ようやく commit 作らない、が横着だった事に気づいた次第にて以下の方向でリポジトリを作成する事に。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -212,10 +212,10 @@ Docker version 1.10.2 build c3959b1
     
     <item>
       <title>Azure CLI 用の Dockerfile 作ったので</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/06/test-dockerfile-for-azure-cli/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/03/06/test-dockerfile-for-azure-cli/</link>
       <pubDate>Sun, 06 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/06/test-dockerfile-for-azure-cli/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/06/test-dockerfile-for-azure-cli/</guid>
       <description>&lt;p&gt;テスツしてみました。Dockerfile は以下。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -227,10 +227,10 @@ Docker version 1.10.2 build c3959b1
     
     <item>
       <title>Docker Swarm</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/04/docker-swarm/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/03/04/docker-swarm/</link>
       <pubDate>Fri, 04 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/04/docker-swarm/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/04/docker-swarm/</guid>
       <description>&lt;p&gt;ええと、blacklabelops/jenkins は Docker Compose で、なのですがこれを Docker Swarm 使って云々、にしようと思ったらどうすりゃいいのかな、ということで検討着手。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -238,10 +238,10 @@ Docker version 1.10.2 build c3959b1
     
     <item>
       <title>jenkins-swarm の Dockerfile 掘削</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/03/hoge-dockerfile-of-jenkins-swarm/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/03/03/hoge-dockerfile-of-jenkins-swarm/</link>
       <pubDate>Thu, 03 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/03/hoge-dockerfile-of-jenkins-swarm/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/03/hoge-dockerfile-of-jenkins-swarm/</guid>
       <description>&lt;p&gt;リポジトリは以下です。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -255,10 +255,10 @@ Docker version 1.10.2 build c3959b1
     
     <item>
       <title>blacklabelops/jenkins-swarm 確認</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/02/29/blacklabelops-jenkins-swarm-reading/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/02/29/blacklabelops-jenkins-swarm-reading/</link>
       <pubDate>Mon, 29 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/02/29/blacklabelops-jenkins-swarm-reading/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/29/blacklabelops-jenkins-swarm-reading/</guid>
       <description>&lt;p&gt;以下、確認ログです (自分メモ&lt;/p&gt;
 
 &lt;ul&gt;
@@ -270,10 +270,10 @@ Docker version 1.10.2 build c3959b1
     
     <item>
       <title>blacklabelops/jenkins 確認</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/02/26/blacklabelops-jenkins-reading/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/02/26/blacklabelops-jenkins-reading/</link>
       <pubDate>Fri, 26 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/02/26/blacklabelops-jenkins-reading/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/26/blacklabelops-jenkins-reading/</guid>
       <description>&lt;p&gt;リポジトリは以下。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -287,19 +287,19 @@ Docker version 1.10.2 build c3959b1
     
     <item>
       <title>Docker</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/02/24/docker/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/02/24/docker/</link>
       <pubDate>Wed, 24 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/02/24/docker/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/24/docker/</guid>
       <description>弄る機会があるみたい (というか某所向けに開発リソースとして使ってた) なのですが、周辺のソレが色々手厚くなってるみたいでびっくり。 以下、これか</description>
     </item>
     
     <item>
       <title>docker 備忘</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/12/25/docker-memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/12/25/docker-memo/</link>
       <pubDate>Fri, 25 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/12/25/docker-memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/12/25/docker-memo/</guid>
       <description>&lt;p&gt;とりあえず dockerhub にイメージを置いて云々、というあたりの備忘。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -307,19 +307,19 @@ Docker version 1.10.2 build c3959b1
     
     <item>
       <title>Docker な開発環境</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/09/22/docker-development-environment/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/09/22/docker-development-environment/</link>
       <pubDate>Tue, 22 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/09/22/docker-development-environment/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/09/22/docker-development-environment/</guid>
       <description>久々に TP X201 で入力してます。そして標題の開発環境もここにあったはずなのですが、当分電源 off ってて history とかに残っていない。 さんざんあちこちを探しまく</description>
     </item>
     
     <item>
       <title>docker な sid の環境作るメモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/01/09/making-debian-sid-docker-environment/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/01/09/making-debian-sid-docker-environment/</link>
       <pubDate>Fri, 09 Jan 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/01/09/making-debian-sid-docker-environment/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/01/09/making-debian-sid-docker-environment/</guid>
       <description>&lt;p&gt;ええと、&lt;code&gt;sudo docker search debian&lt;/code&gt; したら Official Debian base image というソレがあったのでとりあえず pull します。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ sudo docker pull debian
@@ -336,10 +336,10 @@ root@7875f0db0b6b:/#
     
     <item>
       <title>Docker な開発環境の動作不良</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/08/22/mulfunction-of-the-development-environment/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/08/22/mulfunction-of-the-development-environment/</link>
       <pubDate>Fri, 22 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/08/22/mulfunction-of-the-development-environment/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/08/22/mulfunction-of-the-development-environment/</guid>
       <description>&lt;p&gt;いきなりネットワーク導通な不具合が出た。原因不明。&lt;/p&gt;
 
 &lt;p&gt;仕方無いので某所にある仮想環境に諸々をでっち上げた。でびあん系だと以下なパケジが必要、ということが分かりました。&lt;/p&gt;
@@ -356,10 +356,10 @@ root@7875f0db0b6b:/#
     
     <item>
       <title>ansible な playbook のための環境設定メモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/24/memo-for-ansible-playbook/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/07/24/memo-for-ansible-playbook/</link>
       <pubDate>Thu, 24 Jul 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/24/memo-for-ansible-playbook/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/07/24/memo-for-ansible-playbook/</guid>
       <description>&lt;p&gt;とりあえず仮想リソースをいっこ確保して&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ sudo apt-get update
@@ -373,10 +373,10 @@ $ sudo apt-get upgrade -y
     
     <item>
       <title>docker な Rails 環境にて assets:precompile</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/</link>
       <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/</guid>
       <description>&lt;p&gt;やはり、container は再起動しないと反映されませんでした。当り前ですね。手順的に&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ sudo docker.io stop `sudo docker.io ps -a|grep &#39;rails:latest&#39;|awk &#39;{print $1;}&#39;`
@@ -404,10 +404,10 @@ $ sudo apt-get upgrade -y
     
     <item>
       <title>Docker の build</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/11/build-docker/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/07/11/build-docker/</link>
       <pubDate>Fri, 11 Jul 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/11/build-docker/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/07/11/build-docker/</guid>
       <description>もしかして clone して $ cd docker $ docker build . で良いのかな。どうも docker/Dockerfile 見てみるに # This file describes the standard way to build Docker, using docker とありますね。あ、以下なのか。 $ docker build -t docker . 別途確認して</description>
     </item>
     

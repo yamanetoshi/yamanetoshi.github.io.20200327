@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Eopl on /var/log/messages</title>
-    <link>http://weblog.metacircular-evaluator.org/categories/eopl/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/eopl/</link>
     <description>Recent content in Eopl on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Sun, 01 Dec 2013 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://weblog.metacircular-evaluator.org/categories/eopl/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/eopl/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>EoPL の Exercise 2.24</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/01/eopl-ex-2-24/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/12/01/eopl-ex-2-24/</link>
       <pubDate>Sun, 01 Dec 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/01/eopl-ex-2-24/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/12/01/eopl-ex-2-24/</guid>
       <description>&lt;p&gt;これ、意外にムズいな。ちょい整理。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -30,10 +30,10 @@
     
     <item>
       <title>EoPL の Exercise 2.24</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/27/eopl-ex-2-23/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/27/eopl-ex-2-23/</link>
       <pubDate>Wed, 27 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/27/eopl-ex-2-23/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/27/eopl-ex-2-23/</guid>
       <description>&lt;p&gt;2.1.2 の subst あたりを復習。subst の定義が以下。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;(define subst
@@ -50,10 +50,10 @@
     
     <item>
       <title>昨晩</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/26/eopl-ex-2-23/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/26/eopl-ex-2-23/</link>
       <pubDate>Tue, 26 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/26/eopl-ex-2-23/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/26/eopl-ex-2-23/</guid>
       <description>&lt;p&gt;ちょろっと直した。以下、差分。# rib ではなくてリストになっていたので。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -61,10 +61,10 @@
     
     <item>
       <title>EoPL の Exercise 2.23</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/25/eopl-ex-2-23/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/25/eopl-ex-2-23/</link>
       <pubDate>Mon, 25 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/25/eopl-ex-2-23/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/25/eopl-ex-2-23/</guid>
       <description>&lt;p&gt;ゲンジツトウヒ気味に着手。必要な手続きは以下なのかどうか。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -82,10 +82,10 @@
     
     <item>
       <title>EoPL の Exercise 2.22</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/18/eopl-ex-2-22/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/18/eopl-ex-2-22/</link>
       <pubDate>Mon, 18 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/18/eopl-ex-2-22/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/18/eopl-ex-2-22/</guid>
       <description>&lt;p&gt;なんとなくやってみたらなんとなくできた。流石☆一つ。試験とか Ex.2.20 のソレをまんま流用してるので微妙です。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -93,19 +93,19 @@
     
     <item>
       <title>EoPL の Exercise 2.21</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/16/eopl-ex-2-21/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/16/eopl-ex-2-21/</link>
       <pubDate>Sat, 16 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/16/eopl-ex-2-21/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/16/eopl-ex-2-21/</guid>
       <description>これはなかなかにシュールなリストだな。 gosh&amp;gt; (cons (list &#39;() &#39;()) &#39;()) ((() ())) 時間使ってきちんと読みたいのですが、今日はというかこの週末は無理らしい。</description>
     </item>
     
     <item>
       <title>EoPL の Exercise 2.19</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/15/eopl-ex-2-19/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/15/eopl-ex-2-19/</link>
       <pubDate>Fri, 15 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/15/eopl-ex-2-19/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/15/eopl-ex-2-19/</guid>
       <description>&lt;p&gt;微妙にハマった。つうか試験が微妙だったんですが 2.14 って本当に終わったのだろうかと思うなど。
 手続き定義の本体と試験を以下に。&lt;/p&gt;
 
@@ -114,10 +114,10 @@
     
     <item>
       <title>EoPL の Exercise 2.20</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/15/eopl-ex-2-20/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/15/eopl-ex-2-20/</link>
       <pubDate>Fri, 15 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/15/eopl-ex-2-20/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/15/eopl-ex-2-20/</guid>
       <description>&lt;p&gt;なんかゲンジツトウヒ気味に手を付けてみたらさくっとできたので。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -125,10 +125,10 @@
     
     <item>
       <title>EoPL の 2.3.2 と 2.3.3 控え</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/14/eopl-note/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/14/eopl-note/</link>
       <pubDate>Thu, 14 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/14/eopl-note/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/14/eopl-note/</guid>
       <description>&lt;p&gt;_環境_を操作する実装について。纏めるのがやや微妙。&lt;/p&gt;
 
 &lt;p&gt;interface は決まってますが、実装として&lt;/p&gt;
@@ -145,10 +145,10 @@
     
     <item>
       <title>EoPL の Exercise 2.18</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/14/eopl-ex-2-18/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/14/eopl-ex-2-18/</link>
       <pubDate>Thu, 14 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/14/eopl-ex-2-18/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/14/eopl-ex-2-18/</guid>
       <description>&lt;p&gt;2.3.3 節で empty-env と extend-env が environment という abstract syntax で抽象化されてしまいます。これは凄い。実際に評価されるのは apply-env の時点、という事になってしまいました。こうなれば、と思ってたところだったので笑いました。&lt;/p&gt;
 
 &lt;p&gt;で、こうした事で中身の検査ができるようになってます。練習問題はその実装をせよ、という設問になっております。&lt;/p&gt;
@@ -158,10 +158,10 @@
     
     <item>
       <title>EoPL の Exercise 2.17</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/13/eopl-ex-2-17/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/13/eopl-ex-2-17/</link>
       <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/13/eopl-ex-2-17/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/13/eopl-ex-2-17/</guid>
       <description>&lt;p&gt;i/f を探索するだけ、と値の取得、という意味付けをすれば良いのかどうか。例えば以下?&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;(define empty-env
@@ -197,10 +197,10 @@
     
     <item>
       <title>EoPL の Exercise 2.16</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/12/eopl-ex-2-16/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/12/eopl-ex-2-16/</link>
       <pubDate>Tue, 12 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/12/eopl-ex-2-16/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/12/eopl-ex-2-16/</guid>
       <description>&lt;p&gt;list-find-position 使え、ということであれば&lt;/p&gt;
 
 &lt;ul&gt;
@@ -214,10 +214,10 @@
     
     <item>
       <title>EoPL の Exercise 2.15</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/10/eopl-ex-2-15/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/10/eopl-ex-2-15/</link>
       <pubDate>Sun, 10 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/10/eopl-ex-2-15/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/10/eopl-ex-2-15/</guid>
       <description>&lt;p&gt;考えかたてきには&lt;/p&gt;
 
 &lt;ul&gt;
@@ -235,10 +235,10 @@
     
     <item>
       <title>EoPL の Exercise 2.14 (2)</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/08/eopl-ex-2-14/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/08/eopl-ex-2-14/</link>
       <pubDate>Fri, 08 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/08/eopl-ex-2-14/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/08/eopl-ex-2-14/</guid>
       <description>&lt;p&gt;なんか昨晩書いた試験が微妙、って思ったら pop は状態を変えるだけで値を取り出す手続きは別で存在してたんすね。いやはや。とりあえず微妙なのは以下の部分だった模様。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;(test* &amp;quot;get top of stack&amp;quot;
@@ -260,10 +260,10 @@
     
     <item>
       <title>EoPL の Exercise 2.13</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-13/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-13/</link>
       <pubDate>Thu, 07 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-13/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-13/</guid>
       <description>&lt;p&gt;試験スルーで軽く、ということで勘弁してもらう方向。
 unparse が以下なのかどうか。&lt;/p&gt;
 
@@ -284,10 +284,10 @@ unparse が以下なのかどうか。&lt;/p&gt;
     
     <item>
       <title>EoPL の Exercise 2.14</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-14/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-14/</link>
       <pubDate>Thu, 07 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-14/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-14/</guid>
       <description>&lt;p&gt;同居人には内緒で sticker 発注だん。それは良いとしてとりあえず以下な手続きの試験を書いてみます。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -305,10 +305,10 @@ unparse が以下なのかどうか。&lt;/p&gt;
     
     <item>
       <title>EoPL の Exercise 2.12</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/05/eopl-ex-2-12/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/05/eopl-ex-2-12/</link>
       <pubDate>Tue, 05 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/05/eopl-ex-2-12/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/05/eopl-ex-2-12/</guid>
       <description>&lt;p&gt;アルファ変換は lambda-calculus-subst そのまま、って理解で良いのかな。あと&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;((lambda (x) E1) E2)
@@ -326,10 +326,10 @@ unparse が以下なのかどうか。&lt;/p&gt;
     
     <item>
       <title>EoPL の exercise 2.11</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/04/eopl-ex-2-11/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/04/eopl-ex-2-11/</link>
       <pubDate>Mon, 04 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/04/eopl-ex-2-11/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/04/eopl-ex-2-11/</guid>
       <description>&lt;p&gt;そもそもな考え方が違う、という事にようやく気付くなど。
 例示されてるものを使って確認してみるに&lt;/p&gt;
 

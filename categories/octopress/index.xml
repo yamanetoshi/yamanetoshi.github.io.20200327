@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Octopress on /var/log/messages</title>
-    <link>http://weblog.metacircular-evaluator.org/categories/octopress/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/octopress/</link>
     <description>Recent content in Octopress on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Thu, 27 Mar 2014 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://weblog.metacircular-evaluator.org/categories/octopress/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/octopress/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>oembed 入れてみた</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/27/install-ruby-oembed/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/03/27/install-ruby-oembed/</link>
       <pubDate>Thu, 27 Mar 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/27/install-ruby-oembed/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/03/27/install-ruby-oembed/</guid>
       <description>&lt;p&gt;Gemfile に以下を追加して&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;gem &#39;ruby-oembed&#39;
@@ -29,10 +29,10 @@
     
     <item>
       <title>複数端末で octopress なソレを共有</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/23/share-octopress-with-multiple-terminals/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/02/23/share-octopress-with-multiple-terminals/</link>
       <pubDate>Sun, 23 Feb 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/23/share-octopress-with-multiple-terminals/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/02/23/share-octopress-with-multiple-terminals/</guid>
       <description>&lt;p&gt;エントリ作ってプレビュー見たら最近のエントリが無い。あら? なんかオペミスして消しちゃった? と思ったら git fetch; git merge してないだけでした。&lt;/p&gt;
 
 &lt;p&gt;つい共有してる事忘れてしまいます。&lt;/p&gt;
@@ -42,10 +42,10 @@
     
     <item>
       <title>Octopress にあまぞんなソレを設定するなど</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/19/add-amazon-plugin-to-octopress/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/02/19/add-amazon-plugin-to-octopress/</link>
       <pubDate>Wed, 19 Feb 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/19/add-amazon-plugin-to-octopress/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/02/19/add-amazon-plugin-to-octopress/</guid>
       <description>&lt;p&gt;以下を確認しつつ設定盛り込みの方向。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -57,19 +57,19 @@
     
     <item>
       <title>Octopress の TODO</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/08/octopress-todo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/08/octopress-todo/</link>
       <pubDate>Fri, 08 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/08/octopress-todo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/08/octopress-todo/</guid>
       <description>ええと、以下に列挙。 tweet が出力されてない categories amazon リンク つうかこの際なので SEO な実験してみようかな。assense はそれなりに正確な数値が取れているみ</description>
     </item>
     
     <item>
       <title>Octopress 設定云々</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/06/octopress/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/06/octopress/</link>
       <pubDate>Wed, 06 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/06/octopress/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/06/octopress/</guid>
       <description>&lt;p&gt;現実トウヒです。今朝も頭ぐるぐる状態でした。
 とりあえずイケてないあたりを以下に列挙。&lt;/p&gt;
 
@@ -88,10 +88,10 @@
     
     <item>
       <title>Octopress エントリ投稿できない件</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/04/cannot-post-entry/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/04/cannot-post-entry/</link>
       <pubDate>Mon, 04 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/04/cannot-post-entry/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/04/cannot-post-entry/</guid>
       <description>categories を以下にしてて preview さえ見れず categories: [Scheme],[EoPL] 正しくは以下でした。 categories: [Scheme, EoPL] いやはや。</description>
     </item>
     

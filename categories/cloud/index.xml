@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cloud on /var/log/messages</title>
-    <link>http://weblog.metacircular-evaluator.org/categories/cloud/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/cloud/</link>
     <description>Recent content in Cloud on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Thu, 27 Apr 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://weblog.metacircular-evaluator.org/categories/cloud/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/cloud/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>問い合せフォーム</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/04/27/inquiry-form/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/04/27/inquiry-form/</link>
       <pubDate>Thu, 27 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/04/27/inquiry-form/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/04/27/inquiry-form/</guid>
       <description>&lt;p&gt;以下を参考にしつつ。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -30,10 +30,10 @@
     
     <item>
       <title>Network JukeBox の導入にあたって</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/28/in-introducing-network-jukebox/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/28/in-introducing-network-jukebox/</link>
       <pubDate>Thu, 28 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/28/in-introducing-network-jukebox/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/28/in-introducing-network-jukebox/</guid>
       <description>&lt;p&gt;導入にあたり、音源をどこに置くか、がアレ。S3 かな、とか思っていたり。そいえば自宅の外付け HDD にある画像も S3 に転送しないと微妙。&lt;/p&gt;
 
 &lt;p&gt;以下で構築するとして&lt;/p&gt;

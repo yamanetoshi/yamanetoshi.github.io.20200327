@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Go on /var/log/messages</title>
-    <link>http://weblog.metacircular-evaluator.org/categories/go/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/go/</link>
     <description>Recent content in Go on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Wed, 21 Mar 2018 20:56:58 +0900</lastBuildDate>
     
-	<atom:link href="http://weblog.metacircular-evaluator.org/categories/go/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/go/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Go by Examples (3)</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/03/21/bo-by-examples/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/03/21/bo-by-examples/</link>
       <pubDate>Wed, 21 Mar 2018 20:56:58 +0900</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/03/21/bo-by-examples/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/03/21/bo-by-examples/</guid>
       <description>&lt;p&gt;続き、は Switch の次ですね。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -24,10 +24,10 @@
     
     <item>
       <title>Go by Examples (2)</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/03/14/bo-by-examples/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/03/14/bo-by-examples/</link>
       <pubDate>Wed, 14 Mar 2018 22:16:55 +0900</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/03/14/bo-by-examples/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/03/14/bo-by-examples/</guid>
       <description>&lt;p&gt;続き、ということで Switch から。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -35,10 +35,10 @@
     
     <item>
       <title>Go by Examples</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/03/13/bo-by-examples/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/03/13/bo-by-examples/</link>
       <pubDate>Tue, 13 Mar 2018 21:45:27 +0900</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/03/13/bo-by-examples/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/03/13/bo-by-examples/</guid>
       <description>&lt;p&gt;以下、スキを見て云々するのに良いボリュームなのでコード見てふむふむと言ってるのですが、コメントを控えておくことにしようかなと思った次第す。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -46,10 +46,10 @@
     
     <item>
       <title>Linux におけるスクリプト言語としての Go の使用</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/22/using-go-as-a-scripting-language-in-linux/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/02/22/using-go-as-a-scripting-language-in-linux/</link>
       <pubDate>Thu, 22 Feb 2018 20:15:16 +0900</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/22/using-go-as-a-scripting-language-in-linux/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/02/22/using-go-as-a-scripting-language-in-linux/</guid>
       <description>&lt;p&gt;はてブから以下なエントリを見つけたのですが面白かったので確認エントリ投入してみます。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -61,10 +61,10 @@
     
     <item>
       <title>昨日の PR について</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/10/22/about-yesterday-pr/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/10/22/about-yesterday-pr/</link>
       <pubDate>Sun, 22 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/10/22/about-yesterday-pr/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/10/22/about-yesterday-pr/</guid>
       <description>&lt;p&gt;O(n^2) ではないのではないか、と思いはじめている件。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -72,19 +72,19 @@
     
     <item>
       <title>pull request もらった</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/10/21/i-got-a-pull-request/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/10/21/i-got-a-pull-request/</link>
       <pubDate>Sat, 21 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/10/21/i-got-a-pull-request/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/10/21/i-got-a-pull-request/</guid>
       <description>fibonacci な実装、再帰ではなくて array 使えば? とのこと。 Made it on a more efficient way. Now complexity is O(n) instead of O(n^2) 確かにこうすりゃ O(n) になりますね。つうかオレオレなナニで PR もらうの初で</description>
     </item>
     
     <item>
       <title>Go 導入関連 (windows の話)</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/10/19/go-install-in-windouz/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/10/19/go-install-in-windouz/</link>
       <pubDate>Thu, 19 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/10/19/go-install-in-windouz/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/10/19/go-install-in-windouz/</guid>
       <description>&lt;p&gt;インストーラでインストールしたら /c/Go 配下に導入されました。以下のコマンド実行してみると&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ go env GOPATH
@@ -106,82 +106,82 @@ export GOPATH=$(go env GOPATH)
     
     <item>
       <title>形を憶える</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/10/03/learn-kata/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/10/03/learn-kata/</link>
       <pubDate>Tue, 03 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/10/03/learn-kata/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/10/03/learn-kata/</guid>
       <description>ええと、英語も同様だそうで。憶えるという行為が超ニガ手というか、そもそも自分で後天性記憶不全と言ってる位なのですが、頑張らないと駄目みたい。</description>
     </item>
     
     <item>
       <title>四路の問題 (随分前の問題ですが)</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/28/yon-ro-problem/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/28/yon-ro-problem/</link>
       <pubDate>Thu, 28 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/28/yon-ro-problem/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/28/yon-ro-problem/</guid>
       <description>なんとなくググッてて以下を発見。別途確認します。 張栩棋聖の挑戦状「4路」</description>
     </item>
     
     <item>
       <title>4x4 GO puzzle</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/24/4x4-go-puzzle/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/24/4x4-go-puzzle/</link>
       <pubDate>Sun, 24 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/24/4x4-go-puzzle/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/24/4x4-go-puzzle/</guid>
       <description>本日、以下が着信。 囲碁パズル 4路盤 問題集が那覇のジュンク堂にあるみたいなので調達の方向です。 よんろのごのほん 来週の部活に (ry</description>
     </item>
     
     <item>
       <title>玄々碁経</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/18/gen-gen-go-kyou/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/18/gen-gen-go-kyou/</link>
       <pubDate>Mon, 18 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/18/gen-gen-go-kyou/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/18/gen-gen-go-kyou/</guid>
       <description>これ、単純に読みものベースで読んでも面白い。とりあえずぐわっと速読して脳内盤の訓練に戻ったらどんな効果があるのかな。 玄々碁経 それにしてもこれ</description>
     </item>
     
     <item>
       <title>玄々碁経</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/08/gen-gen-go-kyou/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/08/gen-gen-go-kyou/</link>
       <pubDate>Fri, 08 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/08/gen-gen-go-kyou/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/08/gen-gen-go-kyou/</guid>
       <description>FB にて share されてるソレ、とりあえず脳内盤駒では再現できました。 玄々碁経の問題 意外に逃げれるものなのだな、と。つうか玄々碁経欲しひ。 # 途中のナニ</description>
     </item>
     
     <item>
       <title>デルタ碁</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/07/delta-go/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/07/delta-go/</link>
       <pubDate>Thu, 07 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/07/delta-go/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/07/delta-go/</guid>
       <description>入手して実装確認し始めています。面白い。 というか GTP 喋れる実装が参加できる floodgate みたいな囲碁のサーバってないのかな。別途探してみようと思います。 あ</description>
     </item>
     
     <item>
       <title>Leela</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/05/leela/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/05/leela/</link>
       <pubDate>Tue, 05 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/05/leela/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/05/leela/</guid>
       <description>BrainKing で 3-dan の人と対局させて頂いてるのですが、全然駄目。トレーニングに良い道具が無いかな、と思って探してみたら以下なエントリを発見。 家庭に一台、囲</description>
     </item>
     
     <item>
       <title>詰碁トレーニング</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/04/results-of-training/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/04/results-of-training/</link>
       <pubDate>Mon, 04 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/04/results-of-training/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/04/results-of-training/</guid>
       <description>平本メソドな訓練に勤しんでおります。以下なナニ。 問題をじっと見て、形を覚え、碁盤もしくは碁罫紙に問題を再現 どこまで効果が出てるのか、と思い詰</description>
     </item>
     
     <item>
       <title>デルタ碁導入</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/08/12/install-delta-go/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/08/12/install-delta-go/</link>
       <pubDate>Sat, 12 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/08/12/install-delta-go/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/08/12/install-delta-go/</guid>
       <description>&lt;p&gt;とりあえず Linux な環境で。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -189,19 +189,19 @@ export GOPATH=$(go env GOPATH)
     
     <item>
       <title>認証文字列の隠し方</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/02/28/how-to-hide-authentication-string/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/02/28/how-to-hide-authentication-string/</link>
       <pubDate>Sun, 28 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/02/28/how-to-hide-authentication-string/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/28/how-to-hide-authentication-string/</guid>
       <description>別なファイルで以下な事しておいて package main var authToken = &amp;quot;&amp;lt;authentication string&amp;gt;&amp;quot; 1リリースな branch (非公開) で実際のソレ、を入れておきつつ開発な branch から merge する、のかどうか。</description>
     </item>
     
     <item>
       <title>Go で API 叩く件</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/02/27/restful-api-access-by-golang/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/02/27/restful-api-access-by-golang/</link>
       <pubDate>Sat, 27 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/02/27/restful-api-access-by-golang/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/27/restful-api-access-by-golang/</guid>
       <description>&lt;p&gt;なんかいいの発見。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -215,10 +215,10 @@ export GOPATH=$(go env GOPATH)
     
     <item>
       <title>scp してみる</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/02/23/do-scp-in-golang/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/02/23/do-scp-in-golang/</link>
       <pubDate>Tue, 23 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/02/23/do-scp-in-golang/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/23/do-scp-in-golang/</guid>
       <description>&lt;p&gt;材料以下。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -233,10 +233,10 @@ export GOPATH=$(go env GOPATH)
     
     <item>
       <title>godeb</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/02/22/godeb/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/02/22/godeb/</link>
       <pubDate>Mon, 22 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/02/22/godeb/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/22/godeb/</guid>
       <description>&lt;p&gt;でびあんの golang は 1.0.x にて以下のナニに沿って 1.2.x を導入。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -248,10 +248,10 @@ export GOPATH=$(go env GOPATH)
     
     <item>
       <title>Revel なプロトタイプを heroku にアレしてみた</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/11/06/deploy-revel-prototype/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/11/06/deploy-revel-prototype/</link>
       <pubDate>Fri, 06 Nov 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/11/06/deploy-revel-prototype/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/11/06/deploy-revel-prototype/</guid>
       <description>&lt;p&gt;手順以下です。備忘です。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -259,10 +259,10 @@ export GOPATH=$(go env GOPATH)
     
     <item>
       <title>Revel 修行</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/11/04/revel-training/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/11/04/revel-training/</link>
       <pubDate>Wed, 04 Nov 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/11/04/revel-training/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/11/04/revel-training/</guid>
       <description>&lt;p&gt;とりあえず、以下なリポジトリを clone してみます。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -276,10 +276,10 @@ export GOPATH=$(go env GOPATH)
     
     <item>
       <title>godeb</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/09/24/godeb/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/09/24/godeb/</link>
       <pubDate>Thu, 24 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/09/24/godeb/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/09/24/godeb/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://godeb.s3.amazonaws.com/godeb-amd64.tar.gz&#34;&gt;x86 64-bit binary&lt;/a&gt; から godeb-amd64.tar.gz を落として&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;./godeb install
@@ -292,19 +292,19 @@ export GOPATH=$(go env GOPATH)
     
     <item>
       <title>Go kit 面白そう</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/09/14/go-kit/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/09/14/go-kit/</link>
       <pubDate>Mon, 14 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/09/14/go-kit/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/09/14/go-kit/</guid>
       <description>はてブ経由で以下を発見。 Goと「Go kit」によるマイクロサービス構築 面白そうなのでしばらくおいかけてみる方向にて。</description>
     </item>
     
     <item>
       <title>Go のメモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/09/12/go-memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/09/12/go-memo/</link>
       <pubDate>Sat, 12 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/09/12/go-memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/09/12/go-memo/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;得意分野は「非同期ネットワークサーバ」とのこと&lt;/p&gt;&lt;/li&gt;
 
@@ -324,10 +324,10 @@ export GOPATH=$(go env GOPATH)
     
     <item>
       <title>Revel</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/09/09/revel/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/09/09/revel/</link>
       <pubDate>Wed, 09 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/09/09/revel/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/09/09/revel/</guid>
       <description>どうも「最速」フルスタック Web フレームワーク、らしい。 nginx でリバプロで云々できる模様 Heroku で云々、がいっちゃんお手軽なのかどうか git は 2.3 とかでないと導</description>
     </item>
     

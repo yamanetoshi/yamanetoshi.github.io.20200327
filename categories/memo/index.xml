@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Memo on /var/log/messages</title>
-    <link>http://weblog.metacircular-evaluator.org/categories/memo/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/memo/</link>
     <description>Recent content in Memo on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Thu, 17 May 2018 09:33:11 +0900</lastBuildDate>
     
-	<atom:link href="http://weblog.metacircular-evaluator.org/categories/memo/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/memo/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>栄町</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/05/17/sakae-machi/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/05/17/sakae-machi/</link>
       <pubDate>Thu, 17 May 2018 09:33:11 +0900</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/05/17/sakae-machi/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/05/17/sakae-machi/</guid>
       <description>&lt;p&gt;週末呑み会の方向なのですが栄町だとすると以下をはしごな方向?&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -24,10 +24,10 @@
     
     <item>
       <title>那覇市徒歩移動メモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/05/15/memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/05/15/memo/</link>
       <pubDate>Tue, 15 May 2018 14:32:36 +0900</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/05/15/memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/05/15/memo/</guid>
       <description>&lt;p&gt;自転車のタイヤがパンク状態 (というかむしろバースト) で徒歩移動している次第。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -35,10 +35,10 @@
     
     <item>
       <title>石田流メモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/</link>
       <pubDate>Wed, 21 Feb 2018 10:47:40 +0900</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/</guid>
       <description>&lt;p&gt;何故か最近振り飛車の本ばっか見てる感。なんとなく纏めを作成してみます。見てるのは Kindle Unlimited で見ることができる_&lt;a href=&#34;https://www.amazon.com/dp/B01COJUH5W/yamanetoshi-22&#34;&gt;石田流を破るための9つの鉄則と15の技術&lt;/a&gt;_です。&lt;/p&gt;
 
 &lt;p&gt;鉄則と技術、は以下らしく。&lt;/p&gt;
@@ -88,10 +88,10 @@
     
     <item>
       <title>メモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/01/25/python-obd-memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/01/25/python-obd-memo/</link>
       <pubDate>Thu, 25 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/01/25/python-obd-memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/01/25/python-obd-memo/</guid>
       <description>&lt;p&gt;つい出来心で&lt;/p&gt;
 
 &lt;ul&gt;
@@ -106,10 +106,10 @@
     
     <item>
       <title>備忘</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/12/27/memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/12/27/memo/</link>
       <pubDate>Wed, 27 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/12/27/memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/12/27/memo/</guid>
       <description>&lt;p&gt;買わねば、とか出金を伴なう諸々。年内中に何とかしたいものを以下に。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -117,10 +117,10 @@
     
     <item>
       <title>備忘</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/11/25/memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/11/25/memo/</link>
       <pubDate>Sat, 25 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/11/25/memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/11/25/memo/</guid>
       <description>&lt;p&gt;本日のもくもくは RSS 倒す方向にて。&lt;/p&gt;
 
 &lt;h2 id=&#34;その後&#34;&gt;その後&lt;/h2&gt;
@@ -132,10 +132,10 @@
     
     <item>
       <title>機材購入控え</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/10/26/memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/10/26/memo/</link>
       <pubDate>Thu, 26 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/10/26/memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/10/26/memo/</guid>
       <description>&lt;p&gt;なんかタブに買わなきゃなナニが残っているのでこちらに控えを。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -143,10 +143,10 @@
     
     <item>
       <title>控え</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/10/24/memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/10/24/memo/</link>
       <pubDate>Tue, 24 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/10/24/memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/10/24/memo/</guid>
       <description>&lt;p&gt;買わねば、を何度も控えててアレですがorz&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -154,10 +154,10 @@
     
     <item>
       <title>土曜日もくもく向け備忘</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/27/memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/27/memo/</link>
       <pubDate>Wed, 27 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/27/memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/27/memo/</guid>
       <description>&lt;p&gt;どこまでできるかわかりませんが。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -174,10 +174,10 @@
     
     <item>
       <title>買わねば、な書籍メモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/08/16/memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/08/16/memo/</link>
       <pubDate>Wed, 16 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/08/16/memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/08/16/memo/</guid>
       <description>&lt;p&gt;本読む時間が取れてません。週休三日なので何とかしたい。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -195,10 +195,10 @@
     
     <item>
       <title>自分メモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/06/28/memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/06/28/memo/</link>
       <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/06/28/memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/06/28/memo/</guid>
       <description>&lt;p&gt;以下な書籍に関する自分メモを。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -210,19 +210,19 @@
     
     <item>
       <title>読書会、の手法 (備忘)</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/05/06/reading-meeteing-memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/05/06/reading-meeteing-memo/</link>
       <pubDate>Sat, 06 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/05/06/reading-meeteing-memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/05/06/reading-meeteing-memo/</guid>
       <description>以下、案内してなかったのだったか、というか完全に忘却の彼方でしたorz 「8 分読書会」の進め方</description>
     </item>
     
     <item>
       <title>PyMC2 の環境設定およびソース入手控え</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/05/05/configuration-memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/05/05/configuration-memo/</link>
       <pubDate>Fri, 05 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/05/05/configuration-memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/05/05/configuration-memo/</guid>
       <description>&lt;p&gt;とりあえず Anaconda 使え、とあります。なんとなく&lt;/p&gt;
 
 &lt;ul&gt;
@@ -237,10 +237,10 @@
     
     <item>
       <title>php.ini</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/04/26/php-ini/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/04/26/php-ini/</link>
       <pubDate>Wed, 26 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/04/26/php-ini/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/04/26/php-ini/</guid>
       <description>&lt;p&gt;うぶんつで apache2 用だと以下なパスらしい。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;/etc/php/7.0/apache2/php.ini
@@ -253,10 +253,10 @@
     
     <item>
       <title>自分メモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/03/01/memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/03/01/memo/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/03/01/memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/03/01/memo/</guid>
       <description>&lt;p&gt;諸々、自分メモということで控えを。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -264,10 +264,10 @@
     
     <item>
       <title>レシピ備忘</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/01/06/recipe-memorandum/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/01/06/recipe-memorandum/</link>
       <pubDate>Fri, 06 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/01/06/recipe-memorandum/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/01/06/recipe-memorandum/</guid>
       <description>&lt;p&gt;年が明け、ようやく冷蔵庫モディファイの日が明日。&lt;/p&gt;
 
 &lt;p&gt;備忘まで貼ってあった手書きレシピは汚ないので処分、て事でこちらに控えを残すことに。&lt;/p&gt;
@@ -277,10 +277,10 @@
     
     <item>
       <title>Hubot 備忘</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/04/08/hubot-memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/04/08/hubot-memo/</link>
       <pubDate>Fri, 08 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/04/08/hubot-memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/04/08/hubot-memo/</guid>
       <description>&lt;p&gt;自分メモ。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -288,10 +288,10 @@
     
     <item>
       <title>備忘</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/04/06/memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/04/06/memo/</link>
       <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/04/06/memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/04/06/memo/</guid>
       <description>&lt;p&gt;標題の件、いくつか自分メモ。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -299,10 +299,10 @@
     
     <item>
       <title>続いてスマホ移行</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/01/02/migration-memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/01/02/migration-memo/</link>
       <pubDate>Sat, 02 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/01/02/migration-memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/01/02/migration-memo/</guid>
       <description>&lt;p&gt;N5 の代替が届いたので移行します。メモを以下に。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>

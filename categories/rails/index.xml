@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rails on /var/log/messages</title>
-    <link>http://weblog.metacircular-evaluator.org/categories/rails/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/rails/</link>
     <description>Recent content in Rails on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Tue, 26 May 2015 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://weblog.metacircular-evaluator.org/categories/rails/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/rails/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>rails で GCM してみた</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/05/26/did-gcm-in-rails/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/05/26/did-gcm-in-rails/</link>
       <pubDate>Tue, 26 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/05/26/did-gcm-in-rails/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/05/26/did-gcm-in-rails/</guid>
       <description>&lt;p&gt;とりあえず &lt;code&gt;gem i rails&lt;/code&gt; かららしい。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -24,19 +24,19 @@
     
     <item>
       <title>remote にある Rails プロジェクトを再度 Heroku に登録する方法</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/12/05/how-to-regster-remote-rails-project/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/12/05/how-to-regster-remote-rails-project/</link>
       <pubDate>Fri, 05 Dec 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/12/05/how-to-regster-remote-rails-project/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/12/05/how-to-regster-remote-rails-project/</guid>
       <description>昔弄ってたプロジェクトを git clone して heroku にデプロイ、なんですが手元に clone した後どうすりゃ良いのか忘却の彼方。以前某所で云々してたグループあたりにその</description>
     </item>
     
     <item>
       <title>Rails の project を clone してテスツするナニの備忘</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/08/28/testing-rails-project/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/08/28/testing-rails-project/</link>
       <pubDate>Thu, 28 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/08/28/testing-rails-project/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/08/28/testing-rails-project/</guid>
       <description>&lt;p&gt;某所でアナウンスしたのが以下。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ git clone &amp;lt;project&amp;gt;
@@ -51,19 +51,19 @@ $ bundle exec rspec spec/
     
     <item>
       <title>某所での RailsTutorial</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/08/15/railstutorial/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/08/15/railstutorial/</link>
       <pubDate>Fri, 15 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/08/15/railstutorial/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/08/15/railstutorial/</guid>
       <description>リスト 7.29 が前提になってる 9 章の gravatar_for は注意が必要。 他にも演習問題が前提になっていた箇所があったはずだが忘れた。</description>
     </item>
     
     <item>
       <title>docker な Rails 環境にて assets:precompile</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/</link>
       <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/</guid>
       <description>&lt;p&gt;やはり、container は再起動しないと反映されませんでした。当り前ですね。手順的に&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ sudo docker.io stop `sudo docker.io ps -a|grep &#39;rails:latest&#39;|awk &#39;{print $1;}&#39;`
@@ -91,10 +91,10 @@ $ bundle exec rspec spec/
     
     <item>
       <title>メイル通知盛り込み</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/24/notification-via-mail/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/06/24/notification-via-mail/</link>
       <pubDate>Tue, 24 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/24/notification-via-mail/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/06/24/notification-via-mail/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://morizyun.github.io/blog/action-mailer-rails-mail/&#34;&gt;ActionMailer Railsアプリからメールを送信&lt;/a&gt; を見つつ盛り込み。devise からメイル送信云々なナニは既に盛り込み済みなのでとりあえず以下。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ rails g mailer message hello
@@ -117,10 +117,10 @@ end
     
     <item>
       <title>git push な deploy 環境作ってみた</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/23/make-git-push-deploying-environment/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/06/23/make-git-push-deploying-environment/</link>
       <pubDate>Mon, 23 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/23/make-git-push-deploying-environment/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/06/23/make-git-push-deploying-environment/</guid>
       <description>&lt;p&gt;以下を参考にしつつアレ。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -142,10 +142,10 @@ end
     
     <item>
       <title>git push な deploy 検討</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/19/consider-git-push-deploying/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/06/19/consider-git-push-deploying/</link>
       <pubDate>Thu, 19 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/19/consider-git-push-deploying/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/06/19/consider-git-push-deploying/</guid>
       <description>&lt;p&gt;pull request が merge された後にそれを開発機側に反映して push で deploy するにあたってサーバ側でどんな処理が必要かを控えておくことに。&lt;/p&gt;
 
 &lt;p&gt;まだ諸々のソレは手動です。&lt;/p&gt;
@@ -155,28 +155,28 @@ end
     
     <item>
       <title>unicorn_rails 起動の方法について</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/18/how-to-kickoff-unicorn-rails/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/06/18/how-to-kickoff-unicorn-rails/</link>
       <pubDate>Wed, 18 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/18/how-to-kickoff-unicorn-rails/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/06/18/how-to-kickoff-unicorn-rails/</guid>
       <description>忘れます。備忘まで。 起動が以下で $ bundle exec unicorn_rails -c config/unicorn.rb -E production -D 停止が以下で config/unicorn.rb が以下なカンジであれば listen &amp;quot;/tmp/hoge.sock&amp;quot; pid &amp;quot;/tmp/hoge.pid&amp;quot; 以下で停止。 $ kill -9 `cat /tmp/hoge.pid` つうか、git push で deploy でき</description>
     </item>
     
     <item>
       <title>ActiveModel::ForbiddenAttributesError</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/06/forbidden-attributes-error-in-rails4/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/06/06/forbidden-attributes-error-in-rails4/</link>
       <pubDate>Fri, 06 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/06/forbidden-attributes-error-in-rails4/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/06/06/forbidden-attributes-error-in-rails4/</guid>
       <description>ヤられました。devise 導入したので @hoge = Hoge.new(conn_params) ってなってる所を @hoge = current_user.hoges.build(params[:hoge]) って修正してしまって ActiveModel::ForbiddenAttributesError が出てしまい、困り果てていたのですが、そもそも以下に</description>
     </item>
     
     <item>
       <title>assets:precompile でオチる件</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/05/abnormal-termination/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/06/05/abnormal-termination/</link>
       <pubDate>Thu, 05 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/05/abnormal-termination/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/06/05/abnormal-termination/</guid>
       <description>&lt;p&gt;ええと&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ bundle exec rake assets:precompile RAILS_ENV=production
@@ -194,10 +194,10 @@ end
     
     <item>
       <title>nginx&#43;unicorn でもひとつステージングなソレを動かしてみたメモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/05/another-rails-in-nginx-unicorn-env/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/06/05/another-rails-in-nginx-unicorn-env/</link>
       <pubDate>Thu, 05 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/05/another-rails-in-nginx-unicorn-env/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/06/05/another-rails-in-nginx-unicorn-env/</guid>
       <description>&lt;p&gt;ステージングな環境でもひとつアプリを動かすことに。面倒なので 80 でないポートを listen する形をとってみることにします。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -205,10 +205,10 @@ end
     
     <item>
       <title>rails メモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/03/rails-memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/06/03/rails-memo/</link>
       <pubDate>Tue, 03 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/03/rails-memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/06/03/rails-memo/</guid>
       <description>&lt;p&gt;4 で云々してます。自分メモってことで。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -216,10 +216,10 @@ end
     
     <item>
       <title>Resque 使ってバッチ処理を記述</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/06/01/use-resque-in-rails/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/06/01/use-resque-in-rails/</link>
       <pubDate>Sun, 01 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/06/01/use-resque-in-rails/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/06/01/use-resque-in-rails/</guid>
       <description>&lt;p&gt;あるアクションで API タタいて云々、みたいな時間がかかる処理の記述が必要になったので使ってみました。&lt;/p&gt;
 
 &lt;p&gt;ぶっちゃけ実装としては kickoff するアクションで Hoge という app/worker 配下に定義されてるクラスを、という事であれば&lt;/p&gt;
@@ -234,10 +234,10 @@ end
     
     <item>
       <title>Rails 開発環境構築メモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/05/21/making-development-environment-of-rails/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/05/21/making-development-environment-of-rails/</link>
       <pubDate>Wed, 21 May 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/05/21/making-development-environment-of-rails/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/05/21/making-development-environment-of-rails/</guid>
       <description>&lt;p&gt;自分メモです。Dockerfile 転記用、ってことで。&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/DevelopmentPractice201308/material/blob/master/installation.md&#34;&gt;ここ&lt;/a&gt;も見つつ、ってことで以下。&lt;/p&gt;
@@ -247,10 +247,10 @@ end
     
     <item>
       <title>機能追加に関する備忘</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/09/memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/04/09/memo/</link>
       <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/09/memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/04/09/memo/</guid>
       <description>&lt;p&gt;コントローラの追加&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ rails g controller hoge index show
@@ -268,10 +268,10 @@ end
     
     <item>
       <title>nginx&#43;unicorn&#43;rails な環境</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/05/make-rails-environment/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/04/05/make-rails-environment/</link>
       <pubDate>Sat, 05 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/05/make-rails-environment/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/04/05/make-rails-environment/</guid>
       <description>&lt;p&gt;以下に沿ってすすめてみる。別途 ansible で云々も試す。本当は某もくもく会で、って思っていたのですが、優先度上がったみたいなのでとりあえず。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -283,10 +283,10 @@ end
     
     <item>
       <title>Railstutorial のすすめかた</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/04/how-to-do-railstutorial/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/04/04/how-to-do-railstutorial/</link>
       <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/04/how-to-do-railstutorial/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/04/04/how-to-do-railstutorial/</guid>
       <description>&lt;p&gt;何故か備忘をこちらに残すなど。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -294,28 +294,28 @@ end
     
     <item>
       <title>iOS では redis-server 手動で起動 (備忘)</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/04/start-manually-redis-server-in-ios/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/04/04/start-manually-redis-server-in-ios/</link>
       <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/04/start-manually-redis-server-in-ios/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/04/04/start-manually-redis-server-in-ios/</guid>
       <description>iOS にあるプロジェクトをリポジトリから pull して最新にして rspec してみるに一部の試験が動かない。リモートリポジトリとの同期はできているみたい。 新規に clone</description>
     </item>
     
     <item>
       <title>rspec でデバグ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/03/debugging-in-rspec-test/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/04/03/debugging-in-rspec-test/</link>
       <pubDate>Thu, 03 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/03/debugging-in-rspec-test/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/04/03/debugging-in-rspec-test/</guid>
       <description>久々に触った Rails のプロジェクト、試験が通らない。いつから試験にパスしていないのか、さえ忘却の彼方。 色々見てるに微妙な箇所でデバッガ起動できるら</description>
     </item>
     
     <item>
       <title>Railstutorial の準備</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/28/preparation-railstutorial/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/03/28/preparation-railstutorial/</link>
       <pubDate>Fri, 28 Mar 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/28/preparation-railstutorial/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/03/28/preparation-railstutorial/</guid>
       <description>&lt;p&gt;うぶんつ 12.04 を virtualbox に導入。昨日某所でぐにぐにしてたのですが timeup してしまってます。今日も負荷が高いようであれば止め、な方向。&lt;/p&gt;
 
 &lt;p&gt;導入終わったので以下の順でツール導入、なのかな。&lt;/p&gt;
@@ -338,19 +338,19 @@ end
     
     <item>
       <title>railstutorial</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/22/railstutorial/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/03/22/railstutorial/</link>
       <pubDate>Sat, 22 Mar 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/22/railstutorial/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/03/22/railstutorial/</guid>
       <description>某所にて次年度も、という方向。前回の反省点を踏まえつつ色々トライしてみる方向。 Linux のコマンド操作に先に慣れてもらう方が良い Rspec のフォローがもう少</description>
     </item>
     
     <item>
       <title>Everyday Rails - Rspec による Rails テスト入門</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/18/everyday-rails/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/03/18/everyday-rails/</link>
       <pubDate>Tue, 18 Mar 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/18/everyday-rails/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/03/18/everyday-rails/</guid>
       <description>&lt;p&gt;昨晩、Ust にて勉強会が開催されてました。電子書籍も手元にあるしってことで中身を確認しつつ手も動かしてみる方向で考えてます。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -358,10 +358,10 @@ end
     
     <item>
       <title>メモ帳 API 作成</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/02/making-memo-api/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/03/02/making-memo-api/</link>
       <pubDate>Sun, 02 Mar 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/02/making-memo-api/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/03/02/making-memo-api/</guid>
       <description>&lt;p&gt;とりあえず model てきな作戦としては&lt;/p&gt;
 
 &lt;ul&gt;
@@ -378,28 +378,28 @@ end
     
     <item>
       <title>明日の下準備</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/28/preparing-for-tomorrow/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/02/28/preparing-for-tomorrow/</link>
       <pubDate>Fri, 28 Feb 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/28/preparing-for-tomorrow/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/02/28/preparing-for-tomorrow/</guid>
       <description>とりあえずプロジェクト作ってリポジトリもこさえておくなど。 Android Android Studio にてプロジェクトを新規作成。起動直後に gradle が走るのが若干アレですが終わってすぐ</description>
     </item>
     
     <item>
       <title>不要となった controller やら model やらを削除</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/02/05/destroy-controller-and-model/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/02/05/destroy-controller-and-model/</link>
       <pubDate>Wed, 05 Feb 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/02/05/destroy-controller-and-model/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/02/05/destroy-controller-and-model/</guid>
       <description>以下で OK らしい。知らんかった。 $ rails destroy controller hoge $ rails destroy model fuga さー消そ。</description>
     </item>
     
     <item>
       <title>リファクタに伴ない不要な route ができた件</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/23/exclude-rspec-test/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/01/23/exclude-rspec-test/</link>
       <pubDate>Thu, 23 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/23/exclude-rspec-test/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/23/exclude-rspec-test/</guid>
       <description>&lt;p&gt;routing 無効にして試験も無効にしたいのだけれど、どうしたものか。日本語でググッても微妙だったので exclude とかってキーワードにしてみると以下がでてきた。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -413,10 +413,10 @@ end
     
     <item>
       <title>Rails API 関連の備忘など</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/21/about-rails-api/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/01/21/about-rails-api/</link>
       <pubDate>Tue, 21 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/21/about-rails-api/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/21/about-rails-api/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://matthewlehner.net/rails-api-testing-guidelines/&#34;&gt;Rails API Testing Best Practice with RSpec&lt;/a&gt; を見つつ試験修正。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -424,10 +424,10 @@ end
     
     <item>
       <title>強烈なボケをカマシていた件</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/20/boke-orz/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/01/20/boke-orz/</link>
       <pubDate>Mon, 20 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/20/boke-orz/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/20/boke-orz/</guid>
       <description>&lt;p&gt;エラーを検出したら return していたorz&lt;/p&gt;
 
 &lt;p&gt;例外 raise しなきゃ 500 にならないのが完全に忘却の彼方でした。しかも before_filter 書いたのは良いのだけれど、if の書き方が微妙で昨晩からハマッていたというorz&lt;/p&gt;
@@ -439,10 +439,10 @@ end
     
     <item>
       <title>Rspec 後付けで書く</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/19/rspec-rails/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/01/19/rspec-rails/</link>
       <pubDate>Sun, 19 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/19/rspec-rails/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/19/rspec-rails/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://matthewlehner.net/rails-api-testing-guidelines/&#34;&gt;Rails API Testing Best Practices&lt;/a&gt; によれば Request Spec で HTTP Status および Response Body を、とあります。これで試しに作成してみることに。&lt;/p&gt;
 
 &lt;p&gt;スデに実装は書いてしまっているので&lt;/p&gt;
@@ -457,10 +457,10 @@ end
     
     <item>
       <title>Redis で云々</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/11/redis/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/01/11/redis/</link>
       <pubDate>Sat, 11 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/11/redis/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/11/redis/</guid>
       <description>&lt;p&gt;以下、試してみた。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -468,10 +468,10 @@ end
     
     <item>
       <title>アンケート回答を Redis で云々</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/09/managing-survey-responses/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/01/09/managing-survey-responses/</link>
       <pubDate>Thu, 09 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/09/managing-survey-responses/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/09/managing-survey-responses/</guid>
       <description>&lt;p&gt;とりあえず、ある設問に 5 種類程度の回答がある、を前提にして検討してみる。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -479,10 +479,10 @@ end
     
     <item>
       <title>Redis Cloud 使ってみるなど</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/07/redis-cloud/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/01/07/redis-cloud/</link>
       <pubDate>Tue, 07 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/07/redis-cloud/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/07/redis-cloud/</guid>
       <description>&lt;p&gt;とりあえず端末から&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ heroku addons:add rediscloud
@@ -501,10 +501,10 @@ end
     
     <item>
       <title>集計云々って言ってたけど redis が良さげな件</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/06/redis/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/01/06/redis/</link>
       <pubDate>Mon, 06 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/06/redis/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/06/redis/</guid>
       <description>&lt;p&gt;AR で集計、とかってダウトで Redis 使えってことなんだろうな、と言いつつ色々確認中。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -512,10 +512,10 @@ end
     
     <item>
       <title>自分メモ (集計)</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/05/notes-for-myself/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/01/05/notes-for-myself/</link>
       <pubDate>Sun, 05 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/05/notes-for-myself/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/05/notes-for-myself/</guid>
       <description>&lt;p&gt;ええと、以下な構成のアンケート回答なクラスがあって&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;gt; SecurityQ
@@ -535,10 +535,10 @@ end
     
     <item>
       <title>記録</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/02/record/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/01/02/record/</link>
       <pubDate>Thu, 02 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/02/record/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/02/record/</guid>
       <description>&lt;p&gt;控え。&lt;/p&gt;
 
 &lt;p&gt;まず以下で導入。&lt;/p&gt;
@@ -553,10 +553,10 @@ end
     
     <item>
       <title>フィルタ作成式で考えてみる</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/22/think-about-tool/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/22/think-about-tool/</link>
       <pubDate>Fri, 22 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/22/think-about-tool/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/22/think-about-tool/</guid>
       <description>&lt;p&gt;o
 例えば deploy したらその id と displayname を標準出力に吐きだす。あるいは displayname を固定にするのを前提にするのであれば一覧を標準出力に掃き出して grep でフィルタできるな。&lt;/p&gt;
 
@@ -576,10 +576,10 @@ end
     
     <item>
       <title>再現試験</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/11/06/reproduction-test/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/06/reproduction-test/</link>
       <pubDate>Wed, 06 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/11/06/reproduction-test/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/06/reproduction-test/</guid>
       <description>&lt;p&gt;某仮想リソースに現状を deploy して動かしてみましたが、やはりここでも session が初期化されていることを確認。ようやくこれが heroku 固有の問題ではないことが明らかになった訳で (遅&lt;/p&gt;
 
 &lt;p&gt;ブラウザでは session store は初期化されないのですが、API 経由してると初期化されてしまいます。session store には Redis が使われているはず (これも要調査) です。&lt;/p&gt;

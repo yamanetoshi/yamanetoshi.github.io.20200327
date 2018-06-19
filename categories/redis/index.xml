@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Redis on /var/log/messages</title>
-    <link>http://weblog.metacircular-evaluator.org/categories/redis/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/redis/</link>
     <description>Recent content in Redis on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Sun, 26 Jan 2014 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://weblog.metacircular-evaluator.org/categories/redis/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/redis/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>動作の確認など</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/26/operation-check/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/01/26/operation-check/</link>
       <pubDate>Sun, 26 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/26/operation-check/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/26/operation-check/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://robots.thoughtbot.com/redis-set-intersection-using-sets-to-filter-data&#34;&gt;Redis Set Intersection - Using Sets to Filter Data&lt;/a&gt; にて例示されている動作を確認しておきます。手元に Redis 使うプロジェクトがあるので redis-server 動かしておいて rails c で確認。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -24,10 +24,10 @@
     
     <item>
       <title>Redis な value で云々な事案</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/01/24/redis-search-by-value/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/01/24/redis-search-by-value/</link>
       <pubDate>Fri, 24 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/01/24/redis-search-by-value/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/24/redis-search-by-value/</guid>
       <description>&lt;p&gt;とりあえず以下なエントリを理解せねば、な事案が発生している模様。&lt;/p&gt;
 
 &lt;ul&gt;

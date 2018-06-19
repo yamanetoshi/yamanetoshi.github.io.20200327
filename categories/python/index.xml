@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on /var/log/messages</title>
-    <link>http://weblog.metacircular-evaluator.org/categories/python/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/python/</link>
     <description>Recent content in Python on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Wed, 25 Apr 2018 13:57:34 +0900</lastBuildDate>
     
-	<atom:link href="http://weblog.metacircular-evaluator.org/categories/python/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Python から Google Calendar のデータを入手する実装</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/04/25/getting-google-calendar-data/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/04/25/getting-google-calendar-data/</link>
       <pubDate>Wed, 25 Apr 2018 13:57:34 +0900</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/04/25/getting-google-calendar-data/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/04/25/getting-google-calendar-data/</guid>
       <description>&lt;p&gt;これ、RoR から、ってできないのかどうか。とりあえず&lt;/p&gt;
 
 &lt;ul&gt;
@@ -30,10 +30,10 @@
     
     <item>
       <title>cloud9 な django を試してみるなど</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/26/cloud9-django/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/02/26/cloud9-django/</link>
       <pubDate>Mon, 26 Feb 2018 21:35:52 +0900</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/26/cloud9-django/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/02/26/cloud9-django/</guid>
       <description>&lt;p&gt;今日、とあるやりとりで思い出したので使ってみました。何故か RabbitMQ に接続できない的なメッセージが出力されてプロジェクトが作れなかったのですが、契機不明にてプロジェクト作成できるようになっていました。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -41,10 +41,10 @@
     
     <item>
       <title>django いいな</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/25/django/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/02/25/django/</link>
       <pubDate>Sun, 25 Feb 2018 10:54:05 +0900</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/25/django/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/02/25/django/</guid>
       <description>&lt;p&gt;ずいぶんご無沙汰ですが、以下なエントリ見るに勉強会開催してもいいんじゃないかと思い始めていたりしてる次第。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -57,10 +57,10 @@
     
     <item>
       <title>python-OBD について</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/01/27/python-obd/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/01/27/python-obd/</link>
       <pubDate>Sat, 27 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/01/27/python-obd/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/01/27/python-obd/</guid>
       <description>&lt;p&gt;ELM327 なアダプタ、本日到着。&lt;a href=&#34;https://github.com/brendan-w/python-OBD&#34;&gt;python-OBD&lt;/a&gt; についてソースコード掘削してメモをアレしてますので、以下に控えを。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -68,10 +68,10 @@
     
     <item>
       <title>Pint Tutorial</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/01/26/pinttutorial/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/01/26/pinttutorial/</link>
       <pubDate>Fri, 26 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/01/26/pinttutorial/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/01/26/pinttutorial/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://pint.readthedocs.io/en/latest/tutorial.html&#34;&gt;Pint Tutorial&lt;/a&gt;をぐーぐる翻訳にかけつつ試してみたので以下に控えておきます。無許可です。すみません。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -79,10 +79,10 @@
     
     <item>
       <title>メモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/01/25/python-obd-memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/01/25/python-obd-memo/</link>
       <pubDate>Thu, 25 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/01/25/python-obd-memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/01/25/python-obd-memo/</guid>
       <description>&lt;p&gt;つい出来心で&lt;/p&gt;
 
 &lt;ul&gt;
@@ -97,10 +97,10 @@
     
     <item>
       <title>Python におけるオブジェクトの配列</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/07/19/object-array-in-python/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/07/19/object-array-in-python/</link>
       <pubDate>Wed, 19 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/07/19/object-array-in-python/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/07/19/object-array-in-python/</guid>
       <description>&lt;p&gt;たとえばこんなクラス定義があり&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;class HogeMessage(object):
@@ -120,10 +120,10 @@
     
     <item>
       <title>OSX に anaconda な環境構築</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/05/17/building-anaconda-environment-within-osx/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/05/17/building-anaconda-environment-within-osx/</link>
       <pubDate>Wed, 17 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/05/17/building-anaconda-environment-within-osx/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/05/17/building-anaconda-environment-within-osx/</guid>
       <description>&lt;p&gt;とりあえず、な計算リソースとして云々してみます。リソース的に&lt;/p&gt;
 
 &lt;ul&gt;
@@ -139,10 +139,10 @@
     
     <item>
       <title>Deep Learning from Scratch Course</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/05/08/deep-learning-fro-scratch-course/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/05/08/deep-learning-fro-scratch-course/</link>
       <pubDate>Mon, 08 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/05/08/deep-learning-fro-scratch-course/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/05/08/deep-learning-fro-scratch-course/</guid>
       <description>&lt;p&gt;なんかググッてたら以下なナニを見つけてしまった件。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -156,10 +156,10 @@
     
     <item>
       <title>PyMC2 の環境設定およびソース入手控え</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/05/05/configuration-memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/05/05/configuration-memo/</link>
       <pubDate>Fri, 05 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/05/05/configuration-memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/05/05/configuration-memo/</guid>
       <description>&lt;p&gt;とりあえず Anaconda 使え、とあります。なんとなく&lt;/p&gt;
 
 &lt;ul&gt;
@@ -174,28 +174,28 @@
     
     <item>
       <title>jupyter-notebook の中の unittest.main</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/05/05/unittest-main-in-jupyter-notebook/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/05/05/unittest-main-in-jupyter-notebook/</link>
       <pubDate>Fri, 05 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/05/05/unittest-main-in-jupyter-notebook/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/05/05/unittest-main-in-jupyter-notebook/</guid>
       <description>以下にしとかないと、な模様です。(自分メモ if __name__ == &#39;__main__&#39;: main(argv=[&#39;ignored&#39;, &#39;-v&#39;], exit=False)</description>
     </item>
     
     <item>
       <title>某読書会</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/05/05/reading-meeting/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/05/05/reading-meeting/</link>
       <pubDate>Fri, 05 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/05/05/reading-meeting/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/05/05/reading-meeting/</guid>
       <description>以下なナニを踏まえて Anaconda を利用した Python のインストール (Windows) Jupyter Notebook を使ってみよう GitHub な Group を作って .ipynb をみんなで作る、てのはどうか。</description>
     </item>
     
     <item>
       <title>deep learning from scratch</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/05/04/deep-learning-from-scratch/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/05/04/deep-learning-from-scratch/</link>
       <pubDate>Thu, 04 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/05/04/deep-learning-from-scratch/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/05/04/deep-learning-from-scratch/</guid>
       <description>&lt;p&gt;コード読みの材料を、ということで 3 章以降を自炊のスキに再度確認しつつ、材料を整理する方向で対応なメモを以下に控え。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -203,10 +203,10 @@
     
     <item>
       <title>フライングなソース読み</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/05/03/source-code-reading/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/05/03/source-code-reading/</link>
       <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/05/03/source-code-reading/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/05/03/source-code-reading/</guid>
       <description>&lt;p&gt;ch02 配下のテストを書いてみるなど。なんか微妙なのがでっちあがったのですがいいのかこれ。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -214,10 +214,10 @@
     
     <item>
       <title>ゼロから作る Deep Learning のソースコード読みのための諸々</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/04/30/code-reading-tool/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/04/30/code-reading-tool/</link>
       <pubDate>Sun, 30 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/04/30/code-reading-tool/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/04/30/code-reading-tool/</guid>
       <description>&lt;p&gt;近々にコードリーディングな集いをする事になりそうなのでメモを投入。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -225,10 +225,10 @@
     
     <item>
       <title>ゼロからの、のソレを云々</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/03/07/deep-learning-from-scratch/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/03/07/deep-learning-from-scratch/</link>
       <pubDate>Tue, 07 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/03/07/deep-learning-from-scratch/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/03/07/deep-learning-from-scratch/</guid>
       <description>&lt;p&gt;そゆ意味では numpy みたいのを実装しないとなのだなぁ、という事に気づいている次第です。とは言え、全体だととんでもな規模なはずなので件の書籍にて使われているものを確認してみようと思います。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -236,10 +236,10 @@
     
     <item>
       <title>でびあん号にも anaconda 入れる</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/03/03/install-anaconda-in-debian/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/03/03/install-anaconda-in-debian/</link>
       <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/03/03/install-anaconda-in-debian/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/03/03/install-anaconda-in-debian/</guid>
       <description>&lt;p&gt;以下からファイル入手。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -263,28 +263,28 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>Python から verilog 吐いて云々</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/02/25/python-to-verilog/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/02/25/python-to-verilog/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/02/25/python-to-verilog/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/02/25/python-to-verilog/</guid>
       <description>とりあえず、以下なエントリに沿って mmap な口を作っておく必要がありそげ。 Adam Taylor’s MicroZed Chronicles Part 158: Creating our own PYNQ hardware overlay で、ここで吐きだされる .tcl と一緒に .v</description>
     </item>
     
     <item>
       <title>Polyphony</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/02/22/polyphony/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/02/22/polyphony/</link>
       <pubDate>Wed, 22 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/02/22/polyphony/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/02/22/polyphony/</guid>
       <description>サンプル的なナニを試してみたい。つうかやっぱ測定器必要なのかどうか。 それにしても SICP 再読したい。S 式なナニから C なソースをヒリ出す課題のあたり</description>
     </item>
     
     <item>
       <title>PYNQ: PYTHON PRODUCTIVITY FOR ZYNQ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/01/31/pynq/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/01/31/pynq/</link>
       <pubDate>Tue, 31 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/01/31/pynq/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/01/31/pynq/</guid>
       <description>&lt;p&gt;本日、その筋の方にお伺いした結果、購入する事に。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -296,28 +296,28 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>なんかオモロそうなのを見つけてしまった件</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/01/30/pynq/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/01/30/pynq/</link>
       <pubDate>Mon, 30 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/01/30/pynq/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/01/30/pynq/</guid>
       <description>面白そうな記事を発見。 機械学習／Deep Learningの仕事が増える2017年、ソフトウェアエンジニアがFPGAを学ぶべき理由 明日、スペシ</description>
     </item>
     
     <item>
       <title>Anaconda 導入</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/12/15/installing-anaconda/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/12/15/installing-anaconda/</link>
       <pubDate>Thu, 15 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/12/15/installing-anaconda/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/12/15/installing-anaconda/</guid>
       <description>pyenv で Python3 入れたら Framework が云々て叱られた。どうも Anaconda なるナニを使った方が良いみたい、ってことで https://www.continuum.io/download から導入してみたんですが、よく使い方が分からない。 結論</description>
     </item>
     
     <item>
       <title>rasbt/python-machine-learning-book</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/10/13/python-machine-learning-book/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/10/13/python-machine-learning-book/</link>
       <pubDate>Thu, 13 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/10/13/python-machine-learning-book/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/10/13/python-machine-learning-book/</guid>
       <description>&lt;p&gt;以下なリポジトリを clone してみたのですが&lt;/p&gt;
 
 &lt;ul&gt;
@@ -335,10 +335,10 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>Python 機械学習プログラミングな環境構築</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/10/11/python-programming-environment/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/10/11/python-programming-environment/</link>
       <pubDate>Tue, 11 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/10/11/python-programming-environment/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/10/11/python-programming-environment/</guid>
       <description>&lt;p&gt;自分メモ、という事にて以下。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -346,10 +346,10 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>pep8 自分メモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/30/pep8-memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/03/30/pep8-memo/</link>
       <pubDate>Wed, 30 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/30/pep8-memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/30/pep8-memo/</guid>
       <description>&lt;p&gt;自分用控えです。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -357,10 +357,10 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>NumPy 配列</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/25/numpy-array/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/03/25/numpy-array/</link>
       <pubDate>Fri, 25 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/25/numpy-array/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/25/numpy-array/</guid>
       <description>&lt;p&gt;shape て何? と思ってたら NumPy 配列の属性らしい。以下なものがあるようですが&lt;/p&gt;
 
 &lt;ul&gt;
@@ -381,10 +381,10 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>NumPy チュートリアルしてみる</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/23/doing-numpy-tutorial/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/03/23/doing-numpy-tutorial/</link>
       <pubDate>Wed, 23 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/23/doing-numpy-tutorial/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/23/doing-numpy-tutorial/</guid>
       <description>&lt;p&gt;以下ドキュメントを参照しつつ、もごもごしてみます。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -396,10 +396,10 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>要確認、なソレを掘削してみました</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/22/did-forge/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/03/22/did-forge/</link>
       <pubDate>Tue, 22 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/22/did-forge/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/22/did-forge/</guid>
       <description>&lt;p&gt;ええと、Chainer で色々確認していたら FunctionSet というソレは deprecated とのこと。調べようと思っていたのは以下なんですが&lt;/p&gt;
 
 &lt;ul&gt;
@@ -415,10 +415,10 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>Python 命名規則</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/18/python-naming-rule/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/03/18/python-naming-rule/</link>
       <pubDate>Fri, 18 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/18/python-naming-rule/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/18/python-naming-rule/</guid>
       <description>&lt;p&gt;自分メモ。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -426,10 +426,10 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>TextBlob</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/02/25/textblob/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/02/25/textblob/</link>
       <pubDate>Thu, 25 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/02/25/textblob/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/25/textblob/</guid>
       <description>&lt;p&gt;pull request が close されているのを確認。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -443,10 +443,10 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>微妙な出力の整形</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/02/21/formatting/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/02/21/formatting/</link>
       <pubDate>Sun, 21 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/02/21/formatting/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/21/formatting/</guid>
       <description>&lt;p&gt;某ツールで仕事するときのコマンドラインを何故だかダブルクォーテーション付きで一つづつ改行して出力されて以下をでっちあげました。自分メモ。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -454,10 +454,10 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>TextBlob</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/02/20/textblob/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/02/20/textblob/</link>
       <pubDate>Sat, 20 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/02/20/textblob/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/20/textblob/</guid>
       <description>&lt;p&gt;どうも Google の API が変更になったらしく&lt;/p&gt;
 
 &lt;ul&gt;
@@ -471,19 +471,19 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>hangupsbot 修繕</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/01/31/repairing-hangupsbot/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/01/31/repairing-hangupsbot/</link>
       <pubDate>Sun, 31 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/01/31/repairing-hangupsbot/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/01/31/repairing-hangupsbot/</guid>
       <description>動いていない、という連絡が入ったのですが 登録してる公開鍵が前使ってた端末のだ という事が判明してお忙しいなか公開鍵を再登録して頂いて復旧対応開</description>
     </item>
     
     <item>
       <title>img タグの alt 属性</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/01/16/alt-property-in-image-tag/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/01/16/alt-property-in-image-tag/</link>
       <pubDate>Sat, 16 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/01/16/alt-property-in-image-tag/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/01/16/alt-property-in-image-tag/</guid>
       <description>&lt;p&gt;バイト製造にて取り出さなきゃ、な機会があったのですが scrapy だと簡単でした。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -491,10 +491,10 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>goslate はアレなので TextBlob 使う形で修正してみた</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/11/19/fix-using-textblob/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/11/19/fix-using-textblob/</link>
       <pubDate>Thu, 19 Nov 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/11/19/fix-using-textblob/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/11/19/fix-using-textblob/</guid>
       <description>&lt;p&gt;某所にて &lt;a href=&#34;https://github.com/hangoutsbot/hangoutsbot&#34;&gt;hangoutsbot&lt;/a&gt; 使っておりまして、goslate 使って ban されちゃったので TextBlob を使うことにしました。diff が以下です。自分メモ。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -502,10 +502,10 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>hangoutsbot</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/11/18/hangoutsbot/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/11/18/hangoutsbot/</link>
       <pubDate>Wed, 18 Nov 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/11/18/hangoutsbot/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/11/18/hangoutsbot/</guid>
       <description>&lt;p&gt;なんか導入する機会があったので中身をのぞいてみることに。リポジトリは以下です。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -517,19 +517,19 @@ Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     
     <item>
       <title>python のインデント</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/11/18/indentation-of-python-language/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/11/18/indentation-of-python-language/</link>
       <pubDate>Wed, 18 Nov 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/11/18/indentation-of-python-language/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/11/18/indentation-of-python-language/</guid>
       <description>タブじゃ駄目、って知りませんでした。これって vi だけなのかな。TabError でオチてて目をまわしていましたです。</description>
     </item>
     
     <item>
       <title>正規分布から 6 つの値を取得</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/31/estimation-problem/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/03/31/estimation-problem/</link>
       <pubDate>Tue, 31 Mar 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/31/estimation-problem/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/03/31/estimation-problem/</guid>
       <description>&lt;p&gt;ええと、scipy が使えるので&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; from scipy.stats import norm
@@ -547,10 +547,10 @@ array([-0.83486486,  0.85220863, -0.96179815,  1.25632517, -2.10143098,
     
     <item>
       <title>SciPy を OSX に導入</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/29/installing-scipy-at-osx/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/03/29/installing-scipy-at-osx/</link>
       <pubDate>Sun, 29 Mar 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/29/installing-scipy-at-osx/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/03/29/installing-scipy-at-osx/</guid>
       <description>&lt;p&gt;ええと、以下なスクリプトを取得して実行してみます。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -578,10 +578,10 @@ array([-0.83486486,  0.85220863, -0.96179815,  1.25632517, -2.10143098,
     
     <item>
       <title>サンプル読んでみる</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/03/17/read-sample-code/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/03/17/read-sample-code/</link>
       <pubDate>Tue, 17 Mar 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/03/17/read-sample-code/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/03/17/read-sample-code/</guid>
       <description>&lt;p&gt;とりあえずソース入手。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ wget https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code/archive/master.zip
@@ -600,10 +600,10 @@ array([-0.83486486,  0.85220863, -0.96179815,  1.25632517, -2.10143098,
     
     <item>
       <title>Python 2.7 な Docker</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/08/21/python-2-dot-7-docker/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/08/21/python-2-dot-7-docker/</link>
       <pubDate>Thu, 21 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/08/21/python-2-dot-7-docker/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/08/21/python-2-dot-7-docker/</guid>
       <description>&lt;p&gt;とりあえず、&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ sudo docker pull python
@@ -628,10 +628,10 @@ Python 2.7.8
     
     <item>
       <title>Scrapy Tutorial</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/08/19/scrapy-tutorial/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/08/19/scrapy-tutorial/</link>
       <pubDate>Tue, 19 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/08/19/scrapy-tutorial/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/08/19/scrapy-tutorial/</guid>
       <description>&lt;p&gt;以下を云々してみたメモを。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -645,19 +645,19 @@ Python 2.7.8
     
     <item>
       <title>備忘という訳ではないのですが</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/07/python-tutorial/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/04/07/python-tutorial/</link>
       <pubDate>Mon, 07 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/07/python-tutorial/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/04/07/python-tutorial/</guid>
       <description>以下、ちゃんと確認しとくこと。 Python チュートリアル</description>
     </item>
     
     <item>
       <title>cloudmonkey</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/04/03/reading-cloudmonkey-source/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/04/03/reading-cloudmonkey-source/</link>
       <pubDate>Thu, 03 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/04/03/reading-cloudmonkey-source/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/04/03/reading-cloudmonkey-source/</guid>
       <description>&lt;p&gt;ソースは以下から入手。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -671,10 +671,10 @@ Python 2.7.8
     
     <item>
       <title>GAE/Python 環境設定など</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2014/03/05/make-gae-python-development-environment/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/03/05/make-gae-python-development-environment/</link>
       <pubDate>Wed, 05 Mar 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2014/03/05/make-gae-python-development-environment/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/03/05/make-gae-python-development-environment/</guid>
       <description>&lt;p&gt;環境設定、してないですがいくつか確認した事項を以下に控え。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -682,10 +682,10 @@ Python 2.7.8
     
     <item>
       <title>Numpy</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2013/12/06/numpy/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2013/12/06/numpy/</link>
       <pubDate>Fri, 06 Dec 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2013/12/06/numpy/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2013/12/06/numpy/</guid>
       <description>&lt;p&gt;算数の勉強を、ということで Numpy を云々してみることに。とりあえず導入については下記エントリを参考にしつつ云々してみます。&lt;/p&gt;
 
 &lt;ul&gt;

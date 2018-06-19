@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Shogi on /var/log/messages</title>
-    <link>http://weblog.metacircular-evaluator.org/categories/shogi/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/shogi/</link>
     <description>Recent content in Shogi on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Sat, 07 Apr 2018 18:30:09 +0900</lastBuildDate>
     
-	<atom:link href="http://weblog.metacircular-evaluator.org/categories/shogi/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/shogi/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>詰将棋入門</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/04/07/introduction-to-tsume-shogi/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/04/07/introduction-to-tsume-shogi/</link>
       <pubDate>Sat, 07 Apr 2018 18:30:09 +0900</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/04/07/introduction-to-tsume-shogi/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/04/07/introduction-to-tsume-shogi/</guid>
       <description>&lt;p&gt;先パイよりご紹介頂いた以下なドキュメント。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -30,10 +30,10 @@
     
     <item>
       <title>石田流メモ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/</link>
       <pubDate>Wed, 21 Feb 2018 10:47:40 +0900</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/</guid>
       <description>&lt;p&gt;何故か最近振り飛車の本ばっか見てる感。なんとなく纏めを作成してみます。見てるのは Kindle Unlimited で見ることができる_&lt;a href=&#34;https://www.amazon.com/dp/B01COJUH5W/yamanetoshi-22&#34;&gt;石田流を破るための9つの鉄則と15の技術&lt;/a&gt;_です。&lt;/p&gt;
 
 &lt;p&gt;鉄則と技術、は以下らしく。&lt;/p&gt;
@@ -83,10 +83,10 @@
     
     <item>
       <title>TODO</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/12/07/todo/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/12/07/todo/</link>
       <pubDate>Thu, 07 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/12/07/todo/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/12/07/todo/</guid>
       <description>&lt;p&gt;デバイス類調達の件。できればエントリ投入と同時に調達せねば。そしてそれ意外に調達必要なナニを以下に (ぇ&lt;/p&gt;
 
 &lt;ul&gt;
@@ -99,46 +99,46 @@
     
     <item>
       <title>将棋の勉強</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/12/06/shogi-study/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/12/06/shogi-study/</link>
       <pubDate>Wed, 06 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/12/06/shogi-study/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/12/06/shogi-study/</guid>
       <description>今日は以下を確認な方向。 将棋界の世代交代と最新戦法から見る羽生永世七冠の凄み</description>
     </item>
     
     <item>
       <title>中飛車シリーズ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/11/09/naka-bisya-series/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/11/09/naka-bisya-series/</link>
       <pubDate>Thu, 09 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/11/09/naka-bisya-series/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/11/09/naka-bisya-series/</guid>
       <description>自分メモです。将棋山脈バージョンアプした模様で別途再確認用に。ほりかわさんありがとうございます。 http://shogi-s.com/result/59f27a649x http://shogi-s.com/result/59f12792Lp http://shogi-s.com/result/59f4ba6dZo http://shogi-s.com/result/59f66cb8sz http://shogi-s.com/result/59f908d19a http://shogi-s.com/result/5a039b85AC</description>
     </item>
     
     <item>
       <title>これは買いですな</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/10/27/should-by-this-book/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/10/27/should-by-this-book/</link>
       <pubDate>Fri, 27 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/10/27/should-by-this-book/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/10/27/should-by-this-book/</guid>
       <description>つうか多分週末に買うはず。 横歩取り超急戦のすべて</description>
     </item>
     
     <item>
       <title>形を憶える</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/10/03/learn-kata/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/10/03/learn-kata/</link>
       <pubDate>Tue, 03 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/10/03/learn-kata/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/10/03/learn-kata/</guid>
       <description>ええと、英語も同様だそうで。憶えるという行為が超ニガ手というか、そもそも自分で後天性記憶不全と言ってる位なのですが、頑張らないと駄目みたい。</description>
     </item>
     
     <item>
       <title>ぴよ将棋から将棋山脈に .kif を転送するナニ (3)</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/25/transfer-kif/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/25/transfer-kif/</link>
       <pubDate>Mon, 25 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/25/transfer-kif/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/25/transfer-kif/</guid>
       <description>&lt;p&gt;自分向けに実装なメモを。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -146,10 +146,10 @@
     
     <item>
       <title>ぴよ将棋から将棋山脈に .kif を転送するナニ (2)</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/21/transfer-kif/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/21/transfer-kif/</link>
       <pubDate>Thu, 21 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/21/transfer-kif/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/21/transfer-kif/</guid>
       <description>&lt;p&gt;プロトタイプ、できた。リポジトリは以下です。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -168,28 +168,28 @@
     
     <item>
       <title>ぴよ将棋から将棋山脈に .kif を転送するナニ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/19/transfer-kif/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/19/transfer-kif/</link>
       <pubDate>Tue, 19 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/19/transfer-kif/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/19/transfer-kif/</guid>
       <description>とりあえず intent 経由で ClipData なファイルが受け取れる のは確認できていたのですがファイルが開けず、が継続。以下を確認しつつ実装をでっちあげるも Runtime Permission, Dangerous Permission で</description>
     </item>
     
     <item>
       <title>将棋山脈アプリ</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/13/shogi-s-app/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/13/shogi-s-app/</link>
       <pubDate>Wed, 13 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/13/shogi-s-app/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/13/shogi-s-app/</guid>
       <description>Intent で共有対象な .kif のテキストをそのまま将棋山脈方面に POST すれば良いらしいことまでは分かっています。 要確認事項として テキストが Intent でどんな形で渡され</description>
     </item>
     
     <item>
       <title>ぴよ将棋で棋譜とって将棋山脈に upload</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/10/piyo-shogi-2-shogi-s/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/10/piyo-shogi-2-shogi-s/</link>
       <pubDate>Sun, 10 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/10/piyo-shogi-2-shogi-s/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/10/piyo-shogi-2-shogi-s/</guid>
       <description>&lt;p&gt;昨晩の部活にて試してみたのですが手間が微妙。手順てきに&lt;/p&gt;
 
 &lt;ul&gt;
@@ -212,19 +212,19 @@
     
     <item>
       <title>詰碁トレーニング</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/04/results-of-training/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/04/results-of-training/</link>
       <pubDate>Mon, 04 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/04/results-of-training/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/04/results-of-training/</guid>
       <description>平本メソドな訓練に勤しんでおります。以下なナニ。 問題をじっと見て、形を覚え、碁盤もしくは碁罫紙に問題を再現 どこまで効果が出てるのか、と思い詰</description>
     </item>
     
     <item>
       <title>Kifu-for-JS</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/09/02/kifu-for-js/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/09/02/kifu-for-js/</link>
       <pubDate>Sat, 02 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/09/02/kifu-for-js/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/09/02/kifu-for-js/</guid>
       <description>&lt;p&gt;入れてみた。方法が以下?&lt;/p&gt;
 
 &lt;ul&gt;
@@ -241,73 +241,73 @@
     
     <item>
       <title>控え</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/08/31/kifu-for-js/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/08/31/kifu-for-js/</link>
       <pubDate>Thu, 31 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/08/31/kifu-for-js/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/08/31/kifu-for-js/</guid>
       <description>将棋研究の成果を発信、というネタがあったので探してみたら以下を発見。 Kifu for JS 棋譜はテキストなので、Github の使い方をレクチャなのかどうか。</description>
     </item>
     
     <item>
       <title>布盤駒袋セット届いた</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/07/10/cloth-board-piece-set-arrived/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/07/10/cloth-board-piece-set-arrived/</link>
       <pubDate>Mon, 10 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/07/10/cloth-board-piece-set-arrived/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/07/10/cloth-board-piece-set-arrived/</guid>
       <description>以下のエントリの件ですが 布盤かっちゃった ようやく本日届きました。 とりあえず使う予定はないのですが何となく持ち歩いてみます。 もう一つ欲しいのが</description>
     </item>
     
     <item>
       <title>布盤かっちゃった</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/07/04/shogi/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/07/04/shogi/</link>
       <pubDate>Tue, 04 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/07/04/shogi/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/07/04/shogi/</guid>
       <description>駒は 100 均で調達の方向。 南三陸布盤駒袋セット（わらべ） あと、プラの碁石も調達の方向。これよりは安いので (ぇ つうか 近所に碁会所あるので凸してみよ</description>
     </item>
     
     <item>
       <title>コンピュータ将棋におけるディープラーニングの考察</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/06/21/consideration-of-deep-learning-in-computer-shogi/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/06/21/consideration-of-deep-learning-in-computer-shogi/</link>
       <pubDate>Wed, 21 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/06/21/consideration-of-deep-learning-in-computer-shogi/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/06/21/consideration-of-deep-learning-in-computer-shogi/</guid>
       <description>良い教科書を見つけた。以下なエントリはインデクスにもなってるようで、別途確認の方向です。 コンピュータ将棋におけるディープラーニングの考察</description>
     </item>
     
     <item>
       <title>5.4 は新人王戦の中継らしく</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/05/02/shogi-game-will-be-relayed/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/05/02/shogi-game-will-be-relayed/</link>
       <pubDate>Tue, 02 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/05/02/shogi-game-will-be-relayed/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/05/02/shogi-game-will-be-relayed/</guid>
       <description>あべま TV にて中継らしいが見れるのかどうか。 将棋・藤井聡太四段 16連勝なるか！？ AbemaTVで第48期新人王戦を緊急生中継</description>
     </item>
     
     <item>
       <title>flash 詰将棋</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2017/02/09/flash/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2017/02/09/flash/</link>
       <pubDate>Thu, 09 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2017/02/09/flash/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2017/02/09/flash/</guid>
       <description>村山くんの師匠だった森さんの 棋力充実! 詰将棋大全 3手・5手 なのですが、そこに紹介されていた「見て瞬時に解く」という練習がとても良いですね。 確</description>
     </item>
     
     <item>
       <title>森信雄さんの本購入</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/12/29/shogi-book/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/12/29/shogi-book/</link>
       <pubDate>Thu, 29 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/12/29/shogi-book/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/12/29/shogi-book/</guid>
       <description>mtg の合間をツブスためにおもろまちのサンエーに寄ってみると本屋さんが違う風になってて色々物色してる内に将棋本コーナーに辿りつき以下を発見。 棋力</description>
     </item>
     
     <item>
       <title>横歩取り</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/09/27/yoko-fu-tori/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/09/27/yoko-fu-tori/</link>
       <pubDate>Tue, 27 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/09/27/yoko-fu-tori/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/09/27/yoko-fu-tori/</guid>
       <description>&lt;p&gt;なんとなく、脳内盤駒の訓練的に良さげなのかなと思っていたりなど。&lt;/p&gt;
 
 &lt;p&gt;今日は王位戦の解説会に行きそびれたので定石本見ながら脳内盤駒の練習してみます。&lt;/p&gt;
@@ -317,10 +317,10 @@
     
     <item>
       <title>やねうら王 Linux でビルドできるのか</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/09/24/build-yaneura-ou-on-linux/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/09/24/build-yaneura-ou-on-linux/</link>
       <pubDate>Sat, 24 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/09/24/build-yaneura-ou-on-linux/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/09/24/build-yaneura-ou-on-linux/</guid>
       <description>&lt;p&gt;ひさびさに&lt;a href=&#34;http://yaneuraou.yaneu.com/yaneuraou_mini/&#34;&gt;やねうら王オープンソースプロジェクト&lt;/a&gt;を見てみたら Ubuntu でビルドできる旨の記述が追加されているのを発見。てか、もしかして最初から Linux でもコンパイルできる形だったのかどうか。&lt;/p&gt;
 
 &lt;p&gt;VS 使うしかないかな、って思っていたのですがちょっとやってみます。&lt;/p&gt;
@@ -330,10 +330,10 @@
     
     <item>
       <title>やねうら王オープンソースプロジェクト (2)</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/06/10/yaneura-ou/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/06/10/yaneura-ou/</link>
       <pubDate>Fri, 10 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/06/10/yaneura-ou/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/06/10/yaneura-ou/</guid>
       <description>&lt;p&gt;以下のドキュメントですが&lt;/p&gt;
 
 &lt;ul&gt;
@@ -347,10 +347,10 @@
     
     <item>
       <title>やねうら王オープンソースプロジェクト</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/06/09/yaneura-ou/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/06/09/yaneura-ou/</link>
       <pubDate>Thu, 09 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/06/09/yaneura-ou/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/06/09/yaneura-ou/</guid>
       <description>&lt;p&gt;興味深いドキュメントをご紹介頂きました。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -364,10 +364,10 @@
     
     <item>
       <title>詰将棋</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/05/14/shogi-problem/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/05/14/shogi-problem/</link>
       <pubDate>Sat, 14 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/05/14/shogi-problem/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/05/14/shogi-problem/</guid>
       <description>&lt;p&gt;以下、9 手詰めとのこと。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://sfenreader.appspot.com/sfen?sfen=5g1%2BBg%2F5g1p1%2F5%2BPp1k%2F9%2F4%2Bb1RS1%2F8%2Bp%2F9%2F9%2F9%20b%20Nrg3s3n4l14p1&#34;&gt;&lt;/p&gt;
@@ -377,28 +377,28 @@
     
     <item>
       <title>詰将棋</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/05/10/tsume-shogi/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/05/10/tsume-shogi/</link>
       <pubDate>Tue, 10 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/05/10/tsume-shogi/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/05/10/tsume-shogi/</guid>
       <description>これ、欲しいな。 逆転の 3 手詰 四香を見る、とかアレな言葉だなぁ。</description>
     </item>
     
     <item>
       <title>NHK 将棋講座</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/04/10/nhk-shogi-course/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/04/10/nhk-shogi-course/</link>
       <pubDate>Sun, 10 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/04/10/nhk-shogi-course/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/04/10/nhk-shogi-course/</guid>
       <description>先程、カバンの中に DVD が二つ入っている事が発覚。 記憶を失なっているのですが @zu2 先パイが貸してくれたものと類推。自宅には DVD プレーヤなどというものが</description>
     </item>
     
     <item>
       <title>脳内盤駒な訓練</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/14/shogi-exercise/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/03/14/shogi-exercise/</link>
       <pubDate>Mon, 14 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/14/shogi-exercise/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/14/shogi-exercise/</guid>
       <description>&lt;p&gt;6x6 までイケてないです。何度かリトライしてレンジを広くしたいのですが、ここから相当時間かかりそうな予感。。。&lt;/p&gt;
 
 &lt;p&gt;あと、まだ問題自体が 3 手詰めだったりするのですが、途中の図を保存、などという事もできるようにならないと、なんですがどうなんだろう。&lt;/p&gt;
@@ -408,10 +408,10 @@
     
     <item>
       <title>脳内盤駒</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/03/09/practice/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/03/09/practice/</link>
       <pubDate>Wed, 09 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/03/09/practice/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/09/practice/</guid>
       <description>&lt;p&gt;とりあえず、一手詰めの図から練習開始。色々検証しながらな練習含めて。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -419,10 +419,10 @@
     
     <item>
       <title>検証する力</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/02/18/ability-to-verify/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/02/18/ability-to-verify/</link>
       <pubDate>Thu, 18 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/02/18/ability-to-verify/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/18/ability-to-verify/</guid>
       <description>&lt;p&gt;とりあえず「寄せが見える本」を再読の方向。図を見つつ脳内で検証できる力ができてなさすぎる。&lt;/p&gt;
 
 &lt;h2 id=&#34;つうか&#34;&gt;つうか&lt;/h2&gt;
@@ -434,19 +434,19 @@
     
     <item>
       <title>見えない</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/02/09/can-not-see/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/02/09/can-not-see/</link>
       <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/02/09/can-not-see/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/09/can-not-see/</guid>
       <description>不調。練習してないから全然駄目です。今年のテーマでもあるし、3.6 に広島の道場に、って思っているので何とか見える状態、というか読める状態にな</description>
     </item>
     
     <item>
       <title>聖の青春</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/02/03/shogi-movie/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/02/03/shogi-movie/</link>
       <pubDate>Wed, 03 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/02/03/shogi-movie/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/03/shogi-movie/</guid>
       <description>&lt;p&gt;村山くん、大好きでした。実は同郷です。将棋世界の特集号は未だに大切に持っています。この映画は必ず見に行こうと思ってます。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -460,19 +460,19 @@
     
     <item>
       <title>週末将棋</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/01/17/weekend-shogi/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/01/17/weekend-shogi/</link>
       <pubDate>Sun, 17 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/01/17/weekend-shogi/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/01/17/weekend-shogi/</guid>
       <description>とりあえず、全然駄目なことを踏まえて なるべくついていく 対応できる戦法をもう少しだけ広げる 終盤の勉強をサボらない というあたりで頑張る方向なのか</description>
     </item>
     
     <item>
       <title>将棋プログラミングなエントリを入れたら</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/01/15/shogi-programming/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/01/15/shogi-programming/</link>
       <pubDate>Fri, 15 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/01/15/shogi-programming/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/01/15/shogi-programming/</guid>
       <description>&lt;p&gt;@zu2 先パイよりいくつかポインタを頂いたので備忘エントリ投入。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -480,19 +480,19 @@
     
     <item>
       <title>コンピュータ将棋の進歩</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/01/14/shogi-book/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/01/14/shogi-book/</link>
       <pubDate>Thu, 14 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/01/14/shogi-book/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/01/14/shogi-book/</guid>
       <description>最近、将棋ブログと化してる感満点ですが、こないだちらっと立ち読みして面白かったので全部入手の方向で。 共立出版で検索した結果 とりあえず取り寄せ</description>
     </item>
     
     <item>
       <title>foul</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/01/10/foul/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/01/10/foul/</link>
       <pubDate>Sun, 10 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/01/10/foul/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/01/10/foul/</guid>
       <description>&lt;p&gt;予選で 4 段目に歩を成ってしまい、反則負け。駄目だ。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -500,10 +500,10 @@
     
     <item>
       <title>与儀公園将棋サークル</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2016/01/03/yogi-park-shogi-circle/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2016/01/03/yogi-park-shogi-circle/</link>
       <pubDate>Sun, 03 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2016/01/03/yogi-park-shogi-circle/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2016/01/03/yogi-park-shogi-circle/</guid>
       <description>&lt;p&gt;@zu2 先パイからご案内頂き、お邪魔させて頂きました。楽しかったです。戦績てきには 1 勝 2 敗でした。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -519,19 +519,19 @@
     
     <item>
       <title>今日は部活の忘年会</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/12/26/year-end-shogi/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/12/26/year-end-shogi/</link>
       <pubDate>Sat, 26 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/12/26/year-end-shogi/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/12/26/year-end-shogi/</guid>
       <description>義父の形見の盤駒を使う方向ですがどうやって持って行こうか。今年最後の部活を楽しみにしつつ、これから一回目の大掃除ス。部活の様子など、別途追記</description>
     </item>
     
     <item>
       <title>対局振返り</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/12/23/looking-back/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/12/23/looking-back/</link>
       <pubDate>Wed, 23 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/12/23/looking-back/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/12/23/looking-back/</guid>
       <description>&lt;p&gt;先週来、&lt;a href=&#34;http://brainking.com/&#34;&gt;Brainking&lt;/a&gt; にて zu2 先パイと相振の対局をして頂いていたのですが、昨日終局。棋譜以下ッス。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -557,10 +557,10 @@
     
     <item>
       <title>序盤の心構え</title>
-      <link>http://weblog.metacircular-evaluator.org/blog/2015/12/16/memtal-attitude-in-shogi-opening/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2015/12/16/memtal-attitude-in-shogi-opening/</link>
       <pubDate>Wed, 16 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://weblog.metacircular-evaluator.org/blog/2015/12/16/memtal-attitude-in-shogi-opening/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2015/12/16/memtal-attitude-in-shogi-opening/</guid>
       <description>&lt;p&gt;なんとなくこないだの試合で「お前どーせ振るんだろ」てきな序盤があった。つうか相居飛車したくないんだろ、と言われたのかも。&lt;/p&gt;
 
 &lt;h2 id=&#34;例えば&#34;&gt;例えば&lt;/h2&gt;
