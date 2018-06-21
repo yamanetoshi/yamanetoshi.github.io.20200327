@@ -6,10 +6,25 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 20 Jun 2018 20:39:52 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 21 Jun 2018 20:17:28 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Wrapping Up</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/06/21/wrapping-up/</link>
+      <pubDate>Thu, 21 Jun 2018 20:17:28 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/06/21/wrapping-up/</guid>
+      <description>&lt;p&gt;以下なドキュメント機械翻訳控えを投入。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/summary/&#34;&gt;Wrapping Up&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Github Page を PWA 化</title>
