@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Recommend on /var/log/messages</title>
+    <link>https://weblog.metacircular-evaluator.org/categories/recommend/</link>
+    <description>Recent content in Recommend on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 22 Jun 2018 20:37:10 +0900</lastBuildDate>
+    
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/recommend/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Practical Machine Learning</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/06/22/practical-machine-learning/</link>
+      <pubDate>Fri, 22 Jun 2018 20:37:10 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/06/22/practical-machine-learning/</guid>
+      <description>&lt;p&gt;オラの村で download できることを知りまして、入手した次第。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.oreilly.co.jp/editors/archives/2014/08/practical-machine-learning.html&#34;&gt;電子書籍『実践 機械学習』の無料ダウンロードが可能に！&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;四年くらい前の話ですね (汗&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

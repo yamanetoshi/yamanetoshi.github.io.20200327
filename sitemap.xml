@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/06/22/practical-machine-learning/</loc>
+    <lastmod>2018-06-22T20:37:10+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/06/21/wrapping-up/</loc>
     <lastmod>2018-06-21T20:17:28+09:00</lastmod>
   </url>
@@ -7779,7 +7784,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-06-21T20:17:28+09:00</lastmod>
+    <lastmod>2018-06-22T20:37:10+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7965,7 +7970,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-06-21T20:17:28+09:00</lastmod>
+    <lastmod>2018-06-22T20:37:10+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7984,6 +7989,12 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/rails/</loc>
     <lastmod>2015-05-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/recommend/</loc>
+    <lastmod>2018-06-22T20:37:10+09:00</lastmod>
     <priority>0</priority>
   </url>
   
