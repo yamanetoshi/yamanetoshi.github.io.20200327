@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/06/23/item-to-item-collaborative-filtering/</loc>
+    <lastmod>2018-06-23T09:23:04+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/06/22/practical-machine-learning/</loc>
     <lastmod>2018-06-22T20:37:10+09:00</lastmod>
   </url>
@@ -7784,7 +7789,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-06-22T20:37:10+09:00</lastmod>
+    <lastmod>2018-06-23T09:23:04+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7970,7 +7975,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-06-22T20:37:10+09:00</lastmod>
+    <lastmod>2018-06-23T09:23:04+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7994,7 +7999,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/recommend/</loc>
-    <lastmod>2018-06-22T20:37:10+09:00</lastmod>
+    <lastmod>2018-06-23T09:23:04+09:00</lastmod>
     <priority>0</priority>
   </url>
   

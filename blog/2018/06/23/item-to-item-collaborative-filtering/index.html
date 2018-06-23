@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>Item to Item Collaborative Filtering</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 23, 2018
+         - 14 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/06/23/item-to-item-collaborative-filtering/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/recommend/">recommend </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Item to Item Collaborative Filtering 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメント機械翻訳控えを投入。</p>
+
+<ul>
+<li><a href="http://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf">Amazon.com Recommendations</a></li>
+</ul>
+
+<p></p>
+
+<p>推奨アルゴリズムは、電子商取引Webサイトでの使用で最もよく知られています。顧客の関心についての入力を使用して推奨項目のリストを生成します。
+多くのアプリケーションでは、顧客が購入し、自分の関心を表すために明示的に評価する項目のみを使用しますが、表示される項目、人口統計データ、主題関心、好きなアーティストなどの他の属性も使用できます。</p>
+
+<p>Amazon.comでは、推奨アルゴリズムを使用して各顧客のオンラインストアをパーソナライズしています。
+ストアは顧客の興味に基づいて根本的に変化し、ソフトウェアエンジニアにプログラミングタイトルを示し、新しい母親にベビーおもちゃを示します。
+クリックスルー率とコンバージョン率は、ウェブベースと電子メールの広告効果の2つの重要な指標で、バナー広告やトップセラーリストなどのターゲットに達していないコンテンツのクリック率を大幅に上回ります。</p>
+
+<p>電子商取引の推奨アルゴリズムは、しばしば困難な環境で動作します。 例えば：</p>
+
+<ul>
+<li>大規模な小売業者は、膨大な量のデータ、数千万の顧客、数百万の異なるカタログ項目を持つ可能性があります。</li>
+<li>多くのアプリケーションでは、結果セットがリアルタイムで、0.5秒以内に返される必要がありますが、依然として高品質の推奨事項が生成されます。</li>
+<li>新規顧客は、通常、わずかな購入または製品の評価に基づいて、情報が極端に限られています。</li>
+<li>高齢の顧客は、何千もの購入や評価に基づいて、多量の情報を得ることができます。</li>
+<li>顧客データは揮発性である：各相互作用は貴重な顧客データを提供し、アルゴリズムは新しい情報に即座に応答する必要があります。</li>
+</ul>
+
+<p>推奨問題を解決するには、従来のコラボレーション・フィルタリング、クラスタ・モデル、検索ベースの方法の3つの方法があります。
+ここでは、これらの方法をアルゴリズムと比較します。これをアイテム間コラボレーティブフィルタリングと呼びます。
+従来のコラボレーティブフィルタリングとは異なり、当社のアルゴリズムのオンライン計算は、製品カタログ内の顧客数とアイテム数とは無関係にスケーリングされます。
+当社のアルゴリズムは、リアルタイムで推奨事項を作成し、膨大なデータセットにスケール変換し、高品質の推奨を生成します。</p>
+
+<h2 id="recommendation-algorithms">Recommendation Algorithms</h2>
+
+<p>ほとんどの推奨アルゴリズムは、購入した商品と評価した商品が購入した商品や評価した商品と重複している顧客を見つけることから始まります。
+アルゴリズムは、これらの同様の顧客からのアイテムを集約し、既に購入または評価したアイテムを排除し、残りのアイテムをユーザに推奨する。
+これらのアルゴリズムの2つの一般的なバージョンは、協調フィルタリングとクラスタモデルです。
+検索ベースの方法や独自の項目間コラボレーティブフィルタリングを含む他のアルゴリズムは、同様の顧客ではなく類似の項目を見つけることに重点を置いています。
+ユーザの購入したアイテムと評価したアイテムのそれぞれについて、アルゴリズムは類似のアイテムを見つけることを試みる。
+それから、同様のアイテムを集めて推薦します。</p>
+
+<p><strong>Traditional Collaborative Filtering</strong>
+従来の協調フィルタリングアルゴリズムは、顧客をアイテムのN次元ベクトルとして表します。ここで、Nは個別のカタログアイテムの数です。
+ベクトルの成分は、購入したまたは正に評価された項目については陽性であり、否定的に評価された項目については陰性である。
+ベストセラーアイテムを補うために、アルゴリズムはベクトル成分に逆頻度（アイテムを購入または評価した顧客の数の逆数）を乗算して、あまり知られていないアイテムをより関連性のあるものにします。
+ほぼすべての顧客にとって、このベクトルは非常にまばらです。</p>
+
+<p>アルゴリズムは、ユーザーと最も類似している少数の顧客に基づいて推奨事項を生成します。
+2つの顧客AとBの類似点をさまざまな方法で測定できます。 一般的な方法は、2つのベクトル間の角度のコサインを測定することです。</p>
+
+<p>式</p>
+
+<p>アルゴリズムは、同様の顧客のアイテムからさまざまな方法を使用して推奨事項を選択することもできます。一般的な方法は、類似した顧客が購入した数に応じて各アイテムをランク付けすることです。</p>
+
+<p>推奨を生成するために協調フィルタリングを使用すると、計算コストが高くなります。
+それは最悪の場合O（MN）であり、Mは顧客数、Nは製品カタログ項目数であり、M顧客と各顧客のN項目を調べるためである。
+しかし、平均顧客ベクトルは非常に疎であるため、アルゴリズムの性能はO（M + N）に近い傾向があります。
+カタログのサイズにかかわらず、ほとんどすべての顧客ベクトルには少数の品目が含まれているため、すべての顧客ベクトルはO（MN）ではなくO（M）で表示されます。
+しかし、O（N）の処理時間を必要とするかなりの割合のカタログを購入または評価した顧客がいくつかあります。
+従って、アルゴリズムの最終的な性能はおおよそO（M + N）である。
+それでも、1000万人以上の顧客や100万以上のカタログアイテムなど、非常に大規模なデータセットの場合、アルゴリズムは厳しいパフォーマンスとスケーリングの問題に遭遇します。</p>
+
+<p><strong>Cluster Models</strong>
+ユーザーに似ている顧客を見つけるために、クラスタモデルは顧客ベースを多くのセグメントに分け、タスクを分類問題として扱います。
+アルゴリズムの目標は、最も類似した顧客を含むセグメントにユーザーを割り当てることです。
+次に、セグメント内の顧客の購入および評価を使用して推奨事項を生成します。</p>
+
+<p>セグメントは、典型的にはクラスタリングまたは他の教師なし学習アルゴリズムを使用して作成されるが、一部のアプリケーションでは手動で決定されたセグメントが使用される。
+類似度メトリックを使用して、クラスタリングアルゴリズムは最も類似した顧客をグループ化してクラスタまたはセグメントを形成する。
+大規模なデータセットに対する最適なクラスタリングは実用的ではないため、ほとんどのアプリケーションでさまざまな形の欲張りクラスター生成が使用されます。
+これらのアルゴリズムは、典型的にはセグメントの最初のセットから始まります。
+次に、顧客は既存のセグメントと顧客を繰り返し一致させます。通常は、新しいセグメントを作成したり、既存のセグメントをマージするための規定があります。
+非常に大きなデータセット、特に高次元のものについては、サンプリングまたは次元削減も必要です。</p>
+
+<p>アルゴリズムがセグメントを生成すると、各セグメントを要約するベクトルに対するユーザの類似性を計算し、次いで、最も強い類似性を有するセグメントを選択し、それに応じてユーザを分類する。 いくつかのアルゴリズムでは、ユーザーを複数のセグメントに分類し、それぞれの関係の強さを記述します。</p>
+
+<p>クラスタモデルは、顧客ベース全体ではなく管理されたセグメント数とユーザーを比較するため、コラボレーティブフィルタリングよりも優れたオンラインスケーラビリティとパフォーマンスを備えています。
+複雑で高価なクラスタリング計算はオフラインで実行されます。
+ただし、推奨品質は低いです。
+クラスタモデルは、多数の顧客を1つのセグメントにグループ化し、ユーザーを1つのセグメントにマッチさせ、セグメント内のすべての顧客を同様の顧客とみなして、推奨することを目的とします。
+クラスタモデルが見つけた同様の顧客は最も類似した顧客ではないため、それらが生成する推奨事項はあまり関連性がありません。
+細分化された多数のセグメントを使用して品質を向上させることは可能ですが、オンラインユーザーセグメントの分類は、コラボレーションフィルタリングを使用して同様の顧客を見つけるほど費用が高くなります。</p>
+
+<p><strong>Search-Based Methods</strong>
+検索またはコンテンツベースの方法では、推薦の問題を関連アイテムの検索として扱います。ユーザーの購入アイテムと評価アイテムが与えられた場合、アルゴリズムは検索クエリを作成して、同じ作者、アーティスト、 類似のキーワードまたはサブジェクト。 たとえば、顧客がゴッドファーザーDVDコレクションを購入した場合、システムは他の犯罪ドラマのタイトル、Marlon Brandoを主演する他の映画、またはFrancis Ford Coppolaが監督するその他の映画を推奨することがあります。</p>
+
+<p>ユーザーの購入または評価が少ない場合、検索ベースの推奨アルゴリズムは拡張され、うまく機能します。
+しかし、何千もの買い物をしているユーザーにとっては、すべてのアイテムに基づいてクエリを作成することは現実的ではありません。 アルゴリズムはデータのサブセットまたはサマリーを使用して品質を低下させる必要があります。
+いずれの場合でも、推奨品質は比較的低いです。
+推薦はあまりにも一般的である（例えば、ベストセラーのドラマDVDタイトルなど）か、狭すぎる（同じ著者によるすべての書籍など）。 推奨事項は、顧客が新しい、関連性の高い興味深い商品を見つけて発見するのに役立つはずです。
+同じ著者または同じ科目カテゴリの人気アイテムは、この目標を達成できません。</p>
+
+<h2 id="item-to-item-collaborative-filtering">Item-to-Item Collaborative Filtering</h2>
+
+<p>Amazon.comは、多くの電子メールキャンペーンやハイサイトのAmazon.comホームページを含むほとんどのWebサイトのページで、ターゲットとなるマーケティングツールとして推奨事項を使用しています。
+「Your Recommendations」リンクをクリックすると、顧客は製品ラインとサブジェクトエリア別に推奨事項をフィルタリングし、推奨製品を評価し、以前の購入率を評価し、推奨される理由を見ることができます（図1参照）。</p>
+
+<p>図2に示すように、ショッピング・カートの推奨事項は、ショッピング・カートのアイテムに基づいて顧客に製品提案を提供します。
+この機能は、スーパーマーケットのチェックアウトラインのインパルスアイテムと似ていますが、インパルスアイテムは各顧客をターゲットにしています。</p>
+
+<p>Amazon.comは、推奨アルゴリズムを幅広く使用して、各顧客の興味に合わせてWebサイトをパーソナライズします。
+既存の推奨アルゴリズムはAmazon.comの数千万の顧客や製品に対応できないため、独自のアルゴリズムを開発しました。
+当社のアルゴリズムであるアイテム間コラボレーティブフィルタリングは、膨大なデータセットにスケールアップし、リアルタイムで高品質の推奨を生成します。</p>
+
+<p><strong>How It Works</strong>
+ユーザーを類似の顧客に照合するのではなく、アイテム間コラボレーティブフィルタリングは、ユーザーの購入したアイテムと評価したアイテムのそれぞれを類似アイテムと照合し、それらの類似アイテムを推奨リストに結合します。</p>
+
+<p>所与のアイテムの最も類似した一致を判定するために、アルゴリズムは、顧客が一緒に購入する傾向のあるアイテムを見つけることによって類似アイテムテーブルを構築する。
+すべてのアイテムペアを反復し、各ペアの類似性メトリックを計算することによって、製品 - 製品マトリックスを構築できます。
+しかし、多くの製品ペアに共通の顧客がないため、このアプローチは処理時間とメモリ使用量の面で非効率的です。
+次の反復アルゴリズムは、単一の製品とすべての関連製品との類似性を計算することにより、より良いアプローチを提供します。</p>
+
+<pre><code>For each item in product catalog, I1 
+  For each customer C who purchased I1 
+    For each item I2 purchased by customer C 
+      Record that a customer purchased I1 and I2 
+  For each item I2 Compute the similarity between I1 and I2
+</code></pre>
+
+<p>2つのアイテム間の類似度をさまざまな方法で計算することは可能ですが、一般的な方法は先に説明した余弦測度を使用することです。各ベクトルは顧客ではなくアイテムに対応し、ベクトルのM次元は、そのアイテムを購入した顧客に対応します。</p>
+
+<p>類似アイテムテーブルのこのオフライン計算は、時間が激しく、O（N^2 M）が最悪のケースである。
+しかし、実際には、ほとんどの顧客が購入することがほとんどないので、O（NM）に近い。
+ベストセラータイトルを購入した顧客をサンプリングすることで、品質の低下はほとんどなく、ランタイムがさらに短縮されます。</p>
+
+<p>同様のアイテムテーブルが与えられた場合、アルゴリズムは、ユーザの購入および格付けのそれぞれに類似したアイテムを見つけ出し、それらのアイテムを集計し、最も人気のあるアイテムまたは相関したアイテムを推薦する。
+この計算は、ユーザが購入または評価したアイテムの数にのみ依存して、非常に迅速である。</p>
+
+<p><strong>Scalability: A Comparison</strong>
+Amazon.comには2,900万人以上の顧客と数百万のカタログアイテムがあります。
+他の主要な小売業者は、比較的大きなデータソースを持っています。
+これらのデータはすべて機会を提供しますが、3桁小さいデータセット用に設計されたアルゴリズムの背後にある呪いでもあります。
+ほとんどすべての既存アルゴリズムが小さなデータセットで評価されました。 たとえば、MovieLensデータセット4には35,000の顧客と3,000のアイテムが含まれ、EachMovieデータセット3には4,000の顧客と1,600個のアイテムが含まれています。</p>
+
+<p>非常に大規模なデータセットの場合、スケーラブルな推奨アルゴリズムは、最も高価な計算をオフラインで実行する必要があります。
+簡単な比較からわかるように、既存の方法は不足しています。</p>
+
+<ul>
+<li>従来のコラボレーションフィルタリングではオフライン計算がほとんどまたはまったく行われず、オンライン計算は顧客数とカタログ項目の数に比例します。このアルゴリズムは、ディメンション削減、サンプリング、またはパーティショニングを使用しない限り、大きなデータセットでは実用的ではありません。これらのすべてが推奨品質を低下させます。</li>
+<li>クラスタモデルは、計算の多くをオフラインで実行できますが、推奨品質は比較的低くなります。それを改善するために、セグメントの数を増やすことは可能ですが、これにより、オンラインユーザーセグメントの分類が高価になります。</li>
+<li>検索ベースのモデルは、キーワード、カテゴリ、および作成者のインデックスをオフラインで作成しますが、面白いターゲットを絞ったタイトルを推奨しません。彼らはまた、多数の購入と格付けを持つ顧客のために規模が貧弱です。</li>
+</ul>
+
+<p>アイテム間コラボレーティブフィルタリングのスケーラビリティとパフォーマンスの鍵は、高価な類似アイテムテーブルをオフラインで作成することです。
+アルゴリズムのオンラインコンポーネント（ユーザーの購入と評価に関する同様のアイテムを検索する）は、カタログのサイズや顧客の総数とは独立しています。 ユーザーが購入または評価したタイトルの数にのみ依存します。
+したがって、このアルゴリズムは、非常に大きなデータセットであっても高速です。 アルゴリズムは類似性の高い類似項目を推奨するため、推奨品質は優れています。従来のコラボレーティブフィルタリングとは異なり、アルゴリズムは限られたユーザーデータでも優れたパフォーマンスを発揮し、わずか2〜3品目に基づいて高品質の推奨を生成します。</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>推奨アルゴリズムは、顧客ごとにパーソナライズされたショッピング体験を作成することにより、効果的な形のマーケティングを提供します。
+Amazon.comのような大規模小売業者にとって、良い推薦アルゴリズムは非常に大規模な顧客ベースと製品カタログ上で拡張可能であり、オンライン推奨を生成するにはわずかな処理時間しか要せず、ユーザーのデータの変更に即座に反応でき、 購入数と評価数にかかわらずすべてのユーザー。
+他のアルゴリズムとは異なり、アイテム間コラボレーティブフィルタリングはこの課題に対応できます。</p>
+
+<p>将来的には、小売業界はオンラインマーケティングとオフラインマーケティングのために、より幅広く推奨マーケティングのための推奨アルゴリズムを適用することを期待しています。
+電子商取引ビジネスはパーソナライゼーションのための最も簡単な手段を備えていますが、技術の伝統的な広範なアプローチと比較してコンバージョン率が向上することで、郵送、クーポン、およびその他の形式の顧客コミュニケーションでオフライン小売業者に魅力的になります。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 23, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/06/22/practical-machine-learning/" title="Practical Machine Learning">Practical Machine Learning</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="./images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/06/23/item-to-item-collaborative-filtering/">Item to Item Collaborative Filtering</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/22/practical-machine-learning/">Practical Machine Learning</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/21/wrapping-up/">Wrapping Up</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/20/github-page-pwa-nize/">Github Page を PWA 化</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/18/testing-routing/">Testing Routing</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/17/GitHub_Pages_plus_original_domain_plus_HTTPS_SSL_support/">GitHub Pages &#43; original domain &#43; HTTPS(SSL) support</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/15/testing-model-driven-forms/">Testing Model Driven Forms</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/13/testing-directives/">Testing Directives</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/09/testing-components/">Testing Components</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/08/testing-dependency-injection/">Testing Dependency Injection</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='./images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='./images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='./images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='./images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='./images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='./images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='./images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

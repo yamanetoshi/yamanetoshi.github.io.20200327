@@ -6,10 +6,25 @@
     <description>Recent content in Recommend on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 22 Jun 2018 20:37:10 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 23 Jun 2018 09:23:04 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/recommend/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Item to Item Collaborative Filtering</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/06/23/item-to-item-collaborative-filtering/</link>
+      <pubDate>Sat, 23 Jun 2018 09:23:04 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/06/23/item-to-item-collaborative-filtering/</guid>
+      <description>&lt;p&gt;以下なドキュメント機械翻訳控えを投入。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf&#34;&gt;Amazon.com Recommendations&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Practical Machine Learning</title>
