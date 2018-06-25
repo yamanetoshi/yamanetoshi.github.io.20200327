@@ -109,6 +109,41 @@
         
 
 <header>
+    <p class="meta">Oct 5, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/05/oroku-post-office/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/05/oroku-post-office/">郵便局めぐり</a>
+    </h1>
+</header>
+
+
+        
+          <p>以下をぐるぐるしてみた。 小禄鏡原郵便局 小禄泉原郵便局 小禄宇栄原郵便局 小禄郵便局 小禄金城郵便局 小禄前原郵便局 ランドマークとしての郵便局に着目し</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/05/oroku-post-office/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Oct 4, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/04/bcm2708-gpio-probe/#disqus_thread">Comments</a>
@@ -479,59 +514,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Sep 27, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/27/struct-kobject/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/27/struct-kobject/">struct kobject 型</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>あまりにアレなので ldd3 なコンテンツ見つつ struct kobject の確認をしてみた。とりあえず Chapter 14. The Linux Device Model というあたり。</p>
-
-<ul>
-<li><a href="http://www.makelinux.net/ldd3/">ldd3 の html コンテンツ</a></li>
-</ul>
-
-<p>ざっくりな理解を以下に列挙してみます。</p>
-
-<ul>
-<li>kobject は device model を互いに保持する基本的な構造</li>
-<li>階層的な関係を持っていて parent 属性で親の kobject を取得できる</li>
-<li>parent な kobject にぶら下がっている kobject を列挙できる kset という属性がある</li>
-<li>kobject_add したら sysfs にその kobject なエントリができる、とあるな</li>
-<li>ktype という struct kobj_type 型の属性が sysfs 関連の情報を管理しているのかどうか</li>
-<li>struct kernfs_node 型の sd という属性が若干謎</li>
-<li>reference count の操作は kobject_get および kobject_put を使う</li>
-</ul>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/27/struct-kobject/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -627,6 +609,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/06/25/collaborative-filtering/">Collaborative Filtering</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/06/24/md2pdf/">Md2pdf</a>
             </li>
           
@@ -660,10 +646,6 @@
           
             <li class="post">
               <a href="/blog/2018/06/13/testing-directives/">Testing Directives</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/06/09/testing-components/">Testing Components</a>
             </li>
           
         </ul>
