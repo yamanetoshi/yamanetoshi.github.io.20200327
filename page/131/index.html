@@ -110,6 +110,37 @@
 
 <header>
     <p class="meta">Feb 18, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/18/distributing-octopress/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/18/distributing-octopress/">Octopress を複数端末で</a>
+    </h1>
+</header>
+
+
+        
+          <p>どうも共有がうまくいってなくて色々ハマッてます。とりあえず以下で対処できました。 Octopress で rake deploy した際に rejected された場合の対処</p>
+
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Feb 18, 2014
          - 2 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/18/rereaing-team-geek/#disqus_thread">Comments</a>
 
@@ -460,53 +491,6 @@ ruby-switch - switch between different Ruby interpreters
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 14, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/14/memorandum-sed/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/14/memorandum-sed/">sed 自分メモ</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>もう爺さんなので控えを。あるパタンの次の行に行を挿入とかあるパタンにマッチするソレを修正とかなんとか。</p>
-
-<pre><code>for i in * ;
-do
-  sed -i -e &quot;/hoge 1 15 525/a hoge 0 0 0&quot; $i
-  sed -i -e &quot;s/fuga 0 1 2 3¥$/fuga 0 1 2 3 300/g&quot; $i
-  sed -i -e &quot;s/piyo 0 1 2 3¥$/piyo 0 1 2 3 300/g&quot; $i
-end
-</code></pre>
-
-<p>どうも手をぱかぱかヤッちゃう悪いクセがあります。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/14/memorandum-sed/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -602,6 +586,10 @@ end
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/06/26/about-dithering/">About Dithering</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/06/25/collaborative-filtering/">Collaborative Filtering</a>
             </li>
           
@@ -635,10 +623,6 @@ end
           
             <li class="post">
               <a href="/blog/2018/06/15/testing-model-driven-forms/">Testing Model Driven Forms</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/06/13/testing-directives/">Testing Directives</a>
             </li>
           
         </ul>
