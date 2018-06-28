@@ -109,6 +109,52 @@
         
 
 <header>
+    <p class="meta">Jun 30, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/30/placement-new/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/30/placement-new/">placement new</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>これ、知りませなんだ。某所にてソース掘削中に以下な記述を発見。C++ です。</p>
+
+<pre><code>template &lt;typename T&gt;
+
+// 中略
+
+    new (ptr) T;
+</code></pre>
+
+<p>ちょい略しすぎですが。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/30/placement-new/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jun 29, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/29/todays-side-dish/#disqus_thread">Comments</a>
@@ -478,57 +524,6 @@ end
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jun 20, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/20/how-to-assign-remote-add-url-changed-ssh-port/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/20/how-to-assign-remote-add-url-changed-ssh-port/">ssh な port を変えてる場合の remote add な url の指定 (備忘)</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>~/.ssh/config 作れ、なのか成程。</p>
-
-<pre><code>Host hoge.remote
-    HostName hoge.example.com
-    User git
-    IdentityFile ~/.ssh/id_rsa.hoge
-    Port 22222
-</code></pre>
-
-<p>で、以下で追加、になるのかどうか。</p>
-
-<pre><code>$ git remote add ssh://hoge.remote/home/repo/hoge.git
-</code></pre>
-
-<p>うーむ。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/20/how-to-assign-remote-add-url-changed-ssh-port/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -624,6 +619,10 @@ end
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/06/28/goteki/">Goteki</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/06/27/record-of-go/">囲碁の棋譜</a>
             </li>
           
@@ -657,10 +656,6 @@ end
           
             <li class="post">
               <a href="/blog/2018/06/18/testing-routing/">Testing Routing</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/06/17/GitHub_Pages_plus_original_domain_plus_HTTPS_SSL_support/">GitHub Pages &#43; original domain &#43; HTTPS(SSL) support</a>
             </li>
           
         </ul>
