@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/02/gparted/</loc>
+    <lastmod>2018-07-02T20:36:59+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/01/gremlin-server/</loc>
     <lastmod>2018-07-01T14:53:08+09:00</lastmod>
   </url>
@@ -7829,7 +7834,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-07-01T14:53:08+09:00</lastmod>
+    <lastmod>2018-07-02T20:36:59+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7997,7 +8002,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/misc/</loc>
-    <lastmod>2018-07-01T14:53:08+09:00</lastmod>
+    <lastmod>2018-07-02T20:36:59+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8015,7 +8020,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-07-01T14:53:08+09:00</lastmod>
+    <lastmod>2018-07-02T20:36:59+09:00</lastmod>
     <priority>0</priority>
   </url>
   

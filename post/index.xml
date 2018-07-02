@@ -6,10 +6,21 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 01 Jul 2018 14:53:08 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 02 Jul 2018 20:36:59 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gparted</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/02/gparted/</link>
+      <pubDate>Mon, 02 Jul 2018 20:36:59 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/02/gparted/</guid>
+      <description>&lt;p&gt;でびあん installer を入れていたメモリスティック、コンビニ scan に使っていたのですが、ファイルの書き込みができないどころか、な状況になってしまっていたのですが &lt;code&gt;cfdisk&lt;/code&gt; あたりでも対応できなくなってしまってて困っていたところ、&lt;code&gt;gparted&lt;/code&gt; というユーティリティを見つけた訳です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Gremlin Server</title>
