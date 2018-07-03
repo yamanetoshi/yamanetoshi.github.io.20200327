@@ -6,10 +6,25 @@
     <description>Recent content in Recommend on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 26 Jun 2018 20:40:45 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 03 Jul 2018 20:33:56 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/recommend/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gremlin Tutorial</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/03/gremlin-tutorial/</link>
+      <pubDate>Tue, 03 Jul 2018 20:33:56 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/03/gremlin-tutorial/</guid>
+      <description>&lt;p&gt;以下のドキュメントを機械翻訳してみたのでこちらにも控えを。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://academy.datastax.com/resources/getting-started-tinkerpop-and-gremlin&#34;&gt;Getting Started with TinkerPop and Gremlin&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>About Dithering</title>

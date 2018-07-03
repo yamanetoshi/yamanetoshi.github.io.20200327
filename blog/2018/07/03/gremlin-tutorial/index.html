@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>Gremlin Tutorial</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jul 3, 2018
+         - 11 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/07/03/gremlin-tutorial/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/recommend/">recommend </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Gremlin Tutorial 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下のドキュメントを機械翻訳してみたのでこちらにも控えを。</p>
+
+<ul>
+<li><a href="https://academy.datastax.com/resources/getting-started-tinkerpop-and-gremlin">Getting Started with TinkerPop and Gremlin</a></li>
+</ul>
+
+<p></p>
+
+<ul>
+<li><code>g.V()</code> : グラフのすべての頂点を取得します。</li>
+<li><code>g.V(1)</code> : 一意の識別子が「1」の頂点を取得します。</li>
+<li><code>g.V(1).values('name')</code> : 一意の識別子 &ldquo;1&rdquo;を持つ頂点のnameプロパティの値を取得します。</li>
+<li><code>g.V(1).outE('knows')</code>  : 一意の識別子「1」を持つ頂点のラベルを「知って」いるエッジを取得します。</li>
+<li><code>g.V(1).outE('knows').inV().values('name')</code> : 一意の識別子 &ldquo;1&rdquo;を持つ頂点が &ldquo;知っている&rdquo;人々の名前を取得します。</li>
+<li><code>g.V(1).out('knows').values('name')</code> : 前のコマンドのようにoutE().inV()を使用すると、inE().inV() と in の場合と同様にout() に短縮することができます。</li>
+<li><code>g.V(1).out('knows').has('age', gt(30)).values('name')</code> : 頂点 “1” が知っている 30 歳以上の人の名前を取得します。</li>
+<li>その次、は graph を作る、模様
+
+<ul>
+<li>直感的に分かりやすいように、Gremlin自身にとっては、頂点、エッジ、プロパティがその存在の要素を構成するので、直感的です。</li>
+<li>私たちの友人、グレムリンは、トラバーサルを開発する際にグラフを移動し、トラバーサーが自分の次の所へ向かう必要がある場所を指し示すのに役立つと考えています。</li>
+<li>上記で議論した1つのエッジグラフを例として、2つの頂点を使用しましょう。 まず、このグラフを作成する必要があります：</li>
+</ul></li>
+</ul>
+
+<pre><code>    gremlin&gt; graph = TinkerGraph.open()
+    ==&gt;tinkergraph[vertices:0 edges:0]
+    gremlin&gt; v1 = graph.addVertex(id, 1, label, &quot;person&quot;, &quot;name&quot;, &quot;marko&quot;, &quot;age&quot;, 29)
+    ==&gt;v[1]
+    gremlin&gt; v2 = graph.addVertex(id, 3, label, &quot;software&quot;, &quot;name&quot;, &quot;lop&quot;, &quot;lang&quot;, &quot;java&quot;)
+    ==&gt;v[3]
+    gremlin&gt; v1.addEdge(&quot;created&quot;, v2, id, 9, &quot;weight&quot;, 0.4)
+    ==&gt;e[9][1-created-&gt;3]
+</code></pre>
+
+<ul>
+<li>上記のコードでは、いくつか重要なことを考慮する必要があります。</li>
+<li>まず、IDとラベルはTinkerPopの特別な使い方のために &ldquo;予約&rdquo;されていることを思い出してください。</li>
+<li>作成メソッドに提供されたこれらの「キー」は、コンソールに静的にインポートされます。 あなたは通常、それらをT.idとT.labelと呼んでいます。
+
+<ul>
+<li>おそらく type も</li>
+<li>レコードの例</li>
+</ul></li>
+</ul>
+
+<pre><code>    [[map[id:1 label:person type:vertex properties:map[name:[map[id:0 value:marko]] age:[map[id:2 value:29]]]]]]
+</code></pre>
+
+<ul>
+<li>次に、TinkerGraphを使って作業していることを忘れないでください.TinkerGraphは識別子の割り当てを可能にします。</li>
+<li>これは、ほとんどのグラフデータベースでは当てはまりません。</li>
+<li>最後に、Edgeのラベルが必要であり、addEdge（）のメソッドシグネチャの一部です。</li>
+<li>これは最初に指定されたパラメータで、次にv1が接続される頂点が続きます。</li>
+<li>したがって、このようなaddEdgeの使用法は、v1からv2へと移動し、ラベルが「作成済み」であるエッジを作成することです。</li>
+</ul>
+
+<h2 id="あるいは-graph-の-traverse">あるいは graph の traverse</h2>
+
+<ul>
+<li>Gremlinはグラフのデータがどこにあるか知っているので、グラフの構造上で何らかのプロセスを実行すると考えることができます。</li>
+<li>質問を英語で行い、それをGremlinに翻訳することができます。</li>
+<li>この最初の例では、Gremlinに &ldquo;Markoが作成したソフトウェアは？&rdquo;と尋ねてみましょう。</li>
+<li>この質問に答えるために、Gremlinは次のようにしたいと考えています：</li>
+<li>Find &ldquo;marko&rdquo; in the graph</li>
+<li>Walk along the &ldquo;created&rdquo; edges to &ldquo;software&rdquo; vertices</li>
+<li>Select the &ldquo;name&rdquo; property of the &ldquo;software&rdquo; vertices</li>
+<li>上記の英語ベースの手順は、グラフ上のグレムリンの位置と、私たちが質問に答えるために必要なステップに大部分を変換します。</li>
+<li>これらのステップを一緒にストリングすることで、我々はTraversalまたはGremlinがあなたに答えを得るために必要とする一連のプログラム的なステップを形成します。</li>
+<li>まず、「マーク」を見つけることから始めましょう。</li>
+<li>この操作は、 &ldquo;name&rdquo;プロパティ値 &ldquo;marko&rdquo;を持つものと一致するように、頂点の完全なセットを検索するときのフィルタリングステップです。</li>
+<li>これは、次のようにhas() ステップを使用して行うことができます。</li>
+</ul>
+
+<pre><code>    gremlin&gt; g.V().has('name','marko')
+    ==&gt;v[1]
+</code></pre>
+
+<ul>
+<li>:注：変数gはTraversalSourceであり、 &ldquo;The First Five Minutes&rdquo;に導入されました。</li>
+<li>TraversalSourceはgraph.traversal（）で作成され、新しいトラバーサルを生成するために使用されるオブジェクトです。</li>
+<li>重要：上記のクエリはグラフのすべての頂点を反復してその答えを得ます。
+
+<ul>
+<li>私たちの小さな例では大丈夫ですが、数百万〜数十億のエッジグラフにとっては大きな問題です。</li>
+<li>この問題を解決するには、インデックスを使用する必要があります。</li>
+<li>TinkerPopは、索引管理のための抽象化を提供しません。</li>
+<li>選択したグラフのドキュメントを参照してネイティブAPIを利用してインデックスを作成し、これらのタイプのルックアップを高速化する必要があります。</li>
+<li>ただし、実行時にインデックスが透過的に使用されるため、トラバーサルは変更されません。</li>
+</ul></li>
+<li>Gremlinが &ldquo;marko&rdquo;を見つけたので、今度は、 &ldquo;作成された&rdquo;エッジに沿って &ldquo;ソフトウェア&rdquo;頂点に &ldquo;歩いて行く&rdquo;ように求める、トラバーサルの次のステップを検討することができます。</li>
+<li>先に説明したように、エッジには方向性があるため、グレムリンにどのような方向を伝える必要があります。</li>
+<li>この場合、私たちは彼が &ldquo;marko&rdquo;頂点から出て行くエッジを横切るようにします。 このために、outEステップを使用します。</li>
+</ul>
+
+<pre><code>    gremlin&gt; g.V().has('name','marko').outE('created')
+    ==&gt;e[9][1-created-&gt;3]
+</code></pre>
+
+<ul>
+<li>この時点で、Gremlinを &ldquo;marko&rdquo;頂点から &ldquo;created&rdquo;端に移動して描くことができます。</li>
+<li>エッジのもう一方の端にある頂点に到達するには、GremlinにinV() を使用してエッジから入ってくる頂点に移動するように指示する必要があります。</li>
+</ul>
+
+<pre><code>    gremlin&gt; g.V().has('name','marko').outE('created').inV()
+    ==&gt;v[3]
+</code></pre>
+
+<ul>
+<li>Gremlinに &ldquo;作成された&rdquo;エッジのプロパティで何かをさせるのではなく、上記のステートメントを単純化することができます：</li>
+</ul>
+
+<pre><code>    gremlin&gt; g.V().has('name','marko').out('created')
+    ==&gt;v[3]
+</code></pre>
+
+<ul>
+<li>最後に、Gremlinが &ldquo;Markoが作成したソフトウェア&rdquo;に到達したので、彼は &ldquo;ソフトウェア&rdquo;頂点のプロパティにアクセスできるので、Gremlinに次のように &ldquo;name&rdquo;プロパティの値を抽出するように要求することができます：</li>
+</ul>
+
+<pre><code>    gremlin&gt; g.V().has('name','marko').out('created').values('name')
+    ==&gt;lop
+</code></pre>
+
+<ul>
+<li>Gremlinがグラフの構造にどのような関係があり、Gremlinが頂点から端までどのように動くかを見ることができるはずです。 グレムリンにもっと複雑なことを尋ねるための手順をまとめていく能力は、これらの基本概念の理解にかかっています。</li>
+</ul>
+
+<h2 id="graph-traversal-increasing-complexity">Graph Traversal - Increasing Complexity</h2>
+
+<ul>
+<li>前のセクションの知識を武器に、Gremlinにもっと難しいトラバーサルタスクを実行してもらいましょう。</li>
+<li>私たちが持っていた &ldquo;赤ちゃん&rdquo;グラフではそれ以上のことはできませんので、 &ldquo;5分セクション&rdquo;の &ldquo;現代&rdquo;のおもちゃのグラフに戻りましょう。</li>
+<li>このグラフを作成し、TraversalSourceを確立することができます：</li>
+<li>先ほどhas（）ステップを使ってGremlinに &ldquo;marko&rdquo;頂点を見つける方法を教えました。 has（）を使う他の方法を見てみましょう。</li>
+<li>Gremlinに &ldquo;vadas&rdquo;と &ldquo;marko&rdquo;の両方の &ldquo;年齢&rdquo;の値を見つけさせたいとしたらどうでしょうか？</li>
+<li>この場合、以下のようにhas（）を使ってwithinコンパレータを使うことができます：</li>
+</ul>
+
+<pre><code>    gremlin&gt; g.V().has('name',within('vadas','marko')).values('age')
+    ==&gt;29
+    ==&gt;27
+</code></pre>
+
+<ul>
+<li>PがGremlin Consoleに静的にインポートされていることは注目に値する（前述のようにTがそうであるように）。</li>
+<li>注意：Pの完全修飾名はorg.apache.tinkerpop.gremlin.process.traversal.Pです。</li>
+<li>Gremlinに &ldquo;vadas&rdquo;と &ldquo;marko&rdquo;の平均年齢を尋ねたければ、mean（）ステップを次のように使うことができます：</li>
+</ul>
+
+<pre><code>    gremlin&gt; g.V().has('name',within('vadas','marko')).values('age').mean()
+    ==&gt;28.0
+</code></pre>
+
+<ul>
+<li>フィルタリングの別の方法は、whereステップの使用にあります。</li>
+<li>マルコが作成した「ソフトウェア」を見つける方法はわかっています。</li>
+</ul>
+
+<pre><code>    gremlin&gt; g.V().has('name','marko').out('created')
+    ==&gt;v[3]
+</code></pre>
+
+<ul>
+<li>そのマークを拡張して、彼が作成したソフトウェアについて「マルコ」が誰と協力しているかを知ろうとしましょう。</li>
+<li>言い換えれば、「マルコがソフトウェアを開発する人は誰ですか？」という質問に答えようとします。</li>
+<li>これを行うには、前のクエリで彼を残したGremlinを最初に描いておく必要があります。</li>
+<li>彼は「ソフトウェア」の頂点に立っていた。</li>
+<li>その &ldquo;ソフトウェア&rdquo;を &ldquo;作成&rdquo;した人物を知るためには、Gremlinを &ldquo;作成された&rdquo;辺に沿ってトラバースして、 &ldquo;人&rdquo;の頂点を見つける必要があります。</li>
+</ul>
+
+<pre><code>    gremlin&gt; g.V().has('name','marko').out('created').in('created').values('name')
+    ==&gt;marko
+    ==&gt;josh
+    ==&gt;peter
+</code></pre>
+
+<ul>
+<li>それでいいのですが、 &ldquo;ピーター&rdquo;、 &ldquo;ジョシュ&rdquo;、 &ldquo;マーク&rdquo;の両方が &ldquo;lop&rdquo;の作成を担当していることがわかります。</li>
+<li>もちろん、私たちはすでに &ldquo;マーク&rdquo;の関与について知っており、 &ldquo;マーク&rdquo;は自分と協力していると言うのは奇妙なので、結果から &ldquo;マーク&rdquo;を除外することは理にかなっています。 次のトラバーサルでその除外が処理されます。</li>
+</ul>
+
+<pre><code>    gremlin&gt; g.V().has('name','marko').as('exclude').out('created').in('created').where(neq('exclude')).values('name')
+    ==&gt;josh
+    ==&gt;peter
+</code></pre>
+
+<ul>
+<li>結果から「マルコ」を除外するために、トラバーサルに2つの追加を行いました。</li>
+<li>最初に、as（）ステップを追加しました。</li>
+<li>as（）ステップは、実際には「ステップ」ではなく、「ステップ変調器」 - ステップまたはトラバーサルにフィーチャーを追加するものです。</li>
+<li>ここでは、as（ &lsquo;exclude&rsquo;）ラベルにhas（）という名前の名前を付け、そのステップを通過するすべての値を後の使用のためにそのラベルに保持します。</li>
+
+<li><p>この場合、 &ldquo;marko&rdquo;頂点はその点を通過する唯一の頂点なので、 &ldquo;exclude&rdquo;に保持されます。</p></li>
+
+<li><p>もう1つの追加はhas（）のようなフィルターステップであるwhere（）ステップでした。</p></li>
+
+<li><p>where（）はin（）ステップの後に配置され、 &ldquo;person&rdquo;頂点を持ちます。つまり、 &ldquo;marko&rdquo;コラボレーターのリストでwhere（）フィルターが発生しています。</p></li>
+
+<li><p>where（）は、それを通過する「人」の頂点が「除外」ラベルの内容と等しくならないように指定します（つまり、neq（））。</p></li>
+
+<li><p>&ldquo;marko&rdquo;頂点だけを含んでいるので、where（）は、 &ldquo;作成された&rdquo;辺をトラバースするときに得られる &ldquo;marko&rdquo;をフィルタリングします。</p></li>
+
+<li><p>as（）の多くの用途があります。 ここではselectとの組み合わせです：</p></li>
+</ul>
+
+<pre><code>    gremlin&gt; g.V().as('a').out().as('b').out().as('c').select('a','b','c')
+    ==&gt;[a:v[1], b:v[4], c:v[5]]
+    ==&gt;[a:v[1], b:v[4], c:v[3]]
+</code></pre>
+
+<ul>
+<li>上記の例では、Gremlinにすべての頂点を反復し、それぞれから2回横断するように指示します。</li>
+
+<li><p>Gremlinはそのパスの各頂点にそれぞれ &ldquo;a&rdquo;、 &ldquo;b&rdquo;、 &ldquo;c&rdquo;というラベルを付けます。 selectを使用して、そのラベルの内容を抽出することができます。</p></li>
+
+<li><p>共通の重要なステップの1つは、group（）ステップとそれに関連するステップモジュレータ（）です。</p></li>
+
+<li><p>グラフのすべての頂点を頂点ラベルでグループ化するようにGremlinに依頼したい場合、次のようにします。</p></li>
+</ul>
+
+<pre><code>    gremlin&gt; g.V().group().by(label)
+    ==&gt;[software:[v[3], v[5]], person:[v[1], v[2], v[4], v[6]]]
+</code></pre>
+
+<ul>
+<li>by（）を使用すると、グループ化の仕組みが提供されます。</li>
+<li>この場合、Gremlinにラベルを使用するように依頼しました（これは、コンソールからTからの自動静的インポートです）。</li>
+<li>頂点の一意の識別子を出力として持つだけなので、私たちの分布について実際には分かりません。</li>
+<li>これをより良くするために、Gremlinにgroup（）に別のby（）モジュレータを渡して値を変換することによって、それらの頂点から &ldquo;name&rdquo;プロパティの値を取得するようにGremlinに依頼することができました。</li>
+</ul>
+
+<pre><code>    gremlin&gt; g.V().group().by(label).by('name')
+    ==&gt;[software:[lop, ripple], person:[marko, vadas, josh, peter]]
+</code></pre>
+
+<ul>
+<li>このセクションでは、プロパティグラフがどのようなもので、Gremlinがそれらとどのように対話するかについてもう少し詳しく学びました。</li>
+<li>Gremlinがグラフを描くように構想する方法と、より複雑で一般的に利用されるいくつかのトラバーサルステップを使用する方法を学びました。</li>
+<li>グラフ・コンピューティングへの適用範囲が広いという点でTinkerPopについて考える準備が整いました。</li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jul 3, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/07/02/gparted/" title="Gparted">Gparted</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="./images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/07/03/gremlin-tutorial/">Gremlin Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/02/gparted/">Gparted</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/01/gremlin-server/">Gremlin Server</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/30/typhoon/">台風</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/29/book/">本</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/28/goteki/">Goteki</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/27/record-of-go/">囲碁の棋譜</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/26/about-dithering/">About Dithering</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/25/collaborative-filtering/">Collaborative Filtering</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/24/md2pdf/">Md2pdf</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='./images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='./images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='./images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='./images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='./images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='./images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='./images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
