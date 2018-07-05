@@ -109,6 +109,59 @@
         
 
 <header>
+    <p class="meta">Jul 29, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/29/service-and-broadcastreceiver/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/29/service-and-broadcastreceiver/">Service と BroadcastReceiver</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>あるアプリでしている処理を他のアプリから起動してその結果を取得することって Android なら簡単にできそうですよね、とのことで検討してみました。</p>
+
+<p>リクエストを受ける側の基本的なヤリ方としては</p>
+
+<ul>
+<li>IntentService を継承</li>
+<li>処理が終わったら Broadcast Intent を発行</li>
+</ul>
+
+<p>逆にリクエストする側てきには</p>
+
+<ul>
+<li>Intent 作って startService</li>
+<li>Broadcast を待ち受け</li>
+</ul>
+
+<p>で良いのかどうか。最低限、リクエストできるのかをチェックする必要はありそげ。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/29/service-and-broadcastreceiver/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jul 28, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/28/user-interface-conference/#disqus_thread">Comments</a>
@@ -478,37 +531,6 @@ ed4809b7d731        johncosta/redis:latest   /usr/bin/redis-serve   21 hours ago
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jul 21, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/21/v-option-of-docker-run/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/21/v-option-of-docker-run/">docker run の v オプション</a>
-    </h1>
-</header>
-
-
-        
-          <p>試してみたところ、nfsd 不要でした、 $ sudo docker.io run -t -i -v /home/devops/rails_projects/hoge:/opt ubuntu:12.04 /bin/bash でも相対パスでは NG でした。と、ゆーことで開発環境の実装すすめます。</p>
-
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -604,6 +626,10 @@ ed4809b7d731        johncosta/redis:latest   /usr/bin/redis-serve   21 hours ago
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/07/05/i-have-to-resume-studying-english/">英語の勉強再開せねば</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/07/04/sugoi-okinawa/">すごい沖縄</a>
             </li>
           
@@ -637,10 +663,6 @@ ed4809b7d731        johncosta/redis:latest   /usr/bin/redis-serve   21 hours ago
           
             <li class="post">
               <a href="/blog/2018/06/26/about-dithering/">About Dithering</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/06/25/collaborative-filtering/">Collaborative Filtering</a>
             </li>
           
         </ul>

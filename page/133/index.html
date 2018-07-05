@@ -109,6 +109,41 @@
         
 
 <header>
+    <p class="meta">Feb 14, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/14/data-recovery-from-old-nas/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/14/data-recovery-from-old-nas/">古い NAS からデータをサルベイジ</a>
+    </h1>
+</header>
+
+
+        
+          <p>/etc/samba/smb.conf の global なナニに以下を追加。 [global] client lanman auth = yes client ntlmv2 auth = no とりあえず smbclient で情報の確認はできました。 $ smbclient -L //192.168.255.254 -U admin Enter admin's password: Sharename Type Comment --------- ---- ------- PUBLIC Disk IPC$ IPC で、mount.</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/14/data-recovery-from-old-nas/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Feb 13, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/13/change-package-name/#disqus_thread">Comments</a>
@@ -434,41 +469,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 8, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/08/android-alarmmanager-set/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/08/android-alarmmanager-set/">AlarmManager#set</a>
-    </h1>
-</header>
-
-
-        
-          <p>知っていたのかどうかさえ忘却の彼方。 AlarmManager を使って定期的な処理をしているのですが、あるタイミングで AlarmManager#set をカブセて呼び出している箇所があったけれど、</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/08/android-alarmmanager-set/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -564,6 +564,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/07/05/i-have-to-resume-studying-english/">英語の勉強再開せねば</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/07/04/sugoi-okinawa/">すごい沖縄</a>
             </li>
           
@@ -597,10 +601,6 @@
           
             <li class="post">
               <a href="/blog/2018/06/26/about-dithering/">About Dithering</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/06/25/collaborative-filtering/">Collaborative Filtering</a>
             </li>
           
         </ul>
