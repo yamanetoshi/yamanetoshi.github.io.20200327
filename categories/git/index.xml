@@ -6,10 +6,29 @@
     <description>Recent content in Git on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 29 Mar 2018 20:33:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 07 Jul 2018 10:43:24 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/git/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Your Account Has Been Flagged</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/07/your-account-has-been-flagged/</link>
+      <pubDate>Sat, 07 Jul 2018 10:43:24 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/07/your-account-has-been-flagged/</guid>
+      <description>&lt;p&gt;お仕事なアカウントから投入していた情報が見えなくなっている、という話があり、おかしいッスねー、と言いつつ自分が投入してた情報見てたら上の端に&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Your account has been flagged.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;みたいなナニが表示されているのを発見。(ちょい前から確認してた記憶があるのですがスルーしてましたorz&lt;/p&gt;
+
+&lt;p&gt;これって垢 BAN じゃないッスか、と言いつつ対処について確認など。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Git Tutorial</title>
