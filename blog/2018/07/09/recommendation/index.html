@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>Recommendation</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jul 9, 2018
+         - 6 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/07/09/recommendation/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/recommendation/">recommendation </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Recommendation 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下のドキュメント確認しつつ機械翻訳なナニを作成したので控えを。</p>
+
+<ul>
+<li><a href="http://tinkerpop.apache.org/docs/current/recipes/#recommendation">Recommendation</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="recommendation">Recommendation</h2>
+
+<p>グラフデータベースのより一般的な使用例の1つは、推奨システムの開発であり、これを行うための簡単なアプローチは、コラボレーションフィルタリングによるものです。 コラボレーティブフィルタリングは、ある人が別の人と意見を共有する場合、他の問題に関して同様の趣味を持つ可能性が高いと想定しています。 このような考え方を念頭に置いて、特定の人物について、彼らの意見が何であるかを予測することが可能です。</p>
+
+<p>簡単な例として、「購入」エッジによって接続された「人」と「製品」の頂点を含むグラフを考えてみましょう。 次のスクリプトは、その基本スキーマを使用してグラフのデータを生成します。</p>
+
+<pre><code>gremlin&gt; g.addV(&quot;person&quot;).property(&quot;name&quot;,&quot;alice&quot;).
+           addV(&quot;person&quot;).property(&quot;name&quot;,&quot;bob&quot;).
+           addV(&quot;person&quot;).property(&quot;name&quot;,&quot;jon&quot;).
+           addV(&quot;person&quot;).property(&quot;name&quot;,&quot;jack&quot;).
+           addV(&quot;person&quot;).property(&quot;name&quot;,&quot;jill&quot;)iterate()
+gremlin&gt; (1..10).each {
+           g.addV(&quot;product&quot;).property(&quot;name&quot;,&quot;product #${it}&quot;).iterate()
+         }; []
+gremlin&gt; (3..7).each {
+           g.V().has(&quot;person&quot;,&quot;name&quot;,&quot;alice&quot;).as(&quot;p&quot;).
+             V().has(&quot;product&quot;,&quot;name&quot;,&quot;product #${it}&quot;).addE(&quot;bought&quot;).from(&quot;p&quot;).iterate()
+         }; []
+gremlin&gt; (1..5).each {
+           g.V().has(&quot;person&quot;,&quot;name&quot;,&quot;bob&quot;).as(&quot;p&quot;).
+             V().has(&quot;product&quot;,&quot;name&quot;,&quot;product #${it}&quot;).addE(&quot;bought&quot;).from(&quot;p&quot;).iterate()
+         }; []
+gremlin&gt; (6..10).each {
+           g.V().has(&quot;person&quot;,&quot;name&quot;,&quot;jon&quot;).as(&quot;p&quot;).
+             V().has(&quot;product&quot;,&quot;name&quot;,&quot;product #${it}&quot;).addE(&quot;bought&quot;).from(&quot;p&quot;).iterate()
+         }; []
+gremlin&gt; 1.step(10, 2) {
+           g.V().has(&quot;person&quot;,&quot;name&quot;,&quot;jack&quot;).as(&quot;p&quot;).
+             V().has(&quot;product&quot;,&quot;name&quot;,&quot;product #${it}&quot;).addE(&quot;bought&quot;).from(&quot;p&quot;).iterate()
+         }; []
+gremlin&gt; 2.step(10, 2) {
+           g.V().has(&quot;person&quot;,&quot;name&quot;,&quot;jill&quot;).as(&quot;p&quot;).
+             V().has(&quot;product&quot;,&quot;name&quot;,&quot;product #${it}&quot;).addE(&quot;bought&quot;).from(&quot;p&quot;).iterate()
+         }; []
+</code></pre>
+
+<p>The first step to making a recommendation to &ldquo;alice&rdquo; using collaborative filtering is to understand what she bought:</p>
+
+<pre><code>gremlin&gt; g.V().has('name','alice').out('bought').values('name')
+==&gt;product #5
+==&gt;product #6
+==&gt;product #7
+==&gt;product #3
+==&gt;product #4
+</code></pre>
+
+<p>他の状態が以下。</p>
+
+<pre><code>gremlin&gt; g.V(13).out('bought').valueMap()
+==&gt;{name=[product #3]}
+==&gt;{name=[product #4]}
+==&gt;{name=[product #5]}
+==&gt;{name=[product #6]}
+==&gt;{name=[product #7]}
+gremlin&gt; g.V(15).out('bought').valueMap()
+==&gt;{name=[product #1]}
+==&gt;{name=[product #2]}
+==&gt;{name=[product #3]}
+==&gt;{name=[product #4]}
+==&gt;{name=[product #5]}
+gremlin&gt; g.V(17).out('bought').valueMap()
+==&gt;{name=[product #6]}
+==&gt;{name=[product #7]}
+==&gt;{name=[product #8]}
+==&gt;{name=[product #9]}
+==&gt;{name=[product #10]}
+gremlin&gt; g.V(19).out('bought').valueMap()
+==&gt;{name=[product #1]}
+==&gt;{name=[product #3]}
+==&gt;{name=[product #5]}
+==&gt;{name=[product #7]}
+==&gt;{name=[product #9]}
+gremlin&gt; g.V(21).out('bought').valueMap()
+==&gt;{name=[product #4]}
+==&gt;{name=[product #6]}
+==&gt;{name=[product #8]}
+==&gt;{name=[product #2]}
+</code></pre>
+
+<p>以下の図は、上記の例では、「alice」と「product＃5」の間を横切ったエッジの1つを示しています。 明らかに、購入された他の製品「alice」は類似した関係を持ちますが、この図とそれに続くものはその製品の周りに集中します。</p>
+
+<p><img src="http://tinkerpop.apache.org/docs/current/images/recommendation-alice-1.png" alt="recommendation alice 1" /></p>
+
+<p>The next step is to determine who else purchased those products:</p>
+
+<pre><code>gremlin&gt; g.V().has('name','alice').out('bought').in('bought').dedup().values('name')
+==&gt;bob
+==&gt;alice
+==&gt;jack
+==&gt;jill
+==&gt;jon
+</code></pre>
+
+<p>上記の結果に「アリス」があることは注目に値する。 彼女は本当にリストから除外されるべきです。なぜなら、興味が自分自身以外の個人が購入したものであるからです。</p>
+
+<pre><code>gremlin&gt; g.V().has('name','alice').as('her').
+......1&gt;                out('bought').
+......2&gt;                in('bought').where(neq('her')).
+......3&gt;                dedup().values('name')
+==&gt;bob
+==&gt;jack
+==&gt;jill
+==&gt;jon
+</code></pre>
+
+<p>The following diagram shows &ldquo;alice&rdquo; and those others who purchased &ldquo;product #5&rdquo;.</p>
+
+<p><img src="http://tinkerpop.apache.org/docs/current/images/recommendation-alice-2.png" alt="recommendation alice 2" /></p>
+
+<p>The knowledge of the people who bought the same things as &ldquo;alice&rdquo; can then be used to find the set of products that they bought:</p>
+
+<pre><code>gremlin&gt; g.V().has('name','alice').as('her').
+......1&gt;                out('bought').
+......2&gt;                in('bought').where(neq('her')).
+......3&gt;                out('bought').
+......4&gt;                dedup().values('name')
+==&gt;product #1
+==&gt;product #2
+==&gt;product #3
+==&gt;product #4
+==&gt;product #5
+==&gt;product #7
+==&gt;product #9
+==&gt;product #6
+==&gt;product #8
+==&gt;product #10
+</code></pre>
+
+<p><img src="http://tinkerpop.apache.org/docs/current/images/recommendation-alice-3.png" alt="recommendation alice 3" /></p>
+
+<p>このセットの製品は推奨の基礎となる可能性がありますが、「アリス」はすでにこれらの製品の一部を購入している可能性があり、自分が既に所有している製品の推奨事項を彼女に告知しない方がよいでしょう。 購入した商品は次のように除外することができます：</p>
+
+<pre><code>g.V().has('name','alice').as('her').
+......1&gt;                out('bought').aggregate('self').
+......2&gt;                in('bought').where(neq('her')).
+......3&gt;                out('bought').where(without('self')).
+......4&gt;                dedup().values('name')
+==&gt;product #1
+==&gt;product #2
+==&gt;product #9
+==&gt;product #8
+==&gt;product #10
+</code></pre>
+
+<p><img src="http://tinkerpop.apache.org/docs/current/images/recommendation-alice-4.png" alt="recommendation alice 4" /></p>
+
+<p>The final step would be to group the remaining products (instead of <code>dedup()</code> which was mostly done for demonstration purposes) to form a ranking:
+最後のステップは、デモンストレーションの目的で主に行われたdedup（）の代わりに、残りの製品をグループ化してランキングを作成することです。</p>
+
+<pre><code>gremlin&gt; g.V().has('person','name','alice').as('her'). //1\
+               out('bought').aggregate('self'). //2\
+               in('bought').where(neq('her')). //3\
+               out('bought').where(without('self')). //4\
+               groupCount().
+               order(local).
+                 by(values, decr) //5\
+==&gt;[v[10]:6,v[26]:5,v[12]:5,v[24]:4,v[28]:2]
+</code></pre>
+
+<ol>
+<li>Find &ldquo;alice&rdquo; who is the person for whom the product recommendation is being made.</li>
+<li>Traverse to the products that &ldquo;alice&rdquo; bought and gather them for later use in the traversal.</li>
+<li>Traverse to the &ldquo;person&rdquo; vertices who bought the products that &ldquo;alice&rdquo; bought and exclude &ldquo;alice&rdquo; herself from that list.</li>
+<li>Given those people who bought similar products to &ldquo;alice&rdquo;, find the products that they bought and exclude those that she already bought.</li>
+
+<li><p>Group the products and count the number of times they were purchased by others to come up with a ranking of products to recommend to &ldquo;alice&rdquo;.</p></li>
+
+<li><p>製品の推薦が行われている人である「アリス」を探します。</p></li>
+
+<li><p>&ldquo;alice&rdquo;が購入した製品をトラバースし、後でそのトラバーサルで使用するために収集します。</p></li>
+
+<li><p>「アリス」が購入した商品を購入した「人」の頂点に移動し、そのリストから「アリス」自身を除外します。</p></li>
+
+<li><p>同様の商品を「アリス」に購入した人には、購入した商品を見つけ、すでに購入した商品を除外します。</p></li>
+
+<li><p>製品をグループ化し、他のユーザーが購入した回数を数えて、「alice」に推奨する製品のランキングを提示します。
+g.V().has(&lsquo;person&rsquo;,&lsquo;name&rsquo;,&lsquo;alice&rsquo;).as(&lsquo;her&rsquo;).out(&lsquo;bought&rsquo;).aggregate(&lsquo;self&rsquo;).in(&lsquo;bought&rsquo;).where(neq(&lsquo;her&rsquo;)).out(&lsquo;bought&rsquo;).where(without(&lsquo;self&rsquo;)).groupCount().order(local).by(values, decr)</p></li>
+</ol>
+
+<p>前の例はすでに「基本的」として記述されており、明らかに推奨の品質をさらに向上させるために利用できるデータ（商品の評価、購入時間など）を考慮に入れることができます。 （前のデータセットを拡張することなく）推奨されるものの品質を向上させる1つの選択肢は、最も一般的な購入セットを有する「アリス」に対する推奨を構成する人の頂点を選択することである。</p>
+
+<p>前のコードの例に戻って、少なくとも1つの製品が共通している個人を示すストリップダウン表現を検討してください。</p>
+
+<pre><code>gremlin&gt; g.V().has(&quot;person&quot;,&quot;name&quot;,&quot;alice&quot;).as(&quot;alice&quot;).
+               out(&quot;bought&quot;).aggregate(&quot;self&quot;).
+               in(&quot;bought&quot;).where(neq(&quot;alice&quot;)).dedup()
+==&gt;v[2]
+==&gt;v[6]
+==&gt;v[8]
+==&gt;v[4]
+</code></pre>
+
+<p>Next, do some grouping to find count how many products they have in common:
+次にいくつかのグループ分けをして、どれだけ多くの製品が共通しているかを調べます。</p>
+
+<pre><code>gremlin&gt; g.V().has(&quot;person&quot;,&quot;name&quot;,&quot;alice&quot;).as(&quot;alice&quot;).
+               out(&quot;bought&quot;).aggregate(&quot;self&quot;).
+               in(&quot;bought&quot;).where(neq(&quot;alice&quot;)).dedup().
+               group().
+                 by().by(out(&quot;bought&quot;).
+               where(within(&quot;self&quot;)).count())
+==&gt;[v[2]:3,v[4]:2,v[6]:3,v[8]:2]
+</code></pre>
+
+<p>The above output shows that the best that can be expected is three common products. The traversal needs to be aware of that maximum:
+上記の結果から、期待できる最善のものは3つの一般的な製品であることが示されています。 トラバーサルはその最大値に注意する必要があります：</p>
+
+<pre><code>gremlin&gt; g.V().has(&quot;person&quot;,&quot;name&quot;,&quot;alice&quot;).as(&quot;alice&quot;).
+               out(&quot;bought&quot;).aggregate(&quot;self&quot;).
+               in(&quot;bought&quot;).where(neq(&quot;alice&quot;)).dedup().
+               group().
+                 by().by(out(&quot;bought&quot;).
+               where(within(&quot;self&quot;)).count()).
+               select(values).
+               order(local).
+                 by(decr).limit(local, 1)
+==&gt;3
+</code></pre>
+
+<p>With the maximum value available, it can be used to chose those &ldquo;person&rdquo; vertices that have the three products in common:
+使用可能な最大値を使用して、3つの製品が共通する「人」の頂点を選択することができます。</p>
+
+<pre><code>gremlin&gt; g.V().has(&quot;person&quot;,&quot;name&quot;,&quot;alice&quot;).as(&quot;alice&quot;).
+               out(&quot;bought&quot;).aggregate(&quot;self&quot;).
+               in(&quot;bought&quot;).where(neq(&quot;alice&quot;)).dedup().
+               group().
+                 by().by(out(&quot;bought&quot;).
+               where(within(&quot;self&quot;)).count()).as(&quot;g&quot;).
+               select(values).
+               order(local).
+                 by(decr).limit(local, 1).as(&quot;m&quot;).
+               select(&quot;g&quot;).unfold().
+               where(select(values).as(&quot;m&quot;)).select(keys)
+==&gt;v[2]
+==&gt;v[6]
+</code></pre>
+
+<p>Now that there is a list of &ldquo;person&rdquo; vertices to base the recommendation on, traverse to the products that they purchased:
+これで、推薦のベースとなる「人」の頂点のリストが得られ、購入した製品をトラバースすることができました。</p>
+
+<pre><code>gremlin&gt; g.V().has(&quot;person&quot;,&quot;name&quot;,&quot;alice&quot;).as(&quot;alice&quot;).
+               out(&quot;bought&quot;).aggregate(&quot;self&quot;).
+               in(&quot;bought&quot;).where(neq(&quot;alice&quot;)).dedup().
+               group().
+                 by().by(out(&quot;bought&quot;).
+               where(within(&quot;self&quot;)).count()).as(&quot;g&quot;).
+               select(values).
+               order(local).
+                 by(decr).limit(local, 1).as(&quot;m&quot;).
+               select(&quot;g&quot;).unfold().
+               where(select(values).as(&quot;m&quot;)).select(keys).
+               out(&quot;bought&quot;).where(without(&quot;self&quot;))
+==&gt;v[10]
+==&gt;v[12]
+==&gt;v[26]
+==&gt;v[10]
+</code></pre>
+
+<p>The above output shows that one product is held in common making it the top recommendation:
+上記の結果は、1つの製品が共通に保持されていることを示しています。</p>
+
+<pre><code>gremlin&gt; g.V().has(&quot;person&quot;,&quot;name&quot;,&quot;alice&quot;).as(&quot;alice&quot;).
+               out(&quot;bought&quot;).aggregate(&quot;self&quot;).
+               in(&quot;bought&quot;).where(neq(&quot;alice&quot;)).dedup().
+               group().
+                 by().by(out(&quot;bought&quot;).
+               where(within(&quot;self&quot;)).count()).as(&quot;g&quot;).
+               select(values).
+               order(local).
+                 by(decr).limit(local, 1).as(&quot;m&quot;).
+               select(&quot;g&quot;).unfold().
+               where(select(values).as(&quot;m&quot;)).select(keys).
+               out(&quot;bought&quot;).where(without(&quot;self&quot;)).
+               groupCount().
+               order(local).
+                 by(values, decr).
+                 by(select(keys).values(&quot;name&quot;)).
+               unfold().select(keys).values(&quot;name&quot;)
+==&gt;product #1
+==&gt;product #2
+==&gt;product #9
+</code></pre>
+
+<p>In considering the practical applications of this recipe, it is worth revisiting the earlier &ldquo;basic&rdquo; version of the recommendation algorithm:
+このレシピの実際のアプリケーションを検討する際には、以前の「推奨」アルゴリズムの「基本」バージョンを再度検討する価値があります。</p>
+
+<pre><code>gremlin&gt; g.V().has('person','name','alice').as('her').
+               out('bought').aggregate('self').
+               in('bought').where(neq('her')).
+               out('bought').where(without('self')).
+               groupCount().
+               order(local).
+                 by(values, decr)
+==&gt;[v[10]:6,v[26]:5,v[12]:5,v[24]:4,v[28]:2]
+</code></pre>
+
+<p>上記のトラバーサルは、接続されたすべてのデータに基づいて項目の完全なランキングを実行します。 トラバースされているパスの数に応じて時間がかかる操作になる可能性があります。 結局のところ、推奨は、推奨の「かなり良い」近似を提供するために、すべてのデータの完全な知識を持つ必要はありません。 そのため、トラバーサルに追加の制限を設けて、より少ないデータを調べることで、より迅速により良い結果を得ることができます。</p>
+
+<p>Gremlinは、coin()、sample()、およびtimeLimit() のような制限に役立ついくつかのステップを提供しています。 たとえば、トラバーサルサンプルに1秒以下のデータをサンプリングさせるには、以前の「基本的な」推奨を次のように変更できます。</p>
+
+<pre><code>gremlin&gt; g.V().has('person','name','alice').as('her').
+               out('bought').aggregate('self').
+               in('bought').where(neq('her')).
+               out('bought').where(without('self')).timeLimit(1000).
+               groupCount().
+               order(local).
+                 by(values, decr)
+==&gt;[v[10]:6,v[26]:5,v[12]:5,v[24]:4,v[28]:2]
+</code></pre>
+
+<p>サンプリング方法を使用する際には、グラフ内のエッジの自然順序付けが推奨の理想的なサンプルを生成しない可能性があることを考慮することが重要です。 たとえば、エッジが最も古いものから最初に返された場合、推薦は最も理想的ではない最も古いデータに基づいて行われます。 任意のトラバーサルと同様に、トラバースされるグラフの性質と、目的の結果を適切に達成するための基礎となるグラフデータベースの動作を理解することが重要です。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jul 9, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/07/08/tinkerpop-gremlin-aggregate/" title="Tinkerpop Gremlin Aggregate">Tinkerpop Gremlin Aggregate</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="./images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/07/09/recommendation/">Recommendation</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/08/tinkerpop-gremlin-aggregate/">Tinkerpop Gremlin Aggregate</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/07/your-account-has-been-flagged/">Your Account Has Been Flagged</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/06/leka/">Leka</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/05/i-have-to-resume-studying-english/">英語の勉強再開せねば</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/04/sugoi-okinawa/">すごい沖縄</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/03/gremlin-tutorial/">Gremlin Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/02/gparted/">Gparted</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/01/gremlin-server/">Gremlin Server</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/06/30/typhoon/">台風</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='./images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='./images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='./images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='./images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='./images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='./images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='./images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

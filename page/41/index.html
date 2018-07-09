@@ -109,6 +109,58 @@
         
 
 <header>
+    <p class="meta">Mar 10, 2016
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2016/03/10/docker-registry/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/docker/">docker </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2016/03/10/docker-registry/">Docker Registry</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>ようやく commit 作らない、が横着だった事に気づいた次第にて以下の方向でリポジトリを作成する事に。</p>
+
+<ul>
+<li>S3 に情報保存</li>
+<li>Dockerfile と config.yml を持って歩いて必要な時にコンテナ作って image 登録</li>
+<li>pull する時にもその場でコンテナ立ち上げて云々する</li>
+<li>必要なファイル (Dockerfile, config.yml) は bitbucket 方面にて保管</li>
+</ul>
+
+<p>ネト接続必須になりますが、これは気にする必要はないはず。</p>
+
+<p>以下を参考にさせて頂きました。ありがとうございます。</p>
+
+<ul>
+<li><a href="http://inokara.hateblo.jp/entry/2014/01/26/102059">docker-registry と Amazon S3 で作る自分だけのコンテナ倉庫 (リポジトリ)</a></li>
+</ul>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2016/03/10/docker-registry/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Mar 9, 2016
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2016/03/09/nest-of-rats/#disqus_thread">Comments</a>
@@ -432,47 +484,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Mar 1, 2016
-         - 4 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2016/03/01/stig-rules/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2016/03/01/stig-rules/">Audit の stig.rules</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>以下ドキュメントですが、stig.rules の解説があるのでなんとなくな自分メモを。</p>
-
-<ul>
-<li><a href="http://goo.gl/dtpk5X">(RHEL) HOWTO configure the auditing of the system (auditd)</a></li>
-</ul>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2016/03/01/stig-rules/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -568,6 +579,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/07/09/recommendation/">Recommendation</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/07/08/tinkerpop-gremlin-aggregate/">Tinkerpop Gremlin Aggregate</a>
             </li>
           
@@ -601,10 +616,6 @@
           
             <li class="post">
               <a href="/blog/2018/06/30/typhoon/">台風</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/06/29/book/">本</a>
             </li>
           
         </ul>
