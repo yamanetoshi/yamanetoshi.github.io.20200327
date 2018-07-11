@@ -6,10 +6,21 @@
     <description>Recent content in Recommendation on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 09 Jul 2018 20:33:41 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 10 Jul 2018 23:43:51 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/recommendation/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gremlin Client Initialize</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/10/gliemlin-client/</link>
+      <pubDate>Tue, 10 Jul 2018 23:43:51 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/10/gliemlin-client/</guid>
+      <description>&lt;p&gt;自分メモを以下に控え。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Recommendation</title>
