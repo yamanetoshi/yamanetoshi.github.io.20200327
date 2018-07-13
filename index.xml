@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 10 Jul 2018 23:43:51 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 13 Jul 2018 20:26:55 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>さよなら私のクラマー</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/13/sayonara-watashi-no-cramer/</link>
+      <pubDate>Fri, 13 Jul 2018 20:26:55 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/13/sayonara-watashi-no-cramer/</guid>
+      <description>&lt;p&gt;最近ハマッている作品です。君嘘の新川直司さんが次の連載として月マガに連載なさってる作品。なんとなく今日お世話になってる現場で話を出してしまったのでエントリ入れてみようかなと思った訳です。&lt;/p&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;単校本とそれ以降の月マガ発表分含めて全部見てます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Gremlin Client Initialize</title>
