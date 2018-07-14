@@ -6,10 +6,25 @@
     <description>Recent content in Recommendation on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 10 Jul 2018 23:43:51 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 14 Jul 2018 09:07:58 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/recommendation/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Benchmarking and Profiling</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/14/benchmarking-and-profiling/</link>
+      <pubDate>Sat, 14 Jul 2018 09:07:58 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/14/benchmarking-and-profiling/</guid>
+      <description>&lt;p&gt;以下のドキュメント確認しつつ機械翻訳なナニを作成したので控えを。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://tinkerpop.apache.org/docs/current/reference/#benchmarking-and-profiling&#34;&gt;Benchmarking and Profiling&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Gremlin Client Initialize</title>
