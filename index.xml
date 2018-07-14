@@ -6,10 +6,23 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 14 Jul 2018 09:07:58 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 14 Jul 2018 10:28:38 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>辺野古県民投票</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/14/henoko/</link>
+      <pubDate>Sat, 14 Jul 2018 10:28:38 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/14/henoko/</guid>
+      <description>&lt;p&gt;「辺野古」県民投票の会さんに連絡して以下のセットが届きました。&lt;/p&gt;
+
+&lt;p&gt;&lt;a data-flickr-embed=&#34;true&#34;  href=&#34;https://www.flickr.com/photos/yamane-toshiaki/28512069447/in/dateposted-public/&#34; title=&#34;沖縄県条例制定請求者署名簿　署名簿はこちらから送付して頂けます　https://ift.tt/2L6xufP&#34;&gt;&lt;img src=&#34;https://farm1.staticflickr.com/926/28512069447_6664804819_z.jpg&#34; width=&#34;640&#34; height=&#34;640&#34; alt=&#34;沖縄県条例制定請求者署名簿　署名簿はこちらから送付して頂けます　https://ift.tt/2L6xufP&#34;&gt;&lt;/a&gt;&lt;script async src=&#34;//embedr.flickr.com/assets/client-code.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Benchmarking and Profiling</title>
