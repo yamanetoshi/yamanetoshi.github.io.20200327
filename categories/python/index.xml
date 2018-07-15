@@ -6,10 +6,21 @@
     <description>Recent content in Python on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 25 Apr 2018 13:57:34 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 15 Jul 2018 09:51:59 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/python/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Python 仮想環境</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/15/python-virtual-environment/</link>
+      <pubDate>Sun, 15 Jul 2018 09:51:59 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/15/python-virtual-environment/</guid>
+      <description>&lt;p&gt;最近は venv ってのがあるのか。手元で環境作ってみます。以下、控えを。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Python から Google Calendar のデータを入手する実装</title>

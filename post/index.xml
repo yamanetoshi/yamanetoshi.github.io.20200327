@@ -6,10 +6,21 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 14 Jul 2018 10:28:38 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 15 Jul 2018 09:51:59 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Python 仮想環境</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/15/python-virtual-environment/</link>
+      <pubDate>Sun, 15 Jul 2018 09:51:59 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/15/python-virtual-environment/</guid>
+      <description>&lt;p&gt;最近は venv ってのがあるのか。手元で環境作ってみます。以下、控えを。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>辺野古県民投票</title>
