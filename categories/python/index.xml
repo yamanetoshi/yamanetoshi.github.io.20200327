@@ -6,10 +6,42 @@
     <description>Recent content in Python on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 15 Jul 2018 09:51:59 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 16 Jul 2018 10:25:22 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/python/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flask Tutorial</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/16/flask/</link>
+      <pubDate>Mon, 16 Jul 2018 10:25:22 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/16/flask/</guid>
+      <description>&lt;p&gt;[Python プロフェッショナルプログラミング第 3 版]() にて flask 使って云々、みたいな件があり、これは面白い道具だな、ということで以下を見てみました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://flask.pocoo.org&#34;&gt;Flask web development, one drop at a time&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;SSL 化がまだだな (余計なお世話&lt;/p&gt;
+
+&lt;p&gt;What&amp;rsquo;s in the Box? という節にて以下な記載があります。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;built-in development server and debugger&lt;/li&gt;
+&lt;li&gt;integrated unit testing support&lt;/li&gt;
+&lt;li&gt;RESTful request dispatching&lt;/li&gt;
+&lt;li&gt;uses Jinja2 templating&lt;/li&gt;
+&lt;li&gt;support for secure cookies (client side sessions)&lt;/li&gt;
+&lt;li&gt;100% WSGI 1.0 compliant&lt;/li&gt;
+&lt;li&gt;Unicode based&lt;/li&gt;
+&lt;li&gt;extensively documented&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ドキュメントを確認してみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Python 仮想環境</title>

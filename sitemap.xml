@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/16/flask/</loc>
+    <lastmod>2018-07-16T10:25:22+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/15/python-virtual-environment/</loc>
     <lastmod>2018-07-15T09:51:59+09:00</lastmod>
   </url>
@@ -7894,7 +7899,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-07-15T09:51:59+09:00</lastmod>
+    <lastmod>2018-07-16T10:25:22+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8080,7 +8085,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-07-15T09:51:59+09:00</lastmod>
+    <lastmod>2018-07-16T10:25:22+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8092,7 +8097,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/python/</loc>
-    <lastmod>2018-07-15T09:51:59+09:00</lastmod>
+    <lastmod>2018-07-16T10:25:22+09:00</lastmod>
     <priority>0</priority>
   </url>
   

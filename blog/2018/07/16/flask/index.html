@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>Flask Tutorial</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jul 16, 2018
+         - 17 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/07/16/flask/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/python/">Python </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Flask Tutorial 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>[Python プロフェッショナルプログラミング第 3 版]() にて flask 使って云々、みたいな件があり、これは面白い道具だな、ということで以下を見てみました。</p>
+
+<ul>
+<li><a href="http://flask.pocoo.org">Flask web development, one drop at a time</a></li>
+</ul>
+
+<p>SSL 化がまだだな (余計なお世話</p>
+
+<p>What&rsquo;s in the Box? という節にて以下な記載があります。</p>
+
+<ul>
+<li>built-in development server and debugger</li>
+<li>integrated unit testing support</li>
+<li>RESTful request dispatching</li>
+<li>uses Jinja2 templating</li>
+<li>support for secure cookies (client side sessions)</li>
+<li>100% WSGI 1.0 compliant</li>
+<li>Unicode based</li>
+<li>extensively documented</li>
+</ul>
+
+<p>ドキュメントを確認してみます。</p>
+
+<p></p>
+
+<h2 id="tutorial">Tutorial</h2>
+
+<p>ありました。以下です。確認しつつ、控えをとりつつ云々してみます。</p>
+
+<ul>
+<li><a href="http://flask.pocoo.org/docs/1.0/tutorial/">Tutorial</a></li>
+</ul>
+
+<h2 id="project-layout">Project Layout</h2>
+
+<p>とりあえずディレクトリを掘って</p>
+
+<pre><code>$ mkdir flask-tutorial
+$ cd flask-tutorial
+$ python3 -m venv venv
+$ . venv/bin/activate
+</code></pre>
+
+<p>しておいて flask を導入しときます。</p>
+
+<pre><code>$ pip install flask
+</code></pre>
+
+<p>あと <code>.gitignore</code> も追加して次へ。</p>
+
+<h2 id="application-setup">Application Setup</h2>
+
+<p>app.instance_path って何だろ、って思っていたのですがアプリケーション実行してみると create_app に記述されている通り、instance というディレクトリができています。あるいは test_config というのも謎ですがドキュメントによれば factory から渡される、とありますね。</p>
+
+<p>とりあえずハロワの動作は確認。</p>
+
+<h2 id="define-and-access-the-database">Define and Access the Database</h2>
+
+<p>順番として</p>
+
+<ul>
+<li>接続、遮断な手続きの定義を <code>flaskr/db.py</code> にて定義 (get_db と close_db)</li>
+<li>テーブル定義な SQL を <code>flaskr/schema.sql</code> として投入</li>
+<li><code>flaskr/db.py</code> に init_db と init_db_command (これ init-db というコマンドになる模様) を追加</li>
+<li><code>flaskr/db.py</code> に init_app を追加 (遮断手続きと init_db_command のコマンドの登録を行なっている模様)</li>
+<li><code>flaskr/__init__.py</code> の create_app 手続きにて init_app 呼び出しを追加</li>
+</ul>
+
+<p>これで init-db ってコマンドが使える状態になるのかどうか。で、このコマンドからは</p>
+
+<ul>
+<li>db.py の init_db が呼び出されて get_db した後に schema.sql な SQL が実行される</li>
+</ul>
+
+<p>のか。</p>
+
+<h2 id="blueprints-and-views">Blueprints and Views</h2>
+
+<ul>
+<li>Blueprint は controller てきなナニなのかどうか (routing?</li>
+<li>直接 SQL 発行している</li>
+</ul>
+
+<p>色々面白いのですが次にすすめてみます。</p>
+
+<h2 id="templates">Templates</h2>
+
+<p>View Template は flaskr/templates 配下に、らしい。というか、ログインしたら落ちたぞ。って思ったらまだ index がないのか。</p>
+
+<h2 id="static-files">Static Files</h2>
+
+<p>style.css 追加。url_for で参照できる模様。スデに base.html には参照なナニがあるのか。</p>
+
+<h2 id="blog-blueprint">Blog Blueprint</h2>
+
+<p>認証なナニができたので、なのか。ここで index 作成らしい。次の節が面白そうなのでここはコード追加して次にすすめます。</p>
+
+<p>とは言え、とりあえずここで動作確認はできるのかな。</p>
+
+<h2 id="make-the-project-installable">Make the Project Installable</h2>
+
+<p>ここ、機械翻訳してみます。</p>
+
+<p>プロジェクトをインストール可能にすると、プロジェクト環境にFlaskをインストールしたのと同じように、配布ファイルをビルドして別の環境にインストールすることができます。 これにより、他のライブラリをインストールするのと同じようにプロジェクトをデプロイするので、すべての標準Pythonツールを使用してすべてを管理しています。</p>
+
+<p>インストールには、チュートリアルや新しいPythonユーザーからは分かりにくい他の利点もあります。</p>
+
+<ul>
+<li>現在、PythonとFlaskは、プロジェクトのディレクトリから実行しているため、フラスコパッケージの使用方法のみを理解しています。 インストールとは、どこから実行してもインポートできます。</li>
+<li>他のパッケージのように、プロジェクトの依存関係を管理することができます。そのため、プロジェクトをインストールすると、プロジェクトがインストールされます。</li>
+<li>テストツールは、開発環境からテスト環境を分離することができます。</li>
+</ul>
+
+<blockquote>
+<p>注
+これはチュートリアルの後半で紹介されていますが、今後のプロジェクトでは常にこれから始めるべきです。</p>
+</blockquote>
+
+<h3 id="describe-the-project">Describe the Project</h3>
+
+<p>The setup.py file describes your project and the files that belong to it.</p>
+
+<p>setup.py</p>
+
+<pre><code>from setuptools import find_packages, setup
+
+setup(
+    name='flaskr',
+    version='1.0.0',
+    packages=find_packages(),
+    include_package_data=True,
+    zip_safe=False,
+    install_requires=[
+        'flask',
+    ],
+)
+</code></pre>
+
+<p>パッケージは、Pythonにどのパッケージディレクトリ（およびそれに含まれるPythonファイル）を含めるかを指示します。 find_packages（）はこれらのディレクトリを自動的に見つけ出しますので、入力する必要はありません。 静的ディレクトリやテンプレートディレクトリなどの他のファイルをインクルードするには、include_package_dataが設定されています。 Pythonはこの他のデータが何であるかを知るためにMANIFEST.inという別のファイルが必要です。</p>
+
+<p>MANIFEST.in</p>
+
+<pre><code>include flaskr/schema.sql
+graft flaskr/static
+graft flaskr/templates
+global-exclude *.pyc
+</code></pre>
+
+<p>これはPythonに静的およびテンプレートディレクトリとschema.sqlファイルのすべてをコピーするように指示しますが、すべてのバイトコードファイルを除外します。</p>
+
+<p>使用されるファイルとオプションの別の説明については、<a href="https://packaging.python.org/tutorials/distributing-packages/">公式のパッケージガイド</a>を参照してください。</p>
+
+<h3 id="install-the-project">Install the Project</h3>
+
+<p>Use pip to install your project in the virtual environment.</p>
+
+<pre><code>pip install -e .
+</code></pre>
+
+<p>これは、現在のディレクトリでsetup.pyを見つけて編集可能または開発モードでインストールするようにpipに指示します。 編集可能モードとは、ローカルコードを変更するときに、プロジェクトに関するメタデータ（依存関係など）を変更する場合にのみ再インストールする必要があることを意味します。</p>
+
+<p>プロジェクトが <code>pip list</code> でインストールされていることがわかります。</p>
+
+<pre><code>pip list
+
+Package        Version   Location
+-------------- --------- ----------------------------------
+click          6.7
+Flask          1.0
+flaskr         1.0.0     /home/user/Projects/flask-tutorial
+itsdangerous   0.24
+Jinja2         2.10
+MarkupSafe     1.0
+pip            9.0.3
+setuptools     39.0.1
+Werkzeug       0.14.1
+wheel          0.30.0
+</code></pre>
+
+<p>これまでのところあなたのプロジェクトをどのように実行していたかは変わりません。 FLASK_APPは依然としてflaskrに設定されており、フラスコを実行するとアプリケーションが実行されます。</p>
+
+<h2 id="test-coverage">Test Coverage</h2>
+
+<p>アプリケーションの単体テストを書くことで、あなたが書いたコードが期待どおりに機能しているかどうかを確認することができます。 Flaskは、アプリケーションへの要求をシミュレートし、応答データを返すテストクライアントを提供します。</p>
+
+<p>できるだけ多くのコードをテストする必要があります。 関数内のコードは、関数が呼び出されたときにのみ実行され、ブロックなどの分岐内のコードは、条件が満たされたときにのみ実行されます。 各機能が各ブランチをカバーするデータでテストされていることを確認する必要があります。</p>
+
+<p>100％カバレッジに近づくほど、変更を加えることで他の動作が予期せず変化することはありません。 ただし、カバレッジが100％であっても、アプリケーションにバグがないことは保証されません。 特に、ユーザーがブラウザでアプリケーションとやりとりする方法をテストしません。 それにもかかわらず、テストカバレッジは開発中に使用する重要なツールです。</p>
+
+<blockquote>
+<p>注
+これはチュートリアルの後半で紹介されていますが、今後のプロジェクトでは開発段階でテストする必要があります。</p>
+</blockquote>
+
+<p>pytestとカバレッジを使用してコードをテストし、測定します。 両方をインストールします。</p>
+
+<pre><code>pip install pytest coverage
+</code></pre>
+
+<h3 id="setup-and-fixtures">Setup and Fixtures</h3>
+
+<p>テストコードはtestsディレクトリにあります。 このディレクトリはフラスコパッケージの隣にあり、その内側にはありません。 tests/conftest.pyファイルには、各テストで使用されるフィクスチャと呼ばれるセットアップ関数が含まれています。 テストはtest_で始まるPythonモジュール内にあり、それらのモジュール内の各テスト関数もtest_で始まります。</p>
+
+<p>各テストでは新しい一時データベースファイルが作成され、テストで使用されるいくつかのデータが読み込まれます。 そのデータを挿入するSQLファイルを作成します。</p>
+
+<p>tests/data.sql</p>
+
+<pre><code>INSERT INTO user (username, password)
+VALUES
+  ('test', 'pbkdf2:sha256:50000$TCI4GzcX$0de171a4f4dac32e3364c7ddc7c14f3e2fa61f2d17574483f7ffbb431b4acb2f'),
+  ('other', 'pbkdf2:sha256:50000$kJPKsz6N$d2d4784f1b030a9761f5ccaeeaca413f27f2ecb76d6168407af962ddce849f79');
+
+INSERT INTO post (title, body, author_id, created)
+VALUES
+  ('test title', 'test' || x'0a' || 'body', 1, '2018-01-01 00:00:00');
+</code></pre>
+
+<p>app fixtureは factory を呼び出し、test_configを渡して、ローカル開発構成を使用する代わりにテスト用にアプリケーションとデータベースを構成します。</p>
+
+<p>tests/conftest.py</p>
+
+<pre><code>import os
+import tempfile
+
+import pytest
+from flaskr import create_app
+from flaskr.db import get_db, init_db
+
+with open(os.path.join(os.path.dirname(__file__), 'data.sql'), 'rb') as f:
+    _data_sql = f.read().decode('utf8')
+
+
+@pytest.fixture
+def app():
+    db_fd, db_path = tempfile.mkstemp()
+
+    app = create_app({
+        'TESTING': True,
+        'DATABASE': db_path,
+    })
+
+    with app.app_context():
+        init_db()
+        get_db().executescript(_data_sql)
+
+    yield app
+
+    os.close(db_fd)
+    os.unlink(db_path)
+
+
+@pytest.fixture
+def client(app):
+    return app.test_client()
+
+
+@pytest.fixture
+def runner(app):
+    return app.test_cli_runner()
+</code></pre>
+
+<p>tempfile.mkstemp（）は一時ファイルを作成して開き、ファイルオブジェクトとそのパスを返します。 DATABASEパスはオーバーライドされるため、インスタンス・フォルダーではなくこの一時パスを指します。パスを設定すると、データベーステーブルが作成され、テストデータが挿入されます。テストが終了したら、一時ファイルを閉じて削除します。</p>
+
+<p>TESTINGは、アプリケーションがテストモードになっていることをFlaskに通知します。 Flaskは内部動作を変更してテストするのが簡単になり、他の拡張機能もフラグを使用して簡単にテストすることができます。</p>
+
+<p>クライアントフィクスチャは、アプリケーションフィクスチャによって作成されたアプリケーションオブジェクトを使用してapp.test_client（）を呼び出します。テストでは、クライアントを使用して、サーバーを実行せずにアプリケーションに要求を行います。</p>
+
+<p>ランナフィクスチャはクライアントに似ています。 app.test_cli_runner（）は、アプリケーションに登録されたClickコマンドを呼び出すことができるランナーを作成します。</p>
+
+<p>Pytestは、関数名をテスト関数の引数の名前と照合することによってフィクスチャを使用します。たとえば、次に書き込むtest_hello関数は、クライアント引数をとります。 Pytestはそれをクライアントフィクスチャ関数と照合し、それを呼び出して、返された値をテスト関数に渡します。</p>
+
+<h3 id="factory">Factory</h3>
+
+<p>Factory 自体についてはあまりテストしません。 ほとんどのコードは既にテストごとに実行されるため、何かが失敗した場合は他のテストに気付くでしょう。</p>
+
+<p>変更できる唯一の動作は、テスト設定を渡すことです。 configが渡されないと、デフォルトの設定があるはずです。そうしないと、設定を上書きする必要があります。</p>
+
+<p>tests/test_factory.py</p>
+
+<pre><code>from flaskr import create_app
+
+
+def test_config():
+    assert not create_app().testing
+    assert create_app({'TESTING': True}).testing
+
+
+def test_hello(client):
+    response = client.get('/hello')
+    assert response.data == b'Hello, World!'
+</code></pre>
+
+<p>チュートリアルの初めにファクトリを書くときに、helloルートを例として追加しました。 &ldquo;Hello、World！&rdquo;が返されるため、テストでは応答データが一致するかどうかがチェックされます。</p>
+
+<h3 id="database">Database</h3>
+
+<p>アプリケーションコンテキスト内では、get_dbは呼び出されるたびに同じ接続を返さなければなりません。 コンテキストの後、接続を閉じる必要があります。</p>
+
+<p>tests/test_db.py</p>
+
+<pre><code>import sqlite3
+
+import pytest
+from flaskr.db import get_db
+
+
+def test_get_close_db(app):
+    with app.app_context():
+        db = get_db()
+        assert db is get_db()
+
+    with pytest.raises(sqlite3.ProgrammingError) as e:
+        db.execute('SELECT 1')
+
+    assert 'closed' in str(e)
+</code></pre>
+
+<p>init-dbコマンドは、init_db関数を呼び出してメッセージを出力する必要があります。</p>
+
+<p>tests/test_db.py</p>
+
+<pre><code>def test_init_db_command(runner, monkeypatch):
+    class Recorder(object):
+        called = False
+
+    def fake_init_db():
+        Recorder.called = True
+
+    monkeypatch.setattr('flaskr.db.init_db', fake_init_db)
+    result = runner.invoke(args=['init-db'])
+    assert 'Initialized' in result.output
+    assert Recorder.called
+</code></pre>
+
+<p>このテストでは、Pytestのmonkeypatch fixtureを使用して、init_db関数を呼び出されたことを記録する関数に置き換えます。 上で書いたランナー・フィクスチャは、init-dbコマンドを名前で呼び出すために使用されます。</p>
+
+<h3 id="authentication">Authentication</h3>
+
+<p>ほとんどのビューでは、ユーザーがログインする必要があります。テストでこれを行う最も簡単な方法は、クライアントとのログインビューへのPOST要求を行うことです。 毎回それを書くのではなく、それを行うメソッドを持つクラスを作成し、フィクスチャを使ってテストごとにクライアントに渡すことができます。</p>
+
+<p>tests/conftest.py</p>
+
+<pre><code>class AuthActions(object):
+    def __init__(self, client):
+        self._client = client
+
+    def login(self, username='test', password='test'):
+        return self._client.post(
+            '/auth/login',
+            data={'username': username, 'password': password}
+        )
+
+    def logout(self):
+        return self._client.get('/auth/logout')
+
+
+@pytest.fixture
+def auth(client):
+    return AuthActions(client)
+</code></pre>
+
+<p>auth fixtureを使用すると、テストでauth.login（）を呼び出してテストユーザーとしてログインすることができます。これは、アプリケーションフィクスチャのテストデータの一部として挿入されました。</p>
+
+<p>レジスタビューはGETで正常にレンダリングされるはずです。 有効なフォームデータを持つPOSTでは、ログインURLにリダイレクトされ、ユーザーのデータはデータベースに格納されます。 無効なデータにはエラーメッセージが表示されます。</p>
+
+<p>tests/test_auth.py</p>
+
+<pre><code>import pytest
+from flask import g, session
+from flaskr.db import get_db
+
+
+def test_register(client, app):
+    assert client.get('/auth/register').status_code == 200
+    response = client.post(
+        '/auth/register', data={'username': 'a', 'password': 'a'}
+    )
+    assert 'http://localhost/auth/login' == response.headers['Location']
+
+    with app.app_context():
+        assert get_db().execute(
+            &quot;select * from user where username = 'a'&quot;,
+        ).fetchone() is not None
+
+
+@pytest.mark.parametrize(('username', 'password', 'message'), (
+    ('', '', b'Username is required.'),
+    ('a', '', b'Password is required.'),
+    ('test', 'test', b'already registered'),
+))
+def test_register_validate_input(client, username, password, message):
+    response = client.post(
+        '/auth/register',
+        data={'username': username, 'password': password}
+    )
+    assert message in response.data
+</code></pre>
+
+<p>client.get（）はGET要求を作成し、Flaskによって返されたResponseオブジェクトを返します。同様に、client.post（）はPOST要求を出し、データdictをフォームデータに変換します。</p>
+
+<p>ページが正常にレンダリングされることをテストするために、簡単な要求が行われ、200 OK status_codeがチェックされます。レンダリングに失敗した場合、Flaskは500 Internal Server Errorコードを返します。</p>
+
+<p>ヘッダーには、レジスタビューがログインビューにリダイレクトされるときに、ログインURLを持つLocationヘッダーがあります。</p>
+
+<p>dataには応答の本文がバイトとして格納されます。特定の値がページ上でレンダリングされることを期待する場合は、そのデータがデータに含まれていることを確認します。バイトはバイトと比較される必要があります。 Unicodeテキストを比較する場合は、代わりにget_data（as_text = True）を使用してください。</p>
+
+<p>pytest.mark.parametrizeはPytestに対して異なる引数で同じテスト関数を実行するよう指示します。ここでは、同じコードを3回書き込まずに異なる無効な入力およびエラーメッセージをテストします。</p>
+
+<p>ログインビューのテストは、レジスタのテストと非常によく似ています。データベース内のデータをテストするのではなく、セッションはログイン後にuser_idを設定する必要があります。</p>
+
+<p>tests/test_auth.py</p>
+
+<pre><code>def test_login(client, auth):
+    assert client.get('/auth/login').status_code == 200
+    response = auth.login()
+    assert response.headers['Location'] == 'http://localhost/'
+
+    with client:
+        client.get('/')
+        assert session['user_id'] == 1
+        assert g.user['username'] == 'test'
+
+
+@pytest.mark.parametrize(('username', 'password', 'message'), (
+    ('a', 'test', b'Incorrect username.'),
+    ('test', 'a', b'Incorrect password.'),
+))
+def test_login_validate_input(auth, username, password, message):
+    response = auth.login(username, password)
+    assert message in response.data
+</code></pre>
+
+<p>withブロックでクライアントを使用すると、応答が返された後にセッションなどのコンテキスト変数にアクセスできます。 通常、リクエストの外部でセッションにアクセスすると、エラーが発生します。</p>
+
+<p>テストログアウトはログインの反対です。 セッションは、ログアウト後にuser_idを含むべきではありません。</p>
+
+<p>tests/test_auth.py</p>
+
+<pre><code>def test_logout(client, auth):
+    auth.login()
+
+    with client:
+        auth.logout()
+        assert 'user_id' not in session
+</code></pre>
+
+<h3 id="blog">Blog</h3>
+
+<p>すべてのブログビューは、以前に書いたauthフィクスチャを使用します。 auth.login() を呼び出すと、クライアントからの後続の要求がテストユーザーとしてログインします。</p>
+
+<p>インデックスビューには、テストデータとともに追加された投稿に関する情報が表示されます。 著者としてログインすると、投稿を編集するためのリンクが必要です。</p>
+
+<p>また、インデックスビューをテストする際にいくつかの認証動作をテストすることもできます。 ログインしていないときは、各ページにログインまたは登録するためのリンクが表示されます。 ログインすると、ログアウトするためのリンクがあります。</p>
+
+<p>tests/test_blog.py</p>
+
+<pre><code>import pytest
+from flaskr.db import get_db
+
+
+def test_index(client, auth):
+    response = client.get('/')
+    assert b&quot;Log In&quot; in response.data
+    assert b&quot;Register&quot; in response.data
+
+    auth.login()
+    response = client.get('/')
+    assert b'Log Out' in response.data
+    assert b'test title' in response.data
+    assert b'by test on 2018-01-01' in response.data
+    assert b'test\nbody' in response.data
+    assert b'href=&quot;/1/update&quot;' in response.data
+</code></pre>
+
+<p>作成、更新、および削除ビューにアクセスするには、ユーザーがログインしている必要があります。 ログインしたユーザーは、更新と削除にアクセスする投稿の作成者でなければなりません。そうでない場合は、403 Forbiddenステータスが返されます。 指定されたIDを持つ投稿が存在しない場合、更新と削除で404が見つかりません。</p>
+
+<p>tests/test_blog.py</p>
+
+<pre><code>@pytest.mark.parametrize('path', (
+    '/create',
+    '/1/update',
+    '/1/delete',
+))
+def test_login_required(client, path):
+    response = client.post(path)
+    assert response.headers['Location'] == 'http://localhost/auth/login'
+
+
+def test_author_required(app, client, auth):
+    # change the post author to another user
+    with app.app_context():
+        db = get_db()
+        db.execute('UPDATE post SET author_id = 2 WHERE id = 1')
+        db.commit()
+
+    auth.login()
+    # current user can't modify other user's post
+    assert client.post('/1/update').status_code == 403
+    assert client.post('/1/delete').status_code == 403
+    # current user doesn't see edit link
+    assert b'href=&quot;/1/update&quot;' not in client.get('/').data
+
+
+@pytest.mark.parametrize('path', (
+    '/2/update',
+    '/2/delete',
+))
+def test_exists_required(client, auth, path):
+    auth.login()
+    assert client.post(path).status_code == 404
+</code></pre>
+
+<p>作成ビューと更新ビューは、GET要求の200 OKステータスをレンダリングして返す必要があります。 POSTリクエストで有効なデータが送信されると、createは新しいポストデータをデータベースに挿入し、更新は既存のデータを変更する必要があります。 両方のページに無効なデータが表示されるはずです。</p>
+
+<p>tests/test_blog.py</p>
+
+<pre><code>def test_create(client, auth, app):
+    auth.login()
+    assert client.get('/create').status_code == 200
+    client.post('/create', data={'title': 'created', 'body': ''})
+
+    with app.app_context():
+        db = get_db()
+        count = db.execute('SELECT COUNT(id) FROM post').fetchone()[0]
+        assert count == 2
+
+
+def test_update(client, auth, app):
+    auth.login()
+    assert client.get('/1/update').status_code == 200
+    client.post('/1/update', data={'title': 'updated', 'body': ''})
+
+    with app.app_context():
+        db = get_db()
+        post = db.execute('SELECT * FROM post WHERE id = 1').fetchone()
+        assert post['title'] == 'updated'
+
+
+@pytest.mark.parametrize('path', (
+    '/create',
+    '/1/update',
+))
+def test_create_update_validate(client, auth, path):
+    auth.login()
+    response = client.post(path, data={'title': '', 'body': ''})
+    assert b'Title is required.' in response.data
+</code></pre>
+
+<p>削除ビューはインデックスURLにリダイレクトされ、その投稿はデータベースに存在しなくなります。</p>
+
+<p>tests/test_blog.py</p>
+
+<pre><code>def test_delete(client, auth, app):
+    auth.login()
+    response = client.post('/1/delete')
+    assert response.headers['Location'] == 'http://localhost/'
+
+    with app.app_context():
+        db = get_db()
+        post = db.execute('SELECT * FROM post WHERE id = 1').fetchone()
+        assert post is None
+</code></pre>
+
+<h3 id="running-the-tests">Running the Tests</h3>
+
+<p>必須ではありませんが、カバレッジの少ない実行テストを冗長にしないような余分な設定を、プロジェクトのsetup.cfgファイルに追加することができます。</p>
+
+<p>setup.cfg</p>
+
+<pre><code>[tool:pytest]
+testpaths = tests
+
+[coverage:run]
+branch = True
+source =
+    flaskr
+</code></pre>
+
+<p>テストを実行するには、pytestコマンドを使用します。 あなたが書いたすべてのテスト機能を見つけて実行します。</p>
+
+<pre><code>pytest
+
+========================= test session starts ==========================
+platform linux -- Python 3.6.4, pytest-3.5.0, py-1.5.3, pluggy-0.6.0
+rootdir: /home/user/Projects/flask-tutorial, inifile: setup.cfg
+collected 23 items
+
+tests/test_auth.py ........                                      [ 34%]
+tests/test_blog.py ............                                  [ 86%]
+tests/test_db.py ..                                              [ 95%]
+tests/test_factory.py ..                                         [100%]
+
+====================== 24 passed in 0.64 seconds =======================
+</code></pre>
+
+<p>テストが失敗すると、pytestは発生したエラーを表示します。 pytest -vを実行すると、ドットではなく各テスト関数のリストを取得できます。</p>
+
+<p>テストのコードカバレッジを測定するには、カバレッジコマンドを使用してpytestを直接実行するのではなく実行します。</p>
+
+<pre><code>coverage run -m pytest
+</code></pre>
+
+<p>端末で簡単なカバレッジレポートを表示することもできます。</p>
+
+<pre><code>coverage report
+
+Name                 Stmts   Miss Branch BrPart  Cover
+------------------------------------------------------
+flaskr/__init__.py      21      0      2      0   100%
+flaskr/auth.py          54      0     22      0   100%
+flaskr/blog.py          54      0     16      0   100%
+flaskr/db.py            24      0      4      0   100%
+------------------------------------------------------
+TOTAL                  153      0     44      0   100%
+</code></pre>
+
+<p>HTMLレポートを使用すると、各ファイルに含まれる行を確認できます。</p>
+
+<pre><code>coverage html
+</code></pre>
+
+<p>これにより、htmlcovディレクトリにファイルが生成されます。 ブラウザでhtmlcov / index.htmlを開き、レポートを表示します。</p>
+
+<h2 id="deploy-to-production">Deploy to Production</h2>
+
+<p>チュートリアルのこの部分では、アプリケーションをデプロイするサーバーがあることを前提としています。 配布ファイルを作成してインストールする方法の概要を説明しますが、使用するサーバーまたはソフトウェアの詳細については説明しません。 開発用コンピュータに新しい環境をセットアップして、以下の手順を試すことができますが、実際の公開アプリケーションのホスティングには使用しないでください。 アプリケーションをホストするさまざまな方法のリストについては、「展開オプション」を参照してください。</p>
+
+<h3 id="build-and-install">Build and Install</h3>
+
+<p>アプリケーションを他の場所に配置する場合は、配布ファイルを作成します。 現在のPythonディストリビューションの標準は.whl拡張子を持つホイールフォーマットです。 ホイールライブラリが最初にインストールされていることを確認します。</p>
+
+<pre><code>pip install wheel
+</code></pre>
+
+<p>Pythonでsetup.pyを実行すると、ビルド関連のコマンドを発行するためのコマンドラインツールが提供されます。 bdist_wheelコマンドはホイール配布ファイルを作成します。</p>
+
+<pre><code>python setup.py bdist_wheel
+</code></pre>
+
+<p>このファイルは dist/flaskr-1.0.0-py3-none-any.whl にあります。ファイル名はプロジェクトの名前、バージョン、ファイルに関するいくつかのタグがインストール可能です。</p>
+
+<p>このファイルを別のマシンにコピーし、新しいvirtualenvを設定してからpipでインストールしてください。</p>
+
+<pre><code>pip install flaskr-1.0.0-py3-none-any.whl
+</code></pre>
+
+<p>Pipはあなたのプロジェクトをその依存関係とともにインストールします。</p>
+
+<p>これは別のマシンであるため、init-dbを再度実行してインスタンスフォルダにデータベースを作成する必要があります。</p>
+
+<pre><code>export FLASK_APP=flaskr
+flask init-db
+</code></pre>
+
+<p>Flaskがインストールされている（編集可能モードではない）ことを検出すると、インスタンスフォルダに別のディレクトリが使用されます。 代わりに venv/var/flaskr-instance で見つけることができます。</p>
+
+<h3 id="configure-the-secret-key">Configure the Secret Key</h3>
+
+<p>チュートリアルの初めに、SECRET_KEYのデフォルト値を指定しました。 これは、プロダクションのいくつかのランダムなバイトに変更する必要があります。 それ以外の場合、攻撃者はパブリック &lsquo;dev&rsquo;キーを使用してセッションCookieを変更するか、秘密鍵を使用するその他のものを使用できます。</p>
+
+<p>次のコマンドを使用して、ランダムな秘密鍵を出力できます。</p>
+
+<pre><code>python -c 'import os; print(os.urandom(16))'
+
+b'_5#y2L&quot;F4Q8z\n\xec]/'
+</code></pre>
+
+<p>インスタンスフォルダにconfig.pyファイルを作成します。これは、ファクトリが存在する場合はそこから読み込みます。 生成された値をその中にコピーします。</p>
+
+<p>venv/var/flaskr-instance/config.py</p>
+
+<pre><code>SECRET_KEY = b'_5#y2L&quot;F4Q8z\n\xec]/'
+</code></pre>
+
+<p>SECRET_KEYはFlaskrに必要な唯一のものですが、その他の必要な設定もここで行うことができます。</p>
+
+<h3 id="run-with-a-production-server">Run with a Production Server</h3>
+
+<p>開発ではなく公開して実行する場合は、組み込み開発サーバー（フラスコ走行）を使用しないでください。 開発サーバーは、便宜上Werkzeugによって提供されていますが、特に効率的、安定的、または安全であるようには設計されていません。</p>
+
+<p>代わりに、運用WSGIサーバーを使用します。 たとえば、Waitressを使用するには、まず仮想環境にインストールします。</p>
+
+<pre><code>pip install waitress
+</code></pre>
+
+<p>Waitressにあなたのアプリケーションについて話す必要がありますが、フラスコ走行のようにFLASK_APPは使用しません。 アプリケーションオブジェクトを取得するには、アプリケーションファクトリをインポートして呼び出すように指示する必要があります。</p>
+
+<pre><code>waitress-serve --call 'flaskr:create_app'
+
+Serving on http://0.0.0.0:8080
+</code></pre>
+
+<p>アプリケーションをホストするさまざまな方法のリストについては、「<a href="http://flask.pocoo.org/docs/1.0/deploying/">Deploying Option</a>」を参照してください。 ウェイトレスは、WindowsとLinuxの両方をサポートしているため、チュートリアルのために選ばれた単なる例です。 プロジェクトには、さらに多くのWSGIサーバーと展開オプションが用意されています。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jul 16, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/07/15/python-virtual-environment/" title="Python 仮想環境">Python 仮想環境</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="./images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/07/16/flask/">Flask Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/15/python-virtual-environment/">Python 仮想環境</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/14/henoko/">辺野古県民投票</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/14/benchmarking-and-profiling/">Benchmarking and Profiling</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/13/sayonara-watashi-no-cramer/">さよなら私のクラマー</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/10/gliemlin-client/">Gremlin Client Initialize</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/09/recommendation/">Recommendation</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/08/tinkerpop-gremlin-aggregate/">Tinkerpop Gremlin Aggregate</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/07/your-account-has-been-flagged/">Your Account Has Been Flagged</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/06/leka/">Leka</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='./images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='./images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='./images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='./images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='./images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='./images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='./images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
