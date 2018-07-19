@@ -6,10 +6,21 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 18 Jul 2018 20:09:05 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 19 Jul 2018 20:47:19 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>仕事で始める機械学習 (1)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/19/machine-learning-to-start-with-work/</link>
+      <pubDate>Thu, 19 Jul 2018 20:47:19 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/19/machine-learning-to-start-with-work/</guid>
+      <description>&lt;p&gt;7.3 MovieLens のデータの傾向を見る、という節を云々してる記録が残っていたので以下に控えを列挙します。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Jasper</title>
