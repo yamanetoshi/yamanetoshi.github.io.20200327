@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>Recommendation 取得実装について</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jul 20, 2018
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/07/20/implementation-to-get-recommendation/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/recommendation/">Recommendation </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Recommendation 取得実装について 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下コメントのデータを投入して Ruby からデータ要求する実装を確認してみました。</p>
+
+<ul>
+<li><a href="https://bit.ly/2L35rOa">Recommendation</a></li>
+</ul>
+
+<p>上記の記載で使用したものが以下となります。</p>
+
+<pre><code>gremlin&gt; g.V().has('person','name','alice').as('her').
+               out('bought').aggregate('self').
+               in('bought').where(neq('her')).
+               out('bought').where(without('self')).
+               groupCount().
+               order(local).
+                 by(values, decr)
+==&gt;[v[10]:6,v[26]:5,v[12]:5,v[24]:4,v[28]:2]
+</code></pre>
+
+<p></p>
+
+<p>とりあえず、curl にて取得を行なってみています。</p>
+
+<pre><code>$ curl -X POST -d '{&quot;gremlin&quot;: &quot;g.V().has(\&quot;person\&quot;,\&quot;name\&quot;,\&quot;alice\&quot;).as(\&quot;her\&quot;).out(\&quot;bought\&quot;).aggregate(\&quot;self\&quot;).in(\&quot;bought\&quot;).where(neq(\&quot;her\&quot;)).out(\&quot;bought\&quot;).where(without(\&quot;self\&quot;)).groupCount().order(local).by(values,decr)&quot;}' http://localhost:8182
+</code></pre>
+
+<p>取得できた情報は以下となります (整形済み)</p>
+
+<pre><code>{&quot;requestId&quot;:&quot;1a3dad8d-d3b7-40a8-aa0e-941cc7efffbe&quot;,
+ &quot;status&quot;:{&quot;message&quot;:&quot;&quot;,&quot;code&quot;:200,&quot;attributes&quot;:{&quot;@type&quot;:&quot;g:Map&quot;,&quot;@value&quot;:[]}},
+ &quot;result&quot;:
+  {&quot;data&quot;:
+   {&quot;@type&quot;:&quot;g:List&quot;,
+    &quot;@value&quot;:[{&quot;@type&quot;:&quot;g:Map&quot;,
+               &quot;@value&quot;:
+                [{&quot;@type&quot;:&quot;g:Vertex&quot;,
+                  &quot;@value&quot;:{&quot;id&quot;:{&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:9},
+                            &quot;label&quot;:&quot;product&quot;,
+                            &quot;properties&quot;:{&quot;name&quot;:[{&quot;@type&quot;:&quot;g:VertexProperty&quot;,
+                                          &quot;@value&quot;:{&quot;id&quot;:{&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:-1048458284},
+                                                    &quot;value&quot;:&quot;product 1&quot;,
+                                                    &quot;label&quot;:&quot;name&quot;}}]}}},
+                 {&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:6},
+                 {&quot;@type&quot;:&quot;g:Vertex&quot;,
+                  &quot;@value&quot;:{&quot;id&quot;:{&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:17},
+                            &quot;label&quot;:&quot;product&quot;,
+                            &quot;properties&quot;:{&quot;name&quot;:[{&quot;@type&quot;:&quot;g:VertexProperty&quot;,
+                                          &quot;@value&quot;:{&quot;id&quot;:{&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:-1048458268},
+                                                    &quot;value&quot;:&quot;product 9&quot;,
+                                                    &quot;label&quot;:&quot;name&quot;}}]}}},
+                 {&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:5},
+                 {&quot;@type&quot;:&quot;g:Vertex&quot;,
+                  &quot;@value&quot;:{&quot;id&quot;:{&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:10},
+                            &quot;label&quot;:&quot;product&quot;,
+                            &quot;properties&quot;:{&quot;name&quot;:[{&quot;@type&quot;:&quot;g:VertexProperty&quot;,
+                                          &quot;@value&quot;:{&quot;id&quot;:{&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:-1048458282},
+                                                    &quot;value&quot;:&quot;product 2&quot;,
+                                                    &quot;label&quot;:&quot;name&quot;}}]}}},
+                 {&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:5},
+                 {&quot;@type&quot;:&quot;g:Vertex&quot;,
+                  &quot;@value&quot;:{&quot;id&quot;:{&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:16},
+                            &quot;label&quot;:&quot;product&quot;,
+                            &quot;properties&quot;:{&quot;name&quot;:[{&quot;@type&quot;:&quot;g:VertexProperty&quot;,
+                                          &quot;@value&quot;:{&quot;id&quot;:{&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:-1048458270},
+                                                    &quot;value&quot;:&quot;product 8&quot;,
+                                                    &quot;label&quot;:&quot;name&quot;}}]}}},
+                 {&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:4},
+                 {&quot;@type&quot;:&quot;g:Vertex&quot;,
+                  &quot;@value&quot;:{&quot;id&quot;:{&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:18},
+                            &quot;label&quot;:&quot;product&quot;,
+                            &quot;properties&quot;:{&quot;name&quot;:[{&quot;@type&quot;:&quot;g:VertexProperty&quot;,
+                                          &quot;@value&quot;:{&quot;id&quot;:{&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:1756320141},
+                                          &quot;value&quot;:&quot;product 10&quot;,
+                                          &quot;label&quot;:&quot;name&quot;}}]}}},
+                 {&quot;@type&quot;:&quot;g:Int64&quot;,&quot;@value&quot;:2}]}]},
+    &quot;meta&quot;:{&quot;@type&quot;:&quot;g:Map&quot;,&quot;@value&quot;:[]}}}
+</code></pre>
+
+<h3 id="ruby-実装">Ruby 実装</h3>
+
+<p>同じものを以下の Ruby スクリプトにて取得できていることを確認しています。</p>
+
+<pre><code>require 'net/https'
+require 'uri'
+require 'json'
+
+    uri = URI.parse(&quot;http://localhost:8182/&quot;)
+    http = Net::HTTP.new(uri.host, uri.port)
+
+    print &quot;uri.host: &quot; + uri.host + &quot;\n&quot;
+    print &quot;uri.port: &quot; + uri.port.to_s + &quot;\n&quot;
+    print &quot;uri.path: &quot; + uri.path + &quot;\n&quot;
+
+#    http.use_ssl = true
+#    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    req = Net::HTTP::Post.new(uri.path)
+
+    req[&quot;Content-Type&quot;] = &quot;application/json&quot;
+    xxx = {'gremlin' =&gt; 'g.V().has(&quot;person&quot;,&quot;name&quot;,&quot;alice&quot;).as(&quot;her&quot;).out(&quot;bought&quot;).aggregate(&quot;self&quot;).in(&quot;bought&quot;).where(neq(&quot;her&quot;)).out(&quot;bought&quot;).where(without(&quot;self&quot;)).groupCount().order(local).by(values, decr)'}
+
+    payload = xxx.to_json
+
+    req.body = payload
+    res = http.request(req)
+
+#   print &quot;code -&gt; #{res.code} \n&quot;
+#   print &quot;msg -&gt; #{res.message} \n&quot;
+    print &quot;body -&gt; #{res.body} \n\&quot;
+    api_response = JSON.parse(res.body)
+    print &quot;response array size -&gt; #{api_response['result']['data']['@value'][0]['@value'].size} \n&quot;
+    res_array = api_response['result']['data']['@value'][0]['@value']
+    # repeat
+    res_array.each do |test|
+        print &quot;test -&gt; #{test} \n&quot;
+    end
+</code></pre>
+
+<p>上記スクリプトの出力を以下に引用します。</p>
+
+<pre><code>uri.host: localhost
+uri.port: 8182
+uri.path: /
+response array size -&gt; 10 
+test -&gt; {&quot;@type&quot;=&gt;&quot;g:Vertex&quot;, &quot;@value&quot;=&gt;{&quot;id&quot;=&gt;{&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;9}, &quot;label&quot;=&gt;&quot;product&quot;, &quot;properties&quot;=&gt;{&quot;name&quot;=&gt;[{&quot;@type&quot;=&gt;&quot;g:VertexProperty&quot;, &quot;@value&quot;=&gt;{&quot;id&quot;=&gt;{&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;-1048458284}, &quot;value&quot;=&gt;&quot;product 1&quot;, &quot;label&quot;=&gt;&quot;name&quot;}}]}}} 
+test -&gt; {&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;6} 
+test -&gt; {&quot;@type&quot;=&gt;&quot;g:Vertex&quot;, &quot;@value&quot;=&gt;{&quot;id&quot;=&gt;{&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;17}, &quot;label&quot;=&gt;&quot;product&quot;, &quot;properties&quot;=&gt;{&quot;name&quot;=&gt;[{&quot;@type&quot;=&gt;&quot;g:VertexProperty&quot;, &quot;@value&quot;=&gt;{&quot;id&quot;=&gt;{&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;-1048458268}, &quot;value&quot;=&gt;&quot;product 9&quot;, &quot;label&quot;=&gt;&quot;name&quot;}}]}}} 
+test -&gt; {&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;5} 
+test -&gt; {&quot;@type&quot;=&gt;&quot;g:Vertex&quot;, &quot;@value&quot;=&gt;{&quot;id&quot;=&gt;{&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;10}, &quot;label&quot;=&gt;&quot;product&quot;, &quot;properties&quot;=&gt;{&quot;name&quot;=&gt;[{&quot;@type&quot;=&gt;&quot;g:VertexProperty&quot;, &quot;@value&quot;=&gt;{&quot;id&quot;=&gt;{&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;-1048458282}, &quot;value&quot;=&gt;&quot;product 2&quot;, &quot;label&quot;=&gt;&quot;name&quot;}}]}}} 
+test -&gt; {&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;5} 
+test -&gt; {&quot;@type&quot;=&gt;&quot;g:Vertex&quot;, &quot;@value&quot;=&gt;{&quot;id&quot;=&gt;{&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;16}, &quot;label&quot;=&gt;&quot;product&quot;, &quot;properties&quot;=&gt;{&quot;name&quot;=&gt;[{&quot;@type&quot;=&gt;&quot;g:VertexProperty&quot;, &quot;@value&quot;=&gt;{&quot;id&quot;=&gt;{&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;-1048458270}, &quot;value&quot;=&gt;&quot;product 8&quot;, &quot;label&quot;=&gt;&quot;name&quot;}}]}}} 
+test -&gt; {&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;4} 
+test -&gt; {&quot;@type&quot;=&gt;&quot;g:Vertex&quot;, &quot;@value&quot;=&gt;{&quot;id&quot;=&gt;{&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;18}, &quot;label&quot;=&gt;&quot;product&quot;, &quot;properties&quot;=&gt;{&quot;name&quot;=&gt;[{&quot;@type&quot;=&gt;&quot;g:VertexProperty&quot;, &quot;@value&quot;=&gt;{&quot;id&quot;=&gt;{&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;1756320141}, &quot;value&quot;=&gt;&quot;product 10&quot;, &quot;label&quot;=&gt;&quot;name&quot;}}]}}} 
+test -&gt; {&quot;@type&quot;=&gt;&quot;g:Int64&quot;, &quot;@value&quot;=&gt;2} 
+</code></pre>
+
+<h3 id="レスポンスのパースについて">レスポンスのパースについて</h3>
+
+<p>Gremlin の REST Client なライブラリがいくつか Python にありましたので内容確認していますが、response body を走査するものはありませんでした。
+そういった意味では以下な @type 要素についてクラスを作って値や属性にアクセスする必要があると思われます。</p>
+
+<ul>
+<li>g:Int64</li>
+<li>g:Vertex (おそらく g:Edge もあると思われます)</li>
+<li>g:List</li>
+<li>g:Map</li>
+<li>g:VertexProperty (おそらく g:EdgeProperty もあると思われます)</li>
+</ul>
+
+<p>上記について特徴を以下に列挙しておきます。</p>
+
+<ul>
+<li>g:List の場合、@value が配列 (size で要素数はわかるはず)</li>
+<li>g:Int64 の場合、@value に値が格納</li>
+<li>g:Map の場合 @value は配列となっており、偶数要素にキー、奇数要素に値が格納されている模様</li>
+<li>g:Vertex の場合、@value にはオブジェクト要素が Hash として格納</li>
+</ul>
+
+<p>また、今回のケースでは <code>res['result']['data']['@value'][0]</code> に以下が格納されていると認識しています。</p>
+
+<pre><code>[v[10]:6,v[26]:5,v[12]:5,v[24]:4,v[28]:2]
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jul 20, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/07/19/machine-learning-to-start-with-work/" title="仕事で始める機械学習 (1)">仕事で始める機械学習 (1)</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="./images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/07/20/implementation-to-get-recommendation/">Recommendation 取得実装について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/19/machine-learning-to-start-with-work/">仕事で始める機械学習 (1)</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/18/Jasper/">Jasper</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/17/machine-learning-development-environment/">機械学習の開発環境</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/16/flask/">Flask Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/15/python-virtual-environment/">Python 仮想環境</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/14/henoko/">辺野古県民投票</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/14/benchmarking-and-profiling/">Benchmarking and Profiling</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/13/sayonara-watashi-no-cramer/">さよなら私のクラマー</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/10/gliemlin-client/">Gremlin Client Initialize</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='./images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='./images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='./images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='./images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='./images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='./images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='./images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

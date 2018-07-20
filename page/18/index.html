@@ -109,6 +109,57 @@
         
 
 <header>
+    <p class="meta">Oct 19, 2017
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2017/10/19/go-install-in-windouz/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/go/">Go </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2017/10/19/go-install-in-windouz/">Go 導入関連 (windows の話)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>インストーラでインストールしたら /c/Go 配下に導入されました。以下のコマンド実行してみると</p>
+
+<pre><code>$ go env GOPATH
+</code></pre>
+
+<p>$HOME/go が出力される。これを GOPATH にすれば良いのか。とりあえずディレクトリは自分で作成する必要があるらしい。</p>
+
+<pre><code>$ mkdir $(go env GOPATH)
+</code></pre>
+
+<p>あとは以下を <code>.bash_profile</code> あたりに書いておくのかどうか。</p>
+
+<pre><code>export PATH=$PATH:$(go env GOPATH)/bin
+export GOPATH=$(go env GOPATH)
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2017/10/19/go-install-in-windouz/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Oct 18, 2017
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2017/10/18/excavation-of-mokumoku/#disqus_thread">Comments</a>
@@ -418,41 +469,6 @@ $ npm install -g ionic cordova
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Oct 2, 2017
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2017/10/02/recipe/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2017/10/02/recipe/">ウミノさんレシピ</a>
-    </h1>
-</header>
-
-
-        
-          <p>沖縄は本日ライオンがリリースの日にて定時ダッシュで本屋さんで入手。らう次郎さんにて二読三読したっす。 で、気になるレシピがあったので備忘メモを</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2017/10/02/recipe/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -548,6 +564,10 @@ $ npm install -g ionic cordova
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/07/20/implementation-to-get-recommendation/">Recommendation 取得実装について</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/07/19/machine-learning-to-start-with-work/">仕事で始める機械学習 (1)</a>
             </li>
           
@@ -581,10 +601,6 @@ $ npm install -g ionic cordova
           
             <li class="post">
               <a href="/blog/2018/07/10/gliemlin-client/">Gremlin Client Initialize</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/07/09/recommendation/">Recommendation</a>
             </li>
           
         </ul>

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/20/implementation-to-get-recommendation/</loc>
+    <lastmod>2018-07-20T20:52:45+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/19/machine-learning-to-start-with-work/</loc>
     <lastmod>2018-07-19T20:47:19+09:00</lastmod>
   </url>
@@ -7914,7 +7919,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-07-19T20:47:19+09:00</lastmod>
+    <lastmod>2018-07-20T20:52:45+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8112,7 +8117,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-07-19T20:47:19+09:00</lastmod>
+    <lastmod>2018-07-20T20:52:45+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8142,7 +8147,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/recommendation/</loc>
-    <lastmod>2018-07-14T09:07:58+09:00</lastmod>
+    <lastmod>2018-07-20T20:52:45+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8154,7 +8159,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/ruby/</loc>
-    <lastmod>2016-01-29T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-20T20:52:45+09:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -109,6 +109,53 @@
         
 
 <header>
+    <p class="meta">Nov 11, 2013
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/11/gradle-preferences/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/11/gradle-preferences/">環境作るメモ</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>某社提供の CloudStack から仮想リソースを kickoff してます。作成直後にパスワードつきの notify なダイアログが出るんですが一度スルーしてしまいヤラれたことがあります。</p>
+
+<h2 id="遠隔接続設定">遠隔接続設定</h2>
+
+<p>もしかすると公開鍵を云々する AWS みたいな機能があるのかもしれませんが調べる時間無し。CloudStack はコンソールという機能があるので、そこからとりあえず ssh でパスワード認証で接続できるように設定ファイルを修正してサービス再起動。
+その後、公開鍵を ~/.ssh/authorized_keys に転送して</p>
+
+<ul>
+<li>sshd_config の パスワード認証を no にしてサービス再起動</li>
+<li>root 権限で gpasswd -a ユーザ sudo して sudo が使えるように</li>
+</ul>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/11/gradle-preferences/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Nov 10, 2013
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/10/eopl-ex-2-15/#disqus_thread">Comments</a>
@@ -481,56 +528,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 7, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-13/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/eopl/">EoPL </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/scheme/">Scheme </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-13/">EoPL の Exercise 2.13</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>試験スルーで軽く、ということで勘弁してもらう方向。
-unparse が以下なのかどうか。</p>
-
-<pre><code>(define unparse-expression
-  (lambda (exp)
-    (cases term exp
-      (var-term (id) id)
-      (constant-term (datum) datum)
-  (app-term (terms)
-        (let app-term-unparse ((terms terms) (ret '()))
-          (if (null? terms)
-              (reverse ret)
-              (app-term-unparse (cdr terms) (cons (unparse-expression (car terms)) ret))))))))
-</code></pre>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-13/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -626,6 +623,10 @@ unparse が以下なのかどうか。</p>
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/07/20/implementation-to-get-recommendation/">Recommendation 取得実装について</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/07/19/machine-learning-to-start-with-work/">仕事で始める機械学習 (1)</a>
             </li>
           
@@ -659,10 +660,6 @@ unparse が以下なのかどうか。</p>
           
             <li class="post">
               <a href="/blog/2018/07/10/gliemlin-client/">Gremlin Client Initialize</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/07/09/recommendation/">Recommendation</a>
             </li>
           
         </ul>
