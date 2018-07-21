@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>Debian Copyright</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jul 21, 2018
+         - 23 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/07/21/debian-copyright/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/debian/">Debian </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Debian Copyright 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>でびあんプロジェクトの @henrich さんが copyright format 1.0 への書き換えについて tweet されていたのを発見。</p>
+
+<ul>
+<li><a href="https://twitter.com/henrich/status/1019945424881213440">古いパッケージのdebian/copyrightをcopyright format 1.0に書き直すのとか、辛ひ。</a></li>
+</ul>
+
+<p>以下なナニをざっくり機械翻訳してみました。</p>
+
+<ul>
+<li><a href="https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/">Machine-readable debian/copyright file</a></li>
+</ul>
+
+<p></p>
+
+<h3 id="abstract">Abstract</h3>
+
+<p>Debianパッケージ内のdebian / copyrightファイルのための標準的な、機械可読フォーマットを確立して、パッケージやパッケージセットのライセンスの自動チェックと報告を容易にします。 この仕様はもともとDEP-5として起草されました。</p>
+
+<h3 id="1-introduction">1.Introduction</h3>
+
+<p>この文書では、debian / copyrightファイルの標準的な、機械で解釈可能な形式について説明します。 このファイルはDebianのパッケージで最も重要なファイルの1つですが、この仕様の前に標準フォーマットは定義されておらず、その内容はパッケージ間で大きく異なりました。 そのため、ライセンス情報を自動的に抽出することは困難でした。</p>
+
+<p>この仕様の使用はオプションです。</p>
+
+<p>この提案では、Debian /著作権の著作権とライセンスのステータスを文書化する際に使用する適切な詳細や粒度に関するDebian Policyに指定されている要件のどれにも置き換わるものはありません。</p>
+
+<h3 id="2-rationale">2.Rationale</h3>
+
+<p>フリーソフトウェアライセンスの多様性は、Debianが与えられた仕事の自由度だけでなく、そのライセンスがDebianの他の部分との互換性にも注意する必要があることを意味します。</p>
+
+<p>GPLバージョン3の到来、バージョン2との非互換性、および互換性に問題がある可能性のあるソフトウェアの発見ができないことは、この制限の顕著な発生です。</p>
+
+<p>先例もあります。 1つはGPL/OpenSSLの非互換性です。多くの誤認（GPLでパッケージ化されていますが、別のライセンスではパッケージ化されています）またはネガティブ（GPLソフトウェアであるが、 &ldquo;OpenSSL特別例外&rdquo;の二重ライセンス形式）の傾向があるgrep debian/copyrightとは別に、 Debianのどのソフトウェアに問題があるかもしれません。</p>
+
+<p>そしてもっと来ることがあります。 NexentaなどのCDDLオペレーティングシステムを搭載したGPLv2専用ソフトウェアの出荷には問題があります。 GPLバージョン3はこの問題を解決しますが、すべてのGPLソフトウェアがそれに切り替わるわけではありません。そのようなシステムからどれくらいのDebianを取り除かなければならないか分からないのです。</p>
+
+<p>ライセンスがDFSGなしで相互に互換性がある場合でも、ユーザーは特定のライセンス（たとえば、特定のライセンスを避ける特別な理由がある場合）の下でソフトウェアを識別する方法を望む場合があります。</p>
+
+<h3 id="3-acknowledgements">3.Acknowledgements</h3>
+
+<p>何年も前から多くの人がこの仕様に取り組んできました。 次のアルファベット順のリストは不完全です。 Russ Allbery、Ben Finney、Sam Hocevar、Steve Langasek、Charles Plessy、Noah Slater、Jonas Smedegaard、Lars Wirzeniusのような行方不明者をお勧めします。</p>
+
+<h3 id="4-file-syntax">4.File syntax</h3>
+
+<p>Debian/copyright ファイルは、コンピュータで解釈可能でなければならないが、人間が読める形式でなければならず、すべての必須のアップストリーム情報、著作権表示、ライセンスの詳細を伝える必要があります。</p>
+
+<p>ファイルの構文は、Debian Policy Manualに指定されている他のDebian制御ファイルの構文と同じです。 詳細はセクション5.1を参照してください。 追加のフィールドは任意の段落に追加できます。 プレフィックスは不要ですが、標準のものに似た名前は避けて、間違いを見つけやすくしてください。 将来のバージョンのdebian / copyright仕様では、広く使われている追加フィールドの仕様の矛盾を避けようとしています。</p>
+
+<p>ファイルは2つ以上の段落で構成されます。 少なくとも、ファイルには1つのヘッダー段落と1つのファイル段落が含まれていなければなりません。</p>
+
+<p>フィールドには4つのタイプがあります。 このドキュメントの各フィールドの定義は、どのタイプの値を取るかを示します。</p>
+
+<h4 id="4-1-single-line-values">4.1.Single-line values</h4>
+
+<p>1行のフィールドの値全体は1行にする必要があります。たとえば、「フォーマット」フィールドには、使用される機械可読フォーマットのバージョンを指定する単一行の値があります。</p>
+
+<h4 id="4-2-whitespace-separated-lists">4.2.Whitespace-separated lists</h4>
+
+<p>空白で区切られたリストとして定義されたフィールド値は、1行またはそれ以上にすることができます。リスト内の値は、1つ以上の空白文字（スペース、タブ、または改行）で区切られます。たとえば、「ファイル」フィールドには、空白で区切られたファイル名パターンのリストが含まれています。</p>
+
+<h4 id="4-3-line-based-lists">4.3.Line-based lists</h4>
+
+<p>行ベースのリストは1行に1つの値を持ちます。たとえば、Upstream-Contactフィールドには、連絡先アドレスの行ベースのリストが含まれています。</p>
+
+<h4 id="4-4-formatted-text">4.4.Formatted text</h4>
+
+<p>フォーマットされたテキストフィールドは、DebianコントロールファイルのパッケージのDescriptionフィールドの長い記述と同じルールを使用します。</p>
+
+<p>すべてではないが一部の場合では、最初の行は、説明フィールドが短い記述の最初の行をどのように使用するのかと同様に、概要として特別な意味を持ちます。詳細は、Debian Policyの5.6.13項「Description」を参照してください。例えば、免責条項は特別な第1行を持たない書式付きテキストフィールドであり、ライセンスは書式付きテキストフィールドであり、最初の行はライセンスの短い名前を示す。</p>
+
+<h3 id="5-paragraphs">5.Paragraphs</h3>
+
+<p>段落には3種類あります。ファイルの最初の段落はヘッダー段落と呼ばれます。他のすべての段落は、ファイル段落またはスタンドアロンのライセンス段落のいずれかです。これは、debian / controlファイルのソースとバイナリパッケージの段落に似ています。</p>
+
+<h4 id="5-1-header-paragraph-once">5.1.Header paragraph (once)</h4>
+
+<p>ヘッダー段落には、次のフィールドがある場合があります。</p>
+
+<ul>
+<li>フォーマット：必須。</li>
+<li>アップストリーム名：オプション。</li>
+<li>アップストリーム - コンタクト：オプション。</li>
+<li>出典：オプション。</li>
+<li>免責条項：オプション。</li>
+<li>コメント：オプション。</li>
+<li>ライセンス：オプション。</li>
+<li>著作権：オプション。</li>
+</ul>
+
+<p>ヘッダー段落の「著作権」および「ライセンス」フィールドは、「ファイル」段落のフィールドを補完するものの、置き換えるものではありません。パッケージが存在する場合は、パッケージ全体の著作権表示または再配布の条件を要約します。</p>
+
+<p>例えば、作品が許諾ライセンスとコピーレフトライセンスの両方でライセンス供与権を持っている場合、ライセンスを使用してその組み合わせのライセンス条項を明確にすることができます。著作権とライセンスを一緒に使用して、編集著作権とライセンスを文書化することもできます。</p>
+
+<p>付随する「著作権」フィールドなしでヘッダ段落にライセンスを使用することは有効ですが、著作権だけでは不十分です。</p>
+
+<h5 id="5-1-1-example-header-paragraph">5.1.1. Example header paragraph</h5>
+
+<pre><code>Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: SOFTware
+Upstream-Contact: John Doe &lt;john.doe@example.com&gt;
+Source: https://www.example.com/software/project
+</code></pre>
+
+<h4 id="5-2-files-paragraph-repeatable">5.2.Files paragraph (repeatable)</h4>
+
+<p>ファイルの著作権とライセンスの宣言は、1つ以上の段落で構成されています。最も単純なケースでは、Files：*という単一の段落を使用して、パッケージ全体のライセンスと著作権を示すことができます。 Debianアーカイブに必要なライセンスと著作権情報のみがここに記載されている必要があります。</p>
+
+<p>次のフィールドは、ファイル段落に存在することがあります。</p>
+
+<ul>
+<li>ファイル：必須。</li>
+<li>著作権：必須です。</li>
+<li>ライセンス：必須。</li>
+<li>コメント：オプション。</li>
+</ul>
+
+<h5 id="5-2-1-example-files-paragraphs">5.2.1. Example files paragraphs</h5>
+
+<pre><code>Files: *
+Copyright: 1975-2010 Ulla Upstream
+License: GPL-2+
+
+Files: debian/*
+Copyright: 2010 Daniela Debianizer
+License: GPL-2+
+
+Files: debian/patches/fancy-feature
+Copyright: 2010 Daniela Debianizer
+License: GPL-3+
+
+Files: */*.1
+Copyright: 2010 Manuela Manpager
+License: GPL-2+
+</code></pre>
+
+<p>この例では、すべてのファイルの著作権は上流側が有しており、著作権者はGPLバージョン2以降のライセンスを付与しています。 3つの例外があります。 すべてのDebianパッケージファイルには、パッケージャが所有する著作権があります。さらに、新しい機能を提供する特定のファイルには、ライセンスの付与が異なります。 最後に、パッケージにマニュアルページがいくつか追加されています。著作権は第三者によって保持されています。</p>
+
+<p>マニュアルページのライセンスは、パッケージ内の他のほとんどのファイルと同じであるため、上記の最後の段落を最初の段落と組み合わせて、両方の著作権ステートメントを1つの著作権フィールドに記載することができます。 段落を同じライセンス交付と組み合わせるかどうかは、debian /著作権ファイルの作者の裁量に委ねられます。</p>
+
+<h3 id="5-3-stand-alone-license-paragraph-optional-repeatable">5.3.Stand-alone License Paragraph (optional, repeatable)</h3>
+
+<p>スタンドアロンのライセンス段落を使用すると、特定のライセンスのフルテキストを、それを参照する各ファイル段落で繰り返すのではなく、一度提供することができます。</p>
+
+<p>ライセンスフィールドの概要（1行目）は、単一のライセンスの短い名前またはライセンスの例外の後の短い名前でなければなりません。</p>
+
+<p>次のフィールドは、スタンドアロンのライセンス段落に存在する場合があります。</p>
+
+<ul>
+<li>ライセンス：必須。</li>
+<li>コメント：オプション</li>
+</ul>
+
+<h4 id="example-1-tri-licensed-files">Example 1. tri-licensed files</h4>
+
+<pre><code>Files: src/js/editline/*
+Copyright: 1993, John Doe
+           1993, Joe Average
+License: MPL-1.1 or GPL-2 or LGPL-2.1
+
+License: MPL-1.1
+ [LICENSE TEXT]
+
+License: GPL-2
+ [LICENSE TEXT]
+
+License: LGPL-2.1
+ [LICENSE TEXT]
+</code></pre>
+
+<h4 id="example-2-recurrent-license">Example 2. recurrent license</h4>
+
+<pre><code>Files: src/js/editline/*
+Copyright: 1993, John Doe
+           1993, Joe Average
+License: MPL-1.1
+
+Files: src/js/fdlibm/*
+Copyright: 1993, J-Random Corporation
+License: MPL-1.1
+
+License: MPL-1.1
+ [LICENSE TEXT]
+</code></pre>
+
+<h2 id="6-fields">6.Fields</h2>
+
+<p>以下のフィールドは、debian / copyrightで使用するために定義されています。</p>
+
+<h3 id="6-1-format">6.1.Format</h3>
+
+<p>単一行：書式指定のURI。このドキュメントの現在のバージョンで使用されるフィールドは次のとおりです。</p>
+
+<p>フォーマット：<a href="https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/">https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/</a>
+この仕様の元のバージョンでは、このURLの非httpsバージョンをURIとして使用しました。つまり、</p>
+
+<p>フォーマット：<a href="http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/">http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/</a>
+どちらのバージョンも有効であり、同じ仕様を参照し、パーサーは両方を同じフォーマットを参照するものとして解釈する必要があります。 https URIが推奨されます。</p>
+
+<h3 id="6-2-upstream-name">6.2.Upstream-Name</h3>
+
+<p>シングルライン：ソフトウェアの上流使用名</p>
+
+<h3 id="6-3-upstream-contact">6.3.Upstream-Contact</h3>
+
+<p>行ベースのリスト：上流のプロジェクトに到達するための優先アドレス。自由形式のテキストでも構いませんが、通常はRFC5322のアドレスまたはURIのリストとして記述されます。</p>
+
+<h3 id="6-4-source">6.4.Source</h3>
+
+<p>フォーマットされたテキスト、ない概要：上流ソースがどこから来たかの説明。通常これはURLですが、自由形式の説明かもしれません。 Debianポリシーセクション12.5では、上流のソースがない限り、この情報が必要です。これは、主にネイティブDebianパッケージの場合です。アップストリームのソースが非フリーな部分を削除するように変更されている場合は、このフィールドに説明する必要があります。</p>
+
+<h3 id="6-5-disclamer">6.5.Disclamer</h3>
+
+<p>書式付きテキスト、概要はありません：このフィールドは、フリーでないパッケージやcontribパッケージがDebianの一部ではないと述べ、理由を説明するために使用されます（Debianポリシーのセクション12.5を参照してください）。</p>
+
+<h3 id="6-6-comment">6.6.Comment</h3>
+
+<p>フォーマットされたテキスト、要旨：このフィールドは追加情報を提供できます。たとえば、アップストリームからの電子メールを引用して、ライセンスがメインアーカイブに受け入れられる理由、または現在のバージョンがDFSGフリーであることが判明しているバージョンからこのバージョンのパッケージがどのようにフォークされたかを説明することができます上流バージョンはありません。</p>
+
+<h3 id="6-7-license">6.7.License</h3>
+
+<p>フォーマットされたテキスト、概要</p>
+
+<p>ヘッダーの段落では、このフィールドにパッケージ全体のライセンス情報が表示されます。これは、ファイル単位のライセンス情報のすべての組み合わせとは異なるか簡略化されている場合があります。ファイル段落では、この段落の[ファイル]フィールドにリストされているファイルのライセンス条項が表示されます。スタンドアロンライセンスの段落では、それを参照する段落のライセンス条項が示されます。</p>
+
+<p>最初の行（概要）：ライセンスの省略名、または代替を与える式（標準略語のリストについては、短縮名のセクションを参照）。標準の短い名前のないパッケージにライセンスが存在する場合は、これらのライセンスに任意の短い名前を割り当てることができます。これらの任意の名前は、単一の著作権ファイル内で一意であることが保証されています。</p>
+
+<p>残っている行がない場合は、概要でライセンス例外を伴うショートネームまたはショートネームをすべてスタンドアロンライセンスの段落に記述する必要があります。それ以外の場合は、このフィールドにライセンスの全文を含めるか、ライセンスファイルへのポインタを/ usr / share / common-licensesに含める必要があります。このフィールドには、ソフトウェアの配布ライセンス（12.5）のコピーを含めるためのDebianポリシーの要件と、バイナリパッケージに対する保証免責条項またはその他の通知を含むライセンス要件の両方を満たすために必要なすべてのテキストが含まれている必要があります。</p>
+
+<h3 id="6-8-copyright">6.8.Copyright</h3>
+
+<p>書式付きテキスト、ない概要：1つ以上の自由形式の著作権ステートメント。フォーマットは許可されています。フィールドを構造化して読みやすくするためのアイデアについては、以下の例を参照してください。ヘッダーの段落では、このフィールドにパッケージ全体の著作権情報が表示されます。これはファイルごとの著作権情報のすべての組み合わせとは異なるか簡略化されています。 Files段落では、Filesパターンと一致するファイルに適用される著作権情報を提供します。作品に著作権者がいない（つまり、パブリックドメインにある）場合は、その情報をここに記録する必要があります。</p>
+
+<p>「著作権」フィールドには、この段落のファイルに関連するすべての著作権表示が収集されます。すべての著作権表示が個々のファイルに適用されるわけではなく、1つの著作権所有者の長年の出版がまとめられている場合があります。たとえば、ファイルAには次のものがあります。</p>
+
+<p>Copyright 2008 John Smith
+Copyright 2009 Angela Watts
+ファイルBには次のものがあります。</p>
+
+<p>Copyright 2010アンジェラワッツ
+両方のファイルに対して1つの段落を使用することができます。その段落の「著作権」フィールドには、次のものが含まれます。</p>
+
+<p>Copyright 2008 John Smith
+Copyright 2009、2010アンジェラワッツ
+「著作権」フィールドには、著作権の原文が正確に（「著作権」を含む）コピーされている場合があります。また、情報を犠牲にしない限り、上記のように他の著作権と併合することができます。この明細書の例は、両方の形式を使用します。</p>
+
+<h3 id="6-9-files">6.9.Files</h3>
+
+<p>空白で区切られたリスト：この段落で指定されたライセンスと著作権でカバーされるファイルを示すパターンのリスト。</p>
+
+<p>ファイルフィールドのファイル名パターンは、簡略化されたシェルグロブ構文を使用して指定されます。 パターンは空白で区切られています。</p>
+
+<ul>
+<li>ワイルドカード<em>と？ 適用する; 前者は任意の数の文字（noneを含む）に対応し、後者は1文字に一致します。 両方ともシェルのグロブとは異なり、スラッシュ（/）と先頭のドットに一致します。 したがってパターン</em> .inは、名前が.inで終わるすべてのファイルと一致します。これは、トップレベルだけでなく、ソースツリー内のどこにでもあります。</li>
+<li>パターンは、ソースツリーのルートで始まるパス名と一致します。 したがって、 &ldquo;Makefile.in&rdquo;はツリーのルートにあるファイルとマッチしますが、 &ldquo;* / Makefile.in&rdquo;は任意の深さでマッチします。</li>
+<li>バックスラッシュ（\）は、次の文字から魔法を取り除くために使用されます。 下記の表を参照してください。</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Escape sequence</th>
+<th>Matches</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>*</td>
+<td>star (asterisk)</td>
+</tr>
+
+<tr>
+<td>\?</td>
+<td>question mark</td>
+</tr>
+
+<tr>
+<td>\</td>
+<td>backslash</td>
+</tr>
+</tbody>
+</table>
+
+<p>バックスラッシュに続く他の文字はエラーです。</p>
+
+<p>これは、FNM_PATHNAMEフラグのないfnmatch（3）と同じパターン構文、または[]ワイルドカードが認識されないことを除いて、GNU findコマンドの-pathテストへの引数です。</p>
+
+<p>複数のファイル段落が許可されています。 特定のファイルと一致する最後の段落がその段落に適用されます。 したがって、より一般的なパラグラフを最初に指定し、その後に特定のオーバーライドを指定する必要があります。</p>
+
+<p>除外は、以前の一致を無効にするためにファイル段落を追加することによってのみサポートされます。</p>
+
+<h2 id="7-license-specification">7.License specification</h2>
+
+<h3 id="7-1-short-name">7.1.Short name</h3>
+
+<p>機械で解析可能な著作権ファイルの価値の多くは、複数のソフトウェアのライセンスを相互に関連付けることができます。このため、この仕様では、ライセンスフィールドの概要（1行目）で使用できる、一般的に使用される多くのライセンスの標準ショートネームを定義しています。</p>
+
+<p>これらの短縮名は、このファイル形式のすべての用途にわたって指定された意味を持ち、他のライセンスを参照するために使用してはなりません。したがって、パーサーは、完全なライセンステキストを解析または比較する必要なしに、同じライセンスを参照するこれらの短い名前に依存することがあります。</p>
+
+<p>時折、標準ショートネームのリストにライセンスを追加したり削除したりすることができます。ショートネームのリストにおけるこのような変更は、常にこの規格のバージョンおよび推奨されるフォーマット値への変更を伴います。著作権ファイルを解析している実装者は、未知のフォーマットバージョンのライセンスショートネームの意味について何も想定しないよう注意しなければなりません。</p>
+
+<p>標準の短い名前を使用しても、debian / copyrightに完全なライセンステキストを含めるDebian Policyの要件や、法的通知の複製に関する作業のライセンス要件は無効になりません。この情報は、スタンドアロンライセンスの段落または関連ファイルの段落のいずれかにある[ライセンス]フィールドに引き続き含める必要があります。</p>
+
+<p>複数のバージョンが使用されているライセンスの場合、略称はライセンスファミリの一般的な略称から構成され、その後にダッシュとバージョン番号が続きます。バージョン番号を省略すると、最も低いバージョン番号が暗黙指定されます。ライセンス許可が、そのライセンスのそれ以降のバージョンの条件を使用することを許可するときは、短い名前の最後にプラス記号を追加します。例えば、短い名前のGPLはGPLバージョン1を指し、GPL-1と同等ですが、後者はより明確であり、したがって好ましいものです。パッケージがGPLバージョン1またはそれ以降のバージョンで配布される場合は、短い名前のGPL-1 +を使用してください。</p>
+
+<p>SPDXとの互換性のために、末尾のドットがゼロのバージョンは、バージョンがないバージョンと同等であるとみなされます（たとえば、「2.0.0」は「2.0」および「2」とみなされます）。</p>
+
+<p>現在、ライセンスの全文は、SPDXオープンソースライセンスレジストリでのみ利用可能です。</p>
+
+<table>
+<thead>
+<tr>
+<th>Keyword</th>
+<th>Meaning</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>public-domain</td>
+<td>No license required for any purpose; the work is not subject to copyright in any jurisdiction.</td>
+</tr>
+
+<tr>
+<td>Apache</td>
+<td>Apache license 1.0, 2.0.</td>
+</tr>
+
+<tr>
+<td>Artistic</td>
+<td>Artistic license 1.0, 2.0.</td>
+</tr>
+
+<tr>
+<td>BSD-2-clause</td>
+<td>Berkeley software distribution license, 2-clause version.</td>
+</tr>
+
+<tr>
+<td>BSD-3-clause</td>
+<td>Berkeley software distribution license, 3-clause version.</td>
+</tr>
+
+<tr>
+<td>BSD-4-clause</td>
+<td>Berkeley software distribution license, 4-clause version.</td>
+</tr>
+
+<tr>
+<td>ISC</td>
+<td>Internet Software Consortium, sometimes also known as the OpenBSD License.</td>
+</tr>
+
+<tr>
+<td>CC-BY</td>
+<td>Creative Commons Attribution license 1.0, 2.0, 2.5, 3.0.</td>
+</tr>
+
+<tr>
+<td>CC-BY-SA</td>
+<td>Creative Commons Attribution Share Alike license 1.0, 2.0, 2.5, 3.0.</td>
+</tr>
+
+<tr>
+<td>CC-BY-ND</td>
+<td>Creative Commons Attribution No Derivatives license 1.0, 2.0, 2.5, 3.0.</td>
+</tr>
+
+<tr>
+<td>CC-BY-NC</td>
+<td>Creative Commons Attribution Non-Commercial license 1.0, 2.0, 2.5, 3.0.</td>
+</tr>
+
+<tr>
+<td>CC-BY-NC-SA</td>
+<td>Creative Commons Attribution Non-Commercial Share Alike license 1.0, 2.0, 2.5, 3.0.</td>
+</tr>
+
+<tr>
+<td>CC-BY-NC-ND</td>
+<td>Creative Commons Attribution Non-Commercial No Derivatives license 1.0, 2.0, 2.5, 3.0.</td>
+</tr>
+
+<tr>
+<td>CC0</td>
+<td>Creative Commons Zero 1.0 Universal. Omit “Universal” from the license version when forming the short name.</td>
+</tr>
+
+<tr>
+<td>CDDL</td>
+<td>Common Development and Distribution License 1.0.</td>
+</tr>
+
+<tr>
+<td>CPL</td>
+<td>Common Public License.</td>
+</tr>
+
+<tr>
+<td>EFL</td>
+<td>The Eiffel Forum License 1.0, 2.0.</td>
+</tr>
+
+<tr>
+<td>Expat</td>
+<td>The Expat license.</td>
+</tr>
+
+<tr>
+<td>GPL</td>
+<td>GNU General Public License 1.0, 2.0, 3.0.</td>
+</tr>
+
+<tr>
+<td>LGPL</td>
+<td>GNU Lesser General Public License 2.1, 3.0, or GNU Library General Public License 2.0.</td>
+</tr>
+
+<tr>
+<td>GFDL</td>
+<td>GNU Free Documentation License 1.0, 1.1, 1.2, or 1.3. Use GFDL-NIV instead if there are no Front-Cover or Back-Cover Texts or Invariant Sections.</td>
+</tr>
+
+<tr>
+<td>GFDL-NIV</td>
+<td>GNU Free Documentation License, with no Front-Cover or Back-Cover Texts or Invariant Sections. Use the same version numbers as GFDL.</td>
+</tr>
+
+<tr>
+<td>LPPL</td>
+<td>LaTeX Project Public License 1.0, 1.1, 1.2, 1.3c.</td>
+</tr>
+
+<tr>
+<td>MPL</td>
+<td>Mozilla Public License 1.1.</td>
+</tr>
+
+<tr>
+<td>Perl</td>
+<td>Perl license (use “GPL-1+ or Artistic-1” instead).</td>
+</tr>
+
+<tr>
+<td>Python</td>
+<td>Python license 2.0.</td>
+</tr>
+
+<tr>
+<td>QPL</td>
+<td>Q Public License 1.0.</td>
+</tr>
+
+<tr>
+<td>W3C</td>
+<td>W3C Software License For more information, consult the W3C Intellectual Rights FAQ.</td>
+</tr>
+
+<tr>
+<td>Zlib</td>
+<td>zlib/libpng license.</td>
+</tr>
+
+<tr>
+<td>Zope</td>
+<td>Zope Public License 1.0, 1.1, 2.0, 2.1.</td>
+</tr>
+</tbody>
+</table>
+
+<p>MITライセンスには多くのバージョンがあります。代わりにExpatを使用してください。</p>
+
+<p>ライセンスへの例外または明確化は、短い名前にキーワードの例外を付加してプレーンテキストで通知されます。このドキュメントでは、最も頻繁に発生する例外を参照するときに使用する必要があるキーワードのリストを示します。追加の権限を付与して共通のライセンスを変更するこれらの例外以外の例外が発生した場合は、以下のキーワードリストから取り出されない任意のキーワードを使用することができます。ライセンスは、追加されたアクセス許可のためではなく、制限が追加されて共通ライセンスと異なる場合、キーワードの例外ではなく別の短い名前を使用する必要があります。</p>
+
+<p>特定のライセンス仕様内の各ライセンスに対して1つの例外のみを指定することができます。単一のライセンスに複数の例外が適用される場合は、代わりに複数の例外の組み合わせを使用する必要があることを示す任意の短い名前を使用します。</p>
+
+<p>GPLフォント例外は、GPLがどのようにフォントに適用されるかで指定されているように、各ファイルのライセンス通知に追加されたテキストを指します。この例外に対応する正確なテキストは次のとおりです。</p>
+
+<pre><code>As a special exception, if you create a document which uses this font,
+and embed this font or unaltered portions of this font into the
+document, this font does not by itself cause the resulting document to
+be covered by the GNU General Public License. This exception does not
+however invalidate any other reasons why the document might be covered
+by the GNU General Public License. If you modify this font, you may
+extend this exception to your version of the font, but you are not
+obligated to do so. If you do not wish to do so, delete this exception
+statement from your version.
+</code></pre>
+
+<p>GPL OpenSSL例外は、GPLと互換性のない句を含むOpenSSLライブラリとGPLライセンスコードをリンクする権限を与えます。 詳細は、Debian-legalメーリングリストのMark McLoughlin氏によるOpenSSLライセンスとGPL、OpenSSLとのメッセージミドルマンソフトウェアライセンスの衝突を参照してください。 この例外に対応するテキストは次のとおりです。</p>
+
+<pre><code>In addition, as a special exception, the copyright holders give
+permission to link the code of portions of this program with the
+OpenSSL library under certain conditions as described in each
+individual source file, and distribute linked combinations including
+the two.
+
+You must obey the GNU General Public License in all respects for all
+of the code used other than OpenSSL. If you modify file(s) with this
+exception, you may extend this exception to your version of the
+file(s), but you are not obligated to do so. If you do not wish to do
+so, delete this exception statement from your version. If you delete
+this exception statement from all source files in the program, then
+also delete it here.
+</code></pre>
+
+<h4 id="7-1-1-public-domain">7.1.1.Public domain</h4>
+
+<p>ライセンスショートネームpublic-domainは、一連のライセンス条項を参照していません。 管轄区域内で著作権の対象とならない作品がいくつかあり、したがって、著作権法の対象となる目的にはライセンスは必要ありません。 この短い名前は、関連するファイルが「パブリックドメイン内にある」という明示的な宣言です。</p>
+
+<p>一般的に著作権やパブリックドメインに関する広範な誤解が広まった結果、著作物の一部または全部が著作権侵害である場合、著作物がパブリックドメインにあるという共通の主張が生じます。 パブリックドメインに関するWikipediaの記事はこのテーマの参考になります。</p>
+
+<p>パラグラフのライセンスフィールドに短い名前のpublic-domainがある場合、フィールドの残りの行は、そのパラグラフの対応するファイルがデフォルトの著作権の制限からどのような免除を持っているかを正確に説明しなければなりません。</p>
+
+<h3 id="7-2-syntax">7.2.Syntax</h3>
+
+<p>ライセンス名は大文字と小文字を区別しないため、スペースは使用できません。</p>
+
+<p>マルチライセンスの場合、ライセンスのショートネームは、ユーザが異なるライセンスの間で選択することができるとき、または複数のライセンスの条件に同時に準拠しなければならないときに分けられます。</p>
+
+<p>たとえば、これは単純な「GPLバージョン2以降」のフィールドです：</p>
+
+<pre><code>License: GPL-2+
+</code></pre>
+
+<p>これはPerlのようなデュアルライセンスGPL / Artisticの仕事です：</p>
+
+<pre><code>License: GPL-1 or Artistic
+</code></pre>
+
+<p>これは、GPLと古典的なBSDコードの両方を持つファイル用です：</p>
+
+<pre><code>License: GPL-2+ and BSD-3-clause
+</code></pre>
+
+<p>最も複雑な場合は、orsとandsの優先順位を明確にするためにカンマが使用されます。接頭辞 &ldquo;と&rdquo;は、カンマで始まる場合を除いて、 &ldquo;または&rdquo;よりも優先されます。例えば：</p>
+
+<p><code>A or B and C</code> は <code>A or (B and C)</code> を意味する。</p>
+
+<p><code>A or B, and C</code> は <code>(A or B) and C</code> を意味する。</p>
+
+<p>これはPerlコードと古典的なBSDコードが入っているファイルです：</p>
+
+<pre><code>License: GPL-2+ or Artistic-2.0, and BSD-3-clause
+</code></pre>
+
+<p>OpenSSL例外を伴うGPL-2 +の作業は、GPL-2 +の下で、またはOpenSSLの例外を伴うGPL-2 +の下で再配布可能なデュアルライセンスの作業です。したがって、OpenSSL例外を伴うGPL-2 +として表現されます。そのようなライセンスの可能なライセンスフィールドは次のとおりです。</p>
+
+<pre><code>License: GPL-2+ with OpenSSL exception
+ This program is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later
+ version.
+ .
+ In addition, as a special exception, the author of this
+ program gives permission to link the code of its
+ release with the OpenSSL project's &quot;OpenSSL&quot; library (or
+ with modified versions of it that use the same license as
+ the &quot;OpenSSL&quot; library), and distribute the linked
+ executables. You must obey the GNU General Public
+ License in all respects for all of the code used other
+ than &quot;OpenSSL&quot;.  If you modify this file, you may extend
+ this exception to your version of the file, but you are
+ not obligated to do so.  If you do not wish to do so,
+ delete this exception statement from your version.
+ .
+ This program is distributed in the hope that it will be
+ useful, but WITHOUT ANY WARRANTY; without even the implied
+ warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ PURPOSE.  See the GNU General Public License for more
+ details.
+ .
+ You should have received a copy of the GNU General Public
+ License along with this package; if not, write to the Free
+ Software Foundation, Inc., 51 Franklin St, Fifth Floor,
+ Boston, MA  02110-1301 USA
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ `/usr/share/common-licenses/GPL-2'.
+</code></pre>
+
+<h3 id="7-3-spdx">7.3.SPDX</h3>
+
+<p>SPDXは、ソフトウェアパッケージに関連付けられたコンポーネント、ライセンス、および著作権を通信するためのフォーマットを標準化する試みです。それとマシン読み取り可能なdebian / copyright形式はやや互換性があります。しかし、2つのフォーマットは目的が異なり、フォーマットが異なります。 DEP5 wikiページを使用して違いを追跡します。</p>
+
+<h2 id="8-examples">8.Examples</h2>
+
+<h3 id="example-3-simple">Example 3.Simple</h3>
+
+<p>Debianソースパッケージxsolに配布されている &ldquo;X Solitaire&rdquo;プログラムのdebian / copyrightファイル（これは実際のxsolパッケージの著作権ファイルではありません）：</p>
+
+<pre><code>Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: X Solitaire
+Source: ftp://ftp.example.com/pub/games
+
+Files: *
+Copyright: 1998 John Doe &lt;jdoe@example.com&gt;
+   1998 Jane Smith &lt;jsmith@example.net&gt;
+License: GPL-2+
+ This program is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later
+ version.
+ .
+ This program is distributed in the hope that it will be
+ useful, but WITHOUT ANY WARRANTY; without even the implied
+ warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ PURPOSE.  See the GNU General Public License for more
+ details.
+ .
+ You should have received a copy of the GNU General Public
+ License along with this package; if not, write to the Free
+ Software Foundation, Inc., 51 Franklin St, Fifth Floor,
+ Boston, MA  02110-1301 USA
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ `/usr/share/common-licenses/GPL-2'.
+</code></pre>
+
+<h3 id="example-4-complex">Example 4.Complex</h3>
+
+<p>Debianソースパッケージplanet-venus（これは実際のplanet-venusパッケージの完全で正確な著作権ファイルではありません）で配布されている &ldquo;Planet Venus&rdquo;プログラムのdebian / copyrightファイルです：</p>
+
+<pre><code>Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Planet Venus
+Upstream-Contact: John Doe &lt;jdoe@example.com&gt;
+Source: https://www.example.com/code/venus
+
+Files: *
+Copyright: 2008, John Doe &lt;jdoe@example.com&gt;
+           2007, Jane Smith &lt;jsmith@example.org&gt;
+           2007, Joe Average &lt;joe@example.org&gt;
+           2007, J. Random User &lt;jr@users.example.com&gt;
+License: PSF-2
+
+Files: debian/*
+Copyright: 2008, Dan Developer &lt;dan@debian.example.com&gt;
+License: permissive
+ Copying and distribution of this package, with or without
+ modification, are permitted in any medium without royalty
+ provided the copyright notice and this notice are
+ preserved.
+
+Files: debian/patches/theme-diveintomark.patch
+Copyright: 2008, Joe Hacker &lt;hack@example.org&gt;
+License: GPL-2+
+
+Files: planet/vendor/compat_logging/*
+Copyright: 2002, Mark Smith &lt;msmith@example.org&gt;
+License: MIT
+ [LICENSE TEXT]
+
+Files: planet/vendor/httplib2/*
+Copyright: 2006, John Brown &lt;brown@example.org&gt;
+License: MIT2
+ Unspecified MIT style license.
+
+Files: planet/vendor/feedparser.py
+Copyright: 2007, Mike Smith &lt;mike@example.org&gt;
+License: PSF-2
+
+Files: planet/vendor/htmltmpl.py
+Copyright: 2004, Thomas Brown &lt;coder@example.org&gt;
+License: GPL-2+
+
+License: PSF-2
+ [LICENSE TEXT]
+
+License: GPL-2+
+ This program is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later
+ version.
+ .
+ This program is distributed in the hope that it will be
+ useful, but WITHOUT ANY WARRANTY; without even the implied
+ warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ PURPOSE.  See the GNU General Public License for more
+ details.
+ .
+ You should have received a copy of the GNU General Public
+ License along with this package; if not, write to the Free
+ Software Foundation, Inc., 51 Franklin St, Fifth Floor,
+ Boston, MA  02110-1301 USA
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ `/usr/share/common-licenses/GPL-2'.
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jul 21, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/07/20/implementation-to-get-recommendation/" title="Recommendation 取得実装について">Recommendation 取得実装について</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="./images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/07/21/debian-copyright/">Debian Copyright</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/20/implementation-to-get-recommendation/">Recommendation 取得実装について</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/19/machine-learning-to-start-with-work/">仕事で始める機械学習 (1)</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/18/Jasper/">Jasper</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/17/machine-learning-development-environment/">機械学習の開発環境</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/16/flask/">Flask Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/15/python-virtual-environment/">Python 仮想環境</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/14/henoko/">辺野古県民投票</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/14/benchmarking-and-profiling/">Benchmarking and Profiling</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/13/sayonara-watashi-no-cramer/">さよなら私のクラマー</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='./images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='./images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='./images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='./images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='./images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='./images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='./images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

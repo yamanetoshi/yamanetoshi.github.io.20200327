@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/21/debian-copyright/</loc>
+    <lastmod>2018-07-21T15:36:32+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/20/implementation-to-get-recommendation/</loc>
     <lastmod>2018-07-20T20:52:45+09:00</lastmod>
   </url>
@@ -7919,7 +7924,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-07-20T20:52:45+09:00</lastmod>
+    <lastmod>2018-07-21T15:36:32+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -7961,7 +7966,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/debian/</loc>
-    <lastmod>2017-11-20T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-21T15:36:32+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8117,7 +8122,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-07-20T20:52:45+09:00</lastmod>
+    <lastmod>2018-07-21T15:36:32+09:00</lastmod>
     <priority>0</priority>
   </url>
   
