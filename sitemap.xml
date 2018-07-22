@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/22/machine-learning-to-start-with-work/</loc>
+    <lastmod>2018-07-22T16:56:42+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/21/debian-copyright/</loc>
     <lastmod>2018-07-21T15:36:32+09:00</lastmod>
   </url>
@@ -7924,7 +7929,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-07-21T15:36:32+09:00</lastmod>
+    <lastmod>2018-07-22T16:56:42+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8092,7 +8097,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/machinelearning/</loc>
-    <lastmod>2018-07-19T20:47:19+09:00</lastmod>
+    <lastmod>2018-07-22T16:56:42+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8122,7 +8127,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-07-21T15:36:32+09:00</lastmod>
+    <lastmod>2018-07-22T16:56:42+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8134,7 +8139,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/python/</loc>
-    <lastmod>2018-07-19T20:47:19+09:00</lastmod>
+    <lastmod>2018-07-22T16:56:42+09:00</lastmod>
     <priority>0</priority>
   </url>
   
