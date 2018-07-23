@@ -6,10 +6,23 @@
     <description>Recent content in Go on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 21 Mar 2018 20:56:58 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 23 Jul 2018 21:00:22 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>二十一世紀の打ち方</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/23/study-go-game/</link>
+      <pubDate>Mon, 23 Jul 2018 21:00:22 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/23/study-go-game/</guid>
+      <description>&lt;p&gt;マーケットプレイスにて質が良い状態のものを入手。&lt;/p&gt;
+
+&lt;p&gt;&lt;a data-flickr-embed=&#34;true&#34;  href=&#34;https://www.flickr.com/photos/yamane-toshiaki/28658544567/in/dateposted-public/&#34; title=&#34;勉強します&#34;&gt;&lt;img src=&#34;https://farm2.staticflickr.com/1763/28658544567_7a61481645_z.jpg&#34; width=&#34;640&#34; height=&#34;640&#34; alt=&#34;勉強します&#34;&gt;&lt;/a&gt;&lt;script async src=&#34;//embedr.flickr.com/assets/client-code.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Go by Examples (3)</title>
