@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/27/training/</loc>
+    <lastmod>2018-07-27T19:57:54+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/26/debian-test-environment/</loc>
     <lastmod>2018-07-26T20:49:43+09:00</lastmod>
   </url>
@@ -7949,7 +7954,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-07-26T20:49:43+09:00</lastmod>
+    <lastmod>2018-07-27T19:57:54+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8129,7 +8134,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/misc/</loc>
-    <lastmod>2018-07-25T22:36:41+09:00</lastmod>
+    <lastmod>2018-07-27T19:57:54+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8147,7 +8152,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-07-26T20:49:43+09:00</lastmod>
+    <lastmod>2018-07-27T19:57:54+09:00</lastmod>
     <priority>0</priority>
   </url>
   
