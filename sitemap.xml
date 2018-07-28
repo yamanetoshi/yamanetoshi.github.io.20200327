@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/28/make-movie-recommendation-system/</loc>
+    <lastmod>2018-07-28T15:31:13+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/27/training/</loc>
     <lastmod>2018-07-27T19:57:54+09:00</lastmod>
   </url>
@@ -7954,7 +7959,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-07-27T19:57:54+09:00</lastmod>
+    <lastmod>2018-07-28T15:31:13+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8152,7 +8157,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-07-27T19:57:54+09:00</lastmod>
+    <lastmod>2018-07-28T15:31:13+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8164,7 +8169,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/python/</loc>
-    <lastmod>2018-07-22T16:56:42+09:00</lastmod>
+    <lastmod>2018-07-28T15:31:13+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8182,7 +8187,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/recommendation/</loc>
-    <lastmod>2018-07-20T20:52:45+09:00</lastmod>
+    <lastmod>2018-07-28T15:31:13+09:00</lastmod>
     <priority>0</priority>
   </url>
   

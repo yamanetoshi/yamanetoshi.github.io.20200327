@@ -6,10 +6,25 @@
     <description>Recent content in Python on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 22 Jul 2018 16:56:42 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 28 Jul 2018 15:31:13 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/python/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>映画の推薦システムを作る</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/28/make-movie-recommendation-system/</link>
+      <pubDate>Sat, 28 Jul 2018 15:31:13 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/28/make-movie-recommendation-system/</guid>
+      <description>&lt;p&gt;以下な ipynb を確認しつつ控えを取ってみます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/oreilly-japan/ml-at-work/blob/master/chap07/Movie_recommendation.ipynb&#34;&gt;7章: 映画の推薦システムを作る&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>仕事で始める機械学習 (2)</title>
