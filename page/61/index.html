@@ -109,6 +109,54 @@
         
 
 <header>
+    <p class="meta">Sep 25, 2015
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/25/err-cache-miss-error/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/25/err-cache-miss-error/">戻る、で net::ERR_CACHE_MISS</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>最初、WebViewClient#onErrorReceive で再表示、とかしてたのですが、一旦エラー画面表示されて reload されてしまうなぁ、と思っていたら</p>
+
+<pre><code>    WebView#getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+</code></pre>
+
+<p>という解があり、こちら採用。こちらの方がスコアが低いのは何故だろう。</p>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/25664146/android-4-4-giving-err-cache-miss-error-in-onreceivederror-for-webview-back">Android 4.4 giving ERR_CACHE_MISS error in onReceivedError for WebView back</a></li>
+</ul>
+
+<p>つうか戻る時に cache エラーってどう考えてもサーバサイドだろ、と思っていたのですが、色々な事情があるらしいのかどうか。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/25/err-cache-miss-error/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Sep 24, 2015
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/24/godeb/#disqus_thread">Comments</a>
@@ -455,37 +503,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Sep 14, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/14/go-kit/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/go/">Go </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/14/go-kit/">Go kit 面白そう</a>
-    </h1>
-</header>
-
-
-        
-          <p>はてブ経由で以下を発見。 Goと「Go kit」によるマイクロサービス構築 面白そうなのでしばらくおいかけてみる方向にて。</p>
-
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -581,6 +598,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/07/29/sim-change/">スマホ回線乗り換え検討</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/07/28/make-movie-recommendation-system/">映画の推薦システムを作る</a>
             </li>
           
@@ -614,10 +635,6 @@
           
             <li class="post">
               <a href="/blog/2018/07/20/implementation-to-get-recommendation/">Recommendation 取得実装について</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/07/19/machine-learning-to-start-with-work/">仕事で始める機械学習 (1)</a>
             </li>
           
         </ul>
