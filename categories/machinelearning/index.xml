@@ -6,10 +6,25 @@
     <description>Recent content in Machinelearning on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 22 Jul 2018 16:56:42 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 30 Jul 2018 20:58:06 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/machinelearning/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>fastFM 0.2.10 Guide</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/30/fastfm-0-2-10-guide/</link>
+      <pubDate>Mon, 30 Jul 2018 20:58:06 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/30/fastfm-0-2-10-guide/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://ibayer.github.io/fastFM/guide.html&#34;&gt;Guide&lt;/a&gt; なナニを ipynb にしてみました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gist.github.com/yamanetoshi/3416e0d5f3fafad7e0b99983948caf1c&#34;&gt;fastFM 0.2.10 Guide&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>仕事で始める機械学習 (2)</title>
