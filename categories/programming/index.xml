@@ -6,10 +6,27 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 15 Feb 2018 22:10:59 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 01 Aug 2018 21:15:54 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>リモートもくもく会</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/08/01/remote-moku-moku/</link>
+      <pubDate>Wed, 01 Aug 2018 21:15:54 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/08/01/remote-moku-moku/</guid>
+      <description>&lt;p&gt;明日ですよ、な通知が着信してたのですが、今日だったのかとタマゲた件w&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://java-kuche.doorkeeper.jp/events/78025&#34;&gt;リモートもくもく会#3&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;もくもく会、定期開催し続けて欲しいです。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Unit Test の Hands-on 資料まとめ</title>
