@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>context aware recommendation</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Aug 5, 2018
+         - 5 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/08/05/context-aware-recommendation/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/recommendation/">recommendation </a>
+        
+    </p>
+    <h1 class="entry-title">
+         context aware recommendation 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>特徴量の組み合わせ、が複数あって云々、な宿題があり困り果てていたのですが <code>context aware</code> という言葉を参考書にて発見して google 先生にお伺いしてみたところ、neo4j 発信なリンク切れドキュメントがありましたので cache を確保して機械翻訳。</p>
+
+<p>以下にて共有しておきます。</p>
+
+<p></p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>システムを推薦する場合、私はいつも80&rsquo;sシチュコムのタイトル曲「乾杯」を覚えています。 方法は次のとおりです。</p>
+
+<p>&ldquo;あなたは人々が知っているところに行きたい、人々はすべて同じ&rdquo; - コンテンツベース</p>
+
+<p>&ldquo;あなたが見える場所になりたい、私たちのトラブルはすべて同じ&rdquo; - Colloborative-filtering</p>
+
+<p>「すべての心配から休みを取って、大いに役立つでしょう。あなたは離れたくないですか？」 &hellip;誰とどこで？ - コンテキスト認識。</p>
+
+<p>ここでは、Neo4jを使用してコンテキスト情報に基づいてレストランの推奨事項を提示するのが好きです。</p>
+
+<h2 id="what-is-context">What is Context?</h2>
+
+<p>コンテキストとは、エンティティの状況を特徴付けるために使用できる任意の情報です。 エンティティとは、ユーザとアプリケーション（AK Dey＆GD Abowd - ACM Conference in Computer Systems in Computer Systems（CHI 2000））を含む、ユーザとアプリケーションとの間の相互作用に関連すると考えられる人物、 Vol.5 / Iss.1、pp.4-7、2001）。</p>
+
+<p>コンテキストの最も一般的なタイプは、Identity（ &lsquo;who&rsquo;）、Acivity（ &lsquo;what&rsquo;）、Time（ &lsquo;when&rsquo;）、およびLocation（ &lsquo;where&rsquo;）であり、この情報を使用して状況が発生した理由を判断できます。</p>
+
+<p>従来の推奨システムでは、2つのエンティティ（2次元）のユーザーとアイテムが使用されます。 この推奨は、多次元アプローチを使用してコンテキスト情報を組み込むことにより、よりパーソナライズされたものにすることができます。</p>
+
+<h2 id="apply-to-restaurant-recommendation">Apply to Restaurant Recommendation</h2>
+
+<p><a href="https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data">https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data</a> からレストランと消費者のデータ（メキシコに関するもの）をインポートしました。</p>
+
+<p>ユーザーデータには、喫煙、飲酒などの居場所、習慣、婚姻状況、料理、予算などの情報があります。 ユーザーには、各コンテキスト（喫煙、料理、予算など）を1つの次元として取り入れることができます。</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/21182456/26038102/5973f520-38b5-11e7-9c6d-85b91fa95fc6.png" alt="" /></p>
+
+<p>レストランのデータには、場所、料理、喫煙、アロコホル、価格などの情報が含まれます。 レストランについても、ユーザーの好みに基づいてレストランのより良い選択肢を提供するために、複数の次元があります。</p>
+
+<p>三次元アプローチの図的記述を以下に示す。</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/21182456/26029637/fedfa15c-37ee-11e7-918c-cb7ae1b62915.png" alt="" /></p>
+
+<p>ユーザキューブの3つの次元は、ユーザ、喫煙、料理であり、レストランキューブの場合、レストラン、喫煙、料理である。 色分けされたユーザーキューブのスライスは、喫煙に関する様々なプレゼンテーションで同じ料理が好きなユーザーを表します。 これらの選択肢を使用して、選択されたユーザーの選択肢に一致するレストランを選択します。 レストランキューブの色付きのスライスは、ユーザーが選択した選択肢に一致するレストランを表示します。</p>
+
+<p>同一のアプローチは、さらに高い次元にも適用されます。</p>
+
+<h2 id="data-model">Data Model</h2>
+
+<p><img src="https://cloud.githubusercontent.com/assets/21182456/26029641/1d2ba07a-37ef-11e7-867d-c8a133df4563.PNG" alt="" /></p>
+
+<h2 id="metadata">Metadata</h2>
+
+<p><img src="https://cloud.githubusercontent.com/assets/21182456/26029646/3f2e66da-37ef-11e7-831e-e9be1b9b0dc7.PNG" alt="" /></p>
+
+<h2 id="setup">Setup</h2>
+
+<p>4つのデータファイル：Users_50.csv（50人を選択）UCuisine.csv（ユーザー/料理）Restaurants.csv RestCuisine.csv（レストラン/料理）</p>
+
+<p>Cypherのデータベースへの照会</p>
+
+<p>Query 1</p>
+
+<pre><code>CREATE CONSTRAINT ON ( rest:Restaurant ) ASSERT rest.pid IS UNIQUE;
+CREATE CONSTRAINT ON ( company:Company ) ASSERT company.name IS UNIQUE;
+CREATE CONSTRAINT ON ( usr:User ) ASSERT usr.UserID IS UNIQUE;
+
+//Import users.............
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+&quot;https://raw.githubusercontent.com/kaisesha/cdrgraph/master/Users_50.csv&quot;
+AS line
+WITH line
+
+MERGE (company:Company {name: &quot;Ameyasoft&quot;})
+MERGE (usr:User {uid: line.UserID})
+CREATE (company)-[:USER_PROFILE]-&gt;(usr)
+
+CREATE (prsnl:Personal {name: &quot;Personal&quot;})
+CREATE (usr)-[:PERSONAL]-&gt;(prsnl)
+
+CREATE (intrst:Interest {attr9: line.Interest})
+CREATE (prsnl)-[:INTEREST]-&gt;(intrst)
+
+CREATE (prsnlt:Persnlty {attr10: line.Personality})
+CREATE (prsnl)-[:PERSONALITY]-&gt;(prsnlt)
+
+CREATE (trnsp:Transp {attr5: line.Transport})
+CREATE (prsnl)-[:TRANSPORT]-&gt;(trnsp)
+
+CREATE (marrd:Married {attr6: line.Marital_Status})
+CREATE (prsnl)-[:MARITAL_STATUS]-&gt;(marrd)
+
+
+CREATE (brthyr:Byear {attr8: line.Birth_Year})
+CREATE (prsnl)-[:BIRTH_YEAR]-&gt;(brthyr)
+
+
+CREATE (relgn:Religion {attr11: line.Religion})
+CREATE (prsnl)-[:RELIGION]-&gt;(relgn)
+
+
+CREATE (habit:Habit {name: &quot;Habits&quot;})
+CREATE (usr)-[:HABITS]-&gt;(habit)
+
+CREATE (smkr:Smoker {attr1: line.Smoker})
+CREATE (habit)-[:SMOKER]-&gt;(smkr)
+
+CREATE (drnk:Drink {attr2: line.Drink_Level})
+CREATE (habit)-[:DRINK_LEVEL]-&gt;(drnk)
+
+CREATE (dress:Dress {attr3: line.Dress_Pref})
+CREATE (habit)-[:DRESS]-&gt;(dress)
+
+CREATE (hijos:Hijos {attr7: line.Hijos})
+CREATE (habit)-[:HIJOS]-&gt;(hijos)
+
+CREATE (ambnc:Ambnce {attr4: line.Ambience})
+CREATE (habit)-[:AMBIENCE]-&gt;(ambnc)
+
+CREATE (actv:Activity {attr12: line.Activity})
+CREATE (habit)-[:USER_PROFILE]-&gt;(actv)
+
+CREATE (budgt:Budget {attr13: line.Budget})
+CREATE (habit)-[:BUDGET]-&gt;(budgt)
+
+CREATE (m:Cuisine {name: line.UserID})
+CREATE (usr)-[:CUISINE]-&gt;(m)
+
+;
+
+//Import user choices of cuisines.......
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+&quot;https://raw.githubusercontent.com/kaisesha/cdrgraph/master/UCuisine.csv&quot;
+AS line
+WITH line
+
+CREATE (f:Food {name: line.Rcuisine})
+WITH line, f
+
+MATCH (n:User {uid:line.userID})-[:CUISINE]-&gt;(m:Cuisine {name: 'Cuisine'})
+MERGE (n)-[:CUISINE]-&gt;(m)-[:TYPE]-&gt;(f)
+;
+
+//Import restaurants.............
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+&quot;https://raw.githubusercontent.com/kaisesha/cdrgraph/master/Restaurants.csv&quot;
+AS line
+WITH line
+
+MERGE (company:Company {name: &quot;Ameyasoft&quot;})
+MERGE (rest:Restaurant {pid: toInt(line.PlaceID), name: line.Name})
+CREATE (company)-[:RESTAURANT]-&gt;(rest)
+
+CREATE (addr:Addrs {street: line.Address, city: line.City, state: line.State, zip: line.Zip, country: line.Country})
+CREATE (rest)-[:ADDRESS]-&gt;(addr)
+
+CREATE (featrs:Features {alcohol: line.Alcohol, smoking: line.Smoking_Area, dress: line.Dress_Code, price: line.Price, ambience: line.Ambience})
+CREATE (rest)-[:FEATURES]-&gt;(featrs)
+
+;
+
+//Import restaurant cuisines.......
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+&quot;https://raw.githubusercontent.com/kaisesha/cdrgraph/master/RestCuisine.csv&quot;
+AS line
+WITH line
+
+MATCH (n:Restaurant {pid: toInt(line.PlaceID)})
+MERGE (n)-[:REST_CUISINE]-&gt;(cuse:Cusine {name: line.Cuisine});
+0 rows
+123 ms
++-------------------+
+| No data returned. |
++-------------------+
+Nodes created: 60
+Relationships created: 60
+Properties set: 60
+</code></pre>
+
+<p>この問合せを使用して、USER_PROFILEパスとRESTAURANTパスの両方の視覚化を改善しました。</p>
+
+<p>Query 2</p>
+
+<pre><code>MATCH (c)-[r:USER_PROFILE|RESTAURANT]-&gt;(n)-[]-&gt;(p)
+WHERE n.uid IN['U1001', 'U1002', 'U1003'] or n.pid IN [132609, 132613, 132630]
+RETURN c, n, p LIMIT 20;
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| c                         | n                                                     | p                                                                                                              |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[1]{uid:&quot;U1001&quot;}                                  | Node[17]{name:&quot;U1001&quot;}                                                                                         |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[1]{uid:&quot;U1001&quot;}                                  | Node[9]{name:&quot;Habits&quot;}                                                                                         |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[1]{uid:&quot;U1001&quot;}                                  | Node[2]{name:&quot;Personal&quot;}                                                                                       |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[18]{uid:&quot;U1002&quot;}                                 | Node[34]{name:&quot;U1002&quot;}                                                                                         |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[18]{uid:&quot;U1002&quot;}                                 | Node[26]{name:&quot;Habits&quot;}                                                                                        |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[18]{uid:&quot;U1002&quot;}                                 | Node[19]{name:&quot;Personal&quot;}                                                                                      |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[35]{uid:&quot;U1003&quot;}                                 | Node[51]{name:&quot;U1003&quot;}                                                                                         |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[35]{uid:&quot;U1003&quot;}                                 | Node[43]{name:&quot;Habits&quot;}                                                                                        |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[35]{uid:&quot;U1003&quot;}                                 | Node[36]{name:&quot;Personal&quot;}                                                                                      |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[926]{pid:132609,name:&quot;Pollo_Frito_Buenos_Aires&quot;} | Node[1135]{name:&quot;Fast_Food&quot;}                                                                                   |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[926]{pid:132609,name:&quot;Pollo_Frito_Buenos_Aires&quot;} | Node[928]{smoking:&quot;not permitted&quot;,alcohol:&quot;No_Alcohol_Served&quot;,dress:&quot;informal&quot;,ambience:&quot;quiet&quot;,price:&quot;low&quot;}   |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[926]{pid:132609,name:&quot;Pollo_Frito_Buenos_Aires&quot;} | Node[927]{state:&quot;Tamaulipas&quot;,street:&quot;tampico&quot;,city:&quot;Victoria&quot;,country:&quot;Mexico&quot;}                                |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[929]{pid:132613,name:&quot;carnitas_mata&quot;}            | Node[1134]{name:&quot;Mexican&quot;}                                                                                     |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[929]{pid:132613,name:&quot;carnitas_mata&quot;}            | Node[930]{street:&quot;lic. Emilio portes gil&quot;,state:&quot;Tamaulipas&quot;,city:&quot;Victoria&quot;,country:&quot;Mexico&quot;}                 |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[929]{pid:132613,name:&quot;carnitas_mata&quot;}            | Node[931]{alcohol:&quot;No_Alcohol_Served&quot;,price:&quot;medium&quot;,smoking:&quot;permitted&quot;,dress:&quot;informal&quot;,ambience:&quot;familiar&quot;} |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[932]{pid:132630,name:&quot;palomo tec&quot;}               | Node[1133]{name:&quot;Mexican&quot;}                                                                                     |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[932]{pid:132630,name:&quot;palomo tec&quot;}               | Node[934]{smoking:&quot;none&quot;,price:&quot;low&quot;,alcohol:&quot;No_Alcohol_Served&quot;,dress:&quot;informal&quot;,ambience:&quot;familiar&quot;}         |
+| Node[0]{name:&quot;Ameyasoft&quot;} | Node[932]{pid:132630,name:&quot;palomo tec&quot;}               | Node[933]{street:&quot;blvrd emilio portes gil&quot;,state:&quot;tamaulipas&quot;,city:&quot;Victoria&quot;,country:&quot;Mexico&quot;}                |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+18 rows
+28 ms
+</code></pre>
+
+<p><img src="https://cloud.githubusercontent.com/assets/21182456/26045221/091a7baa-38fe-11e7-8396-21f181b1a808.png" alt="" /></p>
+
+<p>左半分はRestaurantで、右半分はUser Profileです。</p>
+
+<h2 id="recommend-restaurants-based-on-user-preferences">Recommend Restaurants Based On User Preferences</h2>
+
+<p>3つの好み：メキシコ料理、禁煙、中価格。</p>
+
+<p>Query 3</p>
+
+<pre><code>//Users with selected choices..............
+
+MATCH (c)-[]-&gt;(n)-[:CUISINE]-&gt;(r)-[:LIKES]-&gt;(t:Food {name: &quot;Mexican&quot;})
+WITH COLLECT (n) AS nodes, t
+UNWIND nodes AS n1
+
+MATCH (c)-[]-&gt;(n1)-[:HABITS]-&gt;(q)-[:SMOKER]-&gt;(v:Smoker {attr1: &quot;false&quot;})
+WITH COLLECT (n1) AS nodes, t, v
+UNWIND nodes AS n2
+
+MATCH (c)-[]-&gt;(n2)-[:HABITS]-&gt;(q)-[:BUDGET]-&gt;(v1:Budget {attr13: &quot;medium&quot;})
+WITH v1, t, v MATCH (c)-[]-&gt;(n)-[:CUISINE]-&gt;(r)-[:LIKES]-&gt;(t:Food {name: &quot;Mexican&quot;})
+WITH COLLECT (n) AS nodes, t
+UNWIND nodes AS n1
+
+MATCH (c)-[]-&gt;(n1)-[:HABITS]-&gt;(q)-[:SMOKER]-&gt;(v:Smoker {attr1: &quot;false&quot;})
+WITH COLLECT (n1) AS nodes, t, v
+UNWIND nodes AS n2
+
+MATCH (c)-[]-&gt;(n2)-[:HABITS]-&gt;(q)-[:BUDGET]-&gt;(v1:Budget {attr13: &quot;medium&quot;})
+WITH v1, t
+
+//WITH v1, t, v1, n2
+//RETURN n2.uid as User, t.name as Cuisine, v.attr1 as Smoker, v1.attr13 as Budget;
+
+
+// Find the restaurants that match the user preferences......
+
+MATCH (c)-[]-&gt;(n2)-[:REST_CUISINE]-&gt;(p:Cusine {name: t.name})
+WITH COLLECT(n2) AS pn, v1
+UNWIND pn AS n3
+MATCH (c)-[]-&gt;(n3)-[:FEATURES]-&gt;(q1:Features {price: v1.attr13, smoking: &quot;none&quot;})
+WITH COLLECT(n3) AS pn
+
+UNWIND pn AS n4
+WITH DISTINCT n4
+MATCH (c)-[]-&gt;(n4)-[:ADDRESS]-(k)
+RETURN n4.name AS Restaurant, k.city AS City;
+</code></pre>
+
+<p><img src="https://cloud.githubusercontent.com/assets/21182456/26083994/c770ae5a-398d-11e7-98fc-3445805c0502.png" alt="" /></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/21182456/26083996/cec737f0-398d-11e7-9fd9-4fb2b4c5b24b.png" alt="" /></p>
+
+<p><strong>Four preferences: Japanese food, non-smoking, medium priced, and ambience (friends).</strong></p>
+
+<p>Query 4</p>
+
+<pre><code>MATCH (c)-[]-&gt;(n)-[:CUISINE]-&gt;(r)-[:LIKES]-&gt;(t:Food {name: &quot;Japanese&quot;})
+WITH COLLECT (n) AS nodes, t
+UNWIND nodes AS n1
+
+MATCH (c)-[]-&gt;(n1)-[:HABITS]-&gt;(q)-[:SMOKER]-&gt;(v:Smoker {attr1: &quot;false&quot;})
+WITH COLLECT (n1) AS nodes, t, v
+UNWIND nodes AS n2
+
+MATCH (c)-[]-&gt;(n2)-[:HABITS]-&gt;(q)-[:BUDGET]-&gt;(v1:Budget {attr13: &quot;medium&quot;})
+WITH COLLECT (n2) AS nodes, t, v, v1
+UNWIND nodes AS n3
+
+MATCH (c)-[]-&gt;(n3)-[:HABITS]-&gt;(q)-[:AMBIENCE]-&gt;(v2:Ambnce {attr4: &quot;friends&quot;})
+WITH COLLECT (n3) AS nodes, t, v, v1, v2
+UNWIND nodes AS n4
+
+WITH t, v1
+
+//WITH v, t, v1, v2, n4
+//RETURN n4.uid as User, t.name as Cuisine, v.attr1 as Smoker, v1.attr13 as Budget, v2.attr4 as Ambience;
+
+
+MATCH (c)-[]-&gt;(n2)-[:REST_CUISINE]-&gt;(p:Cusine {name: t.name})
+WITH COLLECT(n2) AS pn, v1
+UNWIND pn AS n3
+MATCH (c)-[]-&gt;(n3)-[:FEATURES]-&gt;(q1:Features {price: v1.attr13, smoking: &quot;none&quot;, ambience: &quot;familiar&quot;})
+WITH COLLECT(n3) AS pn2
+
+UNWIND pn2 AS n4
+WITH DISTINCT n4
+MATCH (c)-[]-&gt;(n4)-[:ADDRESS]-(k)
+
+RETURN n4.name AS Restaurant, k.city AS City;
+</code></pre>
+
+<p><img src="https://cloud.githubusercontent.com/assets/21182456/26083796/a81da9b4-398c-11e7-8a97-f8e1978d5ccc.png" alt="" /></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/21182456/26092725/6740af64-39c7-11e7-9bd8-bede1a6434a5.png" alt="" /></p>
+
+<h2 id="conclusions">Conclusions…</h2>
+
+<p>レストランの個人的な推奨は、ユーザの好みに基づいて提示される。 ここでの1つの問題は、関連するデータセットの可用性です。 データセットが提供する情報が多くなればなるほど、分析と結果に役立つでしょう。</p>
+
+<h2 id="resources">Resources</h2>
+
+<p>Datasets:</p>
+
+<ul>
+<li><a href="https://github.com/kaisesha/cdrgraph/blob/master/RestCuisine.csv">https://github.com/kaisesha/cdrgraph/blob/master/RestCuisine.csv</a></li>
+<li><a href="https://github.com/kaisesha/cdrgraph/blob/master/Restaurants.csv">https://github.com/kaisesha/cdrgraph/blob/master/Restaurants.csv</a></li>
+<li><a href="https://github.com/kaisesha/cdrgraph/blob/master/UCuisine.csv">https://github.com/kaisesha/cdrgraph/blob/master/UCuisine.csv</a></li>
+<li><a href="https://github.com/kaisesha/cdrgraph/blob/master/Users_50.csv">https://github.com/kaisesha/cdrgraph/blob/master/Users_50.csv</a></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Aug 5, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/08/04/sakaba-ru-kemia/" title="酒場ル kemia">酒場ル kemia</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/08/05/context-aware-recommendation/">context aware recommendation</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/04/sakaba-ru-kemia/">酒場ル kemia</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/03/fix-design/">デザイン修正</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/01/remote-moku-moku/">リモートもくもく会</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/31/bybcycle-mentenance-workshop/">自転車のメンテナンス講習 at 沖縄輪業さん</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/30/fastfm-0-2-10-guide/">fastFM 0.2.10 Guide</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/29/sim-change/">スマホ回線乗り換え検討</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/28/make-movie-recommendation-system/">映画の推薦システムを作る</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/27/training/">トレーニング</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/07/26/debian-test-environment/">でびあんのてすつ環境</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

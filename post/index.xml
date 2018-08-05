@@ -6,10 +6,23 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 04 Aug 2018 21:16:30 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 05 Aug 2018 11:29:22 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>context aware recommendation</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/08/05/context-aware-recommendation/</link>
+      <pubDate>Sun, 05 Aug 2018 11:29:22 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/08/05/context-aware-recommendation/</guid>
+      <description>&lt;p&gt;特徴量の組み合わせ、が複数あって云々、な宿題があり困り果てていたのですが &lt;code&gt;context aware&lt;/code&gt; という言葉を参考書にて発見して google 先生にお伺いしてみたところ、neo4j 発信なリンク切れドキュメントがありましたので cache を確保して機械翻訳。&lt;/p&gt;
+
+&lt;p&gt;以下にて共有しておきます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>酒場ル kemia</title>
