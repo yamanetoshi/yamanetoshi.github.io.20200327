@@ -6,10 +6,27 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 06 Aug 2018 19:57:00 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 07 Aug 2018 20:36:18 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Context Aware Recommendation (3)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/08/07/context-aware-recommendation/</link>
+      <pubDate>Tue, 07 Aug 2018 20:36:18 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/08/07/context-aware-recommendation/</guid>
+      <description>&lt;p&gt;このところ云々している以下のドキュメントですが&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://neo4j.com/graphgist/multidimensional-approach-to-recommender-systems&#34;&gt;Multidimensional Approach To Recommender Systems&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;レコメンドな Gremlin クエリをでっちあげてみました。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Context Aware Recommendation (2)</title>
