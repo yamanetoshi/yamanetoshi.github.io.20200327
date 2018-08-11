@@ -109,6 +109,51 @@
         
 
 <header>
+    <p class="meta">Jan 23, 2014
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/git/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/git/">直近ではない remote に push してる commit の取り消し</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>公開している歴史を rebase とかで変更してはいけない。</p>
+
+<p>ので、どうするかというとバージョン (commit) を特定してその時点の状態にファイルを巻戻してしまえば良いはず。git checkout で良いのかどうか。</p>
+
+<pre><code>$ git checkout &lt;commit object の id&gt; path
+</code></pre>
+
+<p>で、そのまま commit を作ってしまえば良いはず。
+ # そんな対応をした訳ではないのでこんな書き方になっててスミマセン (誰</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/git/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jan 22, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/22/android-dialog-dismiss/#disqus_thread">Comments</a>
@@ -450,37 +495,6 @@ prev.dismiss();
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 19, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/19/curl-json-parameter/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/19/curl-json-parameter/">curl に JSON パラメータ渡そうとしてハマった</a>
-    </h1>
-</header>
-
-
-        
-          <p>curl に -X POST 指定して -d で JSON なパラメータを渡そうとして &quot;{'security':{'part':'1','rating':'4'}}&quot; って指定してて軽くハマるなど。正しくは以下でしたorz '{&quot;security&quot;:{&quot;part&quot;:&quot;1&quot;,&quot;rating&quot;:&quot;4&quot;}}' いけません。</p>
-
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -576,6 +590,10 @@ prev.dismiss();
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/08/11/we-do-not-allow-the-sand-into-Henoko/">土砂投入を許さない！ジュゴン・サンゴを守り、辺野古新基地建設断念を求める８・１１県民大会</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/08/10/we-do-not-allow-the-sand-into-Henoko/">土砂投入を許さない！ジュゴン・サンゴを守り、辺野古新基地建設断念を求める８・１１県民大会</a>
             </li>
           
@@ -609,10 +627,6 @@ prev.dismiss();
           
             <li class="post">
               <a href="/blog/2018/07/31/bybcycle-mentenance-workshop/">自転車のメンテナンス講習 at 沖縄輪業さん</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/07/30/fastfm-0-2-10-guide/">fastFM 0.2.10 Guide</a>
             </li>
           
         </ul>
