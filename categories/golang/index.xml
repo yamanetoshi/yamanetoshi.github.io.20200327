@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang on /var/log/messages</title>
+    <link>https://weblog.metacircular-evaluator.org/categories/golang/</link>
+    <description>Recent content in Golang on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 14 Aug 2018 19:23:07 +0900</lastBuildDate>
+    
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dlv</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/08/14/dlv/</link>
+      <pubDate>Tue, 14 Aug 2018 19:23:07 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/08/14/dlv/</guid>
+      <description>&lt;p&gt;自分控え。テストを確認しようと思ってたのですが以下なエントリが大変参考になりました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://budougumi0617.github.io/2018/04/08/debug-by-delve/&#34;&gt;Goのデバッガ(Delve)のいろいろな起動のしかた(引数を渡して起動、起動中のプロセスにアタッチして起動 etc&amp;hellip;)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;この weblog も Hugo っぽい。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

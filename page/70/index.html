@@ -109,6 +109,59 @@
         
 
 <header>
+    <p class="meta">Jul 16, 2015
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/07/16/resize-bitmap/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/07/16/resize-bitmap/">画像リサイズ</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>Bitmap.createBitmap て始点の座標と幅、高さを渡す、が前提になっていないドキュメントを参考にしててハマルなど。</p>
+
+<p>例えば中央から縦横 1024 なサイズのナニを取得するのであれば</p>
+
+<pre><code>int width = in_bitmap.getWidth();
+int height = in_bitmap.getHeight();
+Bitmap bitmap = Bitmap.createBitmap(in_bitmap, width / 2, height / 2, 
+        1024, 1024, new Matrix(), true);
+</code></pre>
+
+<p>ではなくて</p>
+
+<pre><code>Bitmap bitmap = Bitmap.createBitmap(in_bitmap, width / 2 - 512, height / 2 - 512,
+        1024, 1024, new Matrix(), true);
+</code></pre>
+
+<p>なんスけど、色々な意味で事前にチェックすることがあったりなかったり。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/07/16/resize-bitmap/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jul 15, 2015
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2015/07/15/material-design-icon/#disqus_thread">Comments</a>
@@ -457,41 +510,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jul 8, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/07/08/mp3-in-dropbox-and-android/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/07/08/mp3-in-dropbox-and-android/">泥箱な mp3 と Android</a>
-    </h1>
-</header>
-
-
-        
-          <p>何かないかと思ったら MusicDropNPlay for Dropbox というソレを見つけたので無償なナニを使っております。無償版だと 8 曲限定らしい。 とりあえず現状ではいんぐれす専用機み</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/07/08/mp3-in-dropbox-and-android/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -587,6 +605,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/08/14/dlv/">Dlv</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/08/13/direnv/">Direnv</a>
             </li>
           
@@ -620,10 +642,6 @@
           
             <li class="post">
               <a href="/blog/2018/08/04/sakaba-ru-kemia/">酒場ル kemia</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/08/03/fix-design/">デザイン修正</a>
             </li>
           
         </ul>
