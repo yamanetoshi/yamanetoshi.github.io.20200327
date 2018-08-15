@@ -6,10 +6,21 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 01 Aug 2018 21:15:54 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 15 Aug 2018 19:42:16 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>再帰下降構文解析器</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/08/15/recursive-descent-syntax-analyzer/</link>
+      <pubDate>Wed, 15 Aug 2018 19:42:16 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/08/15/recursive-descent-syntax-analyzer/</guid>
+      <description>&lt;p&gt;基本的な考え方と構造、について自分メモを以下に控え。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>リモートもくもく会</title>
