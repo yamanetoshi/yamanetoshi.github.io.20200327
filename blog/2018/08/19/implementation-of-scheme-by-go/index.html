@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>scheme 実装</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Aug 19, 2018
+         - 4 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/08/19/implementation-of-scheme-by-go/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         scheme 実装 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>着手。もくもく会では微妙な lexer をでっち上げたところで timeup でした。</p>
+
+<h2 id="もう少し">もう少し</h2>
+
+<p>repl まで実装。がしかし、なんとなく微妙感があります。まず、リテラル式のあたりが微妙。とりあえず</p>
+
+<pre><code>(quote xxx)
+</code></pre>
+
+<p>という形を、ですね。</p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>手元にある R5RS をもとに色々すすめようと思っています。</p>
+
+<p></p>
+
+<h2 id="cons-および-dot-を追加">cons および dot を追加</h2>
+
+<p>そしてそろそろ parse の作戦を練らないと。とりあえず元の parser が</p>
+
+<ul>
+<li>始点は ParseProgram で token が続く限り parseStatement を呼び出す</li>
+<li>現時点の状態では parseStatement から let または return あるいはそれ意外の式、という形で分岐してそれぞれを parse</li>
+</ul>
+
+<p>ってなってますね。現状の想定では即値ではない場合には式の始まりは &ldquo;(&rdquo; 一択で良いはず。parseSStatement とかにしておけば良いのかな。</p>
+
+<p>とりあえず即値の試験を書きます。ってこれは元ネタの TestIntegerLiteralExpression を流用できるのかな。ひとまず ast なナニを確認します。とりあえず以下とのこと。</p>
+
+<pre><code>package ast
+
+type Node interface {
+    TokenLiteral() string
+}
+
+type Statement interface {
+    Node
+    statementNode()
+}
+
+type Expression interface {
+    Node
+    expressionNode()
+}
+
+type Program struct {
+    Statements []Statement
+}
+
+func (p *Program) TokenLiteral() string {
+    if len(p.Statements) &gt; 0 {
+        return p.Statements[0].TokenLiteral()
+    } else {
+        return &quot;&quot;
+    }
+}
+</code></pre>
+
+<p>で、parser の最初の状態が以下?</p>
+
+<pre><code>package parser
+
+import (
+    &quot;fmt&quot;
+    &quot;scheme_interpreter/ast&quot;
+    &quot;scheme_interpreter/lexer&quot;
+    &quot;scheme_interpreter/token&quot;
+    &quot;strconv&quot;
+)
+
+type Parser struct {
+    l      *lexer.Lexer
+    errors []string
+
+    curToken  token.Token
+    peekToken token.Token
+}
+
+func New(l *lexer.Lexer) *Parser {
+    p := &amp;Parser{
+        l:      l,
+        errors: []string{},
+    }
+
+    // Read two tokens, so curToken and peekToken are both set
+    p.nextToken()
+    p.nextToken()
+
+    return p
+}
+
+func (p *Parser) nextToken() {
+    p.curToken = p.peekToken
+    p.peekToken = p.l.NextToken()
+}
+
+func (p *Parser) ParseProgram() *ast.Program {
+    return nil
+}
+</code></pre>
+
+<p>忘れてました。以下な試験をスデにでっちあげております。</p>
+
+<pre><code>package parser
+
+import (
+    &quot;fmt&quot;
+    &quot;scheme_interpreter/ast&quot;
+    &quot;scheme_interpreter/lexer&quot;
+    &quot;testing&quot;
+)
+
+func TestIntegerLiteralExpression(t *testing.T) {
+    input := &quot;5&quot;
+
+    l := lexer.New(input)
+    p := New(l)
+    program := p.ParseProgram()
+    checkParserErrors(t, p)
+
+    if len(program.Statements) != 1 {
+        t.Fatalf(&quot;program has not enough statements. got=%d&quot;,
+            len(program.Statements))
+    }
+    stmt, ok := program.Statements[0].(*ast.ExpressionStatement)
+    if !ok {
+        t.Fatalf(&quot;program.Statements[0] is not ast.ExpressionStatement. got=%T&quot;,
+            program.Statements[0])
+    }
+
+    literal, ok := stmt.Expression.(*ast.IntegerLiteral)
+    if !ok {
+        t.Fatalf(&quot;exp not *ast.IntegerLiteral. got=%T&quot;, stmt.Expression)
+    }
+    if literal.Value != 5 {
+        t.Errorf(&quot;literal.Value not %d. got=%d&quot;, 5, literal.Value)
+    }
+    if literal.TokenLiteral() != &quot;5&quot; {
+        t.Errorf(&quot;literal.TokenLiteral not %s. got=%s&quot;, &quot;5&quot;,
+            literal.TokenLiteral())
+    }
+}
+
+func checkParserErrors(t *testing.T, p *Parser) {
+    errors := p.Errors()
+    if len(errors) == 0 {
+        return
+    }
+
+    t.Errorf(&quot;parser has %d errors&quot;, len(errors))
+    for _, msg := range errors {
+        t.Errorf(&quot;parser error: %q&quot;, msg)
+    }
+    t.FailNow()
+}
+</code></pre>
+
+<p>とりあえず、parseProgram を何とかしないと試験にパスしない。</p>
+
+<pre><code>func (p *Parser) ParseProgram() *ast.Program {
+    program := &amp;ast.Program{}
+    program.Statements = []ast.Statement{}
+
+    for !p.curTokenIs(token.EOF) {
+        stmt := p.parseStatement()
+        if stmt != nil {
+            program.Statements = append(program.Statements, stmt)
+        }
+        p.nextToken()
+    }
+
+    return program
+}
+</code></pre>
+
+<p>次は parseStatement 手続き。とりあえずそのまんまコピします。</p>
+
+<pre><code>func (p *Parser) parseStatement() ast.Statement {
+    switch p.curToken.Type {
+    case token.LET:
+        return p.parseLetStatement()
+    case token.RETURN:
+        return p.parseReturnStatement()
+    default:
+        return p.parseExpressionStatement()
+    }
+}
+</code></pre>
+
+<p>現時点でここは token.LPAREN とそれ以外、を想定しています。次は parseExpressionStatement ですね。元ネタは以下な定義。</p>
+
+<pre><code>func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
+    stmt := &amp;ast.ExpressionStatement{Token: p.curToken}
+
+    stmt.Expression = p.parseExpression(LOWEST)
+
+    if p.peekTokenIs(token.SEMICOLON) {
+        p.nextToken()
+    }
+
+    return stmt
+}
+</code></pre>
+
+<p>ast.ExprssionStatement は未定義。ここはパクれるはずなので元ネタを使います。</p>
+
+<pre><code>type ExpressionStatement struct {
+    Token      token.Token // the first token of the expression
+    Expression Expression
+}
+
+func (es *ExpressionStatement) statementNode()       {}
+func (es *ExpressionStatement) TokenLiteral() string { return es.Token.Literal }
+func (es *ExpressionStatement) String() string {
+    if es.Expression != nil {
+        return es.Expression.String()
+    }
+    return &quot;&quot;
+}
+</code></pre>
+
+<p>あと、parseExpression が未定義? そろそろ scheme に合わせた修正が必要になってくるはず。parseExpressionStatement の以下の部分は</p>
+
+<pre><code>    if p.peekTokenIs(token.SEMICOLON) {
+        p.nextToken()
+    }
+</code></pre>
+
+<p>token.RPAREN なのかな。</p>
+
+<pre><code>    if p.peekTokenIs(token.RPAREN) {
+        p.nextToken()
+    }
+</code></pre>
+
+<p>あと、parseExpression は簡単に考えたいので即値限定で実装してやれ。</p>
+
+<h2 id="式">式</h2>
+
+<p>とりあえず RPAREN で始まっていない場合、即値ってことで良いのかな。てことは</p>
+
+<pre><code>func (p *Parser) parseStatement() ast.Statement {
+    switch p.curToken.Type {
+    case token.LET:
+        return p.parseLetStatement()
+    case token.RETURN:
+        return p.parseReturnStatement()
+    default:
+        return p.parseExpressionStatement()
+    }
+}
+</code></pre>
+
+<p>は default な分岐でとりあえず parseIntegerLiteral 呼んでいいのかな。なんか違うな。このインタプリタの方法だと式のパースは</p>
+
+<ul>
+<li>token に対応する prefixParseFn を取得して呼び出して leftExp にセット</li>
+<li>次の token が SEMICOLON ではなくて precedence が次の、より小さい? 場合に次の token の infixParseFn を取り出して、token を次に進めて</li>
+<li>infixParseFn に leftExp を渡して呼び出して戻りを leftExp にセット</li>
+</ul>
+
+<p>という形になってます (たぶん書き方微妙)。元ネタで prefixParseFns に設定されているのは</p>
+
+<ul>
+<li>IDENT</li>
+<li>INT</li>
+<li>BANG</li>
+<li>MINUS</li>
+<li>TRUE</li>
+<li>FALSE</li>
+<li>LPAREN</li>
+<li>IF</li>
+<li>FUNCTION</li>
+</ul>
+
+<p>prefix という意味で scheme 的にあり得るのは</p>
+
+<ul>
+<li>IDENT</li>
+<li>INT</li>
+<li>LPAREN</li>
+</ul>
+
+<p>に加えて quote なのかどうか (ただし現時点では &lsquo; は想定していない)。とりあえずこうしてやれ</p>
+
+<pre><code>func (p *Parser) parseStatement() ast.Statement {
+    switch p.curToken.Type {
+    case token.INT:
+        return p.parseIntegerLiteral()
+    case token.IDENT:
+        return p.parseIdentifier()
+    default:
+        return p.parseSExpressionStatement()
+    }
+}
+</code></pre>
+
+<p>なんというか酷い。あと、parseIntegerLiteral と parseIdentifier は元ネタ流用。</p>
+
+<h2 id="やはり色々酷い">やはり色々酷い</h2>
+
+<p>上記だと ast.Expression に wrap されてない形になるな。</p>
+
+<h2 id="紆余曲折の後">紆余曲折の後</h2>
+
+<p>試験にパスしている。parseStatement が以下な定義になってます。</p>
+
+<pre><code>func (p *Parser) parseStatement() ast.Statement {
+    switch p.curToken.Type {
+    case token.INT:
+        stmt := &amp;ast.ExpressionStatement{Token: p.curToken}
+        stmt.Expression = p.parseIntegerLiteral()
+        return stmt
+    case token.IDENT:
+        stmt := &amp;ast.ExpressionStatement{Token: p.curToken}
+        stmt.Expression = p.parseIdentifier()
+        return stmt
+    default:
+        return p.parseSExpressionStatement()
+    }
+}
+</code></pre>
+
+<p>微妙。リファクタします。</p>
+
+<pre><code>func (p *Parser) parseStatement() ast.Statement {
+    return p.parseExpressionStatement()
+}
+
+func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
+    stmt := &amp;ast.ExpressionStatement{Token: p.curToken}
+
+    switch p.curToken.Type {
+    case token.INT:
+        stmt.Expression = p.parseIntegerLiteral()
+    case token.IDENT:
+        stmt.Expression = p.parseIdentifier()
+    default:
+        stmt.Expression = p.parseSExpressionStatement()
+    }
+
+    return stmt
+}
+
+func (p *Parser) parseSExpressionStatement() ast.Expression {
+    return nil
+}
+</code></pre>
+
+<h2 id="識別子">識別子</h2>
+
+<p>TestIdentifierExpression 追加。これもパス。ようやく S 式なナニが書けるのかどうか。ast てきには SExpression ってナニを追加すべきなのかどうか。と言いつつ結局こうなりました。</p>
+
+<pre><code>    default:
+        stmt.Expression = p.parseExpression()
+    }
+
+    return stmt
+}
+
+func (p *Parser) parseExpression() ast.Expression {
+    return nil
+}
+</code></pre>
+
+<p>で、どうするかと言うと</p>
+
+<ul>
+<li>式の parse においては先頭の LPAREN は除去 (nextToken する)</li>
+<li>prefixParseFn します</li>
+<li>括弧閉じるまで sufixParseFn します</li>
+</ul>
+
+<p>prefix はとりあえず</p>
+
+<ul>
+<li>define</li>
+<li>let</li>
+<li>lambda</li>
+<li>quote</li>
+<li>cons</li>
+</ul>
+
+<p>あたりにしておきます。そろそろ真面目に parse しないと駄目なのか。</p>
+
+<h2 id="例えば">例えば</h2>
+
+<p>quote が一番簡単かな。あと、S 式って意味では演算子の優先度とかスルーでいいのかな。quote の場合は引数一つってことでいいのか。</p>
+
+<ul>
+<li>program.Statements は 2</li>
+<li>quote なので二番目の式は parse しない</li>
+<li>あら? トークンにもしなくて良いのかな</li>
+</ul>
+
+<p>てことは lexer 修正必要なのか。ちょっと備忘までポイントを箇条書きにしときます。</p>
+
+<ul>
+<li>NextToken の分岐な default にて quote な処理を入れる</li>
+<li>isQuote な手続き追加</li>
+<li>Literal 属性にデータを入れる (データとしては括弧始まりなら S 式でそれ以外なら即値と見る)</li>
+</ul>
+
+<p>ってなってれば quote の場合はそのまま Literal が Value に、で良いのか。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Aug 19, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/08/15/recursive-descent-syntax-analyzer/" title="再帰下降構文解析器">再帰下降構文解析器</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/08/19/implementation-of-scheme-by-go/">scheme 実装</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/15/recursive-descent-syntax-analyzer/">再帰下降構文解析器</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/14/dlv/">Dlv</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/13/direnv/">Direnv</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/12/memo/">備忘</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/11/we-do-not-allow-the-sand-into-Henoko/">土砂投入を許さない！ジュゴン・サンゴを守り、辺野古新基地建設断念を求める８・１１県民大会</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/10/we-do-not-allow-the-sand-into-Henoko/">土砂投入を許さない！ジュゴン・サンゴを守り、辺野古新基地建設断念を求める８・１１県民大会</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/08/gokigen/">ゴキゲン中飛車本</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/07/context-aware-recommendation/">Context Aware Recommendation (3)</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/06/context-aware-recommendation/">Context Aware Recommendation (2)</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
