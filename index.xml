@@ -6,10 +6,27 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 21 Aug 2018 20:31:52 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 22 Aug 2018 21:30:49 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gremlin Exporter</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/08/22/gremlin-exporter/</link>
+      <pubDate>Wed, 22 Aug 2018 21:30:49 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/08/22/gremlin-exporter/</guid>
+      <description>&lt;p&gt;Graphdatabase なサービスって exporter が存在しないな (囲いこむという意味では当り前なのですが)、と思い作ってみた。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gist.github.com/yamanetoshi/e21c2416228e58020d5aca2a05df5792&#34;&gt;gremlin export example&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;手元の環境、venv なナニがありそのあたりの手順の復習も含めて以下に控えを。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Gremlin Sessions</title>

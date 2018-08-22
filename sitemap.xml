@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/08/22/gremlin-exporter/</loc>
+    <lastmod>2018-08-22T21:30:49+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/08/21/gremlin-sessions/</loc>
     <lastmod>2018-08-21T20:31:52+09:00</lastmod>
   </url>
@@ -8054,7 +8059,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-08-21T20:31:52+09:00</lastmod>
+    <lastmod>2018-08-22T21:30:49+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8258,7 +8263,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-08-21T20:31:52+09:00</lastmod>
+    <lastmod>2018-08-22T21:30:49+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8270,7 +8275,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/python/</loc>
-    <lastmod>2018-07-30T20:58:06+09:00</lastmod>
+    <lastmod>2018-08-22T21:30:49+09:00</lastmod>
     <priority>0</priority>
   </url>
   
