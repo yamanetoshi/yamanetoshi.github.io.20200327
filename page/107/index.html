@@ -109,6 +109,58 @@
         
 
 <header>
+    <p class="meta">Sep 14, 2014
+         - 4 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/14/read-articles-about-cgroup/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/14/read-articles-about-cgroup/">cgroup 関連の記事読んだ</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえず kernel source 取得、って結構時間がかかっているな。とりあえず以下から目を通し始めています。</p>
+
+<ul>
+<li><a href="http://qiita.com/akachochin/items/1efb887aa10c45298415">cgroupsを全く知らないところから、正味一時間ちょいでソースから雰囲気つかむ</a></li>
+</ul>
+
+<p>kernel/fork.c を出発点として cgroup がプロセス ID の割当てに絡んでいるあたりの確認をしている模様。alloc_pid という手続きから掘削が始まっています。</p>
+
+<p>また、データ構造の確認、ということで</p>
+
+<ul>
+<li>alloc_pid で空間を確保している struct pid 型について</li>
+<li>alloc_pid に渡されている struct pid_namespace 型について</li>
+</ul>
+
+<p>確認をしています。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/14/read-articles-about-cgroup/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Sep 13, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/13/moku-moku-09-13/#disqus_thread">Comments</a>
@@ -466,55 +518,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Sep 4, 2014
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/04/test-gstreamer/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/04/test-gstreamer/">gstreamer 試してみた</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>RaspberryPI にて。</p>
-
-<p>とりあえず USB なマイクは認識しているのでパケジを入れて様子を見てみます。</p>
-
-<pre><code>$ sudo apt-get install -fy gstreamer0.10-alsa
-</code></pre>
-
-<p>導入されたのは一つだけ。以下も導入した方が良いのかどうか、と言いつつ入れてしまいます。</p>
-
-<ul>
-<li>gstreamer-tools</li>
-<li>libgstreamer0.10-dev</li>
-</ul>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/04/test-gstreamer/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -610,6 +613,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/08/23/memo/">今日のもくもく控え</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/08/22/gremlin-exporter/">Gremlin Exporter</a>
             </li>
           
@@ -643,10 +650,6 @@
           
             <li class="post">
               <a href="/blog/2018/08/11/we-do-not-allow-the-sand-into-Henoko/">土砂投入を許さない！ジュゴン・サンゴを守り、辺野古新基地建設断念を求める８・１１県民大会</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/08/10/we-do-not-allow-the-sand-into-Henoko/">土砂投入を許さない！ジュゴン・サンゴを守り、辺野古新基地建設断念を求める８・１１県民大会</a>
             </li>
           
         </ul>
