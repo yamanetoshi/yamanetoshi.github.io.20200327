@@ -110,6 +110,54 @@
 
 <header>
     <p class="meta">Sep 29, 2014
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/29/bcm2708-gpio-probe/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/29/bcm2708-gpio-probe/">bcm2708_gpio_probe 手続き</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>確認できている中での手順としては</p>
+
+<ul>
+<li>struct bcm2708_gpio な領域確保</li>
+<li>platform_get_resource 手続き呼び出し</li>
+<li>platform_set_drvdata 手続き呼び出し</li>
+<li>struct bcm2708_gpio オブジェクトの初期設定</li>
+<li>bcm2708_gpio_irq_init 手続き呼び出し</li>
+<li>gpiochip_add 手続き呼び出し</li>
+</ul>
+
+<p>となっている模様。丁寧気味に確認してみます。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/29/bcm2708-gpio-probe/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Sep 29, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/29/memo/#disqus_thread">Comments</a>
 
@@ -497,45 +545,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Sep 24, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/24/behavior-of-surfaceview-when-adding-viewgroup/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/24/behavior-of-surfaceview-when-adding-viewgroup/">ViewGroup を追加する場合の SurfaceView の挙動</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>LinearLayout に addView したりとか ListView な adapter に add して getView でな場合に SurfaceView (というか SurfaceHolder?) の幅も高さも 0 になってて SurfaceHolder.Callback#surfaceCreated が呼び出されない、という不具合発現。</p>
-
-<p>適当な値を SurfaceHolder#setFixedSize で設定したら呼び出されるようになったのですが、この方法が妥当なのかどうかさえ謎。こうなってくるときちんとソース読まなきゃ駄目だなぁ。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/24/behavior-of-surfaceview-when-adding-viewgroup/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -631,6 +640,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/08/24/asciidoc/">asciidoc</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/08/23/memo/">今日のもくもく控え</a>
             </li>
           
@@ -664,10 +677,6 @@
           
             <li class="post">
               <a href="/blog/2018/08/12/memo/">備忘</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/08/11/we-do-not-allow-the-sand-into-Henoko/">土砂投入を許さない！ジュゴン・サンゴを守り、辺野古新基地建設断念を求める８・１１県民大会</a>
             </li>
           
         </ul>
