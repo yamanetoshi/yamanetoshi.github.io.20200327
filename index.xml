@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 27 Aug 2018 20:56:02 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 29 Aug 2018 21:13:09 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to use Amazon API Gateway {proxy&#43;}</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/08/29/how-to-use-amazon-api-gateway-proxy/</link>
+      <pubDate>Wed, 29 Aug 2018 21:13:09 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/08/29/how-to-use-amazon-api-gateway-proxy/</guid>
+      <description>&lt;p&gt;以下なドキュメントを機械翻訳したので以下に控えを。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.1strategy.com/blog/2017/06/06/how-to-use-amazon-api-gateway-proxy/&#34;&gt;How to use Amazon API Gateway {proxy+}&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>S 式のパースについて</title>

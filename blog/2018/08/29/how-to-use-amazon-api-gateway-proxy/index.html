@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>How to use Amazon API Gateway {proxy&#43;}</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Aug 29, 2018
+         - 5 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/08/29/how-to-use-amazon-api-gateway-proxy/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/devops/">devops </a>
+        
+    </p>
+    <h1 class="entry-title">
+         How to use Amazon API Gateway {proxy&#43;} 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメントを機械翻訳したので以下に控えを。</p>
+
+<ul>
+<li><a href="http://www.1strategy.com/blog/2017/06/06/how-to-use-amazon-api-gateway-proxy/">How to use Amazon API Gateway {proxy+}</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="background">Background</h2>
+
+<p>AWSで私が気に入っているツールの1つがAPI Gatewayです。 私はそれを使用して、いくつかの内部ツールとトレーニング用のラボを構築しました。 API Gatewayを使用していない場合は、<a href="https://us-west-2.console.aws.amazon.com/apigateway/home?region=us-west-2#/welcome">こちら</a> から始めてください。</p>
+
+<p>AmazonのAPI Gatewayは、HTTPエンドポイントをリソース（AWSとオン・プレミアム）の前に置く比較的簡単な方法を提供します。 API Gatewayでは、APIのHTTPリソースのさまざまな部分を定義して処理するいくつかの異なる方法が提供されます。</p>
+
+<ul>
+<li><p>静的リソース。可能なすべてのリソースとメソッドを個別に定義する必要があります。例：</p>
+
+<ul>
+<li><a href="http://example.com/bikes/fuffy">http://example.com/bikes/fuffy</a></li>
+<li><a href="http://example.com/bikes/cannondale">http://example.com/bikes/cannondale</a></li>
+<li><a href="http://example.com/wagons/radioflyer">http://example.com/wagons/radioflyer</a></li>
+</ul></li>
+
+<li><p>変数はバックエンドに変数として渡されるが、依然としてサブリソースは個別に定義する必要がある、パス変数としてのリソース。例：</p>
+
+<ul>
+<li><a href="http://example.com/{category}/fuffy">http://example.com/{category}/fuffy</a></li>
+<li><a href="http://example.com/{category}/cannondale">http://example.com/{category}/cannondale</a></li>
+<li><a href="http://example.com/{category}/radioflyer">http://example.com/{category}/radioflyer</a></li>
+</ul></li>
+
+<li><p>すべてをパス変数として設定し、リソースをプロキシリソースとして設定するか、{proxy +}はサブリソースチェーン全体がパス変数としてバックエンドに渡される貪欲なパスです。（<a href="http://example.com/{proxy+）は、これらのすべてのサブリソースをパス変数として取得します）例：">http://example.com/{proxy+）は、これらのすべてのサブリソースをパス変数として取得します）例：</a></p>
+
+<ul>
+<li><a href="http://example.com/bikes/huffy/super-fast">http://example.com/bikes/huffy/super-fast</a></li>
+<li><a href="http://example.com/bikes/cannondale/racing/street/cool-bike">http://example.com/bikes/cannondale/racing/street/cool-bike</a></li>
+<li><a href="http://example.com/wagon/radioflyer">http://example.com/wagon/radioflyer</a></li>
+</ul></li>
+
+<li><p>リソースが定義されたら、HTTPメソッドを作成する必要があります。 あなたが標準のHTTPメソッド/動詞に精通していないなら、ここに行ってください。</p></li>
+</ul>
+
+<p>もう1つのクールなAPIゲートウェイ機能は、すべてのHTTPメソッドを処理できる単一のメソッド定義を可能にするANYメソッドです。 例えば。 GET、POST、PUT、DELETEなどはすべて同じバックエンドリソースに送信されます。</p>
+
+<p>{proxy +}とANYメソッドの間で、すべてのAPIリクエストを処理できる単一のリソースを定義できます。 これは、バックエンドリソースがすべての意思決定を処理したいが、API Gatewayの機能（スケーリング、スロットル、許可、要求の検証、https）を利用したい場合に非常に便利です。</p>
+
+<p>greedy {proxy +}パスを使用するには：</p>
+
+<ul>
+<li><p>Navigate to your API <a href="https://us-west-2.console.aws.amazon.com/apigateway/home?region=us-west-2#/apis">HERE</a>.</p>
+
+<ul>
+<li>Press <strong>Actions</strong></li>
+<li>Press <strong>Create Resource</strong></li>
+<li>Select <strong>Configure as proxy resource</strong>
+<img src="http://www.1strategy.com/wp-content/uploads/2017/06/Screen-Shot-2017-06-05-at-10.03.45-PM.png" alt="" /></li>
+</ul></li>
+
+<li><p>Then create the appropriate <strong>ANY</strong> method:</p>
+
+<ul>
+<li>Press <strong>Actions</strong></li>
+<li>Press <strong>Create Method</strong></li>
+<li>Select <strong>Use Lambda Proxy integration</strong></li>
+<li>Select <strong>Region</strong></li>
+<li>Select <strong>Lambda Function</strong></li>
+<li>Press <strong>Save</strong>
+<img src="http://www.1strategy.com/wp-content/uploads/2017/06/Screen-Shot-2017-06-05-at-10.07.47-PM.png" alt="" /></li>
+</ul></li>
+</ul>
+
+<p>プロキシリソースと他の2つのリソースタイプを使用する主な違いは、統合応答全体（適切なヘッダー/ステータスコード/本文）に対する応答です。 そのため、バックエンドリソースは、HTTP要求に対する適切な形式の応答を返す必要があります（下記のAPIゲートウェイのセクションを参照）。</p>
+
+<p>{proxy +}リソースの使い方を説明するために、私は楽しい例を考え出しました。 また、カスタムトークンを作成して、長いS3 URLやその他のランダムなドメインを難読化できるようにしたいと思っていました。 サーバーレスのbit.lyクローンを考えてください（たとえば、トークンをURLのbit.ly/neatにリダイレクトするなど）</p>
+
+<p>サーバーレスURLリダイレクトツールは、以下のサービスで構成されています。</p>
+
+<p><img src="http://www.1strategy.com/wp-content/uploads/2017/06/diagram-3JI.png" alt="" /></p>
+
+<h2 id="api-gateway">API Gateway</h2>
+
+<ul>
+<li>API Gatewayは、プロキシパス/ {proxy +}経由でWebサイトを提供します。</li>
+<li>プロキシ+を使用すると、リソースパス全体（example.com/resource/subresource/subsubresource/）、クエリ文字列パラメータ、ヘッダーなどを含むJSONドキュメントとしてバックエンドリソース（この場合はLambda関数）にすべてが渡されます。
+{
+    &ldquo;body&rdquo;: &ldquo;{\&ldquo;test\&rdquo;:\&ldquo;body\&ldquo;}&rdquo;,
+    &ldquo;resource&rdquo;: &ldquo;/{proxy+}&rdquo;,
+    &ldquo;requestContext&rdquo;: {
+      &hellip;
+      &ldquo;identity&rdquo;: {
+        &hellip;
+      },
+      &ldquo;stage&rdquo;: &ldquo;prod&rdquo;
+    },
+    &ldquo;queryStringParameters&rdquo;: {
+      &ldquo;foo&rdquo;: &ldquo;bar&rdquo;
+    },
+    &ldquo;headers&rdquo;: {
+      &hellip;
+    },
+    &ldquo;pathParameters&rdquo;: {
+      &ldquo;proxy&rdquo;: &ldquo;path/to/resource&rdquo;
+    },
+    &ldquo;httpMethod&rdquo;: &ldquo;POST&rdquo;,
+    &ldquo;path&rdquo;: &ldquo;/path/to/resource&rdquo;
+}</li>
+</ul>
+
+<p>{proxy +}リソースを使用する場合、APIゲートウェイは特定のリターンペイロード（下記参照）を要求します。 それ以外のものが返された場合、API Gatewayは500エラーを返し、不正な形式のラムダ応答をログに表示します。 あなたのコードは、あなたが達成しようとしているものに基づいて適切なステータスとヘッダーを策定する必要があります。 この場合、この関数は、与えられたトークンが存在するかどうかに応じて、statusCodeを200または301に戻します。</p>
+
+<pre><code>{
+        &quot;statusCode&quot;: 200 |301|4XX|5XX,
+        &quot;headers&quot;:{
+          &quot;Content-Type&quot;: &quot;text/html&quot;,
+          ...
+        },
+        &quot;body&quot;: &quot;...&quot;
+    }
+</code></pre>
+
+<h2 id="lambda">Lambda</h2>
+
+<p>この例の使用例では、私はLambdaを使用して、リダイレクトマイクロサービスのフロントエンドとバックエンドの両方として機能しました。 GETメソッドは、HTMLとJSのフロントエンドを処理します。 POSTは、destination_urlの検証と新しいエントリDynamoDBの作成を処理します。</p>
+
+<p><a href="https://github.com/1Strategy/redirect/blob/master/redirect.py">ここ</a> でコードを見ることができます。</p>
+
+<p>注：単純なユースケースですが、私が書いたのは、実際にはモノリシックなアプリケーションや関数のほうが多くあります。 これにより、APIを破壊してテストするのが非常に簡単になります。 アーキテクチャの観点からは、通常、それぞれのhttpメソッドごとに異なる機能サービスを持つ方が理にかなっています。</p>
+
+<h2 id="dynamodb">DynamoDB</h2>
+
+<p>For this example, I use a simple DynamoDB table with two fields:
+•<code>id</code> is a quasi-unique 6 digit token, which is used as part of the shortened URL https://…/redirect/ABC123.
+•<code>destination_url</code> contains the redirect URL.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p><em>API Gateway</em> {proxy+} is a powerful tool to that can greatly simplify your front end API. Use it!</p>
+
+<p><strong>Deploy it for your own use</strong>
+<a href="https://github.com/1Strategy/redirect/blob/master/redirect.yaml">Cloudformation Template</a></p>
+
+<p><strong>SAM Template</strong>
+There is currently a bug with SAM for proxy resources where it doesn’t properly provision <em>API Gateway</em> permissions to your Lambda function. To fix this, follow the steps below:</p>
+
+<ul>
+<li><p>Press on the pencil icon next to the Lambda function:
+<img src="http://www.1strategy.com/wp-content/uploads/2017/06/diagram-4JI.png" alt="" /></p></li>
+
+<li><p>Press the checkbox to the right of the Lambda function
+<img src="http://www.1strategy.com/wp-content/uploads/2017/06/diagram-5JI.png" alt="" /></p></li>
+
+<li><p>A pop-up will prompt you to give <em>API Gateway</em> invocation permissions on your Lambda function. Press OK.
+<img src="http://www.1strategy.com/wp-content/uploads/2017/06/Screen-Shot-2017-06-06-at-2.41.01-PM.png" alt="" /></p></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Aug 29, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/08/27/about-parse-s-expression/" title="S 式のパースについて">S 式のパースについて</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/08/29/how-to-use-amazon-api-gateway-proxy/">How to use Amazon API Gateway {proxy&#43;}</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/27/about-parse-s-expression/">S 式のパースについて</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/24/asciidoc/">asciidoc</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/23/memo/">今日のもくもく控え</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/22/gremlin-exporter/">Gremlin Exporter</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/21/gremlin-sessions/">Gremlin Sessions</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/20/recursive-descent-syntax-analyzer/">再帰下降構文解析器 (2)</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/19/implementation-of-scheme-by-go/">scheme 実装</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/15/recursive-descent-syntax-analyzer/">再帰下降構文解析器</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/14/dlv/">Dlv</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
