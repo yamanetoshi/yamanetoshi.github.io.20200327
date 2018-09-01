@@ -109,6 +109,45 @@
         
 
 <header>
+    <p class="meta">Oct 2, 2014
+         - 3 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/02/bcm2708-gpio-probe/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/02/bcm2708-gpio-probe/">bcm2708_gpio_probe 手続き (3)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>drivers/base/init.c から再度掘削着手。driver_init という手続きから platform_bus_init に向かって、というカンジです。</p>
+
+<p>{% gist f10cad6ad9ed45e9f169 %}</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/02/bcm2708-gpio-probe/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Oct 1, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/01/change-package-name-in-android-studio/#disqus_thread">Comments</a>
@@ -498,56 +537,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Sep 25, 2014
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/25/drill-down-from-do-fork/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/kernel/">kernel </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/25/drill-down-from-do-fork/">kernel/fork.c の do_fork 始点で掘削してみる</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>と、言いつつ kernel/fork.c で定義されている手続きを確認したい欲もあり。とりあえず  <a href="https://github.com/torvalds/linux.git">https://github.com/torvalds/linux.git</a> から取得した repository の master branch 見てます。先頭 branch は f3670394c29f みたいです。</p>
-
-<h2 id="とりあえず">とりあえず</h2>
-
-<p>system call な i/f からのソレは kernel/fork.c で定義されているのかどうか。入口としては</p>
-
-<ul>
-<li>kernel_thread 手続き</li>
-<li>fork な system call</li>
-<li>vfork な system call</li>
-<li>clone な system call</li>
-</ul>
-
-<p>なのかどうか。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/25/drill-down-from-do-fork/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -643,6 +632,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/09/01/connecting-to-aws-neptune-from-local-environment/">Connecting to Aws Neptune From Local Environment</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/08/29/how-to-use-amazon-api-gateway-proxy/">How to use Amazon API Gateway {proxy&#43;}</a>
             </li>
           
@@ -676,10 +669,6 @@
           
             <li class="post">
               <a href="/blog/2018/08/15/recursive-descent-syntax-analyzer/">再帰下降構文解析器</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/08/14/dlv/">Dlv</a>
             </li>
           
         </ul>
