@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Make on /var/log/messages</title>
+    <link>https://weblog.metacircular-evaluator.org/categories/make/</link>
+    <description>Recent content in Make on /var/log/messages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sun, 02 Sep 2018 16:59:40 +0900</lastBuildDate>
+    
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/make/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>真空管アンプの制作</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/09/02/production-of-tube-amp/</link>
+      <pubDate>Sun, 02 Sep 2018 16:59:40 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/09/02/production-of-tube-amp/</guid>
+      <description>&lt;p&gt;昨日より始まった琉大の公開講座に出席。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://ercll.u-ryukyu.narayun.jp/seminar/detail.php?id=494&#34;&gt;【H30 公開講座No12】真空管アンプの製作&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一回目は基礎、原理編ということで座学でした。以下にメモを羅列してみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

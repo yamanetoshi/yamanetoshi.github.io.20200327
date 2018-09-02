@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>真空管アンプの制作</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Sep 2, 2018
+         - 4 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/09/02/production-of-tube-amp/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/make/">make </a>
+        
+    </p>
+    <h1 class="entry-title">
+         真空管アンプの制作 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>昨日より始まった琉大の公開講座に出席。</p>
+
+<ul>
+<li><a href="http://ercll.u-ryukyu.narayun.jp/seminar/detail.php?id=494">【H30 公開講座No12】真空管アンプの製作</a></li>
+</ul>
+
+<p>一回目は基礎、原理編ということで座学でした。以下にメモを羅列してみます。</p>
+
+<p></p>
+
+<h2 id="基礎-原理編">基礎・原理編</h2>
+
+<ul>
+<li>金属の原子のすきまを電子が自由に動く</li>
+<li>動きを妨げるものを抵抗と呼ぶ</li>
+</ul>
+
+<h3 id="電子のとびだし">電子のとびだし</h3>
+
+<ul>
+<li>熱電子? 自由電子</li>
+<li>熱 (あるいは衝撃など) を加えるとぐるぐる回ってる電子が飛び出すらしい</li>
+<li>自由電子</li>
+</ul>
+
+<h3 id="自由電子の集まり">自由電子の集まり?</h3>
+
+<ul>
+<li>プラスな方向にひっぱられる</li>
+<li>電子はマイナス</li>
+
+<li><p>たくさんの電子が川のように流れているものが電流</p></li>
+
+<li><p>マイナスの自由電子が流れている、というイメージ</p></li>
+</ul>
+
+<h3 id="電気とは何か">電気とは何か</h3>
+
+<ul>
+<li>電圧と電流</li>
+<li>車の速さ、車の量</li>
+<li>抵抗を水路の太さに例えている</li>
+</ul>
+
+<h3 id="電気の種類">電気の種類</h3>
+
+<ul>
+<li>AC/DC</li>
+<li>DC は一方通行</li>
+<li>AC は一方通行を交代で使うイメージ</li>
+</ul>
+
+<h3 id="電線">電線</h3>
+
+<ul>
+<li>二本でセット (プラス、マイナス)</li>
+<li>三本の例</li>
+<li>鉄塔の例 (三本?)</li>
+<li>行き、があれば戻りがある</li>
+</ul>
+
+<h3 id="直流">直流</h3>
+
+<ul>
+<li>電流は電子流の逆方向の流れ</li>
+<li>自由電子はマイナスの電荷</li>
+
+<li><p>電子流は電子の流れてプラス極へ引かれて移動</p></li>
+
+<li><p>雷も逆なの?</p></li>
+
+<li><p>GND はマイナス電荷</p></li>
+</ul>
+
+<h3 id="交流">交流</h3>
+
+<ul>
+<li>実際は、ある電圧がでるようになっている?</li>
+<li>実効値 (RMS) 、が 100V とか 200V とかって書いてあるアレ</li>
+<li>平均値、はゼロじゃないあたりがアレ</li>
+</ul>
+
+<h3 id="抵抗">抵抗</h3>
+
+<ul>
+<li><p>オームの法則 (E = R * I)</p></li>
+
+<li><p>直列、並列の場合の計算</p></li>
+
+<li><p>並列の場合、電流がそれぞれ、になるらしい</p></li>
+
+<li><p>直列の場合、電流は同値 (電圧が抵抗によって異なる)</p></li>
+
+<li><p>てことは並列回路の場合は抵抗値によって電流の値が決まるのか</p></li>
+</ul>
+
+<h3 id="電力">電力</h3>
+
+<ul>
+<li>W = V * A</li>
+<li>W = V * V / R</li>
+<li>どれだけエネルギーを使ったか、という尺が電力</li>
+</ul>
+
+<h3 id="コンデンサ">コンデンサ</h3>
+
+<ul>
+<li>電気を蓄える</li>
+<li>交流は通すが直流は通さない</li>
+
+<li><p>周波数に関係</p></li>
+
+<li><p>電解コンデンサ、って聞いたことあるな</p></li>
+
+<li><p>F (ファラッド) という単位</p></li>
+
+<li><p>小数点な単位</p></li>
+</ul>
+
+<h3 id="通す-通さない">通す、通さない</h3>
+
+<ul>
+<li>直流の場合、充電が終わると電流は流れなくなる</li>
+<li>交流は通すが、90 度の位相のずれが発声</li>
+</ul>
+
+<h3 id="周波数">周波数?</h3>
+
+<ul>
+<li>リアクタンス (単位はオーム</li>
+<li>電流を妨げる? (抵抗と同じ働きをする?</li>
+
+<li><p>リアクタンスは交流電圧の周波数の値で抵抗値が左右される</p></li>
+
+<li><p>音の周波数、でも変化する?</p></li>
+</ul>
+
+<h3 id="合成">合成</h3>
+
+<ul>
+<li>抵抗の場合とは逆な考えかたになる</li>
+<li>耐圧?</li>
+<li>耐えられる電圧</li>
+<li>直列な接続だと耐圧は加算値</li>
+</ul>
+
+<h3 id="コイル">コイル</h3>
+
+<ul>
+<li>直流は通すが交流は通しにくい (抵抗としての働き)</li>
+<li>周波数に関係</li>
+
+<li><p>電流の位相? (電圧より 90 度遅れる</p></li>
+
+<li><p>トランス</p></li>
+
+<li><p>コイルには交流電圧を加えると交流電圧の変化とは逆の電圧が発生する (逆起電力)</p></li>
+
+<li><p>ので交流は通しにくい、のかどうか</p></li>
+
+<li><p>直流だと瞬間</p></li>
+
+<li><p>これはコンデンサと同様</p></li>
+
+<li><p>誘導性リアクタンス (計算式に周波数の値が</p></li>
+
+<li><p>いきなりインダクタンスとかってナニがアレ</p></li>
+</ul>
+
+<h3 id="変圧器">変圧器</h3>
+
+<ul>
+<li>磁石と誘導電流</li>
+<li>なんとなく理屈はわかるけど忘れそう</li>
+</ul>
+
+<h3 id="ダイオード">ダイオード</h3>
+
+<ul>
+<li>整流器</li>
+</ul>
+
+<h3 id="真空管">真空管</h3>
+
+<ul>
+<li>カソード、プレート、グリッド</li>
+
+<li><p>G は 3 まであるらしい</p></li>
+
+<li><p>熱を加えて電子を動かす</p></li>
+
+<li><p>プレートにプラス電荷をアレすると電流が流れる</p></li>
+
+<li><p>ただそれだけなんですよ、真空管て</p></li>
+
+<li><p>途中に grid を入れて制御</p></li>
+
+<li><p>たくさんあればそれで微調整</p></li>
+
+<li><p>グリッドから音が入ってプレートから出てくカンジ (増幅</p></li>
+
+<li><p>バイアス、は別途</p></li>
+</ul>
+
+<h3 id="電源トランス">電源トランス</h3>
+
+<ul>
+<li>変圧<br /></li>
+</ul>
+
+<h3 id="真空管用電源">真空管用電源</h3>
+
+<ul>
+<li>ダイオード整流</li>
+</ul>
+
+<h3 id="平準回路">平準回路</h3>
+
+<ul>
+<li>コンデンサを使ってなだらかにする</li>
+</ul>
+
+<h2 id="真空管について">真空管について</h2>
+
+<ul>
+<li>電子は動いてはじめて磁界の影響を受ける</li>
+
+<li><p>止まってたら動かない、と</p></li>
+
+<li><p>フレミングさんが真空管発明な人だったんか</p></li>
+
+<li><p>整流で復調</p></li>
+
+<li><p>プレートが陽極</p></li>
+</ul>
+
+<h3 id="動作原理">動作原理</h3>
+
+<ul>
+<li>C の電圧で G を通過する電子の量の制御ができる</li>
+</ul>
+
+<h3 id="増幅作用">増幅作用</h3>
+
+<ul>
+<li>Ep-Ip 特性</li>
+<li>ロードラインの話 (次回、線引く練習をする模様)</li>
+<li>グリッドにかける電圧をバイアスというのか</li>
+</ul>
+
+<h3 id="自己バイアス">自己バイアス</h3>
+
+<ul>
+<li>Ek を一定にするためにコンデンサを</li>
+<li>負荷線は RL な抵抗が接続されている回線</li>
+
+<li><p>負荷線と動作点な図で設計をする</p></li>
+
+<li><p>資料確認しつつググる必要あり</p></li>
+
+<li><p>Vpp は上と下のふり幅 (交流)</p></li>
+
+<li><p>実効値</p></li>
+
+<li><p>P = Ve * Ie</p></li>
+
+<li><p>8 で割るのはなんでか、というはなし</p></li>
+
+<li><p>どうも回路を直流と交流が一緒に流れてて、なナニがちゃんとイメージできなくてアレです</p></li>
+
+<li><p>次回は測定とかするみたいなので色々楽しみ</p></li>
+</ul>
+
+<h2 id="テキスト購入して">テキスト購入して</h2>
+
+<p>復習しています。</p>
+
+<ul>
+<li><a href="https://www.amazon.co.jp/dp/B00BQ90J00/">真空管ギターアンプの工作・原理・設計</a>
+<!--more--></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Sep 2, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/09/01/connecting-to-aws-neptune-from-local-environment/" title="Connecting to Aws Neptune From Local Environment">Connecting to Aws Neptune From Local Environment</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/09/02/production-of-tube-amp/">真空管アンプの制作</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/09/01/connecting-to-aws-neptune-from-local-environment/">Connecting to Aws Neptune From Local Environment</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/29/how-to-use-amazon-api-gateway-proxy/">How to use Amazon API Gateway {proxy&#43;}</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/27/about-parse-s-expression/">S 式のパースについて</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/24/asciidoc/">asciidoc</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/23/memo/">今日のもくもく控え</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/22/gremlin-exporter/">Gremlin Exporter</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/21/gremlin-sessions/">Gremlin Sessions</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/20/recursive-descent-syntax-analyzer/">再帰下降構文解析器 (2)</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/19/implementation-of-scheme-by-go/">scheme 実装</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

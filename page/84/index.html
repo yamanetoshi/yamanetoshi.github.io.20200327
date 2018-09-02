@@ -109,6 +109,55 @@
         
 
 <header>
+    <p class="meta">Apr 2, 2015
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/02/nand2tetris3/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/02/nand2tetris3/">マルチプレクサ (nand to tetris(3))</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>マルチプレクサは</p>
+
+<pre><code>Y = ( A \cdot S) + (B \cdot \bar{S})
+</code></pre>
+
+<p>で表現されるとのこと。むむむ。</p>
+
+<p>hdl てきにはこうなるのかな。</p>
+
+<pre><code>(a And sel) Or (b And (Not sel))
+</code></pre>
+
+<p>こりゃ凄い。この答えを考えて出す、のが訓練なのか。つうかよく考えれば Or 使えば条件分岐を実装できるんですね。むむむ、修行が足りぬ。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/02/nand2tetris3/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Apr 1, 2015
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/01/nand2tetris/#disqus_thread">Comments</a>
@@ -482,57 +531,6 @@ array([-0.83486486,  0.85220863, -0.96179815,  1.25632517, -2.10143098,
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Mar 25, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/03/25/bluetooth-tethering-between-mba-and-n5/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/03/25/bluetooth-tethering-between-mba-and-n5/">MBA と N5 で BT テザリング</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>これ、以前 TP から云々してた時にご機嫌が微妙だと接続できないことがあったりしてたのですが、MBA からだと良さげなカンジなのかどうか。</p>
-
-<p>方法としては非常に簡単で</p>
-
-<ul>
-<li>ペアリングする</li>
-<li>N5 側で tethering を有効に</li>
-<li>MBA から connect する</li>
-</ul>
-
-<p>で良い模様。</p>
-
-<p>接続して intel map 出してみましたがそれなりの速度で、なのかどうか。でも Android は自宅無線 AP に接続してますねorz</p>
-
-<p>ともあれ、MBA 軽くてちっさいので、暑くなるこれからはこちらを持ち歩きになるのかどうか。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/03/25/bluetooth-tethering-between-mba-and-n5/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -628,6 +626,10 @@ array([-0.83486486,  0.85220863, -0.96179815,  1.25632517, -2.10143098,
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/09/02/production-of-tube-amp/">真空管アンプの制作</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/09/01/connecting-to-aws-neptune-from-local-environment/">Connecting to Aws Neptune From Local Environment</a>
             </li>
           
@@ -661,10 +663,6 @@ array([-0.83486486,  0.85220863, -0.96179815,  1.25632517, -2.10143098,
           
             <li class="post">
               <a href="/blog/2018/08/19/implementation-of-scheme-by-go/">scheme 実装</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/08/15/recursive-descent-syntax-analyzer/">再帰下降構文解析器</a>
             </li>
           
         </ul>
