@@ -6,10 +6,25 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 02 Sep 2018 16:59:40 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 07 Sep 2018 16:33:52 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Git-Handson の asciidoc 化の件</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/09/07/git-handson-to-asciidoc/</link>
+      <pubDate>Fri, 07 Sep 2018 16:33:52 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/09/07/git-handson-to-asciidoc/</guid>
+      <description>&lt;p&gt;asciidoc 面白そうなので書き換え、にチャレンジしてみました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/yamanetoshi/Git-Handson-Asciidoc&#34;&gt;https://github.com/yamanetoshi/Git-Handson-Asciidoc&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>真空管アンプの制作</title>
