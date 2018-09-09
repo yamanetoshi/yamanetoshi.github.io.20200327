@@ -6,10 +6,21 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 08 Sep 2018 09:11:37 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 09 Sep 2018 13:21:38 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>9 路の囲碁</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/09/09/9-ro-igo/</link>
+      <pubDate>Sun, 09 Sep 2018 13:21:38 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/09/09/9-ro-igo/</guid>
+      <description>&lt;p&gt;面白い。というか勉強になるので最近はこちら方面ばっかりな取り組みになっています。よく使ってるポインタを以下にいくつか控えておきます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Mouse Dictionary</title>
