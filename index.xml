@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 09 Sep 2018 13:21:38 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 12 Sep 2018 20:29:47 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Bash Self Study Text の Asciidoc 化</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/09/12/bash-self-study-text-to-asciidoc/</link>
+      <pubDate>Wed, 12 Sep 2018 20:29:47 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/09/12/bash-self-study-text-to-asciidoc/</guid>
+      <description>&lt;p&gt;以下なナニについても書き換えてみました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/yamanetoshi/BashSelfStudyText&#34;&gt;Bash Self Study Text&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>9 路の囲碁</title>
