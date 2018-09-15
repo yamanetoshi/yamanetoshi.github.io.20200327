@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>2018 09 15 Query Recommendation Based on Query Relevance Graph</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Sep 15, 2018
+         - 9 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/09/15/query-recommendation-based-on-query-relevance-graph/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/recommend/">recommend </a>
+        
+    </p>
+    <h1 class="entry-title">
+         2018 09 15 Query Recommendation Based on Query Relevance Graph 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメントを機械翻訳したので (一部のみ) 控えを。</p>
+
+<ul>
+<li><a href="http://www.ibai-publishing.org/journal/issue_mldm/2016_july/9_1_3_26_mldm.pdf">Query Recommendation based on Query Relevance Graph</a></li>
+</ul>
+
+<p></p>
+
+<h3 id="2-3-graph-based-query-recommendation">2.3 Graph based Query Recommendation</h3>
+
+<p>グラフベースの照会推奨事項では、照会URLクリックされた情報を使用して照会推奨の照会URL二部グラフが構築されます。
+Kruschwitzら[20]は、検索ログと非ログメソッドに基づいたさまざまなクエリ変更メソッド分析を提示した。
+ログベースアプローチは、非ログベースアプローチよりも著しく優れています。
+クエリフローグラフでは、頻度の低いクエリに対して、より多くの推奨事項が提供されます。
+マルコフランダムウォークモデル[21]は、2つのグラフに適用され、大きなクリックログから与えられたクエリに対して確率的な文書ランキングを達成する。
+また、照会を順位付けするために二部グラフ上の打撃時間を計算することにより、照会提案アルゴリズム[22]、[23]が提案されている。部分グラフ[22]は、Depth First Searchとランダムウォークを用いて与えられた入力問合せに対して構成され、結果としてヒッティング時間の計算が行われる。
+打撃時間の最も短い上位k個の照会が出力として表示されます。
+提案は、質問URL二者グラフ[23]上のマルコフランダムウォークによる打撃時間を計算することによって導出される。
+これらのアルゴリズムは、前方および後方ランダムモデルより優れている。
+これらのアルゴリズムの利点は、意味論的に関連性のあるクエリとログテールのクエリを入力クエリに推奨することです。
+しかし、推薦結果では、ログテールのクエリを最上位のクエリとして推奨することがあります。</p>
+
+<p>Anagnostopoulosら[24]は、クエリーフローグラフによるクエリー推薦のためにユーザのクエリー動作をモデル化するフレームワークを開発している。
+ユーザが提供する一連のクエリは、グラフのパスとして取得できます。 このグラフにマルコフ連鎖ランダムウォークが適用されます。
+ユーザーがクリックした情報がグラフを作成するとは考えられないため、このアプローチは精度を低下させます。
+クエリー提案方法[25]は、クエリーログ内の直前のクエリーをコンテキストとして考慮することによって提示される。
+Click through bipartite graphは、概念をクラスタ化してクエリをコンパイルするために使用されます。
+このアプローチは、2つのベースライン方法である隣接性およびNグラムを凌駕する。
+隣接法は、トレーニングセッションの頻度に基づいてクエリを整理し、トップクエリを提案として提供します。
+N-gram法は、与えられた一連の照会の直後の照会の頻度に基づいて照会を整理し、提案として最上位の照会を提供します。</p>
+
+<p>クエリーは、queryURLから取得したクエリーURLタグの三者グラフと、URL [26]からURLタグ二部グラフに基づいて提示されます。
+検索URLとURLタグで構成されたクエリーURLの2部グラフは、ソーシャルアノテーションデータから2部グラフが生成されます。
+推奨は、ランダムウォークをグラフに適用し、打撃時間を計算することによって生成されます。再スタートアルゴリズム[27]を用いたランダムウォークを適用して、クエリログ上でクエリ提案候補を生成する。
+示唆されたクエリは、多様化関数値に基づいて再ランク付けされる。
+この方法は、検索結果と提案クエリとの間の相違度を計算する。
+これにより、ランダムウォークモデルと比較してクエリ提案が大幅に改善されます。
+候補提案構造化表現は、共通のクリックと共通セッション[28]を使用して、関連するクエリから生成されます。
+提案の質は、セッションおよびクリックの数における提案用語の人気、提案トークンの長さおよび文字のような、提案された異なる照会に依存しない特徴によって識別される。
+Vahabiら[29]は、ユーザ入力クエリに共通項を持たない関連クエリを識別するクエリ提案アルゴリズムを提示している。
+この方法はトレーニングを必要とせず、計算効率が良く、あらゆる検索エンジンに効率的に対応できます。</p>
+
+<p>上記のクエリベース推薦アルゴリズム[20]〜[29]では、クエリURLのクリック情報を用いて様々な方法でクエリ推薦のクエリURL二部グラフを構築している。
+クエリURLベースのクエリ推奨には2つの大きな問題があります.1）ドキュメントに対する共通のクリックがさまざまなクエリに対して制限されています。
+2）2つのクエリは、URLの内容が完全に異なる可能性があるため、共通のURLを共有しますが、関連性がない可能性があります。
+これらのメソッドは、関連性の高い2つのクエリ間の豊富な情報を無視します。
+この作業における我々のアプローチは、2つのクエリ間の関連性情報を考慮してユーザの推奨を高めることである。</p>
+
+<h2 id="4-query-relevance-model-and-algorithm">4 QUERY RELEVANCE MODEL AND ALGORITHM</h2>
+
+<h3 id="4-1-problem-definition">4.1 Problem Definition</h3>
+
+<p>ユーザ入力クエリqと検索エンジンの検索ログが与えられると、検索ログをグラフに変換します。ここで、ノードはクエリを表し、エッジはクエリ間の関係を表します。
+目的は、元のユーザーのニーズを満たすために意味的に関連するクエリ推奨を提供することです。</p>
+
+<h3 id="4-2-assumptions">4.2 Assumptions</h3>
+
+<p>ユーザーはオンラインで、6語未満の入力クエリを入力すると仮定します。</p>
+
+<h3 id="4-3-query-relevance-model">4.3 Query Relevance Model</h3>
+
+<p>照会関連性モデルは、ユーザー検索ログから関連する照会をキャプチャーします。
+このモデルは、（i）共通URL上で頻繁にクリックされるクエリの知識を使用するクエリクリックグラフと、（ii）クエリ間のJaccard類似性を用いたクエリテキスト類似グラフとを組み合わせることによってクエリ関連性グラフを構築する。</p>
+
+<h3 id="query-click-graph">Query Click Graph</h3>
+
+<p>関連する照会は、検索ログ内のユーザーが同じ文書セットをクリックした照会を考慮して取得できます。
+たとえば、太陽系と惑星のクエリーは文字的には似ていませんが、関連性があります。
+この情報は、検索ログ内の照会で一般的にクリックされたURLを分析することで実現できます。</p>
+
+<p>ここで、Vqu =Q∪U、Q = {q1、q2、&hellip; qm}、U = {u1、u2、&hellip; un}のURL-クエリ無向2部グラフBGqu =（Vqu、Equ）を考える。
+Equはすべての辺の集合です。 エッジqi、ujは、ユーザがクエリqiを発行した後にURL ujをクリックした場合にのみ存在する。
+しばしば、ユーザはクエリを発行し、誤って何の関係も持たないURLをクリックする。
+ノイズと外れ値を減らすために、クエリとURLの間に1回のクリックしかないエッジが削除されます。
+図2は、URL-Query二者グラフの例を示す。</p>
+
+<p>からBGquクエリをクリックします。有向グラフQC =（Vq、E）を構築します。ここで、Vqはクエリであり、Eはqiからqjへの有向枝であり、少なくとも1つの共通URL ukが存在する場合にのみ存在し、 BGquのqjリンク。</p>
+
+<p>QC、wc（qi、qj）におけるエッジ（qi、qj）の重みは、共通URLの数を数えることによって計算される。
+図3は、図2から生成されたクエリクリックグラフを示す。ここで、q1およびq2は、2つの共通のURL u1およびu4を有する。 したがって、（q1、q2）の重みは2であり、その逆もあります。</p>
+
+<h3 id="query-text-similarity-graph">Query Text Similarity Graph</h3>
+
+<p>ユーザが異なるクエリに対して常に同じURLをクリックする必要はありません。
+このような場合、共通のURLを持つ2つ以上のクエリを取得することはできませんが、クエリは共通の単語を共有するため関連性があります。
+たとえば、クエリクラウドコンピューティングとクラウドコンピューティングブックは共通の単語を共有します。
+これらの関連クエリーを得るために、クエリーテキスト類似性グラフが構築される。</p>
+
+<p>このグラフでは、Jaccard係数Jcによるクエリテキスト類似度が計算されます。
+Jaccard係数は、式1で与えられる2つのクエリ間の共通語の割合として定義されます。</p>
+
+<p>クエリーテキスト類似性有向グラフは、Qgts =（Vq、E）として定義され、ここで、Vqは探索ログ内の別個のクエリーであり、Eはqiとqjとの間のエッジであり、Jc（qi、qj）&gt; 0.6である。
+QGts、wts（qi、qj）内のエッジ（qi、qj）の重みは、検索ログ内のqjの出現を計数してqiを計算することによって計算される。
+図4にクエリテキスト類似度グラフの例を示す。</p>
+
+<p>図4では、q1、q2、q5は検索ログ内の別のクエリです。
+q1とq2のJaccard値は0.6より大きいと仮定されているため、q1とq2はグラフのノードとして含まれます。
+q1〜q2の重みは、検索ログでq2の出現が3に続いてq1が続き、q2〜q1の重みが2であり、q1の出現が2であり、続いてq2が検索ログ内にあるためです。
+同様に、q2とq5のJaccard値は0.6より大きい。
+q2とq5との間の重みは、q1とq2と同じ手順を用いて計算される。</p>
+
+<h3 id="query-relevance-graph">Query Relevance Graph</h3>
+
+<p>クエリクリックグラフQCおよびクエリテキスト類似グラフQGtsは、関連クエリの2つの有用な特徴を捕捉する。
+両方の特性を利用するために、クエリクリックグラフとクエリテキスト類似度グラフを単一のグラフに結合して、クエリ関連性グラフQRG =（Vq、E）を生成する。ここで、VqはQCまたはQGtsからのクエリの集合であり、Eはqi 〜qjはQCまたはQGtsのいずれかから存在する。
+QRGにおけるエッジ（qi、qj）の重みは、wr（qi、qj）= wc（qi、qj）+ wts（qi、qj）として計算される。
+図5は、図3と図4の結合されたグラフからのクエリ関連性グラフを表す。
+クエリ妥当性グラフのエッジ（qi、qj）の重みは、式2によって正規化されます。
+正規化したグラフを図6に示す。</p>
+
+<h3 id="4-4-query-recommendation-algorithm">4.4 Query Recommendation Algorithm</h3>
+
+<p>クエリ推奨アルゴリズムのQRGQR-Query関連性グラフは、アルゴリズム1として示されている。
+検索エンジンの検索ログが与えられると、クエリ関連性グラフが構築される。
+次に、ユーザ入力クエリが与えられると、深さ優先アルゴリズムが、元のユーザのニーズを満たすためにクエリを推薦するために使用される。
+図6では、q1をユーザ入力クエリとし、深度優先探索を使用して、q1からの出て行くエッジが1つしかないので、次の訪問ノードはq2であるとする。
+q2からの次の訪問ノードは、最大確率を有するノードq1である。
+q1は既に訪問先ノードであるので、次のノードq5は最大確率とみなされる。
+同様に、すべての訪問先ノードが推奨事項のために取得されます。</p>
+
+<p>Algorithm 1: QRGQR : Query Relevance Graph for Query Recommendation
+  Input : Input query q
+  Output: Top-5 Recommended Queries
+begin
+セクションIV-Cに示す方法を用いてクエリ関連性グラフ G=(V, E) を構築する。 有向枝Eは、図6に示すように正規化によって重み付けされる。
+クエリーqが与えられた場合、クエリー関連性グラフのノードVに深さ優先探索法を適用する。
+最初の上位5つの結果が推奨クエリです。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Sep 15, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/09/14/pandas-and-csv/" title="Pandas and Csv">Pandas and Csv</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/09/15/query-recommendation-based-on-query-relevance-graph/">2018 09 15 Query Recommendation Based on Query Relevance Graph</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/09/14/pandas-and-csv/">Pandas and Csv</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/09/12/bash-self-study-text-to-asciidoc/">Bash Self Study Text の Asciidoc 化</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/09/09/9-ro-igo/">9 路の囲碁</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/09/08/mouse-dictionary/">Mouse Dictionary</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/09/07/git-handson-to-asciidoc/">Git-Handson の asciidoc 化の件</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/09/02/production-of-tube-amp/">真空管アンプの制作</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/09/01/connecting-to-aws-neptune-from-local-environment/">Connecting to Aws Neptune From Local Environment</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/29/how-to-use-amazon-api-gateway-proxy/">How to use Amazon API Gateway {proxy&#43;}</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/08/27/about-parse-s-expression/">S 式のパースについて</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

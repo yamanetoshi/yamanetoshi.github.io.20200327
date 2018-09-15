@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/09/15/query-recommendation-based-on-query-relevance-graph/</loc>
+    <lastmod>2018-09-15T18:52:32+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/09/14/pandas-and-csv/</loc>
     <lastmod>2018-09-14T19:59:16+09:00</lastmod>
   </url>
@@ -8114,7 +8119,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-09-14T19:59:16+09:00</lastmod>
+    <lastmod>2018-09-15T18:52:32+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8324,7 +8329,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-09-14T19:59:16+09:00</lastmod>
+    <lastmod>2018-09-15T18:52:32+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8348,7 +8353,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/recommend/</loc>
-    <lastmod>2018-09-01T11:40:30+09:00</lastmod>
+    <lastmod>2018-09-15T18:52:32+09:00</lastmod>
     <priority>0</priority>
   </url>
   

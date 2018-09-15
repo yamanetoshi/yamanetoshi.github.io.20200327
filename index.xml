@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 14 Sep 2018 19:59:16 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 15 Sep 2018 18:52:32 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2018 09 15 Query Recommendation Based on Query Relevance Graph</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/09/15/query-recommendation-based-on-query-relevance-graph/</link>
+      <pubDate>Sat, 15 Sep 2018 18:52:32 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/09/15/query-recommendation-based-on-query-relevance-graph/</guid>
+      <description>&lt;p&gt;以下なドキュメントを機械翻訳したので (一部のみ) 控えを。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.ibai-publishing.org/journal/issue_mldm/2016_july/9_1_3_26_mldm.pdf&#34;&gt;Query Recommendation based on Query Relevance Graph&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Pandas and Csv</title>
