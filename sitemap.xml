@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/09/16/ltspice/</loc>
+    <lastmod>2018-09-16T16:35:22+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/09/15/query-recommendation-based-on-query-relevance-graph/</loc>
     <lastmod>2018-09-15T18:52:32+09:00</lastmod>
   </url>
@@ -8119,7 +8124,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-09-15T18:52:32+09:00</lastmod>
+    <lastmod>2018-09-16T16:35:22+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8311,7 +8316,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/misc/</loc>
-    <lastmod>2018-09-12T20:29:47+09:00</lastmod>
+    <lastmod>2018-09-16T16:35:22+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8329,7 +8334,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-09-15T18:52:32+09:00</lastmod>
+    <lastmod>2018-09-16T16:35:22+09:00</lastmod>
     <priority>0</priority>
   </url>
   

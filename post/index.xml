@@ -6,10 +6,27 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 15 Sep 2018 18:52:32 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 16 Sep 2018 16:35:22 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ltspice</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/09/16/ltspice/</link>
+      <pubDate>Sun, 16 Sep 2018 16:35:22 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/09/16/ltspice/</guid>
+      <description>&lt;p&gt;先日のもくもくで使い方がわからなくて辛苦したのでメモを取りつつ以下のサイトに出てるサンプルを云々してみました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.geocities.jp/side2949be/tube.html&#34;&gt;LTspiceで真空管&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;控えを以下に列挙。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Query Recommendation Based on Query Relevance Graph</title>
