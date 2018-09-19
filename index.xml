@@ -6,10 +6,27 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 18 Sep 2018 22:46:12 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 19 Sep 2018 20:22:05 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>囲碁とはどういうゲームなのか</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/09/19/what-kind-of-game-is-go/</link>
+      <pubDate>Wed, 19 Sep 2018 20:22:05 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/09/19/what-kind-of-game-is-go/</guid>
+      <description>&lt;p&gt;囲碁棋士の大橋さんが以下なソレを配信、って報せを tweet にてキャッチ。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.froggy.money/12072/&#34;&gt;3 分でわかる囲碁入門&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;これは面白い。とりあえず 9 路盤で打てるのを目標に、とのこと。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Aws Sam Cli</title>
