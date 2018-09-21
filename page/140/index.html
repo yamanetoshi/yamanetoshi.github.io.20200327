@@ -109,6 +109,60 @@
         
 
 <header>
+    <p class="meta">Feb 6, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/06/application-of-color/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/06/application-of-color/">色の適用について</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>以下な指定をしてて disabled にして色が変わらない、と言ってたのですが</p>
+
+<pre><code>&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; &gt;
+    &lt;item android:state_pressed=&quot;true&quot;&gt;
+        &lt;color android:color=&quot;@color/hogekey_pressed&quot;&gt;&lt;/color&gt;
+    &lt;/item&gt;
+    &lt;item android:state_pressed=&quot;false&quot;&gt;
+        &lt;color android:color=&quot;@color/hogekey_normal&quot;&gt;&lt;/color&gt;
+    &lt;/item&gt;
+    &lt;item android:state_disabled=&quot;false&quot;&gt;
+        &lt;color android:color=&quot;@color/hogekey_disabled&quot;&gt;&lt;/color&gt;
+    &lt;/item&gt;
+&lt;/selector&gt;
+</code></pre>
+
+<p>上から順に評価されてて disabled な状態でも真ん中に合致しちゃって、というオチでした。</p>
+
+<p>後天性記憶不全なのかも最初から知らないのかも分からない始末orz</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/06/application-of-color/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Feb 5, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/05/memorandum/#disqus_thread">Comments</a>
@@ -468,41 +522,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 31, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/31/naha-wifi-ap/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/31/naha-wifi-ap/">NAHAPO</a>
-    </h1>
-</header>
-
-
-        
-          <p>今朝、出先の用事を済ませた後に空き時間ができたので NAHAPO というソレをパレットくもじのモスで時間ツブしながら使ってみました。 接続にメルアド登録と Google</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/31/naha-wifi-ap/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -598,6 +617,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/09/21/9-ro-ban/">9 路盤</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/09/19/what-kind-of-game-is-go/">囲碁とはどういうゲームなのか</a>
             </li>
           
@@ -631,10 +654,6 @@
           
             <li class="post">
               <a href="/blog/2018/09/07/git-handson-to-asciidoc/">Git-Handson の asciidoc 化の件</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/09/02/production-of-tube-amp/">真空管アンプの制作</a>
             </li>
           
         </ul>
