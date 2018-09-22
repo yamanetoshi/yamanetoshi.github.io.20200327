@@ -109,6 +109,48 @@
         
 
 <header>
+    <p class="meta">Oct 23, 2015
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/23/what-is-bluetoothdevice/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/23/what-is-bluetoothdevice/">BluetoothDevice て何</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>ええと、BroadcastIntent の action が BluetoothDevice.ACTION_FOUND な onReceive において</p>
+
+<pre><code>        BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+</code></pre>
+
+<p>という形で BluetoothDevice 型のオブジェクトが取得できる模様。このオブジェクトを使って MAC address 取得できるのですね。で、この情報をリモートに登録しておくことで、ペアリングを略した近接デバイスの発見ができるということなのか。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/23/what-is-bluetoothdevice/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Oct 22, 2015
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/22/basque-style-chicken-stew/#disqus_thread">Comments</a>
@@ -482,41 +524,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Oct 11, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/11/weekend-curry/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/11/weekend-curry/">週末カレー</a>
-    </h1>
-</header>
-
-
-        
-          <p>以下なレシピで製造してみた。 西腹理恵子のおかん飯 非常に楽。今回は でっかいアスパラ 3 本 玉ねぎちいさめの 2 個 人参ちいさめの 2 本 をジューサーにかけ</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/11/weekend-curry/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -612,6 +619,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/09/22/open-lecture/">真空管アンプの製作</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/09/21/9-ro-ban/">9 路盤</a>
             </li>
           
@@ -645,10 +656,6 @@
           
             <li class="post">
               <a href="/blog/2018/09/08/mouse-dictionary/">Mouse Dictionary</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/09/07/git-handson-to-asciidoc/">Git-Handson の asciidoc 化の件</a>
             </li>
           
         </ul>
