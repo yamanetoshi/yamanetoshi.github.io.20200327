@@ -110,6 +110,54 @@
 
 <header>
     <p class="meta">Nov 20, 2013
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/20/devopsokinawa-plan/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/20/devopsokinawa-plan/">勉強会当日の運用の作戦</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえずペアプロなセッションが三発。度毎にリセットしなければならないはず。スナップショットは取らない方向なので都度肝心なファイルは吸いあげて下さいね、誰となく。</p>
+
+<p># て案内しないとマズいですね</p>
+
+<p>とりあえずこちらマターの手順を検討しつつ上のような注意事項が事前発信できれば良いのかどうか。とりあえず事前準備としては以下か。</p>
+
+<ul>
+<li>GIP は手動で事前確保 (参加人数の <sup>1</sup>&frasl;<sub>2</sub> なのかどうか)</li>
+<li>確保したら ssh 接続用の public port を解放しておく (手動)</li>
+<li>必要数分仮想リソース確保して接続試験実施しておく</li>
+<li>メイルで鍵配布</li>
+</ul>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/20/devopsokinawa-plan/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 20, 2013
          - 3 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/20/preparation-of-conference/#disqus_thread">Comments</a>
 
@@ -465,57 +513,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 18, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/18/interesting-tools/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/18/interesting-tools/">sed とか ruby とか</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>とあるプログラムが出力した文字列を云々、なツールを云々。</p>
-
-<p>ある目印までを削除とか。</p>
-
-<pre><code>cat log.txt | sed -e  '1,/hogefuga/d'
-</code></pre>
-
-<p>標準入力から読み込んで複数区切文字で split な ruby とか。</p>
-
-<pre><code>while line = gets
-    array = line.split(/[: ]/)
-end
-</code></pre>
-
-<p>微妙なスクリプトしかでっち上げれなくてアレな今日この頃なのかどうかorz</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/18/interesting-tools/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -543,7 +540,7 @@ end
 
     
     
-        <a href="/page/163/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/164/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -611,6 +608,10 @@ end
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/09/26/discharge-of-capacitor/">コンデンサの放電</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/09/24/puchase-of-goods/">物品購入</a>
             </li>
           
@@ -644,10 +645,6 @@ end
           
             <li class="post">
               <a href="/blog/2018/09/14/pandas-and-csv/">Pandas and Csv</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/09/12/bash-self-study-text-to-asciidoc/">Bash Self Study Text の Asciidoc 化</a>
             </li>
           
         </ul>

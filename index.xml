@@ -6,10 +6,27 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 24 Sep 2018 09:12:22 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 26 Sep 2018 21:11:16 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>コンデンサの放電</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/09/26/discharge-of-capacitor/</link>
+      <pubDate>Wed, 26 Sep 2018 21:11:16 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/09/26/discharge-of-capacitor/</guid>
+      <description>&lt;p&gt;例えば以下なナニ、作っておきたいス。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.op316.com/tubes/toy-box/cshort.htm&#34;&gt;電源コンデンサ電荷放出抵抗&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;テスタは自分持ちのものがあるので色々測定してみたく。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>物品購入</title>
