@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 30 Sep 2018 16:51:14 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 01 Oct 2018 20:27:01 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>iTunes 動作微妙問題</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/01/what-to-do-if-iTunes-does-not-play-the-next-song-on-the-album/</link>
+      <pubDate>Mon, 01 Oct 2018 20:27:01 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/01/what-to-do-if-iTunes-does-not-play-the-next-song-on-the-album/</guid>
+      <description>&lt;p&gt;以下のエントリにて助かりました。感謝を込めて。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.jnito.com/entry/2013/10/13/194406&#34;&gt;iTunesでアルバムの次の曲が再生されない場合の対処法&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>真空管アンプの製作</title>
