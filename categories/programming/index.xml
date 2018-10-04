@@ -6,10 +6,33 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 02 Oct 2018 20:36:28 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 04 Oct 2018 19:49:07 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Phoenix Json Tutorial</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/04/phoenix-json-tutorial/</link>
+      <pubDate>Thu, 04 Oct 2018 19:49:07 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/04/phoenix-json-tutorial/</guid>
+      <description>&lt;p&gt;開発用の Docker なナニがあるってことでそれを利用する方向です。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://qiita.com/foxtrackjp/items/bc74f64eae3ce33c8125&#34;&gt;Docker で Phoenix Framework&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とりあえず、でびあん号で、って思ったら docker-compose が駄目らしい。最新のでびあん、ってバージョンどうなってるんだろう。手元のソレは&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cat debian_version
+9.3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;らしい。仕方ないので MBA で確認すすめます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>何と言えば良いのやら</title>
