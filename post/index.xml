@@ -6,10 +6,29 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 04 Oct 2018 19:49:07 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 05 Oct 2018 20:32:26 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>回線切り換え</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/05/line-switching/</link>
+      <pubDate>Fri, 05 Oct 2018 20:32:26 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/05/line-switching/</guid>
+      <description>&lt;p&gt;大変なのは分かっていたのですが&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;mnp な情報を元キャリアから取得&lt;/li&gt;
+&lt;li&gt;2, 3 日かかる&lt;/li&gt;
+&lt;li&gt;それを使って引越し先に申込&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;て、もうこれだけで面倒。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Phoenix Json Tutorial</title>
