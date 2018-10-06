@@ -6,10 +6,27 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 05 Oct 2018 20:32:26 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 06 Oct 2018 14:46:12 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ハードウェアハッカー</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/06/hardware-hacker/</link>
+      <pubDate>Sat, 06 Oct 2018 14:46:12 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/06/hardware-hacker/</guid>
+      <description>&lt;p&gt;以下、電子化の予定ありとのこと。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gihyo.jp/book/2018/978-4-297-10106-0&#34;&gt;ハードウェアハッカー&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ちょっと待ってみる方向。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>回線切り換え</title>

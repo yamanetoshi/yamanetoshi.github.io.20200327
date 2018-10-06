@@ -111,6 +111,53 @@
 <header>
     <p class="meta">Feb 14, 2014
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/14/memorandum-sed/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/14/memorandum-sed/">sed 自分メモ</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>もう爺さんなので控えを。あるパタンの次の行に行を挿入とかあるパタンにマッチするソレを修正とかなんとか。</p>
+
+<pre><code>for i in * ;
+do
+  sed -i -e &quot;/hoge 1 15 525/a hoge 0 0 0&quot; $i
+  sed -i -e &quot;s/fuga 0 1 2 3¥$/fuga 0 1 2 3 300/g&quot; $i
+  sed -i -e &quot;s/piyo 0 1 2 3¥$/piyo 0 1 2 3 300/g&quot; $i
+end
+</code></pre>
+
+<p>どうも手をぱかぱかヤッちゃう悪いクセがあります。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/14/memorandum-sed/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Feb 14, 2014
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/14/data-recovery-from-old-nas/#disqus_thread">Comments</a>
 
         
@@ -434,41 +481,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 9, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/09/ichanda-beach/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/09/ichanda-beach/">以前から目を付けてた浜</a>
-    </h1>
-</header>
-
-
-        
-          <p>有難いことに妹夫婦が両親を連れて来沖してくれてます。昨日はドライブで中部北部方面へ。ついでに、ということで古宇利島の例のビーチにロケハンに行</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/09/ichanda-beach/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -564,6 +576,10 @@
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/10/06/hardware-hacker/">ハードウェアハッカー</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/10/05/line-switching/">回線切り換え</a>
             </li>
           
@@ -597,10 +613,6 @@
           
             <li class="post">
               <a href="/blog/2018/09/26/discharge-of-capacitor/">コンデンサの放電</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/09/24/puchase-of-goods/">物品購入</a>
             </li>
           
         </ul>
