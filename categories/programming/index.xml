@@ -6,10 +6,27 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 08 Oct 2018 18:56:34 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 10 Oct 2018 20:42:39 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>素材があったので</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/10/thview-js/</link>
+      <pubDate>Wed, 10 Oct 2018 20:42:39 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/10/thview-js/</guid>
+      <description>&lt;p&gt;以下を使ってみました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/aike/thview.js?files=1&#34;&gt;aike/thview.js&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;theta の画像て hmd でも使えたりするのか。このあたりちょっと出遅れ気味だけに。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Preact で PWA</title>

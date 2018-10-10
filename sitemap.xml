@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/10/10/thview-js/</loc>
+    <lastmod>2018-10-10T20:42:39+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/10/08/how-to-create-a-pwa-game-using-preact-in-5-steps-tutorial/</loc>
     <lastmod>2018-10-08T18:56:34+09:00</lastmod>
   </url>
@@ -8214,7 +8219,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-10-08T18:56:34+09:00</lastmod>
+    <lastmod>2018-10-10T20:42:39+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8430,13 +8435,13 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-10-08T18:56:34+09:00</lastmod>
+    <lastmod>2018-10-10T20:42:39+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/programming/</loc>
-    <lastmod>2018-10-08T18:56:34+09:00</lastmod>
+    <lastmod>2018-10-10T20:42:39+09:00</lastmod>
     <priority>0</priority>
   </url>
   
