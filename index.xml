@@ -6,10 +6,33 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 11 Oct 2018 21:18:41 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 12 Oct 2018 20:37:41 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>13路の囲碁</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/12/13-ro-of-go/</link>
+      <pubDate>Fri, 12 Oct 2018 20:37:41 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/12/13-ro-of-go/</guid>
+      <description>&lt;p&gt;FB にて以下な記事が共有されていた。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.excite.co.jp/News/lifestyle/20131008/NHKtextview_9657.html&#34;&gt;張栩九段が13路盤をすすめる理由&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;曰く、&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;級位者が初段を目指すにあたって13路盤で勉強するのは、非常に有効な方法なのです。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;とのこと。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>色々</title>
