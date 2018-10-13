@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>Tips for Working With Graphson and Tinkerpop Systems</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Oct 13, 2018
+         - 10 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/10/13/tips-for-working-with-graphson-and-tinkerpop-systems/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Tips for Working With Graphson and Tinkerpop Systems 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメントを機械翻訳したので控えを。</p>
+
+<ul>
+<li><a href="https://developer.ibm.com/dwblog/2017/tips-help-graphson-tinkerpop/">Tips for Working With Graphson and Tinkerpop Systems</a></li>
+</ul>
+
+<p></p>
+
+<p>If you are working with the Apache TinkerPopTM framework for graph computing, you might want to produce, edit, and save graphs, or parts of graphs, outside the graph database. To accomplish this, you might want a standardized format for a graph representation that is both machine- and human-readable. You might want features for easily moving between that format and the graph database itself. You might want to consider using GraphSON.</p>
+
+<p>GraphSON is a JSON-based representation for graphs. It is especially useful to store graphs that are going to be used with TinkerPopTM systems, because Gremlin (the query language for TinkerPopTM graphs) has a GraphSON Reader/Writer that can be used for bulk upload and download in the Gremlin console. Gremlin also has a Reader/Writer for GraphML (XML-based) and Gryo (Kryo-based).</p>
+
+<p>Unfortunately, I could not find any sort of standardized documentation for GraphSON, so I decided to compile a summary of my research into a single document that would help answer all the questions I had when I started working with it.</p>
+
+<p>グラフ計算用にApache TinkerPopTMフレームワークを使用している場合は、グラフデータベースの外にグラフやグラフの一部を生成、編集、保存することができます。これを達成するには、機械表現と人間が読める形式の両方のグラフ表現のための標準化されたフォーマットが必要な場合があります。その形式とグラフデータベース自体を簡単に移動するための機能が必要な場合があります。 GraphSONの使用を検討することをお勧めします。</p>
+
+<p>GraphSONは、グラフのJSONベースの表現です。 Gremlin（TinkerPopTMグラフのクエリ言語）には、Gremlinコンソールでの一括アップロードとダウンロードに使用できるGraphSON Reader / Writerがあるため、TinkerPopTMシステムで使用するグラフを保存すると特に便利です。 GremlinにはGraphML（XMLベース）とGryo（Kryoベース）用のリーダ/ライタもあります。</p>
+
+<p>残念ながら、私はGraphSONの標準化されたドキュメントを見つけることができませんでした。私は研究の要約を、私がそれを使って作業を開始したときのすべての質問に答えるのに役立つ単一の文書にまとめました。</p>
+
+<h2 id="when-to-use-graphson">When to Use GraphSON</h2>
+
+<p>The advantages of GraphSON are that it is the most human-readable option of the three supported Gremlin I/O formats (i.e. GraphSON, GraphML and Gryo), JSON is widely used, and there is some support for it from graph-related applications outside of TinkerPopTM. The disadvantage is that it is verbose and has some redundancy, and is therefore not very memory efficient, so it may not be the best choice when storage is a limiting factor.</p>
+
+<p>The TinkerPopTM documentation advises that it is generally best used in two cases:</p>
+
+<p>A text format of the graph or its elements is desired (e.g. debugging, usage in source control, etc.)
+The graph or its elements need to be consumed by code that is not JVM-based (e.g. JavaScript, Python, .NET, etc.)</p>
+
+<p>GraphSONの利点は、サポートされている3つのGremlin I/O フォーマット（GraphSON、GraphML、Gryo）の中で最も人間が読めるオプションであり、JSONが広く使われており、グラフ関連のアプリケーション TinkerPopTMの 欠点は、冗長で冗長性があるため、メモリ効率があまり高くないため、ストレージが制限要因である場合には最適な選択ではない可能性があります。</p>
+
+<p>TinkerPopTMの文書では、一般的に2つのケースで使用することが最も推奨されています。</p>
+
+<p>グラフまたはその要素のテキストフォーマットが望ましい（例えば、デバッグ、ソース管理における使用など）
+グラフまたはその要素は、JVMベースではないコード（JavaScript、Python、.NETなど）によって消費される必要があります。</p>
+
+<h2 id="formatting-graphson">Formatting GraphSON</h2>
+
+<p>The documentation of the Gremlin GraphSON Reader/Writer mentions nothing about the requirements for formatting GraphSON in a way that is readable to it; the resources outside of TinkerPopTM that reference GraphSON (usually in connection to a specific DB, like Titan) have examples, but they are sometimes incompatible with the TinkerPopTM/Gremlin Console built-in reader. The only example of GraphSON in the documentation is a single vertex, not a graph, but the download of the Gremlin Console includes four examples of GraphSON files (in fact, these four graphs are described in all of the different file formats for which Gremlin has a Reader/Writer). From these four examples, I have deduced the following rules and conventions, which I have been able to apply successfully to making my own graphs that can be parsed by the Reader:</p>
+
+<p>Gremlin GraphSON Reader/Writerのドキュメントには、GraphSONを読みやすい形でフォーマットするための要件については何も言及されていません。 GraphSONを参照するTinkerPopTMの外のリソース（通常はTitanのような特定のDBに接続している）には例がありますが、時にはTinkerPop/Gremlin Console組み込みリーダーと互換性がありません。 ドキュメント内のGraphSONの唯一の例は、グラフではなく単一の頂点ですが、Gremlin ConsoleのダウンロードにはGraphSONファイルの4つの例が含まれています（実際、これらの4つのグラフはGremlinが持つさまざまなファイル形式 リーダー/ライター）。 これらの4つの例から、Readerが解析できる独自のグラフを作成するのに成功した以下のルールと慣習を導き出しました。</p>
+
+<h3 id="vertex-rules-and-conventions">Vertex Rules and Conventions</h3>
+
+<ul>
+<li>The file consists of a list of vertices, where each vertex is a dictionary that maps property names to property values, or sub-dictionaries with property values. Each line of the file contains exactly one vertex. The vertices are listed in order of unique ID, which, by convention, starts at 1 and increases sequentially.</li>
+<li>Each vertex has the following structure:
+<code>
+{&quot;id&quot;:int, &quot;label&quot;:&quot;&quot;, &quot;inE&quot;:{&quot;edge_label1&quot;:[{edge}, {edge}, ...], &quot;edge_label2&quot;:[{edge}, {edge}, ...]}, &quot;outE&quot;:{&quot;edge_label1&quot;:[{edge}, {edge}, ...], &quot;edge_label2&quot;:[{edge}, {edge}, ...]}, &quot;properties&quot;:{}}
+</code></li>
+<li>“id” maps to a unique integer id (starting at 1, by convention, and increasing sequentially)</li>
+<li>“label” maps to a string that represents the label associated with that vertex (think of this being like the vertex’s type, e.g. “person”)</li>
+<li>“inE” and “outE” map to dictionaries that map the label (again, think type, e.g. “knows” may be a label between two people) of an edge to a list of edges of that type that involve the vertex of which these are sub-dictionaries. “inE” and “outE” encode directionality of the edges as the names suggest (“inE” contains the edges that terminate at the vertex, “outE” contains the edges that originate at the vertex). If a vertex has only one type of edge associated with it (e.g. only in edges), then the other key-value pair (e.g. “outE”:{}) may be omitted from this vertex.</li>
+
+<li><p>“properties” maps to a dictionary where the keys are the labels of the properties and the values are dictionaries that contain the key “id” mapping to an integer ID for that property value (used for indexing) and the key “value” mapping to a value for that property. Every property value needs to have an ID (separate from the IDs for vertices and edges, these can start at 0), otherwise an error will occur in the GraphSON reader (“Error: property value cannot be null”). Example: &ldquo;properties&rdquo;:{&ldquo;name&rdquo;:{&ldquo;id&rdquo;: 0, &ldquo;value&rdquo;:&ldquo;marko&rdquo;}, &ldquo;age&rdquo;:{&ldquo;id&rdquo;:1, &ldquo;value&rdquo;:29}}. The IDs are unique, and by convention, start at 0 and increase sequentially.</p></li>
+
+<li><p>ファイルは、頂点のリストで構成されます。各頂点は、プロパティ名をプロパティ値にマップするディクショナリ、またはプロパティ値を含むサブディクショナリです。ファイルの各行に正確に1つの頂点が含まれています。頂点は一意のIDの順に並べられ、慣習的には1から順に増加します。</p></li>
+
+<li><p>各頂点は次の構造を持ちます：</p>
+
+<pre><code>{{end_label1}：{{edge}、{edge}、...}、 &quot;edge_label2&quot;：[{edge}、{edge}、{edge} ...]}、[outE]：{&quot;edge_label1&quot;：[{edge}、{edge}、...]、 &quot;edge_label2&quot;：[{edge}、{edge} &quot;：{}}
+</code></pre></li>
+
+<li><p>&ldquo;id&rdquo;は一意の整数IDにマッピングされます（慣例により1から始まり、順次増加します）</p></li>
+
+<li><p>&ldquo;label&rdquo;は、その頂点に関連付けられたラベルを表す文字列にマップします（これは、頂点のタイプと同じであるとみなします（例： &ldquo;person&rdquo;）。</p></li>
+
+<li><p>&ldquo;inE&rdquo;と &ldquo;outE&rdquo;は、ラベルをマップする辞書にマップします（もう一度考えてみましょう、タイプは「2つの人の間のラベル」かもしれません）。これらの頂点を含むそのタイプの辺のリストサブディクショナリです。 &ldquo;inE&rdquo;と &ldquo;outE&rdquo;は、名前が示唆するようにエッジの方向性を符号化する（ &ldquo;inE&rdquo;は頂点で終わるエッジを含み、 &ldquo;outE&rdquo;は頂点で始まるエッジを含む）。頂点がそれに関連する1つのタイプのエッジのみを有する場合（例えば、エッジ内のみ）、この頂点から他のキー - 値ペア（例えば、「outE」：{}）を省略することができる。</p></li>
+
+<li><p>「プロパティ」は、キーがプロパティのラベルであり、値がそのプロパティ値（インデックスに使用される）の整数IDへのキー「id」マッピングとキー「値」マッピングを含むディクショナリにマップされますそのプロパティの値すべてのプロパティ値はIDを持たなければなりません（頂点とエッジのIDとは別に0から始めることができます）。そうしないと、GraphSONリーダーでエラーが発生します（ &ldquo;エラー：プロパティ値はnullにできません&rdquo;）。例： &ldquo;properties&rdquo;：{&ldquo;name&rdquo;：{&ldquo;id&rdquo;：0、 &ldquo;value&rdquo;： &ldquo;marko&rdquo;}、 &ldquo;age&rdquo;：{&ldquo;id&rdquo;：1、 &ldquo;value&rdquo;：29}} IDは一意であり、慣習的には0から始まり順次増加します。</p></li>
+</ul>
+
+<h3 id="edge-rules-and-conventions">Edge Rules and Conventions</h3>
+
+<ul>
+<li>Edges have the following structure:
+<code>
+{&quot;id&quot;:int, &quot;outV&quot;: int, &quot;inV&quot;: int, &quot;properties&quot;:{&quot;property_name&quot;:value}}
+</code></li>
+<li>“id” maps to a unique integer ID. By convention, the edge IDs start immediately after the greatest vertex ID and increase sequentially, so if a graph has 6 vertices and 6 edges, the vertex IDs would be 1-6 and the edge IDs would be 7-12.</li>
+<li>“inV” and “outV” map to the vertex IDs on each side of the edge. “outV” maps to the ID of the vertex from which the edge originates and “inV” maps to the ID of the vertex at which the edge terminates. For example, the edge 1-knows-&gt;2 would look like this: {&ldquo;outV&rdquo;:1, &ldquo;inV&rdquo;:2, &ldquo;properties&rdquo;:{}}. Since in a GraphSON format, the edges are all listed as a property of vertices, and nowhere else, one of “outV” or “inV” is already implicit based on whether it is in the list mapped to by “inE” or “outE” and the ID of the vertex on that line, and, thus, may be omitted. For example, with the edge described above, in the dictionary that describes vertex 1, the edge would be present in the list of edges mapped to by “outE”, so “outV”:1 is implicit and may be omitted. It need not be omitted though, and is convenient to leave in some cases.</li>
+<li>“properties” maps to a dictionary which maps the label of a property to its value. For example, properties:{&ldquo;weight&rdquo;:0.5}. These properties are not indexed, and each edge has only one property associated to it.</li>
+
+<li><p>Because of the redundancy of encoding the same edge in both the “outE” field of the vertex from which it emanates and in the “inE” field of the vertex at which it terminates, each edge will appear twice in the GraphSON format; the two instances of the edge should be identical, since both instances represent the same edge.</p></li>
+
+<li><p>エッジの構造は次のとおりです。</p>
+
+<pre><code>{&quot;id&quot;：int、 &quot;outV&quot;：int、 &quot;inV&quot;：int、 &quot;プロパティ&quot;：{&quot;property_name&quot;：value}}
+</code></pre></li>
+
+<li><p>&ldquo;id&rdquo;は固有の整数IDにマップされます。慣例により、エッジIDは最大の頂点IDの直後に始まり、順番に増加するので、グラフが6つの頂点と6つのエッジを有する場合、頂点IDは1〜6であり、エッジIDは7〜12である。</p></li>
+
+<li><p>&ldquo;inV&rdquo;と &ldquo;outV&rdquo;は、エッジの両側の頂点IDにマップされます。 「outV」は、エッジが始まる頂点のIDにマップされ、「inV」は、エッジが終了する頂点のIDにマップされる。例えば、1-knows-&gt; 2の辺は{&ldquo;outV&rdquo;：1、 &ldquo;inV&rdquo;：2、 &ldquo;properties&rdquo;：{}}のようになります。 GraphSON形式では、エッジはすべて頂点のプロパティとしてリストされています。それ以外の場所では、「inE」または「outE」によってマップされたリスト内にあるかどうかに基づいて、「outV」または「inV」のいずれかが既に暗黙的に設定されていますそのライン上の頂点のIDと、したがって、省略されてもよい。例えば、上述したエッジでは、頂点1を記述するディクショナリにおいて、エッジは「outE」によってマップされたエッジのリストに存在するので、「outV」：1は暗黙的であり省略することができる。しかし、省略する必要はなく、場合によっては退室するのが便利です。</p></li>
+
+<li><p>「プロパティ」は、プロパティのラベルをその値にマップする辞書にマップされます。たとえば、プロパティー：{&ldquo;weight&rdquo;：0.5}。これらのプロパティはインデックスに登録されておらず、各エッジに関連付けられているプロパティは1つだけです。</p></li>
+
+<li><p>それが出現する頂点の「outE」フィールドと終了する頂点の「inE」フィールドの両方で同じエッジをエンコーディングするため、各エッジはGraphSONフォーマットで2回表示されます。両方のインスタンスが同じエッジを表すので、エッジの2つのインスタンスは同一である必要があります。</p></li>
+</ul>
+
+<h2 id="example-graphson-structure">Example GraphSON Structure</h2>
+
+<p>The TinkerPopTM Modern example (data/tinkerpop-modern.json in the directory apache-tinkerpop-gremlin-console-3.2.5, i.e. the directory created by downloading the Gremlin Console):</p>
+
+<p>TinkerPopTM Modernの例（ディレクトリ/ apache-tinkerpop-gremlin-console-3.2.5のdata / tinkerpop-modern.json、つまりGremlinコンソールをダウンロードして作成したディレクトリ）：</p>
+
+<pre><code>{&quot;id&quot;:1,&quot;label&quot;:&quot;person&quot;,&quot;outE&quot;:{&quot;created&quot;:[{&quot;id&quot;:9,&quot;inV&quot;:3,&quot;properties&quot;:{&quot;weight&quot;:0.4}}],&quot;knows&quot;:[{&quot;id&quot;:7,&quot;inV&quot;:2,&quot;properties&quot;:{&quot;weight&quot;:0.5}},{&quot;id&quot;:8,&quot;inV&quot;:4,&quot;properties&quot;:{&quot;weight&quot;:1.0}}]},&quot;properties&quot;:{&quot;name&quot;:[{&quot;id&quot;:0,&quot;value&quot;:&quot;marko&quot;}],&quot;age&quot;:[{&quot;id&quot;:1,&quot;value&quot;:29}]}}
+{&quot;id&quot;:2,&quot;label&quot;:&quot;person&quot;,&quot;inE&quot;:{&quot;knows&quot;:[{&quot;id&quot;:7,&quot;outV&quot;:1,&quot;properties&quot;:{&quot;weight&quot;:0.5}}]},&quot;properties&quot;:{&quot;name&quot;:[{&quot;id&quot;:2,&quot;value&quot;:&quot;vadas&quot;}],&quot;age&quot;:[{&quot;id&quot;:3,&quot;value&quot;:27}]}}
+{&quot;id&quot;:3,&quot;label&quot;:&quot;software&quot;,&quot;inE&quot;:{&quot;created&quot;:[{&quot;id&quot;:9,&quot;outV&quot;:1,&quot;properties&quot;:{&quot;weight&quot;:0.4}},{&quot;id&quot;:11,&quot;outV&quot;:4,&quot;properties&quot;:{&quot;weight&quot;:0.4}},{&quot;id&quot;:12,&quot;outV&quot;:6,&quot;properties&quot;:{&quot;weight&quot;:0.2}}]},&quot;properties&quot;:{&quot;name&quot;:[{&quot;id&quot;:4,&quot;value&quot;:&quot;lop&quot;}],&quot;lang&quot;:[{&quot;id&quot;:5,&quot;value&quot;:&quot;java&quot;}]}}
+{&quot;id&quot;:4,&quot;label&quot;:&quot;person&quot;,&quot;inE&quot;:{&quot;knows&quot;:[{&quot;id&quot;:8,&quot;outV&quot;:1,&quot;properties&quot;:{&quot;weight&quot;:1.0}}]},&quot;outE&quot;:{&quot;created&quot;:[{&quot;id&quot;:10,&quot;inV&quot;:5,&quot;properties&quot;:{&quot;weight&quot;:1.0}},{&quot;id&quot;:11,&quot;inV&quot;:3,&quot;properties&quot;:{&quot;weight&quot;:0.4}}]},&quot;properties&quot;:{&quot;name&quot;:[{&quot;id&quot;:6,&quot;value&quot;:&quot;josh&quot;}],&quot;age&quot;:[{&quot;id&quot;:7,&quot;value&quot;:32}]}}
+{&quot;id&quot;:5,&quot;label&quot;:&quot;software&quot;,&quot;inE&quot;:{&quot;created&quot;:[{&quot;id&quot;:10,&quot;outV&quot;:4,&quot;properties&quot;:{&quot;weight&quot;:1.0}}]},&quot;properties&quot;:{&quot;name&quot;:[{&quot;id&quot;:8,&quot;value&quot;:&quot;ripple&quot;}],&quot;lang&quot;:[{&quot;id&quot;:9,&quot;value&quot;:&quot;java&quot;}]}}
+{&quot;id&quot;:6,&quot;label&quot;:&quot;person&quot;,&quot;outE&quot;:{&quot;created&quot;:[{&quot;id&quot;:12,&quot;inV&quot;:3,&quot;properties&quot;:{&quot;weight&quot;:0.2}}]},&quot;properties&quot;:{&quot;name&quot;:[{&quot;id&quot;:10,&quot;value&quot;:&quot;peter&quot;}],&quot;age&quot;:[{&quot;id&quot;:11,&quot;value&quot;:35}]}}
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Oct 13, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/10/12/13-ro-of-go/" title="13路の囲碁">13路の囲碁</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/10/13/tips-for-working-with-graphson-and-tinkerpop-systems/">Tips for Working With Graphson and Tinkerpop Systems</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/12/13-ro-of-go/">13路の囲碁</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/11/various/">色々</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/10/thview-js/">素材があったので</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/08/how-to-create-a-pwa-game-using-preact-in-5-steps-tutorial/">Preact で PWA</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/07/phoenix-json-tutorial/">Phoenix Json Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/06/hardware-hacker/">ハードウェアハッカー</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/05/line-switching/">回線切り換え</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/04/phoenix-json-tutorial/">Phoenix Json Tutorial</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/03/todo/">TODO</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
