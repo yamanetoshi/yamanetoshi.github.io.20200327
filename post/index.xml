@@ -6,10 +6,27 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 13 Oct 2018 09:17:27 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 14 Oct 2018 12:39:19 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>firebase deploy できない件</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/14/cannot-firebase-deploy/</link>
+      <pubDate>Sun, 14 Oct 2018 12:39:19 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/14/cannot-firebase-deploy/</guid>
+      <description>&lt;p&gt;びっくり。ぐーぐる先生からのご紹介で以下を見つけているのですが&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://qiita.com/camomile_cafe/items/7420a88db56e266dd05e&#34;&gt;firebase deploy時に起きたエラー&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;根本的な解決策はまだ見つかっていない模様。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Tips for Working With Graphson and Tinkerpop Systems</title>
