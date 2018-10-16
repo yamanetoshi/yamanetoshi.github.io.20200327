@@ -6,10 +6,27 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 15 Oct 2018 20:27:19 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 16 Oct 2018 21:23:26 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>3分でわかる囲碁入門</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/16/introduction-to-go-to-understand-in-3-minutes/</link>
+      <pubDate>Tue, 16 Oct 2018 21:23:26 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/16/introduction-to-go-to-understand-in-3-minutes/</guid>
+      <description>&lt;p&gt;続き、が出ていました。セルクマしてて発見。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.froggy.money/12251/&#34;&gt;第2回　囲碁のはじまりは「無」?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;9路の囲碁アプリ、探してみようかな。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>とほほ</title>
