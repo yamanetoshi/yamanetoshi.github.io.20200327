@@ -6,10 +6,25 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 17 Oct 2018 22:13:03 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 18 Oct 2018 20:12:00 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>3分でわかる囲碁入門</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/18/introduction-to-go-to-understand-in-3-minutes/</link>
+      <pubDate>Thu, 18 Oct 2018 20:12:00 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/18/introduction-to-go-to-understand-in-3-minutes/</guid>
+      <description>&lt;p&gt;その次、が出ています。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.froggy.money/12542/&#34;&gt;第3回　囲碁の醍醐味、からみあう戦略と戦術&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>冷やしピーマン</title>
