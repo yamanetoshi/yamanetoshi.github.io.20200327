@@ -109,6 +109,41 @@
         
 
 <header>
+    <p class="meta">Aug 1, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/08/01/guide-to-personal-email-encryption/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/08/01/guide-to-personal-email-encryption/">guide to personal email encryption</a>
+    </h1>
+</header>
+
+
+        
+          <p>以下なドキュメントを翻訳してくれるボランティア募集、なメイルが FSF 方面から着信。 guide to personal email encryption 日本語訳はスデにあります。 電子メール自己防衛 この週末</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/08/01/guide-to-personal-email-encryption/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jul 31, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/31/about-ios-application/#disqus_thread">Comments</a>
@@ -480,63 +515,6 @@ $ sudo apt-get upgrade -y
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jul 23, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/rails/">rails </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/docker/">docker </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/">docker な Rails 環境にて assets:precompile</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>やはり、container は再起動しないと反映されませんでした。当り前ですね。手順的に</p>
-
-<pre><code>$ sudo docker.io stop `sudo docker.io ps -a|grep 'rails:latest'|awk '{print $1;}'`
-</code></pre>
-
-<p>で止めて</p>
-
-<pre><code>$ sudo docker.io rm `sudo docker.io ps -a|grep 'rails:latest'|awk '{print $1;}'`
-</code></pre>
-
-<p>で container を削除してから以下で</p>
-
-<pre><code>$ sudo docker.io run -i -t -v /home/fuga/rails_projects/hoge:/app --link redis:redis --link postgres:db --rm rails:latest bash -c &quot;cd /app &amp;&amp; RAILS_ENV=production bundle exec rake assets:precompile&quot;
-</code></pre>
-
-<p>asset pipeline をアレして以下で起動、で反映されてることを確認してます。</p>
-
-<pre><code>$ sudo docker.io run -d -p 3000:3000 -v /home/fuga/rails_projects/hoge:/app --link redis:redis --link postgres:db rails:latest bash -c &quot;cd /app &amp;&amp; RAILS_ENV=production bundle exec unicorn -p 3000&quot;
-</code></pre>
-
-<p>ぶっちゃけこのあたりも script だか alias だかにすべきですね。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -632,6 +610,10 @@ $ sudo apt-get upgrade -y
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/10/19/body-preparation/">体のデバッグ</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/10/18/introduction-to-go-to-understand-in-3-minutes/">3分でわかる囲碁入門</a>
             </li>
           
@@ -665,10 +647,6 @@ $ sudo apt-get upgrade -y
           
             <li class="post">
               <a href="/blog/2018/10/10/thview-js/">素材があったので</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/10/08/how-to-create-a-pwa-game-using-preact-in-5-steps-tutorial/">Preact で PWA</a>
             </li>
           
         </ul>
