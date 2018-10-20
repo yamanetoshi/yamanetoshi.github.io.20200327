@@ -6,10 +6,25 @@
     <description>Recent content in Machinelearning on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 30 Jul 2018 20:58:06 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 20 Oct 2018 10:24:52 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/machinelearning/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Introducing TnsorFlow Hub</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/20/introducing-tensorlow-hub/</link>
+      <pubDate>Sat, 20 Oct 2018 10:24:52 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/20/introducing-tensorlow-hub/</guid>
+      <description>&lt;p&gt;以下なドキュメントを機械翻訳したので以下に控えを。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/tensorflow/introducing-tensorflow-hub-a-library-for-reusable-machine-learning-modules-in-tensorflow-cdee41fa18f9&#34;&gt;Introducing TensorFlow Hub: A Library for Reusable Machine Learning Modules in TensorFlow&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>fastFM 0.2.10 Guide</title>

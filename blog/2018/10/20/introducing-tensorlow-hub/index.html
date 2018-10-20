@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>Introducing TnsorFlow Hub</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Oct 20, 2018
+         - 10 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/10/20/introducing-tensorlow-hub/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/machinelearning/">MachineLearning </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Introducing TnsorFlow Hub 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメントを機械翻訳したので以下に控えを。</p>
+
+<ul>
+<li><a href="https://medium.com/tensorflow/introducing-tensorflow-hub-a-library-for-reusable-machine-learning-modules-in-tensorflow-cdee41fa18f9">Introducing TensorFlow Hub: A Library for Reusable Machine Learning Modules in TensorFlow</a></li>
+</ul>
+
+<p></p>
+
+<p>One of the things that’s so fundamental in software development that it’s easy to overlook is the idea of a repository of shared code. As programmers, libraries immediately make us more effective. In a sense, they change the problem solving process of programming. When using a library, we often think of programming in terms of building blocks — or modules — that can be tied together.</p>
+
+<p>ソフトウェア開発において非常に基本的なことの1つは、見落としやすいことですが、共有コードのリポジトリの考え方です。 プログラマーとして、図書館はすぐに私たちをより効果的にします。 ある意味では、彼らはプログラミングの問題解決のプロセスを変えます。 ライブラリを使用するときは、一緒に結び付けることができるビルディングブロック（モジュール）の観点からプログラミングを考えることがよくあります。</p>
+
+<p>How might a library look for a machine learning developer? Of course, in addition to sharing code, we’d also like to share pretrained models. Sharing a pretrained model makes it possible for a developer to customize it for their domain, without having access to the computing resources or the data used to train the model originally on hand. For example, NASNet took thousands of GPU-hours to train. By sharing the learned weights, a model developer can make it easier for others to reuse and build upon their work.</p>
+
+<p>ライブラリは機械学習の開発者をどのように見えるでしょうか？ もちろん、コードの共有に加えて、事前トレーニングされたモデルを共有したいと思います。 事前に訓練されたモデルを共有することで、開発者はコンピューティングリソースや本来のモデルを訓練するために使用されたデータにアクセスすることなく、ドメインのためにカスタマイズすることができます。 たとえば、NASNetは数千時間のGPU時間を訓練しました。 学習済みの重みを共有することで、モデル開発者は他の人が自分の仕事を再利用して構築することを容易にすることができます。</p>
+
+<p><a href="https://cdn-images-1.medium.com/max/1600/0*iOf29hLvkfK0UN6n">https://cdn-images-1.medium.com/max/1600/0*iOf29hLvkfK0UN6n</a>.</p>
+
+<p>“Ingredients” of a machine learning model that can be packaged and shared through TensorFlow Hub. In a sense, sharing a pre-trained model also shares the compute time and dataset used to develop the model, in addition to architecture itself.</p>
+
+<p>TensorFlow Hubを介してパッケージ化および共有できる機械学習モデルの「成分」。 ある意味では、事前に訓練されたモデルを共有することは、アーキテクチャそのものに加えて、モデルの開発に使用された計算時間とデータセットを共有します。</p>
+
+<p>It’s the idea of a library for machine learning developers that inspired TensorFlow Hub, and today we’re happy to share it with the community. TensorFlow Hub is a platform to publish, discover, and reuse parts of machine learning modules in TensorFlow. By a module, we mean a self-contained piece of a TensorFlow graph, along with its weights, that can be reused across other, similar tasks. By reusing a module, a developer can train a model using a smaller dataset, improve generalization, or simply speed up training. Let’s look at a couple examples to make this concrete.</p>
+
+<p>それは、TensorFlowハブにインスピレーションを与えた機械学習開発者のためのライブラリのアイデアです。今日、それをコミュニティと共有することができます。 TensorFlowハブは、TensorFlowで機械学習モジュールの一部を公開、発見、再利用するためのプラットフォームです。 モジュールとは、重み付きのTensorFlowグラフの自己完結型の断片を意味し、他の同様のタスクで再利用できます。 開発者は、モジュールを再利用することで、より小さなデータセットを使用してモデルをトレーニングしたり、一般化を改善したり、単にトレーニングをスピードアップすることができます。 この具体的な例をいくつか見てみましょう。</p>
+
+<h2 id="image-retraining">Image Retraining</h2>
+
+<p>As a first example, let’s look at a technique you can use to train an image classifier, starting from only a small amount of training data. Modern image recognition models have millions of parameters, and of course, training one from scratch requires a large amount of labeled data and computing power. Using a technique called Image Retraining, you can train a model using a much smaller amount of data, and much less computing time. Here’s how this looks in TensorFlow Hub.</p>
+
+<p>最初の例として、わずかな量のトレーニングデータから始めて、イメージ分類子をトレーニングするために使用できるテクニックを見てみましょう。 現代の画像認識モデルは、何百万ものパラメータを有しており、もちろん、ゼロから訓練するには、大量のラベル付きデータおよび計算能力が必要である。 Image Retrainingと呼ばれる手法を使用することで、はるかに少ないデータ量で計算時間を大幅に短縮してモデルをトレーニングできます。 これは、TensorFlow Hubでどのように見えるかです。</p>
+
+<pre><code># Download and use NASNet feature vector module.
+module = hub.Module(
+“https://tfhub.dev/google/imagenet/nasnet_large/feature_vector/1&quot;)
+features = module(my_images)
+logits = tf.layers.dense(features, NUM_CLASSES)
+probabilities = tf.nn.softmax(logits)
+</code></pre>
+
+<p><a href="https://gist.github.com/random-forests/786c5c3ecc104f94346644661f57c8b2#file-download_a_module-py">download_a_module.py</a></p>
+
+<p>The basic idea is to reuse an existing image recognition module to extract features from your images, and then train a new classifier on top of these. As you can see above, TensorFlow Hub modules can be instantiated from a URL (or, from a filesystem path) while a TensorFlow graph is being constructed. There are variety of modules on TensorFlow Hub for you to choose from, including various flavors of NASNet, MobileNet (including its recent V2), Inception, ResNet, and others. To use a module, you import TensorFlow Hub, then copy/paste the module’s URL into your code.</p>
+
+<p>基本的なアイデアは、既存の画像認識モジュールを再利用して画像から特徴を抽出し、その上に新しい分類子を訓練することです。 上記のように、TensorFlowグラフが構築されている間、TensorFlowハブモジュールはURL（またはファイルシステムパスから）からインスタンス化できます。 TensorFlow Hubには、NASNet、MobileNet（最近のV2を含む）、Inception、ResNetなどのさまざまな種類のモジュールが用意されています。 モジュールを使用するには、TensorFlowハブをインポートし、モジュールのURLをコードにコピー/貼り付けます。</p>
+
+<p><a href="https://cdn-images-1.medium.com/max/2000/0*00s77XkzFPFzAt-B">https://cdn-images-1.medium.com/max/2000/0*00s77XkzFPFzAt-B</a>.</p>
+
+<p>Some of the image modules available on TensorFlow Hub.</p>
+
+<p>Each module has a defined interface that allows it to be used in a replaceable way, with little or no knowledge of its internals. In this case, this module has a method that you can use to retrieve the expected image size. As a developer, you need only provide a batch of images in the correct shape, and call the module on them to retrieve the feature representation. This module takes care of preprocessing your images for you, so you can go directly from a batch of images to a feature representation in a single step. From here, you can learn a linear model, or other type of classifier, on top of these.</p>
+
+<p>各モジュールには、内部の知識がほとんどまたはまったくなく、交換可能な方法で使用できるように定義されたインタフェースがあります。 この場合、このモジュールには、期待されるイメージサイズを取得するための方法があります。 開発者は、正しい形状の画像を一括して提供するだけで、それらのモジュールを呼び出してフィーチャ表現を取得する必要があります。 このモジュールは、画像の前処理を行いますので、画像のバッチからフィーチャーの表示に一度に移動することができます。 ここから、線形モデルやその他のタイプの分類子をこれらの上に学習できます。</p>
+
+<p>In this case, notice the module we’re using is hosted by Google, and is versioned (so you can rely on the module not changing as you work on your experiments). Modules can be applied like an ordinary Python function to build part of the graph. Once exported to disk, modules are self-contained, and can be used by others without access to the code and data used to create and train it (though of course you can publish those, too).</p>
+
+<p>この場合、Googleが使用しているモジュールはGoogleによってホストされており、バージョン管理されていることに注意してください。 モジュールは、通常のPython関数のようにグラフの一部を構築するために適用することができます。 一旦ディスクにエクスポートされると、モジュールは自己完結型であり、コードやデータの作成や訓練にアクセスすることなく他の人が使用することができます（もちろん公開することもできます）。</p>
+
+<h2 id="text-classification">Text Classification</h2>
+
+<p>Let’s take a look at a second example. Imagine you’d like to train a model to classify movie reviews as positive or negative, starting with only a small amount of training data (say, on the order of several hundred positive and negative movie reviews). Since you have a limited number of examples, you decide to leverage a dataset of word embeddings, previously trained on a much larger corpus. Here’s how this looks using a TensorFlow Hub.</p>
+
+<p>2番目の例を見てみましょう。 少数のトレーニングデータ（例：数百の正と負のムービーレビューのオーダー）から始めて、ムービーレビューを肯定的または否定的に分類するモデルを訓練したいとします。 限られた数の例があるので、はるかに大きなコーパスに訓練された単語埋め込みのデータセットを活用することに決めました。 これはTensorFlowハブを使ってどのように見えるかです。</p>
+
+<pre><code># Download a module and use it to retrieve word embeddings.
+embed = hub.Module(“https://tfhub.dev/google/nnlm-en-dim50/1&quot;)
+embeddings = embed([“The movie was great!”])
+</code></pre>
+
+<p><a href="https://gist.github.com/random-forests/16161a0983e68de04ed62a72c8c7a576#file-an_embedding_module-py">an_embedding_module.py</a></p>
+
+<p>As before, we start by selecting a module. TensorFlow Hub has a variety of text modules for you to explore, including Neural network language models in a variety of languages (EN, JP, DE, and ES), as well as Word2vec trained on Wikipedia, and NNLM embeddings trained on Google News.</p>
+
+<p>前と同じように、まずモジュールを選択します。 TensorFlow Hubには、さまざまな言語（EN、JP、DE、ES）のニューラルネットワーク言語モデル、Wikipediaで訓練されたWord2vec、Googleニュースで訓練されたNNLM埋め込みなど、さまざまなテキストモジュールがあります。</p>
+
+<p><a href="https://cdn-images-1.medium.com/max/1600/0*a9kWTkQOji3VfTmI">https://cdn-images-1.medium.com/max/1600/0*a9kWTkQOji3VfTmI</a>.</p>
+
+<p>Some of the text modules shared on TensorFlow Hub.</p>
+
+<p>In this case, we’ll use a module for word embeddings. The code above downloads a module, uses it to preprocess a sentence, then retrieves the embeddings for each token. This means you can go directly from a sentence in your dataset to a format suitable for a classifier in a single step. The module takes care of tokenizing the sentence, and other logic like handling out-of-vocabulary words. Both the preprocessing logic and the embeddings are encapsulated in a module, making it easier to experiment with various datasets of word embeddings, or different preprocessing strategies, without having to substantially change your code.</p>
+
+<p>この場合、単語の埋め込みにモジュールを使用します。 上記のコードはモジュールをダウンロードし、それを使って文を前処理し、各トークンの埋め込みを取得します。 つまり、データセット内の文章から、一段階で分類器に適した書式に直接進むことができます。 モジュールは、文章をトークン化すること、および語彙外の単語を扱うような他のロジックを処理します。 前処理ロジックと埋め込みの両方がモジュールにカプセル化されているため、コードを大幅に変更することなく、ワード埋め込みやさまざまな前処理戦略のさまざまなデータセットを簡単に試すことができます。</p>
+
+<p><a href="https://cdn-images-1.medium.com/max/1600/0*hCPZRkenidXHOOas">https://cdn-images-1.medium.com/max/1600/0*hCPZRkenidXHOOas</a>.</p>
+
+<p>A text classification tutorial using TensorFlow Hub.</p>
+
+<p>If you’d like to try this out, use this <a href="http://tensorflow.org/tutorials/text_classification_with_tf_hub">tutorial</a> to take it for a spin, and to learn how TensorFlow Hub modules work with TensorFlow Estimators.</p>
+
+<p>これを試したい場合は、このチュートリアルを使用してスピンアップし、TensorFlowハブモジュールがTensorFlow Estimatorとどのように連携するかを学習してください。</p>
+
+<h2 id="universal-sentence-encoder">Universal Sentence Encoder</h2>
+
+<p>We’ve also shared a TensorFlow Hub module for something new! Below is an example using the Universal Sentence Encoder. It’s a sentence-level embedding module trained on a wide variety of datasets (in other words, “universal”). Some of the things it’s good at are semantic similarity, custom text classification, and clustering.</p>
+
+<p>また、TensorFlowハブモジュールを新しいものにしました！ ユニバーサルセンテンスエンコーダを使用した例を以下に示します。 これは、さまざまなデータセット（つまり「普遍的な」）で訓練されたセンテンスレベルの埋め込みモジュールです。 それがうまくいくものの中には、意味的類似性、カスタムテキスト分類、およびクラスタリングがあります。</p>
+
+<p><a href="https://cdn-images-1.medium.com/max/1600/1*ack_mbSYP96g3Yu5YhlUrQ.png">https://cdn-images-1.medium.com/max/1600/1*ack_mbSYP96g3Yu5YhlUrQ.png</a></p>
+
+<p>This notebook shows how to train a simple binary text classifier on top of any TF-Hub module that can embed sentences.</p>
+
+<p>As in image retraining, relatively little labeled data is required to adapt the module to your own task. Let’s try it on a restaurant reviews, for example.</p>
+
+<p>イメージ再トレーニングの場合と同様に、モジュールを自分のタスクに適合させるためには、比較的小さなラベル付きデータが必要です。 たとえば、レストランレビューで試してみましょう。</p>
+
+<pre><code># Use pre-trained universal sentence encoder to build text vector
+review = hub.text_embedding_column(
+“review”, “https://tfhub.dev/google/universal-sentence-encoder/1&quot;)
+features = {
+“review”: np.array([“this movie is a masterpiece”, “this movie was terrible”, …])
+}
+labels = np.array([[1], [0], …])
+input_fn = tf.estimator.input.numpy_input_fn(features, labels, shuffle=True)
+estimator = tf.estimator.DNNClassifier(hidden_units, [review])
+estimator.train(input_fn, max_steps=100)
+</code></pre>
+
+<p><a href="https://gist.github.com/random-forests/8d9049c407d5b7fff613ccb585ce7299#file-universal_sentence_encoder-py">universal_sentence_encoder.py</a></p>
+
+<p>Check out the this <a href="http://tensorflow.org/tutorials/text_classification_with_tf_hub">tutorial</a> to learn more.</p>
+
+<h2 id="other-modules">Other Modules</h2>
+
+<p>TensorFlow Hub is about more than image and text classification. On the website, you’ll also find a couple <a href="http://tensorflow.org/hub/modules/other">modules</a> for Progressive GAN and <a href="https://github.com/tensorflow/models/tree/master/research/delf">Google Landmarks Deep Local Features</a>.</p>
+
+<p>TensorFlowハブは、イメージとテキストの分類以上のものです。 ウェブサイトには、Progressive GANとGoogle Landmarks Deep Local Featuresのための2つのモジュールもあります。</p>
+
+<h2 id="considerations">Considerations</h2>
+
+<p>There are a couple of important considerations when using TensorFlow Hub modules. First, remember that modules contain runnable code. Always use modules from a trusted source. Second, as in all of Machine Learning, fairness is an important consideration. Both of the examples we’ve shown above leverage large pre-trained datasets. When reusing such a dataset, it’s important to be mindful of what data it contains (and whether there are any existing biases there), and how these might impact the product you are building, and its users.</p>
+
+<p>TensorFlowハブモジュールを使用する場合は、いくつかの重要な考慮事項があります。 まず、モジュールには実行可能コードが含まれていることに注意してください。 常に信頼できるソースのモジュールを使用してください。 第2に、機械学習のすべての場合と同様に、公正さは重要な考慮事項です。 上記の両方の例では、事前にトレーニングされた大規模なデータセットを活用しています。 このようなデータセットを再利用する際には、どのデータに含まれているか（そこに既存の偏りがあるかどうか）、構築している製品やユーザーにどのような影響があるかを気にすることが重要です。</p>
+
+<h2 id="next-steps">Next steps</h2>
+
+<p>We hope you find TensorFlow Hub useful in your projects! To get started, head to <a href="http://tensorflow.org/hub">tensorflow.org/hub</a>. If you run into any bugs, you can file an <a href="https://github.com/tensorflow/hub/issues">issue on GitHub</a>. To stay in touch, you can star the <a href="https://github.com/tensorflow/hub">GitHub project</a>, and follow TensorFlow on <a href="http://twitter.com/tensorflow">Twitter</a>. Thanks for reading!</p>
+
+<p>TensorFlow Hubがあなたのプロジェクトに役立つことを願っています！ 開始するには、tensorflow.org/hubをご覧ください。 バグが発生した場合は、GitHubで問題を提出できます。 連絡を取り合うには、GitHubプロジェクトにスターを付け、TwitterでTensorFlowに従ってください。 読んでくれてありがとう！</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Oct 20, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/10/19/body-preparation/" title="体のデバッグ">体のデバッグ</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/10/20/introducing-tensorlow-hub/">Introducing TnsorFlow Hub</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/19/body-preparation/">体のデバッグ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/18/introduction-to-go-to-understand-in-3-minutes/">3分でわかる囲碁入門</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/17/chilled-peppers/">冷やしピーマン</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/16/introduction-to-go-to-understand-in-3-minutes/">3分でわかる囲碁入門</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/15/mistake/">とほほ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/14/cannot-firebase-deploy/">firebase deploy できない件</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/13/tips-for-working-with-graphson-and-tinkerpop-systems/">Tips for Working With Graphson and Tinkerpop Systems</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/12/13-ro-of-go/">13路の囲碁</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/11/various/">色々</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
