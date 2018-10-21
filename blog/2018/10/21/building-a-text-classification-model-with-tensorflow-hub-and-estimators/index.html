@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>Building a Text Classification Model With Tensorflow Hub and Estimators</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Oct 21, 2018
+         - 11 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/10/21/building-a-text-classification-model-with-tensorflow-hub-and-estimators/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/machinelearning/">MachineLearning </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Building a Text Classification Model With Tensorflow Hub and Estimators 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメントを機械翻訳したので以下に控えを。</p>
+
+<ul>
+<li><a href="https://medium.com/tensorflow/building-a-text-classification-model-with-tensorflow-hub-and-estimators-3169e7aa568">Building a text classification model with TensorFlow Hub and Estimators</a></li>
+</ul>
+
+<p>あと、gist が以下です。</p>
+
+<ul>
+<li><a href="https://gist.github.com/yamanetoshi/007442f101d13c0c0b68db2495eb9adb">Building a text classification model with TF Hub</a></li>
+</ul>
+
+<p></p>
+
+<p>We often see transfer learning applied to computer vision models, but what about using it for text classification? Enter TensorFlow Hub, a library for enhancing your TF models with transfer learning. Transfer learning is the process of taking the weights and variables of a pre-existing model that has already been trained on lots of data and leveraging it for your own data and prediction task.</p>
+
+<p>私たちはコンピュータビジョンモデルに適用される伝達学習をしばしば見ていますが、それをテキスト分類に使用するとどうなりますか？ TensorFlow Hubは、トランスファーラーニングを使用してTFモデルを強化するためのライブラリです。 トランスファーラーニングは、既に多数のデータを訓練した既存のモデルの重みと変数を取得し、それを自分のデータや予測タスクに活用するプロセスです。</p>
+
+<p>One of the many benefits of transfer learning is that you don’t need to provide as much of your own training data as you would if you were starting from scratch. But where do these pre-existing models come from? That’s where TensorFlow Hub comes in handy: it provides a whole repository of existing model checkpoints for various types of models — images, text, and more. In this post, I’ll walk you through building a model to predict the genre of a movie from its description using a TensorFlow Hub text module.</p>
+
+<p>トランスファーラーニングの多くの利点の1つは、スクラッチから始める場合と同じくらい自分のトレーニングデータを提供する必要はないということです。 しかし、これらの既存のモデルはどこから来たのですか？ TensorFlow Hub は便利な機能です。画像、テキストなど、さまざまな種類のモデルに既存のモデルチェックポイントのリポジトリ全体を提供します。 この記事では、TensorFlow Hub テキストモジュールを使用して、その説明からムービーのジャンルを予測するモデルを構築する方法を説明します。</p>
+
+<p>You can run this model in the browser with zero setup using <a href="http://colab.research.google.com/github/tensorflow/workshops/blob/master/extras/tfhub-text/movie-classification.ipynb">Colab</a>.</p>
+
+<h2 id="import-and-preprocessing-data">Import and preprocessing data</h2>
+
+<p>For this model we’ll use this awesome public domain movie dataset from Kaggle. It has data on over 45,000 movies. There’s lots of data on each movie, but to keep things simple we’ll use only the movies description (called “overview”) in this dataset, and its genres. Here’s a preview of the dataset in Kaggle:</p>
+
+<p>このモデルでは、Kaggleのこの素晴らしいパブリックドメインムービーデータセットを使用します。 それは45,000以上の映画に関するデータを持っています。 各ムービーにはたくさんのデータがありますが、このデータセットではムービーの説明（「概要」と呼ばれる）とそのジャンルだけを使います。 Kaggleのデータセットのプレビューは次のとおりです。</p>
+
+<p><a href="https://cdn-images-1.medium.com/max/2000/0*zIWLNgbqZlD-9dyR">https://cdn-images-1.medium.com/max/2000/0*zIWLNgbqZlD-9dyR</a></p>
+
+<p>First, we’ll import the libraries we’ll be using to build this model:</p>
+
+<pre><code>import numpy as np
+import pandas as pd
+
+import tensorflow as tf
+import tensorflow_hub as hub
+
+from sklearn.preprocessing import MultiLabelBinarizer
+</code></pre>
+
+<p>I’ve made the CSV file from this dataset available in a public Cloud Storage bucket. We can run the following command to download the data to our Colab instance and read it as a Pandas dataframe:</p>
+
+<p>このデータセットのCSVファイルを公開クラウドストレージバケットで利用できるようにしました。 次のコマンドを実行して、Colabインスタンスにデータをダウンロードし、それをPandasデータフレームとして読み込むことができます。</p>
+
+<pre><code>!wget 'https://storage.googleapis.com/movies_data/movies_metadata.csv'
+data = pd.read_csv('movies_metadata.csv')
+
+descriptions = data['overview']
+genres = data['genres']
+</code></pre>
+
+<p>To keep things simple, we’ll limit the possible genres to the following:</p>
+
+<pre><code>top_genres = ['Comedy', 'Thriller', 'Romance', 'Action', 'Horror', 'Crime', 'Documentary', 'Adventure', 'Science Fiction']
+</code></pre>
+
+<p>We’ll limit our dataset to movies with non-empty descriptions in those genres and then we can split our data into training and testing sets using an 80% / 20% train / test split:</p>
+
+<p>これらのジャンルでは空の記述がない映画にデータセットを限定し、80％/ 20％の列車/テスト分割を使用してデータをトレーニングセットとテストセットに分けることができます。</p>
+
+<pre><code>train_size = int(len(descriptions) * .8)
+
+train_descriptions = descriptions[:train_size]
+train_genres = genres[:train_size]
+
+test_descriptions = descriptions[train_size:]
+test_genres = genres[train_size:]
+</code></pre>
+
+<h2 id="building-our-embedding-layer-with-tf-hub">Building our embedding layer with TF Hub</h2>
+
+<p>Creating an embedding with TF Hub uses a surprisingly small amount of code. Our model will only have one feature (the description) and it’ll be represented as an embedding column. Text embeddings provide a way to represent pieces of text in vector space, so that similar words or sentences are closer together in the embedding space (you can read more about them <a href="https://en.wikipedia.org/wiki/Word_embedding">here</a>). You can build text embedding vectors from scratch using entirely your own data. TF Hub simplifies this process by providing text embeddings that have already been trained on a variety of text data.</p>
+
+<p>TF Hubを使った埋め込みの作成は、驚くほど少量のコードを使用します。 私たちのモデルは1つの機能（説明）しか持たず、埋め込み列として表現されます。 テキストの埋め込みは、ベクトル空間のテキスト部分を表現する方法を提供し、同様の単語や文章が埋め込みスペースに接近するようにします（ここでそれらについて詳しく読むことができます）。 独自のデータを使用して、テキスト埋め込みベクターを最初から構築することができます。 TF Hubは、すでにさまざまなテキストデータに訓練されたテキスト埋め込みを提供することで、このプロセスを簡素化します。</p>
+
+<p>For English text, TF Hub provides a variety of embeddings trained on different kinds of text data:</p>
+
+<ul>
+<li>Universal sentence encoder: for longer form text inputs</li>
+<li>ELMo: deep embeddings trained on the 1B Word Benchmark</li>
+<li>Neural Network Language Model embeddings: trained on Google News</li>
+<li>Word2vec: trained on Wikipedia</li>
+</ul>
+
+<p>英語のテキストの場合、TF Hubはさまざまな種類のテキストデータに対して訓練されたさまざまな埋め込みを提供します：</p>
+
+<ul>
+<li>ユニバーサルセンテンスエンコーダー：より長い形式のテキスト入力用</li>
+<li>ELMo：1BのWordベンチマークで徹底的に埋め込まれた埋め込み</li>
+<li>ニューラルネットワーク言語モデル埋め込み：Googleニュースで訓練</li>
+<li>Word2vec：Wikipediaで訓練を受けた</li>
+</ul>
+
+<p>The pre-trained text embeddings you choose is a hyperparameter in your model, so it’s best to experiment with different ones and see which one yields the highest accuracy. Start with the model that was trained on text closest to yours. Since our movie descriptions are longer inputs, I found I got the highest accuracy with the universal sentence encoder embeddings. This will encode our descriptions into high dimensional text vectors. Note that this particular model is quite large and will take up 1 GB.</p>
+
+<p>We can use hub.text_embedding_column to create a feature column for this layer in one line of code, passing it the name of our layer (“movie_descriptions”) and the URL of the TF Hub model we’ll be using:</p>
+
+<p>あなたが選択した事前に訓練されたテキストの埋め込みは、モデルのハイパーパラメータであるため、異なるものを試して、どれが最高の精度をもたらすかを確認するのが最善です。 あなたに最も近いテキストに訓練されたモデルから始めましょう。 私たちのムービー記述は入力が長いため、ユニバーサルセンテンスエンコーダーの埋め込みで最高の精度を得ました。 これにより、我々の記述を高次元のテキストベクトルに符号化する。 この特定のモデルはかなり大きく、1 GBを占めることに注意してください。</p>
+
+<p>hub.text_embedding_columnを使用して、このレイヤーのフィーチャー列をコードの1行に作成し、レイヤーの名前（「movie_descriptions」）と使用するTFハブモデルのURLを渡すことができます。</p>
+
+<pre><code>description_embeddings = hub.text_embedding_column(
+  &quot;movie_descriptions&quot;, 
+  module_spec=&quot;https://tfhub.dev/google/universal-sentence-encoder/2&quot;
+)
+</code></pre>
+
+<p>Note that it may take some time to run this cell since it’s downloading the pre-trained embeddings.</p>
+
+<p>The best part about this is that we don’t need to do any preprocessing to feed our text descriptions into the pre-trained word embeddings. If we were building this model from scratch we’d need to convert our descriptions into vectors ourselves, but with the TF Hub column we can pass our description strings directly to the model.</p>
+
+<p>事前に訓練された埋め込みをダウンロードしているので、このセルを実行するには時間がかかることに注意してください。</p>
+
+<p>これに関する最も重要な点は、事前に訓練された単語埋め込みにテキスト記述を供給するために前処理を行う必要がないことです。 このモデルを最初から構築する場合は、記述を自分自身のベクトルに変換する必要がありますが、TF Hub列では、説明文字列を直接モデルに渡すことができます。</p>
+
+<h2 id="turning-labels-into-multi-hot-encodings">Turning labels into multi-hot encodings</h2>
+
+<p>Since a movie often has multiple genres, our model will return multiple possible labels for each movie. Our genres are currently a list of strings for each movie (like [‘Action’, ‘Adventure’]). Since each label needs to be the same length, we’ll transform these lists into multi-hot vectors of 1s and 0s corresponding to the genres present in a particular description. The multi-hot vector for an Action and Adventure movie would look like the following:</p>
+
+<p>ムービーには複数のジャンルがあることが多いため、このモデルではムービーごとに複数のラベルが返されます。 私たちのジャンルは現在、各映画のためのストリングのリストです（[&lsquo;Action&rsquo;、 &lsquo;Adventure&rsquo;など））。 各ラベルは同じ長さである必要があるため、これらのリストを特定の記述に存在するジャンルに対応する1と0のマルチホットベクトルに変換します。 アクションとアドベンチャームービーのマルチホットベクトルは、次のようになります。</p>
+
+<pre><code># Genre lookup, each genre corresponds to an index
+top_genres = ['Comedy', 'Thriller', 'Romance', 'Action', 'Horror', 'Crime', 'Documentary', 'Adventure', 'Science Fiction']
+
+# Multi-hot label for an action and adventure movie
+[0 0 0 1 0 0 0 1 0]
+</code></pre>
+
+<p>To transform our string labels into multi-hot vectors in just a few lines of code we’ll use a scikit learn utility called MultiLabelBinarizer:</p>
+
+<p>数行のコードで文字列ラベルをマルチホットベクトルに変換するには、MultiLabelBinarizerというscikit学習ユーティリティを使用します。</p>
+
+<pre><code>encoder = MultiLabelBinarizer()
+encoder.fit_transform(train_genres)
+train_encoded = encoder.transform(train_genres)
+test_encoded = encoder.transform(test_genres)
+num_classes = len(encoder.classes_)
+</code></pre>
+
+<p>You can print encoder.classes_ to see a list of all the string classes your model is predicting.</p>
+
+<p>encoder.classes_を印刷すると、モデルが予測しているすべての文字列クラスのリストが表示されます。</p>
+
+<h2 id="building-and-training-a-dnnestimator-model">Building and training a DNNEstimator model</h2>
+
+<p>For our model we’ll use a DNNEstimator to build a deep neural net that returns a multi-hot vector, since each movie can have 0 or more possible labels (this is different from a model where each input has exactly one label). The first parameter we pass to our DNNEstimator is called a head, and defines the type of labels our model should expect. Since we want our model to output multiple labels, we’ll use multi_label_head here:</p>
+
+<p>私たちのモデルでは、DNNEstimatorを使ってマルチホットベクトルを返すディープニューラルネットを構築します。それぞれのムービーは0以上の可能なラベルを持つことができます（これは、各入力が正確に1つのラベルを持つモデルとは異なります）。 DNNEstimatorに渡す最初のパラメータは頭部と呼ばれ、モデルが期待するラベルの種類を定義します。 モデルに複数のラベルを出力したいので、ここではmulti_label_headを使用します：</p>
+
+<pre><code>multi_label_head = tf.contrib.estimator.multi_label_head(
+    num_classes,
+    loss_reduction=tf.losses.Reduction.SUM_OVER_BATCH_SIZE
+)
+</code></pre>
+
+<p>We can now pass this in when we instantiate our DNNEstimator. The hidden_units param indicates how many layers we’ll have in our network. This model has 2 layers, the first has 64 neurons and the second has 10. Number of layers and layer size is a hyperparameter so you should try out different values to see what works best for your dataset. Finally, we pass our feature columns to the Estimator. In this case we only have one (the description), and we’ve already defined it as a TF Hub embedding column above so we can pass that here as a list:</p>
+
+<p>DNNEstimatorをインスタンス化するときにこれを渡すことができます。 hidden_unitsパラメータは、ネットワークにいくつのレイヤがあるかを示します。 このモデルには2つのレイヤーがあり、最初のレイヤーには64のニューロンがあり、2番目のレイヤーには10のレイヤーとレイヤーがあります。レイヤーとレイヤーの数はハイパーパラメーターなので、異なる値を試してデータセットに最適なものを調べる必要があります。 最後に、フィーチャー列を見積もりに渡します。 この例では1つ（説明）しか持っていません。TFハブの埋め込み列として既に定義されていますので、リストとしてここに渡すことができます：</p>
+
+<pre><code>estimator = tf.contrib.estimator.DNNEstimator(
+    head=multi_label_head,
+    hidden_units=[64,10],
+    feature_columns=[description_embeddings]
+)
+</code></pre>
+
+<p>We’re almost ready to train the model. Before we can train our estimator instance, we need to define our training input function. An input function connects our data to the model. Here we’ll use a numpy_input_fn and feed our data to our model as numpy arrays:</p>
+
+<p>我々はモデルを訓練する準備がほぼ整っている。 見積もりインスタンスをトレーニングする前に、訓練入力関数を定義する必要があります。 入力関数は、データをモデルに接続します。 ここでは、numpy_input_fnを使用し、データをモデルにnumpy配列として送ります：</p>
+
+<pre><code># Format our data for the numpy_input_fn
+features = {
+  &quot;descriptions&quot;: np.array(train_descriptions)
+}
+labels = np.array(train_encoded)
+
+train_input_fn = tf.estimator.inputs.numpy_input_fn(
+    features, 
+    labels, 
+    shuffle=True, 
+    batch_size=32, 
+    num_epochs=20
+)
+</code></pre>
+
+<p>The batch_size and num_epochs parameters in our input function are both hyperparameters. batch_size tells our model how many examples will be passed to our model during one iteration, and num_epochs is the number of times our model will go through the entire training set.</p>
+
+<p>Time to train our model. We can do this with one line of code:</p>
+
+<p>入力関数のbatch_sizeとnum_epochsパラメータはいずれもハイパーパラメータです。 batch_sizeは、私たちのモデルに、1回の反復中にモデルに渡されるサンプルの数を示し、num_epochsは、モデルがトレーニングセット全体を通過する回数を示します。</p>
+
+<p>私たちのモデルを訓練する時間。 1行のコードでこれを行うことができます：</p>
+
+<pre><code>estimator.train(input_fn=train_input_fn)
+</code></pre>
+
+<p>To evaluate the accuracy of our model, we create an eval input_function with our test data, and call estimator.evaluate():</p>
+
+<p>モデルの精度を評価するために、テストデータでeval input_functionを作成し、estimator.evaluate（）を呼び出します。</p>
+
+<pre><code>eval_input_fn = tf.estimator.inputs.numpy_input_fn({&quot;descriptions&quot;: np.array(test_descriptions).astype(np.str)}, test_encoded.astype(np.int32), shuffle=False)
+
+estimator.evaluate(input_fn=eval_input_fn)
+</code></pre>
+
+<p>This model achieved 91.5% AUC, and 74% precision / recall. Your results may vary slightly.</p>
+
+<p>このモデルは、91.5％のAUCおよび74％の精度/リコールを達成した。 結果は若干異なる場合があります。</p>
+
+<h2 id="generating-predictions-on-our-trained-model">Generating predictions on our trained model</h2>
+
+<p>Time for the best part: generating predictions on data our model hasn’t seen before. First, let’s set up an array of a few descriptions (I grabbed these from IMDB):</p>
+
+<p>最も重要な部分の時間：私たちのモデルが以前には見たことのないデータに対する予測を生成する。 まず、いくつかの説明の配列を設定しましょう（IMDBからこれらを取得しました）。</p>
+
+<pre><code>raw_test = [
+    &quot;An examination of our dietary choices and the food we put in our bodies. Based on Jonathan Safran Foer's memoir.&quot;, # Documentary
+    &quot;A teenager tries to survive the last week of her disastrous eighth-grade year before leaving to start high school.&quot;, # Comedy
+    &quot;Ethan Hunt and his IMF team, along with some familiar allies, race against time after a mission gone wrong.&quot; # Action, Adventure
+]
+</code></pre>
+
+<p>We’ll then define our prediction input function and call predict():</p>
+
+<p>次に、予測入力関数を定義し、predict() を呼び出します。</p>
+
+<pre><code>predict_input_fn = tf.estimator.inputs.numpy_input_fn({&quot;descriptions&quot;: np.array(raw_test).astype(np.str)}, shuffle=False)
+
+results = estimator.predict(predict_input_fn)
+</code></pre>
+
+<p>Finally, we can iterate through the results and display the top 2 genres found for each movie along with their confidence values:</p>
+
+<p>最後に、結果を繰り返し、各ムービーで見つかった上位2つのジャンルを信頼度とともに表示できます。</p>
+
+<pre><code>for movie_genres in results:
+  top_2 = movie_genres['probabilities'].argsort()[-2:][::-1]
+  for genre in top_2:
+    text_genre = encoder.classes_[genre]
+    print(text_genre + ': ' + str(round(movie_genres['probabilities'][genre] * 100, 2)) + '%')
+</code></pre>
+
+<p>Our model is able to tag all of the movie descriptions above correctly.</p>
+
+<h2 id="get-started">Get Started</h2>
+
+<p>Want to start building your own model with TF Hub? Check out the <a href="https://www.tensorflow.org/hub/">documentation</a> and <a href="https://www.tensorflow.org/hub/tutorials/text_classification_with_tf_hub">tutorials</a>. You can find the full code for the model outlined here on <a href="https://github.com/tensorflow/workshops/blob/master/extras/tfhub-text/movie-classification.ipynb">GitHub</a> or <a href="https://colab.research.google.com/github/tensorflow/workshops/blob/master/extras/tfhub-text/movie-classification.ipynb">Colab</a>. In a future post, I’ll cover how to export this model for serving on TensorFlow Serving, or Cloud ML Engine — and build an app that generates predictions on new descriptions.</p>
+
+<p>If you have questions or feedback, let me know on Twitter @SRobTweets.</p>
+
+<p>TF Hubで独自のモデルを構築したいですか？ ドキュメントとチュートリアルをチェックしてください。 GitHubまたはColabでここで概説したモデルの完全なコードを見つけることができます。 今後の記事では、このモデルをTensorFlow ServingやCloud ML Engineで公開する方法を説明し、新しい説明で予測を生成するアプリを構築します。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Oct 21, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/10/20/introducing-tensorlow-hub/" title="Introducing TnsorFlow Hub">Introducing TnsorFlow Hub</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/10/21/building-a-text-classification-model-with-tensorflow-hub-and-estimators/">Building a Text Classification Model With Tensorflow Hub and Estimators</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/20/introducing-tensorlow-hub/">Introducing TnsorFlow Hub</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/19/body-preparation/">体のデバッグ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/18/introduction-to-go-to-understand-in-3-minutes/">3分でわかる囲碁入門</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/17/chilled-peppers/">冷やしピーマン</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/16/introduction-to-go-to-understand-in-3-minutes/">3分でわかる囲碁入門</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/15/mistake/">とほほ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/14/cannot-firebase-deploy/">firebase deploy できない件</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/13/tips-for-working-with-graphson-and-tinkerpop-systems/">Tips for Working With Graphson and Tinkerpop Systems</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/12/13-ro-of-go/">13路の囲碁</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

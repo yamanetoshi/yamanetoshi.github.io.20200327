@@ -111,6 +111,71 @@
 <header>
     <p class="meta">Nov 13, 2013
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/13/eopl-ex-2-17/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/eopl/">EoPL </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/scheme/">Scheme </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/13/eopl-ex-2-17/">EoPL の Exercise 2.17</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>i/f を探索するだけ、と値の取得、という意味付けをすれば良いのかどうか。例えば以下?</p>
+
+<pre><code>(define empty-env
+  (lambda ()
+    (lambda (sym search)
+      (if search
+          #f
+          (eopl:error 'apply-env &quot;No binding for ~s&quot; sym)))))
+
+(define extend-env
+  (lambda (syms valus env)
+    (lambda (sym search)
+      (let ((pos (list-find-position sym syms)))
+        (if (number? pos)
+          (if search
+            #t
+            (list-ref vals pos))
+          (apply-env env sym))))))
+
+(define apply-env
+  (lambda (env sym)
+    (env sym #f)))
+
+(define has-association?
+  (lambda (env sym)
+    (env sym #t)))
+</code></pre>
+
+<p>試験書けるのかな。とりあえず試験から書いてみます。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/13/eopl-ex-2-17/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 13, 2013
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/13/git-svn-setup-on-osx/#disqus_thread">Comments</a>
 
         
@@ -473,50 +538,6 @@ sudo apt-get install lib32z1
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 11, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/11/devops-okinawa/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/11/devops-okinawa/">DevOps Okinawa な勉強会</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>某所から仮想リソースを払いだしてもらえるみたいなのですが</p>
-
-<ul>
-<li>起動して初期設定がアレ</li>
-<li>接続のための鍵について</li>
-</ul>
-
-<p>という問題があるなと。関係方面に問い合わせているのですが諸々以下に控え。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/11/devops-okinawa/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -612,6 +633,10 @@ sudo apt-get install lib32z1
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/10/21/building-a-text-classification-model-with-tensorflow-hub-and-estimators/">Building a Text Classification Model With Tensorflow Hub and Estimators</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/10/20/introducing-tensorlow-hub/">Introducing TnsorFlow Hub</a>
             </li>
           
@@ -645,10 +670,6 @@ sudo apt-get install lib32z1
           
             <li class="post">
               <a href="/blog/2018/10/12/13-ro-of-go/">13路の囲碁</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/10/11/various/">色々</a>
             </li>
           
         </ul>
