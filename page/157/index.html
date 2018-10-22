@@ -111,6 +111,52 @@
 <header>
     <p class="meta">Nov 27, 2013
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/27/eopl-ex-2-23/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/eopl/">EoPL </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/scheme/">Scheme </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/27/eopl-ex-2-23/">EoPL の Exercise 2.24</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>2.1.2 の subst あたりを復習。subst の定義が以下。</p>
+
+<pre><code>(define subst
+  (lambda (new old slist)
+    (if (null? slist)
+        '()
+        (cons
+          (subst-in-symbol-expression new old (car slist))
+          (subst new old (cdr subst))))))
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/27/eopl-ex-2-23/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 27, 2013
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/27/24-bit-digital-audio/#disqus_thread">Comments</a>
 
         
@@ -488,45 +534,6 @@ $ bundle init
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 24, 2013
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/24/lazer-cutter/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/fab/">Fab </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/24/lazer-cutter/">レーザーカッターを使おう</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>#gFab にてレーザーカッターを使ってコップ敷きを作ろう、なワークショップが開催とのことでレクチャのみ、ってアレで顔を出させて頂きました。</p>
-
-<p>以下、レクチャ聞きつつとったメモの列挙です。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/24/lazer-cutter/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -622,6 +629,10 @@ $ bundle init
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/10/22/python-print/">python の print</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/10/21/building-a-text-classification-model-with-tensorflow-hub-and-estimators/">Building a Text Classification Model With Tensorflow Hub and Estimators</a>
             </li>
           
@@ -655,10 +666,6 @@ $ bundle init
           
             <li class="post">
               <a href="/blog/2018/10/13/tips-for-working-with-graphson-and-tinkerpop-systems/">Tips for Working With Graphson and Tinkerpop Systems</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/10/12/13-ro-of-go/">13路の囲碁</a>
             </li>
           
         </ul>
