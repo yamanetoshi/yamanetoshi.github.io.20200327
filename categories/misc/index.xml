@@ -6,10 +6,27 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 19 Oct 2018 20:09:42 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 23 Oct 2018 20:29:23 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>KifuDepot</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/23/kifu-depot/</link>
+      <pubDate>Tue, 23 Oct 2018 20:29:23 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/23/kifu-depot/</guid>
+      <description>&lt;p&gt;FB 囲碁クラブから情報入手した棋譜サイト。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://kifudepot.net/?platform=hootsuite&#34;&gt;KifuDepot&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;色々探して並べてみたいがどうなるか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>体のデバッグ</title>

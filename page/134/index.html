@@ -109,6 +109,51 @@
         
 
 <header>
+    <p class="meta">Mar 18, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/18/test-of-screen-transition/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/18/test-of-screen-transition/">画面遷移の試験</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>ListView で云々、というあたり。なんかよく分かってないのですが項目クリックで画面遷移な試験を以下のように書いてパスしてることを確認してます。</p>
+
+<pre><code>public void testHogeSelected() {
+    onData(allOf(is(instanceOf(HogeFragment.ListItem.class)),
+            hasToString(equalTo(&quot;Hoge&quot;))))
+            .perform(click());
+    onView(withText(&quot;Fuga&quot;)).check(matches(isDisplayed()));
+}
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/18/test-of-screen-transition/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Mar 17, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/17/wireless-access-point-in-taipei/#disqus_thread">Comments</a>
@@ -443,37 +488,6 @@ $ git am ~/tmp/patch/*
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Mar 14, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/14/recent-raspi-package/#disqus_thread">Comments</a>
-
-        
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/14/recent-raspi-package/">最近の RasPI のパケジ</a>
-    </h1>
-</header>
-
-
-        
-          <p>以下なカンジなんすね。おやつスナップショットだったりしますが (何</p>
-
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -569,6 +583,10 @@ $ git am ~/tmp/patch/*
         <ul id="recent_posts">
           
             <li class="post">
+              <a href="/blog/2018/10/23/kifu-depot/">KifuDepot</a>
+            </li>
+          
+            <li class="post">
               <a href="/blog/2018/10/22/python-print/">python の print</a>
             </li>
           
@@ -602,10 +620,6 @@ $ git am ~/tmp/patch/*
           
             <li class="post">
               <a href="/blog/2018/10/14/cannot-firebase-deploy/">firebase deploy できない件</a>
-            </li>
-          
-            <li class="post">
-              <a href="/blog/2018/10/13/tips-for-working-with-graphson-and-tinkerpop-systems/">Tips for Working With Graphson and Tinkerpop Systems</a>
             </li>
           
         </ul>
