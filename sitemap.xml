@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/10/24/how-to-build-a-simple-text-classifier-with-tf-hub/</loc>
+    <lastmod>2018-10-24T18:59:49+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/10/23/kifu-depot/</loc>
     <lastmod>2018-10-23T20:29:23+09:00</lastmod>
   </url>
@@ -8284,7 +8289,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-10-23T20:29:23+09:00</lastmod>
+    <lastmod>2018-10-24T18:59:49+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8464,7 +8469,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/machinelearning/</loc>
-    <lastmod>2018-10-21T17:33:35+09:00</lastmod>
+    <lastmod>2018-10-24T18:59:49+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8500,7 +8505,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-10-23T20:29:23+09:00</lastmod>
+    <lastmod>2018-10-24T18:59:49+09:00</lastmod>
     <priority>0</priority>
   </url>
   

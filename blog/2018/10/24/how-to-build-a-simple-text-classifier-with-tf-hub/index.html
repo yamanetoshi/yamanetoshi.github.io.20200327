@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>How to Build a Simple Text Classifier With Tf-Hub</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Oct 24, 2018
+         - 7 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/10/24/how-to-build-a-simple-text-classifier-with-tf-hub/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/machinelearning/">machinelearning </a>
+        
+    </p>
+    <h1 class="entry-title">
+         How to Build a Simple Text Classifier With Tf-Hub 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下なドキュメントを機械翻訳したので以下に控えを。</p>
+
+<ul>
+<li><a href="https://www.tensorflow.org/hub/tutorials/text_classification_with_tf_hub">How to build a simple text classifier with TF-Hub</a></li>
+</ul>
+
+<p></p>
+
+<h3 id="optional-prerequisites">Optional prerequisites</h3>
+
+<ul>
+<li>Basic understanding of Tensorflow <a href="https://www.tensorflow.org/get_started/premade_estimators">premade estimator framework</a>.</li>
+<li>Familiarity with Pandas library.</li>
+</ul>
+
+<h3 id="preparing-the-environment">Preparing the environment</h3>
+
+<pre><code># Install the latest Tensorflow version.
+!pip install --quiet &quot;tensorflow&gt;=1.7&quot;
+# Install TF-Hub.
+!pip install -q tensorflow-hub
+!pip install -q seaborn
+</code></pre>
+
+<p>More detailed information about installing Tensorflow can be found at <a href="https://www.tensorflow.org/install/">https://www.tensorflow.org/install/</a>.</p>
+
+<pre><code>import tensorflow as tf
+import tensorflow_hub as hub
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+import pandas as pd
+import re
+import seaborn as sns
+</code></pre>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<h3 id="data">Data</h3>
+
+<p>We will try to solve the <a href="http://ai.stanford.edu/~amaas/data/sentiment/">Large Movie Review Dataset v1.0</a> task from Mass et al. The dataset consists of IMDB movie reviews labeled by positivity from 1 to 10. The task is to label the reviews as negative or positive.</p>
+
+<p>我々は、MassらのLarge Movie Review Dataset v1.0タスクを解決しようとします。 このデータセットは、1から10までの陽性でラベル付けされたIMDBムービーレビューで構成されています。このタスクは、レビューにマイナスまたはプラスのラベルを付けることです。</p>
+
+<pre><code># Load all files from a directory in a DataFrame.
+def load_directory_data(directory):
+  data = {}
+  data[&quot;sentence&quot;] = []
+  data[&quot;sentiment&quot;] = []
+  for file_path in os.listdir(directory):
+    with tf.gfile.GFile(os.path.join(directory, file_path), &quot;r&quot;) as f:
+      data[&quot;sentence&quot;].append(f.read())
+      data[&quot;sentiment&quot;].append(re.match(&quot;\d+_(\d+)\.txt&quot;, file_path).group(1))
+  return pd.DataFrame.from_dict(data)
+
+# Merge positive and negative examples, add a polarity column and shuffle.
+def load_dataset(directory):
+  pos_df = load_directory_data(os.path.join(directory, &quot;pos&quot;))
+  neg_df = load_directory_data(os.path.join(directory, &quot;neg&quot;))
+  pos_df[&quot;polarity&quot;] = 1
+  neg_df[&quot;polarity&quot;] = 0
+  return pd.concat([pos_df, neg_df]).sample(frac=1).reset_index(drop=True)
+
+# Download and process the dataset files.
+def download_and_load_datasets(force_download=False):
+  dataset = tf.keras.utils.get_file(
+      fname=&quot;aclImdb.tar.gz&quot;, 
+      origin=&quot;http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz&quot;, 
+      extract=True)
+  
+  train_df = load_dataset(os.path.join(os.path.dirname(dataset), 
+                                       &quot;aclImdb&quot;, &quot;train&quot;))
+  test_df = load_dataset(os.path.join(os.path.dirname(dataset), 
+                                      &quot;aclImdb&quot;, &quot;test&quot;))
+  
+  return train_df, test_df
+
+# Reduce logging output.
+tf.logging.set_verbosity(tf.logging.ERROR)
+
+train_df, test_df = download_and_load_datasets()
+train_df.head()
+</code></pre>
+
+<pre><code>Downloading data from http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
+84131840/84125825 [==============================] - 9s 0us/step
+</code></pre>
+
+<h3 id="model">Model</h3>
+
+<h4 id="input-functions">Input functions</h4>
+
+<p><a href="https://www.tensorflow.org/get_started/premade_estimators#overview_of_programming_with_estimators">Estimator framework</a> provides <a href="https://www.tensorflow.org/api_docs/python/tf/estimator/inputs/pandas_input_fn">input functions</a> that wrap Pandas dataframes.</p>
+
+<pre><code># Training input on the whole training set with no limit on training epochs.
+train_input_fn = tf.estimator.inputs.pandas_input_fn(
+    train_df, train_df[&quot;polarity&quot;], num_epochs=None, shuffle=True)
+
+# Prediction on the whole training set.
+predict_train_input_fn = tf.estimator.inputs.pandas_input_fn(
+    train_df, train_df[&quot;polarity&quot;], shuffle=False)
+# Prediction on the test set.
+predict_test_input_fn = tf.estimator.inputs.pandas_input_fn(
+    test_df, test_df[&quot;polarity&quot;], shuffle=False)
+</code></pre>
+
+<h4 id="feature-columns">Feature columns</h4>
+
+<p>TF-Hub provides a feature column that applies a module on the given text feature and passes further the outputs of the module. In this tutorial we will be using the nnlm-en-dim128 module. For the purpose of this tutorial, the most important facts are:</p>
+
+<ul>
+<li>The module takes a batch of sentences in a 1-D tensor of strings as input.</li>
+<li>The module is responsible for preprocessing of sentences (e.g. removal of punctuation and splitting on spaces).</li>
+<li>The module works with any input (e.g. nnlm-en-dim128 hashes words not present in vocabulary into ~20.000 buckets).</li>
+</ul>
+
+<p>TF-Hubは、指定されたテキストフィーチャーにモジュールを適用し、さらにモジュールの出力を渡すフィーチャー列を提供します。 このチュートリアルでは、nnlm-en-dim128モジュールを使用します。 このチュートリアルでは、最も重要な事実は次のとおりです。</p>
+
+<ul>
+<li>このモジュールは、文字列の1次元テンソル内の文のバッチを入力として受け取ります。</li>
+<li>モジュールは、文章の前処理（例えば、句読点の削除やスペースの分割など）を担当します。</li>
+<li>このモジュールは、任意の入力（たとえば、nnlm-en-dim128ハッシュの語彙には〜20.000バケットに含まれていないハッシュ）で動作します。</li>
+</ul>
+
+<pre><code>embedded_text_feature_column = hub.text_embedding_column(
+    key=&quot;sentence&quot;, 
+    module_spec=&quot;https://tfhub.dev/google/nnlm-en-dim128/1&quot;)
+</code></pre>
+
+<h4 id="estimator">Estimator</h4>
+
+<p>For classification we can use a <a href="https://www.tensorflow.org/api_docs/python/tf/estimator/DNNClassifier">DNN Classifier</a> (note further remarks about different modelling of the label function at the end of the tutorial).</p>
+
+<p>分類のためにDNNクラシファイアを使用することができます（チュートリアルの最後のラベル機能のさまざまなモデリングについてさらに注意してください）。</p>
+
+<pre><code>estimator = tf.estimator.DNNClassifier(
+    hidden_units=[500, 100],
+    feature_columns=[embedded_text_feature_column],
+    n_classes=2,
+    optimizer=tf.train.AdagradOptimizer(learning_rate=0.003))
+</code></pre>
+
+<h4 id="training">Training</h4>
+
+<p>Train the estimator for a reasonable amount of steps.</p>
+
+<p>妥当な量のステップについて見積もり者を訓練する。</p>
+
+<pre><code># Training for 1,000 steps means 128,000 training examples with the default
+# batch size. This is roughly equivalent to 5 epochs since the training dataset
+# contains 25,000 examples.
+estimator.train(input_fn=train_input_fn, steps=1000);
+</code></pre>
+
+<h2 id="prediction">Prediction</h2>
+
+<p>Run predictions for both training and test set.</p>
+
+<p>トレーニングセットとテストセットの両方の予測を実行します。</p>
+
+<pre><code>train_eval_result = estimator.evaluate(input_fn=predict_train_input_fn)
+test_eval_result = estimator.evaluate(input_fn=predict_test_input_fn)
+
+print(&quot;Training set accuracy: {accuracy}&quot;.format(**train_eval_result))
+print(&quot;Test set accuracy: {accuracy}&quot;.format(**test_eval_result))
+</code></pre>
+
+<pre><code>Training set accuracy: 0.8025599718093872
+Test set accuracy: 0.7925599813461304
+</code></pre>
+
+<h3 id="confusion-matrix">Confusion matrix</h3>
+
+<p>We can visually check the confusion matrix to undestand the distribution of misclassifications.</p>
+
+<p>私たちは、誤分類の分布を理解するために混乱マトリックスを視覚的に確認することができます。</p>
+
+<pre><code>def get_predictions(estimator, input_fn):
+  return [x[&quot;class_ids&quot;][0] for x in estimator.predict(input_fn=input_fn)]
+
+LABELS = [
+    &quot;negative&quot;, &quot;positive&quot;
+]
+
+# Create a confusion matrix on training data.
+with tf.Graph().as_default():
+  cm = tf.confusion_matrix(train_df[&quot;polarity&quot;], 
+                           get_predictions(estimator, predict_train_input_fn))
+  with tf.Session() as session:
+    cm_out = session.run(cm)
+
+# Normalize the confusion matrix so that each row sums to 1.
+cm_out = cm_out.astype(float) / cm_out.sum(axis=1)[:, np.newaxis]
+
+sns.heatmap(cm_out, annot=True, xticklabels=LABELS, yticklabels=LABELS);
+plt.xlabel(&quot;Predicted&quot;);
+plt.ylabel(&quot;True&quot;);
+</code></pre>
+
+<h2 id="further-improvements">Further improvements</h2>
+
+<ol>
+<li>Regression on sentiment: we used a classifier to assign each example into a polarity class. But we actually have another categorical feature at our disposal - sentiment. Here classes actually represent a scale and the underlying value (positive/negative) could be well mapped into a continuous range. We could make use of this property by computing a regression (DNN Regressor) instead of a classification (DNN Classifier).</li>
+<li>Larger module: for the purposes of this tutorial we used a small module to restrict the memory use. There are modules with larger vocabularies and larger embedding space that could give additional accuracy points.</li>
+<li>Parameter tuning: we can improve the accuracy by tuning the meta-parameters like the learning rate or the number of steps, especially if we use a different module. A validation set is very important if we want to get any reasonable results, because it is very easy to set-up a model that learns to predict the training data without generalizing well to the test set.</li>
+<li>More complex model: we used a module that computes a sentence embedding by embedding each individual word and then combining them with average. One could also use a sequential module (e.g. Universal Sentence Encoder module) to better capture the nature of sentences. Or an ensemble of two or more TF-Hub modules.</li>
+
+<li><p>Regularization: to prevent overfitting, we could try to use an optimizer that does some sort of regularization, for example Proximal Adagrad Optimizer.</p></li>
+
+<li><p>感情回帰：分類子を使用して各例を極性クラスに割り当てました。しかし、私たちは実際には別のカテゴリー的な特徴を持っています。クラスは実際にスケールを表し、基礎となる値（正/負）は連続した範囲にうまくマッピングできます。分類（DNNクラシファイア）の代わりに回帰（DNN Regressor）を計算することで、この特性を利用することができました。</p></li>
+
+<li><p>より大きいモジュール：このチュートリアルでは、メモリ使用を制限するために小さなモジュールを使用しました。大きなボキャブラリと大きな埋め込みスペースを持つモジュールがあり、追加の精度ポイントを与えることができます。</p></li>
+
+<li><p>パラメータ調整：特に異なるモジュールを使用する場合は、学習率やステップ数などのメタパラメータを調整することで精度を向上させることができます。テストセットを一般化することなくトレーニングデータを予測することを学ぶモデルをセットアップすることは非常に簡単であるため、妥当な結果を得たい場合は、検証セットが非常に重要です。</p></li>
+
+<li><p>より複雑なモデル：個々の単語を埋め込んで平均を組み合わせることで、文の埋め込みを計算するモジュールを使用しました。また、文の性質をよりよく捕捉するために、順次モジュール（例えば、ユニバーサルセンテンスエンコーダモジュール）を使用することもできる。または2つ以上のTF-Hubモジュールのアンサンブル。</p></li>
+
+<li><p>正規化：オーバーフィットを防ぐために、Proximal Adagrad Optimizerなど、ある種の正規化を行うオプティマイザを使用することができます。</p></li>
+</ol>
+
+<h2 id="advanced-transfer-learning-analysis">Advanced: Transfer learning analysis</h2>
+
+<p>Transfer learning makes it possible to save training resources and to achieve good model generalization even when training on a small dataset. In this part, we will demonstrate this by training with two different TF-Hub modules:</p>
+
+<ul>
+<li><a href="https://tfhub.dev/google/nnlm-en-dim128/1">nnlm-en-dim128</a> - pretrained text embedding module,</li>
+<li><a href="https://tfhub.dev/google/random-nnlm-en-dim128/1">random-nnlm-en-dim128</a> - text embedding module that has same vocabulary and network as nnlm-en-dim128, but the weights were just randomly initialized and never trained on real data.</li>
+</ul>
+
+<p>And by training in two modes:</p>
+
+<ul>
+<li>training only the classifier (i.e. freezing the module), and</li>
+<li>training the classifier together with the module.</li>
+</ul>
+
+<p>Let&rsquo;s run a couple of trainings and evaluations to see how using a various modules can affect the accuracy.</p>
+
+<p>転送学習を使用すると、小さなデータセットでトレーニングする場合でも、トレーニングリソースを節約し、優れたモデルの一般化を実現できます。 このパートでは、2つの異なるTF-Hubモジュールを使用してトレーニングを行います。</p>
+
+<ul>
+<li>nnlm-en-dim128 - 事前訓練されたテキスト埋め込みモジュール、</li>
+<li>random-nnlm-en-dim128 - nnlm-en-dim128と同じボキャブラリとネットワークを持つテキスト埋め込みモジュールですが、ウェイトはランダムに初期化され、実際のデータでは訓練されませんでした。</li>
+</ul>
+
+<p>そして、2つのモードでのトレーニングによって：</p>
+
+<ul>
+<li>分類器のみを訓練する（すなわち、モジュールを凍結する）そして</li>
+<li>モジュールと一緒に分類器を訓練する。</li>
+</ul>
+
+<p>いくつかのトレーニングと評価を実行して、さまざまなモジュールの使用が精度にどのように影響するかを見てみましょう。</p>
+
+<pre><code>def train_and_evaluate_with_module(hub_module, train_module=False):
+  embedded_text_feature_column = hub.text_embedding_column(
+      key=&quot;sentence&quot;, module_spec=hub_module, trainable=train_module)
+
+  estimator = tf.estimator.DNNClassifier(
+      hidden_units=[500, 100],
+      feature_columns=[embedded_text_feature_column],
+      n_classes=2,
+      optimizer=tf.train.AdagradOptimizer(learning_rate=0.003))
+
+  estimator.train(input_fn=train_input_fn, steps=1000)
+
+  train_eval_result = estimator.evaluate(input_fn=predict_train_input_fn)
+  test_eval_result = estimator.evaluate(input_fn=predict_test_input_fn)
+
+  training_set_accuracy = train_eval_result[&quot;accuracy&quot;]
+  test_set_accuracy = test_eval_result[&quot;accuracy&quot;]
+
+  return {
+      &quot;Training accuracy&quot;: training_set_accuracy,
+      &quot;Test accuracy&quot;: test_set_accuracy
+  }
+
+
+results = {}
+results[&quot;nnlm-en-dim128&quot;] = train_and_evaluate_with_module(
+    &quot;https://tfhub.dev/google/nnlm-en-dim128/1&quot;)
+results[&quot;nnlm-en-dim128-with-module-training&quot;] = train_and_evaluate_with_module(
+    &quot;https://tfhub.dev/google/nnlm-en-dim128/1&quot;, True)
+results[&quot;random-nnlm-en-dim128&quot;] = train_and_evaluate_with_module(
+    &quot;https://tfhub.dev/google/random-nnlm-en-dim128/1&quot;)
+results[&quot;random-nnlm-en-dim128-with-module-training&quot;] = train_and_evaluate_with_module(
+    &quot;https://tfhub.dev/google/random-nnlm-en-dim128/1&quot;, True)
+</code></pre>
+
+<p>Let&rsquo;s look at the results.</p>
+
+<pre><code>pd.DataFrame.from_dict(results, orient=&quot;index&quot;)
+</code></pre>
+
+<p>We can already see some patterns, but first we should establish the baseline accuracy of the test set - the lower bound that can be achieved by outputting only the label of the most represented class:</p>
+
+<p>すでにいくつかのパターンを見ることができますが、最初にテストセットのベースライン精度を設定する必要があります。これは、最も表現されたクラスのラベルのみを出力することで達成できます。</p>
+
+<pre><code>estimator.evaluate(input_fn=predict_test_input_fn)[&quot;accuracy_baseline&quot;]
+</code></pre>
+
+<pre><code>0.5
+</code></pre>
+
+<p>Assigning the most represented class will give us accuracy of 50%. There are a couple of things to notice here:</p>
+
+<ol>
+<li>Maybe surprisingly, a model can still be learned on top of fixed, random embeddings. The reason is that even if every word in the dictionary is mapped to a random vector, the estimator can separate the space purely using its fully connected layers.</li>
+<li>Allowing training of the module with random embeddings increases both training and test accuracy as oposed to training just the classifier.</li>
+<li>Training of the module with pre-trained embeddings also increases both accuracies. Note however the overfitting on the training set. Training a pre-trained module can be dangerous even with regularization in the sense that the embedding weights no longer represent the language model trained on diverse data, instead they converge to the ideal representation of the new dataset.</li>
+</ol>
+
+<p>最も代表的なクラスを割り当てることで、正確さは50％になります。 ここで注意すべきことがいくつかあります：</p>
+
+<ol>
+<li>驚くべきことに、固定されたランダム埋め込みの上でモデルを学習することは可能かもしれません。 その理由は、辞書内のすべての単語がランダムなベクトルにマッピングされていても、推定器は完全に接続されたレイヤを使用してスペースを分けることができるからです。</li>
+<li>ランダム埋め込みを伴うモジュールの訓練を可能にすることは、訓練と試験の正確さの両方を高め、分類器だけを訓練することに過ぎない。</li>
+<li>事前に訓練された埋め込みを有するモジュールの訓練はまた、両方の精度を高める。 ただし、トレーニングセットのオーバーフィットに注意してください。 事前に訓練されたモジュールをトレーニングすることは、正則化しても、埋め込みウェイトが、新しいデータセットの理想的な表現に収束するのではなく、多様なデータで訓練された言語モデルを表さなくなるという意味で危険です。</li>
+</ol>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Oct 24, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/10/23/kifu-depot/" title="KifuDepot">KifuDepot</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/10/24/how-to-build-a-simple-text-classifier-with-tf-hub/">How to Build a Simple Text Classifier With Tf-Hub</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/23/kifu-depot/">KifuDepot</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/22/python-print/">python の print</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/21/building-a-text-classification-model-with-tensorflow-hub-and-estimators/">Building a Text Classification Model With Tensorflow Hub and Estimators</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/20/introducing-tensorlow-hub/">Introducing TnsorFlow Hub</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/19/body-preparation/">体のデバッグ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/18/introduction-to-go-to-understand-in-3-minutes/">3分でわかる囲碁入門</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/17/chilled-peppers/">冷やしピーマン</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/16/introduction-to-go-to-understand-in-3-minutes/">3分でわかる囲碁入門</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/15/mistake/">とほほ</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
