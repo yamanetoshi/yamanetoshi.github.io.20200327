@@ -6,10 +6,32 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 24 Oct 2018 18:59:49 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 25 Oct 2018 20:46:06 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>積ん読</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/25/tu-nn-do-ku/</link>
+      <pubDate>Thu, 25 Oct 2018 20:46:06 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/25/tu-nn-do-ku/</guid>
+      <description>&lt;p&gt;入手してスルーしてる本が増えている。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Python プロフェッショナルプログラミング&lt;/li&gt;
+&lt;li&gt;Python で学ぶあたらしい統計学の教科書&lt;/li&gt;
+&lt;li&gt;Go言語でつくるインタプリタ&lt;/li&gt;
+&lt;li&gt;Vue.js 入門&lt;/li&gt;
+&lt;li&gt;Metaprogramming Elixir&lt;/li&gt;
+&lt;li&gt;ゼロから作る Deep Learning 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;kindle で、ってのが敗因なのかどうか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>How to Build a Simple Text Classifier With Tf-Hub</title>
