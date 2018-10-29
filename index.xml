@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 28 Oct 2018 20:50:14 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 29 Oct 2018 21:48:24 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>二十一世紀の打ち方</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/29/go-seigen/</link>
+      <pubDate>Mon, 29 Oct 2018 21:48:24 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/29/go-seigen/</guid>
+      <description>&lt;p&gt;やはり呉清源さん凄いな。以下な参考書、NHK 囲碁講座のリファイン版なんですね。20 年くらい前のナニにも関わらず、ふつうに三々入りな例があったり。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/4140160888/yamanetoshi-22&#34;&gt;二十一世紀の打ち方&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>thinkpad x220 調達</title>
