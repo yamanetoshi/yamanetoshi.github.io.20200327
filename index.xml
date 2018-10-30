@@ -6,10 +6,27 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 29 Oct 2018 21:48:24 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 30 Oct 2018 20:41:09 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>word2vec の学習済みモデル</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/30/word2vec-learned-model/</link>
+      <pubDate>Tue, 30 Oct 2018 20:41:09 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/30/word2vec-learned-model/</guid>
+      <description>&lt;p&gt;当初、Doc2Vec なナニを探してて全然見当たらなかったのですが Word2Vec であれば配布なさっている方がいらっしゃることを先日発見。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://aial.shiroyagi.co.jp/2017/02/japanese-word2vec-model-builder/&#34;&gt;word2vecの学習済み日本語モデルを公開します&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;素晴しす。早速 download して色々試している次第。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>二十一世紀の打ち方</title>

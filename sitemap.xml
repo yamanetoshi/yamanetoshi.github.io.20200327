@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/10/30/word2vec-learned-model/</loc>
+    <lastmod>2018-10-30T20:41:09+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/10/29/go-seigen/</loc>
     <lastmod>2018-10-29T21:48:24+09:00</lastmod>
   </url>
@@ -8314,7 +8319,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-10-29T21:48:24+09:00</lastmod>
+    <lastmod>2018-10-30T20:41:09+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8494,7 +8499,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/machinelearning/</loc>
-    <lastmod>2018-10-24T18:59:49+09:00</lastmod>
+    <lastmod>2018-10-30T20:41:09+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8530,7 +8535,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-10-29T21:48:24+09:00</lastmod>
+    <lastmod>2018-10-30T20:41:09+09:00</lastmod>
     <priority>0</priority>
   </url>
   
