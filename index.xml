@@ -6,10 +6,27 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 30 Oct 2018 20:41:09 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 31 Oct 2018 21:31:36 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>japanese-word2vec-model-builder 実装確認メモ</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/31/japanese-word2vec-model-builder/</link>
+      <pubDate>Wed, 31 Oct 2018 21:31:36 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/31/japanese-word2vec-model-builder/</guid>
+      <description>&lt;p&gt;以下にて公開されている&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shiroyagicorp/japanese-word2vec-model-builder&#34;&gt;https://github.com/shiroyagicorp/japanese-word2vec-model-builder&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Japanese Word2Vec Model Builder の実装について確認を行ないましたので、以下にメモを羅列します。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>word2vec の学習済みモデル</title>

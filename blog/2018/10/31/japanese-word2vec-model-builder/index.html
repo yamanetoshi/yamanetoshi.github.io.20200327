@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+  
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  
+
+  
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function() {
+            console.log('Service Worker Registered');
+          });
+      }
+    });
+  </script>
+
+  
+  <title>japanese-word2vec-model-builder 実装確認メモ</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+  
+
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.36-DEV" />
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner"><hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Oct 31, 2018
+         - 3 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/10/31/japanese-word2vec-model-builder/#disqus_thread">Comments</a>
+
+        
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/machinelearning/">MachineLearning </a>
+        
+    </p>
+    <h1 class="entry-title">
+         japanese-word2vec-model-builder 実装確認メモ 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          
+          <p>以下にて公開されている</p>
+
+<ul>
+<li><a href="https://github.com/shiroyagicorp/japanese-word2vec-model-builder">https://github.com/shiroyagicorp/japanese-word2vec-model-builder</a></li>
+</ul>
+
+<p>Japanese Word2Vec Model Builder の実装について確認を行ないましたので、以下にメモを羅列します。</p>
+
+<p></p>
+
+<p>導入及び実行の方法などについては上記リポジトリの README.md を確認すれば十分と思われます。</p>
+
+<h3 id="ソースファイル">ソースファイル</h3>
+
+<p>下記四点となっています。以降にて順に列挙します。</p>
+
+<ul>
+<li>main.py</li>
+<li>word2vec.py</li>
+<li>tokenizer.py</li>
+<li>wikipedia.py</li>
+</ul>
+
+<h2 id="main-py">main.py</h2>
+
+<ul>
+<li>コマンドラインからの実行時のエントリポイントは main 手続き</li>
+<li><code>--download-neologd</code> オプション指定時には <code>tokenizer.py</code> の <code>download_neologd</code> 手続きが呼び出されます</li>
+<li><code>--download-wikipedia-dump</code> オプション指定時には <code>wikipedia.py</code> の <code>download_dump</code> 手続きが呼び出されます</li>
+<li><code>--build-gensim-model</code> オプション指定時に行なわれる処理として以下の記述があります</li>
+</ul>
+
+<pre><code>        with tempfile.TemporaryDirectory() as temp_dir:
+            iter_docs = partial(wikipedia.iter_docs,
+                                wikipedia_dump_path, temp_dir)
+            iter_tokens = get_tokens_iterator(tokenizer.get_tagger(dic_path),
+                                              iter_docs)
+            word2vec.build_gensim_w2v_model(output_model_path, iter_tokens,
+                                            size, window, min_count)
+</code></pre>
+
+<p>以下に、指定可能なオプションとそれぞれのオプションにおける処理について補足します。</p>
+
+<ul>
+<li><code>--build-gensim-model</code>
+
+<ul>
+<li>boolean (指定時に True となります)</li>
+<li>既定値は False</li>
+</ul></li>
+<li><code>-o</code> または <code>--output-model-path</code>
+
+<ul>
+<li>既定値は &lsquo;output/word2vec.gensim.model&rsquo;</li>
+</ul></li>
+<li><code>--size</code>
+
+<ul>
+<li>整数型</li>
+<li>既定値は 100</li>
+</ul></li>
+<li><code>--window</code>
+
+<ul>
+<li>整数型</li>
+<li>既定値は 8</li>
+</ul></li>
+<li><code>--min-count</code>
+
+<ul>
+<li>整数型</li>
+<li>既定値は 10</li>
+</ul></li>
+<li><code>--download-wikipedia-dump</code>
+
+<ul>
+<li>boolean (指定時に True となります)<br /></li>
+<li>既定値は False</li>
+</ul></li>
+<li><code>--wikipedia-dump-path</code>
+
+<ul>
+<li>既定値は &lsquo;output/jawiki-latest-pages-articles.xml.bz2&rsquo;<br /></li>
+</ul></li>
+<li><code>--wikipedia-dump-url</code>
+
+<ul>
+<li>既定値は &lsquo;<a href="https://dumps.wikimedia.org/jawiki/latest/jawiki-latest-pages-articles.xml.bz2'">https://dumps.wikimedia.org/jawiki/latest/jawiki-latest-pages-articles.xml.bz2'</a><br /></li>
+</ul></li>
+<li><code>--download-neologd</code>
+
+<ul>
+<li>boolean (指定時に True となります)<br /></li>
+<li>既定値は False</li>
+</ul></li>
+<li>`&ndash;dictionary-path
+
+<ul>
+<li>既定値は &lsquo;output/dic&rsquo;<br /></li>
+</ul></li>
+</ul>
+
+<h3 id="download-neologd">download_neologd</h3>
+
+<ul>
+<li><code>tokenizer.py</code> の <code>download_neologd</code> に dictionary_path オプションの値を渡して呼び出します</li>
+</ul>
+
+<h3 id="download-wikipedia-dump">download_wikipedia_dump</h3>
+
+<ul>
+<li><code>wikipedia.py</code> の <code>download_dump</code> に wikipedia_dump_path および wikipedia_dump_url オプションの値を渡して呼び出します</li>
+</ul>
+
+<h3 id="build-gensim-model">build_gensim_model</h3>
+
+<ul>
+<li><code>wikipedia.py</code> の <code>iter_docs</code> 手続きに wikipedia_dump_path オプションの値とテンポラリディレクトリの情報が渡されている手続きオブジェクトを iter_docs に設定します</li>
+<li><code>get_tokens_iterator</code> 手続きを呼び出します、詳細については下記に記載します</li>
+<li><code>get_tokens_iterator</code> 手続きの戻りが設定された iter_tokens および size、window、min_count、output_model_path オプションを渡して <code>word2vec.py</code> の <code>build_gensim_w2v_model</code> 手続きを呼び出します</li>
+</ul>
+
+<h3 id="get-tokens-iterator-手続き">get_tokens_iterator 手続き</h3>
+
+<ul>
+<li><p>引数として以下を渡して呼び出されます</p>
+
+<ul>
+<li><code>tokenizer.py</code> の <code>get_tagger</code> に dictionary_path オプションを渡して呼び出した戻り (mecab オブジェクト)</li>
+<li>iter_docs</li>
+</ul></li>
+
+<li><p>まず、<code>tokenizer.py</code> の <code>tokenize</code> 手続きに引数 tagger (上記の <code>get_tagger</code> の戻り) が渡されている手続きオブジェクトを tokenize に設定します</p></li>
+
+<li><p><code>iter_docs</code> の戻りを要素単位で取り出して tokenize に渡して戻りを yield します</p>
+
+<ul>
+<li>これは Word2Vec オブジェクトの <code>train</code> や <code>build_vocab</code> などに渡される形となっており、繰り返しの中で以下が呼び出されて要素を戻す形となっています</li>
+<li>下記の手続きオブジェクトが渡されて tokenize の戻りが順に取り出される形となります</li>
+</ul></li>
+</ul>
+
+<pre><code>    def iter_tokens():
+        for doc in iter_docs():
+            yield tokenize(doc)
+</code></pre>
+
+<h2 id="word2vec-py">word2vec.py</h2>
+
+<ul>
+<li>Word2Vec オブジェクトを生成して訓練を行ないます</li>
+<li><code>build_gensim_w2v_model</code> のみが定義されています</li>
+<li>定義は以下</li>
+</ul>
+
+<pre><code>def build_gensim_w2v_model(model_path, iter_tokens, size, window, min_count):
+    &quot;&quot;&quot;
+    Parameters
+    ----------
+    model_path : string
+        Path of Word2Vec model
+    iter_tokens : iterator
+        Iterator of documents, which are lists of words
+    &quot;&quot;&quot;
+    model = Word2Vec(
+        size=size,
+        window=window,
+        min_count=min_count,
+        workers=multiprocessing.cpu_count()
+    )
+    model.build_vocab(iter_tokens())
+    model.train(iter_tokens())
+    model.init_sims(replace=True)
+    model.save(model_path)
+</code></pre>
+
+<ul>
+<li>build_vocab
+
+<ul>
+<li>Build vocabulary from a sequence of sentences (can be a once-only generator stream).</li>
+<li>一連の文から語彙を構築する（一度だけのジェネレータストリームにすることができます）。</li>
+</ul></li>
+<li>train
+
+<ul>
+<li>Update the model’s neural weights from a sequence of sentences.</li>
+<li>一連の文からモデルの神経の重みを更新します。</li>
+</ul></li>
+<li>init_sims
+
+<ul>
+<li>deprecated とのこと</li>
+<li>Use self.wv.init_sims instead. See init_sims().</li>
+<li><a href="https://radimrehurek.com/gensim/models/keyedvectors.html#gensim.models.keyedvectors.Word2VecKeyedVectors.init_sims">https://radimrehurek.com/gensim/models/keyedvectors.html#gensim.models.keyedvectors.Word2VecKeyedVectors.init_sims</a></li>
+<li>Precompute L2-normalized vectors.</li>
+<li>L2 正規化ベクトルを事前計算する<br /></li>
+<li>ここは修正が必要と思われます</li>
+</ul></li>
+</ul>
+
+<h2 id="tokenizer-py">tokenizer.py</h2>
+
+<ul>
+<li>定義されているのは以下三点の手続き
+
+<ul>
+<li><code>download_neologd</code></li>
+<li><code>get_tagger</code></li>
+<li><code>tokenize</code></li>
+</ul></li>
+</ul>
+
+<h3 id="download-neologd-1">download_neologd</h3>
+
+<ul>
+<li>基本的には mecab-ipadic-neologd リポジトリを clone して導入を行なう手続きです</li>
+<li>mecab-ipadic-neologd について
+
+<ul>
+<li>頻繁に更新される MeCab 要のシステム辞書</li>
+<li>最新の単語に対応した形態素解析ができる</li>
+</ul></li>
+</ul>
+
+<h3 id="get-tagger">get_tagger</h3>
+
+<ul>
+<li><code>Mecab.Tagger('-d {}'.format(dic_path))</code> の戻りを返却します
+
+<ul>
+<li>辞書を指定して mecab オブジェクトを戻すものです</li>
+<li>これは <code>main</code> 手続きにて <code>get_tokens_iterator</code> に渡されています</li>
+</ul></li>
+</ul>
+
+<h3 id="tokenize">tokenize</h3>
+
+<ul>
+<li>mecab オブジェクトで parse して解析された語を配列に追加してそれを戻しています</li>
+<li>定義が以下</li>
+</ul>
+
+<pre><code>def tokenize(text, tagger):
+    tokens = []
+    for line in tagger.parse(text).split('\n'):
+        if line == 'EOS':
+            break
+        surface = line.split('\t')[0]
+        tokens.append(surface)
+    return tokens
+</code></pre>
+
+<h2 id="wikipedia-py">wikipedia.py</h2>
+
+<ul>
+<li>定義されているのは以下二点の手続き
+
+<ul>
+<li><code>download_dump</code></li>
+<li><code>iter_docs</code></li>
+</ul></li>
+</ul>
+
+<h3 id="download-dump">download_dump</h3>
+
+<ul>
+<li>curl で url (既定値は <a href="https://dumps.wikimedia.org/jawiki/latest/jawiki-latest-pages-articles.xml.bz2">https://dumps.wikimedia.org/jawiki/latest/jawiki-latest-pages-articles.xml.bz2</a>) からファイルを取得します</li>
+</ul>
+
+<h3 id="iter-docs">iter_docs</h3>
+
+<ul>
+<li>引数で指定された wikipedia dump file の前処理を行ない、<code>r'^&lt;doc(\s.*)?&gt;$'</code> にマッチする箇所から <code>r'^&lt;/doc&gt;$'</code> にマッチする箇所までを一区切りのデータとして配列に追加して配列を戻す</li>
+</ul>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>以下の箇所は修正を行なう必要があるかもしれません。</p>
+
+<ul>
+<li>tokenizer.py の tokenize
+
+<ul>
+<li>品詞でしばる場合</li>
+</ul></li>
+<li>word2vec.py の build_gensim_w2v_model
+
+<ul>
+<li>init_sims が deprecated</li>
+</ul></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Oct 31, 2018</time>
+    
+    </span>
+  </p>
+
+  
+  
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2018/10/30/word2vec-learned-model/" title="word2vec の学習済みモデル">word2vec の学習済みモデル</a>
+    
+
+    
+  </p>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+</script>
+  
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+       
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+            <li class="post">
+              <a href="/blog/2018/10/31/japanese-word2vec-model-builder/">japanese-word2vec-model-builder 実装確認メモ</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/30/word2vec-learned-model/">word2vec の学習済みモデル</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/29/go-seigen/">二十一世紀の打ち方</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/28/get-thinkpad-x220/">thinkpad x220 調達</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/27/100-numpy-exercises/">100 numpy exercises</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/26/todo/">TODO</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/25/tu-nn-do-ku/">積ん読</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/24/how-to-build-a-simple-text-classifier-with-tf-hub/">How to Build a Simple Text Classifier With Tf-Hub</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/23/kifu-depot/">KifuDepot</a>
+            </li>
+          
+            <li class="post">
+              <a href="/blog/2018/10/22/python-print/">python の print</a>
+            </li>
+          
+        </ul>
+      </section>
+    
+  
+
+
+<section>
+    <h1>Books</h1>
+
+<ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+
+</section>
+
+<section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+
+      
+
+</aside>
+
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2018  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
