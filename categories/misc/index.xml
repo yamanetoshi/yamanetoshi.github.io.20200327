@@ -6,10 +6,27 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 01 Nov 2018 20:07:38 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 02 Nov 2018 20:56:59 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>移行作業着手</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/11/02/migration/</link>
+      <pubDate>Fri, 02 Nov 2018 20:56:59 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/11/02/migration/</guid>
+      <description>&lt;p&gt;昨日、届いた X220 を弄り始めたのですがライセンス情報が確認できず。X220 入手元に問合せてみたのですが聞きかたが悪かったらしく相手にされず。&lt;/p&gt;
+
+&lt;p&gt;「Windows 10 thinkpad リカバリ」、みたいなキーワードでググッてみたら USB メモリにリカバリなソレを作れるらしい、という情報がありました。&lt;/p&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;16GB なメディアを入手してリカバリメディアの作成に着手している次第です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>詰碁</title>
