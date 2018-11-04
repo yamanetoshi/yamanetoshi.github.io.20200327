@@ -97,6 +97,54 @@
         
 
 <header>
+    <p class="meta">Apr 21, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/21/modify-jtag-function-in-assembler/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/21/modify-jtag-function-in-assembler/">昨晩の件 (JTAG 接続なソレを書き換えてみる)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>何が悪いのか、と言いつつ空き稼動で再度確認してみたところ、C で書いてる kernel_main 手続き先頭にある</p>
+
+<pre><code>void kernel_main(uint32_t r0, uint32_t r1, uint32_t atags) {
+    init_gpio();
+</code></pre>
+
+<p>がコメントアウトされておりませんでした。そりゃ駄目だわな。</p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>JTAG 初期化な bootstrap な手続きができたのでソースを綺麗にして commit を作っておこうと思ってます。</p>
+
+<p>続きがあれば追記するかもしれません。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/21/modify-jtag-function-in-assembler/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Apr 20, 2014
          - 5 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/20/modify-jtag-function-in-assembler/#disqus_thread">Comments</a>
@@ -451,40 +499,6 @@
           
               <footer>
                   <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/16/rpi-micon-c85book-repository/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Apr 16, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/16/callback-on-screen-orientation/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/16/callback-on-screen-orientation/">画面回転時の callback について</a>
-    </h1>
-</header>
-
-
-        
-          <p>Activity を前面表示の状態ではなくして 90 度、ないし 270 度回転させると、復帰時に onRestoreInstanceState が呼び出されるが、180 度回転の場合は呼び出されない模様。 onSaveInstanceState で状態を保</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/16/callback-on-screen-orientation/" rel="full-article">Read On &rarr;</a>
               </footer>
           
 
@@ -930,6 +944,12 @@
           
             
               <li class="post">
+                <a href="/blog/2018/11/04/yururi-shogi-kai/">ゆるり将棋会</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2018/11/03/migration/">移行作業</a>
               </li>
             
@@ -979,12 +999,6 @@
             
               <li class="post">
                 <a href="/blog/2018/10/26/todo/">TODO</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2018/10/25/tu-nn-do-ku/">積ん読</a>
               </li>
             
           
