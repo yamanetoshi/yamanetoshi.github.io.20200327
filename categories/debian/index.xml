@@ -6,10 +6,30 @@
     <description>Recent content in Debian on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 07 Nov 2018 21:29:03 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 08 Nov 2018 18:22:00 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/debian/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>でびあん install その後</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/11/08/after-debian-install/</link>
+      <pubDate>Thu, 08 Nov 2018 18:22:00 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/11/08/after-debian-install/</guid>
+      <description>&lt;p&gt;導入できた。wifi な接続もできました。&lt;/p&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;導入されてないパケジを列挙しておきます。明日対応な時間が取れれば良いですが。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;とりあえず rxvt 導入&lt;/li&gt;
+&lt;li&gt;sudo も導入して設定済み&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>でびあん install</title>
