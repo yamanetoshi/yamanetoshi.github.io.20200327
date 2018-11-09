@@ -6,10 +6,26 @@
     <description>Recent content in Debian on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 08 Nov 2018 18:22:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 09 Nov 2018 20:57:26 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/debian/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>でびあん install その後</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/11/09/after-debian-install/</link>
+      <pubDate>Fri, 09 Nov 2018 20:57:26 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/11/09/after-debian-install/</guid>
+      <description>&lt;p&gt;泥箱導入必要だった。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get install nautilus-dropbox
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;まー早い。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>でびあん install その後</title>
