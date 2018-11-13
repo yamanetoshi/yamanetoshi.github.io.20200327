@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/11/13/create-wikipedia-model-by-doc2vec/</loc>
+    <lastmod>2018-11-13T22:07:18+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/11/10/h-eba/</loc>
     <lastmod>2018-11-10T23:22:13+09:00</lastmod>
   </url>
@@ -8374,7 +8379,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-11-10T23:22:13+09:00</lastmod>
+    <lastmod>2018-11-13T22:07:18+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8554,7 +8559,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/machinelearning/</loc>
-    <lastmod>2018-10-31T21:31:36+09:00</lastmod>
+    <lastmod>2018-11-13T22:07:18+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8590,7 +8595,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-11-10T23:22:13+09:00</lastmod>
+    <lastmod>2018-11-13T22:07:18+09:00</lastmod>
     <priority>0</priority>
   </url>
   

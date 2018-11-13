@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 10 Nov 2018 23:22:13 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 13 Nov 2018 22:07:18 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Doc2Vec で wikipedia なモデルを作成</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/11/13/create-wikipedia-model-by-doc2vec/</link>
+      <pubDate>Tue, 13 Nov 2018 22:07:18 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/11/13/create-wikipedia-model-by-doc2vec/</guid>
+      <description>&lt;p&gt;以下なエントリに沿ってモデル作成してみたら、結構イイカンジー、なナニが出てきました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://tadaoyamaoka.hatenablog.com/entry/2017/04/29/122128&#34;&gt;http://tadaoyamaoka.hatenablog.com/entry/2017/04/29/122128&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>基本死活辞典</title>
