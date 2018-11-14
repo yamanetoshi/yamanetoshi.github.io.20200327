@@ -6,10 +6,29 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 13 Nov 2018 22:07:18 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 14 Nov 2018 21:08:10 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>nuxt で thview</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/11/14/thview-in-nuxt/</link>
+      <pubDate>Wed, 14 Nov 2018 21:08:10 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/11/14/thview-in-nuxt/</guid>
+      <description>&lt;p&gt;某所向けにもごもごしている次第。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;nuxt.js 採用&lt;/li&gt;
+&lt;li&gt;firebase にナニ&lt;/li&gt;
+&lt;li&gt;PWA&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;という方向で、なのですが色々分からずすすめているのですが諸々ハマッている次第。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Doc2Vec で wikipedia なモデルを作成</title>
