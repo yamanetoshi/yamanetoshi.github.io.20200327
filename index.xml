@@ -6,10 +6,23 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 14 Nov 2018 21:08:10 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 15 Nov 2018 21:17:27 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>移行が微妙な件</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/11/15/migration-is-subtle/</link>
+      <pubDate>Thu, 15 Nov 2018 21:17:27 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/11/15/migration-is-subtle/</guid>
+      <description>&lt;p&gt;よく考えてみるに、hugo octopress に移行してから OSX で更新するの初めてでした。&lt;/p&gt;
+
+&lt;p&gt;備忘まで、したことを以下に控え。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>nuxt で thview</title>
