@@ -6,10 +6,31 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 15 Nov 2018 21:17:27 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 16 Nov 2018 22:03:28 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>uxt.js で PWA</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/11/16/nuxtjs-pwa/</link>
+      <pubDate>Fri, 16 Nov 2018 22:03:28 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/11/16/nuxtjs-pwa/</guid>
+      <description>&lt;p&gt;えと、nuxt.config.js の最下層レベルに&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;modules: [
+  &#39;@nuxtjs/pwa&#39;
+],
+manifest: {
+    // 中身略
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;って追加したのだければ、&lt;code&gt;npm run generate&lt;/code&gt; とかで微妙なエラーが出てて困っていたのですが&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>移行が微妙な件</title>
