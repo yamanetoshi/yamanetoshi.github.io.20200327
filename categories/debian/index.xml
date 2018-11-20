@@ -6,10 +6,27 @@
     <description>Recent content in Debian on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 09 Nov 2018 20:57:26 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 20 Nov 2018 19:52:59 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/debian/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>でびあん install その後</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/11/20/chikun-toramaru-nhk/</link>
+      <pubDate>Tue, 20 Nov 2018 19:52:59 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/11/20/chikun-toramaru-nhk/</guid>
+      <description>&lt;p&gt;とりあえず、開発向けな道具を入れねば。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;git はある&lt;/li&gt;
+&lt;li&gt;AndroidStudio?&lt;/li&gt;
+&lt;li&gt;npm (nodebrew)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>でびあん install その後</title>

@@ -98,6 +98,55 @@
 
 <header>
     <p class="meta">Nov 13, 2013
+         - 3 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/13/android-testing-on-remote-host/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/13/android-testing-on-remote-host/">リモホに環境できたので試験してみた件</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>準備ができたようなので動作確認含めて先日でっち上げたハロワのテストを云々してみることに。とりあえず本体とテストプロジェクトを clone してきて以下。</p>
+
+<pre><code>$ cd HelloWorld
+$ android update project -p .
+$ cd HelloWorldTest
+$ android update test-project -m ../HelloWorld -p .
+</code></pre>
+
+<p>で、以下を実行したのですが例外ダンプ吐いて止まる。</p>
+
+<pre><code>$ ant clean debug install test
+</code></pre>
+
+<p>どうも debug で死亡している模様。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/13/android-testing-on-remote-host/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 13, 2013
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/13/b-mobile-new-service/#disqus_thread">Comments</a>
 
@@ -449,52 +498,6 @@ sudo apt-get install lib32z1
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 10, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/10/eopl-ex-2-15/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/eopl/">EoPL </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/scheme/">Scheme </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/10/eopl-ex-2-15/">EoPL の Exercise 2.15</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>考えかたてきには</p>
-
-<ul>
-<li>stack は手続きオブジェクト</li>
-<li>push で extend すれば良い
-
-<ul>
-<li>extend は stack を戻すはずなので戻るのは手続きオブジェクト</li>
-<li>引数に &lsquo;pop あるいは &lsquo;push なシンボルをもらうのかな</li>
-</ul></li>
-</ul>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/10/eopl-ex-2-15/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -597,6 +600,12 @@ sudo apt-get install lib32z1
           
             
               <li class="post">
+                <a href="/blog/2018/11/20/chikun-toramaru-nhk/">でびあん install その後</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2018/11/19/chikun-toramaru-nhk/">draw.io</a>
               </li>
             
@@ -646,12 +655,6 @@ sudo apt-get install lib32z1
             
               <li class="post">
                 <a href="/blog/2018/11/09/after-debian-install/">でびあん install その後</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2018/11/08/after-debian-install/">でびあん install その後</a>
               </li>
             
           
