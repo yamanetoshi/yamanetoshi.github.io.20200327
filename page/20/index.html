@@ -97,6 +97,51 @@
         
 
 <header>
+    <p class="meta">Feb 5, 2018
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/05/slug/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/05/slug/">slug な yaml を追加する方法</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>手順てきには以下?</p>
+
+<pre><code>import frontmatter
+
+with open(&quot;2013-11-02-book-purchase.markdown&quot;) as f:
+    post = frontmatter.loads(f.read())
+
+post.metadata.update({'slug' : &quot;xxxx-xxx-xxx&quot;})
+print(frontmatter.dumps(post))
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/05/slug/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Feb 4, 2018
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/04/hugo/#disqus_thread">Comments</a>
@@ -487,49 +532,6 @@ package github.com/derekparker/delve/cmd/dlv
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 25, 2018
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/01/25/python-obd-memo/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/memo/">memo </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/python/">python </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2018/01/25/python-obd-memo/">メモ</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>つい出来心で</p>
-
-<ul>
-<li>ELM327 なデバイス</li>
-<li>OBD2 の分岐ケーブル</li>
-</ul>
-
-<p>を調達してしまうなど。<a href="https://github.com/brendan-w/python-OBD">python-OBD</a> という pip な道具があるようなのでそれを使って OBD なナニが ELM327 によってどんな CAN メセジに変換されているのか、が確認できるのかどうか。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/01/25/python-obd-memo/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -632,6 +634,12 @@ package github.com/derekparker/delve/cmd/dlv
           
             
               <li class="post">
+                <a href="/blog/2018/11/21/chikun-toramaru-nhk/">でびあん install その後</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2018/11/20/chikun-toramaru-nhk/">でびあん install その後</a>
               </li>
             
@@ -681,12 +689,6 @@ package github.com/derekparker/delve/cmd/dlv
             
               <li class="post">
                 <a href="/blog/2018/11/10/h-eba/">基本死活辞典</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2018/11/09/after-debian-install/">でびあん install その後</a>
               </li>
             
           
