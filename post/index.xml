@@ -6,10 +6,21 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 22 Nov 2018 20:52:45 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 23 Nov 2018 20:05:56 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>NAS からのデータ復旧</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/11/23/data-restoration/</link>
+      <pubDate>Fri, 23 Nov 2018 20:05:56 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/11/23/data-restoration/</guid>
+      <description>&lt;p&gt;データ復旧な沖縄拠点に連絡入れてみたのですが、とりあえず福岡に送付を、とか場合によっては復旧に 300K とかって話を伺い故障を確認した訳ではないのでとりあず自分で何とかしてみる方向。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>連休</title>
