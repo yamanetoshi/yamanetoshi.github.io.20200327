@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 23 Nov 2018 20:05:56 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 24 Nov 2018 12:53:37 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>でびあんに sublime</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/11/24/install-sublime/</link>
+      <pubDate>Sat, 24 Nov 2018 12:53:37 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/11/24/install-sublime/</guid>
+      <description>&lt;p&gt;微妙にアウト感があるのですが、以下に沿って導入。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.debian.org/SublimeText&#34;&gt;SublimeText&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>NAS からのデータ復旧</title>
