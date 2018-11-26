@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/11/26/emacs24/</loc>
+    <lastmod>2018-11-26T20:46:36+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/11/25/second-language-acquisition-theory/</loc>
     <lastmod>2018-11-25T16:19:22+09:00</lastmod>
   </url>
@@ -8439,7 +8444,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-11-25T16:19:22+09:00</lastmod>
+    <lastmod>2018-11-26T20:46:36+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8487,7 +8492,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/debian/</loc>
-    <lastmod>2018-11-24T12:53:37+09:00</lastmod>
+    <lastmod>2018-11-26T20:46:36+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8661,7 +8666,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-11-25T16:19:22+09:00</lastmod>
+    <lastmod>2018-11-26T20:46:36+09:00</lastmod>
     <priority>0</priority>
   </url>
   
