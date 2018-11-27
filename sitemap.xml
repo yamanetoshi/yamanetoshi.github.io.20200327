@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/11/27/korian-go-drill/</loc>
+    <lastmod>2018-11-27T22:34:40+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/11/26/emacs24/</loc>
     <lastmod>2018-11-26T20:46:36+09:00</lastmod>
   </url>
@@ -8444,7 +8449,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-11-26T20:46:36+09:00</lastmod>
+    <lastmod>2018-11-27T22:34:40+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8516,12 +8521,6 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/english/</loc>
-    <lastmod>2017-12-14T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/englisn/</loc>
     <lastmod>2018-11-25T16:19:22+09:00</lastmod>
     <priority>0</priority>
   </url>
@@ -8648,7 +8647,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/misc/</loc>
-    <lastmod>2018-11-23T20:05:56+09:00</lastmod>
+    <lastmod>2018-11-27T22:34:40+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8666,7 +8665,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-11-26T20:46:36+09:00</lastmod>
+    <lastmod>2018-11-27T22:34:40+09:00</lastmod>
     <priority>0</priority>
   </url>
   

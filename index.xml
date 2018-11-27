@@ -6,10 +6,31 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 26 Nov 2018 20:46:36 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 27 Nov 2018 22:34:40 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>韓国棋院囲碁ドリル</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/11/27/korian-go-drill/</link>
+      <pubDate>Tue, 27 Nov 2018 22:34:40 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/11/27/korian-go-drill/</guid>
+      <description>&lt;p&gt;欲しい。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/4873652286/yamanetoshi-22&#34;&gt;韓国棋院囲碁ドリル決定版 囲碁中級編〈1〉272題&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;中級編は 4 冊あるみたいです。&lt;/p&gt;
+
+&lt;h2 id=&#34;のですが&#34;&gt;のですが&lt;/h2&gt;
+
+&lt;p&gt;問題解く暇が無いな。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Emacs24</title>
