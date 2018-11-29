@@ -98,6 +98,53 @@
 
 <header>
     <p class="meta">Nov 4, 2013
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/04/eopl-ex-2-11/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/scheme/">Scheme </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/eopl/">EoPL </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/04/eopl-ex-2-11/">EoPL の exercise 2.11</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>そもそもな考え方が違う、という事にようやく気付くなど。
+例示されてるものを使って確認してみるに</p>
+
+<pre><code>(lambda (p) (+ p x))
+</code></pre>
+
+<p>の x を (* p 3) で置換する場合、以下になってはマズい、というのが前提。</p>
+
+<pre><code>(lambda (p) (+ (p (* p 3))))
+</code></pre>
+
+<p>ただ、置換自体はその通りでその外側にある p な束縛を p0 とかに変更しなきゃ、なのか。これ、自分で定義する解釈系 (?) の文法はけっこう単純になっているので無理矢理な方法で何とかなるのかどうなのか。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/04/eopl-ex-2-11/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 4, 2013
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/04/cannot-post-entry/#disqus_thread">Comments</a>
 
@@ -438,40 +485,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 2, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/02/book-purchase/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/02/book-purchase/">書籍購入</a>
-    </h1>
-</header>
-
-
-        
-          <p>以下購入。 データサイエンティスト養成読本 会社を変える分析の力 はじめてのOSコードリーディング ~UNIX V6で学ぶカーネルのしくみ オープン・サービス・</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/02/book-purchase/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -495,10 +508,13 @@
     
 
     
+    
+        <a href="/page/170/" aria-label="Next" class="label-pagination"> next <i class="fa fa-angle-right fa-lg"></i></a>
+    
 
     
     
-        <a href="/page/169/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/170/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -571,6 +587,12 @@
           
             
               <li class="post">
+                <a href="/blog/2018/11/29/data-extraction/">HDD からデータ吸出し</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2018/11/28/move-to-yarn/">yarn 移行</a>
               </li>
             
@@ -620,12 +642,6 @@
             
               <li class="post">
                 <a href="/blog/2018/11/20/chikun-toramaru-nhk/">でびあん install その後</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2018/11/19/chikun-toramaru-nhk/">draw.io</a>
               </li>
             
           

@@ -6,10 +6,27 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 28 Nov 2018 20:39:06 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 29 Nov 2018 21:28:03 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HDD からデータ吸出し</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/11/29/data-extraction/</link>
+      <pubDate>Thu, 29 Nov 2018 21:28:03 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/11/29/data-extraction/</guid>
+      <description>&lt;p&gt;以前使ってた NAS からええ加減データ復旧しないと、と思いつつ数年が経過。安い usb 変換なケーブル (600 円) を見つけて入手。&lt;/p&gt;
+
+&lt;h2 id=&#34;電源&#34;&gt;電源&lt;/h2&gt;
+
+&lt;p&gt;ない? って思ったのですが無理矢理 NAS なデバイスからアレしてみたら&lt;/p&gt;
+
+&lt;p&gt;&lt;a data-flickr-embed=&#34;true&#34;  href=&#34;https://www.flickr.com/photos/yamane-toshiaki/32230117748/in/dateposted-public/&#34; title=&#34;データ吸い出し&#34;&gt;&lt;img src=&#34;https://farm5.staticflickr.com/4813/32230117748_9315a292b1_z.jpg&#34; width=&#34;640&#34; height=&#34;640&#34; alt=&#34;データ吸い出し&#34;&gt;&lt;/a&gt;&lt;script async src=&#34;//embedr.flickr.com/assets/client-code.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>yarn 移行</title>
