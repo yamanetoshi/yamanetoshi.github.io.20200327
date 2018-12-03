@@ -6,10 +6,21 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 01 Dec 2018 19:22:10 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 03 Dec 2018 21:15:34 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>このクソ暑いのに</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/12/03/nabe-cooking-in-the-hot-weather/</link>
+      <pubDate>Mon, 03 Dec 2018 21:15:34 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/12/03/nabe-cooking-in-the-hot-weather/</guid>
+      <description>&lt;p&gt;鍋を作ってしまうなど。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>データ吸い出し後</title>
