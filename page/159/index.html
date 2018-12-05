@@ -99,6 +99,49 @@
 <header>
     <p class="meta">Dec 4, 2013
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/04/fix-conflict/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/04/fix-conflict/">朝対応なナニが conflict してた件</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>merge したはず、なソレが conflict している。この一杯なときにこれは一体orz</p>
+
+<p>とりあえず conflict してるソレを確認</p>
+
+<pre><code>$ find . |xargs grep '&gt;&gt;&gt;&gt;&gt;&gt;&gt;' 2&gt;/dev/null
+</code></pre>
+
+<p>諸々修正して commit 作成。寝惚けてた訳でもないし動作確認してから commit 作ったはずなんですが一体これは何だったのだろうか。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/04/fix-conflict/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Dec 4, 2013
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/04/year-end-party-2013/#disqus_thread">Comments</a>
 
         
@@ -482,48 +525,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Dec 1, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/01/eopl-ex-2-24/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/eopl/">EoPL </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/scheme/">Scheme </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/01/eopl-ex-2-24/">EoPL の Exercise 2.24</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>これ、意外にムズいな。ちょい整理。</p>
-
-<ul>
-<li>extend-subst で symbol を term に置換する subst なオブジェクトが戻される</li>
-<li>var-term が term な何かと置換 (constant-ter または app-term という理解)</li>
-<li>extend が戻す手続きは基本的に sym と i が eqv? なら t を戻せば良いの?</li>
-</ul>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/01/eopl-ex-2-24/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -626,6 +627,12 @@
           
             
               <li class="post">
+                <a href="/blog/2018/12/05/flutter-1.0/">Flutter 1.0</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2018/12/04/ohacorte-bakery/">オハコルテ・ベーカリー</a>
               </li>
             
@@ -675,12 +682,6 @@
             
               <li class="post">
                 <a href="/blog/2018/11/26/emacs24/">Emacs24</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2018/11/25/second-language-acquisition-theory/">第二言語習得論</a>
               </li>
             
           
