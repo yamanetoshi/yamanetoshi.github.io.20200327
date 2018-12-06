@@ -97,6 +97,58 @@
         
 
 <header>
+    <p class="meta">Feb 1, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/01/orientaion-change-in-android/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/01/orientaion-change-in-android/">HOME ボタンとか電源ボタンとか</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>某アプリを Orientation Change 対応したのですが</p>
+
+<ul>
+<li>HOME 出した時にはバックグラウンドで云々してる処理を止めたい</li>
+<li>電源ボタンで sleep な時も同様</li>
+</ul>
+
+<p>みたいな依頼が入った。</p>
+
+<p>対処としては</p>
+
+<ul>
+<li>onStop で PowerManger の isScreenOn メソドの戻りで云々</li>
+<li>onUserLeaveHint で云々</li>
+</ul>
+
+<p>という形で何とかなったのかどうか。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/01/orientaion-change-in-android/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jan 31, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/31/naha-wifi-ap/#disqus_thread">Comments</a>
@@ -438,57 +490,6 @@ use_library('django', '0.96')
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 25, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/25/the-work-of-android-studio/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/25/the-work-of-android-studio/">Android Studio の仕業?</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>Activity を追加した契機で build.gradle が書換えられるという事案が発生。最初はデフォで Fragment 付きなソースが生成されるのか、とか以前のバージョンとコンパチで、がデフォなのね、とか感心していたのですが、gms 関連でコンパイルエラーが出るようになって色々ハマりました。diff が以下。</p>
-
-<pre><code> dependencies {
--    compile project(':volley')
-     compile 'com.android.support:support-v4:+'
--    compile 'com.google.android.gms:play-services:+'
-+
-+    // You must install or update the Google Repository through the SDK manager to use this dependency.
-+    // The Google Repository (separate from the corresponding library) can be found in the Extras category.
-+    // compile 'com.google.android.gms:play-services:+'
-+    compile 'com.android.support:appcompat-v7:+'
-+    compile project(':volley')
- }
-</code></pre>
-
-<p>とほほ。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/25/the-work-of-android-studio/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -591,6 +592,12 @@ use_library('django', '0.96')
           
             
               <li class="post">
+                <a href="/blog/2018/12/06/android-codelab-courses/">Android Codelab courses</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2018/12/05/flutter-1.0/">Flutter 1.0</a>
               </li>
             
@@ -640,12 +647,6 @@ use_library('django', '0.96')
             
               <li class="post">
                 <a href="/blog/2018/11/27/korian-go-drill/">韓国棋院囲碁ドリル</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2018/11/26/emacs24/">Emacs24</a>
               </li>
             
           
