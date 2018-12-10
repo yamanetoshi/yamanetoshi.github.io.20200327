@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2018/12/10/material/</loc>
+    <lastmod>2018-12-10T20:07:24+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/12/09/how-to-start-nuxt-project/</loc>
     <lastmod>2018-12-09T16:18:11+09:00</lastmod>
   </url>
@@ -8504,7 +8509,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2018-12-09T16:18:11+09:00</lastmod>
+    <lastmod>2018-12-10T20:07:24+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8726,13 +8731,13 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2018-12-09T16:18:11+09:00</lastmod>
+    <lastmod>2018-12-10T20:07:24+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/programming/</loc>
-    <lastmod>2018-12-09T16:18:11+09:00</lastmod>
+    <lastmod>2018-12-10T20:07:24+09:00</lastmod>
     <priority>0</priority>
   </url>
   

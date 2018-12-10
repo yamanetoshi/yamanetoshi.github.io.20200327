@@ -6,10 +6,26 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 09 Dec 2018 16:18:11 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 10 Dec 2018 20:07:24 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>材料</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/12/10/material/</link>
+      <pubDate>Mon, 10 Dec 2018 20:07:24 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/12/10/material/</guid>
+      <description>&lt;p&gt;nuxt.js な PWA にて以下なリクエストが。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;タブで表示コンテンツ切り替えたい&lt;/li&gt;
+&lt;li&gt;自動で遷移するスライド的なナニがないか&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>nuxt プロジェクトのはじめかた</title>
