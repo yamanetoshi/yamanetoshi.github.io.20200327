@@ -6,10 +6,25 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 12 Dec 2018 20:24:56 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 14 Dec 2018 20:15:44 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ウーマンラッシュアワー村本</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/12/14/ruby-one-liner/</link>
+      <pubDate>Fri, 14 Dec 2018 20:15:44 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/12/14/ruby-one-liner/</guid>
+      <description>&lt;p&gt;The MANZAI は先週でしたっけ。ウーマン村本来沖でイベント開催らしく。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://peatix.com/event/582612/view&#34;&gt;ウーマンラッシュアワー村本がいま思ってることを話す夜〜お疲れでしょう、飲みながら気軽に笑いに来てください〜&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>ruby のワンライナー</title>
