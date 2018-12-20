@@ -6,10 +6,25 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 14 Dec 2018 20:15:44 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 20 Dec 2018 21:59:53 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>来週のもくもくネタ</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/12/20/mokumoku-neta/</link>
+      <pubDate>Thu, 20 Dec 2018 21:59:53 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/12/20/mokumoku-neta/</guid>
+      <description>&lt;p&gt;面白い材料を見つけたのでトライしてみる方向。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://japan-medical-ai.github.io/medical-ai-course-materials/&#34;&gt;メディカルAI専門コース オンライン講義資料&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>ウーマンラッシュアワー村本</title>

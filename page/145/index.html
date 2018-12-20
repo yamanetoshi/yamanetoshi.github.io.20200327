@@ -98,6 +98,63 @@
 
 <header>
     <p class="meta">Feb 23, 2014
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/23/fragment-pager-adapter/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/23/fragment-pager-adapter/">FragmentPagerAdaper 云々</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>なんとなくこないだ入手した Master of Fragment 見てると FragmentPagerAdapter はページに対応した Fragment が存在する場合は getItem() 呼ばないとの記述があり、開発が終わったはずの某アプリに手を入れてみた。</p>
+
+<p>これもダウトとのことだったのですが、画面遷移で Fragment 使いまくってたので、それらを ViewPager で表示する Fragment を getItem で new する方式に変更しつつ、画面遷移は Activity で、という修正を盛り込みました。</p>
+
+<p>で、修正後に確認してみたところ、ViewPager 内で表示される Fragment から直接 startActivity してますね。Fragment から startActivity は良くない、ということで</p>
+
+<ul>
+<li>interface 定義して Activity で実装</li>
+<li>実装なメソドから画面遷移の手続きを呼び出す</li>
+<li>Fragment からは getActivity() して実装なメソド呼び出し</li>
+</ul>
+
+<p>という形を取っていて同様の方法で云々せねばならない模様なんですが、次画面に Bundle 経由で情報を渡してるのでそのあたりを吸収する必要あり。修正必要ということで備忘メモ。</p>
+
+<h2 id="つうか件の書籍によれば">つうか件の書籍によれば</h2>
+
+<ul>
+<li>階層的な画面遷移は startActivity() した方が良い</li>
+<li>同一階層な遷移は Fragment で構わない</li>
+</ul>
+
+<p>とのこと。あと getItem() 云々は目から鱗でした。やっぱソース読まないと駄目ですね。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/23/fragment-pager-adapter/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Feb 23, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/23/italian-tomato-sukiyaki/#disqus_thread">Comments</a>
 
@@ -426,36 +483,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 18, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/18/distributing-octopress/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/18/distributing-octopress/">Octopress を複数端末で</a>
-    </h1>
-</header>
-
-
-        
-          <p>どうも共有がうまくいってなくて色々ハマッてます。とりあえず以下で対処できました。 Octopress で rake deploy した際に rejected された場合の対処</p>
-
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -558,6 +585,12 @@
           
             
               <li class="post">
+                <a href="/blog/2018/12/20/mokumoku-neta/">来週のもくもくネタ</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2018/12/19/equipment-for-vital-check/">バイタルチェック用の機器</a>
               </li>
             
@@ -607,12 +640,6 @@
             
               <li class="post">
                 <a href="/blog/2018/12/10/material/">材料</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2018/12/09/how-to-start-nuxt-project/">nuxt プロジェクトのはじめかた</a>
               </li>
             
           
