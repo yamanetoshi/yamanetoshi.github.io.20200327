@@ -6,10 +6,29 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 19 Dec 2018 21:11:51 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 21 Dec 2018 20:09:47 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>血圧</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2018/12/21/blood-pressure/</link>
+      <pubDate>Fri, 21 Dec 2018 20:09:47 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2018/12/21/blood-pressure/</guid>
+      <description>&lt;p&gt;どうも白衣高血圧、というやつらしく。&lt;/p&gt;
+
+&lt;h2 id=&#34;というか&#34;&gt;というか&lt;/h2&gt;
+
+&lt;p&gt;先日の健康診断にて、血圧が高すぎで診断が開始できない、という酷い目に会いまして、家庭血圧のログを取ることにした訳です (バイタルサインを取得するデバイスも身に付けることにしたのですが、より正確な値もロギングしておいた方が良いと思いまして)。&lt;/p&gt;
+
+&lt;p&gt;デバイスの方では問題のない値が出力されているのですが、センサの値だし、って思って血圧計を入手したのですが、やはり高い値が測定されましてとほほほ状態だった訳です。&lt;/p&gt;
+
+&lt;h2 id=&#34;どうやら計測の方法に問題があったようで&#34;&gt;どうやら計測の方法に問題があったようで&lt;/h2&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>バイタルチェック用の機器</title>
