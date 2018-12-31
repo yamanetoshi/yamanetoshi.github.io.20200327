@@ -97,6 +97,59 @@
         
 
 <header>
+    <p class="meta">Aug 21, 2014
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/08/21/python-2-dot-7-docker/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/python/">Python </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/08/21/python-2-dot-7-docker/">Python 2.7 な Docker</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえず、</p>
+
+<pre><code>$ sudo docker pull python
+</code></pre>
+
+<p>しています。時間かかってます。終了後、<code>docker images</code> 確認して以下。</p>
+
+<pre><code>$ sudo docker run -i -t 1c8df2f0c10b /bin/bash
+root@4e8407b94d09:/usr/src/python# python --version
+Python 2.7.8
+</code></pre>
+
+<p>以下でも良いのか。</p>
+
+<pre><code>$ sudo docker run -i -t python:2.7 /bin/bash
+</code></pre>
+
+<p>ええと、-v でソースなディレクトリをアレしておいて Dockerfile をどうするか。起動する度に、なのかどうか。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/08/21/python-2-dot-7-docker/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Aug 20, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/08/20/android-project-with-volley/#disqus_thread">Comments</a>
@@ -457,54 +510,6 @@ protected void onCreate(Bundle savedInstanceState) {
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Aug 10, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/08/10/android-resource/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/08/10/android-resource/">values-sw600dp/refs.xml</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>リストな Fragment を作るとレイアウトが</p>
-
-<ul>
-<li>fragment_hoge_grid.xml</li>
-<li>fragment_hoge_list.xml</li>
-</ul>
-
-<p>みたいな形で作られます。参照してる側は</p>
-
-<pre><code>View v = inflater.inflate(R.layout.fragment_hoge, container, false);
-</code></pre>
-
-<p>みたいなカンジで inflate してて、何してるんだろ、って思ったら、複数ペインかどうかの切り分けを自動でヤッツケちゃてるから、なんですね。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/08/10/android-resource/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -607,6 +612,12 @@ protected void onCreate(Bundle savedInstanceState) {
           
             
               <li class="post">
+                <a href="/blog/2018/12/31/honey-and-crover/">ハチクロ</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2018/12/27/shakehands/">Shakehands</a>
               </li>
             
@@ -656,12 +667,6 @@ protected void onCreate(Bundle savedInstanceState) {
             
               <li class="post">
                 <a href="/blog/2018/12/18/drill-arrived/">ドリル届いた</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2018/12/17/hypertension/">高血圧</a>
               </li>
             
           
