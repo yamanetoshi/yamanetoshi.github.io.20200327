@@ -6,10 +6,25 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 09 Jan 2019 22:39:22 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 10 Jan 2019 21:00:40 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラマのためのFPGAによるRISC-Vマイコンの作り方</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/01/10/how-to-make-risc-v-by-fpga/</link>
+      <pubDate>Thu, 10 Jan 2019 21:00:40 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/01/10/how-to-make-risc-v-by-fpga/</guid>
+      <description>&lt;p&gt;@koj911 さんの以下の tweet を見て&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/koj911/status/1082900554253103104&#34;&gt;https://twitter.com/koj911/status/1082900554253103104&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (2)</title>
