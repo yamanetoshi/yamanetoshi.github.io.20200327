@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 10 Jan 2019 21:00:40 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 11 Jan 2019 11:18:35 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>station 使ってみた</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/01/11/i-tried-using-station/</link>
+      <pubDate>Fri, 11 Jan 2019 11:18:35 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/01/11/i-tried-using-station/</guid>
+      <description>&lt;p&gt;そうでなくてもタブが多いので試してみました。&lt;/p&gt;
+
+&lt;h2 id=&#34;つうか&#34;&gt;つうか&lt;/h2&gt;
+
+&lt;p&gt;これはこれで別場所に色んな情報だだ漏れなのかな、と思いつつorz&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラマのためのFPGAによるRISC-Vマイコンの作り方</title>
