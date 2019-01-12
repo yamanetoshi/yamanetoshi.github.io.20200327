@@ -6,10 +6,21 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 11 Jan 2019 11:18:35 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 12 Jan 2019 14:24:07 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (3)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/01/12/i-tried-using-station/</link>
+      <pubDate>Sat, 12 Jan 2019 14:24:07 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/01/12/i-tried-using-station/</guid>
+      <description>&lt;p&gt;chapter 6 のモジュールと名前付き関数の章、練習問題を確認してみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>station 使ってみた</title>

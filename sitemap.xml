@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/01/12/i-tried-using-station/</loc>
+    <lastmod>2019-01-12T14:24:07+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/01/11/i-tried-using-station/</loc>
     <lastmod>2019-01-11T11:18:35+09:00</lastmod>
   </url>
@@ -8624,7 +8629,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-01-11T11:18:35+09:00</lastmod>
+    <lastmod>2019-01-12T14:24:07+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8846,13 +8851,13 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-01-11T11:18:35+09:00</lastmod>
+    <lastmod>2019-01-12T14:24:07+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/programming/</loc>
-    <lastmod>2019-01-10T21:00:40+09:00</lastmod>
+    <lastmod>2019-01-12T14:24:07+09:00</lastmod>
     <priority>0</priority>
   </url>
   
