@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>element-ui と rwdImageMaps を nuxt.js に盛り込む記録</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jan 13, 2019
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/01/13/element-ui-and-rwdimagemaps-on-nuxt-js/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         element-ui と rwdImageMaps を nuxt.js に盛り込む記録 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>git log を確認しつつ記録してみます。</p>
+
+<p></p>
+
+<h2 id="element-ui">element-ui</h2>
+
+<p>以下を <code>yarn add --save-dev</code> している模様。(関係ない? もの含め)</p>
+
+<ul>
+<li>@nuxtjs/pwa</li>
+<li>css-loader</li>
+<li>file-loader</li>
+<li>url-loader</li>
+<li>vue-loader</li>
+<li>webpack</li>
+<li>firebase-tools</li>
+<li>element-ui</li>
+</ul>
+
+<p>基本的な作りとしてタブで表示する画像を切り替えてその中のナニを imagemap で云々、な形になっています。</p>
+
+<p>nuxt.config.js のてっぺんあたりが以下なカンジで</p>
+
+<pre><code>const webpack = require('webpack')
+module.exports = {
+  mode: 'spa',
+  /*
+  ** Headers of the page
+  */
+</code></pre>
+
+<p>あるいは build なブロックの最後あたり以降が以下なカンジ?</p>
+
+<pre><code>    },
+    vendor: ['jquery', 'bootstrap', 'element-ui'],
+    modules: [
+      '@nuxtjs/pwa',
+    ],
+  },
+  plubins: [
+    '~plugins/element-ui'
+  ],
+  css: [
+    'element-ui/lib/theme-chalk/index.css'
+  ]
+}  
+</code></pre>
+
+<p>jquery 導入って次のステップのはずなのですがスルーしてくださひ。plugins/element-ui.js の中身が以下です。</p>
+
+<pre><code>import Vue from 'vue'
+import ElementUI from 'element-ui'
+
+const locale = require('element-ui/lib/locale/lang/ja')
+Vue.use(ElementUI, { locale })
+</code></pre>
+
+<p>で、pages/index.vue が以下なカンジでした。template あたりが以下で</p>
+
+<pre><code>&lt;template&gt;
+  &lt;section class=&quot;page&quot;&gt;
+    &lt;el-tabs v-model=&quot;activeName&quot; @tab-click=&quot;handleClick&quot;&gt;
+      &lt;el-tab-pane label=&quot;User&quot; name=&quot;first&quot;&gt;
+        &lt;image src=&quot;../assets/map1.jpg&quot; width=&quot;1024&quot; height=&quot;705&quot; usemap=&quot;#ImageMap&quot; alt=&quot;&quot; /&gt;
+        &lt;map name=&quot;ImageMap&quot;&gt;
+          &lt;area shape=&quot;rect&quot; coords=&quot;9,29,520,105&quot; href=&quot;#&quot; alt=&quot;&quot; /&gt;
+        &lt;/map&gt;
+      &lt;/el-tab-pane&gt;
+      &lt;el-tab-pane label=&quot;Config&quot; name=&quot;second&quot;&gt;
+</code></pre>
+
+<p>script あたりが以下。</p>
+
+<pre><code>export default {
+  components: {
+    AppLogo
+  },
+  data () {
+    return {
+      activeName: 'first'
+    };
+  },
+  methods: {
+    handleClick(tab, event) {
+      console.log(&quot;handleClick&quot;);
+      console.log(tab, event);
+    }
+  }
+</code></pre>
+
+<p>handleClick の定義とか初期表示に選択されてるタブの指定とか、どこで確認したのかとか忘却の彼方。。あとは style あたりで以下の指定を追加しています。</p>
+
+<pre><code>.page {
+  height: 100vh;
+}
+
+img[usemap] {
+  max-width: 100%;
+  height: auto;
+}
+</code></pre>
+
+<p>これでとりあえず何とかなったのですが、レスポンシブな表示に imagemap が対応できず、ということで rwdImageMaps を使ってみたのですが上の handleClick を見いだすまで、あるいは next.js から jquery な手続きを呼び出す云々というあたりでかなりハメられました。</p>
+
+<h2 id="rwdimagemaps">rwdImageMaps</h2>
+
+<p>とりあえず差分のみ、ということでとりあえず jquery を <code>yarn add --save-dev</code> しています。あと、中身は略しますが、<code>jquery.rwdImageMaps.js</code> を入手して plugins 配下に投入しています。nuxt.config.js は以下なカンジで (build ブロック末端あたり)。</p>
+
+<pre><code>    modules: [
+      '@nuxtjs/pwa',
+    ],
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        JQuery: 'jquery',
+        'window.JQuery': 'jquery'
+      })
+    ]
+  },
+  plugins: [
+    '~plugins/element-ui',
+    '~pulgins/jquery.rwdImageMaps.js'
+  ],
+</code></pre>
+
+<p>で、index.vue の script なブロックが以下。</p>
+
+<pre><code>export default {
+  components: {
+    AppLogo
+  },
+  data() {
+    return {
+      activeName: 'first'
+    };
+  },
+  methods: {
+    handleClick(tab, event) {
+      $('img[usemap').rwdImageMaps();
+      console.log(&quot;handleClick&quot;);
+      console.log(tab, event);
+    }
+  }
+}  
+&lt;/script&gt;
+</code></pre>
+
+<p>ただ、これだけだと初期表示で rwdImageMaps が有効になっていなかったため、別途で以下な修正を盛り込んでいます。</p>
+
+<pre><code>export default {
+  components: {
+    AppLogo
+  },
+  data() {
+    return {
+      activeName: 'first'
+    };
+  },
+  mounted: function() {
+    $('img[usemap]').rwdImageMaps();
+  },
+  methods: {
+    handleClick(tab, event) {
+      $('img[usemap').rwdImageMaps();
+      console.log(&quot;handleClick&quot;);
+      console.log(tab, event);
+    }
+  }
+}  
+&lt;/script&gt;
+</code></pre>
+
+<h2 id="その後">その後</h2>
+
+<ul>
+<li>pwa にしたり</li>
+<li>vue-carousel 盛り込んだり</li>
+</ul>
+
+<p>しているのですが特に難しいことはしていないので記録は略で。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jan 13, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/01/12/i-tried-using-station/" title="プログラミング Elixir (3)">プログラミング Elixir (3)</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/13/element-ui-and-rwdimagemaps-on-nuxt-js/">element-ui と rwdImageMaps を nuxt.js に盛り込む記録</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/12/i-tried-using-station/">プログラミング Elixir (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/11/i-tried-using-station/">station 使ってみた</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/10/how-to-make-risc-v-by-fpga/">プログラマのためのFPGAによるRISC-Vマイコンの作り方</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/09/programming-elixir/">プログラミング Elixir (2)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/08/install-elixir-osx/">Elixir を OSX に導入</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/07/programming-elixir/">プログラミング Elixir</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/06/honey-and-crover/">沖縄県立図書館</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/02/honey-and-crover/">すごい広島 リモート参加 (微妙なナニでスミマセン)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2018/12/31/honey-and-crover/">ハチクロ</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

@@ -97,6 +97,57 @@
         
 
 <header>
+    <p class="meta">Jun 24, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/24/notification-via-mail/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/rails/">rails </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/24/notification-via-mail/">メイル通知盛り込み</a>
+    </h1>
+</header>
+
+
+        
+          <p><p><a href="http://morizyun.github.io/blog/action-mailer-rails-mail/">ActionMailer Railsアプリからメールを送信</a> を見つつ盛り込み。devise からメイル送信云々なナニは既に盛り込み済みなのでとりあえず以下。</p>
+
+<pre><code>$ rails g mailer message hello
+</code></pre>
+
+<p>で、app/mailers/message.rb を以下なカンジにして</p>
+
+<pre><code>class Message &lt; ActionMailer::Base
+  default from: &quot;noreply@example.com&quot;
+
+  def complete(url, to)
+    @url = url
+    mail to: to, subject: &quot;mission complete&quot;
+  end
+end
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/24/notification-via-mail/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jun 23, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/23/make-git-push-deploying-environment/#disqus_thread">Comments</a>
@@ -451,40 +502,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jun 15, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/15/good-and-cheap/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/15/good-and-cheap/">Good and Cheap</a>
-    </h1>
-</header>
-
-
-        
-          <p>以下なソレを発見。 無料でダウンロード可能な1日の食費を約400円に抑えるレシピ本「Good and Cheap」 これ、英語の勉強にもなるので作ったロ</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/15/good-and-cheap/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -587,6 +604,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/01/13/element-ui-and-rwdimagemaps-on-nuxt-js/">element-ui と rwdImageMaps を nuxt.js に盛り込む記録</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/01/12/i-tried-using-station/">プログラミング Elixir (3)</a>
               </li>
             
@@ -636,12 +659,6 @@
             
               <li class="post">
                 <a href="/blog/2018/12/31/honey-and-crover/">ハチクロ</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2018/12/27/shakehands/">Shakehands</a>
               </li>
             
           
