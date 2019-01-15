@@ -6,10 +6,21 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 14 Jan 2019 12:26:07 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 15 Jan 2019 20:38:43 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (5)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/01/15/programming-elixir/</link>
+      <pubDate>Tue, 15 Jan 2019 20:38:43 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/01/15/programming-elixir/</guid>
+      <description>&lt;p&gt;練習問題 7 が意外に難しく。ぐーぐるで探せとか何それ、っていう。。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (4)</title>
