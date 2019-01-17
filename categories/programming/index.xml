@@ -6,10 +6,29 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 16 Jan 2019 20:39:40 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 17 Jan 2019 20:56:44 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>FPGA な環境設定</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/01/17/how-to-make-risc-v-by-fpga/</link>
+      <pubDate>Thu, 17 Jan 2019 20:56:44 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/01/17/how-to-make-risc-v-by-fpga/</guid>
+      <description>&lt;p&gt;とりあえず JDK8 は導入できている模様。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ java -version
+openjkd version &amp;quot;1.8.0_181&amp;quot;
+OpenJDK Runtime Environment (build 1.8.0_181_8u181-b13-2~deb9u1-b13)
+OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;本見つつ順にすすめてみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (6)</title>
