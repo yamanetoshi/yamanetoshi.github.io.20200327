@@ -6,10 +6,25 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 19 Jan 2019 13:52:13 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 20 Jan 2019 17:58:06 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (8)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/01/20/programming-elixir/</link>
+      <pubDate>Sun, 20 Jan 2019 17:58:06 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/01/20/programming-elixir/</guid>
+      <description>&lt;p&gt;flatten という手続きを実装せよ、とのこと。&lt;code&gt;Enum.reverse&lt;/code&gt; を使え、とのこと。リストの項で以下な例が出てきています。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;iex(43)&amp;gt; List.flatten([[[1], 2], [[[3]]]])
+[1, 2, 3]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (7)</title>
