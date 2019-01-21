@@ -97,6 +97,57 @@
         
 
 <header>
+    <p class="meta">Sep 30, 2014
+         - 6 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/30/bcm2708-gpio-probe/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/30/bcm2708-gpio-probe/">bcm2708_gpio_probe 手続き (2)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>自分がササッてる bus に接続されているデバイスを順にとりだして __device_attach 手続きを呼び出している、のかどうか。引数として手続きに渡されるのは</p>
+
+<ul>
+<li>next_device から取得できる struct device オブジェクト</li>
+<li>driver_attach に渡される struct device_driver オブジェクト</li>
+</ul>
+
+<p>になっている模様。next_device という手続きによれば</p>
+
+<ul>
+<li>klist_next により struct klist_iter 型の引数から struct klist_node オブジェクトを取得</li>
+<li>to_device_private_bus により struct device_private オブジェクトを取得</li>
+<li>struct device_private オブジェクトの device 属性を戻す</li>
+</ul>
+
+<p>形になっています。container_of 使って struct device_private なオブジェクトのアドレスを引っ張ってきて、なのか。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/30/bcm2708-gpio-probe/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Sep 29, 2014
          - 2 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/29/bcm2708-gpio-probe/#disqus_thread">Comments</a>
@@ -475,54 +526,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Sep 25, 2014
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/25/do-it-after-a-few-seconds/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/25/do-it-after-a-few-seconds/">何秒か後にこれやっといて、な実装について (Linux における C での実装)</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>ちょっと順に色々確認してみた記録を自分メモ。手順としては</p>
-
-<ul>
-<li>signal handler を設定</li>
-<li>interval time を設定</li>
-<li>timer_settime を呼び出してタイマを設定</li>
-</ul>
-
-<p>というカンジ。まず、以下からパクッた実装を確認しつつ man sigaction を確認してみます。</p>
-
-<ul>
-<li><a href="http://linux-biyori.sakura.ne.jp/program/pr_signal02.php">シグナルとタイマー２</a></li>
-</ul>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/25/do-it-after-a-few-seconds/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -625,6 +628,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/01/21/programming-elixir/">プログラミング Elixir (9)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/01/20/programming-elixir/">プログラミング Elixir (8)</a>
               </li>
             
@@ -674,12 +683,6 @@
             
               <li class="post">
                 <a href="/blog/2019/01/12/i-tried-using-station/">プログラミング Elixir (3)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/01/11/i-tried-using-station/">station 使ってみた</a>
               </li>
             
           
