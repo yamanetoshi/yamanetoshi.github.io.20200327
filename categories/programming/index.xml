@@ -6,10 +6,37 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 21 Jan 2019 19:54:30 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 22 Jan 2019 21:54:24 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (10)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/01/22/programming-elixir/</link>
+      <pubDate>Tue, 22 Jan 2019 21:54:24 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/01/22/programming-elixir/</guid>
+      <description>&lt;p&gt;キーワードリスト、何だったかというあたりからのリハビリになるのかorz&lt;/p&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;確認を。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;iex(26)&amp;gt; tax_rates = [ NC: 0.075, TX: 0.08]
+[NC: 0.075, TX: 0.08]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;参照が以下。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;iex(30)&amp;gt; tax_rates[:NC]
+0.075
+iex(31)&amp;gt; tax_rates[:TX]
+0.08
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (9)</title>

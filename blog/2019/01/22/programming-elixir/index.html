@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>プログラミング Elixir (10)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jan 22, 2019
+         - 3 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/01/22/programming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         プログラミング Elixir (10) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>キーワードリスト、何だったかというあたりからのリハビリになるのかorz</p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>確認を。</p>
+
+<pre><code>iex(26)&gt; tax_rates = [ NC: 0.075, TX: 0.08]
+[NC: 0.075, TX: 0.08]
+</code></pre>
+
+<p>参照が以下。</p>
+
+<pre><code>iex(30)&gt; tax_rates[:NC]
+0.075
+iex(31)&gt; tax_rates[:TX]
+0.08
+</code></pre>
+
+<p></p>
+
+<p>注文リストが以下か。</p>
+
+<pre><code>iex(32)&gt; orders = [
+...(32)&gt; [ id: 123, ship_to: :NC, net_amount: 100.00],
+...(32)&gt; [ id: 124, ship_to: :OK, net_amount: 35.50],
+...(32)&gt; [ id: 125, ship_to: :TX, net_amount: 24.00],
+...(32)&gt; [ id: 126, ship_to: :TX, net_amount: 44.80],
+...(32)&gt; [ id: 127, ship_to: :NC, net_amount: 25.00],
+...(32)&gt; [ id: 128, ship_to: :MA, net_amount: 10.00],
+...(32)&gt; [ id: 129, ship_to: :CA, net_amount: 102.00],
+...(32)&gt; [ id: 130, ship_to: :NC, net_amount: 50.00] ]
+[
+  [id: 123, ship_to: :NC, net_amount: 100.0],
+  [id: 124, ship_to: :OK, net_amount: 35.5],
+  [id: 125, ship_to: :TX, net_amount: 24.0],
+  [id: 126, ship_to: :TX, net_amount: 44.8],
+  [id: 127, ship_to: :NC, net_amount: 25.0],
+  [id: 128, ship_to: :MA, net_amount: 10.0],
+  [id: 129, ship_to: :CA, net_amount: 102.0],
+  [id: 130, ship_to: :NC, net_amount: 50.0]
+]
+</code></pre>
+
+<p>要素の追加は <code>Keyword.put</code>、あるいは探索は <code>Keyword.fetch</code> で良いらしい。だとすると</p>
+
+<ul>
+<li>注文のリストを先頭から順に手繰りつつ</li>
+<li>Keyword.keys で tax_rates の key を順に取り出して先頭の :ship_to に存在するか確認</li>
+<li>存在したら net_amount とかけざんして total_amount に put してリストにして戻す</li>
+<li>存在しなければ net_amount wol total_amount に put してリストにして戻す</li>
+</ul>
+
+<p>なんだろう、横着になってて無理矢理リストにして戻して <code>++</code> で、って癖が付いてます。</p>
+
+<h2 id="listsandrecursion-8">ListsAndRecursion - 8</h2>
+
+<p>ええと、Keyword.fetch って、キー指定らしい。</p>
+
+<pre><code>iex(45)&gt; test_kl                                        
+[id: 123, ship_to: :NC, net_amount: 100.0]
+iex(46)&gt; Keyword.fetch(test_kl, :ship_to)
+{:ok, :NC}
+</code></pre>
+
+<p>ちなみに put の例が以下。</p>
+
+<pre><code>iex(47)&gt; Keyword.put(test_kl, :total_amout, 100.10)
+[total_amout: 100.1, id: 123, ship_to: :NC, net_amount: 100.0]
+</code></pre>
+
+<p>なんとなくアイデアを書いてみる。というか色々面倒だな。もっかい整理。</p>
+
+<ul>
+<li>copyorder は注文のリスト [head | tail] と tax_rates を引数に取る</li>
+<li>(できれば) [_calc_total(head, tax_rates) | _calc_total(tail, tax_rates)] を戻す</li>
+<li>_calc_total([head | []], tax_rates) は head なリストの total_amount の計算?</li>
+<li>_calc_total([head | tail], tax_rates) は <code>[_calc_total(head, tax_rates) | _calc_total(tail, tax_rates)]</code> を戻す?</li>
+</ul>
+
+<p>とするとどうなるのか。head について tax_rates を使って計算する手続きがあれば良いのか。</p>
+
+<h2 id="ええと">ええと</h2>
+
+<p><code>Keyword.keys(tax_rates)</code> が <code>[:NC, :TX]</code> を戻すんですがこれって内包表記で書けるのかな。む、これでええのか。</p>
+
+<pre><code>iex(52)&gt; for x &lt;- Keyword.values(test_kl), y &lt;- Keyword.keys(tax_rates), x == y, do: x
+[:NC]
+</code></pre>
+
+<p>や、これって無かったら駄目ですね。紆余曲折の末に以下を発見。</p>
+
+<pre><code>iex(57)&gt; for x &lt;- Keyword.values(test_kl), y &lt;- Keyword.keys(tax_rates), x == y, do: Keyword.get(tax_rates, y)
+[0.075]
+iex(58)&gt; for x &lt;- Keyword.values(test2_kl), y &lt;- Keyword.keys(tax_rates), x == y, do: Keyword.get(tax_rates, y)
+[]
+</code></pre>
+
+<p>空リストなら 1 を掛けるか。ちょっと関数型でない感がアレですが別途見直します。アイデアを元にすると下書きてきには以下なカンジなのかどうか。</p>
+
+<pre><code>defmodule MyEnum do
+  def copyorder([head | tail], tax_rates) do
+    [_calc_total(head, tax_ratex) | _calc_total(tail, tax_rates)]
+  end
+  defp _calc_total(item, tax_tates) do
+    rates = for x &lt;- Keyword.values(item), y &lt;- Keyword.keys(tax_rates), x == y, do: Keyword.get(tax_rates, y)
+    if rates == [] do
+      rates = 1
+    else
+      rates = List.first(rates)
+    end
+    Keyword.put(item, :total_amount, Keyword.get(item, :net_amount) * rates)
+    item
+  end
+  defp _calc_total([head | []], tax_rates) do
+    _calc_total(head, tax_rates)
+  end
+  defp _calc_total([head | tail], tax_rates) do
+    [_calc_total(head, tax_rates) | _calc_total(tail, tax_rates)]
+  end
+end
+</code></pre>
+
+<h2 id="ハマッています">ハマッています</h2>
+
+<p>現状、以下な実装なんですが</p>
+
+<pre><code>  def copyorder([head | tail], tax_rates) do
+    [_calc_total(head, tax_rates) | _calc_total(tail, tax_rates)]
+  end
+  defp _calc_total([head | []], tax_rates) do
+    [_calc_total(head, tax_rates)]
+  end
+  defp _calc_total([head | tail], tax_rates) do
+    [_calc_total(head, tax_rates) | _calc_total(tail, tax_rates)]
+  end
+  defp _calc_total(item, tax_rates) do
+    rates = for x &lt;- Keyword.values(item), y &lt;- Keyword.keys(tax_rates), x == y, do: Keyword.get(tax_rates, y)
+    if rates == [] do
+      rates = 1
+    else
+      rates = List.first(rates)
+    end
+    Keyword.put(item, :total_amount, Keyword.get(item, :net_amount) * List.first(rates))
+    item
+  end
+</code></pre>
+
+<p>一番下の _calc_total な item に <code>{id: 123}</code> という情報が渡されて Keyword じゃないよね、って叱られています。</p>
+
+<h2 id="どうもこれ">どうもこれ</h2>
+
+<p>head の head を取得しているらしい。あ、リストじゃんかorz</p>
+
+<p>別件あるんで今日はここでエントリ投入します。どうしたものか。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jan 22, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/01/21/programming-elixir/" title="プログラミング Elixir (9)">プログラミング Elixir (9)</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/22/programming-elixir/">プログラミング Elixir (10)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/21/programming-elixir/">プログラミング Elixir (9)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/20/programming-elixir/">プログラミング Elixir (8)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/19/programming-elixir/">プログラミング Elixir (7)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/18/kokura-ex/">kokura.ex#1</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/17/how-to-make-risc-v-by-fpga/">FPGA な環境設定</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/16/programming-elixir/">プログラミング Elixir (6)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/15/programming-elixir/">プログラミング Elixir (5)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/14/programming-elixir/">プログラミング Elixir (4)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/13/element-ui-and-rwdimagemaps-on-nuxt-js/">element-ui と rwdImageMaps を nuxt.js に盛り込む記録</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

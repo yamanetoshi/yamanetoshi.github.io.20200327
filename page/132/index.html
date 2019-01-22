@@ -97,6 +97,52 @@
         
 
 <header>
+    <p class="meta">May 11, 2014
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/11/problem-solving-in-onion-router/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/11/problem-solving-in-onion-router/">Onion Router 問題解決</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>接続できない、という苦情が入ったのでシリアル接続して確認。サービスは動いているカンジですがどうなのか。</p>
+
+<p>確認してみたところ、wlan0 に ip address が付いていない。これっていいのだったかどうかも忘却の彼方。</p>
+
+<h2 id="解">解</h2>
+
+<p>一日置いて電源入れて確認してみたのですが hostapd な起動を /etc/rc.local で云々、がダウトだったようです。</p>
+
+<h2 id="追記">追記</h2>
+
+<p>hostapd を /etc/rc.local で、というのはダウトではありませんでした。あと、これが悪いかも、と言っていた ntpd も今はサービス起動するよう戻しています。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/11/problem-solving-in-onion-router/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">May 10, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/10/training-of-docker/#disqus_thread">Comments</a>
@@ -453,46 +499,6 @@ make
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">May 3, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/03/ruby-hacking-guilde-reading/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/03/ruby-hacking-guilde-reading/">RHG を読むことになった件</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>リモートで読書会、とか言ってるけど本当に成立するのだろうか。読むのは以下から手繰れる HTML 版なコンテンツです。</p>
-
-<ul>
-<li><a href="http://i.loveruby.net/ja/rhg/">『Rubyソースコード完全解説』サポートページ</a></li>
-</ul>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/03/ruby-hacking-guilde-reading/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -595,6 +601,12 @@ make
           
             
               <li class="post">
+                <a href="/blog/2019/01/22/programming-elixir/">プログラミング Elixir (10)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/01/21/programming-elixir/">プログラミング Elixir (9)</a>
               </li>
             
@@ -644,12 +656,6 @@ make
             
               <li class="post">
                 <a href="/blog/2019/01/13/element-ui-and-rwdimagemaps-on-nuxt-js/">element-ui と rwdImageMaps を nuxt.js に盛り込む記録</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/01/12/i-tried-using-station/">プログラミング Elixir (3)</a>
               </li>
             
           
