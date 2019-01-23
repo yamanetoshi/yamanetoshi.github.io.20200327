@@ -99,6 +99,56 @@
 <header>
     <p class="meta">Nov 24, 2013
          - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/24/configure-environment-chef-solo/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/24/configure-environment-chef-solo/">Chef-solo な環境構築メモ</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>MBA で環境構築できないので某仮想リソースにて云々してみます。とりあえず /usr/local に rbenv が入ってるソレにログイン。</p>
+
+<p>とりあえず bundler を入れておく。</p>
+
+<pre><code>$ sudo gem i bundler
+</code></pre>
+
+<p>で、ディレクトリを掘ってその中で bundle init しておきます。</p>
+
+<pre><code>$ mkdir devops
+$ cd dev ops
+$ bundle init
+</code></pre>
+
+<p>ぐぬ。bundle が無いてorz</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/24/configure-environment-chef-solo/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 24, 2013
+         - 2 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/24/lazer-cutter/#disqus_thread">Comments</a>
 
         
@@ -492,65 +542,6 @@ $ rbenv global 1.9.3-p448
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 22, 2013
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/22/make-with-batabata/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/22/make-with-batabata/">ばたばたしてる中での作成</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>displayname でマッチさせて id と displayname を出力する実装を書いた。</p>
-
-<pre><code>  if /^devopsOkinawa/ =~ item[&quot;displayname&quot;]
-    if item[&quot;state&quot;] == &quot;Running&quot;
-      print item[&quot;id&quot;], &quot; &quot;, item[&quot;displayname&quot;], &quot;\n&quot; 
-    end
-</code></pre>
-
-<p>これは一応な確認用でこの出力にさらに</p>
-
-<pre><code> awk '{print $1;}'
-</code></pre>
-
-<p>なフィルタをかけて id を例えば以下な destroy に渡すというアレ。</p>
-
-<pre><code>while line = gets
-  line.chomp!
-  @compute.destroy_virtual_machine({
-    'id' =&gt; line,
-                                   })
-end
-</code></pre>
-
-<p>これでリソース破棄は楽になります。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/22/make-with-batabata/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -653,6 +644,12 @@ end
           
             
               <li class="post">
+                <a href="/blog/2019/01/23/programming-elixir/">プログラミング Elixir (11)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/01/22/programming-elixir/">プログラミング Elixir (10)</a>
               </li>
             
@@ -702,12 +699,6 @@ end
             
               <li class="post">
                 <a href="/blog/2019/01/14/programming-elixir/">プログラミング Elixir (4)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/01/13/element-ui-and-rwdimagemaps-on-nuxt-js/">element-ui と rwdImageMaps を nuxt.js に盛り込む記録</a>
               </li>
             
           

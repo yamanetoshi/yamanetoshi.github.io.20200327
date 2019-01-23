@@ -6,10 +6,21 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 22 Jan 2019 21:54:24 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 23 Jan 2019 20:55:18 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (11)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/01/23/programming-elixir/</link>
+      <pubDate>Wed, 23 Jan 2019 20:55:18 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/01/23/programming-elixir/</guid>
+      <description>&lt;p&gt;どうもキーワードリストの car はリストらしい。むむむむ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (10)</title>
@@ -44,7 +55,21 @@ iex(31)&amp;gt; tax_rates[:TX]
       <pubDate>Mon, 21 Jan 2019 19:54:30 +0900</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2019/01/21/programming-elixir/</guid>
-      <description>span て見たことないな、と思ったら作っていませんでした。のでそちらから。 ListsAndRecursion - 4 以下で良かった模様。 def span(to, to), do: [to] def span(from, to) do [from | span(from+1, to)] end パタンマッチ、強力</description>
+      <description>&lt;p&gt;span て見たことないな、と思ったら作っていませんでした。のでそちらから。&lt;/p&gt;
+
+&lt;h2 id=&#34;listsandrecursion-4&#34;&gt;ListsAndRecursion - 4&lt;/h2&gt;
+
+&lt;p&gt;以下で良かった模様。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  def span(to, to), do: [to]
+  def span(from, to) do
+    [from | span(from+1, to)]
+  end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;パタンマッチ、強力ですね。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
