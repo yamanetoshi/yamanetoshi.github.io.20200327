@@ -6,10 +6,21 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 23 Jan 2019 20:55:18 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 24 Jan 2019 20:22:14 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>あまぞん画像なナニ</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/01/24/amazon-image-into-entry/</link>
+      <pubDate>Thu, 24 Jan 2019 20:22:14 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/01/24/amazon-image-into-entry/</guid>
+      <description>&lt;p&gt;備忘メモ、ということで以下。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (11)</title>
