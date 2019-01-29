@@ -171,6 +171,25 @@ end
 </code></pre>
 
 <p>どうやら良さげに見えます。</p>
+
+<h2 id="追記">追記</h2>
+
+<p>これ、駄目じゃないですかorz</p>
+
+<h2 id="と思ったら">と思ったら</h2>
+
+<p>実装は以下になっていたorz</p>
+
+<pre><code>  def ascii?(str) do
+    _ascii?(str)
+  end
+  defp _ascii?([]), do: true
+  defp _ascii?([head | tail])
+  when head &gt;= 32 and head &lt;= 126 do
+    _ascii?(tail)
+  end
+  defp _ascii?([_ | _]), do: false
+</code></pre>
         </div>
         
 
