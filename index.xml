@@ -6,10 +6,29 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 28 Jan 2019 21:28:17 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 30 Jan 2019 21:12:56 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>買い物リスト</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/01/30/things-to-buy/</link>
+      <pubDate>Wed, 30 Jan 2019 21:12:56 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/01/30/things-to-buy/</guid>
+      <description>&lt;p&gt;いくつか列挙。&lt;/p&gt;
+
+&lt;h2 id=&#34;赤外線ヒーター&#34;&gt;赤外線ヒーター&lt;/h2&gt;
+
+&lt;p&gt;欲しい。自宅用と職場用で欲しい。画像が出ないのでリンクのみ以下に。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.amazon.co.jp/gp/product/B076VFCJDY/yamanetoshi-22&#34;&gt;遠赤外線デスクヒーター 省エネパネルヒーター 3時間タイマー付 冷え対策&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (12)</title>
