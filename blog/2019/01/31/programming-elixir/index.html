@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>プログラミング Elixir (14)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jan 31, 2019
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/01/31/programming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         プログラミング Elixir (14) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>StringsAndBinaries-4 は難問、とありますね。検討してみます。</p>
+
+<p></p>
+
+<p>以下ができるようになってくれ、とのこと。</p>
+
+<pre><code>calculate('123 + 27') # =&gt; 150
+</code></pre>
+
+<p>条件としては「数字 [+-*/] 数字」という形のシングルクオート文字列、なのか。パースできれば良いのかどうか。簡単げに言うてますがどうすりゃいいのかな。</p>
+
+<h2 id="ええと">ええと</h2>
+
+<p>もう少し時間があるらしいので検討。パースして以下なリストにして、で良いのかどうか。</p>
+
+<pre><code>[123, '+', 27]
+</code></pre>
+
+<p>一番目、二番目、三番目、で決めちゃって良いのかな。</p>
+
+<h2 id="かなり時間が経過して">かなり時間が経過して</h2>
+
+<p>取り組み再開。手順てきに以下なのかな。</p>
+
+<ul>
+<li>head がスペースになるまで数値を組み立てる</li>
+<li>スペースが出現したらスペース以外になるまで car を探索</li>
+<li>スペース以外であれば演算子として取得</li>
+<li>再びスペース以外が出現するまで car を探索</li>
+<li>リストが終わるまで数値を組み立て</li>
+</ul>
+
+<p>パースまで、が何とかならんかな。</p>
+
+<h2 id="parse">parse</h2>
+
+<p>以下なカンジ?</p>
+
+<pre><code>  def parse(str) do
+    _parse(str, 0)
+  end
+
+  defp _parse([head | tail], top)
+  when head == 32 do
+    _parse2(tail, [top], '')
+  end
+  defp _parse([head | tail], top) do
+    _parse(tail, top*10 + (head-48))
+  end
+  defp _parse2([head|tail], list, operator)
+  when head == 32 do
+    _parse3(tail, list ++ [operator], 0)
+  end
+  defp _parse2([head|tail], list, operator) do
+    _parse2(tail, list, head)
+  end
+  defp _parse3([head|[]], list, value) do
+    _parse_end(list ++ [value*10 + (head-48)])
+  end
+  defp _parse3([head|tail], list, value) do
+    _parse3(tail, list, value*10+(head-48))
+  end
+  defp _parse_end(list) do
+    list
+  end
+</code></pre>
+
+<p>動作確認は以下なカンジなのかどうか。</p>
+
+<pre><code>iex(5)&gt; Parse.parse('123 + 45')
+'{+-'
+</code></pre>
+
+<p>ええと確認を。</p>
+
+<pre><code>iex(6)&gt; [head|tail] = Parse.parse('123 + 45')
+'{+-'
+iex(7)&gt; head
+123
+iex(8)&gt; [head|tail] = tail
+'+-'
+iex(9)&gt; head
+43
+iex(10)&gt; [head|tail] = tail
+'-'
+iex(11)&gt; head
+45
+</code></pre>
+
+<p>10 進数 43 は &lsquo;+&rsquo; です。これを eval すれば良いのかな。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jan 31, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/01/30/things-to-buy/" title="買い物リスト">買い物リスト</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/31/programming-elixir/">プログラミング Elixir (14)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/30/things-to-buy/">買い物リスト</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/28/programming-elixir/">プログラミング Elixir (12)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/27/fukuoka-elixir/">#fukuokaex (#kokuraex)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/26/programming-elixir/">プログラミング Elixir (13)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/25/tanga-ichiba/">旦過市場</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/24/amazon-image-into-entry/">あまぞん画像なナニ</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/23/programming-elixir/">プログラミング Elixir (11)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/22/programming-elixir/">プログラミング Elixir (10)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/01/21/programming-elixir/">プログラミング Elixir (9)</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

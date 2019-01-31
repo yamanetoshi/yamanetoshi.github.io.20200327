@@ -97,6 +97,44 @@
         
 
 <header>
+    <p class="meta">Sep 24, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/24/behavior-of-surfaceview-when-adding-viewgroup/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/24/behavior-of-surfaceview-when-adding-viewgroup/">ViewGroup を追加する場合の SurfaceView の挙動</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>LinearLayout に addView したりとか ListView な adapter に add して getView でな場合に SurfaceView (というか SurfaceHolder?) の幅も高さも 0 になってて SurfaceHolder.Callback#surfaceCreated が呼び出されない、という不具合発現。</p>
+
+<p>適当な値を SurfaceHolder#setFixedSize で設定したら呼び出されるようになったのですが、この方法が妥当なのかどうかさえ謎。こうなってくるときちんとソース読まなきゃ駄目だなぁ。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/24/behavior-of-surfaceview-when-adding-viewgroup/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Sep 23, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/23/interesting-book/#disqus_thread">Comments</a>
@@ -407,49 +445,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Sep 15, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/15/ingress-level-eight/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/15/ingress-level-eight/">Ingress Lv.8</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>昨日、瀬長島にてあと 16,000 AP という所で弾切れ。今日は朝から</p>
-
-<ul>
-<li>壺川の郵便局周辺</li>
-<li>古波蔵 Farm</li>
-</ul>
-
-<p>で補給した後にひめゆり通りでも補給。その後買い物ついでに安里りうぼうに立ち寄り安里駅に attack して 1200000 AP にようやく到達しました。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/15/ingress-level-eight/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -552,6 +547,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/01/31/programming-elixir/">プログラミング Elixir (14)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/01/30/things-to-buy/">買い物リスト</a>
               </li>
             
@@ -601,12 +602,6 @@
             
               <li class="post">
                 <a href="/blog/2019/01/21/programming-elixir/">プログラミング Elixir (9)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/01/20/programming-elixir/">プログラミング Elixir (8)</a>
               </li>
             
           

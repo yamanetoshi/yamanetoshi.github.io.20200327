@@ -99,6 +99,55 @@
 <header>
     <p class="meta">Nov 7, 2013
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-13/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/eopl/">EoPL </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/scheme/">Scheme </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-13/">EoPL の Exercise 2.13</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>試験スルーで軽く、ということで勘弁してもらう方向。
+unparse が以下なのかどうか。</p>
+
+<pre><code>(define unparse-expression
+  (lambda (exp)
+    (cases term exp
+      (var-term (id) id)
+      (constant-term (datum) datum)
+  (app-term (terms)
+        (let app-term-unparse ((terms terms) (ret '()))
+          (if (null? terms)
+              (reverse ret)
+              (app-term-unparse (cdr terms) (cons (unparse-expression (car terms)) ret))))))))
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-13/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 7, 2013
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/07/eopl-ex-2-14/#disqus_thread">Comments</a>
 
         
@@ -452,42 +501,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 5, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/05/nsupdate/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/05/nsupdate/">nsupdate</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>某仮想リソースで名前を付けねば、という事で無償で DNS な ns リソースを払いだして頂いております。nsupdate なるコマンドで A レコードを云々できるとのことなんですが、このコマンド知りませんでしたので備忘までメモを残しておくことに。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/05/nsupdate/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -590,6 +603,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/01/31/programming-elixir/">プログラミング Elixir (14)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/01/30/things-to-buy/">買い物リスト</a>
               </li>
             
@@ -639,12 +658,6 @@
             
               <li class="post">
                 <a href="/blog/2019/01/21/programming-elixir/">プログラミング Elixir (9)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/01/20/programming-elixir/">プログラミング Elixir (8)</a>
               </li>
             
           
