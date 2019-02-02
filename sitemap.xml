@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/02/02/stanford-nlp/</loc>
+    <lastmod>2019-02-02T21:08:31+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/02/01/open-source-synthesizer/</loc>
     <lastmod>2019-02-01T10:53:06+09:00</lastmod>
   </url>
@@ -8724,7 +8729,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-02-01T10:53:06+09:00</lastmod>
+    <lastmod>2019-02-02T21:08:31+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8904,7 +8909,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/machinelearning/</loc>
-    <lastmod>2018-11-13T22:07:18+09:00</lastmod>
+    <lastmod>2019-02-02T21:08:31+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8946,7 +8951,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-02-01T10:53:06+09:00</lastmod>
+    <lastmod>2019-02-02T21:08:31+09:00</lastmod>
     <priority>0</priority>
   </url>
   

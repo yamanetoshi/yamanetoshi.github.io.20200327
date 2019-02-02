@@ -6,10 +6,27 @@
     <description>Recent content in Machinelearning on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 13 Nov 2018 22:07:18 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 02 Feb 2019 21:08:31 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/machinelearning/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Stanford Nlp</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/02/stanford-nlp/</link>
+      <pubDate>Sat, 02 Feb 2019 21:08:31 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/02/stanford-nlp/</guid>
+      <description>&lt;p&gt;下なナニがリリースされた、という話を聞き、早速確認させて頂く次第です。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://stanfordnlp.github.io/stanfordnlp/&#34;&gt;StanfordNLP&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;もくもくな時間が確保できたので以下に確認メモを。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Doc2Vec で wikipedia なモデルを作成</title>
