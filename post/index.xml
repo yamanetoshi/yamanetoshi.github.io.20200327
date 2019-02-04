@@ -6,10 +6,28 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 03 Feb 2019 14:04:44 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 04 Feb 2019 20:31:35 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (16)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/04/programming-elixir/</link>
+      <pubDate>Mon, 04 Feb 2019 20:31:35 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/04/programming-elixir/</guid>
+      <description>&lt;p&gt;ダブルクオート文字列のリストのセンタリング表示な課題。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;length&lt;/li&gt;
+&lt;li&gt;rjust&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;が使えるのかどうか。確認しつつすすめてみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (15)</title>
