@@ -97,6 +97,49 @@
         
 
 <header>
+    <p class="meta">Dec 2, 2013
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/02/gradle-wrapper/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/02/gradle-wrapper/">gradle wrapper?</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>build.gradle に以下の記述を云々、とある。</p>
+
+<pre><code>task wrapper(type: Wrapper) {
+    gradleVersion = '1.6'
+}
+</code></pre>
+
+<p>試してみよ。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/02/gradle-wrapper/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Dec 1, 2013
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/01/eopl-ex-2-24/#disqus_thread">Comments</a>
@@ -480,71 +523,6 @@ keyPassword=hoge
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 28, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/28/creating-dialogpreference-class/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/28/creating-dialogpreference-class/">DialogPreference なクラス作成の巻</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>とりあえずクラスの名前を決めて DialogPreference を継承する形で新規作成。その後</p>
-
-<ul>
-<li>レイアウトな xml を新規作成 (あるいはコピィ)</li>
-
-<li><p>Contect と AttributeSet なオブジェクトを引数に取るコンストラクタ追加</p>
-
-<ul>
-<li>引数な Context なオブジェクトは念のため属性作って保管</li>
-<li>setDialogLayoutResource メソドをレイアウトな id を引数に呼び出し</li>
-</ul></li>
-
-<li><p>onPrepareDialogBuilder メソドを override</p>
-
-<ul>
-<li>(必要なら) 引数で渡される Builder オブジェクトの setCancelable 呼び出し</li>
-</ul></li>
-
-<li><p>onBindDialogView メソドを override</p>
-
-<ul>
-<li>view の準備な記述を追加</li>
-</ul></li>
-
-<li><p>onDialogClosed メソドを override</p>
-
-<ul>
-<li>OK または cancel なボタンの押下が引数で分かるのでそれに応じてよしなに処理を記述</li>
-</ul></li>
-</ul>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/28/creating-dialogpreference-class/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -647,6 +625,12 @@ keyPassword=hoge
           
             
               <li class="post">
+                <a href="/blog/2019/02/05/far-infrated-desk-heater/">遠赤外線デスクヒーター</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/02/04/programming-elixir/">プログラミング Elixir (16)</a>
               </li>
             
@@ -696,12 +680,6 @@ keyPassword=hoge
             
               <li class="post">
                 <a href="/blog/2019/01/26/programming-elixir/">プログラミング Elixir (13)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/01/25/tanga-ichiba/">旦過市場</a>
               </li>
             
           

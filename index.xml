@@ -6,10 +6,23 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 04 Feb 2019 20:31:35 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 05 Feb 2019 21:14:36 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>遠赤外線デスクヒーター</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/05/far-infrated-desk-heater/</link>
+      <pubDate>Tue, 05 Feb 2019 21:14:36 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/05/far-infrated-desk-heater/</guid>
+      <description>&lt;p&gt;昨日届いたのですが非常に快適。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.amazon.co.jp/gp/product/B076VFCJDY/yamanetoshi-22&#34; rel=&#34;nofollow&#34;&gt;&lt;img src=&#34;https://images-na.ssl-images-amazon.com/images/I/513NjNolmsL._SX425_.jpg&#34; style=&#34;borer: none&#34; alt=&#34;&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (16)</title>
