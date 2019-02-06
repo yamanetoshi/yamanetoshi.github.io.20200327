@@ -6,10 +6,25 @@
     <description>Recent content in Cloud on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 27 Apr 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 06 Feb 2019 20:57:03 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/cloud/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Cloud Native Hiroshima #02</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/06/cloud-native-hiroshima/</link>
+      <pubDate>Wed, 06 Feb 2019 20:57:03 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/06/cloud-native-hiroshima/</guid>
+      <description>&lt;p&gt;以下なイベントへの参加登録などなど。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://cnjp.connpass.com/event/119241/&#34;&gt;Cloud Native Hiroshima #02&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>問い合せフォーム</title>
