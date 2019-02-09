@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/02/09/programming-elixir/</loc>
+    <lastmod>2019-02-09T12:42:45+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/02/08/first-ui-design/</loc>
     <lastmod>2019-02-08T11:25:51+09:00</lastmod>
   </url>
@@ -8759,7 +8764,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-02-08T11:25:51+09:00</lastmod>
+    <lastmod>2019-02-09T12:42:45+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -8981,13 +8986,13 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-02-08T11:25:51+09:00</lastmod>
+    <lastmod>2019-02-09T12:42:45+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/programming/</loc>
-    <lastmod>2019-02-04T20:31:35+09:00</lastmod>
+    <lastmod>2019-02-09T12:42:45+09:00</lastmod>
     <priority>0</priority>
   </url>
   
