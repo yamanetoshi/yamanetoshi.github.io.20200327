@@ -6,10 +6,29 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 10 Feb 2019 10:08:46 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 11 Feb 2019 12:09:45 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Metaprogramming Elixir (2)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/11/metaprogramming-elixir/</link>
+      <pubDate>Mon, 11 Feb 2019 12:09:45 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/11/metaprogramming-elixir/</guid>
+      <description>&lt;p&gt;マクロは caller のためのコードを生成するのではなく注入 (inject) する、とあります。コンテキストに注入、という表現になっていますね。コンテキストとは caller の&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;bindings&lt;/li&gt;
+&lt;li&gt;imports&lt;/li&gt;
+&lt;li&gt;aliases&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とあります。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Metaprogramming Elixir (1)</title>

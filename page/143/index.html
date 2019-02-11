@@ -99,6 +99,64 @@
 <header>
     <p class="meta">Mar 20, 2014
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/20/linux-tools/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/20/linux-tools/">linux-tools</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>RasPI にとあるプログラムの実装を移植 (?) してプロファイリング、な仕事。以下で導入してみたのですが</p>
+
+<pre><code>$ sudo apt-get install linux-tools
+</code></pre>
+
+<p>導入されたのが linux-tools-3.2 でした。uname によれば Kernel は 3.10 とのことだったのですが構わずすすめてみたところ</p>
+
+<pre><code>$ perf record ./hoge
+/usr/bin/perf: line 24: exec: perf_3_10: not found
+E: linux-tools-3.10 is not installed.
+</code></pre>
+
+<p>とのことでバージョン指定で導入。使いかた的には</p>
+
+<pre><code>$ perf record ./hoge
+</code></pre>
+
+<p>して</p>
+
+<pre><code>$ perf report
+</code></pre>
+
+<p>すれば良いみたい。あと perf stat とかが time よりも上等とかありますね。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/20/linux-tools/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 20, 2014
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/20/install-raspbian/#disqus_thread">Comments</a>
 
         
@@ -443,42 +501,6 @@ $ sudo apt-get install ia32-libs libgtk2.0-0:i386
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Mar 17, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/17/string-compare-in-bash/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/17/string-compare-in-bash/">bash での文字列比較</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>git status して更新のチェックしてるんですが、対象外になるファイルが複数になってて比較な条件書くのにちょっとまごまごしたので自分メモを。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/17/string-compare-in-bash/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -581,6 +603,12 @@ $ sudo apt-get install ia32-libs libgtk2.0-0:i386
           
             
               <li class="post">
+                <a href="/blog/2019/02/11/metaprogramming-elixir/">Metaprogramming Elixir (2)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/02/10/metaprogramming-elixir/">Metaprogramming Elixir (1)</a>
               </li>
             
@@ -630,12 +658,6 @@ $ sudo apt-get install ia32-libs libgtk2.0-0:i386
             
               <li class="post">
                 <a href="/blog/2019/02/02/stanford-nlp/">Stanford Nlp</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/02/01/open-source-synthesizer/">Open Source Synthesizer</a>
               </li>
             
           
