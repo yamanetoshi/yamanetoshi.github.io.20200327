@@ -6,10 +6,21 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 11 Feb 2019 12:09:45 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 12 Feb 2019 19:58:22 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Metaprogramming Elixir (3)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/12/metaprogramming-elixir/</link>
+      <pubDate>Tue, 12 Feb 2019 19:58:22 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/12/metaprogramming-elixir/</guid>
+      <description>&lt;p&gt;Chapter 2 に突入。とりあえず if な特殊形式な macro を作る模様。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Metaprogramming Elixir (2)</title>

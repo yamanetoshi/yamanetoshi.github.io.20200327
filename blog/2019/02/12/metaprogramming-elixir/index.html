@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>Metaprogramming Elixir (3)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 12, 2019
+         - 3 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/12/metaprogramming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Metaprogramming Elixir (3) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>Chapter 2 に突入。とりあえず if な特殊形式な macro を作る模様。</p>
+
+<p></p>
+
+<pre><code>defmodule ControlFlow do
+  defmacro my_if(expr, do: if_block), do: if(expr, do: if_block, else: nil)
+  defmacro my_if(expr, do: if_block, else: else_block) do
+    quote do
+      case unquote(expr) do
+        result when result in [false, nil] -&gt; unquote(else_block)
+        _ -&gt; unquote(if_block)
+      end
+    end
+  end
+end
+</code></pre>
+
+<p>なんとなくこれは if な macro の定義そのまんまなのではと思うんですがどうなのか。</p>
+
+<pre><code>iex(6)&gt; c &quot;if_recreated.exs&quot;
+[ControlFlow]
+iex(7)&gt; require ControlFlow
+ControlFlow
+iex(8)&gt; ControlFlow.my_if 1 == 1 do
+...(8)&gt; &quot;correct&quot;
+...(8)&gt; else
+...(8)&gt; &quot;incorrect&quot;
+...(8)&gt; end
+&quot;correct&quot;
+</code></pre>
+
+<h2 id="while-の追加">While の追加</h2>
+
+<p>追加したら以下なコードが実装できるとのこと。</p>
+
+<pre><code>while Process.alive?(pid) do
+  send pid, {self, :ping}
+  receive do
+    {^pid, :pong -&gt; IO.puts &quot;Got pong&quot;}
+  after 2000 -&gt; break
+  end
+end
+</code></pre>
+
+<p>何だろう infinite stream 使って云々とか書いてあるぞ。例示されてる実装を盛り込んでみます。</p>
+
+<pre><code>defmodule Loop do
+  defmacro while(expression, do: block) do
+    quote do
+      for _ &lt;- Stream.cycle([:ok]) do
+        if unquote(expression) do
+          unquote(block)
+        else
+          # break out of loop
+        end
+      end
+    end
+  end
+end
+</code></pre>
+
+<p>なるほど、こう書くのか。というかこのままでは条件が false になったときにループは脱出できないですね。このあたりは後々実装になるはず。実行例出てますが C-c で中断させていますね。(引用略)</p>
+
+<h2 id="次のステップ">次のステップ</h2>
+
+<p>とりあえずループさせることはできるようになっています。ループからの脱出は try/catch を使う? という記述がありますね。例示されてる実装を確認してみます。</p>
+
+<pre><code>defmodule Loop do
+  defmacro while(expression, do: block) do
+    quote do
+      try do
+        for _ &lt;- Stream.cycle([:ok]) do
+          if unquote(expression) do
+            unquote(block)
+          else
+            throw :break
+          end
+        end
+      catch
+        :break -&gt; :ok
+      end
+    end
+  end
+end
+</code></pre>
+
+<p>try なブロックの中で for なループが動いて条件式が false のときに :break を throw しています。これで完成? って思ったらもう少し実装追加しています。else なブロックで直接 :break を throw するのは危険、ということなんすかね。</p>
+
+<pre><code>defmodule Loop do
+  defmacro while(expression, do: block) do
+    quote do
+      try do
+        for _ &lt;- Stream.cycle([:ok]) do
+          if unquote(expression) do
+            unquote(block)
+          else
+            throw :break
+          end
+        end
+      catch
+        Loop.break
+      end
+    end
+  end
+  def break, do: throw :break
+end
+</code></pre>
+
+<p>なるほど。</p>
+
+<h2 id="テスツ">テスツ</h2>
+
+<p>ちっさいテスティングフレームワークを、とのこと。Elixir のは ExUnit って名前のフレームワークなのですね。以下なナニが例示されています。</p>
+
+<pre><code>defmodule Test do
+  import Assertion
+  def run
+    assert 5 == 5
+    assert 2 &gt; 0
+    assert 10 &lt; 1
+  end
+end
+</code></pre>
+
+<p>これ、repl 上で云々してみます。</p>
+
+<h2 id="assertion-が無い">Assertion が無い</h2>
+
+<p>なるほど、これを今から作るのね。上の例だと assert の引数は boolean なナニを戻す演算子と左辺値と右辺値になっていて</p>
+
+<pre><code>iex(10)&gt; quote do: 5 == 5
+{:==, [context: Elixir, import: Kernel], [5, 5]}
+</code></pre>
+
+<p>AST になってればそれぞれがさくっと取り出せる、ということなのかどうか。</p>
+
+<pre><code>defmodule Assertion do
+  # {:==, [context: Elixir, import: Kernel], [5, 5]}
+  defmacro assert({operator, _, [lhs, rhs]}) do
+    quote bind_quoted: [operator: operator, lhs: lhs, rhs: rhs] do
+      Assertion.Test.assert(operator, lhs, rhs)
+    end
+  end
+end
+</code></pre>
+
+<p>これがプロトタイプなのか。たしかに bind_quoted なるソレは初見かもしれません。</p>
+
+<h2 id="bind-quoted">bind_quoted</h2>
+
+<p>quote のオプションらしい。以下な記載が等価、とあります。</p>
+
+<pre><code>    quote bind_quoted: [operator: operator, lhs: lhs, rhs: rhs] do
+      Assertion.Test.assert(operator, lhs, rhs)
+    end
+</code></pre>
+
+<p>もう一方が以下。</p>
+
+<pre><code>    quote do
+      Assertion.Test.assert(unquote (operator), unquote(lhs), unquote(rhs))
+    end
+</code></pre>
+
+<p>これの何が嬉しいのか、ということを理解するために Debugger な実装を書いてみれ、とのこと。</p>
+
+<pre><code>defmodule Debugger do
+  defmacro log(expression) do
+    if Application.get_env(:debugger, :log_level) == :debug do
+      quote do
+        IO.puts &quot;=======================&quot;
+        IO.inspect unquote(expression)
+        IO.puts &quot;=======================&quot;
+        unquote(expression)
+      end
+    else
+      expression
+    end
+  end
+end
+</code></pre>
+
+<p>iex での実行例な記載もあります。</p>
+
+<pre><code>iex(11)&gt; c &quot;debugger.exs&quot;
+[Debugger]
+iex(12)&gt; require Debugger
+Debugger
+iex(13)&gt; Application.put_env(:debugger, :log_level, :debug)
+:ok
+iex(14)&gt; remote_api_call = fn -&gt; IO.puts(&quot;calling remote API...&quot;)
+...(14)&gt; end
+#Function&lt;20.128620087/0 in :erl_eval.expr/5&gt;
+iex(15)&gt; Debugger.log(remote_api_call.())
+=======================
+calling remote API...
+:ok
+=======================
+calling remote API...
+:ok
+</code></pre>
+
+<p>二度、呼びだされていますね。たしかに二度 unquote してるので、なのか。これを bind_quoted を使って解決、とありますね。</p>
+
+<pre><code>defmodule Debugger do
+  defmacro log(expression) do
+    if Application.get_env(:debugger, :log_level) == :debug do
+      quote bind_quoted: [expression: expression] do
+        IO.puts &quot;=======================&quot;
+        IO.inspect expression
+        IO.puts &quot;=======================&quot;
+        expression
+      end
+    else
+      expression
+    end
+  end
+end
+</code></pre>
+
+<p>テストしてみました。</p>
+
+<pre><code>iex(16)&gt; c &quot;debugger_fixed.exs&quot;
+warning: redefining module Debugger (current version defined in memory)
+  debugger_fixed.exs:1
+
+[Debugger]
+iex(17)&gt; Debugger.log(remote_api_call.())
+calling remote API...
+=======================
+:ok
+=======================
+:ok
+</code></pre>
+
+<p>なるほど。こりゃいいすね。</p>
+
+<h2 id="vm-のパターンマッチングの活用">VM のパターンマッチングの活用</h2>
+
+<p>ここ、面白そうなのでゆっくりめに確認すすめます。</p>
+
+<pre><code>defmodule Assertion do
+  # {:==, [context: Elixir, import: Kernel], [5, 5]}
+  defmacro assert({operator, _, [lhs, rhs]}) do
+    quote bind_quoted: [operator: operator, lhs: lhs, rhs: rhs] do
+      Assertion.Test.assert(operator, lhs, rhs)
+    end
+  end
+end
+
+defmodule Assertion.Test do
+  def assert(:==, lhs, rhs) when lhs == rhs do
+    IO.write &quot;.&quot;
+  end
+  def assert(:==, lhs, rhs) do
+    IO.puts &quot;&quot;&quot;
+    FAILURE:
+    Expected:      #{lhs}
+    to be equal to #{rhs}
+    &quot;&quot;&quot;
+  end
+  def assert(:&gt;, lhs, rhs) when lhs &gt; rhs do
+    IO.write &quot;.&quot;
+  end
+  def assert(:&gt;, lhs, rhs) do
+    IO.puts&quot;&quot;&quot;
+    FAILURE:
+    Expected:           #{lhs}
+    to be greater than: #{rhs} 
+    &quot;&quot;&quot;
+  end
+end
+</code></pre>
+
+<p>パタンマッチ使うってこゆことだったのか。これができるから Elixir いいすよね。</p>
+
+<pre><code>iex(20)&gt; assert 1 &gt; 2
+FAILURE:
+Expected:           1
+to be greater than: 2 
+
+:ok
+iex(21)&gt; assert 1 == 2
+FAILURE:
+Expected:      1
+to be equal to 2
+
+:ok
+iex(22)&gt; assert 2 &gt; 1
+.:ok
+iex(23)&gt; assert 2 == 2
+.:ok
+</code></pre>
+
+<p>そしてこんなことができるのか。</p>
+
+<pre><code>defmodule MathTest do
+  import Assertion
+  def run do
+    assert 5 == 5
+    assert 10 &gt; 0
+    assert 1 &gt; 2
+    assert 10 * 10 == 100
+  end
+end
+</code></pre>
+
+<p>上のは先に例示されていたテスツ実装ですね。</p>
+
+<pre><code>iex(24)&gt; c &quot;math_test_import.exs&quot;
+[MathTest]
+iex(25)&gt; MathTest.run
+..FAILURE:
+Expected:           1
+to be greater than: 2 
+
+.:ok
+iex(26)&gt; 
+</code></pre>
+
+<p>一度ここで手を止めます。面白すぎてキリが無い。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 12, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/02/11/metaprogramming-elixir/" title="Metaprogramming Elixir (2)">Metaprogramming Elixir (2)</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/12/metaprogramming-elixir/">Metaprogramming Elixir (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/11/metaprogramming-elixir/">Metaprogramming Elixir (2)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/10/metaprogramming-elixir/">Metaprogramming Elixir (1)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/09/programming-elixir/">プログラミング Elixir (17)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/08/first-ui-design/">はじめての UI デザイン</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/07/issues-to-be-resolved-over-this-weekent/">この週末で倒しておきたいネタ</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/06/cloud-native-hiroshima/">Cloud Native Hiroshima #02</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/05/far-infrated-desk-heater/">遠赤外線デスクヒーター</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/04/programming-elixir/">プログラミング Elixir (16)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/03/programming-elixir/">プログラミング Elixir (15)</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
