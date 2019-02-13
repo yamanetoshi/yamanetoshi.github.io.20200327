@@ -97,6 +97,36 @@
         
 
 <header>
+    <p class="meta">Nov 18, 2015
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/11/18/indentation-of-python-language/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/python/">Python </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/11/18/indentation-of-python-language/">python のインデント</a>
+    </h1>
+</header>
+
+
+        
+          <p>タブじゃ駄目、って知りませんでした。これって vi だけなのかな。TabError でオチてて目をまわしていましたです。</p>
+
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Nov 17, 2015
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2015/11/17/git-memo/#disqus_thread">Comments</a>
@@ -428,62 +458,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 11, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/11/11/python-shogi/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/11/11/python-shogi/">python-shogi</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>云々できる環境を作ります。とりあえず python:2.7 なナニを元に image を作成。</p>
-
-<pre><code>$ sudo docker run -i -t -d python:2.7 /bin/bash
-$ sudo docker ps -l -q
-da334369b2b8
-$ sudo docker attach da334369b2b8
-root@da334369b2b8:/usr/src/python# python --version
-Python 2.7.8
-</code></pre>
-
-<p>で、一旦 <code>C-p C-q</code> で脱出して commit を作っておきます。</p>
-
-<pre><code>$ sudo docker commit da334369b2b8 yamanetoshi/python-shogi
-</code></pre>
-
-<p>で、ソース共有できる場所をアレするのか。</p>
-
-<pre><code>$ sudo docker run -i -t -d -v /home/rms/Documents:/opt yamanetoshi/python-shogi /bin/bash
-</code></pre>
-
-<p>ということで確認作業など着手。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/11/11/python-shogi/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -586,6 +560,12 @@ Python 2.7.8
           
             
               <li class="post">
+                <a href="/blog/2019/02/13/fukuokaex/">fukuoka.ex#19</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/02/12/metaprogramming-elixir/">Metaprogramming Elixir (3)</a>
               </li>
             
@@ -635,12 +615,6 @@ Python 2.7.8
             
               <li class="post">
                 <a href="/blog/2019/02/04/programming-elixir/">プログラミング Elixir (16)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/02/03/programming-elixir/">プログラミング Elixir (15)</a>
               </li>
             
           

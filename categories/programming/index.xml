@@ -6,10 +6,29 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 12 Feb 2019 19:58:22 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 13 Feb 2019 20:07:08 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>fukuoka.ex#19</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/13/fukuokaex/</link>
+      <pubDate>Wed, 13 Feb 2019 20:07:08 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/13/fukuokaex/</guid>
+      <description>&lt;p&gt;リモート視聴枠が増員になったので速攻でぽちりました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://fukuokaex.connpass.com/event/120102/&#34;&gt;【好評につき増枠しました】fukuoka.ex#19：Elixir実践テクニック公開します③&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;その後&#34;&gt;その後&lt;/h2&gt;
+
+&lt;p&gt;compass メンテでアクセスできなくなってて焦りましたが登録はできてた模様。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Metaprogramming Elixir (3)</title>
