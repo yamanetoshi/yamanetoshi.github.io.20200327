@@ -6,10 +6,49 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 14 Feb 2019 20:10:02 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 15 Feb 2019 07:41:19 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Metaprogramming Elixir (4)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/15/metaprogramming-elixir/</link>
+      <pubDate>Fri, 15 Feb 2019 07:41:19 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/15/metaprogramming-elixir/</guid>
+      <description>&lt;p&gt;ゴールは他のモジュールを test macro で拡張すること、らしい。以下な testing framework を、との事です。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;defmodule MathTest do
+  use Assertion
+
+  test &amp;quot;integers can be added and subtracted&amp;quot; do
+    assert 1 + 1 == 2
+    assert 2 + 3 == 5
+    assert 5 - 5 == 10
+  end
+
+  test &amp;quot;integers can be multiplied and divided&amp;quot; do
+    assert 5 * 5 == 25
+    assert 10 / 2 == 5
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;実行例が以下らしい。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;iex&amp;gt; MathTest.run
+..
+===========================
+FAILURE: integers can be added and subtracted
+===========================
+   Expected:       0
+   to be equal to: 10
+..:ok
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>広島のElixirコミュニティ、その名もElixiroshima</title>
