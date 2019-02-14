@@ -6,10 +6,27 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 13 Feb 2019 20:07:08 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 14 Feb 2019 20:10:02 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>広島のElixirコミュニティ、その名もElixiroshima</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/14/elixiroshima/</link>
+      <pubDate>Thu, 14 Feb 2019 20:10:02 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/14/elixiroshima/</guid>
+      <description>&lt;p&gt;広島でも勉強会が kickoff される模様。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://elixiroshima.connpass.com/event/119543/&#34;&gt;Elixiroshima 第1回ミートアップ — Elixir、始めてみようや。広島での。&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;行きたひ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>fukuoka.ex#19</title>
