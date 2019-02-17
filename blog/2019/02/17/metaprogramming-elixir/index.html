@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>Metaprogramming Elixir (6)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 17, 2019
+         - 3 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/17/metaprogramming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Metaprogramming Elixir (6) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>ちょっと復習。<code>accumulate:true</code> な記述のあたりを列挙しておきます。</p>
+
+<ul>
+<li>モジュール属性を使用すると、コンパイル時にデータをモジュールに格納できる</li>
+<li>これらは他の言語で定数が適用される場所でよく使われるが、Elixirはコンパイル時に悪用するための他のトリックを提供する</li>
+<li>属性を登録するときにaccumulate：trueオプションを利用することで、コンパイル段階で登録された追加リストを保持できる</li>
+<li>モジュールがコンパイルされた後、属性にはコンパイル中に発生したすべての登録のリストが含まれる</li>
+</ul>
+
+<p>accumulate:true が今ひとつ理解できていないのかどうか。てか、翻訳時に評価された値が属性に値として格納される、ってことなのか。そしてここで問題になってくるのが評価される順番なのね。</p>
+
+<p></p>
+
+<h2 id="ともあれ">ともあれ</h2>
+
+<p>最終版を再確認してみます。上から順に、ということで以下。</p>
+
+<pre><code>defmodule Assertion do
+  defmacro __using__(_options) do
+    quote do
+      import unquote(__MODULE__)
+      Module.register_attribute __MODULE__, :tests, accumulate: true
+      @before_compile unquote(__MODULE__)
+    end
+  end
+</code></pre>
+
+<p><strong>using</strong> という macro はその module が use された時に展開されます。上記では</p>
+
+<ul>
+<li>自分自身を import して attribute を登録</li>
+<li>module attribute はコンパイル時にデータを取得して保持できる</li>
+<li>登録時、accumulate:true オプション指定することでコンパイル中に発生した全ての registration を保持できる</li>
+<li>@before_compile 属性は引数に <code>__before_compile__</code> macro を定義する module を受け取る</li>
+<li><code>__before_compile__</code> macoro はコード生成の最終段階で呼び出される</li>
+</ul>
+
+<p>ということで Assertion モジュールでは次にその macro が定義されています。</p>
+
+<pre><code>  defmacro __before_compile__(_env) do
+    quote do
+      def run do
+        Assertion.Test.run(@tests, __MODULE__)
+      end
+    end
+  end
+</code></pre>
+
+<p>run メソドが定義され、その中では <code>Assertion.Test.run</code> が呼び出されています。上記の通りこのマクロはコード生成の最終段階で呼び出されます。以降は Assertion モジュールの定義の残りです。</p>
+
+<pre><code>  defmacro test(description, do: test_block) do
+    test_func = String.to_atom(description)
+    quote do
+      @tests {unquote(test_func), unquote(description)}
+      def unquote(test_func)(), do: unquote(test_block)
+    end
+  end
+
+  # {:==, [context: Elixir, import: Kernel], [5, 5]}
+  defmacro assert({operator, _, [lhs, rhs]}) do
+    quote bind_quoted: [operator: operator, lhs: lhs, rhs: rhs] do
+      Assertion.Test.assert(operator, lhs, rhs)
+    end
+  end
+end
+</code></pre>
+
+<p>test と assert が定義されています。例えば試験は以下のように記述されます (一部のみ)。</p>
+
+<pre><code>defmodule MathTest do
+  use Assertion
+  test &quot;integers can be added and subtracted&quot; do
+    assert 2 + 3 == 5
+    assert 5 - 5 == 10
+  end
+</code></pre>
+
+<p>module を use した後で使われています。こうして見てみるに test という macro の理解が微妙。テキストを再度確認してみます。<code>quote do</code> な block の中で</p>
+
+<ul>
+<li>@test attribute に <code>{unquote(test_func), unquote(description)}</code> を蓄積 (accumulate)</li>
+<li>description な名前の test_block を実行する手続きを定義</li>
+</ul>
+
+<p>ということなのか。ここ、見事にスルーしてました。かなりキモの部分スね。というか次の assert もなかなかアレゲです。</p>
+
+<ul>
+<li>bind_quoted については (3) なエントリで確認してました</li>
+<li>マクロの中で複数回 quote するようなケースではこうしておいた方が良い</li>
+<li>assert の中身は Assertion.Test.assert の呼び出し</li>
+</ul>
+
+<p>ということで、次は Assertion.Test module です。こちらが本体、になるのかどうか。まずは run からということで以下。</p>
+
+<pre><code>defmodule Assertion.Test do
+  def run(tests, module) do
+    Enum.each tests, fn {test_func, description} -&gt;
+      case apply(module, test_func, []) do
+        :ok             -&gt; IO.write &quot;.&quot;
+        {:fail, reason} -&gt; IO.puts &quot;&quot;&quot;
+        ======================================
+        FAILURE: #{description}
+        ======================================
+        #{reason}
+        &quot;&quot;&quot;
+      end
+    end
+  end
+</code></pre>
+
+<p>Assertion は Assertion.Test の wrapper なんですね。今更ですが。Assertion.run の定義を再掲します。</p>
+
+<pre><code>      def run do
+        Assertion.Test.run(@tests, __MODULE__)
+      end
+</code></pre>
+
+<p>この手続きは <code>__before_compile__</code> なマクロが呼び出された時点で評価されるので、@tests への accumulate が全て終わってる、ということですね。で、<code>apply(module, test_func, [])</code> で test_func の値が名前の手続きが実行されるのか。</p>
+
+<h2 id="ありゃ">ありゃ?</h2>
+
+<p>この記述もスルーしてました。</p>
+
+<pre><code>    Enum.each tests, fn {test_func, description} -&gt;
+      case apply(module, test_func, []) do
+</code></pre>
+
+<p>これ、確かに tests は <code>{testfunc, description}</code> だけどいいのか的アレがナニですね。あと、Enum.each/2 のドキュメントが以下です。</p>
+
+<ul>
+<li><a href="https://hexdocs.pm/elixir/Enum.html#each/2">https://hexdocs.pm/elixir/Enum.html#each/2</a></li>
+</ul>
+
+<h2 id="assert">assert</h2>
+
+<p>ここはメタでも何でもなくて、なカンジです。</p>
+
+<pre><code>  def assert(:==, lhs, rhs) when lhs == rhs do
+    :ok
+  end
+  def assert(:==, lhs, rhs) do
+    {:fail, &quot;&quot;&quot;
+    Expected:       #{lhs}
+    to be equal to: #{rhs}
+    &quot;&quot;&quot;
+    }
+  end
+</code></pre>
+
+<p>ということで次は Chapter 3 になります。メタではない方もすすめたいのですが、こっちが面白くて (ぇ</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 17, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/02/16/metaprogramming-elixir/" title="Metaprogramming Elixir (5)">Metaprogramming Elixir (5)</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/17/metaprogramming-elixir/">Metaprogramming Elixir (6)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/16/metaprogramming-elixir/">Metaprogramming Elixir (5)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/15/metaprogramming-elixir/">Metaprogramming Elixir (4)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/14/elixiroshima/">広島のElixirコミュニティ、その名もElixiroshima</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/13/fukuokaex/">fukuoka.ex#19</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/12/metaprogramming-elixir/">Metaprogramming Elixir (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/11/metaprogramming-elixir/">Metaprogramming Elixir (2)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/10/metaprogramming-elixir/">Metaprogramming Elixir (1)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/09/programming-elixir/">プログラミング Elixir (17)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/08/first-ui-design/">はじめての UI デザイン</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

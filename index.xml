@@ -6,10 +6,30 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 16 Feb 2019 11:31:22 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 17 Feb 2019 12:09:22 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Metaprogramming Elixir (6)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/17/metaprogramming-elixir/</link>
+      <pubDate>Sun, 17 Feb 2019 12:09:22 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/17/metaprogramming-elixir/</guid>
+      <description>&lt;p&gt;ちょっと復習。&lt;code&gt;accumulate:true&lt;/code&gt; な記述のあたりを列挙しておきます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;モジュール属性を使用すると、コンパイル時にデータをモジュールに格納できる&lt;/li&gt;
+&lt;li&gt;これらは他の言語で定数が適用される場所でよく使われるが、Elixirはコンパイル時に悪用するための他のトリックを提供する&lt;/li&gt;
+&lt;li&gt;属性を登録するときにaccumulate：trueオプションを利用することで、コンパイル段階で登録された追加リストを保持できる&lt;/li&gt;
+&lt;li&gt;モジュールがコンパイルされた後、属性にはコンパイル中に発生したすべての登録のリストが含まれる&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;accumulate:true が今ひとつ理解できていないのかどうか。てか、翻訳時に評価された値が属性に値として格納される、ってことなのか。そしてここで問題になってくるのが評価される順番なのね。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Metaprogramming Elixir (5)</title>
