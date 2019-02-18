@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>Metaprogramming Elixir (7)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 18, 2019
+         - 4 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/18/metaprogramming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Metaprogramming Elixir (7) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>Advanced Compile-Time Code Generation の Chapter 3 です。最初に出てくるのは UnicodeData.txt を例にした外部データがコード生成手続きを呼び出す例。</p>
+
+<p>一つには以下な情報 (一部のみ) を行単位で読みこんで</p>
+
+<pre><code>application/javascript  .js
+application/json        .json
+image/jpeg              .jpeg, .jpg
+video/jpeg              .jpgv
+</code></pre>
+
+<p>リストにしてそれに手続きを割り当てる、という事をしてます。これはこれで便利。そしてこのテキストファイルを更新した時点でコンパイルも動かしてしまえ、という属性があるとのこと。これは凄い。</p>
+
+<p></p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>例示されている mime.exs が以下です。</p>
+
+<pre><code>defmodule Mime do
+  for line &lt;- File.stream!(Path.join([__DIR__, &quot;mimes.txt&quot;]), [], :line) do
+    [type, rest] = line |&gt; String.split(&quot;\t&quot;) |&gt; Enum.map(&amp;String.strip(&amp;1))
+    extensions = String.split(rest, -r/,\s?/)
+    def exts_from_type(unquote(type)), do: unquote(extensions)
+    def type_from_ext(ext), do: unquote(type)
+  end
+  def exts_from_type(_type), do: []
+  def type_from_ext(_ext), do: nil
+  def valid_type?(type), do: exts_from_type(type) |&gt; Enum.any?
+end
+</code></pre>
+
+<h2 id="そういえば">そういえば</h2>
+
+<p>昨日、作業を終えてからの昼呑み帰りにふと思い出したのが</p>
+
+<ul>
+<li>quote はソースコードから AST への変換</li>
+<li>unquote はその逆 (AST からソースコードへの変換)</li>
+</ul>
+
+<p>というナニでした。</p>
+
+<h2 id="recompiling-modules-when-external-resources-change">Recompiling Modules when External Resources Change</h2>
+
+<p><code>@external_resource</code> という module attribute を使う、とのことです。以下なカンジで書きなさい、とのことです (未実装)。</p>
+
+<pre><code>defmodule Mime do
+  @external_resource mimes_path = Path.join([__DIR__, &quot;mimes.txt&quot;])
+  for line &lt;- File.stream!(mimes_path, [], :line) do
+</code></pre>
+
+<p>これはこれでなかなか。そしてここまではオマケ的な話で以降が本題らしく。</p>
+
+<h2 id="building-an-internationalization-library">Building an Internationalization Library</h2>
+
+<p>この節、ステップごとのコードを引用してみようと思います。まずは README Driven Development ということで以下なガワがでっちあげられています。</p>
+
+<pre><code>defmodule I18n do
+  use Translator
+
+  locale &quot;en&quot;, 
+  flash: [hello: &quot;Hello %{first} %{last}!&quot;, bye: &quot;Bye, %{name}!&quot;],
+  users: [title: &quot;Users&quot;,]
+
+  locale &quot;fr&quot;,
+  flash: [hello: &quot;Salut %{first} %{last}!&quot;, bye: &quot;Au revoir, %{name}!&quot;],
+  users: [title: &quot;Utilisateurs&quot;,]
+  
+end
+</code></pre>
+
+<p>以下な動作を想定しているとのこと。</p>
+
+<pre><code>iex&gt; I18n.t(&quot;en&quot;, &quot;flash.hello&quot;, first: &quot;Chris&quot;, last: &quot;McCord&quot;)
+    &quot;Hello Chris McCord!&quot;
+iex&gt; I18n.t(&quot;fr&quot;, &quot;flash.hello&quot;, first: &quot;Chris&quot;, last: &quot;McCord&quot;)
+    &quot;Salut Chris McCord&quot;
+iex&gt; I18n.t(&quot;en&quot;, &quot;users.title&quot;)
+    &quot;Users&quot;
+</code></pre>
+
+<p>上記の例によれば</p>
+
+<ul>
+<li><code>use Translator</code> で t/3 手続きが使えるように</li>
+<li><strong>using</strong> macro を定義しなければなりません</li>
+<li><code>locale</code> マクロで登録がおこなえる</li>
+</ul>
+
+<p>ようになっていなければ、なのかどうか。</p>
+
+<h2 id="step-2">Step 2</h2>
+
+<p>標題が Implement a Skelton Module with Metaprogramming Hooks とのこと。Translator の skelton を作りましょう、なのかな。</p>
+
+<pre><code>defmodule Translator do
+  defmacro __using__(_options) do
+    quote do
+      Module.register_attribute __MODULE__, :locales, accumulate: true, persist: false
+      import unquote(__MODULE__), only: [locale: 2]
+      @before_compile unquote(__MODULE__)
+    end
+  end
+
+  defmacro __before_compile__(env) do
+    compile(Module.get_attribute(env.module, :locales))
+  end
+
+  defmacro locale(name, mappings) do
+    quote bind_quoted: [name: name, mappings: mappings] do
+      @locales {name, mappings}
+    end
+  end
+
+  def compile(translations) do
+    # TBD: Return AST for all translation function definitions
+  end
+end
+</code></pre>
+
+<ul>
+<li>locales という attribute を定義している</li>
+<li><strong>before_compile</strong> macro が定義されている (locales という attribute を compile に渡している)</li>
+<li>locale という macro の定義 (attribute に引数を設定?)</li>
+<li>compile は未実装</li>
+</ul>
+
+<p>次は t/3 を定義、なのかどうか。</p>
+
+<h2 id="step3">step3</h2>
+
+<p>Generate Code from Your Accumulated Module Attributes という題になっています。t/3 手続きの large AST に translations を map するってどゆ意味なのか。とりあえず例示されている以下を実装しています。</p>
+
+<pre><code>  def compile(translations) do
+    translations_ast = for {locale, mappings} &lt;- translations do
+      deftranslations(locale, &quot;&quot;, mappings)
+    end
+
+    quote do
+      def t(locale, path, bindings \\ [])
+      unquote(translations_ast)
+      def t(_locale, _path, _bindings), do: {:error, :no_translation}
+    end
+  end
+  defp deftranslations(locales, current_path, mappings) do
+    # TBD: Return an AST of the t/3 function defs for the given locale
+  end
+</code></pre>
+
+<p>それにしてもこの記述、凄いな。iex でコンパイルして実行してみました。テキストと同じ挙動です。</p>
+
+<pre><code>iex(3)&gt; c &quot;translator_step3.exs&quot;
+warning: redefining module Translator (current version defined in memory)
+  translator_step3.exs:1
+
+warning: variable &quot;current_path&quot; is unused
+  translator_step3.exs:31
+
+warning: variable &quot;locales&quot; is unused
+  translator_step3.exs:31
+
+warning: variable &quot;mappings&quot; is unused
+  translator_step3.exs:31
+
+[Translator]
+iex(4)&gt; c &quot;i18n.exs&quot;            
+warning: redefining module I18n (current version defined in memory)
+  i18n.exs:1
+
+[I18n]
+iex(5)&gt; I18n.t(&quot;en&quot;, &quot;flash.hello&quot;, first: &quot;Chris&quot;, last: &quot;McCord&quot;)
+{:error, :no_translation}
+iex(6)&gt; I18n.t(&quot;en&quot;, &quot;flash.hello&quot;)
+{:error, :no_translation}
+</code></pre>
+
+<ul>
+<li>まず Translator というモジュールがコンパイルされ</li>
+<li>i18n.exs コンパイル時にまず <strong>using</strong> なマクロが展開</li>
+<li>locales という属性と locale というマクロが定義される</li>
+<li>翻訳完了時に <strong>before_compile</strong> 展開してね状態になる</li>
+<li>locale マクロで @locales に &ldquo;en&rdquo; とか &ldquo;fr&rdquo; が設定される (accumulate: true だとリストになるのかどうか、別途確認)</li>
+<li>翻訳終了したら <strong>before_compile</strong> が展開</li>
+<li>compile が呼び出される</li>
+<li>@locales の要素ごとに deftranslations が呼び出されて translation_ast に戻りを格納 (なので translation_ast もリスト、という認識で良いのかどうか)</li>
+<li>リストの要素ごとに quote されたナニが設定 (ということで良いのかどうか)</li>
+</ul>
+
+<p>なんですが、この時点の実装では t/3 は <code>{:error, :no_translation}</code> を戻すのみ、になっていますね。</p>
+
+<h2 id="step-4">step 4</h2>
+
+<p>deftranslations を実装、とあります。以下らしい。</p>
+
+<pre><code>  defp deftranslations(locale, current_path, mappings) do
+    for {key, val} &lt;- mappings do
+      path = append_path(current_path, key)
+      if Keyword.keyword?(val) do
+        deftranslations(locale, path, val)
+      else
+        quote do
+          def t(unquote(locale), unquote(path), bindings) do
+            unquote(interpolate(val))
+          end
+        end
+      end
+    end
+  end
+
+  defp interpolate(string) do
+    string # TBD: interpolate bindings within string
+  end
+
+  defp append_path(&quot;&quot;, next), do: to_string(next)
+  defp append_path(current, next), do: &quot;#{current}.#{next}&quot;
+</code></pre>
+
+<p>ええと、compile の始点? が以下な形になっているので</p>
+
+<pre><code>  def compile(translations) do
+    translations_ast = for {locale, mappings} &lt;- translations do
+      deftranslations(locale, &quot;&quot;, mappings)
+    end
+</code></pre>
+
+<p>current_path は最初は &ldquo;&rdquo; という状態のはず。mappings は</p>
+
+<pre><code>  flash: [hello: &quot;Hello %{first} %{last}!&quot;, bye: &quot;Bye, %{name}!&quot;],
+  users: [title: &quot;Users&quot;,]
+</code></pre>
+
+<p>なので当初の、という意味では</p>
+
+<ul>
+<li>key : flash:</li>
+<li>val : [hello: &ldquo;Hello %{first} %{last}!&rdquo;, bye: &ldquo;Bye, %{name}!&rdquo;]</li>
+</ul>
+
+<p>になるはず。で、val は Keyword なので再帰しますね。</p>
+
+<pre><code>      if Keyword.keyword?(val) do
+        deftranslations(locale, path, val)
+</code></pre>
+
+<p>この時点で</p>
+
+<ul>
+<li>key : hello:</li>
+<li>val : &ldquo;Hello %{first} %{last}!&rdquo;</li>
+</ul>
+
+<p>になるので path (&ldquo;flash.hello&rdquo; になる模様) に t が定義される、ということになるのかどうか。これはなかなか凄いな。そして interpolate は val が渡されて val が戻る形になっているので &ldquo;flash.hello&rdquo; が渡されると上の val がそのまま戻る形になるんですね。</p>
+
+<h2 id="中断">中断</h2>
+
+<p>現時点で書籍の半分くらいまで読めているらしい。ちょっとキリが無い状態になってきてるので一旦離脱するとともにエントリもここで切ります。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 18, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/02/17/metaprogramming-elixir/" title="Metaprogramming Elixir (6)">Metaprogramming Elixir (6)</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/18/metaprogramming-elixir/">Metaprogramming Elixir (7)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/17/metaprogramming-elixir/">Metaprogramming Elixir (6)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/16/metaprogramming-elixir/">Metaprogramming Elixir (5)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/15/metaprogramming-elixir/">Metaprogramming Elixir (4)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/14/elixiroshima/">広島のElixirコミュニティ、その名もElixiroshima</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/13/fukuokaex/">fukuoka.ex#19</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/12/metaprogramming-elixir/">Metaprogramming Elixir (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/11/metaprogramming-elixir/">Metaprogramming Elixir (2)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/10/metaprogramming-elixir/">Metaprogramming Elixir (1)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/09/programming-elixir/">プログラミング Elixir (17)</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
