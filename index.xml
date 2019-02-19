@@ -6,10 +6,37 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 18 Feb 2019 21:21:34 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 19 Feb 2019 20:09:59 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Metaprogramming Elixir (8)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/19/metaprogramming-elixir/</link>
+      <pubDate>Tue, 19 Feb 2019 20:09:59 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/19/metaprogramming-elixir/</guid>
+      <description>&lt;p&gt;Macro.to_string で生成されたコードを理解、という小休憩てきな節。Translator module に以下な修正を、とのこと。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  def compile(translations) do
+    translations_ast = for {locale, mappings} &amp;lt;- translations do
+      deftranslations(locale, &amp;quot;&amp;quot;, mappings)
+    end
+
+    final_ast = quote do
+      def t(locale, path, binding \\ [])
+      unquote(translations-ast)
+      def t(_locale, _path, _bindings), do: {:error, :no_translation}
+    end
+
+    IO.puts Macro.to_string(final_ast)
+    final_ast
+  end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Metaprogramming Elixir (7)</title>
