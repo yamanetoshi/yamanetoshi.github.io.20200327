@@ -6,10 +6,29 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 19 Feb 2019 20:09:59 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 20 Feb 2019 20:30:53 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Metaprogramming Elixir (9)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/20/metaprogramming-elixir/</link>
+      <pubDate>Wed, 20 Feb 2019 20:30:53 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/20/metaprogramming-elixir/</guid>
+      <description>&lt;h2 id=&#34;final-step&#34;&gt;Final Step&lt;/h2&gt;
+
+&lt;p&gt;Identify Areas for Compile-Time Optimizations とのこと。ぐぐる翻訳によれば&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;実行時に評価される正規表現を生成できますが、コンパイル時の最適化を適用しましょう。 値を補間する場合にのみ文字列連結を実行する必要がある関数定義を生成できます。 これにより、実行時にパフォーマンスが大幅に向上します。 interpolate を定義して実装を完成させましょう。その仕事は、必要に応じて補間を使用して t/3 関数本体のASTを返すことです。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;とのこと。以下な実装が例示されています。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Metaprogramming Elixir (8)</title>
