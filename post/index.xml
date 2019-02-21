@@ -6,10 +6,30 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 20 Feb 2019 20:30:53 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 21 Feb 2019 20:45:27 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Metaprogramming Elixir (10)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/21/metaprogramming-elixir/</link>
+      <pubDate>Thu, 21 Feb 2019 20:45:27 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/21/metaprogramming-elixir/</guid>
+      <description>&lt;p&gt;Code Generation from Remote APIs という題が付いています。これは凄い。&lt;/p&gt;
+
+&lt;h2 id=&#34;mix-project-setup&#34;&gt;Mix Project Setup&lt;/h2&gt;
+
+&lt;p&gt;テキストのソレは version が微妙なのかしら。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mix new hub --bare
+** (Mix) Could not invoke task &amp;quot;new&amp;quot;: 1 error found!
+--bare : Unknown option
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Metaprogramming Elixir (9)</title>
