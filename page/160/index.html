@@ -97,6 +97,54 @@
         
 
 <header>
+    <p class="meta">Jan 5, 2014
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/05/notes-for-myself/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/rails/">rails </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/05/notes-for-myself/">自分メモ (集計)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>ええと、以下な構成のアンケート回答なクラスがあって</p>
+
+<pre><code>&gt; SecurityQ
+=&gt; SecurityQ(id: integer, part: string, rating: string, created_at: datetime, updated_at: datetime)
+</code></pre>
+
+<p>part 毎に五つ程度の回答カテゴリがある、が前提ってことで集計するための AR なメソドが以下になる模様。</p>
+
+<pre><code>&gt; SecurityQ.where([&quot;part = '0'&quot;]).group(:rating).order('count_rating desc').count('rating')
+=&gt; {&quot;4&quot;=&gt;2, &quot;0&quot;=&gt;1, &quot;1&quot;=&gt;2}
+</code></pre>
+
+<p>とは言えこれってどこかの時点でクエリだと駄目になるはずですね。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/05/notes-for-myself/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jan 4, 2014
          - 2 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/04/after-import-to-android-studio-0-dot-4-0/#disqus_thread">Comments</a>
@@ -427,51 +475,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Dec 28, 2013
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/28/make-linux-kernel-for-raspi/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/28/make-linux-kernel-for-raspi/">RasPI な Kernel 作成 (5)</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>とりあえず firmware を入れておく。</p>
-
-<pre><code>$ sudo apt-get install firmware-ralink
-</code></pre>
-
-<p>スデに導入済みでした。後は以下を参考にしつつ進めます。</p>
-
-<ul>
-<li><a href="http://obdnmagazine.blogspot.jp/2013/03/tested-lan-w150nu2-hostapdwifi-ax3.html">LAN-W150NU2 / hostapdによるWifiアクセスポイントの構築</a></li>
-</ul>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/28/make-linux-kernel-for-raspi/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -574,6 +577,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/02/22/metaprogramming-elixir/">Metaprogramming Elixir (11)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/02/21/metaprogramming-elixir/">Metaprogramming Elixir (10)</a>
               </li>
             
@@ -623,12 +632,6 @@
             
               <li class="post">
                 <a href="/blog/2019/02/13/fukuokaex/">fukuoka.ex#19</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/02/12/metaprogramming-elixir/">Metaprogramming Elixir (3)</a>
               </li>
             
           
