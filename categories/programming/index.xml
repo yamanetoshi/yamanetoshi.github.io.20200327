@@ -6,10 +6,25 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 23 Feb 2019 09:38:21 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 24 Feb 2019 10:31:50 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (18)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/24/programming-elixir/</link>
+      <pubDate>Sun, 24 Feb 2019 10:31:50 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/24/programming-elixir/</guid>
+      <description>&lt;p&gt;13.6 タスク: ライブラリを使う、から再開。&lt;/p&gt;
+
+&lt;h2 id=&#34;mix-exs&#34;&gt;mix.exs&lt;/h2&gt;
+
+&lt;p&gt;メタな方でもハマッたソレです。httpoison 導入らしく。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>環境設定</title>

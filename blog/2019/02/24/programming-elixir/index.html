@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>プログラミング Elixir (18)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 24, 2019
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/24/programming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         プログラミング Elixir (18) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>13.6 タスク: ライブラリを使う、から再開。</p>
+
+<h2 id="mix-exs">mix.exs</h2>
+
+<p>メタな方でもハマッたソレです。httpoison 導入らしく。</p>
+
+<p></p>
+
+<pre><code>      { :httpoison, &quot;~&gt; 0.8&quot;},
+</code></pre>
+
+<p>これで 0.8 以上の HTTPoison にマッチとのこと。<code>mix deps</code> な出力が以下。</p>
+
+<pre><code>$ mix deps
+* httpoison (Hex package)
+  the dependency is not available, run &quot;mix deps.get&quot;
+</code></pre>
+
+<p>してみます。</p>
+
+<pre><code>$ mix deps.get
+Resolving Hex dependencies...
+Dependency resolution completed:
+New:
+  certifi 2.4.2
+  hackney 1.15.0
+  httpoison 0.13.0
+  idna 6.0.0
+  metrics 1.0.1
+  mimerl 1.0.2
+  parse_trans 3.3.0
+  ssl_verify_fun 1.1.4
+  unicode_util_compat 0.4.1
+* Getting httpoison (Hex package)
+* Getting hackney (Hex package)
+* Getting certifi (Hex package)
+* Getting idna (Hex package)
+* Getting metrics (Hex package)
+* Getting mimerl (Hex package)
+* Getting ssl_verify_fun (Hex package)
+* Getting unicode_util_compat (Hex package)
+* Getting parse_trans (Hex package)
+</code></pre>
+
+<p>再度 <code>mix deps</code> してみます。</p>
+
+<pre><code>$ mix deps
+* parse_trans (Hex package) (rebar3)
+  locked at 3.3.0 (parse_trans) 09765507
+  the dependency build is outdated, please run &quot;mix deps.compile&quot;
+* mimerl (Hex package) (rebar3)
+  locked at 1.0.2 (mimerl) 993f9b0e
+  the dependency build is outdated, please run &quot;mix deps.compile&quot;
+* metrics (Hex package) (rebar3)
+  locked at 1.0.1 (metrics) 25f094de
+  the dependency build is outdated, please run &quot;mix deps.compile&quot;
+* unicode_util_compat (Hex package) (rebar3)
+  locked at 0.4.1 (unicode_util_compat) d869e4c6
+  the dependency build is outdated, please run &quot;mix deps.compile&quot;
+* idna (Hex package) (rebar3)
+  locked at 6.0.0 (idna) 689c46cb
+  the dependency build is outdated, please run &quot;mix deps.compile&quot;
+* ssl_verify_fun (Hex package) (mix)
+  locked at 1.1.4 (ssl_verify_fun) f0eafff8
+  the dependency build is outdated, please run &quot;mix deps.compile&quot;
+* certifi (Hex package) (rebar3)
+  locked at 2.4.2 (certifi) 75424ff0
+  the dependency build is outdated, please run &quot;mix deps.compile&quot;
+* hackney (Hex package) (rebar3)
+  locked at 1.15.0 (hackney) 287a5d23
+  the dependency build is outdated, please run &quot;mix deps.compile&quot;
+* httpoison (Hex package) (mix)
+  locked at 0.13.0 (httpoison) bfaf44d9
+  the dependency build is outdated, please run &quot;mix deps.compile&quot;
+</code></pre>
+
+<p>なんというか、不穏な出力だな。これはこれで大丈夫な模様。ここまでが OrganizingAProject-2 になるのかどうか。</p>
+
+<h2 id="githubissuesfetch-という手続き">GithubIssuesFetch という手続き</h2>
+
+<p>ユーザ名とプロジェクト名から issue を格納するデータ構造に変換する手続きとのこと。HTTPoison なリポジトリに手がかりあり、と記載がありますね。Issues.GithubIssues というモジュール作成とのことで以下を投入。</p>
+
+<p>issues/lib/issues/github_issues.ex</p>
+
+<pre><code>defmodule Issues.GithubIssues do
+  @user_agent [ {&quot;User-agent&quot;, &quot;Elixir dave@&quot;}]
+
+  def fetch(user, project) do
+    issues_url(user, project)
+    |&gt; HTTPoison.get(@user_agent)
+    |&gt; handle_response
+  end
+
+  def issues_url(user, project) do
+    &quot;https://github.com/repos/#{user}/#{project}/issues&quot;
+  end
+
+  def handle_response({ :ok, ${status_code: 200, body: body}}) do
+    { :ok, body}
+  end
+
+  def handle_response({ ___, %{status_code: ___, body: body}}) do
+    { :error, body}
+  end
+end
+</code></pre>
+
+<p>fetch の書き方とか見易くて良いですよね。</p>
+
+<h2 id="もう一つ">もう一つ</h2>
+
+<p>HTTPoison はメインプロセスの外で別なアプリケーションとして実行されるとのこと。これを起動するには mix.exs の application という手続きから、が良い模様。</p>
+
+<p>issues/mix.exs</p>
+
+<pre><code>  # Run &quot;mix help compile.app&quot; to learn about applications.
+  def application do
+    [
+      extra_applications: [:logger, :httpoison]
+    ]
+  end
+</code></pre>
+
+<p>テキストと微妙に記述が違うな。とりあえずこの状態で iex で実行してみます。</p>
+
+<pre><code>$ iex -S mix
+Erlang/OTP 21 [erts-10.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+===&gt; Compiling parse_trans
+===&gt; Compiling mimerl
+===&gt; Compiling metrics
+===&gt; Compiling unicode_util_compat
+===&gt; Compiling idna
+==&gt; ssl_verify_fun
+Compiling 7 files (.erl)
+Generated ssl_verify_fun app
+===&gt; Compiling certifi
+===&gt; Compiling hackney
+==&gt; httpoison
+Compiling 2 files (.ex)
+Generated httpoison app
+==&gt; issues
+Compiling 3 files (.ex)
+
+== Compilation error in file lib/issues/github_issues.ex ==
+** (SyntaxError) lib/issues/github_issues.ex:14: unexpected token: &quot;$&quot; (column 30, codepoint U+0024)
+    (elixir) lib/kernel/parallel_compiler.ex:206: anonymous fn/4 in Kernel.ParallelCompiler.spawn_workers/6
+</code></pre>
+
+<p>ここが typo でした。</p>
+
+<pre><code>  def handle_response({ :ok, ${status_code: 200, body: body}}) do
+    { :ok, body}
+  end
+</code></pre>
+
+<p>$ を % にしてリトライ。</p>
+
+<pre><code>$ iex -S mix
+Erlang/OTP 21 [erts-10.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+Compiling 3 files (.ex)
+warning: the underscored variable &quot;___&quot; appears more than once in a match. This means the pattern will only match if all &quot;___&quot; bind to the same value. If this is the intended behaviour, please remove the leading underscore from the variable name, otherwise give the variables different names
+  lib/issues/github_issues.ex:18
+
+Generated issues app
+Interactive Elixir (1.7.3) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)&gt; 
+</code></pre>
+
+<p>で、</p>
+
+<pre><code>iex&gt; Issues.GithubIssues.fetch(&quot;elixir-lang&quot;, &quot;elixir&quot;)
+</code></pre>
+
+<p>ってしてみたのですが 404 が戻るな。おかしいなと思ってたら url が違うorz</p>
+
+<pre><code>  def issues_url(user, project) do
+    &quot;https://api.github.com/repos/#{user}/#{project}/issues&quot;
+  end
+</code></pre>
+
+<p>でしたorz</p>
+
+<pre><code>iex(1)&gt; Issues.GithubIssues.fetch(&quot;elixir-lang&quot;, &quot;elixir&quot;)
+{:ok,
+</code></pre>
+
+<p>いやはや。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 24, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/02/23/environmental-setting/" title="環境設定">環境設定</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/24/programming-elixir/">プログラミング Elixir (18)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/23/environmental-setting/">環境設定</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/22/metaprogramming-elixir/">Metaprogramming Elixir (11)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/21/metaprogramming-elixir/">Metaprogramming Elixir (10)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/20/metaprogramming-elixir/">Metaprogramming Elixir (9)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/19/metaprogramming-elixir/">Metaprogramming Elixir (8)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/18/metaprogramming-elixir/">Metaprogramming Elixir (7)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/17/metaprogramming-elixir/">Metaprogramming Elixir (6)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/16/metaprogramming-elixir/">Metaprogramming Elixir (5)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/15/metaprogramming-elixir/">Metaprogramming Elixir (4)</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
