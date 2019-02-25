@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 25 Feb 2019 09:04:26 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 25 Feb 2019 21:38:52 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Cloud Native DevOps With Kubernetes</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/25/cloud-native-devops-with-kubernetes/</link>
+      <pubDate>Mon, 25 Feb 2019 21:38:52 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/25/cloud-native-devops-with-kubernetes/</guid>
+      <description>&lt;p&gt;本日朝イチにて以下なエントリ確認。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.publickey1.jp/blog/19/kubernetesoreillycloud_native_devops_with_kubernetespdfnginx.html&#34;&gt;Kubernetesの基本から運用まで解説したO&amp;rsquo;Reillyの書籍「Cloud Native DevOps With Kubernetes」PDF版、NGINXが無料配布中&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>自分メモ</title>
