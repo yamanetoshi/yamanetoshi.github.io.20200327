@@ -97,6 +97,61 @@
         
 
 <header>
+    <p class="meta">May 26, 2016
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2016/05/26/docker-memo/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/docker/">docker </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2016/05/26/docker-memo/">作業控え</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>なんというか、久々に弄ってみるに完全に忘れてるしメモも探せない。</p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>python2.7 が動く環境ってことで</p>
+
+<pre><code>FROM python:2.7
+MAINTAINER yamanetoshi &lt;yamanetoshi@gmail.com&gt;
+</code></pre>
+
+<p>みたいな <code>Dockerfile</code> こしらえて以下。</p>
+
+<pre><code>$ sudo docker build -t yamanetoshi/python:2.7 .
+</code></pre>
+
+<p>ちなみに <code>Docker</code> のバージョンは以下です。</p>
+
+<pre><code>$ sudo docker -v
+Docker version 1.10.2 build c3959b1
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2016/05/26/docker-memo/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">May 20, 2016
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2016/05/20/hangupsbot-bug/#disqus_thread">Comments</a>
@@ -409,48 +464,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">May 3, 2016
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2016/05/03/bluemix/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2016/05/03/bluemix/">Bluemix</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>とりあえず以下のソレが Bluemix というナニを使うものになっている。</p>
-
-<ul>
-<li><a href="http://codezine.jp/article/detail/9354">IoTセンサーデータを使ったD3.jsによるグラフ化と機械学習モデルによる故障予測</a></li>
-</ul>
-
-<p>Bluemix て IBM の PaaS プラットフォーム、というのは知ってましたがあまり具体的に存じあげておらず</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2016/05/03/bluemix/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -553,6 +566,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/02/25/elixir-memo/">自分メモ</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/02/24/programming-elixir/">プログラミング Elixir (18)</a>
               </li>
             
@@ -602,12 +621,6 @@
             
               <li class="post">
                 <a href="/blog/2019/02/16/metaprogramming-elixir/">Metaprogramming Elixir (5)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/02/15/metaprogramming-elixir/">Metaprogramming Elixir (4)</a>
               </li>
             
           

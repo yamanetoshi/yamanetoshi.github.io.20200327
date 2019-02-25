@@ -6,10 +6,35 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 24 Feb 2019 10:31:50 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 25 Feb 2019 09:04:26 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>自分メモ</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/25/elixir-memo/</link>
+      <pubDate>Mon, 25 Feb 2019 09:04:26 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/25/elixir-memo/</guid>
+      <description>&lt;p&gt;先日の fukuoka.ex でのセッションから、チュートリアルの読み方のコツ、という @zacky1972 さんの tweet を自分用に控え。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/zacky1972/status/1097460195758768128&#34;&gt;https://twitter.com/zacky1972/status/1097460195758768128&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;プログラミング Elixir てきには 13 章まで、で良いらしい。&lt;/p&gt;
+
+&lt;h2 id=&#34;もひとつ&#34;&gt;もひとつ&lt;/h2&gt;
+
+&lt;p&gt;ざっくまんの人がまとめてくれた togetter が以下です。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://togetter.com/li/1321510&#34;&gt;fukuoka.ex19：Elixir実践テクニック公開します③ツイートまとめ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (18)</title>
