@@ -6,10 +6,29 @@
     <description>Recent content in Android on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 06 Dec 2018 20:34:27 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 26 Feb 2019 19:58:14 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/android/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>JetPack 本</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/26/jet-pack-book/</link>
+      <pubDate>Tue, 26 Feb 2019 19:58:14 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/26/jet-pack-book/</guid>
+      <description>&lt;p&gt;以下なプロジェクトの kickoff な連絡が着信。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://peaks.cc/jetpack&#34;&gt;モダンな開発手法をはじめから学ぶ。Androidアプリ開発を加速する「Jetpack Handbook」出版プロジェクト！&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ちょっとばたばたしててアレなのですが&#34;&gt;ちょっとばたばたしててアレなのですが&lt;/h2&gt;
+
+&lt;p&gt;早く、購入しないと。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Android Codelab courses</title>
