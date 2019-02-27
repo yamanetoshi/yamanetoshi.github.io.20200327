@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>プログラミング Elixir (20)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 27, 2019
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/27/programming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         プログラミング Elixir (20) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>13.7 変換: レスポンスを加工する、の節。</p>
+
+<h2 id="json-の加工">JSON の加工</h2>
+
+<p>poison というライブラリを使う模様。</p>
+
+<pre><code>  # Run &quot;mix help deps&quot; to learn about dependencies.
+  defp deps do
+    [
+      # {:dep_from_hexpm, &quot;~&gt; 0.3.0&quot;},
+      # {:dep_from_git, git: &quot;https://github.com/elixir-lang/my_dep.git&quot;, tag: &quot;0.1.0&quot;},
+      { :httpoison, &quot;~&gt; 0.8&quot;},
+      { :poison,    &quot;~&gt; 1.5&quot;},
+    ]
+  end
+</code></pre>
+
+<p></p>
+
+<p>で、以下を。</p>
+
+<pre><code>$ mix deps.get
+Resolving Hex dependencies...
+Dependency resolution completed:
+Unchanged:
+  certifi 2.4.2
+  hackney 1.15.0
+  httpoison 0.13.0
+  idna 6.0.0
+  metrics 1.0.1
+  mimerl 1.0.2
+  parse_trans 3.3.0
+  ssl_verify_fun 1.1.4
+  unicode_util_compat 0.4.1
+A new Hex version is available (0.18.2 &lt; 0.19.0), please update with `mix local.hex`
+All dependencies up to date
+</code></pre>
+
+<p>handle_response を以下にして</p>
+
+<pre><code>  def handle_response({ :ok, %{status_code: 200, body: body}}) do
+    { :ok, Poison.parser.parse!(body)}
+  end
+
+  def handle_response({ ___, %{status_code: ___, body: body}}) do
+    { :error, Poison.parser.parse!(body)}
+  end
+</code></pre>
+
+<p>CLI も修正とのこと。て、13.5 な修正を盛り込んでおりませんでした。。以下な run 手続きを追加して、って思ったらありました。以下に修正。</p>
+
+<pre><code>  def run(argv) do
+    argv
+    |&gt; parse_args
+    |&gt; process
+  end
+</code></pre>
+
+<p>で、process を追加。</p>
+
+<pre><code>  def process(:help) do
+    IO.puts &quot;&quot;&quot;
+    usage: issues &lt;user&gt; &lt;project&gt; [ count | #{@default_count} ]
+    &quot;&quot;&quot;
+    System.halt(0)
+  end
+
+  def process([user, project, _count]) do
+    Issues.GithubIssues.fetch(user, project)
+  end
+</code></pre>
+
+<p>なんでこのあたりスルーしたのかと。</p>
+
+<pre><code>$ mix run -e 'Issues.CLI.run([&quot;-h&quot;])'
+usage: issues &lt;user&gt; &lt;project&gt; [ count | 4 ]
+</code></pre>
+
+<p>で、下側のソレを以下に修正。</p>
+
+<pre><code>  def process([user, project, _count]) do
+    Issues.GithubIssues.fetch(user, project)
+    |&gt; decode_response
+  end
+
+  def decode_response({:ok, body}), do: body
+
+  def docode_response({:error, error}) do
+    {_, message} = List.keyfind(error, &quot;message&quot;, 0)
+    IO.puts &quot;Error fetching from Github: #{message}&quot;
+    System.halt(2)
+  end
+</code></pre>
+
+<p>これはエラーの時にはこうする、というフィルタなのかな。で、正常系な処理が以下なのか。</p>
+
+<pre><code>  def process([user, project, _count]) do
+    Issues.GithubIssues.fetch(user, project)
+    |&gt; decode_response
+    |&gt; convert_to_list_of_maps
+  end
+
+  def decode_response({:ok, body}), do: body
+
+  def docode_response({:error, error}) do
+    {_, message} = List.keyfind(error, &quot;message&quot;, 0)
+    IO.puts &quot;Error fetching from Github: #{message}&quot;
+    System.halt(2)
+  end
+
+  def convert_to_list_of_maps(list) do
+    list
+    |&gt; Enum.map(&amp;Enum.into(&amp;1, Map.new))
+  end
+</code></pre>
+
+<p>convert_to_list_of_maps な定義について確認してみます。</p>
+
+<h2 id="enum-とか-map-とか">Enum とか Map とか</h2>
+
+<ul>
+<li>Enum.map</li>
+<li>Enum.info</li>
+<li>Map.new</li>
+</ul>
+
+<p>について確認を。まず <a href="https://hexdocs.pm/elixir/Enum.html#map/2">Enum.map/2</a> ですが以下な記載があります。</p>
+
+<blockquote>
+<p>Returns a list where each item is the result of invoking fun on each corresponding item of enumerable.</p>
+</blockquote>
+
+<p>Enum.map/2 に渡されてる手続きが <a href="https://hexdocs.pm/elixir/Enum.html#into/2">Enum.into/2</a> ですね。</p>
+
+<pre><code>iex&gt; Enum.into([a: 1, b: 2], %{})
+%{a: 1, b: 2}
+</code></pre>
+
+<p>になるカンジなのか成程。Map.new/0 は上の <code>%{}</code> を作るイメージのはず。</p>
+
+<h2 id="config">config</h2>
+
+<p>アプリケーション設定、ということでハードコードされている github API の URL を設定に保持してみる、とのこと。<code>issues/config/config.exs</code> に以下を追加。</p>
+
+<pre><code>config :issues, github_url: &quot;https://api.github.com&quot;
+</code></pre>
+
+<p>で、github_issues.exs を以下に、とのこと。</p>
+
+<pre><code>defmodule Issues.GithubIssues do
+  @user_agent [ {&quot;User-agent&quot;, &quot;Elixir dave@&quot;}]
+  @github_url Application.get_env(:issues, github_url:)
+
+  def fetch(user, project) do
+    issues_url(user, project)
+    |&gt; HTTPoison.get(@user_agent)
+    |&gt; handle_response
+  end
+
+  def issues_url(user, project) do
+    &quot;#{@github_url}/repos/#{user}/#{project}/issues&quot;
+  end
+</code></pre>
+
+<p>あと、アプリケーションの環境 (開発、テスト、本番) に沿った設定、というのもある、とか <code>--config</code> というオプションを渡して云々、という方式もあるようですが、ここではスルーします。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 27, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/02/27/ooda-loop/" title="OODA LOOP">OODA LOOP</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/27/programming-elixir/">プログラミング Elixir (20)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/27/ooda-loop/">OODA LOOP</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/26/programming-elixir/">プログラミング Elixir (19)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/26/jet-pack-book/">JetPack 本</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/25/cloud-native-devops-with-kubernetes/">Cloud Native DevOps With Kubernetes</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/25/elixir-memo/">自分メモ</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/24/programming-elixir/">プログラミング Elixir (18)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/23/environmental-setting/">環境設定</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/22/metaprogramming-elixir/">Metaprogramming Elixir (11)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/21/metaprogramming-elixir/">Metaprogramming Elixir (10)</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

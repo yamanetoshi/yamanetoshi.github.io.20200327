@@ -6,10 +6,36 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 27 Feb 2019 09:04:56 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 27 Feb 2019 19:53:49 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (20)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/27/programming-elixir/</link>
+      <pubDate>Wed, 27 Feb 2019 19:53:49 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/27/programming-elixir/</guid>
+      <description>&lt;p&gt;13.7 変換: レスポンスを加工する、の節。&lt;/p&gt;
+
+&lt;h2 id=&#34;json-の加工&#34;&gt;JSON の加工&lt;/h2&gt;
+
+&lt;p&gt;poison というライブラリを使う模様。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  # Run &amp;quot;mix help deps&amp;quot; to learn about dependencies.
+  defp deps do
+    [
+      # {:dep_from_hexpm, &amp;quot;~&amp;gt; 0.3.0&amp;quot;},
+      # {:dep_from_git, git: &amp;quot;https://github.com/elixir-lang/my_dep.git&amp;quot;, tag: &amp;quot;0.1.0&amp;quot;},
+      { :httpoison, &amp;quot;~&amp;gt; 0.8&amp;quot;},
+      { :poison,    &amp;quot;~&amp;gt; 1.5&amp;quot;},
+    ]
+  end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>OODA LOOP</title>
