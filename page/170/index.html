@@ -98,6 +98,65 @@
 
 <header>
     <p class="meta">Nov 23, 2013
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/23/cannot-bundle-install-in-mavericks/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/23/cannot-bundle-install-in-mavericks/">Mavericks で bundle install できない件</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえず Xcode 5.0.2 を導入してみるなど。サイズが 2.0GB で download が進まぬ。処理終了したので、って現象変化無し。これ、そもそも的に rbenv の再導入から、なのかどうか。</p>
+
+<p>ので、現在使ってるソレを uninstall して install してみた。</p>
+
+<pre><code>$ rbenv uninstall 1.9.3-p448
+$ rbenv install 1.9.3-p448
+$ rbenv global 1.9.3-p448
+</code></pre>
+
+<p>駄目。以下を発見したので盛り込んでみます。</p>
+
+<ul>
+<li><a href="http://qiita.com/14021939/items/d40668bdc6bed3f82e62">MacOSをmavericksにアップグレードしたらnokogiriをインストールできなくなった</a></li>
+</ul>
+
+<p>どうなるか。つうか Xcode 5.0 入れれとか言うとるな。再起動した方が良いのかどうか。</p>
+
+<p>以下とか見つつアレしたんですが</p>
+
+<ul>
+<li><a href="http://qiita.com/14021939/items/d40668bdc6bed3f82e62">MacOSをmavericksにアップグレードしたらnokogiriをインストールできなくなった</a></li>
+</ul>
+
+<p>とりあえず再起動だな。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/23/cannot-bundle-install-in-mavericks/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 23, 2013
          - 3 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/23/devopsokinawa-number-1/#disqus_thread">Comments</a>
 
@@ -485,54 +544,6 @@ end
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 21, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/21/laziness/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/21/laziness/">もうすこし楽できんかな</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>現状、ツールで云々できるのが以下。</p>
-
-<ul>
-<li>仮想リソースの起動 (名前を付ける必要があるが一意でなくても良い)</li>
-<li>仮想リソースの破棄 (破棄するリソースの ID が必要)</li>
-<li>既に取得している GIP について port forward なオブジェクトの割当てができる</li>
-<li>GIP に割当てられている port forward なオブジェクトの削除ができる</li>
-<li>仮想リソースの一覧が確認できる</li>
-<li>port forward なオブジェクトの一覧が確認できる</li>
-<li>GIP の一覧が確認できる</li>
-</ul>
-
-<p>どうしたものやら。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/21/laziness/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -635,6 +646,12 @@ end
           
             
               <li class="post">
+                <a href="/blog/2019/02/27/ooda-loop/">OODA LOOP</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/02/26/programming-elixir/">プログラミング Elixir (19)</a>
               </li>
             
@@ -684,12 +701,6 @@ end
             
               <li class="post">
                 <a href="/blog/2019/02/20/metaprogramming-elixir/">Metaprogramming Elixir (9)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/02/19/metaprogramming-elixir/">Metaprogramming Elixir (8)</a>
               </li>
             
           

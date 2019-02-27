@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/02/27/ooda-loop/</loc>
+    <lastmod>2019-02-27T09:04:56+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/02/26/programming-elixir/</loc>
     <lastmod>2019-02-26T21:05:10+09:00</lastmod>
   </url>
@@ -8859,7 +8864,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-02-26T21:05:10+09:00</lastmod>
+    <lastmod>2019-02-27T09:04:56+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9057,7 +9062,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/misc/</loc>
-    <lastmod>2019-02-08T11:25:51+09:00</lastmod>
+    <lastmod>2019-02-27T09:04:56+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9081,7 +9086,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-02-26T21:05:10+09:00</lastmod>
+    <lastmod>2019-02-27T09:04:56+09:00</lastmod>
     <priority>0</priority>
   </url>
   
