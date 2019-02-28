@@ -6,10 +6,25 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 27 Feb 2019 19:53:49 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 28 Feb 2019 20:53:43 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (21)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/28/programming-elixir/</link>
+      <pubDate>Thu, 28 Feb 2019 20:53:43 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/28/programming-elixir/</guid>
+      <description>&lt;p&gt;13.8 変換: データを並び替える、の節。&lt;/p&gt;
+
+&lt;h2 id=&#34;enum-sort-2&#34;&gt;Enum.sort/2&lt;/h2&gt;
+
+&lt;p&gt;パイプでどんどん繋いでいくさまがとても気持ち良いですね。ベルトコンベアな「デザイン」というのも分かりやすくて良いです。また、今回については試験も作っています。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (20)</title>

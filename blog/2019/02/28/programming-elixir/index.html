@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>プログラミング Elixir (21)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Feb 28, 2019
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/28/programming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         プログラミング Elixir (21) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>13.8 変換: データを並び替える、の節。</p>
+
+<h2 id="enum-sort-2">Enum.sort/2</h2>
+
+<p>パイプでどんどん繋いでいくさまがとても気持ち良いですね。ベルトコンベアな「デザイン」というのも分かりやすくて良いです。また、今回については試験も作っています。</p>
+
+<p></p>
+
+<pre><code>  def process([user, project, _count]) do
+    Issues.GithubIssues.fetch(user, project)
+    |&gt; decode_response
+    |&gt; convert_to_list_of_maps
+    |&gt; sort_into_ascending_order
+  end
+
+  def decode_response({:ok, body}), do: body
+
+  def docode_response({:error, error}) do
+    {_, message} = List.keyfind(error, &quot;message&quot;, 0)
+    IO.puts &quot;Error fetching from Github: #{message}&quot;
+    System.halt(2)
+  end
+
+  def convert_to_list_of_maps(list) do
+    list
+    |&gt; Enum.map(&amp;Enum.into(&amp;1, Map.new))
+  end
+
+  def sort_into_ascending_order(list_of_issues) do
+    Enum.sort list_of_issues
+              fn l1, l2 -&gt; l1[&quot;created_at&quot;] &lt;= l2[&quot;created_at&quot;] end
+  end
+</code></pre>
+
+<p>今回は sort に渡してる手続きな比較が大丈夫なのかどうかが心配なので試験を書くとのこと。<code>issues/test</code> 配下に試験があるのは良いのですがいくつかの試験が既に欠いてある状態 (後天性記憶不全?)。以下を追加しています。</p>
+
+<p>issues/test/cli_test.exs</p>
+
+<pre><code>  test &quot;sort ascending orders the correct way&quot; do
+    result = sort_into_ascending_order(fake_created_at_list([&quot;c&quot;, &quot;b&quot;, &quot;a&quot;]))
+    issues = for issue &lt;- result, do: issue[&quot;created_at&quot;]
+    assert issues == ~2{a, b, c}
+  end
+
+  defp fake_created_at_list(values) do
+    data = for value &lt;- values, do: [{&quot;created_at&quot;, value}, {&quot;other_data&quot;, &quot;xxx&quot;}]
+    convert_to_list_of_maps data
+  end
+</code></pre>
+
+<p>で、試験実行してみるに</p>
+
+<pre><code>== Compilation error in file lib/issues/github_issues.ex ==
+</code></pre>
+
+<p>ええと、github_issues.exs が以下になってました。</p>
+
+<pre><code>  @github_url Application.get_env(:issues, github_url:)
+</code></pre>
+
+<p>以下に修正。</p>
+
+<pre><code>  @github_url Application.get_env(:issues, :github_url)
+</code></pre>
+
+<p>で再度試験実行。</p>
+
+<pre><code>$ mix test
+....
+
+  1) test sort ascending orders the correct way (CliTest)
+     test/cli_test.exs:22
+     ** (FunctionClauseError) no function clause matching in Access.get/3
+
+     The following arguments were given to Access.get/3:
+     
+         # 1
+         {:cont, []}
+     
+         # 2
+         &quot;created_at&quot;
+     
+         # 3
+         nil
+     
+     Attempted function clauses (showing 5 out of 5):
+     
+         def get(%module{} = container, key, default)
+         def get(map, key, default) when is_map(map)
+         def get(list, key, default) when is_list(list) and is_atom(key)
+         def get(list, key, _default) when is_list(list)
+         def get(nil, _key, default)
+     
+     code: issues = for issue &lt;- result, do: issue[&quot;created_at&quot;]
+     stacktrace:
+       (elixir) lib/access.ex:316: Access.get/3
+       (issues) lib/issues/cli.ex:71: anonymous fn/2 in Issues.CLI.sort_into_ascending_order/1
+       (elixir) lib/enum.ex:2979: Enum.reduce/3
+       test/cli_test.exs:24: (test)
+
+..
+
+Finished in 0.1 seconds
+2 doctests, 5 tests, 1 failure
+
+Randomized with seed 801121
+</code></pre>
+
+<p>ありゃ、色々駄目じゃないスか。そもそも試験の記述もきちんと理解できていないのでそこから確認します。</p>
+
+<h2 id="むむむ">むむむ</h2>
+
+<p><code>~w</code> は sigil でした。iex にて確認。</p>
+
+<pre><code>iex(1)&gt; ~w{a b c}
+[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]
+</code></pre>
+
+<p>あ、comma で区切ってましたorz</p>
+
+<pre><code>    assert issues == ~w{a, b, c}
+</code></pre>
+
+<p>ただしくは以下。</p>
+
+<pre><code>    assert issues == ~w{a b c}
+</code></pre>
+
+<p>で、試験実行してみたのですがまだ駄目ですね。メセジてきにも変化なし。</p>
+
+<h2 id="発見orz">発見orz</h2>
+
+<p>こうなっておりました。</p>
+
+<pre><code>  def sort_into_ascending_order(list_of_issues) do
+    Enum.sort list_of_issues
+              fn l1, l2 -&gt; l1[&quot;created_at&quot;] &lt;= l2[&quot;created_at&quot;] end
+  end
+</code></pre>
+
+<p>これで sort_into_ascending_order から手続きオブジェクトが戻されてた模様。以下に修正して</p>
+
+<pre><code>  def sort_into_ascending_order(list_of_issues) do
+    Enum.sort list_of_issues,
+              fn l1, l2 -&gt; l1[&quot;created_at&quot;] &lt;= l2[&quot;created_at&quot;] end
+  end
+</code></pre>
+
+<p>テスツ合格。</p>
+
+<pre><code>$ mix test
+.......
+
+Finished in 0.2 seconds
+2 doctests, 5 tests, 0 failures
+
+Randomized with seed 363252
+</code></pre>
+
+<p><code>IO.inspect</code> を使って云々しました。</p>
+
+<pre><code>  test &quot;sort ascending orders the correct way&quot; do
+    result = sort_into_ascending_order(fake_created_at_list([&quot;c&quot;, &quot;b&quot;, &quot;a&quot;]))
+    IO.inspect(result)
+    issues = for issue &lt;- result, do: issue[&quot;created_at&quot;]
+    IO.inspect(issues)
+    assert issues == ~w{a b c}
+  end
+</code></pre>
+
+<p>出力が以下。</p>
+
+<pre><code>$ mix test
+.[
+  %{&quot;created_at&quot; =&gt; &quot;a&quot;, &quot;other_data&quot; =&gt; &quot;xxx&quot;},
+  %{&quot;created_at&quot; =&gt; &quot;b&quot;, &quot;other_data&quot; =&gt; &quot;xxx&quot;},
+  %{&quot;created_at&quot; =&gt; &quot;c&quot;, &quot;other_data&quot; =&gt; &quot;xxx&quot;}
+]
+[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]
+......
+
+Finished in 0.1 seconds
+2 doctests, 5 tests, 0 failures
+
+Randomized with seed 711905
+</code></pre>
+
+<p>以下を試そうとしたのですが</p>
+
+<pre><code>require IEx; IEx.pry
+</code></pre>
+
+<p>これは <code>iex</code> 使ってないとダウトらしいです。</p>
+
+<h2 id="この節">この節</h2>
+
+<p>さくっと流せると思ってたら微妙なハマり方をしてしまいましたorz</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Feb 28, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/02/28/rake-task-argument/" title="rake task の引数">rake task の引数</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/28/programming-elixir/">プログラミング Elixir (21)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/28/rake-task-argument/">rake task の引数</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/27/programming-elixir/">プログラミング Elixir (20)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/27/ooda-loop/">OODA LOOP</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/26/programming-elixir/">プログラミング Elixir (19)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/26/jet-pack-book/">JetPack 本</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/25/cloud-native-devops-with-kubernetes/">Cloud Native DevOps With Kubernetes</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/25/elixir-memo/">自分メモ</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/24/programming-elixir/">プログラミング Elixir (18)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/23/environmental-setting/">環境設定</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
