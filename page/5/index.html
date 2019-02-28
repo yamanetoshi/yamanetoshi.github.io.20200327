@@ -97,6 +97,54 @@
         
 
 <header>
+    <p class="meta">Jan 21, 2019
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/01/21/programming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2019/01/21/programming-elixir/">プログラミング Elixir (9)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>span て見たことないな、と思ったら作っていませんでした。のでそちらから。</p>
+
+<h2 id="listsandrecursion-4">ListsAndRecursion - 4</h2>
+
+<p>以下で良かった模様。</p>
+
+<pre><code>  def span(to, to), do: [to]
+  def span(from, to) do
+    [from | span(from+1, to)]
+  end
+</code></pre>
+
+<p>パタンマッチ、強力ですね。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2019/01/21/programming-elixir/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jan 20, 2019
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2019/01/20/programming-elixir/#disqus_thread">Comments</a>
@@ -440,46 +488,6 @@ OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 11, 2019
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/01/11/i-tried-using-station/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2019/01/11/i-tried-using-station/">station 使ってみた</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>そうでなくてもタブが多いので試してみました。</p>
-
-<h2 id="つうか">つうか</h2>
-
-<p>これはこれで別場所に色んな情報だだ漏れなのかな、と思いつつorz</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2019/01/11/i-tried-using-station/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -582,6 +590,12 @@ OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
           
             
               <li class="post">
+                <a href="/blog/2019/02/28/rake-task-argument/">rake task の引数</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/02/27/programming-elixir/">プログラミング Elixir (20)</a>
               </li>
             
@@ -631,12 +645,6 @@ OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
             
               <li class="post">
                 <a href="/blog/2019/02/22/metaprogramming-elixir/">Metaprogramming Elixir (11)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/02/21/metaprogramming-elixir/">Metaprogramming Elixir (10)</a>
               </li>
             
           
