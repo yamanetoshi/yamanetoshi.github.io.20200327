@@ -6,10 +6,34 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 01 Mar 2019 11:39:52 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 01 Mar 2019 12:58:45 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (22)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/03/01/programming-elixir/</link>
+      <pubDate>Fri, 01 Mar 2019 12:58:45 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/03/01/programming-elixir/</guid>
+      <description>&lt;p&gt;13.9 変換: 最初の n 個を取り出す、の節。パイプで繋いで head する的な機能ですね。&lt;/p&gt;
+
+&lt;h2 id=&#34;enum-take&#34;&gt;Enum.take&lt;/h2&gt;
+
+&lt;p&gt;を使う、とのこと。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  def process([user, project, count]) do
+    Issues.GithubIssues.fetch(user, project)
+    |&amp;gt; decode_response
+    |&amp;gt; convert_to_list_of_maps
+    |&amp;gt; sort_into_ascending_order
+    |&amp;gt; Enum.take(count)
+  end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>JSON.parse でもハマりました</title>
