@@ -6,10 +6,29 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 28 Feb 2019 22:17:21 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 01 Mar 2019 11:39:52 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>JSON.parse でもハマりました</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/03/01/json-parse/</link>
+      <pubDate>Fri, 01 Mar 2019 11:39:52 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/03/01/json-parse/</guid>
+      <description>&lt;p&gt;こうしちゃ駄目でした&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;[{&#39;email&#39;: &#39;xxx@example.com&#39;}]&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;こうですorz&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&#39;[{&amp;quot;email&amp;quot;: &amp;quot;xxx@example.com&amp;quot;}]&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>明日</title>
