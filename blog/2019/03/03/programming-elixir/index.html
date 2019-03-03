@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>プログラミング Elixir (24)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Mar 3, 2019
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/03/03/programming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         プログラミング Elixir (24) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>13.11 タスク: 実行可能なコマンドを作成、の節。このあたりからどんどんすすめることができるのかどうか。</p>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>mix.exs の修正なのかな。というか、git の面倒全然見れてなくて微妙。</p>
+
+<p></p>
+
+<p>実行ファイルの仕組みとしては</p>
+
+<ul>
+<li>unix ベースのプラットフォームで実行できるファイルにパッケージできる</li>
+<li>erlang の escript ユーティリティを使っている</li>
+<li>プリコンパイルして zipped したものを実行できる模様</li>
+</ul>
+
+<p>とのこと。とりあえず erlang には依存しているのか。escript が実行するとき</p>
+
+<ul>
+<li>mix.exs を読み込む</li>
+</ul>
+
+<p>ので mix.exs の修正が必要になる模様。project に</p>
+
+<pre><code>  def project do
+    [
+      app: :issues,
+      escript: escript_config,
+      version: &quot;0.1.0&quot;,
+      elixir: &quot;~&gt; 1.7&quot;,
+      build_embedded:  Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      deps: deps()
+    ]
+  end
+</code></pre>
+
+<ul>
+<li>escript な属性</li>
+<li>build_embedded な属性</li>
+</ul>
+
+<p>を追加してます。あと、escript_config という手続きを定義。</p>
+
+<pre><code>  defp escript_config do
+    [ main_module: Issues.CLI ]
+  end
+</code></pre>
+
+<p>で、Issues.CLI の run を main に、とのこと。</p>
+
+<pre><code>  def main(argv) do
+    argv
+    |&gt; parse_args
+    |&gt; process
+  end
+</code></pre>
+
+<p>で、</p>
+
+<pre><code>$ mix escript.build
+warning: variable &quot;escript_config&quot; does not exist and is being expanded to &quot;escript_config()&quot;, please use parentheses to remove the ambiguity or change the variable name
+  mix.exs:7
+
+Compiling 4 files (.ex)
+Generated issues app
+Generated escript issues with MIX_ENV=dev
+</code></pre>
+
+<p>たしかにファイルができていますね。</p>
+
+<pre><code>-rwxr-xr-x   1 rms  staff  1714374 Feb 27 20:10 issues
+</code></pre>
+
+<p>動きます。</p>
+
+<pre><code>$ ./issues elixir-lang elixir 3
+numb | created_at           | title                                                  
+-----+----------------------+--------------------------------------------------------
+6248 | 2017-06-22T09:41:01Z | Improve ExUnit output for assertions on process mailbox
+6611 | 2017-09-28T08:56:29Z | Support Erlang 21 new features                         
+6738 | 2017-10-09T16:07:43Z | with clause cannot match when case is inside else block
+</code></pre>
+
+<p>そのまますすめます。</p>
+
+<h2 id="13-12-タスク-ロギングの追加">13.12 タスク: ロギングの追加</h2>
+
+<p>logger は既に使える状態になっているはず。</p>
+
+<pre><code>  def application do
+    [
+      extra_applications: [:logger, :httpoison]
+    ]
+  end
+</code></pre>
+
+<p>この節はこのあたりの使い方、な模様。ログレベルは以下が用意されているとのこと。</p>
+
+<ul>
+<li>debug</li>
+<li>info</li>
+<li>warn</li>
+<li>error</li>
+</ul>
+
+<p>コンパイル時に設定される最小ログレベルは config/config.exs に書くとのこと。</p>
+
+<pre><code>config :logger, compile_time_purge_level: :info
+</code></pre>
+
+<p>これで debug は出力されないのか。</p>
+
+<h2 id="ログの出力方法">ログの出力方法</h2>
+
+<p>以下な方法があるとのこと。</p>
+
+<ul>
+<li><code>Logger.debug &quot;Order total #{total(order)}&quot;</code></li>
+<li><code>Logger.debug fn -&gt; &quot;Order total #{total(order)}&quot; end</code></li>
+</ul>
+
+<p>lambda を渡す場合、ログレベルが ignore だったとしても上の場合だと total は呼び出されるけど、下の場合だと lambda は必要な場合にのみ呼び出されるとのこと。lambda 好きだよ lambda。</p>
+
+<pre><code>defmodule Issues.GithubIssues do
+
+  require Logger
+
+  @user_agent [ {&quot;User-agent&quot;, &quot;Elixir dave@&quot;}]
+  @github_url Application.get_env(:issues, :github_url)
+
+  def fetch(user, project) do
+    Logger.info &quot;Fetching user #{user}'s project #{project}&quot;
+    issues_url(user, project)
+    |&gt; HTTPoison.get(@user_agent)
+    |&gt; handle_response
+  end
+
+  def issues_url(user, project) do
+    &quot;#{@github_url}/repos/#{user}/#{project}/issues&quot;
+  end
+
+  def handle_response({ :ok, %{status_code: 200, body: body}}) do
+    Logger.info &quot;Successful response&quot;
+    Logger.debug fn -&gt; inspect(body) end
+    { :ok, Poison.Parser.parse!(body)}
+  end
+
+  def handle_response({ _, %{status_code: ___, body: body}}) do
+    Logger.error &quot;Error #{status} returned&quot;
+    { :error, Poison.Parser.parse!(body)}
+  end
+end
+</code></pre>
+
+<p>ロギングを追加して iex で試していますので、こちらでも。って iex で実行する方法が忘却の彼方orz</p>
+
+<h2 id="こうでした-iex-での実行">こうでした (iex での実行)</h2>
+
+<pre><code>$ iex -S mix
+Erlang/OTP 21 [erts-10.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+warning: variable &quot;escript_config&quot; does not exist and is being expanded to &quot;escript_config()&quot;, please use parentheses to remove the ambiguity or change the variable name
+  mix.exs:7
+
+Compiling 4 files (.ex)
+Generated issues app
+Interactive Elixir (1.7.3) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)&gt; Issues.CLI.process {&quot;elixir-lang&quot;, &quot;elixir&quot;, 1}
+
+20:31:39.090 [info]  Fetching user elixir-lang's project elixir
+ 
+20:31:41.177 [info]  Successful response
+numb | created_at           | title                                                  
+-----+----------------------+--------------------------------------------------------
+6248 | 2017-06-22T09:41:01Z | Improve ExUnit output for assertions on process mailbox
+:ok
+</code></pre>
+
+<p>たしかに debug なナニは出力されていないですね。ここで一回エントリ締めます。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Mar 3, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/03/02/programming-elixir/" title="プログラミング Elixir (23)">プログラミング Elixir (23)</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/03/programming-elixir/">プログラミング Elixir (24)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/02/programming-elixir/">プログラミング Elixir (23)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/02/install-problem/">480GB な disk に vivado が導入できなかった件</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/01/programming-elixir/">プログラミング Elixir (22)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/01/json-parse/">JSON.parse でもハマりました</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/28/tommorow/">明日</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/28/programming-elixir/">プログラミング Elixir (21)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/28/rake-task-argument/">rake task の引数</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/27/programming-elixir/">プログラミング Elixir (20)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/02/27/ooda-loop/">OODA LOOP</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
