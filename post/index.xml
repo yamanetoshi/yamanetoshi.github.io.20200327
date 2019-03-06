@@ -6,10 +6,27 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 05 Mar 2019 20:13:08 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 06 Mar 2019 20:32:18 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>elixir 自習</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/03/06/studying-elixir/</link>
+      <pubDate>Wed, 06 Mar 2019 20:32:18 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/03/06/studying-elixir/</guid>
+      <description>&lt;p&gt;プログラミング Elixir は一旦止めます。とりあえず以下なメモに沿って&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://weblog.metacircular-evaluator.org/blog/2019/02/25/elixir-memo/&#34;&gt;https://weblog.metacircular-evaluator.org/blog/2019/02/25/elixir-memo/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Elixir 関連のドキュメントに目を通して Phoenix 方面に、な方向なのかどうか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (26)</title>
