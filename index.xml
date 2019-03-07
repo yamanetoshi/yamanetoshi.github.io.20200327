@@ -6,10 +6,21 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 06 Mar 2019 20:32:18 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 07 Mar 2019 22:05:26 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>First FPGA (1)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/03/07/first-fpga/</link>
+      <pubDate>Thu, 07 Mar 2019 22:05:26 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/03/07/first-fpga/</guid>
+      <description>&lt;p&gt;とりあえず、vivado が導入できてる状態。以下を確認しつつもう少しすすめてみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>elixir 自習</title>
