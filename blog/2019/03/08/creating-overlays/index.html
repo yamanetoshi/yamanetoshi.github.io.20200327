@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>Creating Overlays</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Mar 8, 2019
+         - 11 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/03/08/creating-overlays/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Creating Overlays 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>以下なドキュメントの無断機械翻訳を自分メモ。</p>
+
+<ul>
+<li><a href="https://pynq.readthedocs.io/en/v1.3/10_creating_overlays.html">Creating Overlays</a></li>
+</ul>
+
+<p></p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>PYNQの紹介で説明したように、オーバーレイはソフトウェアライブラリに似ています。 プログラマは実行時にオーバーレイをZynq®PLにダウンロードして、ソフトウェアアプリケーションに必要な機能を提供できます。</p>
+
+<p>オーバーレイはプログラマブルロジックデザインの一種です。 プログラマブルロジックデザインは通常、特定のタスクに対して高度に最適化されています。 ただし、オーバーレイは構成可能で、幅広いアプリケーションに再利用できるように設計されています。 PYNQオーバーレイはPythonインタフェースを持ち、ソフトウェアプログラマが他のPythonパッケージと同じように使用できるようにします。</p>
+
+<p>プログラマはオーバーレイを使用できますが、通常はオーバーレイを作成しません。これはハードウェア設計者にとって特別な作業だからです。</p>
+
+<p>このセクションでは、オーバーレイを作成してそれをPYNQに統合するプロセスの概要を説明しますが、ハードウェア設計プロセスの詳細については説明しません。</p>
+
+<h2 id="vivado-design">Vivado design</h2>
+
+<p>オーバーレイは2つの主要部分で構成されています。プログラマブルロジック（PL）設計とPython API</p>
+
+<p>ザイリンクスVivadoソフトウェアを使用してPLデザインを作成します。これにより、Zynq PLのプログラムに使用されるビットストリームまたはバイナリファイル（.bitファイル）が生成されます。</p>
+
+<p>無料のWebパック版のVivadoをPYNQ-Z1ボードと共に使用すると、オーバーレイを作成できます。 <a href="https://www.xilinx.co.jp/products/design-tools/vivado/vivado-webpack.html">https://www.xilinx.co.jp/products/design-tools/vivado/vivado-webpack.html</a></p>
+
+<p>標準のZynqデザインプロセスと、PYNQのオーバーレイデザインとの間にはいくつかの違いがあります。 ZynqデザインのVivadoプロジェクトは2つの部分で構成されています。 PL設計、およびPS構成設定。 PS設定には、PLで使用されるクロックを含むシステムクロックの設定が含まれています。</p>
+
+<p>ボードを起動するために使用されるPYNQイメージは、起動時にZynq PSを構成します。オーバーレイはプログラマの要求に応じてダウンロードされ、Zynq PSを再設定しません。つまり、オーバーレイデザイナーは、VivadoプロジェクトのPS設定をPYNQイメージ設定と一致させる必要があります。</p>
+
+<p>新しいVivadoオーバーレイプロジェクトには、次の設定を使用する必要があります。</p>
+
+<pre><code>Vivadoプロジェクト設定：
+
+対象デバイス：xc7z020clg400-1
+PLクロック構成
+
+FCLK_CLK0：100.00MHz
+FCLK_CLK1：142.86MHz
+FCLK_CLK2：200.00MHz
+FCLK_CLK3：166.67MHz
+</code></pre>
+
+<p>PYNQ-Z1マスターXDC（I / O制約）は、Digilent PYNQ-Z1リソースサイトで入手できます。<a href="https://reference.digilentinc.com/reference/programmable-logic/pynq-z1/start">https://reference.digilentinc.com/reference/programmable-logic/pynq-z1/start</a></p>
+
+<p>PS設定が正しいことを確認するために、既存のオーバーレイデザインから始めることをお勧めします。 ベースオーバーレイのソースファイルは、pynq GitHubにあります。プロジェクトは、次のmakefileを使用して再構築できます。</p>
+
+<pre><code>&lt;GitHub repository&gt;/Pynq-Z1/vivado/base
+</code></pre>
+
+<h2 id="block-diagram-tcl">Block Diagram Tcl</h2>
+
+<p>Vivadoブロックダイアグラムのtclもビットストリームと一緒にエクスポートする必要があります。これにより、オーバーレイに関する情報をPythonに解析することができます（たとえば、オーバーレイ内のIPのリスト）。 tclファイルをクエリする方法の詳細については、次のセクションを参照してください。</p>
+
+<p>カスタムtclファイルを使用してプロジェクトを構築したり、ダイアグラムをブロックすることはできますが、カスタムtclファイルは正しく解析されない可能性があります。ブロックダイアグラムのtclをエクスポートするにはVivadoを使用する必要があります。これにより、Pythonで正しく解析できるようになります。</p>
+
+<p>Vivado GUIからブロックダイアグラムのtclを生成するには、次の手順に従います。</p>
+
+<ul>
+<li>File -&gt; Export -&gt; Block Design をクリックします。</li>
+</ul>
+
+<p>または、tclコンソールで次のコマンドを実行してください。</p>
+
+<pre><code>write_bd_tcl
+</code></pre>
+
+<p>tclファイル名は、.bitファイル名と一致する必要があります。例えば my_overlay.bitとmy_overlay.tcl です。</p>
+
+<p>tclはオーバーレイがインスタンス化されるときに解析されます（ダウンロードされるときではありません）。</p>
+
+<pre><code>from pynq import Overlay
+ol = Overlay(&quot;base.bit&quot;) # tcl is parsed here
+</code></pre>
+
+<p>オーバーレイをダウンロードしようとしたときにtclが利用できない場合、またはtclファイル名が.bitファイル名と一致しない場合は、エラーが表示されます。</p>
+
+<h2 id="ip-dict">ip_dict</h2>
+
+<p>Overlayパッケージは、特定のオーバーレイ（例えばbase.bit）内のIPの名前を含むip_dictと呼ばれる辞書を生成します。 辞書は、ハードコードされたアドレスではなく、Pythonコードの名前でIPを参照するために使用できます。 それはまたオーバーレイで利用可能なIPをチェックできます。</p>
+
+<p>オーバーレイのIP辞書を表示するには、次のコマンドを実行します。</p>
+
+<pre><code>from pynq import Overlay
+OL = Overlay(&quot;base.bit&quot;)
+OL.ip_dict
+</code></pre>
+
+<p>返されるこのIPディクショナリの各エントリはキーと値のペアです。</p>
+
+<p>例えば：</p>
+
+<pre><code>'SEG_mb_bram_ctrl_1_Mem0': ['0x40000000', '0x10000', None]
+</code></pre>
+
+<p>これは、ビットストリームと共にエクスポートされたtclファイルを解析することに注意してください。 PLで現在実行されているオーバーレイはチェックされません。</p>
+
+<p>エントリのキーはIPインスタンス名です。 すべてのIPインスタンス名は、アドレスセグメントセクションの* .tclファイル（base.tclなど）から解析されます。 エントリの値は3項目のリストです。</p>
+
+<ul>
+<li>最初の項目はアドレス指定可能なIPのベースアドレス（16進数）を示しています。</li>
+<li>2番目の項目は、アドレス範囲をバイト数（16進数）で示しています。</li>
+<li>3番目の項目は、IPに関連付けられている状態を記録します。 デフォルトではNoneですが、ユーザー定義も可能です。</li>
+</ul>
+
+<p>同様に、PLパッケージを使用して、現在プログラマブルロジック内にあるアドレス可能なIPを見つけることができます。</p>
+
+<pre><code>from pynq import PL
+PL.ip_dict
+</code></pre>
+
+<h2 id="existing-overlays">Existing Overlays</h2>
+
+<p>ベースオーバーレイはPynqレポジトリに含まれており、ここにあります。</p>
+
+<pre><code>&lt;GitHub repository&gt;/Pynq-Z1/vivado/base
+</code></pre>
+
+<p>各フォルダーには、Vivadoプロジェクトを再構築してオーバーレイのビットストリームを生成するために使用できるメイクファイルがあります。 オーバーレイ用のビットストリームとtclはボード上（ボードの起動時にデフォルトでbase.bitがロードされます）およびプロジェクトリポジトリで利用可能です。</p>
+
+<pre><code>&lt;GitHubリポジトリ&gt;/Pynq-Z1/bitstream/
+</code></pre>
+
+<p>オーバーレイを設計および構築するにはVivadoをインストールする必要があります。 既存のオーバーレイデザインを構築すると、プロジェクトをVivadoで開いて調べたり、新しいオーバーレイを作成するように変更したりできます。</p>
+
+<h2 id="interfacing-to-an-overlay">Interfacing to an overlay</h2>
+
+<h3 id="mmio">MMIO</h3>
+
+<p>PYNQには、Zynq PSとPL間の通信を簡素化するためのMMIO Pythonクラスが含まれています。 オーバーレイが作成され、メモリマップがわかったら、MMIOを使用してPL内のメモリマップ位置にアクセスできます。</p>
+
+<p>MMIOのためのPythonコードはここで見られることができます：</p>
+
+<pre><code>&lt;GitHub Repository&gt;/python/pynq/mmio.py
+</code></pre>
+
+<p>MMIOクラスは、開始アドレスと範囲を指定することによってPL内のメモリ領域にアクセスできます。 例えば。 以下のコードは、0x40000000から0x40010000（SEG_mb_bram_ctrl_1_Mem0）までのPL内のメモリマップ位置へのアクセスを許可します。</p>
+
+<pre><code>from pynq import MMIO
+
+# an IP is located at 0x40000000
+myip = MMIO(0x40000000,0x10000)
+
+# Read from the IP at offset 0
+myip.read(0)
+</code></pre>
+
+<p>上記の例では、アドレス範囲0x10000（65535バイト）の外側にアクセスすると、MMIOパッケージで例外が発生します。 設計者はまた、MMIOによってアクセスされるアドレスがPLにマップされたものを持つように注意する必要があります。 カスタムペリフェラルはアドレス空間に存在し、アドレス範囲がMMIOによってマッピングされている場合でも、特定のアドレスに接続されているものがない場合や、読み取り専用または書き込み専用の場合があります。 PLへの不正なアクセスはシステムエラーを引き起こし、Jupyterカーネルをクラッシュさせる可能性があります。</p>
+
+<p>新しいハードウェア関数用のpythonドライバを作成するとき、MMIOはPythonモジュールの中にラップすることができます。</p>
+
+<h3 id="zynq-gpios">Zynq GPIOs</h3>
+
+<p>Zynq PSとPLの間のGPIOは、オーバーレイへの制御インターフェイスとしてPythonコードで使用できます。 GPIOに関する情報は、上で説明したip_dictと同様に、オーバーレイのGPIO辞書に保存されています。</p>
+
+<p>次のコードは、ビットストリームの辞書を取得するために使用できます。</p>
+
+<pre><code>from pynq import Overlay
+ol = Overlay(&quot;base.bit&quot;)
+ol.gpio_dict
+</code></pre>
+
+<p>GPIOディクショナリエントリはキーと値のペアです。ここで、valueは2つの項目のリストです。 GPIO辞書のエントリの例：</p>
+
+<pre><code>'mb_1_reset/Din' : [0, None]
+</code></pre>
+
+<p>キーはGPIOインスタンス名（mb_1_reset / Din）です。 GPIOインスタンス名はVivado * .tclファイル（base.tclなど）から読み込まれ解析されます。</p>
+
+<p>値は2項目のリストです。</p>
+
+<p>最初の項目はGPIOのインデックス（0）を示しています。
+2番目の項目（なし）はGPIOの状態を示します。 デフォルトではNoneですが、ユーザー定義も可能です。
+現在FPGAファブリック内にあるGPIOの辞書を取得するには、次のコードを使用できます。</p>
+
+<pre><code>from pynq import PL
+pl = PL
+pl.gpio_dict
+</code></pre>
+
+<h3 id="cffi">CFFI</h3>
+
+<p>CFFI（C外部関数インターフェース）は、PythonからCコードとインターフェースをとるための簡単な方法を提供します。 CFFIパッケージはPYNQイメージにプレインストールされています。 実行可能モジュールから動的に関数をロードして実行することを可能にするインラインABI（Application Binary Interface）互換モード、およびC拡張モジュールを構築することを可能にするAPIモードをサポートします。</p>
+
+<p><a href="http://docs.python-guide.org/en/latest/scenarios/clibs/">http://docs.python-guide.org/en/latest/scenarios/clibs/</a> から抜粋した次の例は、PythonからC関数strlen（）を呼び出して、ABIインラインモードを示しています。</p>
+
+<p>C関数プロトタイプ</p>
+
+<pre><code>size_t strlen(const char*);
+</code></pre>
+
+<p>The C function prototype is passed to <code>cdef()</code>, and can be called using <code>clib</code>.</p>
+
+<pre><code>from cffi import FFI
+ffi = FFI()
+ffi.cdef(&quot;size_t strlen(const char*);&quot;)
+clib = ffi.dlopen(None)
+length = clib.strlen(b&quot;String to be evaluated.&quot;)
+print(&quot;{}&quot;.format(length))
+</code></pre>
+
+<p>共有ライブラリ内のC関数は、C外部関数インタフェース（CFFI）を使用してPythonから呼び出すことができます。 共有ライブラリは、PythonのCFFIを使用してオンラインでコンパイルすることも、オフラインでコンパイルすることもできます。</p>
+
+<p>CFFIと共有ライブラリの詳細については、以下を参照してください。</p>
+
+<ul>
+<li><p><a href="http://cffi.readthedocs.io/en/latest/overview.html">http://cffi.readthedocs.io/en/latest/overview.html</a></p></li>
+
+<li><p><a href="http://www.tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html">http://www.tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html</a></p></li>
+</ul>
+
+<p>CFFIの使用方法に関するPYNQの例を参照するには、CMAクラスまたはAudioクラスを参照してください。両方とも次の場所にあります。</p>
+
+<pre><code>&lt;GitHub Repository&gt;/pynq/drivers
+</code></pre>
+
+<h2 id="packaging-overlays">Packaging overlays</h2>
+
+<p>overlay、tcl、Pythonはファイルシステムのどこにでも配置できますが、これはお勧めできません。</p>
+
+<p>基本PYNQオーバーレイとtclのデフォルトの場所は、次のとおりです。</p>
+
+<pre><code>&lt;GitHub Repository&gt;/Pynq-Z1/bitstream
+</code></pre>
+
+<p>PYNQ Pythonはここにあります。</p>
+
+<pre><code>&lt;GitHub Repository&gt;/python/pynq
+</code></pre>
+
+<p>githubからPYNQをフォークし、PYNQパッケージにPythonコードを追加することができます。 ただし、カスタムオーバーレイの場合は、独自のリポジトリを作成してパッケージ化し、他のユーザーがpipを使用してオーバーレイをインストールできるようにすることができます。</p>
+
+<p>pipを使ってインストールするプロジェクトをパッケージ化する方法はいくつかあります。 一例を以下に提供する。</p>
+
+<p>より多くの詳細とより多くの包装オプションについてはpip installを見てください。 <a href="https://pip.pypa.io/en/stable/reference/pip_install">https://pip.pypa.io/en/stable/reference/pip_install</a></p>
+
+<h3 id="example">Example</h3>
+
+<p>次の例では、GitHubリポジトリのルートに存在するオーバーレイを想定しています。</p>
+
+<p>リポジトリが次のような構造になっているとします。</p>
+
+<ul>
+<li><p>notebook/</p>
+
+<ul>
+<li>new_overlay.ipynb</li>
+</ul></li>
+
+<li><p>new_overlay/</p>
+
+<ul>
+<li>new_overlay.bit</li>
+<li>new_overlay.tcl</li>
+<li>__init.py</li>
+<li>new_overlay.py</li>
+</ul></li>
+
+<li><p>readme.md</p></li>
+
+<li><p>license</p></li>
+</ul>
+
+<p>リポジトリのルートにsetup.pyを追加します。 このファイルは必要なパッケージをインポートし、パッケージ名、バージョン、URL、含めるファイルを含むパッケージのセットアップ手順を指定します。</p>
+
+<p>setup.pyの例：</p>
+
+<pre><code>from setuptools import setup, find_packages
+import subprocess
+import sys
+import shutil
+import new_overlay
+
+setup(
+    name = &quot;new_overlay&quot;,
+    version = new_overlay.__version__,
+    url = 'https://github.com/your_github/new_overlay',
+    license = 'All rights reserved.',
+    author = &quot;Your Name&quot;,
+    author_email = &quot;your@email.com&quot;,
+    packages = ['new_overlay'],
+    package_data = {
+    '' : ['*.bit','*.tcl','*.py','*.so'],
+    },
+    description = &quot;New custom overlay for PYNQ-Z1&quot;
+</code></pre>
+
+<p>package_dataは、パッケージの一部としてインストールされるファイルを指定します。</p>
+
+<p>端末から、次のコマンドを実行して新しいパッケージをインストールできます。</p>
+
+<pre><code>sudo pip install --upgrade 'git + https://github.com/your_github/new_overlay'
+</code></pre>
+
+<h2 id="using-overlays">Using Overlays</h2>
+
+<p>システムの稼働中に、PLを新しいオーバーレイで動的に再設定できます。</p>
+
+<p>オーバーレイのロードは、Overlayクラスを使用してPythonで実行できます。</p>
+
+<pre><code>&lt;GitHub Repository&gt;/python/pynq/pl.py
+</code></pre>
+
+<p>ビットストリームはPythonからダウンロードできます。</p>
+
+<pre><code>from pynq import Overlay
+ol = Overlay(&quot;base.bit&quot;)
+ol.download()
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Mar 8, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/03/07/first-fpga/" title="First FPGA (1)">First FPGA (1)</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/08/creating-overlays/">Creating Overlays</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/07/first-fpga/">First FPGA (1)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/06/studying-elixir/">elixir 自習</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/05/programming-elixir/">プログラミング Elixir (26)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/04/programming-elixir/">プログラミング Elixir (25)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/03/programming-elixir/">プログラミング Elixir (24)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/02/programming-elixir/">プログラミング Elixir (23)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/02/install-problem/">480GB な disk に vivado が導入できなかった件</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/01/programming-elixir/">プログラミング Elixir (22)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/01/json-parse/">JSON.parse でもハマりました</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

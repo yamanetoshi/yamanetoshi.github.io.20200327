@@ -6,10 +6,25 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 07 Mar 2019 22:05:26 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 08 Mar 2019 15:14:58 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Creating Overlays</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/03/08/creating-overlays/</link>
+      <pubDate>Fri, 08 Mar 2019 15:14:58 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/03/08/creating-overlays/</guid>
+      <description>&lt;p&gt;以下なドキュメントの無断機械翻訳を自分メモ。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://pynq.readthedocs.io/en/v1.3/10_creating_overlays.html&#34;&gt;Creating Overlays&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>First FPGA (1)</title>

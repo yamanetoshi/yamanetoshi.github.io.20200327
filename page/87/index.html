@@ -97,6 +97,40 @@
         
 
 <header>
+    <p class="meta">Jul 25, 2015
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/07/25/weekend-cooking/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/07/25/weekend-cooking/">週末メシ</a>
+    </h1>
+</header>
+
+
+        
+          <p>入手したネタてきに以下なのかどうか。 ひじき スパニッシュオムレツ 鶏ムネ茹でて焼くアレ トウフ料理 (火を使わない麻婆豆腐またはスンドゥプ) 土日のど</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/07/25/weekend-cooking/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jul 24, 2015
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2015/07/24/shogi-board-in-brain/#disqus_thread">Comments</a>
@@ -395,58 +429,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jul 16, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/07/16/resize-bitmap/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/07/16/resize-bitmap/">画像リサイズ</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>Bitmap.createBitmap て始点の座標と幅、高さを渡す、が前提になっていないドキュメントを参考にしててハマルなど。</p>
-
-<p>例えば中央から縦横 1024 なサイズのナニを取得するのであれば</p>
-
-<pre><code>int width = in_bitmap.getWidth();
-int height = in_bitmap.getHeight();
-Bitmap bitmap = Bitmap.createBitmap(in_bitmap, width / 2, height / 2, 
-        1024, 1024, new Matrix(), true);
-</code></pre>
-
-<p>ではなくて</p>
-
-<pre><code>Bitmap bitmap = Bitmap.createBitmap(in_bitmap, width / 2 - 512, height / 2 - 512,
-        1024, 1024, new Matrix(), true);
-</code></pre>
-
-<p>なんスけど、色々な意味で事前にチェックすることがあったりなかったり。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/07/16/resize-bitmap/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -549,6 +531,12 @@ Bitmap bitmap = Bitmap.createBitmap(in_bitmap, width / 2, height / 2,
           
             
               <li class="post">
+                <a href="/blog/2019/03/08/creating-overlays/">Creating Overlays</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/03/07/first-fpga/">First FPGA (1)</a>
               </li>
             
@@ -598,12 +586,6 @@ Bitmap bitmap = Bitmap.createBitmap(in_bitmap, width / 2, height / 2,
             
               <li class="post">
                 <a href="/blog/2019/03/01/json-parse/">JSON.parse でもハマりました</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/02/28/tommorow/">明日</a>
               </li>
             
           
