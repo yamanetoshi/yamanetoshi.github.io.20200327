@@ -6,10 +6,23 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 08 Mar 2019 15:14:58 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 09 Mar 2019 06:44:30 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Cloud Native Hiroshima</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/03/09/creating-overlays/</link>
+      <pubDate>Sat, 09 Mar 2019 06:44:30 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/03/09/creating-overlays/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://cnjp.connpass.com/event/119241/&#34;&gt;Cloud Native Hiroshima #2&lt;/a&gt; に参加してきました。以下、控えを列挙します。&lt;/p&gt;
+
+&lt;p&gt;そのうちどなたかがつぎゃってくれるのかどうか。楽しみにしておきます。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Creating Overlays</title>
