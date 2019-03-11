@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/03/11/fukuoka-ex-20/</loc>
+    <lastmod>2019-03-11T20:14:42+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/03/10/the-twelve-factor/</loc>
     <lastmod>2019-03-10T10:01:36+09:00</lastmod>
   </url>
@@ -8944,7 +8949,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-03-10T10:01:36+09:00</lastmod>
+    <lastmod>2019-03-11T20:14:42+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9166,13 +9171,13 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-03-10T10:01:36+09:00</lastmod>
+    <lastmod>2019-03-11T20:14:42+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/programming/</loc>
-    <lastmod>2019-03-10T10:01:36+09:00</lastmod>
+    <lastmod>2019-03-11T20:14:42+09:00</lastmod>
     <priority>0</priority>
   </url>
   
