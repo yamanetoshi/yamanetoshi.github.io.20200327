@@ -97,6 +97,51 @@
         
 
 <header>
+    <p class="meta">Feb 17, 2019
+         - 3 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/17/metaprogramming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/17/metaprogramming-elixir/">Metaprogramming Elixir (6)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>ちょっと復習。<code>accumulate:true</code> な記述のあたりを列挙しておきます。</p>
+
+<ul>
+<li>モジュール属性を使用すると、コンパイル時にデータをモジュールに格納できる</li>
+<li>これらは他の言語で定数が適用される場所でよく使われるが、Elixirはコンパイル時に悪用するための他のトリックを提供する</li>
+<li>属性を登録するときにaccumulate：trueオプションを利用することで、コンパイル段階で登録された追加リストを保持できる</li>
+<li>モジュールがコンパイルされた後、属性にはコンパイル中に発生したすべての登録のリストが含まれる</li>
+</ul>
+
+<p>accumulate:true が今ひとつ理解できていないのかどうか。てか、翻訳時に評価された値が属性に値として格納される、ってことなのか。そしてここで問題になってくるのが評価される順番なのね。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/17/metaprogramming-elixir/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Feb 16, 2019
          - 3 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/16/metaprogramming-elixir/#disqus_thread">Comments</a>
@@ -497,42 +542,6 @@ iex(5)&gt; quote do: 1 + 2
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 7, 2019
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/07/issues-to-be-resolved-over-this-weekent/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/07/issues-to-be-resolved-over-this-weekent/">この週末で倒しておきたいネタ</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>積ん読倒すのと調査対応と。自分メモということで</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/07/issues-to-be-resolved-over-this-weekent/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -635,6 +644,12 @@ iex(5)&gt; quote do: 1 + 2
           
             
               <li class="post">
+                <a href="/blog/2019/03/12/hiroshima-igo/">広島囲碁アミーゴ</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/03/11/fukuoka-ex-20/">fukuoka.ex#20</a>
               </li>
             
@@ -684,12 +699,6 @@ iex(5)&gt; quote do: 1 + 2
             
               <li class="post">
                 <a href="/blog/2019/03/03/programming-elixir/">プログラミング Elixir (24)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/03/02/programming-elixir/">プログラミング Elixir (23)</a>
               </li>
             
           

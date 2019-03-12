@@ -6,10 +6,27 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 02 Mar 2019 12:49:05 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 12 Mar 2019 20:21:46 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>広島囲碁アミーゴ</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/03/12/hiroshima-igo/</link>
+      <pubDate>Tue, 12 Mar 2019 20:21:46 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/03/12/hiroshima-igo/</guid>
+      <description>&lt;p&gt;たまさか第三土曜ということで顔を出してみようかなと思っている次第です。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://igo-hiroshima.com&#34;&gt;囲碁アミーゴ広島&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;事前に連絡してみた方が良いのかどうか。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>480GB な disk に vivado が導入できなかった件</title>
