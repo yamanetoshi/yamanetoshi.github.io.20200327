@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 13 Mar 2019 21:10:20 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 14 Mar 2019 21:00:48 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Real World HTTP ミニ版</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/03/14/news-source/</link>
+      <pubDate>Thu, 14 Mar 2019 21:00:48 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/03/14/news-source/</guid>
+      <description>&lt;p&gt;以下、無料配布とのことで早速入手しています。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.oreilly.co.jp/books/9784873118789/&#34;&gt;Real World HTTP ミニ版&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>情報源</title>

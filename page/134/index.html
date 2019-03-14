@@ -99,6 +99,63 @@
 <header>
     <p class="meta">Jun 12, 2014
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/12/volley-response-listener/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/12/volley-response-listener/">com.android.volley.Response.Listener の import</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>画像を取得する以下な処理を書いたのですが</p>
+
+<pre><code>    ImageRequest request = new ImageRequest(mUrl,
+        new com.android.volley.Response.Listener&lt;Bitmap&gt;() {
+
+            @Override
+            public void onResponse(Bitmap response) {
+                setBackgroundImage(findViewById(R.id.image), response);
+            }
+
+        }, 0, 0, Config.ARGB_8888, 
+        new ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(&quot;HogeActivity&quot;, error.getMessage());
+            }
+    });
+    mQueue.add(request);
+</code></pre>
+
+<p>何故か ErrorListener は自動で import されてて Listener はそうではなかった。何故だろう。つうか手書きで import しろよ &lt; わし</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/12/volley-response-listener/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jun 12, 2014
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/12/cooking-for-getting-away/#disqus_thread">Comments</a>
 
         
@@ -426,52 +483,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jun 5, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/05/abnormal-termination/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/rails/">rails </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/05/abnormal-termination/">assets:precompile でオチる件</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>ええと</p>
-
-<pre><code>$ bundle exec rake assets:precompile RAILS_ENV=production
-</code></pre>
-
-<p>で以下のメセジが出力されて異常終了。</p>
-
-<pre><code>Less::Error: 'twitter/bootstrap/bootstrap.less' wasn't found
-</code></pre>
-
-<p>どうしたものか。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/05/abnormal-termination/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -574,6 +585,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/03/14/news-source/">Real World HTTP ミニ版</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/03/13/news-source/">情報源</a>
               </li>
             
@@ -623,12 +640,6 @@
             
               <li class="post">
                 <a href="/blog/2019/03/05/programming-elixir/">プログラミング Elixir (26)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/03/04/programming-elixir/">プログラミング Elixir (25)</a>
               </li>
             
           
