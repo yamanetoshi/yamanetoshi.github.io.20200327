@@ -6,10 +6,26 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 15 Mar 2019 09:35:23 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 16 Mar 2019 07:01:07 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>本買う件</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/03/16/book-purchase/</link>
+      <pubDate>Sat, 16 Mar 2019 07:01:07 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/03/16/book-purchase/</guid>
+      <description>&lt;p&gt;発注予定、は良いのですが。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/hyuki/status/1106423279865098241&#34;&gt;『数学ガール』Kindle本まとめ買い&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pragprog.com/book/fhproper/property-based-testing-with-proper-erlang-and-elixir&#34;&gt;Property-Based Testing with PropEr, Erlang, and Elixir&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>棋聖戦</title>
