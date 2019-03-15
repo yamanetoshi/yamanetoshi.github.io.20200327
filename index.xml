@@ -6,10 +6,29 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 14 Mar 2019 21:00:48 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 15 Mar 2019 09:35:23 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>棋聖戦</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/03/15/kise-sen/</link>
+      <pubDate>Fri, 15 Mar 2019 09:35:23 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/03/15/kise-sen/</guid>
+      <description>&lt;p&gt;七番勝負も今日で決着。個人的には山下くんに頑張って欲しいですがどうなるか。&lt;/p&gt;
+
+&lt;h2 id=&#34;今回&#34;&gt;今回&lt;/h2&gt;
+
+&lt;p&gt;生中継しているとの話をずけらん先パイから共有頂くなど&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.igoshogi.net/igopremium/live/&#34;&gt;https://www.igoshogi.net/igopremium/live/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Real World HTTP ミニ版</title>
