@@ -99,6 +99,51 @@
 <header>
     <p class="meta">Dec 14, 2013
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/14/android-content-res-resourcesnotfoundexception/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/14/android-content-res-resourcesnotfoundexception/">android.content.res.Resources$NotFoundException</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>リソースは存在するのに例外が出る。何かの制限にひっかかったのかなぁ、と思いつつググッてみるも良い情報が出てこない。つうか容量制限とかかなり拡大されているみたい。</p>
+
+<p>仕方が無いので logcat をニラんでいたら同じ PID で以下なメセジが出力されているのを確認。</p>
+
+<pre><code>--- SKImageDecoder::Factory returned null
+</code></pre>
+
+<p>意味分からんけど変換できないのか、と思いつつ file コマンドで確認したら Adobe Photoshop Image だとorz</p>
+
+<p>ぶっちゃけ軽くキレました。しかも直後にマシンが固まるとかorz</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/14/android-content-res-resourcesnotfoundexception/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Dec 14, 2013
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/14/ansi-c-language-dictionary/#disqus_thread">Comments</a>
 
         
@@ -410,40 +455,6 @@ $ ARCH=arm CROSS_COMPILE=${CCPREFIX} INSTALL_MOD_PATH=../modules make modules_in
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Dec 9, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/09/make-wireless-driver-in-raspi/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/09/make-wireless-driver-in-raspi/">wireless ドライバの続き</a>
-    </h1>
-</header>
-
-
-        
-          <p>朝、確認してみたらコンパイルは終わってました。でも .ko なファイルが無くって色々見てると Enable loadable modules support にチェックが入ってなくてorz 特定モジュールのコ</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/12/09/make-wireless-driver-in-raspi/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -546,6 +557,12 @@ $ ARCH=arm CROSS_COMPILE=${CCPREFIX} INSTALL_MOD_PATH=../modules make modules_in
           
             
               <li class="post">
+                <a href="/blog/2019/03/20/leela-zero-can-run-on-android/">Leela Zero can run on Android!</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/03/19/the-company-and-the-life/">The Company, The Life</a>
               </li>
             
@@ -595,12 +612,6 @@ $ ARCH=arm CROSS_COMPILE=${CCPREFIX} INSTALL_MOD_PATH=../modules make modules_in
             
               <li class="post">
                 <a href="/blog/2019/03/11/fukuoka-ex-20/">fukuoka.ex#20</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/03/10/the-twelve-factor/">The Twelve-Factor App</a>
               </li>
             
           

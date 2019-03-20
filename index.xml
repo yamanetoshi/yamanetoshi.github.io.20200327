@@ -6,10 +6,27 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 19 Mar 2019 20:32:31 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 20 Mar 2019 19:40:34 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Leela Zero can run on Android!</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/03/20/leela-zero-can-run-on-android/</link>
+      <pubDate>Wed, 20 Mar 2019 19:40:34 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/03/20/leela-zero-can-run-on-android/</guid>
+      <description>&lt;p&gt;以下なナニを発見。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://lifein19x19.com/forum/viewtopic.php?f=18&amp;amp;t=15938&#34;&gt;Leela Zero can run on Android!&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;手持ちスマホで使えるようにできたら練習に応用できないかなということで導入着手。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>The Company, The Life</title>
