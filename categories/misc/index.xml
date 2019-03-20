@@ -6,10 +6,25 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 20 Mar 2019 19:40:34 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 20 Mar 2019 20:30:55 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>石の持ち方</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/03/20/how-to-hold-a-stone/</link>
+      <pubDate>Wed, 20 Mar 2019 20:30:55 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/03/20/how-to-hold-a-stone/</guid>
+      <description>&lt;p&gt;間違えていたことが判明。人差し指を上にしてました。正しい方法は以下。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://igokuma.com/ishi-mochikata/&#34;&gt;【囲碁入門】石の持ち方・打ち方（動画解説）&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Leela Zero can run on Android!</title>
