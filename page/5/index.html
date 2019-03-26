@@ -97,6 +97,50 @@
         
 
 <header>
+    <p class="meta">Feb 20, 2019
+         - 3 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/20/metaprogramming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/20/metaprogramming-elixir/">Metaprogramming Elixir (9)</a>
+    </h1>
+</header>
+
+
+        
+          <p><h2 id="final-step">Final Step</h2>
+
+<p>Identify Areas for Compile-Time Optimizations とのこと。ぐぐる翻訳によれば</p>
+
+<blockquote>
+<p>実行時に評価される正規表現を生成できますが、コンパイル時の最適化を適用しましょう。 値を補間する場合にのみ文字列連結を実行する必要がある関数定義を生成できます。 これにより、実行時にパフォーマンスが大幅に向上します。 interpolate を定義して実装を完成させましょう。その仕事は、必要に応じて補間を使用して t/3 関数本体のASTを返すことです。</p>
+</blockquote>
+
+<p>とのこと。以下な実装が例示されています。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/20/metaprogramming-elixir/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Feb 19, 2019
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/19/metaprogramming-elixir/#disqus_thread">Comments</a>
@@ -514,52 +558,6 @@ FAILURE: integers can be added and subtracted
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 10, 2019
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/10/metaprogramming-elixir/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/10/metaprogramming-elixir/">Metaprogramming Elixir (1)</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>こちらも再確認に着手。</p>
-
-<p><code>quote do</code> で AST が確認できる、というのがアレゲです。</p>
-
-<pre><code>iex(4)&gt; quote do: div(10,2)
-{:div, [context: Elixir, import: Kernel], [10, 2]}
-iex(5)&gt; quote do: 1 + 2    
-{:+, [context: Elixir, import: Kernel], [1, 2]}
-</code></pre>
-
-<p>あと、<code>if</code> がマクロ、というのもナニ (何</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/10/metaprogramming-elixir/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -662,6 +660,12 @@ iex(5)&gt; quote do: 1 + 2
           
             
               <li class="post">
+                <a href="/blog/2019/03/25/white-soup-x-avocado/">白だし × アボカド</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/03/24/math-girl/">数学ガール</a>
               </li>
             
@@ -711,12 +715,6 @@ iex(5)&gt; quote do: 1 + 2
             
               <li class="post">
                 <a href="/blog/2019/03/16/book-purchase/">本買う件</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/03/15/kise-sen/">棋聖戦</a>
               </li>
             
           
