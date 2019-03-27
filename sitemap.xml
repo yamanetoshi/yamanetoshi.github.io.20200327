@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/03/27/both-modified/</loc>
+    <lastmod>2019-03-27T19:44:11+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/03/25/white-soup-x-avocado/</loc>
     <lastmod>2019-03-25T20:27:47+09:00</lastmod>
   </url>
@@ -9019,7 +9024,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-03-25T20:27:47+09:00</lastmod>
+    <lastmod>2019-03-27T19:44:11+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9127,7 +9132,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/git/</loc>
-    <lastmod>2018-09-07T16:33:52+09:00</lastmod>
+    <lastmod>2019-03-27T19:44:11+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9241,7 +9246,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-03-25T20:27:47+09:00</lastmod>
+    <lastmod>2019-03-27T19:44:11+09:00</lastmod>
     <priority>0</priority>
   </url>
   

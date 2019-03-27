@@ -6,10 +6,26 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 25 Mar 2019 20:27:47 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 27 Mar 2019 19:44:11 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>both modified</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/03/27/both-modified/</link>
+      <pubDate>Wed, 27 Mar 2019 19:44:11 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/03/27/both-modified/</guid>
+      <description>&lt;p&gt;git stash pop なスタックが微妙だったのと間違えて stash pop してしまったようで&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;both modified:
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;なファイルができてしまった。commit 作らずに元に戻すのってどうやるの、って情報がさくっと出てこなかった? ので自分メモ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>白だし × アボカド</title>
