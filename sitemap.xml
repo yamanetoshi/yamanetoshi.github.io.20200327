@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/03/30/elixir-community/</loc>
+    <lastmod>2019-03-30T12:33:52+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/03/29/injuly-is-discovered/</loc>
     <lastmod>2019-03-29T11:51:04+09:00</lastmod>
   </url>
@@ -9034,7 +9039,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-03-29T11:51:04+09:00</lastmod>
+    <lastmod>2019-03-30T12:33:52+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9256,13 +9261,13 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-03-29T11:51:04+09:00</lastmod>
+    <lastmod>2019-03-30T12:33:52+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/programming/</loc>
-    <lastmod>2019-03-17T08:41:10+09:00</lastmod>
+    <lastmod>2019-03-30T12:33:52+09:00</lastmod>
     <priority>0</priority>
   </url>
   
