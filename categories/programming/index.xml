@@ -6,10 +6,31 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 30 Mar 2019 12:33:52 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 31 Mar 2019 16:17:30 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>phoenix excersize</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/03/31/phoenix-excersize/</link>
+      <pubDate>Sun, 31 Mar 2019 16:17:30 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/03/31/phoenix-excersize/</guid>
+      <description>&lt;p&gt;色々試してみる対応で時間を使ってみることに。とりあえず cloud9 で workspace をつくって&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/@Oxyrus/how-to-install-the-phoenix-framework-on-cloud9-ef0ac265229c&#34;&gt;A guide on how to setup your Cloud9 workspace to run Phoenix applications&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以下をすすめる方向にて。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://hexdocs.pm/phoenix/up_and_running.html&#34;&gt;Up and Running&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Elixir Community</title>
