@@ -6,10 +6,21 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 31 Mar 2019 16:17:30 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 01 Apr 2019 14:37:33 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>phoenix excersize (2)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/01/phoenix-excersize/</link>
+      <pubDate>Mon, 01 Apr 2019 14:37:33 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/01/phoenix-excersize/</guid>
+      <description>&lt;p&gt;次のステップは &lt;a href=&#34;https://hexdocs.pm/phoenix/adding_pages.html&#34;&gt;Adding Pages&lt;/a&gt; になります。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>phoenix excersize</title>
