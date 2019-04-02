@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>phoenix excersize (3)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 2, 2019
+         - 4 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/04/02/phoenix-excersize/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         phoenix excersize (3) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>今日は以下を確認しています。</p>
+
+<ul>
+<li><a href="https://hexdocs.pm/phoenix/routing.html">Routing</a></li>
+</ul>
+
+<p>色々ポイント高そうなのでエントリ分けるかもしれませんが、以下に控えを。</p>
+
+<p></p>
+
+<p>とりあえず列挙されてる中項目? が以下です。</p>
+
+<ul>
+<li>Examining Routes</li>
+<li>Resources</li>
+<li>Forward</li>
+<li>Path Helpers</li>
+<li>Nested Resources</li>
+<li>Scoped Routes</li>
+<li>Pipelines</li>
+<li>Channel Routes</li>
+<li>Summary</li>
+</ul>
+
+<p>最初に色々書いてあるナニの要約を以下に。</p>
+
+<ul>
+<li>Scope については中項目作ってるのでとりあえずスルー</li>
+<li>Pipeline についても同様で別途</li>
+<li><code>get &quot;/&quot;, PageController, :index</code> の <code>get</code> はマクロで <code>match/5</code> 手続きに展開されます</li>
+<li><code>def match(:get, &quot;/&quot;, PageController, :index, [])</code></li>
+<li>重複した route は先頭マッチで選ばれる</li>
+</ul>
+
+<h2 id="examining-routes">Examining Routes</h2>
+
+<ul>
+<li><code>mix phoenix.routes</code> というツールについて</li>
+<li>今使ってるやつだと以下な表示</li>
+</ul>
+
+<pre><code> page_path  GET  /                  Hello.PageController :index
+hello_path  GET  /hello             Hello.HelloController :index
+hello_path  GET  /hello/:messenger  Hello.HelloController :show
+</code></pre>
+
+<h2 id="resources">Resources</h2>
+
+<p>これ、RoR てきなアレですね。マクロが展開されたら 8 つの <code>match/5</code> に展開とのこと。他に</p>
+
+<ul>
+<li>only という option</li>
+<li>except という option</li>
+<li><code>Phoenix.Router.resources/4</code> という手続きでカスタマイズができる、という記載あり</li>
+</ul>
+
+<h2 id="forward">Forward</h2>
+
+<p>ここ、ちょっとよくわからんな。<code>BackgroundJob.Router.call(opts)</code> した後どうなるか、がよくわからない。別途確認します。</p>
+
+<ul>
+<li><code>Plug.Conn.assign</code> の出力が pipe で渡されてそれが request url になっているのかどうか</li>
+</ul>
+
+<h2 id="path-helpers">Path Helpers</h2>
+
+<ul>
+<li><code>Router.Helpers</code> モジュールにヘルパー手続きが動的に定義される模様</li>
+<li><code>iex -S mix</code> で色々試せるとのこと</li>
+</ul>
+
+<h2 id="nested-resources">Nested Resources</h2>
+
+<ul>
+<li>resources は nest させた記述が可能</li>
+</ul>
+
+<pre><code>resources &quot;/users&quot;, UserController do
+  resources &quot;/posts&quot;, PostController
+end
+</code></pre>
+
+<p>みたいな記載で <code>user_post_path</code> ができるようです。以下なカンジらしく、便利ですね。</p>
+
+<pre><code>user_post_path  GET     /users/:user_id/posts           HelloWeb.PostController :index
+</code></pre>
+
+<h2 id="scoped-routes">Scoped Routes</h2>
+
+<p>これ、管理権限を例にした記載があります。あるいは <code>/api/v1/images</code> みたいな例の記載もあり。</p>
+
+<h2 id="pipelines">Pipelines</h2>
+
+<p>Phoenix アプリケーションでは default で以下の二点の pipeline が定義される、とのこと。</p>
+
+<ul>
+<li><code>:browser</code></li>
+<li><code>:api</code></li>
+</ul>
+
+<p>とは言えその前に Endpoint plug について確認を、とのこと。</p>
+
+<h3 id="the-entpoint-plugs">The Entpoint Plugs</h3>
+
+<p>以下が default ということなのかどうか。</p>
+
+<ul>
+<li>Plug.Static
+
+<ul>
+<li>静的アセットの提供</li>
+<li>Logger の前なのでログに記録されない</li>
+</ul></li>
+<li>Phoenix.CodeReloader
+
+<ul>
+<li>Web ディレクトリ内のすべてのエントリに対してコードの reload を可能にする plug</li>
+</ul></li>
+<li>Plug.RequestId
+
+<ul>
+<li>リクエストごとに一意な id を生成</li>
+</ul></li>
+<li>Plug.Logger
+
+<ul>
+<li>request を記録</li>
+</ul></li>
+<li>Plug.Parsers
+
+<ul>
+<li>request body を parse</li>
+<li>urlencoded、multipart、JSON (with jason) を解析</li>
+<li>content-type を解析できない場合、request body はそのまま残る</li>
+</ul></li>
+<li>Plug.MethodOverride
+
+<ul>
+<li>valid な method parameter を持つ POST を適切な PUT、PATCH、DELETE に変換</li>
+</ul></li>
+<li>Plug.Head
+
+<ul>
+<li>HEAD を GET に変換してレスポンスボディを削除</li>
+</ul></li>
+<li>Plug.Session
+
+<ul>
+<li>セッション管理</li>
+<li>セッションの取得方法を設定するのみ</li>
+<li>セッションを使用する前に <code>fetch_session/2</code> を明示的に呼び出す必要がある</li>
+</ul></li>
+<li>Plug.Router
+
+<ul>
+<li>request cycle に router を plug します</li>
+</ul></li>
+</ul>
+
+<h3 id="the-browser-and-api-pipelines">The <code>:browser</code> and <code>:api</code> pipelines</h3>
+
+<ul>
+<li><code>:browser</code> はブラウザへのリクエストをレンダリングする経路を準備</li>
+<li><code>:api</code> は API 用のデータを生成する経路を準備</li>
+
+<li><p><code>:browser</code> は五つの plug を持つ</p>
+
+<ul>
+<li><code>plug :accepts, [&quot;html&quot;]</code></li>
+<li><code>plug :fetch_session</code></li>
+<li><code>plug :fetch_flash</code></li>
+<li><code>plug :protect_from_forgery</code></li>
+<li><code>plug :put_secure_browser_headers</code></li>
+</ul></li>
+
+<li><p>それぞれ</p>
+
+<ul>
+<li>リクエストフォーマットの定義</li>
+<li>セッションデータを取得して接続で利用可能に</li>
+<li>flash message の取得</li>
+<li>下二点は cross site forgery からの保護</li>
+</ul></li>
+
+<li><p><code>:api</code> については <code>plug :accepts, [&quot;json&quot;]</code> のみが定義</p></li>
+
+<li><p>router はスコープ内で定義された経路で pipeline を呼び出す</p></li>
+
+<li><p>ネストしたスコープでの使用は非推奨</p></li>
+
+<li><p>サーバがリクエストを受け付けると</p>
+
+<ul>
+<li>リクエストは最初に EndPoint の plug を通過</li>
+<li>その後、パスと HTTP 動詞のマッチングを試行</li>
+<li>最初の route と一致 (<code>GET /</code>) した場合、Router はリクエストを PageController の :index アクションに dispatch する前に <code>:browser</code> pipeline を介して処理 (セッションデータの取得、フラッシュの取得、偽造防止などの実行)</li>
+<li>リクエストが <code>resources/2</code> マクロで定義された経路のいずれかと一致した場合、Router は HelloWeb.ReviewController の正しいアクションに dispatch する前に、<code>:api</code> pipeline を介して処理</li>
+</ul></li>
+
+<li><p>ブラウザの view をレンダリングするだけであれば <code>:api</code> な pipeline 定義は不要</p></li>
+</ul>
+
+<h2 id="channel-routes">Channel Routes</h2>
+
+<ul>
+<li>Channel は、Phoenixフレームワークの非常にエキサイティングなリアルタイムコンポーネント</li>
+<li>Channel は、特定のトピックについてソケットを介してブロードキャストされる着信および発信メッセージを処理</li>
+</ul>
+
+<p>websocket なのかどうか。以下は endpoint.ex の記述とのこと。</p>
+
+<pre><code>defmodule HelloWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :hello
+
+  socket &quot;/socket&quot;, HelloWeb.UserSocket,
+    websocket: true,
+    longpoll: false
+  ...
+end
+</code></pre>
+
+<ul>
+<li>endpoint で <code>Phenix.Endpoint.socket/3</code> の呼び出しで default の動作として websocket と longpoll の両方をサポート</li>
+<li>上記では websocket のみを有効にしている</li>
+<li><code>lib/hello_web/channels/user_socket.ex</code> で <code>channel/3</code> マクロを使って chennel route を定義</li>
+<li>RootChannel という channel module と &ldquo;room:*&rdquo; というトピックがある場合の定義が以下</li>
+</ul>
+
+<pre><code>defmodule HelloWeb.UserSocket do
+  use Phoenix.Socket
+
+  channel &quot;rooms:*&quot;, HelloWeb.RoomChannel
+  ...
+end
+</code></pre>
+
+<ul>
+<li>トピックは単なる文字列識別子</li>
+<li>ここで使用している形式は、トピックとサブトピックを同じ文字列で定義できるようにするための規約です (“topic：subtopic”)</li>
+<li>*は任意のサブトピックに一致させることができるワイルドカード文字なので、 &ldquo;rooms：lobby&rdquo;と &ldquo;rooms：kitchen&rdquo;はどちらもこのルートに一致する</li>
+<li>各ソケットは複数のチャネルに対する要求を処理できる</li>
+</ul>
+
+<p>```</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>このガイドから外れる重要な点は以下。</p>
+
+<ul>
+<li>HTTP動詞名で始まる経路は、match関数の単一節に拡張されます。</li>
+<li>「リソース」で始まるルートは、マッチ機能の8節に拡張されます。</li>
+<li>唯一の：またはexcept：オプションを使用することで、リソースはmatch関数節の数を制限することができます。</li>
+<li>これらのルートはどれもネストできます。</li>
+<li>これらのルートはいずれも特定のパスにスコープ指定できます。</li>
+<li>スコープ内でas：オプションを使用すると、重複を減らすことができます。</li>
+<li>スコープルートにhelperオプションを使用すると、到達不可能なパスがなくなります。</li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 2, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/04/01/phoenix-excersize/" title="phoenix excersize (2)">phoenix excersize (2)</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/02/phoenix-excersize/">phoenix excersize (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/01/phoenix-excersize/">phoenix excersize (2)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/31/phoenix-excersize/">phoenix excersize</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/30/elixir-community/">Elixir Community</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/29/injuly-is-discovered/">大昔の怪我 (というか骨折) が発覚した件</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/28/tesuji-dictionary/">手筋辞典</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/27/both-modified/">both modified</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/25/white-soup-x-avocado/">白だし × アボカド</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/24/math-girl/">数学ガール</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/22/todo/">眼鏡が壊れた</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
