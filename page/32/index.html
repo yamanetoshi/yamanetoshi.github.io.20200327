@@ -97,6 +97,51 @@
         
 
 <header>
+    <p class="meta">Feb 19, 2018
+         - 7 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/19/unit-test-hands-on/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/19/unit-test-hands-on/">DroidKaigi2018UnitTestHandsOn 実装掘削メモ</a>
+    </h1>
+</header>
+
+
+        
+          <p><h2 id="要確認事項について">要確認事項について</h2>
+
+<p>以下、順に確認してみます。</p>
+
+<ul>
+<li>onViewCreated にて呼び出されている bindView について　(unbinder 属性に戻り値設定)</li>
+<li>onResume にて呼び出されている BusProvider のメソッドについて</li>
+<li>onPause にて呼び出されている BusProvider のメソッドについて</li>
+<li>onDestroyView でも　unbinder 属性が使われている</li>
+</ul>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/19/unit-test-hands-on/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Feb 18, 2018
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/18/hugo-octopress/#disqus_thread">Comments</a>
@@ -476,60 +521,6 @@ $ govendor get github.com/gohugoio/hugo
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 3, 2018
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/03/octopress/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/03/octopress/">octopress</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>とりあえず、ソースを入手して <code>bundle install</code> してみるに <code>yajl-ruby</code> の導入に失敗しているとのこと。<code>ruby</code> のバージョンを <code>1.9.3-p448</code> して確認してみる方向。</p>
-
-<h2 id="rbenv-で云々">rbenv で云々</h2>
-
-<p>とりあえず以下にトライ。</p>
-
-<pre><code>$ rbenv install 1.9.3-p448
-$ rbenv local 1.3.8-p448
-</code></pre>
-
-<p>でいいのかな。BUILD FAILED って叱られていたのですが、どうも必要なパケジの導入が足りていなかったようです。でも 2.4.2 って導入できてたのですが何かが違うのだろうな。。</p>
-
-<p>とりあえず以下を導入してリトライ。</p>
-
-<pre><code>sudo apt-get install build-essential bison openssl libreadline7 \
-    libreadline-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev \
-    libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf \
-    libc6-dev libncurses6-dev
-</code></pre>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/03/octopress/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -559,7 +550,7 @@ $ rbenv local 1.3.8-p448
 
     
     
-        <a href="/page/181/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/182/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -632,6 +623,12 @@ $ rbenv local 1.3.8-p448
           
             
               <li class="post">
+                <a href="/blog/2019/04/03/phoenix-excersize/">phoenix excersize (4)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/04/02/phoenix-excersize/">phoenix excersize (3)</a>
               </li>
             
@@ -681,12 +678,6 @@ $ rbenv local 1.3.8-p448
             
               <li class="post">
                 <a href="/blog/2019/03/24/math-girl/">数学ガール</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/03/22/todo/">眼鏡が壊れた</a>
               </li>
             
           

@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 02 Apr 2019 20:37:36 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 03 Apr 2019 20:35:59 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>phoenix excersize (4)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/03/phoenix-excersize/</link>
+      <pubDate>Wed, 03 Apr 2019 20:35:59 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/03/phoenix-excersize/</guid>
+      <description>&lt;p&gt;今日は以下あたりを機械翻訳したのでそれを見つつポイント列挙の方向。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://hexdocs.pm/phoenix/plug.html#content&#34;&gt;Plug&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>phoenix excersize (3)</title>
