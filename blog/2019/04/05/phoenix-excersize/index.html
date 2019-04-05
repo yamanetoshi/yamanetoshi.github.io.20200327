@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>phoenix excersize (6)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 5, 2019
+         - 3 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/04/05/phoenix-excersize/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         phoenix excersize (6) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>昨日のつづきと <a href="https://hexdocs.pm/phoenix/controllers.html#content">Controllers</a> は長いので適当なあたりまでについて以下に控えを列挙します。</p>
+
+<p></p>
+
+<h2 id="using-ssl">Using SSL</h2>
+
+<ul>
+<li>SSL を介するアプリを用意するためには少々の構成と二つの環境変数を追加する必要あり</li>
+<li>SSL が機能するためには認証局からもらったキーと証明書が必要で、環境変数はこれらのファイルへのパスになる</li>
+<li>設定は
+
+<ul>
+<li>値がポート番号のキーワードリスト</li>
+<li>キーファイルへのパス</li>
+<li>証明書へのパス</li>
+</ul></li>
+</ul>
+
+<p>以下が config/prod.exs の例。</p>
+
+<pre><code>use Mix.Config
+
+config :hello, HelloWeb.Endpoint,
+  http: [port: {:system, &quot;PORT&quot;}],
+  url: [host: &quot;example.com&quot;],
+  cache_static_manifest: &quot;priv/static/cache_manifest.json&quot;,
+  https: [
+    port: 443,
+    otp_app: :hello,
+    keyfile: System.get_env(&quot;SOME_APP_SSL_KEY_PATH&quot;),
+    certfile: System.get_env(&quot;SOME_APP_SSL_CERT_PATH&quot;),
+    # OPTIONAL Key for intermediate certificates:
+    cacertfile: System.get_env(&quot;INTERMEDIATE_CERTFILE_PATH&quot;)
+  ]
+</code></pre>
+
+<p>細かな設定が可能らしいですが詳細については別途確認の方向で。</p>
+
+<h2 id="ssl-in-development">SSL in Development</h2>
+
+<ul>
+<li><code>mix phohenix.gen.cert</code> (原文では <code>mix phx.gen.cert</code>) で自己証明書の発行が可能
+
+<ul>
+<li>Erlant/OTP20 以降が必要</li>
+</ul></li>
+<li><code>config/dev/exs</code> の設定で指定すれば良い</li>
+</ul>
+
+<pre><code>config :my_app, MyApp.Endpoint,
+  ...
+  https: [
+    port: 4001,
+    cipher_suite: :strong,
+    keyfile: &quot;priv/cert/selfsigned_key.pem&quot;,
+    certfile: &quot;priv/cert/selfsigned.pem&quot;
+  ]
+</code></pre>
+
+<h2 id="force-ssl">Force SSL</h2>
+
+<ul>
+<li>Endpoint 設定で http を https にリダイレクトさせることができる</li>
+<li>Web サイトが自身を https を介してのみアクセス可能であると宣言できるメカニズムも使える</li>
+</ul>
+
+<h2 id="controllers">Controllers</h2>
+
+<ul>
+<li>Phoenix controller は中巻モジュールとして機能</li>
+<li>アクションと呼ばれる機能は http request に応答して Router から呼び出される</li>
+<li>アクションはビューレイヤを呼び出してテンプレートをレンダリングしたり JSON レスポンスを戻したりする前に必要なデータを全て収集し、必要な手順を全て実行する</li>
+<li>Phoenix controller も Plug パケジを基盤としていてそれ自体が Plug</li>
+</ul>
+
+<p>以下が controller の実装例。</p>
+
+<pre><code>defmodule HelloWeb.PageController do
+  use HelloWeb, :controller
+
+  def index(conn, _params) do
+    render(conn, &quot;index.html&quot;)
+  end
+end
+</code></pre>
+
+<ul>
+<li>最初の行は <code>__using__/1</code> マクロの呼び出し</li>
+<li>index アクションが定義されている</li>
+</ul>
+
+<h2 id="actions">Actions</h2>
+
+<ul>
+<li>アクションは単なる機能であり、Elixir の命名規約に沿っていれば好きな名前をつけて良い</li>
+<li>満たすべき唯一の要件はアクションの名前が Router で定義されている経路と一致すること</li>
+</ul>
+
+<p>例えば以下を</p>
+
+<pre><code>get &quot;/&quot;, PageController, :index
+</code></pre>
+
+<p>test にしたら</p>
+
+<pre><code>get &quot;/&quot;, PageController, :test
+</code></pre>
+
+<p>実装はこうなってれば良い、ということになります。</p>
+
+<pre><code>defmodule HelloWeb.PageController do
+  use HelloWeb, :controller
+
+  def test(conn, _params) do
+    render(conn, &quot;index.html&quot;)
+  end
+end
+</code></pre>
+
+<p>アクションには好きな名前を付けることができるが可能な限り従うべき命名規約がある。</p>
+
+<ul>
+<li>index</li>
+<li>show</li>
+<li>new</li>
+<li>create</li>
+<li>edit</li>
+<li>update</li>
+<li>delete</li>
+</ul>
+
+<p>これらの各アクションは二点の引数を取りますが、これらは裏で Phoenix が提供する。</p>
+
+<ul>
+<li>最初のパラメータは常に conn
+
+<ul>
+<li>ホスト、パス要素、ポート、クエリ文字列などのリクエストに関する情報を保持</li>
+<li>conn は Elixir の Plug ミドルウェアフレームワークを介して Phoenix に来る</li>
+<li>conn に関するより詳細な情報は Plug のドキュメントにある (別途確認)</li>
+</ul></li>
+<li>二番目のパラメータは params
+
+<ul>
+<li>これは http リクエストで渡されるパラメータを保持する map</li>
+<li>パラメータでパタンマッチして処理するのがオススメ</li>
+</ul></li>
+</ul>
+
+<p>以下な例をページの追加ガイドで見ているはず。</p>
+
+<pre><code>defmodule HelloWeb.HelloController do
+  ...
+
+  def show(conn, %{&quot;messenger&quot; =&gt; messenger}) do
+    render(conn, &quot;show.html&quot;, messenger: messenger)
+  end
+end
+</code></pre>
+
+<p>場合によっては index アクションでよくあるように、手続きがパラメータに依存しないため</p>
+
+<pre><code>  def index(conn, _params) do
+</code></pre>
+
+<p>このような形で引数を記述すればコンパイラが未使用の変数について文句を言うことを防ぐことができます。</p>
+
+<h2 id="gathering-data">Gathering Data</h2>
+
+<ul>
+<li>Phoenix には独自のデータアクセスレイヤは同梱されていない</li>
+<li>Elixir プロジェクトの Ecto は Postgres を使っている人にとって優れたソリューションを提供している
+
+<ul>
+<li>Ecto Guide 見ましょう</li>
+<li>Ecto って MySQL もカバーしてるのかしら (別途確認)<br /></li>
+</ul></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 5, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/04/04/phoenix-excersize/" title="phoenix excersize (5)">phoenix excersize (5)</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/05/phoenix-excersize/">phoenix excersize (6)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/04/phoenix-excersize/">phoenix excersize (5)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/03/phoenix-excersize/">phoenix excersize (4)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/02/phoenix-excersize/">phoenix excersize (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/01/phoenix-excersize/">phoenix excersize (2)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/31/phoenix-excersize/">phoenix excersize</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/30/elixir-community/">Elixir Community</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/29/injuly-is-discovered/">大昔の怪我 (というか骨折) が発覚した件</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/28/tesuji-dictionary/">手筋辞典</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/03/27/both-modified/">both modified</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

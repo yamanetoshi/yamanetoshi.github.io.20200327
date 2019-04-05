@@ -97,6 +97,58 @@
         
 
 <header>
+    <p class="meta">Jul 20, 2018
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/07/20/implementation-to-get-recommendation/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/recommendation/">Recommendation </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2018/07/20/implementation-to-get-recommendation/">Recommendation 取得実装について</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>以下コメントのデータを投入して Ruby からデータ要求する実装を確認してみました。</p>
+
+<ul>
+<li><a href="https://bit.ly/2L35rOa">Recommendation</a></li>
+</ul>
+
+<p>上記の記載で使用したものが以下となります。</p>
+
+<pre><code>gremlin&gt; g.V().has('person','name','alice').as('her').
+               out('bought').aggregate('self').
+               in('bought').where(neq('her')).
+               out('bought').where(without('self')).
+               groupCount().
+               order(local).
+                 by(values, decr)
+==&gt;[v[10]:6,v[26]:5,v[12]:5,v[24]:4,v[28]:2]
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/07/20/implementation-to-get-recommendation/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jul 19, 2018
          - 2 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2018/07/19/machine-learning-to-start-with-work/#disqus_thread">Comments</a>
@@ -446,46 +498,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jul 9, 2018
-         - 6 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/07/09/recommendation/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/recommendation/">recommendation </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2018/07/09/recommendation/">Recommendation</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>以下のドキュメント確認しつつ機械翻訳なナニを作成したので控えを。</p>
-
-<ul>
-<li><a href="http://tinkerpop.apache.org/docs/current/recipes/#recommendation">Recommendation</a></li>
-</ul>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/07/09/recommendation/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -588,6 +600,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/04/05/phoenix-excersize/">phoenix excersize (6)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/04/04/phoenix-excersize/">phoenix excersize (5)</a>
               </li>
             
@@ -637,12 +655,6 @@
             
               <li class="post">
                 <a href="/blog/2019/03/27/both-modified/">both modified</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/03/25/white-soup-x-avocado/">白だし × アボカド</a>
               </li>
             
           
