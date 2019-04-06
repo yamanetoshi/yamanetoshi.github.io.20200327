@@ -194,6 +194,40 @@ import 'package:webview_flutter/webview_flutter.dart';
 <h2 id="back-button">back button</h2>
 
 <p>何かわかれば追記します。</p>
+
+<h2 id="追記">追記</h2>
+
+<p>とりあえず、以下な実装で誤魔化せてる風ですが若干微妙。</p>
+
+<pre><code>  @override
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+        centerTitle: true,
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back, color: Colors.orange),
+          onPressed: () =&gt; _webViewController.goBack(),
+        ),
+      ),
+      body: WebView(
+        initialUrl: 'https://vrwaibao-japan.firebaseapp.com',
+        javaScriptMode: JavaScriptMode.unrestricted,
+        onWebViewCreated: (WebViewController webViewController) {
+          _webViewController = webViewController;
+        },
+      ),
+</code></pre>
+
+<p>どうしたものか。</p>
         </div>
         
 
