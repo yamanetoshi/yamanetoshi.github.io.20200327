@@ -99,6 +99,36 @@
 <header>
     <p class="meta">Nov 16, 2013
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/16/blogger-namecard/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/16/blogger-namecard/">ブロガー名刺発注</a>
+    </h1>
+</header>
+
+
+        
+          <p>weblog な URL が変わったので改訂版を発注することに。 ブロガー名刺 つうか某イベントに間に合うのかどうかorz とりあえず前川企画印刷さまに問合せ。</p>
+
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 16, 2013
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/16/weekend-cooking/#disqus_thread">Comments</a>
 
         
@@ -446,70 +476,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 13, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/13/eopl-ex-2-17/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/eopl/">EoPL </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/scheme/">Scheme </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/13/eopl-ex-2-17/">EoPL の Exercise 2.17</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>i/f を探索するだけ、と値の取得、という意味付けをすれば良いのかどうか。例えば以下?</p>
-
-<pre><code>(define empty-env
-  (lambda ()
-    (lambda (sym search)
-      (if search
-          #f
-          (eopl:error 'apply-env &quot;No binding for ~s&quot; sym)))))
-
-(define extend-env
-  (lambda (syms valus env)
-    (lambda (sym search)
-      (let ((pos (list-find-position sym syms)))
-        (if (number? pos)
-          (if search
-            #t
-            (list-ref vals pos))
-          (apply-env env sym))))))
-
-(define apply-env
-  (lambda (env sym)
-    (env sym #f)))
-
-(define has-association?
-  (lambda (env sym)
-    (env sym #t)))
-</code></pre>
-
-<p>試験書けるのかな。とりあえず試験から書いてみます。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/13/eopl-ex-2-17/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -612,6 +578,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/04/06/use-webview-in-flutter/">flutter で WebView</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/04/05/phoenix-excersize/">phoenix excersize (6)</a>
               </li>
             
@@ -661,12 +633,6 @@
             
               <li class="post">
                 <a href="/blog/2019/03/28/tesuji-dictionary/">手筋辞典</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/03/27/both-modified/">both modified</a>
               </li>
             
           
