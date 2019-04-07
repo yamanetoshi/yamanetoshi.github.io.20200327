@@ -98,6 +98,66 @@
 
 <header>
     <p class="meta">Mar 6, 2014
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/06/fix-build-gradle/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/06/fix-build-gradle/">build.gradle 修正など</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>Android Studio が自動で作ったのが以下。</p>
+
+<pre><code>apply plugin: 'android'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion &quot;19.0.1&quot;
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 19
+        versionCode 1
+        versionName &quot;1.0&quot;
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+}
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/06/fix-build-gradle/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 6, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/06/revert-remote-repository/#disqus_thread">Comments</a>
 
@@ -434,36 +494,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Mar 2, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/02/dinner/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/02/dinner/">今日の夜ごはん</a>
-    </h1>
-</header>
-
-
-        
-          <p>もう一つ小さいフライパンで作れば良かった。今日のおかずはオープンオムレツと麻婆豆腐。 野菜はもっと小さく切ってもっときちんと炒めるべきでした。</p>
-
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -566,6 +596,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/04/07/phoenix-excersize/">phoenix excersize (7)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/04/06/use-webview-in-flutter/">flutter で WebView</a>
               </li>
             
@@ -615,12 +651,6 @@
             
               <li class="post">
                 <a href="/blog/2019/03/29/injuly-is-discovered/">大昔の怪我 (というか骨折) が発覚した件</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/03/28/tesuji-dictionary/">手筋辞典</a>
               </li>
             
           
