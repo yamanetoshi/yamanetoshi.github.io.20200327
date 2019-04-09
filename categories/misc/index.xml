@@ -6,10 +6,21 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 29 Mar 2019 11:51:04 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 09 Apr 2019 21:00:30 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>OSX 端末</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/09/osx-terminal/</link>
+      <pubDate>Tue, 09 Apr 2019 21:00:30 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/09/osx-terminal/</guid>
+      <description>&lt;p&gt;SSD がパンク寸前。clean install ってことで TODO というか準備が必要な事項を以下に控え。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>大昔の怪我 (というか骨折) が発覚した件</title>
