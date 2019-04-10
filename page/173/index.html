@@ -99,6 +99,71 @@
 <header>
     <p class="meta">Nov 28, 2013
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/28/creating-dialogpreference-class/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/28/creating-dialogpreference-class/">DialogPreference なクラス作成の巻</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえずクラスの名前を決めて DialogPreference を継承する形で新規作成。その後</p>
+
+<ul>
+<li>レイアウトな xml を新規作成 (あるいはコピィ)</li>
+
+<li><p>Contect と AttributeSet なオブジェクトを引数に取るコンストラクタ追加</p>
+
+<ul>
+<li>引数な Context なオブジェクトは念のため属性作って保管</li>
+<li>setDialogLayoutResource メソドをレイアウトな id を引数に呼び出し</li>
+</ul></li>
+
+<li><p>onPrepareDialogBuilder メソドを override</p>
+
+<ul>
+<li>(必要なら) 引数で渡される Builder オブジェクトの setCancelable 呼び出し</li>
+</ul></li>
+
+<li><p>onBindDialogView メソドを override</p>
+
+<ul>
+<li>view の準備な記述を追加</li>
+</ul></li>
+
+<li><p>onDialogClosed メソドを override</p>
+
+<ul>
+<li>OK または cancel なボタンの押下が引数で分かるのでそれに応じてよしなに処理を記述</li>
+</ul></li>
+</ul>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/28/creating-dialogpreference-class/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 28, 2013
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/28/in-introducing-network-jukebox/#disqus_thread">Comments</a>
 
         
@@ -475,55 +540,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 25, 2013
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/25/test-chef-prototype/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/25/test-chef-prototype/">GitHub に登録したプロトタイプを使ってみる</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>とりあえず手元の Mavericks な MBA では無理なので某仮想リソースで。起動できたら clone します。</p>
-
-<pre><code>$ git clone https://github.com/yamanetoshi/knife-solo-prototype.git
-</code></pre>
-
-<p>で、~/.ssh/config を以下にしておいて</p>
-
-<pre><code>Host melody
-  HostName 10.1.3.5
-  User devops
-  identityfile ~/.ssh/devopsOkinawa.key
-</code></pre>
-
-<p>Hostname は適宜読み換えてください。あと、鍵もコピィ必要。これで ssh devops@melody で接続できれば準備は OK です。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/25/test-chef-prototype/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -626,6 +642,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/04/10/concurrency-and-parallelism-in-elixir/">Concurrency and Parallelism in Elixir</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/04/09/osx-terminal/">OSX 端末</a>
               </li>
             
@@ -675,12 +697,6 @@
             
               <li class="post">
                 <a href="/blog/2019/04/01/phoenix-excersize/">phoenix excersize (2)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/03/31/phoenix-excersize/">phoenix excersize</a>
               </li>
             
           

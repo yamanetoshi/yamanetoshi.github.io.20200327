@@ -6,10 +6,27 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 09 Apr 2019 21:00:30 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 10 Apr 2019 20:31:44 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Concurrency and Parallelism in Elixir</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/10/concurrency-and-parallelism-in-elixir/</link>
+      <pubDate>Wed, 10 Apr 2019 20:31:44 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/10/concurrency-and-parallelism-in-elixir/</guid>
+      <description>&lt;p&gt;並行と並列と、という部分で参考になるドキュメントを発見。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://exercism.io/blog/concurrency-parallelism-in-elixir&#34;&gt;Concurrency and Parallelism in Elixir&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;機械翻訳に通してみたのですがそれ見つつで色々動作確認できるのかどうか。ざっくり控えを以下に。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>OSX 端末</title>
