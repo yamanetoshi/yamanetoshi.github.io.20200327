@@ -6,10 +6,21 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 10 Apr 2019 20:31:44 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 11 Apr 2019 20:25:55 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Enum、Map、String などの確認</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/11/concurrency-and-parallelism-in-elixir/</link>
+      <pubDate>Thu, 11 Apr 2019 20:25:55 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/11/concurrency-and-parallelism-in-elixir/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://weblog.metacircular-evaluator.org/blog/2019/04/10/concurrency-and-parallelism-in-elixir/&#34;&gt;昨日エントリ&lt;/a&gt;関連でよく分からない手続きについて確認した事項を以下に列挙します。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Concurrency and Parallelism in Elixir</title>

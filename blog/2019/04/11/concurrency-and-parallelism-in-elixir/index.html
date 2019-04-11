@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>Enum、Map、String などの確認</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 11, 2019
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/04/11/concurrency-and-parallelism-in-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         Enum、Map、String などの確認 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p><a href="https://weblog.metacircular-evaluator.org/blog/2019/04/10/concurrency-and-parallelism-in-elixir/">昨日エントリ</a>関連でよく分からない手続きについて確認した事項を以下に列挙します。</p>
+
+<p></p>
+
+<h2 id="enum-join">Enum.join</h2>
+
+<ul>
+<li><a href="https://hexdocs.pm/elixir/Enum.html#join/2">join/2</a></li>
+</ul>
+
+<p>テキストだと以下な使い方でした。</p>
+
+<pre><code>defp get_all_graphemes(texts) do
+  texts
+  |&gt; Enum.join()
+  |&gt; String.graphemes()
+end
+</code></pre>
+
+<p>以下な使用例が例示されていて</p>
+
+<pre><code>iex&gt; Frequency.frequency([&quot;Freude&quot;, &quot;schöner&quot;, &quot;Götterfunken&quot;], workers)
+</code></pre>
+
+<p>Example によれば</p>
+
+<pre><code>iex&gt; Enum.join([1, 2, 3])
+&quot;123&quot;
+</code></pre>
+
+<p>とのこと。成程。ちなみに以下な書き方は default 引数みたいですね。</p>
+
+<pre><code>join(enumerable, joiner \\ &quot;&quot;)
+</code></pre>
+
+<h2 id="enum-reduce">Enum.reduce</h2>
+
+<p>テキストでは以下な使い方です。</p>
+
+<pre><code>defp count_letters(graphemes) do
+  Enum.reduce(graphemes, %{}, fn grapheme, acc -&gt;
+    if String.match?(grapheme, ~r/^\p{L}$/u) do
+      downcased_letter = String.downcase(grapheme)
+      Map.update(acc, downcased_letter, 1, fn count -&gt; count + 1 end)
+    else
+      acc
+    end
+  end)
+end
+</code></pre>
+
+<p><code>reduce/3</code> になるのか。</p>
+
+<ul>
+<li><a href="https://hexdocs.pm/elixir/Enum.html#reduce/3">reduce/3</a></li>
+</ul>
+
+<p>加算な例が例示されています。</p>
+
+<pre><code>iex&gt; Enum.reduce([1, 2, 3], 0, fn x, acc -&gt; x + acc end)
+6
+</code></pre>
+
+<p>む、<code>String.graphemes</code> って何だろう。</p>
+
+<h2 id="string-graphemes">String.graphemes</h2>
+
+<p>なるほど、配列要素の中に文字列がはいってるソレを一つの文字列として join してそこから String の配列を生成しているのか。</p>
+
+<ul>
+<li><a href="https://hexdocs.pm/elixir/String.html#graphemes/1">graphemes/1</a></li>
+</ul>
+
+<p>以下なナニが例示。</p>
+
+<pre><code>iex&gt; String.graphemes(&quot;Ńaïve&quot;)
+[&quot;Ń&quot;, &quot;a&quot;, &quot;ï&quot;, &quot;v&quot;, &quot;e&quot;]
+</code></pre>
+
+<h2 id="map-update">Map.update</h2>
+
+<p><code>update/4</code> ですね。</p>
+
+<ul>
+<li><a href="https://hexdocs.pm/elixir/Map.html#update/4">update/4</a></li>
+</ul>
+
+<p>ええと、以下な定義になっていて</p>
+
+<pre><code>update(map(), key(), value(), (value() -&gt; value())) :: map()
+</code></pre>
+
+<p><code>map</code> にある <code>key</code> を与えられた手続きで update、なのか。<code>map</code> に <code>key</code> な要素があれば値を更新、なければ <code>value</code> な初期値で設定、なのか成程。これで <code>count_letter</code> の実装に得心しました。</p>
+
+<h2 id="string-match-の部分">String.match? の部分</h2>
+
+<p>おそらくは印字可能な文字、という事のはずなのですがどうなのか。以下によれば</p>
+
+<ul>
+<li><a href="https://exercism.io/blog/unicode-matching-in-elixir">Unicode matching in Elixir</a></li>
+</ul>
+
+<p>Unicode 文字列かどうかを判定している模様。成程。</p>
+
+<h2 id="enum-chunk-every">Enum.chunk_every</h2>
+
+<p><code>chunk_every/2</code> は <code>chunk_every(enumerable, count, count)</code> への shortcut とのことで以下を確認。</p>
+
+<ul>
+<li><a href="https://hexdocs.pm/elixir/Enum.html#chunk_every/4">chunk_every/4</a></li>
+</ul>
+
+<p>定義としては以下、とのこと。</p>
+
+<pre><code>chunk_every(enumerable, count, step, leftover \\ []) 
+chunk_every(t(), pos_integer(), pos_integer(), t() | :discard) :: [list()]
+</code></pre>
+
+<p>以下が例示されている。</p>
+
+<pre><code>Enum.chunk_every([1, 2, 3, 4, 5, 6], 2)
+[[1, 2], [3, 4], [5, 6]]
+</code></pre>
+
+<p>上記だと</p>
+
+<pre><code>Enum.chunk_every([1, 2, 3, 4, 5, 6], 2, 2, [])
+</code></pre>
+
+<p>が呼び出されるのか。<code>count</code> と <code>step</code> なのか。成程、これを使って chunk を生成、なのか。</p>
+
+<h2 id="map-merge">Map.merge</h2>
+
+<p>以下な形で使っています。</p>
+
+<pre><code>defp merge_results_stream(results_stream) do
+  Enum.reduce(results_stream, %{}, fn {:ok, worker_result}, acc -&gt;
+    Map.merge(acc, worker_result, fn _key, acc_val, worker_val -&gt;
+      acc_val + worker_val
+    end)
+  end)
+end
+</code></pre>
+
+<p><code>merge/3</code> は以下。</p>
+
+<ul>
+<li><a href="https://hexdocs.pm/elixir/Map.html#merge/3">merge/3</a></li>
+</ul>
+
+<p>results_stream は配列の stream なのでその要素の <code>:ok</code> なナニと accumulater を手続きに渡している形ですね。その中では</p>
+
+<ul>
+<li>acc と worker_result (両方 map のはず) を加算、なのか</li>
+</ul>
+
+<p>ドキュメントでも以下な記述があります。map は足し算できるのですね。</p>
+
+<pre><code>iex&gt; Map.merge(%{a: 1, b: 2}, %{a: 3, d: 4}, fn _k, v1, v2 -&gt;
+...&gt;   v1 + v2
+...&gt; end)
+%{a: 4, b: 2, d: 4}
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 11, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/04/10/concurrency-and-parallelism-in-elixir/" title="Concurrency and Parallelism in Elixir">Concurrency and Parallelism in Elixir</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/11/concurrency-and-parallelism-in-elixir/">Enum、Map、String などの確認</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/10/concurrency-and-parallelism-in-elixir/">Concurrency and Parallelism in Elixir</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/09/osx-terminal/">OSX 端末</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/08/phoenix-excersize/">読むだけでおもしろさがわかる 大人のための囲碁入門 (スマート新書)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/07/phoenix-excersize/">phoenix excersize (7)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/06/use-webview-in-flutter/">flutter で WebView</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/05/phoenix-excersize/">phoenix excersize (6)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/04/phoenix-excersize/">phoenix excersize (5)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/03/phoenix-excersize/">phoenix excersize (4)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/02/phoenix-excersize/">phoenix excersize (3)</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
