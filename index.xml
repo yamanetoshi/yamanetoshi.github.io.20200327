@@ -6,10 +6,38 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 12 Apr 2019 13:18:24 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 13 Apr 2019 12:43:29 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>phoenix excersize (8)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/13/phoenix-excersize/</link>
+      <pubDate>Sat, 13 Apr 2019 12:43:29 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/13/phoenix-excersize/</guid>
+      <description>&lt;p&gt;挙動不審の件、色々とボケ倒していたようです。結論? から言うと plug は&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  def index(conn, _params) do
+    conn
+    |&amp;gt; render(&amp;quot;index.html&amp;quot;)
+  end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;アクションを呼び出す前に conn を transform、という事でした。また、&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  plug :assign_welcome_message, &amp;quot;Welcome Back&amp;quot;
+
+  defp assign_welcome_message(conn, msg) do
+    assign(conn, :message, msg)
+  end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;という定義より view には message という変数を表示する形の記述にしておく必要が (勿論) ありました。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>re:Work</title>
