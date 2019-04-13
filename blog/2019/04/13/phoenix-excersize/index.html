@@ -96,7 +96,7 @@
 
 <header>
     <p class="meta">Apr 13, 2019
-         - 1 minute read 
+         - 3 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2019/04/13/phoenix-excersize/#disqus_thread">Comments</a>
 
         
@@ -152,6 +152,141 @@
 <h2 id="そして">そして</h2>
 
 <p>もりリキがあれば、続きの確認な記録を以降に列挙の方向です。</p>
+
+<h2 id="sending-responses-directly">Sending responses directly</h2>
+
+<ul>
+<li>ステイタスのみで本文が無い応答は <code>send_resp/3</code> を使う</li>
+<li>content_type を明示する場合、<code>put_resp_content_type/2</code> を使う</li>
+<li>以下が例示</li>
+</ul>
+
+<pre><code>def index(conn, _params) do
+  conn
+  |&gt; put_resp_content_type(&quot;text/plain&quot;)
+  |&gt; send_resp(201, &quot;&quot;)
+end
+</code></pre>
+
+<ul>
+<li>テンプレートとレイアウトのガイドあり
+
+<ul>
+<li><a href="https://hexdocs.pm/phoenix/templates.html">https://hexdocs.pm/phoenix/templates.html</a></li>
+</ul></li>
+</ul>
+
+<h2 id="assigning-layouts">Assigning Layouts</h2>
+
+<ul>
+<li>レイアウトはテンプレートの特別なサブセットで <code>web/templates/layout</code> 配下に置かれる</li>
+<li>ここに <code>app.html.eex</code> を Phoenix が自動生成</li>
+<li>レイアウトは単なるテンプレートなのでそれをレンダリングするための view が必要</li>
+<li>確かに views 配下に hello_view.ex、layout_view.ex、page_view.ex が存在しています</li>
+<li>レイアウトなしでテンプレートをレンダリングする方法</li>
+</ul>
+
+<pre><code>def index(conn, _params) do
+  conn
+  |&gt; put_layout(false)
+  |&gt; render(&quot;index.html&quot;)
+end
+</code></pre>
+
+<ul>
+<li>パイプラインな関数呼び出しにおいては引数を括弧で囲む必要がある</li>
+<li>以下なスタックトレイスが表示されたら上の不具合の可能性が大きい</li>
+</ul>
+
+<pre><code>**(FunctionClauseError) no function clause matching in Plug.Conn.get_resp_header/2
+
+Stacktrace
+
+    (plug) lib/plug/conn.ex:353: Plug.Conn.get_resp_header(false, &quot;content-type&quot;)
+</code></pre>
+
+<p>以下がその不具合な実装の例。</p>
+
+<pre><code>def index(conn, _params) do
+  conn
+  |&gt; put_layout false
+  |&gt; render &quot;index.html&quot;
+end
+</code></pre>
+
+<ul>
+<li>異なるレイアウトを適用する例</li>
+<li>app.html.eex を admin.html.eex としてコピィし、中身を編集 (ロゴ表示の行を削除)</li>
+<li>page_controller.ex の index アクションを以下に修正</li>
+</ul>
+
+<pre><code>def index(conn, _params) do
+  conn
+  |&gt; put_layout(&quot;admin.html&quot;)
+  |&gt; render(&quot;index.html&quot;)
+end
+</code></pre>
+
+<h2 id="overridig-rendering-formats">Overridig Rendering Formats</h2>
+
+<ul>
+<li>レンダリング形式をその場で変更する必要がある場合、どうするか</li>
+<li>プレーンテキスト、あるいは JSON の場合、など</li>
+<li>_format というクエリパラメータでフォーマット変更が可能</li>
+<li>PageController の index アクションの例
+
+<ul>
+<li>PageView という view</li>
+<li>web/templates/page というテンプレートディレクトリ</li>
+<li>index.html.eex というテンプレート</li>
+</ul></li>
+<li>テキストをレンダリングするための代替テンプレートがない</li>
+<li>web/templates/page/index.text.eex を追加すれば良い</li>
+<li>テキストフォーマットを受け入れるべき、ということを Router に伝える必要がある</li>
+<li>以下のように実装を修正</li>
+</ul>
+
+<pre><code>defmodule HelloWeb.Router do
+  use HelloWeb, :router
+
+  pipeline :browser do
+    plug :accepts, [&quot;html&quot;, &quot;text&quot;]
+    plug :fetch_session
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+  end
+</code></pre>
+
+<ul>
+<li>あるいはアクションの定義にて &ldquo;index.html&rdquo; を render するのではなく、以下のような記述にする必要があるとのこと</li>
+</ul>
+
+<pre><code>def index(conn, _params) do
+  render(conn, :index)
+end
+</code></pre>
+
+<ul>
+<li>これで <code>http://localhost:8080/?_format=text</code> にアクセスすると index.text.eex なナニが表示されるはず</li>
+</ul>
+
+<h2 id="setting-the-http-status">Setting the HTTP Status</h2>
+
+<ul>
+<li>404 ページのレンダリングの正しい方法について</li>
+</ul>
+
+<pre><code>def index(conn, _params) do
+  conn
+  |&gt; put_status(:not_found)
+  |&gt; put_view(HelloWeb.ErrorView)
+  |&gt; render(&quot;404.html&quot;)
+end
+</code></pre>
+
+<h2 id="続きは">続きは</h2>
+
+<p>Redirection の項から。</p>
         </div>
         
 
