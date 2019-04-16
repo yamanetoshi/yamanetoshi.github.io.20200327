@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>phoenix excersize (9)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 16, 2019
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/04/16/phoenix-excersize/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         phoenix excersize (9) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>継続は <a href="https://hexdocs.pm/phoenix/controllers.html#content">Controllers</a> の Redirection の項。</p>
+
+<p></p>
+
+<h2 id="redirection">Redirection</h2>
+
+<ul>
+<li>create アクションは作成したばかりの schema の show アクションにリダイレクトする</li>
+<li>Phoenix コントローラは <code>redirect/2</code> を提供</li>
+<li>Phoenix はアプリケーション内のパスへのリダイレクトと URL へのリダイレクトを区別する</li>
+</ul>
+
+<p>リダイレクトのための route を用意して</p>
+
+<pre><code>  # New route for redirects
+  scope &quot;/&quot;, HelloWeb do
+    get &quot;/redirect_test&quot;, PageController, :redirect_test, as: :redirect_test
+  end
+</code></pre>
+
+<p>index アクションでリダイレクト</p>
+
+<pre><code>def index(conn, _params) do
+  redirect(conn, to: &quot;/redirect_test&quot;)
+end
+</code></pre>
+
+<p>リダイレクト先のアクションも定義が必要。</p>
+
+<pre><code>def redirect_test(conn, _params) do
+  text(conn, &quot;Redirect!&quot;)
+end
+</code></pre>
+
+<ul>
+<li>index にアクセスした時に発生する要求は
+
+<ul>
+<li>ステイタスが 302 の / へのアクセス</li>
+<li>ステイタスが 200 の /redirect_test へのアクセス</li>
+</ul></li>
+</ul>
+
+<p>完全修飾 URL も使えます。</p>
+
+<pre><code>def index(conn, _params) do
+  redirect(conn, external: &quot;https://elixir-lang.org/&quot;)
+end
+</code></pre>
+
+<p>パスヘルパーも使える。</p>
+
+<pre><code>  def index(conn, _params) do
+    redirect(conn, to: Routes.redirect_test_path(conn, :redirect_test))
+  end
+</code></pre>
+
+<ul>
+<li>ただし、<code>:to</code> を使う <code>redirect/2</code> はパスを期待するため、URL ヘルパーは使えない
+
+<ul>
+<li>以下は失敗する</li>
+</ul></li>
+</ul>
+
+<pre><code>def index(conn, _params) do
+  redirect(conn, external: Routes.redirect_test_url(conn, :redirect_test))
+end
+</code></pre>
+
+<h2 id="action-fallback">Action Fallback</h2>
+
+<ul>
+<li>Action Fallback はコントローラのアクションが Plug.Conn.t を戻さない時に呼ばれる Plug のエラー処理コードを集中させることを可能にする</li>
+<li>アクションの戻り値とコントローラアクションに渡された conn の両方を受け取る</li>
+</ul>
+
+<p>ええと、以下のような記述を dry に書けるのかな。</p>
+
+<pre><code>  def show(conn, %{&quot;id&quot; =&gt; id}, current_user) do
+    with {:ok, post} &lt;- Blog.fetch_post(id),
+         :ok &lt;- Authorizer.authorize(current_user, :view, post) do
+
+      render(conn, &quot;show.json&quot;, post: post)
+    else
+      {:error, :not_found} -&gt;
+        conn
+        |&gt; put_status(:not_found)
+        |&gt; put_view(ErrorView)
+        |&gt; render(:&quot;404&quot;)
+      {:error, :unauthorized} -&gt;
+        conn
+        |&gt; put_status(403)
+        |&gt; put_view(ErrorView)
+        |&gt; render(:&quot;403&quot;)
+    end
+  end
+</code></pre>
+
+<p>これ、アクション単位で、になるとなかなかキツい。以下なモジュール定義を書いておいて</p>
+
+<pre><code>defmodule HelloWeb.MyFallbackController do
+  use Phoenix.Controller
+  alias HelloWeb.ErrorView
+
+  def call(conn, {:error, :not_found}) do
+    conn
+    |&gt; put_status(:not_found)
+    |&gt; put_view(ErrorView)
+    |&gt; render(:&quot;404&quot;)
+  end
+
+  def call(conn, {:error, :unauthorized}) do
+    conn
+    |&gt; put_status(403)
+    |&gt; put_view(ErrorView)
+    |&gt; render(:&quot;403&quot;)
+  end
+end  
+</code></pre>
+
+<p>action_fallback を使ってこれを参照するのか。</p>
+
+<pre><code>defmodule HelloWeb.MyController do
+  use Phoenix.Controller
+  alias Hello.{Authorizer, Blog}
+
+  action_fallback HelloWeb.MyFallbackController
+
+  def show(conn, %{&quot;id&quot; =&gt; id}, current_user) do
+    with {:ok, post} &lt;- Blog.fetch_post(id),
+         :ok &lt;- Authorizer.authorize(current_user, :view, post) do
+
+      render(conn, &quot;show.json&quot;, post: post)
+    end
+  end
+end
+</code></pre>
+
+<h2 id="halting-the-plug-pipeline">Halting the Plug Pipeline</h2>
+
+<p>Controllers の節、これで終了な模様。長かった。題名的に Plug Pipeline の中断、なのかな。</p>
+
+<ul>
+<li>リダイレクトによって Plug Pipeline は処理が停止させられる</li>
+<li><code>Plug.Conn.t</code> には halted キーがあり、これが true になったら下流の Plug はスキップされる</li>
+<li><code>Plug.Conn.halt/1</code> を使って簡単にできる</li>
+</ul>
+
+<p>例えば以下なエラー処理で以降の Plug を処理したくない場合、</p>
+
+<pre><code>defmodule HelloWeb.PostFinder do
+  use Plug
+  import Plug.Conn
+
+  alias Hello.Blog
+
+  def init(opts), do: opts
+
+  def call(conn, _) do
+    case Blog.get_post(conn.params[&quot;id&quot;]) do
+      {:ok, post} -&gt;
+        assign(conn, :post, post)
+      {:error, :notfound} -&gt;
+        conn
+        |&gt; send_resp(404, &quot;Not found&quot;)
+    end
+  end
+end
+</code></pre>
+
+<p>こう書けば中断できる模様。</p>
+
+<pre><code>    case Blog.get_post(conn.params[&quot;id&quot;]) do
+      {:ok, post} -&gt;
+        assign(conn, :post, post)
+      {:error, :notfound} -&gt;
+        conn
+        |&gt; send_resp(404, &quot;Not found&quot;)
+        |&gt; halt()
+    end
+</code></pre>
+
+<p>ちなみに <code>halt/1</code> は Plug.Conn.t の <code>:halted</code> を true にするだけなので</p>
+
+<pre><code>conn
+|&gt; halt()
+|&gt; send_resp(404, &quot;Not found&quot;)
+</code></pre>
+
+<p>と書いても機能的には同等、とのこと。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 16, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/04/15/gege-s-wife/" title="ゲゲゲの女房">ゲゲゲの女房</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/16/phoenix-excersize/">phoenix excersize (9)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/15/gege-s-wife/">ゲゲゲの女房</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/14/introduction-to-go-for-adults/">大人のための囲碁入門が昨日到着</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/13/phoenix-excersize/">phoenix excersize (8)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/12/re-work/">re:Work</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/11/concurrency-and-parallelism-in-elixir/">Enum、Map、String などの確認</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/10/concurrency-and-parallelism-in-elixir/">Concurrency and Parallelism in Elixir</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/09/osx-terminal/">OSX 端末</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/08/phoenix-excersize/">読むだけでおもしろさがわかる 大人のための囲碁入門 (スマート新書)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/07/phoenix-excersize/">phoenix excersize (7)</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
