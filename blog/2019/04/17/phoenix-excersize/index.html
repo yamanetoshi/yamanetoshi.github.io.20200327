@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>phoenix excersize (10)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 17, 2019
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/04/17/phoenix-excersize/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         phoenix excersize (10) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>今回からは <a href="https://hexdocs.pm/phoenix/views.html#content">Views</a> の確認。ぢつは fukuoka.ex なスライド横目にもくもくしていたり。</p>
+
+<p></p>
+
+<ul>
+<li>Phoenix の View には二つの主な仕事</li>
+<li>一つはテンプレートのレンダリング</li>
+<li><code>render/3</code> がレンダリングに関する中心的な機能を提供</li>
+<li>View は生データを受け取りテンプレートが使いやすいようにする機能も提供</li>
+</ul>
+
+<h2 id="rendering-templates">Rendering Templates</h2>
+
+<ul>
+<li>Controller は <code>web/templates/page</code> ディレクトリにテンプレートをレンダリングするための PageView を必要とする</li>
+<li>必要に応じて Phoenix がテンプレートルートとみなすディレクトリが変更できる</li>
+<li>新しく生成 Phoenix アプリケーションは三つの View Module を持ち、それらは全て <code>web/views</code> 配下にある
+
+<ul>
+<li>ErrorView, LayoutView, PageVIew</li>
+</ul></li>
+</ul>
+
+<p>layout_view.ex が以下。</p>
+
+<pre><code>defmodule Hello.LayoutView do
+  use Hello.Web, :view
+end
+</code></pre>
+
+<ul>
+<li>一行のみ</li>
+<li><code>view/0</code> を呼び出す</li>
+<li><code>view/0</code> は Phoenix.View モジュールで <code>__using__</code> マクロを実行</li>
+<li>View はテンプレートで使用するための関数を置く場所</li>
+</ul>
+
+<p>例として以下なナニが紹介されています。まず、<code>lib/templates/layout/app.html.eex</code> の一部が以下で</p>
+
+<pre><code>    &lt;title&gt;Hello Hello!&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;&lt;%= static_path(@conn, &quot;/css/app.css&quot;) %&gt;&quot;&gt;
+  &lt;/head&gt;
+</code></pre>
+
+<p>title なナニを以下に修正な模様。</p>
+
+<pre><code>&lt;title&gt;&lt;%= title() %&gt;&lt;/title&gt;
+</code></pre>
+
+<p>で、LayoutView を以下のように修正、とのこと。</p>
+
+<pre><code>defmodule HelloWeb.LayoutView do
+  use HelloWeb, :view
+
+  def title do
+    &quot;Awesome New Title!&quot;
+  end
+end
+</code></pre>
+
+<ul>
+<li>手続き呼び出しは <code>&lt;%=</code> と <code>%&gt;</code> で囲むとのこと</li>
+<li><code>=</code> が無い場合でもコードは実行される (出力はない)</li>
+<li>LayoutView が実際にレンダリングするので <code>title/0</code> を修飾する必要はない</li>
+<li>Phoenix のテンプレートは実際には view module 上の単なる関数定義</li>
+</ul>
+
+<p>試す例の紹介。</p>
+
+<ul>
+<li><code>web/templates/page/index.html.eex</code> を削除して</li>
+<li>以下を <code>web/views/page_view.ex</code> の PageView モジュールに追加</li>
+</ul>
+
+<pre><code>defmodule HelloWeb.PageView do
+  use HelloWeb, :view
+
+  def render(&quot;index.html&quot;, assigns) do
+    &quot;rendering with assigns #{inspect Map.keys(assigns)}&quot;
+  end
+end
+</code></pre>
+
+<ul>
+<li>これ、関数パタンマッチの使用例ですね</li>
+<li>サーバ起動して index アクションにアクセスしたら render の戻りがヘッダに出力される模様</li>
+<li>コンパイル時に Phoenix は全ての <code>*.html.eex</code> をプリコンパイルしてそれぞれの View Module の <code>render/2</code> 関数句に返還</li>
+<li>実行時にはすべてのテンプレートは既にメモリにロードされている</li>
+<li><code>view/0</code> は <code>*_path</code> な Route なエイリアスを作ってくれる模様</li>
+</ul>
+
+<h2 id="いったん">いったん</h2>
+
+<p>エントリ投入します。継続は Views の More About Views の項。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 17, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/04/16/phoenix-excersize/" title="phoenix excersize (9)">phoenix excersize (9)</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/17/phoenix-excersize/">phoenix excersize (10)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/16/phoenix-excersize/">phoenix excersize (9)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/15/gege-s-wife/">ゲゲゲの女房</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/14/introduction-to-go-for-adults/">大人のための囲碁入門が昨日到着</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/13/phoenix-excersize/">phoenix excersize (8)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/12/re-work/">re:Work</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/11/concurrency-and-parallelism-in-elixir/">Enum、Map、String などの確認</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/10/concurrency-and-parallelism-in-elixir/">Concurrency and Parallelism in Elixir</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/09/osx-terminal/">OSX 端末</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/08/phoenix-excersize/">読むだけでおもしろさがわかる 大人のための囲碁入門 (スマート新書)</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
