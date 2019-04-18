@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>phoenix excersize (11)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Apr 18, 2019
+         - 4 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/04/18/phoenix-excersize/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         phoenix excersize (11) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>継続は <a href="https://hexdocs.pm/phoenix/views.html#content">Views</a> の More About Views の項。</p>
+
+<p></p>
+
+<h2 id="more-about-views">More About Views</h2>
+
+<ul>
+<li>View と Template の連携について</li>
+<li>Phoenix.View はその <code>__using__/1</code> マクロの <code>use Phoenix.Template</code> という行を通じて Template のふるまいにアクセスする</li>
+<li>Phoenix.Template はテンプレートを扱うための便利メソドをたくさん提供</li>
+</ul>
+
+<p>Phoenix が提供する <code>web/views/page_view.ex</code> で少し色々試してみる。<code>message/0</code> の追加。</p>
+
+<pre><code>    defmodule HelloWeb.PageView do
+      use HelloWeb, :view
+    
+      def message do
+        &quot;Hello from the view!&quot;
+      end
+    end
+</code></pre>
+
+<p>で、新しいテンプレ作成、とのこと。<code>web/templates/page/test.html.eex</code></p>
+
+<pre><code>This is the message: &lt;%= message() %&gt;
+</code></pre>
+
+<p>iex セッションにて実行、とのこと。プロジェクトの root にて <code>iex -S mix</code> を実行することでテンプレの明示的なレンダリングができる、とのこと。</p>
+
+<pre><code>iex(1)&gt; Phoenix.View.render(HelloWeb.PageView, &quot;test.html&quot;, %{})
+  {:safe, [[&quot;&quot; | &quot;This is the message: &quot;] | &quot;Hello from the view!&quot;]}
+</code></pre>
+
+<p>これは面白い。iex から <code>Phoenix.View.render/3</code> が呼び出せるのか。</p>
+
+<ul>
+<li>戻りは :safe な atom で始まるタプルと補完されたテンプレートの結果として取得できる io リスト</li>
+<li>:safe は Phoenix がレンダリングされたテンプレートの内容をエスケイプしたことを意味する</li>
+<li>Phoenix.HTML.Safe プロトコルをいくつかの実装で定義
+
+<ul>
+<li>atom</li>
+<li>bitstring</li>
+<li>list</li>
+<li>integer</li>
+<li>float</li>
+<li>tuple<br /></li>
+</ul></li>
+</ul>
+
+<p>テンプレート少し変更。</p>
+
+<pre><code>I came from assigns: &lt;%= @message %&gt;
+This is the message: &lt;%= message() %&gt;
+</code></pre>
+
+<p>r でモジュールのリコンパイルらしい。</p>
+
+<pre><code>iex(2)&gt; r HelloWeb.PageView
+warning: redefining module HelloWeb.PageView (current version loaded from _build/dev/lib/hello/ebin/Elixir.HelloWeb.PageView.beam)
+  lib/hello_web/views/page_view.ex:1
+
+{:reloaded, HelloWeb.PageView, [HelloWeb.PageView]}
+
+iex(3)&gt; Phoenix.View.render(HelloWeb.PageView, &quot;test.html&quot;, message: &quot;Assigns has an @.&quot;)
+{:safe,
+  [[[[&quot;&quot; | &quot;I came from assigns: &quot;] | &quot;Assigns has an @.&quot;] |
+  &quot;\nThis is the message: &quot;] | &quot;Hello from the view!&quot;]}
+</code></pre>
+
+<p>@ に注意、とのこと。また、HTML エスケイプの例が以下とのこと。</p>
+
+<pre><code>iex(4)&gt; Phoenix.View.render(HelloWeb.PageView, &quot;test.html&quot;, message: &quot;&lt;script&gt;badThings();&lt;/script&gt;&quot;)
+{:safe,
+  [[[[&quot;&quot; | &quot;I came from assigns: &quot;] |
+     &quot;&amp;lt;script&amp;gt;badThings();&amp;lt;/script&amp;gt;&quot;] |
+    &quot;\nThis is the message: &quot;] | &quot;Hello from the view!&quot;]}
+</code></pre>
+
+<p>戻りがエスケイプされていることが分かります。レンダリングされた文字列だけが必要な場合には <code>render_to_iodata/3</code> が使える、とのこと。</p>
+
+<pre><code>iex(5)&gt; Phoenix.View.render_to_iodata(HelloWeb.PageView, &quot;test.html&quot;, message: &quot;Assigns has an @.&quot;)
+[[[[&quot;&quot; | &quot;I came from assigns: &quot;] | &quot;Assigns has an @.&quot;] |
+  &quot;\nThis is the message: &quot;] | &quot;Hello from the view!&quot;]
+</code></pre>
+
+<h2 id="a-word-about-layouts">A Word About Layouts</h2>
+
+<ul>
+<li>レイアウトは単なるテンプレート</li>
+<li>他のテンプレートと同様に View がある</li>
+<li>新規に作成したプロジェクトでは <code>web/views/layout_view.ex</code></li>
+<li>レンダリングされた View から得られた文字列がどのようにレイアウト内に収まる?</li>
+</ul>
+
+<p><code>web/templates/layout/app.html.eex</code> の body の真ん中らへんに以下があるはず。</p>
+
+<pre><code>&lt;%= render(@view_module, @view_template, assigns) %&gt;
+</code></pre>
+
+<p>これが Controller からの View Module とその Template が文字列にレンダリングされ、レイアウトに配置される場所。</p>
+
+<h2 id="the-error-view">The Error View</h2>
+
+<ul>
+<li>Phoenix は <code>web/views/error_view.ex</code> にある ErrorView と呼ばれる View を持つ</li>
+<li>ErrorView の目的は 404 および 500 のエラーを処理すること</li>
+</ul>
+
+<p>実装は以下。</p>
+
+<pre><code>defmodule HelloWeb.ErrorView do
+  use HelloWeb, :view
+
+  def render(&quot;404.html&quot;, _assigns) do
+    &quot;Page not found&quot;
+  end
+
+  def render(&quot;500.html&quot;, _assigns) do
+    &quot;Server internal error&quot;
+  end
+end
+</code></pre>
+
+<p>開発環境ではデフォルトでデバッグページが表示されるので <code>config/dev.exs</code> で以下の設定を盛り込む必要がある。</p>
+
+<pre><code>use Mix.Config
+
+config :hello, HelloWeb.Endpoint,
+  http: [port: 4000],
+  debug_errors: false,
+  code_reloader: true,
+</code></pre>
+
+<p>設定ファイルを修正したらサーバの再起動が必要とのこと。再起動したら <code>http://localhost:4000/such/a/wrong/</code> みたいな URL にアクセスして表示を確認しましょう。</p>
+
+<p>表示されるページに色々手を加えてみる模様。とりあえず表示されるコンテンツの根拠は ErrorView である、ということは分かっています。<code>render/2</code> はどこから呼び出されているのか。</p>
+
+<ul>
+<li><code>Phoenix.Endpoint.RenderErrors</code> モジュールで定義されている <code>render/5</code></li>
+<li>このモジュールの全体的な目的はエラーを catch して View を使ってそれらをレンダリングすること</li>
+<li>ここまで理解できればエラーページを改善できる</li>
+</ul>
+
+<p>Phoenix は ErrorView を生成する。ただし <code>web/templates/error</code> は無いので作成して <code>404.html.eex</code> を追加してそれにマークアップを付けてみる。</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+    &lt;meta name=&quot;author&quot; content=&quot;&quot;&gt;
+
+    &lt;title&gt;Welcome to Phoenix!&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/app.css&quot;&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;div class=&quot;container&quot;&gt;
+      &lt;div class=&quot;header&quot;&gt;
+        &lt;ul class=&quot;nav nav-pills pull-right&quot;&gt;
+          &lt;li&gt;&lt;a href=&quot;https://hexdocs.pm/phoenix/overview.html&quot;&gt;Get Started&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;span class=&quot;logo&quot;&gt;&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;phx-hero&quot;&gt;
+        &lt;p&gt;Sorry, the page you are looking for does not exist.&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;footer&quot;&gt;
+        &lt;p&gt;&lt;a href=&quot;http://phoenixframework.org&quot;&gt;phoenixframework.org&lt;/a&gt;&lt;/p&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt; &lt;!-- /container --&gt;
+    &lt;script src=&quot;/js/app.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>これで <code>render/2</code> が使える、とのこと。Phoenix は <code>404.html.eex</code> を <code>render(&quot;404.html&quot;, assign)</code> としてプリコンパイルすることがわかっているので以下を ErrorView から削除できる。</p>
+
+<pre><code>- def render(&quot;404.html&quot;, _assigns) do
+-   &quot;Page not found&quot;
+- end
+</code></pre>
+
+<p>再度、<code>http://localhost:4000/such/a/wrong/</code> にアクセスすると上の上等なエラーページが表示されるはず。</p>
+
+<h2 id="rendering-json">Rendering JSON</h2>
+
+<ul>
+<li>Phoenix View は JSON レンダリングに最適</li>
+<li>Phoenix は Jason を使って Map を JSON にエンコード</li>
+<li>View で行なう必要があるのは Map に応答したいデータをフォーマットすることだけ</li>
+</ul>
+
+<p>実装確認など。</p>
+
+<pre><code>defmodule HelloWeb.PageController do
+  use HelloWeb, :controller
+
+  def show(conn, _params) do
+    page = %{title: &quot;foo&quot;}
+
+    render(conn, &quot;show.json&quot;, page: page)
+  end
+
+  def index(conn, _params) do
+    pages = [%{title: &quot;foo&quot;}, %{title: &quot;bar&quot;}]
+
+    render(conn, &quot;index.json&quot;, pages: pages)
+  end
+end
+</code></pre>
+
+<p>なるほど。責任分解、という観点でも上の書き方は良さげに見えます。</p>
+
+<ul>
+<li>show.json を <code>render/3</code> に渡している</li>
+<li>パタンマッチを使って View の定義が可能</li>
+</ul>
+
+<pre><code>defmodule HelloWeb.PageView do
+  use HelloWeb, :view
+
+  def render(&quot;index.json&quot;, %{pages: pages}) do
+    %{data: render_many(pages, HelloWeb.PageView, &quot;page.json&quot;)}
+  end
+
+  def render(&quot;show.json&quot;, %{page: page}) do
+    %{data: render_one(page, HelloWeb.PageView, &quot;page.json&quot;)}
+  end
+
+  def render(&quot;page.json&quot;, %{page: page}) do
+    %{title: page.title}
+  end
+end
+</code></pre>
+
+<ul>
+<li><code>render(conn, &quot;index.json&quot;, pages: pages)</code> は <code>render(&quot;index.json&quot;, %{pages: pages})</code> を呼び出す</li>
+<li>これ、render_many だと配列で render_one だと一要素の、なのかな</li>
+</ul>
+
+<p>あと、割り当てに使われる名前は View から決められる、とのこと。</p>
+
+<ul>
+<li>PageView は <code>%{page: page}</code> を使うし AutherView は <code>%{author: autor}</code></li>
+<li>as というオプションで上書き可能</li>
+</ul>
+
+<pre><code>def render(&quot;page_with_authors.json&quot;, %{page: page}) do
+  %{title: page.title,
+    authors: render_many(page.authors, AuthorView, &quot;author.json&quot;, as: :writer)}
+end
+</code></pre>
+
+<p>代わりに <code>%{writer: writer}</code> が使われている例が上の記載です。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Apr 18, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/04/17/phoenix-excersize/" title="phoenix excersize (10)">phoenix excersize (10)</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/18/phoenix-excersize/">phoenix excersize (11)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/17/phoenix-excersize/">phoenix excersize (10)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/16/phoenix-excersize/">phoenix excersize (9)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/15/gege-s-wife/">ゲゲゲの女房</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/14/introduction-to-go-for-adults/">大人のための囲碁入門が昨日到着</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/13/phoenix-excersize/">phoenix excersize (8)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/12/re-work/">re:Work</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/11/concurrency-and-parallelism-in-elixir/">Enum、Map、String などの確認</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/10/concurrency-and-parallelism-in-elixir/">Concurrency and Parallelism in Elixir</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/04/09/osx-terminal/">OSX 端末</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
