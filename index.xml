@@ -6,10 +6,34 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 19 Apr 2019 13:22:08 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 21 Apr 2019 18:24:28 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>phoenix excersize (13)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/21/phoenix-excersize/</link>
+      <pubDate>Sun, 21 Apr 2019 18:24:28 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/21/phoenix-excersize/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://hexdocs.pm/phoenix/channels.html#content&#34;&gt;Channels&lt;/a&gt; の項。色々アレなのでゆっくりめに確認の方向です。&lt;/p&gt;
+
+&lt;h2 id=&#34;channels&#34;&gt;Channels&lt;/h2&gt;
+
+&lt;p&gt;Channels は何百万ものクライアント接続でリアルタイム通信を行なうための機能とのこと。使用例として以下が列挙されています。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;メッセージングアプリ&lt;/li&gt;
+&lt;li&gt;最新ニュースの配信&lt;/li&gt;
+&lt;li&gt;列車とかトラックとか、あるいはレース参加者のトラッキング&lt;/li&gt;
+&lt;li&gt;マルチプレイヤーゲイムのイベント&lt;/li&gt;
+&lt;li&gt;センサーの監視とか照明の制御とか&lt;/li&gt;
+&lt;li&gt;CSS とか JS の変更をブラウザに通知&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>phoenix excersize (12)</title>
