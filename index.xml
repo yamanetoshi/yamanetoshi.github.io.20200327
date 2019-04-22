@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 21 Apr 2019 18:24:28 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 22 Apr 2019 20:28:30 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>phoenix excersize (14)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/22/phoenix-excersize/</link>
+      <pubDate>Mon, 22 Apr 2019 20:28:30 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/22/phoenix-excersize/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://hexdocs.pm/phoenix/channels.html#content&#34;&gt;Channels&lt;/a&gt; の続き。&lt;/p&gt;
+
+&lt;h2 id=&#34;pubsub&#34;&gt;PubSub&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://itdoc.hitachi.co.jp/manuals/link/cosmi_v0870/APKC/EU070377.HTM&#34;&gt;これ&lt;/a&gt;なのかどうか。Publisher と Subscriber なんすね。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>phoenix excersize (13)</title>

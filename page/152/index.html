@@ -99,6 +99,53 @@
 <header>
     <p class="meta">Mar 15, 2014
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/15/merge-espresso-tests/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/15/merge-espresso-tests/">branch せずに別ディレクトリで育てたナニを merge</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえず merge 先な HEAD から、ということで以下。</p>
+
+<pre><code>$ git format-patch &lt;merge 先な HEAD&gt;..HEAD -o ~/tmp/patch
+</code></pre>
+
+<p>で、取得できた patch を apply すれば OK。</p>
+
+<pre><code>$ git checkout -b feature-merge
+$ git am ~/tmp/patch/*
+</code></pre>
+
+<p>確認してみるにテスツなソレが無い。どうするのだったかと。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/15/merge-espresso-tests/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 15, 2014
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/15/remote-work-in-taipei/#disqus_thread">Comments</a>
 
         
@@ -426,36 +473,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Mar 10, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/10/todo/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/10/todo/">TODO 控え</a>
-    </h1>
-</header>
-
-
-        
-          <p>来週末からは Think Stats 再開 getaddrinfo が resolver を呼び出すあたりの確認 BLE 関連確認 (デバイス無いけどorz 本買う BareMetal で遊ぶ RaspberryPi Interface のバックナンバー ブツ買う はんだごての類</p>
-
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -558,6 +575,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/04/22/phoenix-excersize/">phoenix excersize (14)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/04/21/phoenix-excersize/">phoenix excersize (13)</a>
               </li>
             
@@ -607,12 +630,6 @@
             
               <li class="post">
                 <a href="/blog/2019/04/12/re-work/">re:Work</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/04/11/concurrency-and-parallelism-in-elixir/">Enum、Map、String などの確認</a>
               </li>
             
           
