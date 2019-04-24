@@ -6,10 +6,39 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 23 Apr 2019 21:36:57 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 24 Apr 2019 20:21:18 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Elixir, Flow</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/24/phoenix-excersize/</link>
+      <pubDate>Wed, 24 Apr 2019 20:21:18 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/24/phoenix-excersize/</guid>
+      <description>&lt;p&gt;何となく elixir とか flow とかいうキーワードが耳に入ってきまして Google 先生から教えて頂いたドキュメントが以下。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://qiita.com/ovrmrw/items/14dc9907c2ec699f849c&#34;&gt;初心者のElixir |&amp;gt; Flow,GenStage |&amp;gt; Concurrent MapReduce&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;以下の順で手続きが組み立てられていってます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Read file in stream&lt;/li&gt;
+&lt;li&gt;Parse JSON string to Map data line by line&lt;/li&gt;
+&lt;li&gt;Get only the first name from the Map&lt;/li&gt;
+&lt;li&gt;Count how many times the same name appered&lt;/li&gt;
+&lt;li&gt;Sort in descending order of the count&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;パイプで作れる、というのが面白いですよね。自分メモを以下に。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>phoenix excersize (15)</title>
