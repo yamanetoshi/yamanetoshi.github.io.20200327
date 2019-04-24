@@ -6,10 +6,42 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 22 Apr 2019 20:28:30 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 23 Apr 2019 21:36:57 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>phoenix excersize (15)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/23/phoenix-excersize/</link>
+      <pubDate>Tue, 23 Apr 2019 21:36:57 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/23/phoenix-excersize/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://hexdocs.pm/phoenix/channels.html#content&#34;&gt;Channels&lt;/a&gt; の続き。継続は Client Libraries のあたりなのかどうか。&lt;/p&gt;
+
+&lt;h2 id=&#34;client-libraries&#34;&gt;Client Libraries&lt;/h2&gt;
+
+&lt;p&gt;以下のライブラリがある、とのこと。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Official
+
+&lt;ul&gt;
+&lt;li&gt;Official なモジュールのドキュメントは &lt;a href=&#34;https://hexdocs.pm/phoenix/js&#34;&gt;https://hexdocs.pm/phoenix/js&lt;/a&gt; とのこと&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;あとは以下なナニが提供されている模様。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Swift (iOS)&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Java (Android)&lt;/li&gt;
+&lt;li&gt;C#&lt;/li&gt;
+&lt;li&gt;Elixir&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>phoenix excersize (14)</title>
