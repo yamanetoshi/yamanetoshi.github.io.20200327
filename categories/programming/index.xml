@@ -6,10 +6,31 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 24 Apr 2019 20:21:18 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 25 Apr 2019 21:29:27 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>libcluster</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/25/libcluster/</link>
+      <pubDate>Thu, 25 Apr 2019 21:29:27 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/25/libcluster/</guid>
+      <description>&lt;p&gt;直前エントリで確認した&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://qiita.com/ovrmrw/items/14dc9907c2ec699f849c&#34;&gt;初心者のElixir |&amp;gt; Flow,GenStage |&amp;gt; Concurrent MapReduce&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ですが、ホスト跨りで並列化とかないのかな、と思って色々探してみるに以下を発見している次第。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/bitwalker/libcluster&#34;&gt;bitwalker/libcluster&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Elixir, Flow</title>
