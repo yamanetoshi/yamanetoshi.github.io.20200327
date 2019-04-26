@@ -6,10 +6,29 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 25 Apr 2019 21:29:27 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 26 Apr 2019 13:34:28 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>c9.io</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/26/c9-io/</link>
+      <pubDate>Fri, 26 Apr 2019 13:34:28 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/26/c9-io/</guid>
+      <description>&lt;p&gt;終わるのか。困ったな。&lt;/p&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;AWS ので、なのかどうか。丁度いいから Cloud Shell 使ってみようかな。とりあえず以下を見つつすすめてみます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://cloud.google.com/shell/docs/quickstart?hl=ja&#34;&gt;クイックスタート&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>libcluster</title>

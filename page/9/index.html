@@ -97,6 +97,52 @@
         
 
 <header>
+    <p class="meta">Feb 10, 2019
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/10/metaprogramming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/10/metaprogramming-elixir/">Metaprogramming Elixir (1)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>こちらも再確認に着手。</p>
+
+<p><code>quote do</code> で AST が確認できる、というのがアレゲです。</p>
+
+<pre><code>iex(4)&gt; quote do: div(10,2)
+{:div, [context: Elixir, import: Kernel], [10, 2]}
+iex(5)&gt; quote do: 1 + 2    
+{:+, [context: Elixir, import: Kernel], [1, 2]}
+</code></pre>
+
+<p>あと、<code>if</code> がマクロ、というのもナニ (何</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/10/metaprogramming-elixir/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Feb 9, 2019
          - 2 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/09/programming-elixir/#disqus_thread">Comments</a>
@@ -448,42 +494,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 31, 2019
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/01/31/programming-elixir/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2019/01/31/programming-elixir/">プログラミング Elixir (14)</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>StringsAndBinaries-4 は難問、とありますね。検討してみます。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2019/01/31/programming-elixir/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -586,6 +596,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/04/26/c9-io/">c9.io</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/04/25/libcluster/">libcluster</a>
               </li>
             
@@ -635,12 +651,6 @@
             
               <li class="post">
                 <a href="/blog/2019/04/16/phoenix-excersize/">phoenix excersize (9)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/04/15/gege-s-wife/">ゲゲゲの女房</a>
               </li>
             
           
