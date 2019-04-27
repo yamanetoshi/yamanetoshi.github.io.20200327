@@ -6,10 +6,58 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 27 Apr 2019 09:40:48 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 28 Apr 2019 08:29:16 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Property-Based Testing with PropEr, Erlang, Elixir</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/28/property-based-testing-with-proper-erlang-elixir/</link>
+      <pubDate>Sun, 28 Apr 2019 08:29:16 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/28/property-based-testing-with-proper-erlang-elixir/</guid>
+      <description>&lt;p&gt;GW 内読了? を目指したい。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://pragprog.com/book/fhproper/property-based-testing-with-proper-erlang-and-elixir&#34;&gt;Property-Based Testing with PropEr, Erlang, Elixir&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とりあえず Chapter 1 の Foundations of Property-Based Tesing の章から読み始め。&lt;/p&gt;
+
+&lt;h2 id=&#34;導入&#34;&gt;導入&lt;/h2&gt;
+
+&lt;p&gt;は以下にて。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://elixir-lang.jp/install.html#unix-%E7%B3%BB&#34;&gt;https://elixir-lang.jp/install.html#unix-%E7%B3%BB&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Cloud Shell から &lt;code&gt;apt-get install&lt;/code&gt; したら erlang のバージョン古いみたいで上の方法でないと駄目みたいです。&lt;/p&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;mix.exs&lt;/code&gt; を以下に修正して&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  # Run &amp;quot;mix help deps&amp;quot; to learn about dependencies.
+  defp deps do
+    [
+      # {:dep_from_hexpm, &amp;quot;~&amp;gt; 0.3.0&amp;quot;},
+      # {:dep_from_git, git: &amp;quot;https://github.com/elixir-lang/my_dep.git&amp;quot;, tag: &amp;quot;0.1.0&amp;quot;}
+      {:propcheck, &amp;quot;~&amp;gt; 1.1&amp;quot;, only: [:test, :dev]}
+    ]
+  end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;mix deps.get&lt;/code&gt; して&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mix test&lt;/code&gt; が動いた&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;状態です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>連休が始まってしまった件</title>
