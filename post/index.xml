@@ -6,10 +6,38 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 26 Apr 2019 13:34:28 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 27 Apr 2019 09:40:48 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>連休が始まってしまった件</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/27/about-the-matter-that-consecutive-holidays-have-started/</link>
+      <pubDate>Sat, 27 Apr 2019 09:40:48 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/27/about-the-matter-that-consecutive-holidays-have-started/</guid>
+      <description>&lt;p&gt;いやはや。とりあえず&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Property-Based Testing w/ProEr, Erlang, Elixr 読み&lt;/li&gt;
+&lt;li&gt;間接対応 (決算やら精算やら)&lt;/li&gt;
+&lt;li&gt;脳内碁盤トレーニング&lt;/li&gt;
+&lt;li&gt;English Grammer in Use&lt;/li&gt;
+&lt;li&gt;でびあん端末の日本語入力環境整備&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;あたりが優先なのかどうか。可能であれば&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Phoenix 方面の資料確認&lt;/li&gt;
+&lt;li&gt;Python で強化学習&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;あたりのフォローができれば良いですが。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>c9.io</title>

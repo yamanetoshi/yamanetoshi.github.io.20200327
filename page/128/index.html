@@ -97,6 +97,54 @@
         
 
 <header>
+    <p class="meta">Sep 25, 2014
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/25/do-it-after-a-few-seconds/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/25/do-it-after-a-few-seconds/">何秒か後にこれやっといて、な実装について (Linux における C での実装)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>ちょっと順に色々確認してみた記録を自分メモ。手順としては</p>
+
+<ul>
+<li>signal handler を設定</li>
+<li>interval time を設定</li>
+<li>timer_settime を呼び出してタイマを設定</li>
+</ul>
+
+<p>というカンジ。まず、以下からパクッた実装を確認しつつ man sigaction を確認してみます。</p>
+
+<ul>
+<li><a href="http://linux-biyori.sakura.ne.jp/program/pr_signal02.php">シグナルとタイマー２</a></li>
+</ul>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/25/do-it-after-a-few-seconds/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Sep 24, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/24/behavior-of-surfaceview-when-adding-viewgroup/#disqus_thread">Comments</a>
@@ -409,42 +457,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Sep 16, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/16/check-arecord-output-with-pipeline/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/16/check-arecord-output-with-pipeline/">arecord の出力はパイプで他に渡せる</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>od -x に渡してヘッダを確認してみました。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/16/check-arecord-output-with-pipeline/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -547,6 +559,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/04/27/about-the-matter-that-consecutive-holidays-have-started/">連休が始まってしまった件</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/04/26/c9-io/">c9.io</a>
               </li>
             
@@ -596,12 +614,6 @@
             
               <li class="post">
                 <a href="/blog/2019/04/17/phoenix-excersize/">phoenix excersize (10)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/04/16/phoenix-excersize/">phoenix excersize (9)</a>
               </li>
             
           
