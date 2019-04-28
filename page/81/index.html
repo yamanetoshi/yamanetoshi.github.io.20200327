@@ -99,6 +99,62 @@
 <header>
     <p class="meta">Nov 11, 2015
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/11/11/python-shogi/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/11/11/python-shogi/">python-shogi</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>云々できる環境を作ります。とりあえず python:2.7 なナニを元に image を作成。</p>
+
+<pre><code>$ sudo docker run -i -t -d python:2.7 /bin/bash
+$ sudo docker ps -l -q
+da334369b2b8
+$ sudo docker attach da334369b2b8
+root@da334369b2b8:/usr/src/python# python --version
+Python 2.7.8
+</code></pre>
+
+<p>で、一旦 <code>C-p C-q</code> で脱出して commit を作っておきます。</p>
+
+<pre><code>$ sudo docker commit da334369b2b8 yamanetoshi/python-shogi
+</code></pre>
+
+<p>で、ソース共有できる場所をアレするのか。</p>
+
+<pre><code>$ sudo docker run -i -t -d -v /home/rms/Documents:/opt yamanetoshi/python-shogi /bin/bash
+</code></pre>
+
+<p>ということで確認作業など着手。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/11/11/python-shogi/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 11, 2015
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2015/11/11/kifu/#disqus_thread">Comments</a>
 
         
@@ -445,46 +501,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 3, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/11/03/i-bought-wallet/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/11/03/i-bought-wallet/">財布新調</a>
-    </h1>
-</header>
-
-
-        
-          <p><p><a href="http://module-okinawa.com/">那覇泉崎の module さん</a>にて入手。どうせ無いだろうから丸善だろうなと思っていたら本体もジッパーケースも在庫があり、速攻で用件が済んだ次第です。そのまま帰宅かなと思ったのですが一応松山公園まで足を伸ばすも焼け野原だったので丸善には行かず帰宅しました。未だにジュンク堂が踏めていないのですが、明日あのあたりに立ち寄り予定なので (ry</p>
-
-<p>完成の図、が以下ッス。前の財布も 10 年位使ったはずなのですが、これはどうなるか。</p>
-
-<p><a data-flickr-embed="true"  href="https://www.flickr.com/photos/yamane-toshiaki/22118340124/in/dateposted-public/" title="トラベラーズノート"><img src="https://farm1.staticflickr.com/568/22118340124_5ab0f7aa71_z.jpg" width="480" height="640" alt="トラベラーズノート"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script></p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/11/03/i-bought-wallet/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -587,6 +603,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/04/29/property-based-testing-with-proper-erlang-elixir/">Property-Based Testing with PropEr, Erlang, Elixir (2)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/04/28/property-based-testing-with-proper-erlang-elixir/">Property-Based Testing with PropEr, Erlang, Elixir</a>
               </li>
             
@@ -636,12 +658,6 @@
             
               <li class="post">
                 <a href="/blog/2019/04/19/phoenix-excersize/">phoenix excersize (12)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/04/18/phoenix-excersize/">phoenix excersize (11)</a>
               </li>
             
           
