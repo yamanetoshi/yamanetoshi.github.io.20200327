@@ -6,10 +6,34 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 29 Apr 2019 08:45:41 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 30 Apr 2019 17:19:19 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Property-Based Testing with PropEr, Erlang, Elixir (3)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/04/30/property-based-testing-with-proper-erlang-elixir/</link>
+      <pubDate>Tue, 30 Apr 2019 17:19:19 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/04/30/property-based-testing-with-proper-erlang-elixir/</guid>
+      <description>&lt;p&gt;[Property-Based Testing with PropEr, Erlang, Elixir]() の Chapter 3 です。&lt;/p&gt;
+
+&lt;h2 id=&#34;thinking-in-properties&#34;&gt;Thinking in Properties&lt;/h2&gt;
+
+&lt;p&gt;あんまりきちんと中身見れていない。中項目として&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Modeling&lt;/li&gt;
+&lt;li&gt;Generalizing Example Tests&lt;/li&gt;
+&lt;li&gt;Invariants&lt;/li&gt;
+&lt;li&gt;Symmetric Properties&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とのこと。順に確認しつつ自分メモを。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Property-Based Testing with PropEr, Erlang, Elixir (2)</title>
