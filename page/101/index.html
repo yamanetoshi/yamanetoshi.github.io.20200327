@@ -97,6 +97,56 @@
         
 
 <header>
+    <p class="meta">May 15, 2015
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/05/15/dot-gitignore-in-androidstudio-project/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/05/15/dot-gitignore-in-androidstudio-project/">AndroidStudio なプロジェクトの .gitignore について</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>gihyo さんのドキュメントによれば</p>
+
+<ul>
+<li>必要なのは .idea/gradle.xml</li>
+</ul>
+
+<p>とのことで以下なカンジの .idea/.gitignore が最初の一歩なのかどうか。</p>
+
+<pre><code>*.xml
+!/gradle.xml
+/.gradle/
+/local.properties
+.DS_Store
+*.iml
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/05/15/dot-gitignore-in-androidstudio-project/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">May 14, 2015
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2015/05/14/git-revert/#disqus_thread">Comments</a>
@@ -435,50 +485,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">May 3, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/05/03/bluetooth-sound-device-with-intel-edison/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/05/03/bluetooth-sound-device-with-intel-edison/">intel edison と bluetooth なサウンドデバイス</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>以下のエントリを確認しつつ</p>
-
-<ul>
-<li><a href="https://tl00.wordpress.com/2015/01/28/11/">Intel Edison audio output to bluetooth speaker</a></li>
-</ul>
-
-<p>edison の ww42-14 なソースツリーから aplay とか arecord を、という検証をしていたのですが、色々確認していく中で結論として bluez5 は ALSA をステたので aplay あるいは arecord などは使えない、という判断をしました。</p>
-
-<p>現時点での継続としては edison にて audacity を使えるようにするには、というナニが課題となっています。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/05/03/bluetooth-sound-device-with-intel-edison/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -581,6 +587,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/05/01/todo/">TODO?</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/04/30/property-based-testing-with-proper-erlang-elixir/">Property-Based Testing with PropEr, Erlang, Elixir (3)</a>
               </li>
             
@@ -630,12 +642,6 @@
             
               <li class="post">
                 <a href="/blog/2019/04/22/phoenix-excersize/">phoenix excersize (14)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/04/21/phoenix-excersize/">phoenix excersize (13)</a>
               </li>
             
           

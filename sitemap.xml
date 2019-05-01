@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/05/01/todo/</loc>
+    <lastmod>2019-05-01T09:56:15+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/04/30/property-based-testing-with-proper-erlang-elixir/</loc>
     <lastmod>2019-04-30T17:19:19+09:00</lastmod>
   </url>
@@ -9189,7 +9194,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-04-30T17:19:19+09:00</lastmod>
+    <lastmod>2019-05-01T09:56:15+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9387,7 +9392,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/misc/</loc>
-    <lastmod>2019-04-28T08:29:16+09:00</lastmod>
+    <lastmod>2019-05-01T09:56:15+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9411,7 +9416,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-04-30T17:19:19+09:00</lastmod>
+    <lastmod>2019-05-01T09:56:15+09:00</lastmod>
     <priority>0</priority>
   </url>
   

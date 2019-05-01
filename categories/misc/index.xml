@@ -6,10 +6,32 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 28 Apr 2019 08:29:16 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 01 May 2019 09:56:15 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TODO?</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/01/todo/</link>
+      <pubDate>Wed, 01 May 2019 09:56:15 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/01/todo/</guid>
+      <description>&lt;p&gt;改元な朝、とりあえずカレンダーを次の月にしつつ残を確認。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;碁会所に行く&lt;/li&gt;
+&lt;li&gt;水購入&lt;/li&gt;
+&lt;li&gt;本読み
+
+&lt;ul&gt;
+&lt;li&gt;囲碁関連&lt;/li&gt;
+&lt;li&gt;Property-Based Testing w/Elixir&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Property-Based Testing with PropEr, Erlang, Elixir</title>
