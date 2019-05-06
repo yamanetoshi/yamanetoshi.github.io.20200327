@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/05/06/parenthesis-nesting/</loc>
+    <lastmod>2019-05-06T13:02:19+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/05/05/study-of-go/</loc>
     <lastmod>2019-05-05T12:28:32+09:00</lastmod>
   </url>
@@ -9214,7 +9219,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-05-05T12:28:32+09:00</lastmod>
+    <lastmod>2019-05-06T13:02:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9436,13 +9441,13 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-05-05T12:28:32+09:00</lastmod>
+    <lastmod>2019-05-06T13:02:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/programming/</loc>
-    <lastmod>2019-04-30T17:19:19+09:00</lastmod>
+    <lastmod>2019-05-06T13:02:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
