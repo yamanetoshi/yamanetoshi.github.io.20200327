@@ -6,17 +6,35 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 08 May 2019 20:46:32 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 09 May 2019 20:09:54 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>諸々確認の方向</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/09/gke-eks-rancher/</link>
+      <pubDate>Thu, 09 May 2019 20:09:54 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/09/gke-eks-rancher/</guid>
+      <description>&lt;p&gt;なんとなくインターネッツな資料を漁っても微妙なものしか出てこない? みたいなので色々確認してみつつ、控えをと思っている次第です。あと、以下な記事を見てみるに&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://sleepless-se.net/2018/12/11/gke-kubernetes/&#34;&gt;GKEで最安値のKubernetesクラスタを作る方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.a-know.me/entry/2018/06/17/220222&#34;&gt;安価なGKE（k8s）クラスタを作って趣味開発に活用する&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ちょっと自前で検証してみようかな、とか思ったりして。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>DKS?</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/08/dks/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/08/cloudnative/</link>
       <pubDate>Wed, 08 May 2019 20:46:32 +0900</pubDate>
       
-      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/08/dks/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/08/cloudnative/</guid>
       <description>&lt;p&gt;rancherjp な slack にて以下なナニを確認。&lt;/p&gt;
 
 &lt;ul&gt;
