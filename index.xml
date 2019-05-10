@@ -6,10 +6,39 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 09 May 2019 20:09:54 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 10 May 2019 23:11:09 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GKE のドキュメント</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/10/gke-document/</link>
+      <pubDate>Fri, 10 May 2019 23:11:09 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/10/gke-document/</guid>
+      <description>&lt;p&gt;以下を確認しております。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://cloud.google.com/kubernetes-engine/docs/concepts/?hl=ja&#34;&gt;コンセプト&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;目次としては以下とのこと。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;基本コンセプト&lt;/li&gt;
+&lt;li&gt;クラスタ&lt;/li&gt;
+&lt;li&gt;GKE でのワークロード&lt;/li&gt;
+&lt;li&gt;セキュリティ&lt;/li&gt;
+&lt;li&gt;ネットワーキング&lt;/li&gt;
+&lt;li&gt;GKE 上のストレージ&lt;/li&gt;
+&lt;li&gt;GKE アドオン&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;メモを以下に追記の方向です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>諸々確認の方向</title>
@@ -31,10 +60,10 @@
     
     <item>
       <title>DKS?</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/08/cloudnative/</link>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/08/dks/</link>
       <pubDate>Wed, 08 May 2019 20:46:32 +0900</pubDate>
       
-      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/08/cloudnative/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/08/dks/</guid>
       <description>&lt;p&gt;rancherjp な slack にて以下なナニを確認。&lt;/p&gt;
 
 &lt;ul&gt;
