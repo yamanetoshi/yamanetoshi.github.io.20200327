@@ -6,10 +6,27 @@
     <description>Recent content in Cloudnative on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 10 May 2019 23:11:09 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 12 May 2019 13:10:45 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/cloudnative/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GKE と Elixir な Cluster 検討</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/12/gke-elixir-cluster/</link>
+      <pubDate>Sun, 12 May 2019 13:10:45 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/12/gke-elixir-cluster/</guid>
+      <description>&lt;p&gt;以前、libcluster で云々、って記事を見つけていたのですが、以下な書き込みを見つけたので機械翻訳してみつつ検討を。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://elixirforum.com/t/kubernetes-libcluster-help-gke/18946&#34;&gt;Kubernetes + libcluster&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;バッチな環境作って検証してみたくはあります。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>GKE のドキュメント</title>
