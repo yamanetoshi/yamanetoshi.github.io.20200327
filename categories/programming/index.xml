@@ -6,10 +6,21 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 12 May 2019 16:36:42 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 13 May 2019 20:15:55 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (27)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/13/programming-elixir/</link>
+      <pubDate>Mon, 13 May 2019 20:15:55 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/13/programming-elixir/</guid>
+      <description>&lt;p&gt;再開。OTP サーバのあたりから。Cloud Shell にて云々しています。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>書籍</title>
