@@ -6,10 +6,54 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 13 May 2019 20:15:55 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 14 May 2019 22:08:08 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (28)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/14/programming-elixir/</link>
+      <pubDate>Tue, 14 May 2019 22:08:08 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/14/programming-elixir/</guid>
+      <description>&lt;p&gt;週末確認したドキュメントでは OTP と k8s はいくつかの懸念があるけれど、統合する方向に進んでいるとのこと。これは楽しみ。&lt;/p&gt;
+
+&lt;p&gt;とりあえず、14 とか 15 のあたりはつまみ食いですすめます。&lt;/p&gt;
+
+&lt;h2 id=&#34;14-2-プロセスのオーバーヘッド&#34;&gt;14.2 プロセスのオーバーヘッド&lt;/h2&gt;
+
+&lt;p&gt;以下をでっちあげてみたのですが色々意味がわかっておらず。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;defmodule Chain do
+  def counter(next_pid) do
+    receive do
+      n -&amp;gt;
+        send next_pid, n + 1
+    end
+  end
+
+  def create_processes(n) do
+    last = Enum.reduce 1..n, self(),
+             fn (_, send_to) -&amp;gt;
+               spawn(Chain, :counter, [send_to])
+             end
+    send last, 0
+    
+    receive do
+      final_answer when is_integer(final_answer) -&amp;gt;
+        &amp;quot;Result is #{inspect(final_answer)}&amp;quot;
+    end
+  end
+
+  def run(n) do
+    IO.puts inspect :timer.tc(Chain, :create_processes, [n])
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (27)</title>
