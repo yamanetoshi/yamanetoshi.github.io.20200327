@@ -6,10 +6,30 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 14 May 2019 22:08:08 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 15 May 2019 20:39:51 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (29)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/15/programming-elixir/</link>
+      <pubDate>Wed, 15 May 2019 20:39:51 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/15/programming-elixir/</guid>
+      <description>&lt;p&gt;昨日エントリの Chain な実装、色々ナチュラルに忘却の彼方なナニがありました。ポイントとしては以下。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;create_process が始点&lt;/li&gt;
+&lt;li&gt;Enum.reduce が戻すのは accumulator の最後の値&lt;/li&gt;
+&lt;li&gt;accumulator の初期値は最初に起動されるプロセス&lt;/li&gt;
+&lt;li&gt;spawn の戻りは起動されたプロセス&lt;/li&gt;
+&lt;li&gt;Enum.reduce に渡される手続きオブジェクトの第二引数は accumulator&lt;/li&gt;
+&lt;li&gt;Enum.reduce に渡される手続きオブジェクトの戻りが accumulator の値&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (28)</title>
