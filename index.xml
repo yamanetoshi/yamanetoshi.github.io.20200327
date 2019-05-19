@@ -6,10 +6,21 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 17 May 2019 09:57:06 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 19 May 2019 19:05:53 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>囲碁</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/19/igo/</link>
+      <pubDate>Sun, 19 May 2019 19:05:53 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/19/igo/</guid>
+      <description>&lt;p&gt;何だろう。トレーニング真面目にやらないと感満点です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (30)</title>
