@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>プログラミング Elixir (31)</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">May 22, 2019
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/05/22/programming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         プログラミング Elixir (31) 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>スタックな OTP サーバの課題を、って思ってたらやっていたorz</p>
+
+<h2 id="サーバ実行のトラッキング">サーバ実行のトラッキング</h2>
+
+<p>以降を確認しつつ、控えを列挙な方向です。</p>
+
+<p></p>
+
+<p>こうか (ちょっとハマッた)</p>
+
+<pre><code>iex(1)&gt; {:ok,pid} = GenServer.start_link(Sequence.Server, 100, [:debug [:trace]]) 
+</code></pre>
+
+<p>以下な出力が。</p>
+
+<pre><code>** (FunctionClauseError) no function clause matching in Access.get/3    
+    
+    The following arguments were given to Access.get/3:
+    
+        # 1
+        :debug
+    
+        # 2
+        :trace
+    
+        # 3
+        nil
+    
+    Attempted function clauses (showing 5 out of 5):
+    
+        def get(%module{} = container, key, default)
+        def get(map, key, default) when is_map(map)
+        def get(list, key, default) when is_list(list) and is_atom(key)
+        def get(list, key, _default) when is_list(list)
+        def get(nil, _key, default)
+    
+    (elixir) lib/access.ex:316: Access.get/3
+</code></pre>
+
+<p>ありゃ?</p>
+
+<h2 id="リトライ">リトライ</h2>
+
+<pre><code>iex(1)&gt; {:ok,pid} = GenServer.start_link(Sequence.Server, 100, [debug: [:trace]]) 
+{:ok, #PID&lt;0.135.0&gt;}
+</code></pre>
+
+<p>できたな。。。</p>
+
+<pre><code>iex(2)&gt; GenServer.call(pid, :next_number)
+*DBG* &lt;0.135.0&gt; got call next_number from &lt;0.133.0&gt;
+*DBG* &lt;0.135.0&gt; sent 100 to &lt;0.133.0&gt;, new state 101
+100
+iex(3)&gt; GenServer.call(pid, :next_number)
+*DBG* &lt;0.135.0&gt; got call next_number from &lt;0.133.0&gt;
+*DBG* &lt;0.135.0&gt; sent 101 to &lt;0.133.0&gt;, new state 102
+101
+</code></pre>
+
+<p>あるいは以下。</p>
+
+<pre><code>iex(5)&gt; {:ok,pid} = GenServer.start_link(Sequence.Server, 100, [debug: [:statistics]])
+{:ok, #PID&lt;0.146.0&gt;}
+</code></pre>
+
+<p>で、動作確認。</p>
+
+<pre><code>iex(6)&gt; GenServer.call(pid, :next_number)
+100
+iex(7)&gt; GenServer.call(pid, :next_number)
+101
+iex(8)&gt; :sys.statistics pid, :get
+{:ok,
+ [
+   start_time: {{2019, 5, 22}, {20, 33, 17}},
+   current_time: {{2019, 5, 22}, {20, 34, 6}},
+   reductions: 94,
+   messages_in: 2,
+   messages_out: 2
+ ]}
+</code></pre>
+
+<p>あるいは <code>デバッグパラメータにひも付けられたリストは、単に sys モジュールで呼ばれる関数の名前</code> て記載があります。on/off できる模様。</p>
+
+<pre><code>iex(9)&gt; :sys.trace pid, true
+:ok
+iex(10)&gt; GenServer.call(pid, :next_number)
+*DBG* &lt;0.146.0&gt; got call next_number from &lt;0.133.0&gt;
+*DBG* &lt;0.146.0&gt; sent 102 to &lt;0.133.0&gt;, new state 103
+102
+iex(11)&gt; :sys.trace pid, false            
+:ok
+iex(12)&gt; GenServer.call(pid, :next_number)
+103
+</code></pre>
+
+<p>これはこれは。あるいは get_status も便利、とあります。</p>
+
+<pre><code>iex(13)&gt; :sys.get_status pid
+{:status, #PID&lt;0.146.0&gt;, {:module, :gen_server},
+ [
+   [
+     &quot;$ancestors&quot;: [#PID&lt;0.133.0&gt;, #PID&lt;0.77.0&gt;], 
+     &quot;$initial_call&quot;: {Sequence.Server, :init, 1}
+   ],
+   :running,
+   #PID&lt;0.133.0&gt;,
+   [statistics: {{{2019, 5, 22}, {20, 33, 17}}, {:reductions, 21}, 4, 4}],
+   [
+     header: 'Status for generic server &lt;0.146.0&gt;',
+     data: [
+       {'Status', :running},
+       {'Parent', #PID&lt;0.133.0&gt;},
+       {'Logged events', []}
+     ],
+     data: [{'State', 104}]
+   ]
+ ]}
+</code></pre>
+
+<h2 id="サーバモニタリングツール">サーバモニタリングツール</h2>
+
+<p>て、GUI 環境が必要なのか。</p>
+
+<pre><code>iex(14)&gt; :observer.start()
+20:47:51.534 [error] WX Failed loading 'wxe_driver'@'/usr/lib/erlang/lib/wx-1.8.8/priv' 
+{:error,
+ {{:load_driver,
+   'symbol _ZThn776_N17wxGenericListCtrl31GetSizeAvailableForScrollTargetERK6wxSize, version WXU_3.0 not defined in file libwx_gtk2u_core-3.0.so.0 with link time reference'}
+,
+  [ 
+    {:wxe_server, :start, 1, [file: 'wxe_server.erl', line: 65]},
+    {:wx, :new, 1, [file: 'wx.erl', line: 115]},
+    {:observer_wx, :init, 1, [file: 'observer_wx.erl', line: 107]},
+    {:wx_object, :init_it, 6, [file: 'wx_object.erl', line: 372]},
+    {:proc_lib, :init_p_do_apply, 3, [file: 'proc_lib.erl', line: 249]}
+  ]}}
+</code></pre>
+
+<p>むむむ。</p>
+
+<h2 id="インターフェースの整理">インターフェースの整理</h2>
+
+<p>とりあえず、ここまで確認しておきたい。実装が以下。</p>
+
+<pre><code>defmodule Sequence.Server do
+  use GenServer
+
+  def start_link(current_number) do
+    GenServer.start_link(__MODULE__, current_number, name: __MODULE__)
+  end
+
+  def next_number do
+    GenServer.call __MODULE__, :next_number
+  end
+
+  def increment_number(delta) do
+    GenServer.cast __MODULE__, {:increment_number, delta}
+  end
+
+  def handle_call(:next_number, _from, current_number) do
+    { :reply, current_number, current_number+1 }
+  end
+
+  def handle_cast({:increment_number, delta}, current_number) do
+    { :noreply, current_number + delta}
+  end
+
+  def format_status(_reason, [ _pdict, state]) do
+    [data: [{'State', &quot;My current state is '#{inspect state}', and I'm happy&quot;}]]
+  end
+
+  def init(init_arg) do
+    {:ok, init_arg}
+  end
+end
+</code></pre>
+
+<p>で <code>iex -S mix</code> なナニを以下に。</p>
+
+<pre><code>iex(1)&gt; Sequence.Server.start_link 123
+{:ok, #PID&lt;0.144.0&gt;}
+iex(2)&gt; Sequence.Server.next_number
+123
+iex(3)&gt; Sequence.Server.next_number
+124
+iex(4)&gt; Sequence.Server.increment_number 100
+:ok
+iex(5)&gt; Sequence.Server.next_number
+225
+iex(6)&gt;
+</code></pre>
+
+<p>練習問題は明日あたりで云々な方向にて。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>May 22, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/05/20/convention-for-beginners/" title="はじめての宝酒造杯">はじめての宝酒造杯</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/05/22/programming-elixir/">プログラミング Elixir (31)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/05/20/convention-for-beginners/">はじめての宝酒造杯</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/05/19/igo/">囲碁</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/05/17/programming-elixir/">プログラミング Elixir (30)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/05/16/weekend-cooking/">週末料理</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/05/15/programming-elixir/">プログラミング Elixir (29)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/05/14/programming-elixir/">プログラミング Elixir (28)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/05/13/programming-elixir/">プログラミング Elixir (27)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/05/12/book/">書籍</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/05/12/gke-elixir-cluster/">GKE と Elixir な Cluster 検討</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
