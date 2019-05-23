@@ -99,6 +99,57 @@
 <header>
     <p class="meta">Jan 25, 2014
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/25/the-work-of-android-studio/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/25/the-work-of-android-studio/">Android Studio の仕業?</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>Activity を追加した契機で build.gradle が書換えられるという事案が発生。最初はデフォで Fragment 付きなソースが生成されるのか、とか以前のバージョンとコンパチで、がデフォなのね、とか感心していたのですが、gms 関連でコンパイルエラーが出るようになって色々ハマりました。diff が以下。</p>
+
+<pre><code> dependencies {
+-    compile project(':volley')
+     compile 'com.android.support:support-v4:+'
+-    compile 'com.google.android.gms:play-services:+'
++
++    // You must install or update the Google Repository through the SDK manager to use this dependency.
++    // The Google Repository (separate from the corresponding library) can be found in the Extras category.
++    // compile 'com.google.android.gms:play-services:+'
++    compile 'com.android.support:appcompat-v7:+'
++    compile project(':volley')
+ }
+</code></pre>
+
+<p>とほほ。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/25/the-work-of-android-studio/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jan 25, 2014
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/25/weekend-cooking/#disqus_thread">Comments</a>
 
         
@@ -450,40 +501,6 @@ prev.dismiss();
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 21, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/21/the-open-source-data-science-curriculum/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/21/the-open-source-data-science-curriculum/">自習ネタ</a>
-    </h1>
-</header>
-
-
-        
-          <p>空き時間がどこまで作れるのか、な今日この頃ですが英語なナニ含めで以下を云々な方向で考えています。 The Open Source Data Science Curriculum とは言え着手はいつになるやらor</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/21/the-open-source-data-science-curriculum/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -586,6 +603,12 @@ prev.dismiss();
           
             
               <li class="post">
+                <a href="/blog/2019/05/23/programming-elixir/">プログラミング Elixir (32)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/05/22/programming-elixir/">プログラミング Elixir (31)</a>
               </li>
             
@@ -635,12 +658,6 @@ prev.dismiss();
             
               <li class="post">
                 <a href="/blog/2019/05/12/book/">書籍</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/05/12/gke-elixir-cluster/">GKE と Elixir な Cluster 検討</a>
               </li>
             
           

@@ -6,10 +6,40 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 22 May 2019 21:08:28 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 23 May 2019 21:12:25 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (32)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/23/programming-elixir/</link>
+      <pubDate>Thu, 23 May 2019 21:12:25 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/23/programming-elixir/</guid>
+      <description>&lt;p&gt;OTP:スーパーバイザーの章。バージョンが違うおかげで差分があるみたい。&lt;/p&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;プロジェクト作成。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;* creating .formatter.exs
+* creating .gitignore
+* creating mix.exs
+* creating config
+* creating config/config.exs
+* creating lib
+* creating lib/sequence.ex
+* creating lib/sequence/application.ex
+* creating test
+* creating test/test_helper.exs
+* creating test/sequence_test.exs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;書籍に掲載されている情報と違います。&lt;code&gt;lib/sequence.ex&lt;/code&gt; の情報は &lt;code&gt;lib/sequence/application.ex&lt;/code&gt; になっている模様。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (31)</title>
