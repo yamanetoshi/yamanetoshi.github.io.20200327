@@ -6,10 +6,30 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 23 May 2019 21:12:25 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 24 May 2019 14:40:44 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>もくもく</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/24/moku-moku/</link>
+      <pubDate>Fri, 24 May 2019 14:40:44 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/24/moku-moku/</guid>
+      <description>&lt;p&gt;空き時間ができたので色々対応。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;本読み&lt;/li&gt;
+&lt;li&gt;(今更ですが) movidius な環境作るなど&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;つうか&#34;&gt;つうか&lt;/h2&gt;
+
+&lt;p&gt;docker image 作ってるんですが赤い表示になってて微妙。あと長い。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (32)</title>
