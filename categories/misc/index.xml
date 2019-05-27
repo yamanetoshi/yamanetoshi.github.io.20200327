@@ -6,10 +6,25 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 25 May 2019 21:23:51 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 27 May 2019 19:52:37 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Colaboratory</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/27/takara-shuzo-cup/</link>
+      <pubDate>Mon, 27 May 2019 19:52:37 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/27/takara-shuzo-cup/</guid>
+      <description>&lt;p&gt;直感 Deep Learning](&lt;a href=&#34;https://www.amazon.co.jp/dp/4873118263/yamanetoshi-22&#34;&gt;https://www.amazon.co.jp/dp/4873118263/yamanetoshi-22&lt;/a&gt;) のサンプルを Colaboratory で動かしてみました。サンプルコードは以下から入手。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/oreilly-japan/deep-learning-with-keras-ja&#34;&gt;https://github.com/oreilly-japan/deep-learning-with-keras-ja&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>はじめての宝酒造杯!</title>
