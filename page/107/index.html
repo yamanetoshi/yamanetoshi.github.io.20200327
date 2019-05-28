@@ -97,6 +97,56 @@
         
 
 <header>
+    <p class="meta">Apr 10, 2015
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/10/cannot-be-reproduced-behavior/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/10/cannot-be-reproduced-behavior/">再現できない謎挙動</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>何故か以下なコードが書かれてるメソドに</p>
+
+<pre><code>if(AndroidUtils.isLessThanBuildVersion(Build.VERSION_CODES.KITKAT)){
+    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+}else{
+    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+}
+</code></pre>
+
+<p>以下なアノテーションを付けるの忘れてて</p>
+
+<pre><code>@TargetApi(Build.VERSION_CODES.KITKAT)
+</code></pre>
+
+<p>ICS な端末で実行したら日付変更な Broadcast が発行されず、むむむむ状態でした。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/10/cannot-be-reproduced-behavior/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Apr 9, 2015
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/09/rough-note-english-grammer/#disqus_thread">Comments</a>
@@ -429,46 +479,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Apr 4, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/04/nand2tetris5/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/04/nand2tetris5/">マルチビットバージョン (nand to tetris(5))</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>16 ビット並列なゲートも作れとのこと。繰り返しって使えるのかな、と思い <code>for</code> とか使ってみましたが、どうも実装されていないようで .hdl が読みこめませんでした。仕方が無いのでコピペでアレしましたが、これはなかなかに辛みのあるナニですな (何</p>
-
-<p>とりあえずここまでの時点で作ってる部品は使って良いとのことなのでそのまんま使ってしまい multi-bit なソレは実装できました。</p>
-
-<p>また、この HDL では変数の使いまわしはできないみたいなので Or8Way もちょっと工夫が必要らしい。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/04/nand2tetris5/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -571,6 +581,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/05/28/igo-books/">囲碁本</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/05/27/takara-shuzo-cup/">Colaboratory</a>
               </li>
             
@@ -620,12 +636,6 @@
             
               <li class="post">
                 <a href="/blog/2019/05/16/weekend-cooking/">週末料理</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/05/15/programming-elixir/">プログラミング Elixir (29)</a>
               </li>
             
           
