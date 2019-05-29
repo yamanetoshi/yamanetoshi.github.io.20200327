@@ -6,10 +6,21 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 23 May 2019 21:12:25 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 29 May 2019 20:37:48 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング Elixir (33)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/29/programming-elixir/</link>
+      <pubDate>Wed, 29 May 2019 20:37:48 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/29/programming-elixir/</guid>
+      <description>&lt;p&gt;スタックの課題をやってみます。お題てきにスタックのアプリケーションにスーパーバイザを追加、というものです。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>プログラミング Elixir (32)</title>
