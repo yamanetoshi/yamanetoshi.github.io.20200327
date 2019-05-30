@@ -6,10 +6,25 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 28 May 2019 21:10:35 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 30 May 2019 20:47:38 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>環境構築</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/05/30/ncsdk-environment-settings/</link>
+      <pubDate>Thu, 30 May 2019 20:47:38 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/05/30/ncsdk-environment-settings/</guid>
+      <description>&lt;p&gt;以下を確認しつつ、docker image 作成して放置していた。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://ichbinblau.github.io/2017/12/19/Running-the-NCSDK-examples-in-Docker/&#34;&gt;Running the NCSDK examples in Docker&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>囲碁本</title>

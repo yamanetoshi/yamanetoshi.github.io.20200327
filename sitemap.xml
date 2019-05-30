@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/05/30/ncsdk-environment-settings/</loc>
+    <lastmod>2019-05-30T20:47:38+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/05/29/programming-elixir/</loc>
     <lastmod>2019-05-29T20:37:48+09:00</lastmod>
   </url>
@@ -9319,7 +9324,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-05-29T20:37:48+09:00</lastmod>
+    <lastmod>2019-05-30T20:47:38+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9523,7 +9528,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/misc/</loc>
-    <lastmod>2019-05-28T21:10:35+09:00</lastmod>
+    <lastmod>2019-05-30T20:47:38+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9547,7 +9552,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-05-29T20:37:48+09:00</lastmod>
+    <lastmod>2019-05-30T20:47:38+09:00</lastmod>
     <priority>0</priority>
   </url>
   
