@@ -6,10 +6,27 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 30 May 2019 20:47:38 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 02 Jun 2019 18:52:12 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>blockchain</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/06/02/blockchain/</link>
+      <pubDate>Sun, 02 Jun 2019 18:52:12 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/06/02/blockchain/</guid>
+      <description>&lt;p&gt;食品のトレーサビリティを担保するために使われている、という BBC のコンテンツを拝見しております。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;QR コードからその食品の route を確認できる&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;これ系のログを云々な方面には向いてますよね。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>環境構築</title>
