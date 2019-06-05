@@ -6,10 +6,27 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 04 Jun 2019 20:51:52 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 05 Jun 2019 20:27:38 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Web System Architecture に最適化された並列処理系</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/06/05/parallel-processing-system-optimized-for-web-system-architecture/</link>
+      <pubDate>Wed, 05 Jun 2019 20:27:38 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/06/05/parallel-processing-system-optimized-for-web-system-architecture/</guid>
+      <description>&lt;p&gt;北九州市立大学の zacky1972 さんのスライド、良いです。つうか最近の発信なのですね。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://speakerdeck.com/zacky1972/web-system-architecture-nizui-shi-hua-saretabing-lie-chu-li-xi?slide=4&#34;&gt;Web System Architecture に最適化された並列処理系&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;これ使って某所向け布教とかできんかな。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Elixir マクロを使った Enum 関数の融合変換</title>

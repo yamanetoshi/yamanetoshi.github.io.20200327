@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/06/05/parallel-processing-system-optimized-for-web-system-architecture/</loc>
+    <lastmod>2019-06-05T20:27:38+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/06/04/fusion-transformation-of-enum-function-using-elixir-macro/</loc>
     <lastmod>2019-06-04T20:51:52+09:00</lastmod>
   </url>
@@ -9339,7 +9344,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-06-04T20:51:52+09:00</lastmod>
+    <lastmod>2019-06-05T20:27:38+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9567,13 +9572,13 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-06-04T20:51:52+09:00</lastmod>
+    <lastmod>2019-06-05T20:27:38+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/programming/</loc>
-    <lastmod>2019-06-04T20:51:52+09:00</lastmod>
+    <lastmod>2019-06-05T20:27:38+09:00</lastmod>
     <priority>0</priority>
   </url>
   
