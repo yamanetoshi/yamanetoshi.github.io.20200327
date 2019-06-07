@@ -97,6 +97,36 @@
         
 
 <header>
+    <p class="meta">Feb 28, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/28/investment-in-kickstarter/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/28/investment-in-kickstarter/">法人から kickstarter への出資</a>
+    </h1>
+</header>
+
+
+        
+          <p>まだ税制の整備はされていないみたい。継続して調査してみたいと思います。</p>
+
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Feb 27, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/27/mouse-over-dictionary-in-debian/#disqus_thread">Comments</a>
@@ -421,63 +451,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 23, 2014
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/23/fragment-pager-adapter/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/23/fragment-pager-adapter/">FragmentPagerAdaper 云々</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>なんとなくこないだ入手した Master of Fragment 見てると FragmentPagerAdapter はページに対応した Fragment が存在する場合は getItem() 呼ばないとの記述があり、開発が終わったはずの某アプリに手を入れてみた。</p>
-
-<p>これもダウトとのことだったのですが、画面遷移で Fragment 使いまくってたので、それらを ViewPager で表示する Fragment を getItem で new する方式に変更しつつ、画面遷移は Activity で、という修正を盛り込みました。</p>
-
-<p>で、修正後に確認してみたところ、ViewPager 内で表示される Fragment から直接 startActivity してますね。Fragment から startActivity は良くない、ということで</p>
-
-<ul>
-<li>interface 定義して Activity で実装</li>
-<li>実装なメソドから画面遷移の手続きを呼び出す</li>
-<li>Fragment からは getActivity() して実装なメソド呼び出し</li>
-</ul>
-
-<p>という形を取っていて同様の方法で云々せねばならない模様なんですが、次画面に Bundle 経由で情報を渡してるのでそのあたりを吸収する必要あり。修正必要ということで備忘メモ。</p>
-
-<h2 id="つうか件の書籍によれば">つうか件の書籍によれば</h2>
-
-<ul>
-<li>階層的な画面遷移は startActivity() した方が良い</li>
-<li>同一階層な遷移は Fragment で構わない</li>
-</ul>
-
-<p>とのこと。あと getItem() 云々は目から鱗でした。やっぱソース読まないと駄目ですね。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/23/fragment-pager-adapter/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -580,6 +553,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/06/07/k8s-elixir/">k8s と Elixir</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/06/06/dreams-come-true/">かんぽ生命の春のワンダーキャンペーン</a>
               </li>
             
@@ -629,12 +608,6 @@
             
               <li class="post">
                 <a href="/blog/2019/05/27/takara-shuzo-cup/">Colaboratory</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/05/25/takara-shuzo-cup/">はじめての宝酒造杯!</a>
               </li>
             
           

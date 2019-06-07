@@ -6,10 +6,27 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 06 Jun 2019 20:05:56 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 07 Jun 2019 10:48:02 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>k8s と Elixir</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/06/07/k8s-elixir/</link>
+      <pubDate>Fri, 07 Jun 2019 10:48:02 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/06/07/k8s-elixir/</guid>
+      <description>&lt;p&gt;まだ道半ばとは言え超期待しているこの組合せ。上手く動くようになったら凄いな、とか思っていますが実装に貢献できるリソースを捻出するのは微妙な今日この頃。&lt;/p&gt;
+
+&lt;p&gt;6.1 開催なイベントでも発信があったようですね。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://speakerdeck.com/ishikawa/kiss-karahazimaru-elixir-on-kubernetes&#34;&gt;KISS からはじまる Elixir on Kubernetes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>かんぽ生命の春のワンダーキャンペーン</title>
