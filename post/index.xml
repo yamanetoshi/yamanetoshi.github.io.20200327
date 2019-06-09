@@ -6,10 +6,27 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 08 Jun 2019 12:24:58 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 09 Jun 2019 20:28:36 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flow</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/06/09/elixir-flow/</link>
+      <pubDate>Sun, 09 Jun 2019 20:28:36 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/06/09/elixir-flow/</guid>
+      <description>&lt;p&gt;バッチ処理で云々できないか、と思っているのですが&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://speakerdeck.com/piacere/elixirdeshi-merudetasaiensuru-men-elixirzhi-detasaiensupuratutohuomu-esuna-nite?slide=18&#34;&gt;Enum の並列処理実装「Flow」で同等処理を実装したら&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;というナニが掘り返されててアレ&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>辛ラーメンのレシピ</title>
