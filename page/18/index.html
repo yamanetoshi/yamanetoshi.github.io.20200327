@@ -97,6 +97,49 @@
         
 
 <header>
+    <p class="meta">Dec 12, 2018
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/12/ruby-one-liner/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/12/ruby-one-liner/">ruby のワンライナー</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>の中でバッククォートな展開させると例えば</p>
+
+<pre><code>$ echo '$Gcid$'|ruby -e &quot;puts STDIN.read.gsub('$Gcid$', '$Gcid: ' + `git rev-parse HEAD`.strip + '$')&quot;
+-e:1: syntax error, unexpected tIDENTIFIER, expecting ')'
+53c4e21fbe6816fa424c18dc674e81.strip + '$')
+</code></pre>
+
+<p>みたいになるの、何なのか。シェルの展開になってて文字列として認識されないのかな。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/12/ruby-one-liner/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Dec 11, 2018
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/11/preparation/#disqus_thread">Comments</a>
@@ -440,42 +483,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Dec 1, 2018
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/01/after-data-extraction/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/01/after-data-extraction/">データ吸い出し後</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>ドリのナニを云々してて</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/01/after-data-extraction/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -578,6 +585,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/06/10/write-to-remember/">書いて覚える?</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/06/09/elixir-flow/">Flow</a>
               </li>
             
@@ -627,12 +640,6 @@
             
               <li class="post">
                 <a href="/blog/2019/05/30/ncsdk-environment-settings/">環境構築</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/05/29/programming-elixir/">プログラミング Elixir (33)</a>
               </li>
             
           
