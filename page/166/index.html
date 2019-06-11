@@ -97,6 +97,66 @@
         
 
 <header>
+    <p class="meta">Jan 30, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/30/twitter-bot-trouble/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/30/twitter-bot-trouble/">某 twitter-bot が動いていない件</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>気が付いたら 1.14 あたりから動いていない。API の仕様変更があったとのことですが</p>
+
+<ul>
+<li><a href="http://nlab.itmedia.co.jp/nl/articles/1401/15/news073.html">Twitter APIの仕様変更でJanetterなど一部アプリが閲覧不能に　対処方法は？</a></li>
+</ul>
+
+<p>プロトコルを https にしても駄目。で、ローカルに環境作って云々、ってのも色々ハマッた挙句に json なナニを import できなくなっている事が判明。</p>
+
+<p>で、GAE なログ見ると For more information see <a href="https://developers.google.com/appengine/docs/python/tools/libraries#Django">https://developers.google.com/appengine/docs/python/tools/libraries#Django</a> とあったので中身を確認。</p>
+
+<p>どうも以下を main.py に追加、ということなのかどうか。ちなみにわしは Django 0.96 を使っているらしい。</p>
+
+<pre><code>import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+
+from google.appengine.dist import use_library
+use_library('django', '0.96')
+</code></pre>
+
+<p>盛り込んでみます。で、deploy もしてみる。</p>
+
+<pre><code>$ ./google_appengine/appcfg.py --oauth2 update hoge/
+</code></pre>
+
+<p>どうなるか。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/30/twitter-bot-trouble/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jan 29, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/29/listview-in-scrollview/#disqus_thread">Comments</a>
@@ -434,48 +494,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 23, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/exclude-rspec-test/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/rails/">rails </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/exclude-rspec-test/">リファクタに伴ない不要な route ができた件</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>routing 無効にして試験も無効にしたいのだけれど、どうしたものか。日本語でググッても微妙だったので exclude とかってキーワードにしてみると以下がでてきた。</p>
-
-<ul>
-<li><a href="https://www.relishapp.com/rspec/rspec-core/v/2-0/docs/filtering/exclusion-filters">Exclusion filters</a></li>
-</ul>
-
-<p>盛り込んでみます。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/exclude-rspec-test/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -578,6 +596,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/06/11/genstage/">GenStage</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/06/10/write-to-remember/">書いて覚える?</a>
               </li>
             
@@ -627,12 +651,6 @@
             
               <li class="post">
                 <a href="/blog/2019/06/02/blockchain/">blockchain</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/05/30/ncsdk-environment-settings/">環境構築</a>
               </li>
             
           

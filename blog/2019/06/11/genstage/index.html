@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>GenStage</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Jun 11, 2019
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/06/11/genstage/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         GenStage 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>以下、確認しつつ控えを以降に。</p>
+
+<ul>
+<li><a href="https://elixirschool.com/ja/lessons/advanced/gen-stage/">GenStage</a></li>
+</ul>
+
+<p></p>
+
+<p>三種類の役割が用意されている、とのこと。</p>
+
+<ul>
+<li><code>:producer</code></li>
+<li><code>:producer_consumer</code></li>
+<li><code>:consumer</code></li>
+</ul>
+
+<p>producer は最速を待っている、とのこと。</p>
+
+<ul>
+<li>バックプレッシャー : consumer の処理が busy の時に過剰なプレッシャーがかからないようにする仕組み</li>
+</ul>
+
+<h2 id="作成着手">作成着手</h2>
+
+<p>とりあえず Google Cloud Shell に接続。事前準備として以下なスクリプト実行。</p>
+
+<pre><code>#/bin/bash
+
+sudo dpkg -i ~/erlang-solutions_1.0_all.deb
+sudo apt-get update
+sudo apt-get install esl-erlang -fy
+sudo apt-get install elixir -fy
+</code></pre>
+
+<p>で、以下を実行。</p>
+
+<pre><code>$ mix new genstage_example --sup
+$ cd genstage_example
+</code></pre>
+
+<p>で、依存ライブラリに <code>gen_stage</code> 追加して以下。</p>
+
+<pre><code>$ mix do deps.get, compile
+Resolving Hex dependencies...
+Dependency resolution completed:
+New:
+  gen_stage 0.14.1
+* Getting gen_stage (Hex package)
+==&gt; gen_stage
+Compiling 10 files (.ex)
+Generated gen_stage app
+==&gt; genstage_example
+Compiling 2 files (.ex)
+Generated genstage_example app
+</code></pre>
+
+<p>これで producer を云々する用意ができた、とのこと。</p>
+
+<h2 id="producer">producer</h2>
+
+<p>第一歩は producer の作成、とのこと。ファイルを作成して</p>
+
+<pre><code>$ mkdir lib/genstage_example
+$ touch lib/genstage_example/producer.ex
+</code></pre>
+
+<p>ディレクトリは既に存在。producer.ex を以下に。</p>
+
+<pre><code>defmodule GenstageExample.Producer do
+  use GenStage
+
+  def start_link(initial \\ 0) do
+    GenStage.start_link(__MODULE__, initial, name: __MODULE__)
+  end
+
+  def init(counter), do: {:producer, counter}
+
+  def handle_demand(demand, state) do
+    events = Enum.to_list(state..(state + demand - 1))
+    {:noreply, events, state + demand}
+  end
+end
+</code></pre>
+
+<ul>
+<li><code>init/1</code> で初期状態をセットして自分自身を <code>:producer</code> とラベル付け</li>
+<li><code>handle_demand/2</code> は全ての producer が実装しなければならない</li>
+</ul>
+
+<h2 id="バックプレッシャー">バックプレッシャー?</h2>
+
+<p>なんかよくわからない。以下を確認した方が良さげ。</p>
+
+<ul>
+<li><a href="https://qiita.com/twinbee/items/12a61863ceef794996e0">ElixirのGenStageに入門する #1</a></li>
+<li><a href="https://qiita.com/twinbee/items/eda7f70fa9e4651f2248">ElixirのGenStageに入門する#2 バックプレッシャーを理解する</a></li>
+</ul>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<ul>
+<li><code>handle_demand/2</code> が戻すのは <code>{ :noreply, 結果のリスト, 次回の開始値 }</code> とのこと</li>
+</ul>
+
+<p>や、<code>handle_demand</code> に渡される第一引数の demand の出所がわからんぞ。あ、次回の期待値か、むむむむ。</p>
+
+<h2 id="わかった">わかった</h2>
+
+<p>とりあえず実装すすめてみます</p>
+
+<h2 id="producer-consumer">producer_consumer</h2>
+
+<p>作成。</p>
+
+<pre><code>$ touch lib/genstage_example/producer_consumer.ex
+</code></pre>
+
+<p>で、中身が以下。</p>
+
+<pre><code>defmodule GenstageExample.ProducerConsumer do
+  use GenStage
+
+  require Integer
+
+  def start_link do
+    GenStage.start_link(__MODULE__, :state_doesnt_matter, name: __MODULE__)
+  end
+
+  def init(state) do
+    {:producer_consumer, state, subscribe_to: [GenstageExample.Producer]}
+  end
+
+  def handle_events(events, _from, state) do
+    numbers =
+      events
+      |&gt; Enum.filter(&amp;Integer.is_even/1)
+
+    {:noreply, numbers, state}
+  end
+end
+</code></pre>
+
+<p><code>handle_events/3</code> で操作して次に渡しています。</p>
+
+<h2 id="consumer">consumer</h2>
+
+<p>以下で作成。</p>
+
+<pre><code>$ touch lib/genstage_example/consumer.ex
+</code></pre>
+
+<p>中身が以下。</p>
+
+<pre><code>defmodule GenstageExample.Consumer do
+  use GenStage
+
+  def start_link do
+    GenStage.start_link(__MODULE__, :state_doesnt_matter)
+  end
+
+  def init(state) do
+    {:consumer, state, subscribe_to: [GenstageExample.ProducerConsumer]}
+  end
+
+  def handle_events(events, _from, state) do
+    for event &lt;- events do
+      IO.inspect({self(), event, state})
+    end
+
+    # 消費者としては二度とイベントを出力しない
+    {:noreply, [], state}
+  end
+end
+</code></pre>
+
+<h2 id="application-ex">application.ex</h2>
+
+<p>以下。ここがポイントでした。</p>
+
+<pre><code>def start(_type, _args) do
+  import Supervisor.Spec, warn: false
+
+  children = [
+    worker(GenstageExample.Producer, [0]),
+    worker(GenstageExample.ProducerConsumer, []),
+    worker(GenstageExample.Consumer, [])
+  ]
+
+  opts = [strategy: :one_for_one, name: GenstageExample.Supervisor]
+  Supervisor.start_link(children, opts)
+end
+</code></pre>
+
+<p>ここで worker で指定してるソレが最初の期待値なのか。</p>
+
+<h2 id="google-cloud-shell-の-c-c">Google Cloud Shell の C-c</h2>
+
+<p>C-c で良いのかどうかorz</p>
+
+<h2 id="以下-別途確認の方向にて">以下、別途確認の方向にて</h2>
+
+<ul>
+<li><a href="https://qiita.com/kanmo/items/1414e7ec73fcc97b2e5a">GenStageを使ってRateLimiterを実装する</a></li>
+</ul>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Jun 11, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/06/10/write-to-remember/" title="書いて覚える?">書いて覚える?</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/06/11/genstage/">GenStage</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/06/10/write-to-remember/">書いて覚える?</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/06/09/elixir-flow/">Flow</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/06/08/ramen-recipe/">辛ラーメンのレシピ</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/06/07/k8s-elixir/">k8s と Elixir</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/06/06/dreams-come-true/">かんぽ生命の春のワンダーキャンペーン</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/06/05/parallel-processing-system-optimized-for-web-system-architecture/">Web System Architecture に最適化された並列処理系</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/06/04/fusion-transformation-of-enum-function-using-elixir-macro/">Elixir マクロを使った Enum 関数の融合変換</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/06/03/ogawa-ayaka/">今日から</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/06/02/blockchain/">blockchain</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

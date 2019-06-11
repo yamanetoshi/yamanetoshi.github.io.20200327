@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/06/11/genstage/</loc>
+    <lastmod>2019-06-11T20:56:45+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/06/10/write-to-remember/</loc>
     <lastmod>2019-06-10T20:15:40+09:00</lastmod>
   </url>
@@ -9369,7 +9374,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-06-10T20:15:40+09:00</lastmod>
+    <lastmod>2019-06-11T20:56:45+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9597,13 +9602,13 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-06-10T20:15:40+09:00</lastmod>
+    <lastmod>2019-06-11T20:56:45+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/programming/</loc>
-    <lastmod>2019-06-09T20:28:36+09:00</lastmod>
+    <lastmod>2019-06-11T20:56:45+09:00</lastmod>
     <priority>0</priority>
   </url>
   

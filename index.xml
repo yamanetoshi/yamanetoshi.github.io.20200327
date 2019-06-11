@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 10 Jun 2019 20:15:40 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 11 Jun 2019 20:56:45 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GenStage</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/06/11/genstage/</link>
+      <pubDate>Tue, 11 Jun 2019 20:56:45 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/06/11/genstage/</guid>
+      <description>&lt;p&gt;以下、確認しつつ控えを以降に。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://elixirschool.com/ja/lessons/advanced/gen-stage/&#34;&gt;GenStage&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>書いて覚える?</title>
