@@ -6,10 +6,34 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 11 Jun 2019 20:56:45 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 12 Jun 2019 20:30:38 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Phrasal verbs (2)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/06/12/phrasal-verbs/</link>
+      <pubDate>Wed, 12 Jun 2019 20:30:38 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/06/12/phrasal-verbs/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/0521189063/yamanertoshi-22&#34;&gt;English Grammer in Use&lt;/a&gt; の Phrasal verbs な節、控えの続きです。&lt;/p&gt;
+
+&lt;h2 id=&#34;out&#34;&gt;out&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;out : not burning, not shining
+
+&lt;ul&gt;
+&lt;li&gt;go out&lt;/li&gt;
+&lt;li&gt;put out &lt;em&gt;a fire / a cigarette / a light&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;turn out &lt;em&gt;a light&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;blow out &lt;em&gt;a candle&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>GenStage</title>
