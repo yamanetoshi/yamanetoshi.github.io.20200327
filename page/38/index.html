@@ -97,6 +97,50 @@
         
 
 <header>
+    <p class="meta">Feb 27, 2018
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/27/unit-test-hands-on/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/27/unit-test-hands-on/">DroidKaigi2018UnitTestHandsOn 実装掘削メモ</a>
+    </h1>
+</header>
+
+
+        
+          <p><p><code>datasource/remote</code> 配下のテストを確認するのを忘れてました。これ以外の継続? が以下です。</p>
+
+<ul>
+<li><code>RepositoryMapper</code></li>
+<li><code>RepositoryEntityMapper</code></li>
+<li>Retrfit のあたり諸々</li>
+</ul>
+
+<p>とりあえず試験から確認します。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/27/unit-test-hands-on/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Feb 26, 2018
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/26/cloud9-django/#disqus_thread">Comments</a>
@@ -506,60 +550,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 16, 2018
-         - 3 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/16/unit-test-hands-on/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/16/unit-test-hands-on/">DroidKaigi2018UnitTestHandsOn 実装掘削メモ</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>とりあえず、<code>AndroidManifest</code> によれば MAIN/LAUNCHER な Activity は　<code>AccountInputActivity</code> ということなので、そちら始点で掘削着手。とりあえず開いてみたのが以下です。</p>
-
-<ul>
-<li>presentation/view/activity/AccountInputActivity.java</li>
-<li>presentation/view/activity/BaseActivity.java</li>
-<li>presentation/view/fragment/AccountInputFragment.java</li>
-<li>presentation/view/fragment/BaseFragment.java</li>
-<li>presentation/view/contract/AccountInputContract.java</li>
-<li>presentation/presenter/AccountInputPresenter.java</li>
-</ul>
-
-<p>UnitTest Hands-on では上記で試験が書かれていたのは presenter 配下のもののみ、でした。確かに確認してみるに</p>
-
-<ul>
-<li>BaseActivity では replaceFragment というメソッド定義のみ（引数で指定された Fragment を表示）</li>
-<li>AccountInputActivity では onCreate の定義のみ（スーパークラスのメソッド呼び出し、setContentView、replaceFragment の呼び出しのみ）</li>
-</ul>
-
-<p>あるいは Fragment および Contract についても試験が不要な作りになっているものと思われますが、BaseFragment から確認をすすめていきます。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/16/unit-test-hands-on/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -662,6 +652,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/06/16/go-tournament/">「ぬちまーすの力」出版記念囲碁大会</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/06/15/okinawa-sre-meetup/">Okinawa SRE meetup</a>
               </li>
             
@@ -711,12 +707,6 @@
             
               <li class="post">
                 <a href="/blog/2019/06/07/k8s-elixir/">k8s と Elixir</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/06/06/dreams-come-true/">かんぽ生命の春のワンダーキャンペーン</a>
               </li>
             
           

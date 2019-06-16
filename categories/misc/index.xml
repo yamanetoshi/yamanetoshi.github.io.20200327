@@ -6,10 +6,31 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 15 Jun 2019 18:24:21 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 16 Jun 2019 17:40:56 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「ぬちまーすの力」出版記念囲碁大会</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/06/16/go-tournament/</link>
+      <pubDate>Sun, 16 Jun 2019 17:40:56 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/06/16/go-tournament/</guid>
+      <description>&lt;p&gt;FB にて開催告知があったので参加してきました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.facebook.com/tomoko.isimine/posts/2378145458932495?__tn__=-R&#34;&gt;出版記念囲碁大会開催告知&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;級位者の部に参加。結果は子供に連敗で終了、でしたw&lt;/p&gt;
+
+&lt;h2 id=&#34;その後&#34;&gt;その後&lt;/h2&gt;
+
+&lt;p&gt;練習囲碁を二局ほど。もっと色んな人と打ちたいですね。来週、再来週もイベント開催とのことなので参加させて頂く方向です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Okinawa SRE meetup</title>
