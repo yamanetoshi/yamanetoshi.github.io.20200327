@@ -6,10 +6,29 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 17 Jun 2019 20:21:16 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 18 Jun 2019 20:16:28 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Sublime が頻繁に固まる件</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/06/18/sublime-freeze/</link>
+      <pubDate>Tue, 18 Jun 2019 20:16:28 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/06/18/sublime-freeze/</guid>
+      <description>&lt;p&gt;今日、かなりの頻度で固まって困りました。ググッて対処を見つけたのですがハズレだったのかどうか。&lt;/p&gt;
+
+&lt;h2 id=&#34;明日&#34;&gt;明日&lt;/h2&gt;
+
+&lt;p&gt;以下の対処を試してみる方向です。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://photo-tea.com/p/1801/sublimetext3-settings/&#34;&gt;SublimeText3のコーディング中に頻繁に固まってフリーズを起こしてしまう時の回避方法について&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Phrasal verbs (4)</title>
