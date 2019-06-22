@@ -98,6 +98,57 @@
 
 <header>
     <p class="meta">Feb 16, 2014
+         - 3 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/16/install-android-development-env-in-wheezy-x201/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/debian/">Debian </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/16/install-android-development-env-in-wheezy-x201/">wheezy な x201 に Android 開発環境導入</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえず、openjdk-6-jdk パケジで云々してみます。</p>
+
+<pre><code>$ sudo apt-get install -fy openjdk-6-jdk
+</code></pre>
+
+<p>で、Androdi Studio を download して展開後、bin/studio.sh を起動したのですが何も起こらない。プロセスは生きている模様。</p>
+
+<p>いったん kill -9 して端末から起動してみるに</p>
+
+<blockquote>
+<p>OpenJDK6 is not supported. Please use Oracle Java or newer OpenJDK</p>
+</blockquote>
+
+<p>と言われる。どうやら openjdk-7-jdk でないと駄目らしい。どうもこれで ADT な Eclipse もイケる模様。別途確認、ってことでとりあえず入れ直し。</p>
+
+<p>その後、studio.sh で正常に起動したので手持ちのプロジェクトを clone して云々してみました。最初の一発目なので gradlew な準備が云々とかで時間かかりましたが正常終了?</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/16/install-android-development-env-in-wheezy-x201/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Feb 16, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/16/docker-in-debian/#disqus_thread">Comments</a>
 
@@ -445,40 +496,6 @@ end
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 12, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/12/thinkpad-x201-and-debian-7/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/debian/">Debian </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/12/thinkpad-x201-and-debian-7/">TP X201 にでびあん 7</a>
-    </h1>
-</header>
-
-
-        
-          <p>TP X201 発注してまして、届き次第 7.4 なでびあんを導入の方向なのですが、必須なツールとして Eclipse+ADT Android Studio Chrome Emacs Git Dropbox あたりが使えれば良いのかどうか。つーか発注完</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/02/12/thinkpad-x201-and-debian-7/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -581,6 +598,12 @@ end
           
             
               <li class="post">
+                <a href="/blog/2019/06/22/igo-event-in-urasoe-igo-kaikan/">浦添囲碁会館イベント</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/06/21/join-this-event-tommorow/">明日は級位者イベント</a>
               </li>
             
@@ -630,12 +653,6 @@ end
             
               <li class="post">
                 <a href="/blog/2019/06/13/dreams-come-true/">かんぽ生命の春のワンダーキャンペーン</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/06/12/phrasal-verbs/">Phrasal verbs (2)</a>
               </li>
             
           
