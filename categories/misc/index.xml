@@ -6,10 +6,24 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 30 Jun 2019 20:30:03 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jul 2019 11:12:14 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>昨日のポイント</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/07/06/yesterday-point/</link>
+      <pubDate>Sat, 06 Jul 2019 11:12:14 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/07/06/yesterday-point/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;むやみにツケない&lt;/li&gt;
+&lt;li&gt;詰碁は並べる&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>現時点での勉強テーマ</title>
