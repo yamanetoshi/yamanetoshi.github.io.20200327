@@ -6,10 +6,21 @@
     <description>Recent content in English on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 04 Jul 2019 20:20:17 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 05 Jul 2019 21:58:03 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/english/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>High Sierra 導入</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/07/05/install-high-sierra/</link>
+      <pubDate>Fri, 05 Jul 2019 21:58:03 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/07/05/install-high-sierra/</guid>
+      <description>&lt;p&gt;色々ハマッたので自分メモを以下に。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Present and Past Tenses</title>
@@ -17,7 +28,7 @@
       <pubDate>Thu, 04 Jul 2019 20:20:17 +0900</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2019/07/04/present-and-past-tenses/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/0521189063/yamanertoshi-22&#34;&gt;English Grammer in Use&lt;/a&gt; の Appendix から辿れる動詞のあたりの説について。&lt;/p&gt;
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/0521189063/yamanertoshi-22&#34;&gt;English Grammer in Use&lt;/a&gt; の Appendix から辿れる動詞のあたりの節について。&lt;/p&gt;
 
 &lt;h2 id=&#34;present-simple&#34;&gt;present simple&lt;/h2&gt;
 
