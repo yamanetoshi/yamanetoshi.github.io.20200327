@@ -6,10 +6,27 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 06 Jul 2019 11:12:14 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 08 Jul 2019 20:09:01 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Zbaduk</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/07/08/zbaduk/</link>
+      <pubDate>Mon, 08 Jul 2019 20:09:01 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/07/08/zbaduk/</guid>
+      <description>&lt;p&gt;サインアップしてみた。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.zbaduk.com&#34;&gt;ZBaduk&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;AI 使って検討、が可能らしく。SGF の読み込みができるらしいので、SGF として棋譜が保存できる Android なコンテンツアプリを入れて云々してみる方向です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>昨日のポイント</title>
