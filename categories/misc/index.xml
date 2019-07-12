@@ -6,10 +6,28 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 08 Jul 2019 20:09:01 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 12 Jul 2019 13:25:23 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>High sierra 導入</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/07/12/install-high-sierra/</link>
+      <pubDate>Fri, 12 Jul 2019 13:25:23 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/07/12/install-high-sierra/</guid>
+      <description>&lt;p&gt;とりあえず xcode 10.1 を導入。command line tools を導入して&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;homebrew 導入&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;brew cask install emacs&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;までできていますが未だ aquaskk は使えずで。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Zbaduk</title>
