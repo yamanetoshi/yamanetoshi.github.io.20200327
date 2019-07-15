@@ -6,10 +6,32 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 13 Jul 2019 11:30:58 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 15 Jul 2019 16:56:39 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>三村智保さんの石の形集中講義</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/07/15/igo-tesuji-book/</link>
+      <pubDate>Mon, 15 Jul 2019 16:56:39 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/07/15/igo-tesuji-book/</guid>
+      <description>&lt;p&gt;unlimited だったのかどうか、忘却の彼方だったりしています。とりあえず&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;石の形&lt;/li&gt;
+&lt;li&gt;死活&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;についてトレーニングした方が良い、という浦添囲碁会館のアベさんからのアドバイスにて kindle で読んでいる次第です。全然身に付いていないあたりが非常に微妙ではありますが。&lt;/p&gt;
+
+&lt;h2 id=&#34;自分メモ&#34;&gt;自分メモ&lt;/h2&gt;
+
+&lt;p&gt;ということで控えを。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>環境構築</title>
