@@ -98,6 +98,58 @@
 
 <header>
     <p class="meta">Apr 25, 2014
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/25/initializing-uart/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/25/initializing-uart/">UART 初期化成功</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>何が悪いのかは未だ判明しておりません。</p>
+
+<p>以下では初期化に成功しておらず</p>
+
+<pre><code>    *GPPUDCLK0 = (1 &lt;&lt; 14) | (1 &lt;&lt; 15);
+    delay(150);
+</code></pre>
+
+<p>以下で認識しました。</p>
+
+<pre><code>    pinMode(14, INPUT_PULLDOWN);
+    pinMode(15, INPUT_PULLDOWN);
+    pinMode(14, ALT0);
+    pinMode(15, ALT0);
+</code></pre>
+
+<p>おそらく、ですがこの差分が核心なのかどうか。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/25/initializing-uart/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Apr 25, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/25/pin-assign-respi/#disqus_thread">Comments</a>
 
@@ -445,47 +497,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Apr 19, 2014
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/19/md2review-reading/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/19/md2review-reading/">md2review くっさく</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>とりあえず takahashim/md2review を clone して以下。</p>
-
-<pre><code>$ bundle install --path vendor/bundler
-</code></pre>
-
-<p>redcarpet は vendor/bundler/ruby/2.0.0/bundler/gems 配下にある模様。確認します。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/19/md2review-reading/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -588,6 +599,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/07/16/present-and-past-tenses/">Present and past tenses (5)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/07/15/igo-tesuji-book/">三村智保さんの石の形集中講義</a>
               </li>
             
@@ -637,12 +654,6 @@
             
               <li class="post">
                 <a href="/blog/2019/07/05/install-high-sierra/">High Sierra 導入</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/07/04/present-and-past-tenses/">Present and Past Tenses</a>
               </li>
             
           
