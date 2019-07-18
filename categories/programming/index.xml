@@ -6,10 +6,27 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 28 Jun 2019 12:44:14 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 18 Jul 2019 20:13:53 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Game of Life</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/07/18/game-of-life/</link>
+      <pubDate>Thu, 18 Jul 2019 20:13:53 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/07/18/game-of-life/</guid>
+      <description>&lt;p&gt;今日、某所で盛り上がったので、という訳でもないのですが明日のネタは以下で。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/SimoneStefani/game-of-life&#34;&gt;https://github.com/SimoneStefani/game-of-life&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;OTP の理解と Phoenix の理解と ExUnit 書いてみる方向にて。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Phoenix なエントリ</title>
