@@ -97,6 +97,57 @@
         
 
 <header>
+    <p class="meta">Sep 11, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/11/uintptr-t-was-not-declared-in-this-scope/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/11/uintptr-t-was-not-declared-in-this-scope/">uintptr_t が解決できない件</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>環境は raspbian です。以下を見つつ gcc を 4.8 にしてみましたが現象変わらず。</p>
+
+<ul>
+<li><a href="http://somewideopenspace.wordpress.com/2014/02/28/gcc-4-8-on-raspberry-pi-wheezy/">GCC 4.8 ON RASPBERRY PI WHEEZY</a></li>
+</ul>
+
+<p>出力は以下なカンジです。</p>
+
+<pre><code>src/hoge.h:91:5: error: 'uintptr_t' was not declared in this scope
+     uintptr_t v = (uintptr_t)val;
+     ^
+</code></pre>
+
+<p>クロスでコンパイルした方が良さげなカンジがし始めています。以下を参考にやってみます。</p>
+
+<p>-<a href="http://goo.gl/umLUOb">UbuntuにRaspberry Pi向けのC++クロスビルド環境をつくる</a></p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/11/uintptr-t-was-not-declared-in-this-scope/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Sep 10, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/09/10/search-api/#disqus_thread">Comments</a>
@@ -425,44 +476,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Aug 30, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/08/30/install-volley-at-android-studio/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/08/30/install-volley-at-android-studio/">volley を盛り込むときにハマったこと</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>最近は git init して commit 作ったら <code>git submodule add</code> というコマンドで導入できてしまうようですね。つうかどこかに備忘メモが残っているのだろうな。</p>
-
-<p>ともあれハマッたので控えを。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/08/30/install-volley-at-android-studio/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -565,6 +578,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/07/20/game-of-life-implementation/">Game of Life の実装</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/07/19/running-game-of-life-in-cloud-shell/">Cloud Shell で Game of Life を動かしてみた</a>
               </li>
             
@@ -614,12 +633,6 @@
             
               <li class="post">
                 <a href="/blog/2019/07/10/present-and-past-tenses/">Present and Past Tenses (3)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/07/09/present-and-past-tenses/">Present and Past Tenses (2)</a>
               </li>
             
           

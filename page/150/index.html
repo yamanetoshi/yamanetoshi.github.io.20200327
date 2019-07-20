@@ -97,6 +97,48 @@
         
 
 <header>
+    <p class="meta">May 5, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/05/dinner/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/05/dinner/">夜御飯</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>昨晩は</p>
+
+<ul>
+<li>ブロッコリーのポタージュ</li>
+<li>舌平目のバター焼き</li>
+<li>鶏胸とごぼうのサラダ</li>
+</ul>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/05/dinner/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">May 4, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/04/v6-in-raspi/#disqus_thread">Comments</a>
@@ -430,54 +472,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Apr 28, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/28/newline-code/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/28/newline-code/">UART 入力とか出力とか (2)</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>どうも enter が &lsquo;\r&rsquo; (0x0d) なのが微妙、という話になっていたり。</p>
-
-<p>文字列を入力して改行契機で出力、な例がありまして</p>
-
-<pre><code>    do {
-        while(*UART0_FR &amp; (1 &lt;&lt; 4));
-            c = * UART0_DR ;
-            echo[length] = c &amp; 0xff ;
-            length ++;
-    } while(c != '\n' &amp;&amp; i &lt; 256);
-</code></pre>
-
-<p>ここで改行を &lsquo;\n&rsquo; (0x0a) としてますが自分が使ってる環境だと screen でも minicom でも &lsquo;\r&rsquo; (0x0d) になってました。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/28/newline-code/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -580,6 +574,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/07/20/game-of-life-implementation/">Game of Life の実装</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/07/19/running-game-of-life-in-cloud-shell/">Cloud Shell で Game of Life を動かしてみた</a>
               </li>
             
@@ -629,12 +629,6 @@
             
               <li class="post">
                 <a href="/blog/2019/07/10/present-and-past-tenses/">Present and Past Tenses (3)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/07/09/present-and-past-tenses/">Present and Past Tenses (2)</a>
               </li>
             
           
