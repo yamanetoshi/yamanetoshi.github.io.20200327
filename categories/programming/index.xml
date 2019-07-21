@@ -6,10 +6,52 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 20 Jul 2019 11:22:32 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jul 2019 15:38:48 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Game of Life の実装 (2)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/07/21/game-of-life-implementation/</link>
+      <pubDate>Sun, 21 Jul 2019 15:38:48 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/07/21/game-of-life-implementation/</guid>
+      <description>&lt;p&gt;気になっていた以下な記述、Cell なプロセス単位で位置情報も保持、ということなのか。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  # Start a generic server process for the Cell. The process 
+  # is named according to the position with a Registry as index
+  def start_link(position) do
+    GenServer.start_link(__MODULE__, position, name: {
+      :via, Registry, {Cell.Registry, position}
+    })
+  end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これを使ってこんなことしています。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  # Translate the Cell position {x, y} into the process
+  # ID if the Cell is alive (avoid ghost neighbours)
+  def lookup(position) do
+    Cell.Registry
+    |&amp;gt; Registry.lookup(position)
+    |&amp;gt; Enum.map(fn
+      {pid, _valid} -&amp;gt; pid
+      nil -&amp;gt; nil
+    end)
+    |&amp;gt; Enum.filter(&amp;amp;Process.alive?/1)
+    |&amp;gt; List.first
+  end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ある位置の Cell は生存状態かどうか、な判定ができるのかどうか。参考にしたのは以下です。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/elixir-lang/elixir/blob/master/lib/elixir/lib/registry.ex&#34;&gt;lib/exlicir/lib/registry.ex&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Game of Life の実装</title>
