@@ -6,10 +6,28 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 21 Jul 2019 15:38:48 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 22 Jul 2019 18:40:47 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Game of Life の実装 (3)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/07/22/game-of-life-implementation/</link>
+      <pubDate>Mon, 22 Jul 2019 18:40:47 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/07/22/game-of-life-implementation/</guid>
+      <description>&lt;p&gt;以下が確認済み。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Universe.Supervisor&lt;/li&gt;
+&lt;li&gt;Universe&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;続き、は Cell.Supervisor ですかね。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Game of Life の実装 (2)</title>

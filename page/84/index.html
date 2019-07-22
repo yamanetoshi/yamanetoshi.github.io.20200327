@@ -97,6 +97,57 @@
         
 
 <header>
+    <p class="meta">Dec 15, 2015
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/12/15/about-shutdown/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/12/15/about-shutdown/">shutdown について</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>いやはや。起動スクリプトから kickoff されるスクリプトの中で</p>
+
+<pre><code>/sbin/shutdown -h now
+</code></pre>
+
+<p>て書いてて酷い目に会いました。しかもスクリプトが異常終了しててすぐに <code>shutdown</code> が発令される始末。</p>
+
+<h2 id="とりあえずな教訓として">とりあえずな教訓として</h2>
+
+<p>こうしたケイスでは</p>
+
+<p><code>
+/sbin/shutdown -h +30
+</code>`</p>
+
+<p>とかしようね、という事らしい。あと <code>/sbin/shutdown -c</code> というものがあることも学びました。とほほほ。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/12/15/about-shutdown/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Dec 14, 2015
          - 2 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2015/12/14/kotlin-android-example/#disqus_thread">Comments</a>
@@ -405,40 +456,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Dec 7, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/12/07/at-81dojo/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/12/07/at-81dojo/">日曜日、#81dojo にて練習将棋</a>
-    </h1>
-</header>
-
-
-        
-          <p>@zu2 先パイにお誘い頂き、相振り飛車の練習にお付き合い頂きました。棋譜は以下。 20151206.kif がっつり振り返りをして頂きました。やはり棋譜をちゃんと採って振り</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/12/07/at-81dojo/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -541,6 +558,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/07/22/game-of-life-implementation/">Game of Life の実装 (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/07/21/game-of-life-implementation/">Game of Life の実装 (2)</a>
               </li>
             
@@ -590,12 +613,6 @@
             
               <li class="post">
                 <a href="/blog/2019/07/12/install-high-sierra/">High sierra 導入</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/07/11/present-and-past-tenses/">Present and Past Tenses (4)</a>
               </li>
             
           
