@@ -6,10 +6,27 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 22 Jul 2019 18:40:47 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jul 2019 19:48:45 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Game of Life の実装 (4)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/07/23/game-of-life-implementation/</link>
+      <pubDate>Tue, 23 Jul 2019 19:48:45 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/07/23/game-of-life-implementation/</guid>
+      <description>&lt;p&gt;テスツ、良い情報を見つけられていなかった (ググリ力がアレ) のですが以下を発見。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/blackode/live-example-of-genserver-and-genserver-testing-ed55c8eb4f76&#34;&gt;Live example of Genserver and Genserver testing&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;割と簡単そう、ということで例の Game of Life のテスツを書いてみることに。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Game of Life の実装 (3)</title>
