@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 24 Jul 2019 20:30:19 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jul 2019 21:04:08 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Supervisor のテスト</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/07/25/test-of-supervisor/</link>
+      <pubDate>Thu, 25 Jul 2019 21:04:08 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/07/25/test-of-supervisor/</guid>
+      <description>&lt;p&gt;Cell.reap/1 とか Cell.sow/1 の試験を書こうとしてハマッています。&lt;/p&gt;
+
+&lt;h2 id=&#34;ちなみに&#34;&gt;ちなみに&lt;/h2&gt;
+
+&lt;p&gt;今日のエントリは体調不良もあいまって微妙なのでスルーで大丈夫です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>IEx.pry 試してみた</title>
