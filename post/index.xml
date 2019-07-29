@@ -6,10 +6,21 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 28 Jul 2019 19:16:35 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jul 2019 20:30:36 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>野狐</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/07/29/todo/</link>
+      <pubDate>Mon, 29 Jul 2019 20:30:36 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/07/29/todo/</guid>
+      <description>&lt;p&gt;Kindle fire 入手したので &lt;a href=&#34;http://webigojp.com/&#34;&gt;野狐&lt;/a&gt; 使って練習してみる方向。なんとなく検証名目以外だと囲碁専用機になりそげ感 (何&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>TODO</title>

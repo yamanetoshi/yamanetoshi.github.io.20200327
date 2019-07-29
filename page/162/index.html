@@ -99,6 +99,40 @@
 <header>
     <p class="meta">Mar 9, 2014
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/09/how-to-install-memory-analyzer/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/09/how-to-install-memory-analyzer/">MAT 入れかた忘れた</a>
+    </h1>
+</header>
+
+
+        
+          <p>ファイルを download して plugins とかにコピペするのだったか、と思いきや、でした。 install new software から All Available Sites を選択して General Purpose Tool の下にある Memory Analizer を、と思ったら普通に DDMS に Dump HPROF</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/09/how-to-install-memory-analyzer/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 9, 2014
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/09/sunday/#disqus_thread">Comments</a>
 
         
@@ -399,66 +433,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Mar 6, 2014
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/06/fix-build-gradle/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/06/fix-build-gradle/">build.gradle 修正など</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>Android Studio が自動で作ったのが以下。</p>
-
-<pre><code>apply plugin: 'android'
-
-android {
-    compileSdkVersion 19
-    buildToolsVersion &quot;19.0.1&quot;
-
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 19
-        versionCode 1
-        versionName &quot;1.0&quot;
-    }
-    buildTypes {
-        release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-        }
-    }
-}
-
-dependencies {
-}
-</code></pre>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/06/fix-build-gradle/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -561,6 +535,12 @@ dependencies {
           
             
               <li class="post">
+                <a href="/blog/2019/07/29/todo/">野狐</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/07/28/todo/">TODO</a>
               </li>
             
@@ -610,12 +590,6 @@ dependencies {
             
               <li class="post">
                 <a href="/blog/2019/07/18/game-of-life/">Game of Life</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/07/17/self-feedback/">反省会</a>
               </li>
             
           
