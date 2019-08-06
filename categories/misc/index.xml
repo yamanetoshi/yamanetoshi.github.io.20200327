@@ -6,10 +6,39 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 05 Aug 2019 19:45:34 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 06 Aug 2019 19:54:34 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>いくつか</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/08/06/memo/</link>
+      <pubDate>Tue, 06 Aug 2019 19:54:34 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/08/06/memo/</guid>
+      <description>&lt;p&gt;控えを。&lt;/p&gt;
+
+&lt;h2 id=&#34;まず&#34;&gt;まず&lt;/h2&gt;
+
+&lt;p&gt;PyCon Hiroshima、行きたす。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://pycon-hiroshima.connpass.com/event/139166/&#34;&gt;https://pycon-hiroshima.connpass.com/event/139166/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;行くなら早めに申し込んで諸々手配するように &amp;lt; 自分&lt;/p&gt;
+
+&lt;h2 id=&#34;elixirconfjp&#34;&gt;ElixirConfJP&lt;/h2&gt;
+
+&lt;p&gt;こちらは席を一旦キャンセルして頂いて城の中で講演を聴くプランに変更。k8s と OTP みたいな質問できるといいけどどうだろう。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://fukuokaex.connpass.com/event/138846/&#34;&gt;https://fukuokaex.connpass.com/event/138846/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>石の形 (2)</title>
