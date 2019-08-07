@@ -6,10 +6,27 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 06 Aug 2019 19:54:34 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 07 Aug 2019 19:53:12 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LiveView</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/08/07/liveview/</link>
+      <pubDate>Wed, 07 Aug 2019 19:53:12 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/08/07/liveview/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://fukuokaex.connpass.com/&#34;&gt;fukuokaex&lt;/a&gt; 主催の @piacere さんの tweet で面白そうなリポジトリがあることを知るなど。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/piacere_ex/status/1159010004579442688&#34;&gt;https://twitter.com/piacere_ex/status/1159010004579442688&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とりあえず、別途弄ってみる方向にて。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>いくつか</title>
