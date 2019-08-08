@@ -6,10 +6,32 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 06 Aug 2019 19:54:34 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 08 Aug 2019 20:05:52 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>明日</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/08/08/tomorrow/</link>
+      <pubDate>Thu, 08 Aug 2019 20:05:52 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/08/08/tomorrow/</guid>
+      <description>&lt;p&gt;台風が多良間直撃とのこと。幸いながら自宅作業の日、なんですが今日の帰りの時点でなかなかに大変でした。明日の那覇はどうなっているのやら。&lt;/p&gt;
+
+&lt;h2 id=&#34;ともあれ&#34;&gt;ともあれ&lt;/h2&gt;
+
+&lt;p&gt;台風そん、という事で&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Nuxt なプロジェクト対応&lt;/li&gt;
+&lt;li&gt;Game of Life の Gigalixir リトライ&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;な方向です。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>いくつか</title>
