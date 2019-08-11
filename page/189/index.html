@@ -99,6 +99,51 @@
 <header>
     <p class="meta">Nov 14, 2013
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/14/eopl-note/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/eopl/">EoPL </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/scheme/">Scheme </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/14/eopl-note/">EoPL の 2.3.2 と 2.3.3 控え</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>_環境_を操作する実装について。纏めるのがやや微妙。</p>
+
+<p>interface は決まってますが、実装として</p>
+
+<ul>
+<li>constructor は手続きオブジェクトを戻して apply-* ではその手続きを eval する方式</li>
+<li>constructor は abstract syntax tree を戻して apply-* ではその型によって必要な手続きを適用する方式</li>
+</ul>
+
+<p>という形になってます。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/14/eopl-note/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 14, 2013
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/14/eopl-ex-2-18/#disqus_thread">Comments</a>
 
         
@@ -469,49 +514,6 @@ $ android update test-project -m ../HelloWorld -p .
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 12, 2013
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/12/git-common-ancestor/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/12/git-common-ancestor/">hotfix とそれに関するメモ</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>BTS にバグ報告があり、急ぎ対応することに。微妙なのが</p>
-
-<ul>
-<li>開発ブランチにはリリースされていない修正が盛り込まれている</li>
-<li>確認 OK であれば急ぎリリースブランチに盛り込む</li>
-</ul>
-
-<p>というナニ。仕方が無いので開発ブランチとリリースブランチの共通祖先から hotfix なブランチを作成。おそらく開発ブランチの HEAD とも修正はカブらないはずなので。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/12/git-common-ancestor/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -614,6 +616,12 @@ $ android update test-project -m ../HelloWorld -p .
           
             
               <li class="post">
+                <a href="/blog/2019/08/11/igo-exercise/">死活・手筋</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/08/10/lecture-video/">ばっは子さんのレクチャ動画 (2)</a>
               </li>
             
@@ -663,12 +671,6 @@ $ android update test-project -m ../HelloWorld -p .
             
               <li class="post">
                 <a href="/blog/2019/08/01/present-and-past-tenses/">Present and past tenses (6)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/07/31/kindle-fire/">Kindle Fire</a>
               </li>
             
           
