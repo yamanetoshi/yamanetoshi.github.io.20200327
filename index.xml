@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 13 Aug 2019 19:57:33 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 14 Aug 2019 20:24:10 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>zbaduk</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/08/14/zbaduk/</link>
+      <pubDate>Wed, 14 Aug 2019 20:24:10 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/08/14/zbaduk/</guid>
+      <description>&lt;p&gt;読んでる参考書に初手から棋譜を確認しつつ、どうするべきだったか、みたいなナニがあるのですが、Game Editor で変化も含めて入力して本読みながら確認、というのが面白い。&lt;/p&gt;
+
+&lt;h2 id=&#34;というか&#34;&gt;というか&lt;/h2&gt;
+
+&lt;p&gt;こんな勉強のやりかたで良いのだろうか (何&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>The Future</title>
