@@ -99,6 +99,40 @@
 <header>
     <p class="meta">Jan 29, 2014
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/29/listview-in-scrollview/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/29/listview-in-scrollview/">ScrollView の中の ListView</a>
+    </h1>
+</header>
+
+
+        
+          <p>動作が微妙なのでリストにせずに LinearLayout に addView してしまうことに。 とは言え アダプタの getView の中でしてた処理を持ってきて LayoutInflater#inflate でレイアウトな View を生成して 中を埋めて</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/29/listview-in-scrollview/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jan 29, 2014
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/29/indentation-in-emacs/#disqus_thread">Comments</a>
 
         
@@ -442,50 +476,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 23, 2014
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/git/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/git/">直近ではない remote に push してる commit の取り消し</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>公開している歴史を rebase とかで変更してはいけない。</p>
-
-<p>ので、どうするかというとバージョン (commit) を特定してその時点の状態にファイルを巻戻してしまえば良いはず。git checkout で良いのかどうか。</p>
-
-<pre><code>$ git checkout &lt;commit object の id&gt; path
-</code></pre>
-
-<p>で、そのまま commit を作ってしまえば良いはず。
- # そんな対応をした訳ではないのでこんな書き方になっててスミマセン (誰</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/git/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -588,6 +578,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/08/23/css-loader-invalid-options/">Css Loader Invalid Options</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/08/21/judgement/">死活判定</a>
               </li>
             
@@ -637,12 +633,6 @@
             
               <li class="post">
                 <a href="/blog/2019/08/08/tomorrow/">明日</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/07/liveview/">LiveView</a>
               </li>
             
           

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/08/23/css-loader-invalid-options/</loc>
+    <lastmod>2019-08-23T10:52:14+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/08/21/judgement/</loc>
     <lastmod>2019-08-21T19:36:44+09:00</lastmod>
   </url>
@@ -9664,7 +9669,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-08-21T19:36:44+09:00</lastmod>
+    <lastmod>2019-08-23T10:52:14+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9892,13 +9897,13 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-08-21T19:36:44+09:00</lastmod>
+    <lastmod>2019-08-23T10:52:14+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/programming/</loc>
-    <lastmod>2019-08-07T19:53:12+09:00</lastmod>
+    <lastmod>2019-08-23T10:52:14+09:00</lastmod>
     <priority>0</priority>
   </url>
   

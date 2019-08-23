@@ -6,10 +6,35 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 07 Aug 2019 19:53:12 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 23 Aug 2019 10:52:14 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Css Loader Invalid Options</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/08/23/css-loader-invalid-options/</link>
+      <pubDate>Fri, 23 Aug 2019 10:52:14 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/08/23/css-loader-invalid-options/</guid>
+      <description>&lt;p&gt;Nuxt なプロジェクトの雛形を clone してきて&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;yarn&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;yarn run dev&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;したら以下な出力。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ValidationError: CSS Loader Invalid Options
+
+options should NOT have additional properties
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;実は以前 clone して作ったプロジェクトだとこんな動作は出なくて、むむむ、となっていたのです。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>LiveView</title>
