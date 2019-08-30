@@ -6,10 +6,28 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 29 Aug 2019 20:03:30 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 30 Aug 2019 21:12:36 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>sed で微妙にハメられた件</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/08/30/sed/</link>
+      <pubDate>Fri, 30 Aug 2019 21:12:36 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/08/30/sed/</guid>
+      <description>&lt;p&gt;以下なエントリ、Linux ターゲットだったようで&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://konbu13.hatenablog.com/entry/2014/02/18/065854&#34;&gt;
+sedを使って複数ファイルの文字列を一気に置換する&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;OSX だと動かないorz&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>ステップアップ囲碁大会</title>
