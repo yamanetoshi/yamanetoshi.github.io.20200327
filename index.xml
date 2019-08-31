@@ -6,10 +6,37 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 30 Aug 2019 21:12:36 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 31 Aug 2019 18:51:43 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>結局、心が弱いのである</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/08/31/weak-heart/</link>
+      <pubDate>Sat, 31 Aug 2019 18:51:43 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/08/31/weak-heart/</guid>
+      <description>&lt;p&gt;本日の級位認定大会、散々なナニでした。&lt;/p&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;開始直前にお仕事関係で微妙な連絡が入っていた、というのは言い訳で。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;おとうさまに大石を取られ (切れてたのを気づかず)&lt;/li&gt;
+&lt;li&gt;おこさまに終盤で微妙な石の取られかたをして&lt;/li&gt;
+&lt;li&gt;終わった後に、「ここ、じつは取れてましたよ」と言われ&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;という心が折られるナニで「仕事な割り込みがはいりまして」と言いつつ失礼させて頂いた次第なのです。&lt;/p&gt;
+
+&lt;h2 id=&#34;メンタル弱い&#34;&gt;メンタル弱い&lt;/h2&gt;
+
+&lt;p&gt;という以前にこの見えていない何かをなんとかしないと駄目だ。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>sed で微妙にハメられた件</title>
