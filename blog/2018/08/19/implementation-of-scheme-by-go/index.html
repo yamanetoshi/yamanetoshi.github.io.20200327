@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
   
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
 
   
@@ -36,20 +33,18 @@
   
   
 
-  <meta name="description" content="">
+  <meta name="description" content="" />
   <meta name="keywords" content="">
-
   <meta name="author" content="">
 
   
-  <meta name="generator" content="Hugo 0.50" />
+  <meta name="generator" content="Hugo 0.58.0" />
 
   
   
 
   
   
-
 </head>
 <body>
 
@@ -79,7 +74,6 @@
 
 <ul class="subscription">
   
-
 </ul>
 
 
@@ -95,18 +89,18 @@
         
 
 <header>
-    <p class="meta">Aug 19, 2018
-         - 4 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/08/19/implementation-of-scheme-by-go/#disqus_thread">Comments</a>
+  <p class="meta">Aug 19, 2018
+     - 4 minute read 
+     - <a href="https://weblog.metacircular-evaluator.org/blog/2018/08/19/implementation-of-scheme-by-go/#disqus_thread">Comments</a>
 
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
-        
-    </p>
-    <h1 class="entry-title">
-         scheme 実装 
-    </h1>
+    
+    
+      - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+    
+  </p>
+  <h1 class="entry-title">
+     scheme 実装 
+  </h1>
 </header>
 
 
@@ -129,8 +123,6 @@
 
 <p>手元にある R5RS をもとに色々すすめようと思っています。</p>
 
-<p></p>
-
 <h2 id="cons-および-dot-を追加">cons および dot を追加</h2>
 
 <p>そしてそろそろ parse の作戦を練らないと。とりあえず元の parser が</p>
@@ -147,29 +139,29 @@
 <pre><code>package ast
 
 type Node interface {
-    TokenLiteral() string
+	TokenLiteral() string
 }
 
 type Statement interface {
-    Node
-    statementNode()
+	Node
+	statementNode()
 }
 
 type Expression interface {
-    Node
-    expressionNode()
+	Node
+	expressionNode()
 }
 
 type Program struct {
-    Statements []Statement
+	Statements []Statement
 }
 
 func (p *Program) TokenLiteral() string {
-    if len(p.Statements) &gt; 0 {
-        return p.Statements[0].TokenLiteral()
-    } else {
-        return &quot;&quot;
-    }
+	if len(p.Statements) &gt; 0 {
+		return p.Statements[0].TokenLiteral()
+	} else {
+		return &quot;&quot;
+	}
 }
 </code></pre>
 
@@ -178,41 +170,41 @@ func (p *Program) TokenLiteral() string {
 <pre><code>package parser
 
 import (
-    &quot;fmt&quot;
-    &quot;scheme_interpreter/ast&quot;
-    &quot;scheme_interpreter/lexer&quot;
-    &quot;scheme_interpreter/token&quot;
-    &quot;strconv&quot;
+	&quot;fmt&quot;
+	&quot;scheme_interpreter/ast&quot;
+	&quot;scheme_interpreter/lexer&quot;
+	&quot;scheme_interpreter/token&quot;
+	&quot;strconv&quot;
 )
 
 type Parser struct {
-    l      *lexer.Lexer
-    errors []string
+	l      *lexer.Lexer
+	errors []string
 
-    curToken  token.Token
-    peekToken token.Token
+	curToken  token.Token
+	peekToken token.Token
 }
 
 func New(l *lexer.Lexer) *Parser {
-    p := &amp;Parser{
-        l:      l,
-        errors: []string{},
-    }
+	p := &amp;Parser{
+		l:      l,
+		errors: []string{},
+	}
 
-    // Read two tokens, so curToken and peekToken are both set
-    p.nextToken()
-    p.nextToken()
+	// Read two tokens, so curToken and peekToken are both set
+	p.nextToken()
+	p.nextToken()
 
-    return p
+	return p
 }
 
 func (p *Parser) nextToken() {
-    p.curToken = p.peekToken
-    p.peekToken = p.l.NextToken()
+	p.curToken = p.peekToken
+	p.peekToken = p.l.NextToken()
 }
 
 func (p *Parser) ParseProgram() *ast.Program {
-    return nil
+	return nil
 }
 </code></pre>
 
@@ -221,133 +213,133 @@ func (p *Parser) ParseProgram() *ast.Program {
 <pre><code>package parser
 
 import (
-    &quot;fmt&quot;
-    &quot;scheme_interpreter/ast&quot;
-    &quot;scheme_interpreter/lexer&quot;
-    &quot;testing&quot;
+	&quot;fmt&quot;
+	&quot;scheme_interpreter/ast&quot;
+	&quot;scheme_interpreter/lexer&quot;
+	&quot;testing&quot;
 )
 
 func TestIntegerLiteralExpression(t *testing.T) {
-    input := &quot;5&quot;
+	input := &quot;5&quot;
 
-    l := lexer.New(input)
-    p := New(l)
-    program := p.ParseProgram()
-    checkParserErrors(t, p)
+	l := lexer.New(input)
+	p := New(l)
+	program := p.ParseProgram()
+	checkParserErrors(t, p)
 
-    if len(program.Statements) != 1 {
-        t.Fatalf(&quot;program has not enough statements. got=%d&quot;,
-            len(program.Statements))
-    }
-    stmt, ok := program.Statements[0].(*ast.ExpressionStatement)
-    if !ok {
-        t.Fatalf(&quot;program.Statements[0] is not ast.ExpressionStatement. got=%T&quot;,
-            program.Statements[0])
-    }
+	if len(program.Statements) != 1 {
+		t.Fatalf(&quot;program has not enough statements. got=%d&quot;,
+			len(program.Statements))
+	}
+	stmt, ok := program.Statements[0].(*ast.ExpressionStatement)
+	if !ok {
+		t.Fatalf(&quot;program.Statements[0] is not ast.ExpressionStatement. got=%T&quot;,
+			program.Statements[0])
+	}
 
-    literal, ok := stmt.Expression.(*ast.IntegerLiteral)
-    if !ok {
-        t.Fatalf(&quot;exp not *ast.IntegerLiteral. got=%T&quot;, stmt.Expression)
-    }
-    if literal.Value != 5 {
-        t.Errorf(&quot;literal.Value not %d. got=%d&quot;, 5, literal.Value)
-    }
-    if literal.TokenLiteral() != &quot;5&quot; {
-        t.Errorf(&quot;literal.TokenLiteral not %s. got=%s&quot;, &quot;5&quot;,
-            literal.TokenLiteral())
-    }
+	literal, ok := stmt.Expression.(*ast.IntegerLiteral)
+	if !ok {
+		t.Fatalf(&quot;exp not *ast.IntegerLiteral. got=%T&quot;, stmt.Expression)
+	}
+	if literal.Value != 5 {
+		t.Errorf(&quot;literal.Value not %d. got=%d&quot;, 5, literal.Value)
+	}
+	if literal.TokenLiteral() != &quot;5&quot; {
+		t.Errorf(&quot;literal.TokenLiteral not %s. got=%s&quot;, &quot;5&quot;,
+			literal.TokenLiteral())
+	}
 }
 
 func checkParserErrors(t *testing.T, p *Parser) {
-    errors := p.Errors()
-    if len(errors) == 0 {
-        return
-    }
+	errors := p.Errors()
+	if len(errors) == 0 {
+		return
+	}
 
-    t.Errorf(&quot;parser has %d errors&quot;, len(errors))
-    for _, msg := range errors {
-        t.Errorf(&quot;parser error: %q&quot;, msg)
-    }
-    t.FailNow()
+	t.Errorf(&quot;parser has %d errors&quot;, len(errors))
+	for _, msg := range errors {
+		t.Errorf(&quot;parser error: %q&quot;, msg)
+	}
+	t.FailNow()
 }
 </code></pre>
 
 <p>とりあえず、parseProgram を何とかしないと試験にパスしない。</p>
 
 <pre><code>func (p *Parser) ParseProgram() *ast.Program {
-    program := &amp;ast.Program{}
-    program.Statements = []ast.Statement{}
+	program := &amp;ast.Program{}
+	program.Statements = []ast.Statement{}
 
-    for !p.curTokenIs(token.EOF) {
-        stmt := p.parseStatement()
-        if stmt != nil {
-            program.Statements = append(program.Statements, stmt)
-        }
-        p.nextToken()
-    }
+	for !p.curTokenIs(token.EOF) {
+		stmt := p.parseStatement()
+		if stmt != nil {
+			program.Statements = append(program.Statements, stmt)
+		}
+		p.nextToken()
+	}
 
-    return program
+	return program
 }
 </code></pre>
 
 <p>次は parseStatement 手続き。とりあえずそのまんまコピします。</p>
 
 <pre><code>func (p *Parser) parseStatement() ast.Statement {
-    switch p.curToken.Type {
-    case token.LET:
-        return p.parseLetStatement()
-    case token.RETURN:
-        return p.parseReturnStatement()
-    default:
-        return p.parseExpressionStatement()
-    }
+	switch p.curToken.Type {
+	case token.LET:
+		return p.parseLetStatement()
+	case token.RETURN:
+		return p.parseReturnStatement()
+	default:
+		return p.parseExpressionStatement()
+	}
 }
 </code></pre>
 
 <p>現時点でここは token.LPAREN とそれ以外、を想定しています。次は parseExpressionStatement ですね。元ネタは以下な定義。</p>
 
 <pre><code>func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
-    stmt := &amp;ast.ExpressionStatement{Token: p.curToken}
+	stmt := &amp;ast.ExpressionStatement{Token: p.curToken}
 
-    stmt.Expression = p.parseExpression(LOWEST)
+	stmt.Expression = p.parseExpression(LOWEST)
 
-    if p.peekTokenIs(token.SEMICOLON) {
-        p.nextToken()
-    }
+	if p.peekTokenIs(token.SEMICOLON) {
+		p.nextToken()
+	}
 
-    return stmt
+	return stmt
 }
 </code></pre>
 
 <p>ast.ExprssionStatement は未定義。ここはパクれるはずなので元ネタを使います。</p>
 
 <pre><code>type ExpressionStatement struct {
-    Token      token.Token // the first token of the expression
-    Expression Expression
+	Token      token.Token // the first token of the expression
+	Expression Expression
 }
 
 func (es *ExpressionStatement) statementNode()       {}
 func (es *ExpressionStatement) TokenLiteral() string { return es.Token.Literal }
 func (es *ExpressionStatement) String() string {
-    if es.Expression != nil {
-        return es.Expression.String()
-    }
-    return &quot;&quot;
+	if es.Expression != nil {
+		return es.Expression.String()
+	}
+	return &quot;&quot;
 }
 </code></pre>
 
 <p>あと、parseExpression が未定義? そろそろ scheme に合わせた修正が必要になってくるはず。parseExpressionStatement の以下の部分は</p>
 
-<pre><code>    if p.peekTokenIs(token.SEMICOLON) {
-        p.nextToken()
-    }
+<pre><code>	if p.peekTokenIs(token.SEMICOLON) {
+		p.nextToken()
+	}
 </code></pre>
 
 <p>token.RPAREN なのかな。</p>
 
-<pre><code>    if p.peekTokenIs(token.RPAREN) {
-        p.nextToken()
-    }
+<pre><code>	if p.peekTokenIs(token.RPAREN) {
+		p.nextToken()
+	}
 </code></pre>
 
 <p>あと、parseExpression は簡単に考えたいので即値限定で実装してやれ。</p>
@@ -357,14 +349,14 @@ func (es *ExpressionStatement) String() string {
 <p>とりあえず RPAREN で始まっていない場合、即値ってことで良いのかな。てことは</p>
 
 <pre><code>func (p *Parser) parseStatement() ast.Statement {
-    switch p.curToken.Type {
-    case token.LET:
-        return p.parseLetStatement()
-    case token.RETURN:
-        return p.parseReturnStatement()
-    default:
-        return p.parseExpressionStatement()
-    }
+	switch p.curToken.Type {
+	case token.LET:
+		return p.parseLetStatement()
+	case token.RETURN:
+		return p.parseReturnStatement()
+	default:
+		return p.parseExpressionStatement()
+	}
 }
 </code></pre>
 
@@ -401,14 +393,14 @@ func (es *ExpressionStatement) String() string {
 <p>に加えて quote なのかどうか (ただし現時点では &lsquo; は想定していない)。とりあえずこうしてやれ</p>
 
 <pre><code>func (p *Parser) parseStatement() ast.Statement {
-    switch p.curToken.Type {
-    case token.INT:
-        return p.parseIntegerLiteral()
-    case token.IDENT:
-        return p.parseIdentifier()
-    default:
-        return p.parseSExpressionStatement()
-    }
+	switch p.curToken.Type {
+	case token.INT:
+		return p.parseIntegerLiteral()
+	case token.IDENT:
+		return p.parseIdentifier()
+	default:
+		return p.parseSExpressionStatement()
+	}
 }
 </code></pre>
 
@@ -423,44 +415,44 @@ func (es *ExpressionStatement) String() string {
 <p>試験にパスしている。parseStatement が以下な定義になってます。</p>
 
 <pre><code>func (p *Parser) parseStatement() ast.Statement {
-    switch p.curToken.Type {
-    case token.INT:
-        stmt := &amp;ast.ExpressionStatement{Token: p.curToken}
-        stmt.Expression = p.parseIntegerLiteral()
-        return stmt
-    case token.IDENT:
-        stmt := &amp;ast.ExpressionStatement{Token: p.curToken}
-        stmt.Expression = p.parseIdentifier()
-        return stmt
-    default:
-        return p.parseSExpressionStatement()
-    }
+	switch p.curToken.Type {
+	case token.INT:
+		stmt := &amp;ast.ExpressionStatement{Token: p.curToken}
+		stmt.Expression = p.parseIntegerLiteral()
+		return stmt
+	case token.IDENT:
+		stmt := &amp;ast.ExpressionStatement{Token: p.curToken}
+		stmt.Expression = p.parseIdentifier()
+		return stmt
+	default:
+		return p.parseSExpressionStatement()
+	}
 }
 </code></pre>
 
 <p>微妙。リファクタします。</p>
 
 <pre><code>func (p *Parser) parseStatement() ast.Statement {
-    return p.parseExpressionStatement()
+	return p.parseExpressionStatement()
 }
 
 func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
-    stmt := &amp;ast.ExpressionStatement{Token: p.curToken}
+	stmt := &amp;ast.ExpressionStatement{Token: p.curToken}
 
-    switch p.curToken.Type {
-    case token.INT:
-        stmt.Expression = p.parseIntegerLiteral()
-    case token.IDENT:
-        stmt.Expression = p.parseIdentifier()
-    default:
-        stmt.Expression = p.parseSExpressionStatement()
-    }
+	switch p.curToken.Type {
+	case token.INT:
+		stmt.Expression = p.parseIntegerLiteral()
+	case token.IDENT:
+		stmt.Expression = p.parseIdentifier()
+	default:
+		stmt.Expression = p.parseSExpressionStatement()
+	}
 
-    return stmt
+	return stmt
 }
 
 func (p *Parser) parseSExpressionStatement() ast.Expression {
-    return nil
+	return nil
 }
 </code></pre>
 
@@ -468,15 +460,15 @@ func (p *Parser) parseSExpressionStatement() ast.Expression {
 
 <p>TestIdentifierExpression 追加。これもパス。ようやく S 式なナニが書けるのかどうか。ast てきには SExpression ってナニを追加すべきなのかどうか。と言いつつ結局こうなりました。</p>
 
-<pre><code>    default:
-        stmt.Expression = p.parseExpression()
-    }
+<pre><code>	default:
+		stmt.Expression = p.parseExpression()
+	}
 
-    return stmt
+	return stmt
 }
 
 func (p *Parser) parseExpression() ast.Expression {
-    return nil
+	return nil
 }
 </code></pre>
 
@@ -543,32 +535,21 @@ func (p *Parser) parseExpression() ast.Expression {
     
   </p>
   
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
- <ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-5885095939968393"
-     data-ad-slot="3213323462"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
- </script>
-
-  
     
       <div id="disqus_thread"></div>
 <script type="text/javascript">
+  (function() {
+      
+      
+      
+      if (window.location.hostname == "localhost")
+          return;
 
-(function() {
-    
-    
-    
-    if (window.location.hostname == "localhost")
-        return;
-
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    var disqus_shortname = 'yamanetoshi';
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yamanetoshi';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
@@ -643,6 +624,14 @@ func (p *Parser) parseExpression() ast.Expression {
           
             
               <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
               </li>
             
@@ -689,86 +678,33 @@ func (p *Parser) parseExpression() ast.Expression {
               </li>
             
           
-            
-              <li class="post">
-                <a href="/blog/2019/08/21/judgement/">死活判定</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/16/event-guide-of-urasoe-go-kaikan/">浦添囲碁会館イベント</a>
-              </li>
-            
-          
         </ul>
       </section>
     
-  
-
-<section>
-    <h1>Books</h1>
- <ul>
-<li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
-</li>
-</ul>
- </section>
- <section>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
- <ins class="adsbygoogle"
-     style="display:inline-block;width:120px;height:600px"
-     data-ad-client="ca-pub-5885095939968393"
-     data-ad-slot="7922724663"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-</section>
   
 </aside>
 
   </div>
 </div>
 
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
 
+    
+    
+    
 
-<footer role="contentinfo">
-  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
-  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
-</p>
-
-</footer>
-
-
-
-
-
-
-<script>
-  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
-  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-  s.parentNode.insertBefore(g,s)}(document,'script'));
-</script>
-
-</body>
+    
+      <script>
+        var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+      </script>
+    
+  </body>
 </html>
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Nand2tetris on /var/log/messages</title>
+    <title>nand2tetris on /var/log/messages</title>
     <link>https://weblog.metacircular-evaluator.org/categories/nand2tetris/</link>
-    <description>Recent content in Nand2tetris on /var/log/messages</description>
+    <description>Recent content in nand2tetris on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Sun, 02 Jul 2017 00:00:00 +0000</lastBuildDate>

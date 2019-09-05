@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Angular on /var/log/messages</title>
-    <link>https://weblog.metacircular-evaluator.org/categories/angular/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/Angular/</link>
     <description>Recent content in Angular on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Thu, 21 Jun 2018 20:17:28 +0900</lastBuildDate>
     
-	<atom:link href="https://weblog.metacircular-evaluator.org/categories/angular/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/Angular/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -21,9 +21,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/summary/&#34;&gt;Wrapping Up&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -36,9 +34,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/routing/&#34;&gt;Testing Routing&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -51,9 +47,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/model-driven-forms/&#34;&gt;Testing Model Driven Forms&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -66,9 +60,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/directives/&#34;&gt;Testing Directives&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -81,9 +73,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/components/&#34;&gt;Testing Components&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -96,9 +86,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/dependency-injection/&#34;&gt;Testing Dependency Injection&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -111,9 +99,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/asynchronous/&#34;&gt;Testing Asynchronous Code&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -126,9 +112,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/change-detection/&#34;&gt;Testing Change Detection&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -141,9 +125,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/angular-test-bed/&#34;&gt;Angular Test Bed&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -156,9 +138,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/mocks-and-spies/&#34;&gt;Testing with Mocks &amp;amp; Spies&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -171,9 +151,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/classes-and-pipes/&#34;&gt;Testing Classes &amp;amp; Pipes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -186,9 +164,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/jasmine-and-karma/&#34;&gt;Jasmine and Karma&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -203,43 +179,7 @@
 &lt;li&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/unit-testing/overview&#34;&gt;Overview&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;以降のナニについても順に投入の方向にて。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Angular Testing Guide</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2018/05/08/angular-testing/</link>
-      <pubDate>Tue, 08 May 2018 14:01:49 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/blog/2018/05/08/angular-testing/</guid>
-      <description>&lt;p&gt;以下に目を通していたのですがぐぐる翻訳にかけてみたので控えを以下に。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://angular.io/guide/testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;断りは入れておりません。ドラフトです。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Admin Authorization</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2018/04/02/admin-authorization/</link>
-      <pubDate>Mon, 02 Apr 2018 14:39:32 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/blog/2018/04/02/admin-authorization/</guid>
-      <description>&lt;p&gt;auth0 な認証まわりで良い資料がない、と思ってたら本家にあったのでぐーぐる訳使って動作の確認してみましたので翻訳の一部を以下に。&lt;/p&gt;
-
-&lt;p&gt;なんでこんな作りにしているのかは謎。以下なコンテンツの Admin Authorization の部分のみ、です。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://auth0.com/blog/real-world-angular-series-part-2/&#34;&gt;Real-World Angular Series - Part 2: Authentication and Data Modeling&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;以降のナニについても順に投入の方向にて。&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Cloudnative on /var/log/messages</title>
+    <title>cloudnative on /var/log/messages</title>
     <link>https://weblog.metacircular-evaluator.org/categories/cloudnative/</link>
-    <description>Recent content in Cloudnative on /var/log/messages</description>
+    <description>Recent content in cloudnative on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Sun, 12 May 2019 13:10:45 +0900</lastBuildDate>
@@ -23,9 +23,7 @@
 &lt;li&gt;&lt;a href=&#34;https://elixirforum.com/t/kubernetes-libcluster-help-gke/18946&#34;&gt;Kubernetes + libcluster&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;バッチな環境作って検証してみたくはあります。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;バッチな環境作って検証してみたくはあります。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -52,9 +50,7 @@
 &lt;li&gt;GKE アドオン&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;メモを以下に追記の方向です。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;メモを以下に追記の方向です。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -70,9 +66,7 @@
 &lt;li&gt;&lt;a href=&#34;https://blog.a-know.me/entry/2018/06/17/220222&#34;&gt;安価なGKE（k8s）クラスタを作って趣味開発に活用する&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;ちょっと自前で検証してみようかな、とか思ったりして。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ちょっと自前で検証してみようかな、とか思ったりして。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -87,9 +81,7 @@
 &lt;li&gt;&lt;a href=&#34;https://k8s.jp/2019/05/01/2019-04-30-docker-updates-focus-on-simplifying-life-for-developers/&#34;&gt;Docker、最新アップデートでDocker Kubernetes Service（DKS）をリリース〜開発者のコンテナ化を支援〜&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;別途確認の方向にて。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;別途確認の方向にて。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -106,9 +98,7 @@
 
 &lt;h2 id=&#34;rancherjp&#34;&gt;rancherjp&lt;/h2&gt;
 
-&lt;p&gt;な slack に参加してみたりしています。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;な slack に参加してみたりしています。&lt;/p&gt;</description>
     </item>
     
   </channel>

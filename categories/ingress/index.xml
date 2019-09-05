@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ingress on /var/log/messages</title>
+    <title>ingress on /var/log/messages</title>
     <link>https://weblog.metacircular-evaluator.org/categories/ingress/</link>
-    <description>Recent content in Ingress on /var/log/messages</description>
+    <description>Recent content in ingress on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Sun, 17 Dec 2017 00:00:00 +0000</lastBuildDate>
@@ -19,9 +19,7 @@
       <guid>https://weblog.metacircular-evaluator.org/blog/2017/12/17/portal-application/</guid>
       <description>&lt;p&gt;ぐるっと回った後に&lt;a href=&#34;https://mainichibeer.jp/chillri-naha&#34;&gt;牧志のちるり&lt;/a&gt;さんに盛岡冷麺を食べに行きました。盛岡冷麺はうまうまな上にボリュームたっぷりで晩メシ食えそうにないのですがどうしよう。&lt;/p&gt;
 
-&lt;p&gt;&lt;a data-flickr-embed=&#34;true&#34;  href=&#34;https://www.flickr.com/photos/yamane-toshiaki/27325695869/in/dateposted-public/&#34; title=&#34;盛岡冷麺うまうま&#34;&gt;&lt;img src=&#34;https://farm5.staticflickr.com/4682/27325695869_07acdbdaba_z.jpg&#34; width=&#34;640&#34; height=&#34;640&#34; alt=&#34;盛岡冷麺うまうま&#34;&gt;&lt;/a&gt;&lt;script async src=&#34;//embedr.flickr.com/assets/client-code.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;a data-flickr-embed=&#34;true&#34;  href=&#34;https://www.flickr.com/photos/yamane-toshiaki/27325695869/in/dateposted-public/&#34; title=&#34;盛岡冷麺うまうま&#34;&gt;&lt;img src=&#34;https://farm5.staticflickr.com/4682/27325695869_07acdbdaba_z.jpg&#34; width=&#34;640&#34; height=&#34;640&#34; alt=&#34;盛岡冷麺うまうま&#34;&gt;&lt;/a&gt;&lt;script async src=&#34;//embedr.flickr.com/assets/client-code.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -30,9 +28,7 @@
       <pubDate>Sat, 16 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2017/12/16/ingress/</guid>
-      <description>&lt;p&gt;国際通り 1.5 往復。一往復で足にキました。そして最後に雨に降られてorz&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;国際通り 1.5 往復。一往復で足にキました。そして最後に雨に降られてorz&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -52,9 +48,7 @@
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/12/12/ingress-anomary/</guid>
       <description>&lt;p&gt;1130 現在、こんなカンジ。BAF はまだ生きてますね。&lt;/p&gt;
 
-&lt;p&gt;&lt;a data-flickr-embed=&#34;true&#34;  href=&#34;https://www.flickr.com/photos/yamane-toshiaki/23661470666/in/dateposted-public/&#34; title=&#34;今の那覇 #ingress&#34;&gt;&lt;img src=&#34;https://farm6.staticflickr.com/5718/23661470666_56133ab043_m.jpg&#34; width=&#34;240&#34; height=&#34;177&#34; alt=&#34;今の那覇 #ingress&#34;&gt;&lt;/a&gt;&lt;script async src=&#34;//embedr.flickr.com/assets/client-code.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;a data-flickr-embed=&#34;true&#34;  href=&#34;https://www.flickr.com/photos/yamane-toshiaki/23661470666/in/dateposted-public/&#34; title=&#34;今の那覇 #ingress&#34;&gt;&lt;img src=&#34;https://farm6.staticflickr.com/5718/23661470666_56133ab043_m.jpg&#34; width=&#34;240&#34; height=&#34;177&#34; alt=&#34;今の那覇 #ingress&#34;&gt;&lt;/a&gt;&lt;script async src=&#34;//embedr.flickr.com/assets/client-code.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -98,9 +92,7 @@
 &lt;li&gt;平和公園&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;で、あと 15 位になったので (その時点で昼頃) もう少し、と頑張ってみました。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;で、あと 15 位になったので (その時点で昼頃) もう少し、と頑張ってみました。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -126,9 +118,7 @@
 
 &lt;h2 id=&#34;それにしても&#34;&gt;それにしても&lt;/h2&gt;
 
-&lt;p&gt;つい数日前 (土曜日でしたか) に某所を焼いて UPC が MC な値に追いついたと思ったら、あっと言う間に 50 近く差が付いててびっくり仰天してます。portal が沢山ある、って凄いことなのですね。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;つい数日前 (土曜日でしたか) に某所を焼いて UPC が MC な値に追いついたと思ったら、あっと言う間に 50 近く差が付いててびっくり仰天してます。portal が沢山ある、って凄いことなのですね。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -137,9 +127,7 @@
       <pubDate>Wed, 08 Apr 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/04/08/ingress-memo/</guid>
-      <description>&lt;p&gt;ふと気になったので gmail 検索してみました。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;ふと気になったので gmail 検索してみました。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -150,9 +138,7 @@
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/04/06/naha-agent-level-up-event/</guid>
       <description>&lt;p&gt;昨日開催。ご参加なみなさまそれぞれに楽しんでいらしたようで良かったことだよと思っている次第ス。とりあえずイベント名の通り、level up 目標な方々はそれぞれに階段を登ったようで、こちらも良かったです。&lt;/p&gt;
 
-&lt;p&gt;おそらく IRO 方面からエントリ入ると思うのでイベント詳細についてはそちら、ということで実は昨日のイベントの本番はその後に開催された昼呑みの集いでした (ぇ&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;おそらく IRO 方面からエントリ入ると思うのでイベント詳細についてはそちら、ということで実は昨日のイベントの本番はその後に開催された昼呑みの集いでした (ぇ&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -167,9 +153,7 @@
 
 &lt;p&gt;そして角交換四間飛車に棒銀で対抗して憤死。&lt;/p&gt;
 
-&lt;iframe src=&#34;https://www.flickr.com/photos/yamane-toshiaki/16344115643/in/photostream/player/&#34; width=&#34;375&#34; height=&#34;500&#34; frameborder=&#34;0&#34; allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen&gt;&lt;/iframe&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;iframe src=&#34;https://www.flickr.com/photos/yamane-toshiaki/16344115643/in/photostream/player/&#34; width=&#34;375&#34; height=&#34;500&#34; frameborder=&#34;0&#34; allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen&gt;&lt;/iframe&gt;</description>
     </item>
     
     <item>
@@ -180,9 +164,7 @@
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/03/22/ingres-portal-application-tour/</guid>
       <description>&lt;p&gt;昨日今日と自宅近辺ぐるっと回ってみました。撮影した画像、なんとなく勿体無いので flickr に upload してみました。&lt;/p&gt;
 
-&lt;p&gt;今日は自宅近所にある森口公園という公園とは名ばかりの拝所だらけの所に行ってみました。入口にある字小禄ハワイ会館という謎のソレも申請。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;今日は自宅近所にある森口公園という公園とは名ばかりの拝所だらけの所に行ってみました。入口にある字小禄ハワイ会館という謎のソレも申請。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -191,9 +173,7 @@
       <pubDate>Fri, 20 Mar 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/03/20/ingress-portal-request/</guid>
-      <description>&lt;p&gt;明日、小禄近辺のバス停留所および街区公園を攻めつつ portal key 入手なサイクリングに出かけてみようと思ってます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;明日、小禄近辺のバス停留所および街区公園を攻めつつ portal key 入手なサイクリングに出かけてみようと思ってます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -240,9 +220,7 @@
 &lt;li&gt;大量の R1、R2&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;白い portal が想定外に沢山あったり人が沢山居るところはすぐに焼けたりと色々びっくりでしたが、それでも X8 は相当数使いました。400 位は使ったのかな。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;白い portal が想定外に沢山あったり人が沢山居るところはすぐに焼けたりと色々びっくりでしたが、それでも X8 は相当数使いました。400 位は使ったのかな。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -260,9 +238,7 @@
       <pubDate>Thu, 19 Feb 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/02/19/greenee-farm/</guid>
-      <description>&lt;p&gt;終わった後にぐるぐるしてみたのですが、どうも敵方 farm は glyph しないと出が悪いみたいですね。以前からそう感じているのですが、ここって相性あまり良くないです。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;終わった後にぐるぐるしてみたのですが、どうも敵方 farm は glyph しないと出が悪いみたいですね。以前からそう感じているのですが、ここって相性あまり良くないです。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -305,9 +281,7 @@
 &lt;li&gt;高速リチャージ&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;みたいな。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;みたいな。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -335,9 +309,7 @@
 &lt;li&gt;西町&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;あたりから再度古波蔵へ。そこからさらに六周で 12km。そろそろミニベロはキツくなってき始めてる感がorz&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;あたりから再度古波蔵へ。そこからさらに六周で 12km。そろそろミニベロはキツくなってき始めてる感がorz&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -363,9 +335,7 @@
 
 &lt;h2 id=&#34;とは言え&#34;&gt;とは言え&lt;/h2&gt;
 
-&lt;p&gt;速攻で焼かれててなんというか微妙なカンジ。仕方無いので明日朝再度仕込みを入れて那覇のあちこちを焼いて回るのかどうか。つうか午後イチで mtg が開催なのか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;速攻で焼かれててなんというか微妙なカンジ。仕方無いので明日朝再度仕込みを入れて那覇のあちこちを焼いて回るのかどうか。つうか午後イチで mtg が開催なのか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -387,9 +357,7 @@
 
 &lt;iframe src=&#34;https://www.flickr.com/photos/yamane-toshiaki/16025430672/player/&#34; width=&#34;165&#34; height=&#34;500&#34; frameborder=&#34;0&#34; allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen&gt;&lt;/iframe&gt;
 
-&lt;p&gt;ともあれ、ぼちぼち頑張ります。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ともあれ、ぼちぼち頑張ります。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -423,9 +391,7 @@
 &lt;li&gt;泉崎&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;あたり。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;あたり。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -438,9 +404,7 @@
 
 &lt;h2 id=&#34;つうか&#34;&gt;つうか&lt;/h2&gt;
 
-&lt;p&gt;手書きじゃなくてデジタルなナニで残したい (ぇ&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;手書きじゃなくてデジタルなナニで残したい (ぇ&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -463,9 +427,7 @@
 
 &lt;p&gt;朝から仕事もせず作戦開始。ノルマは CF 43 個。車を借りて自転車も積みこんで出発し、1330 に作戦完了しました。&lt;/p&gt;
 
-&lt;iframe src=&#34;https://www.flickr.com/photos/yamane-toshiaki/15783162121/player/&#34; width=&#34;281&#34; height=&#34;500&#34; frameborder=&#34;0&#34; allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen&gt;&lt;/iframe&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;iframe src=&#34;https://www.flickr.com/photos/yamane-toshiaki/15783162121/player/&#34; width=&#34;281&#34; height=&#34;500&#34; frameborder=&#34;0&#34; allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen&gt;&lt;/iframe&gt;</description>
     </item>
     
     <item>
@@ -483,9 +445,7 @@
       <pubDate>Mon, 03 Nov 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/11/03/kanagusuku-problem/</guid>
-      <description>&lt;p&gt;今日、那覇市金城にて大作を発見。作り方というか必要な portal key などを控えておきます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;今日、那覇市金城にて大作を発見。作り方というか必要な portal key などを控えておきます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -494,9 +454,7 @@
       <pubDate>Mon, 03 Nov 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/11/03/problem-that-draw-a-line/</guid>
-      <description>&lt;p&gt;多重 CF 作る課題。豊見城に三つ発見。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;多重 CF 作る課題。豊見城に三つ発見。&lt;/p&gt;</description>
     </item>
     
   </channel>

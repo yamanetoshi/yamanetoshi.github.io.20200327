@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Aws on /var/log/messages</title>
+    <title>aws on /var/log/messages</title>
     <link>https://weblog.metacircular-evaluator.org/categories/aws/</link>
-    <description>Recent content in Aws on /var/log/messages</description>
+    <description>Recent content in aws on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Tue, 18 Sep 2018 22:46:12 +0900</lastBuildDate>
@@ -29,9 +29,7 @@
 &lt;li&gt;パッケージング、AWS へのデプロイ&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;などが可能です。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;などが可能です。&lt;/p&gt;</description>
     </item>
     
   </channel>

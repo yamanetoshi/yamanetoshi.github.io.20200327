@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ruby on /var/log/messages</title>
-    <link>https://weblog.metacircular-evaluator.org/categories/ruby/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/Ruby/</link>
     <description>Recent content in Ruby on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Thu, 28 Feb 2019 20:38:25 +0900</lastBuildDate>
     
-	<atom:link href="https://weblog.metacircular-evaluator.org/categories/ruby/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/Ruby/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -22,9 +22,7 @@
 &lt;pre&gt;&lt;code&gt;$ bundle exec rake fuga:hoge[xxx, yyy]
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;とかやってて叱られてたのですが理由が分からず。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とかやってて叱られてたのですが理由が分からず。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -49,9 +47,7 @@
                order(local).
                  by(values, decr)
 ==&amp;gt;[v[10]:6,v[26]:5,v[12]:5,v[24]:4,v[28]:2]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -69,9 +65,7 @@
       <pubDate>Sun, 12 Apr 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/04/12/jekyll-problem/</guid>
-      <description>&lt;p&gt;#okidevops な成果コンテンツを最近クリーンインストールした Mavericks な OSX に clone して &lt;code&gt;bundle install&lt;/code&gt; しようとしたら色々な問題が出てきたので備忘までメモを列挙しておきます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;#okidevops な成果コンテンツを最近クリーンインストールした Mavericks な OSX に clone して &lt;code&gt;bundle install&lt;/code&gt; しようとしたら色々な問題が出てきたので備忘までメモを列挙しておきます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -90,9 +84,7 @@
 
 &lt;p&gt;{% gist 73580b96fd5b4b3e60c7 %}&lt;/p&gt;
 
-&lt;p&gt;いちおう &lt;code&gt;Installing ri&lt;/code&gt; まで到達してるはずなので大丈夫のはず。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;いちおう &lt;code&gt;Installing ri&lt;/code&gt; まで到達してるはずなので大丈夫のはず。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -101,9 +93,7 @@
       <pubDate>Wed, 25 Feb 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/02/25/translating-rubocop-readme/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/bbatsov/rubocop&#34;&gt;Github&lt;/a&gt; にある README を一部翻訳してみることに。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/bbatsov/rubocop&#34;&gt;Github&lt;/a&gt; にある README を一部翻訳してみることに。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -125,9 +115,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://i.loveruby.net/ja/rhg/&#34;&gt;『Rubyソースコード完全解説』サポートページ&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -147,9 +135,7 @@
 &lt;pre&gt;&lt;code&gt;$ export FOG_MOCK=true &amp;amp;&amp;amp; bundle exec shindont
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;で試験してますね。とりあえず FOG_MOCK は何もせずに試験を実行してみます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;で試験してますね。とりあえず FOG_MOCK は何もせずに試験を実行してみます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -158,9 +144,7 @@
       <pubDate>Thu, 24 Apr 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/04/24/fog/</guid>
-      <description>&lt;p&gt;とりあえず、Fog::Compute.new あたりをエントリポイントとして掘削開始。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;とりあえず、Fog::Compute.new あたりをエントリポイントとして掘削開始。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -174,9 +158,7 @@
 &lt;pre&gt;&lt;code&gt;$ bundle install --path vendor/bundler
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;redcarpet は vendor/bundler/ruby/2.0.0/bundler/gems 配下にある模様。確認します。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;redcarpet は vendor/bundler/ruby/2.0.0/bundler/gems 配下にある模様。確認します。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -189,9 +171,7 @@
 
 &lt;h2 id=&#34;てか&#34;&gt;てか&lt;/h2&gt;
 
-&lt;p&gt;試験書け、って話なので諸々検討を。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;試験書け、って話なので諸々検討を。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -215,9 +195,7 @@
           Fog.credentials[:cloudstack_zone_id] = 1105
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;なことしてる影響が他に及んでいる模様。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;なことしてる影響が他に及んでいる模様。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -228,9 +206,7 @@
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/04/14/rake-memo/</guid>
       <description>&lt;p&gt;いいもの見つけた。&lt;a href=&#34;https://github.com/TechBooster/FirstStepReVIEW&#34;&gt;FirstStepReVIEW&lt;/a&gt; の article/Rakefile がすばら。&lt;/p&gt;
 
-&lt;p&gt;これに加えて md を re に変換するナニを加えれば良いのかどうか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;これに加えて md を re に変換するナニを加えれば良いのかどうか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -239,9 +215,7 @@
       <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/04/09/review-init/</guid>
-      <description>&lt;p&gt;review-init というコマンドで Rakefile を吐いてくれる模様。内容は以下。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;review-init というコマンドで Rakefile を吐いてくれる模様。内容は以下。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -257,9 +231,7 @@
 &lt;pre&gt;&lt;code&gt;$LOAD_PATH.unshift(&#39;./gems&#39;)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;みたいにしといて、実行するディレクトリに gem を掘ってその中に gem なナニを git clone とかで持ってきとけば良いのかな。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;みたいにしといて、実行するディレクトリに gem を掘ってその中に gem なナニを git clone とかで持ってきとけば良いのかな。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -268,9 +240,7 @@
       <pubDate>Sat, 01 Mar 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/03/01/at-okinawa-ruby-conference/</guid>
-      <description>&lt;p&gt;もくもく部屋な 322 教場にて製造開始。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;もくもく部屋な 322 教場にて製造開始。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -287,9 +257,7 @@ ruby-build - tool to compile and install different versions of Ruby
 ruby-switch - switch between different Ruby interpreters
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;とのことで、ruby-build も入れてしまえ。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とのことで、ruby-build も入れてしまえ。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -330,9 +298,7 @@ $ cd dev ops
 $ bundle init
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;ぐぬ。bundle が無いてorz&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ぐぬ。bundle が無いてorz&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -360,9 +326,7 @@ $ bundle init
 &lt;li&gt;stormondemand&lt;/li&gt;
 &lt;li&gt;vloud&lt;/li&gt;
 &lt;li&gt;その他&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -394,9 +358,7 @@ $ rbenv global 1.9.3-p448
 &lt;li&gt;&lt;a href=&#34;http://qiita.com/14021939/items/d40668bdc6bed3f82e62&#34;&gt;MacOSをmavericksにアップグレードしたらnokogiriをインストールできなくなった&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;とりあえず再起動だな。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とりあえず再起動だな。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -437,9 +399,7 @@ $ rbenv global 1.9.3-p448
 end
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;これでリソース破棄は楽になります。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;これでリソース破棄は楽になります。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -467,9 +427,7 @@ end
 
 &lt;p&gt;ともあれ再度仮想リソースを kickoff して再開。&lt;/p&gt;
 
-&lt;p&gt;# さくっと Running になってくれないあたりが若干アレだったり&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;# さくっと Running になってくれないあたりが若干アレだったり&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -490,9 +448,7 @@ end
 &lt;li&gt;GIP の一覧が確認できる&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;どうしたものやら。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;どうしたものやら。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -515,9 +471,7 @@ end
 end
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;微妙なスクリプトしかでっち上げれなくてアレな今日この頃なのかどうかorz&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;微妙なスクリプトしかでっち上げれなくてアレな今日この頃なのかどうかorz&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -527,9 +481,7 @@ end
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/05/how-to-begin-serverspec/</guid>
       <description>&lt;p&gt;備忘、ってことで。
-とりあえず、bundler を使ってガワを作るあたりまでを控え。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+とりあえず、bundler を使ってガワを作るあたりまでを控え。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -548,9 +500,7 @@ end
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://qiita.com/taiki45/items/b46a2f32248720ec2bae&#34;&gt;今っぽい Vagrant + Chef Solo チュートリアル&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
   </channel>

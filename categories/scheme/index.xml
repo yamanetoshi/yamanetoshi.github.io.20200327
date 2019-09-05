@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Scheme on /var/log/messages</title>
-    <link>https://weblog.metacircular-evaluator.org/categories/scheme/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/Scheme/</link>
     <description>Recent content in Scheme on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Wed, 12 Nov 2014 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://weblog.metacircular-evaluator.org/categories/scheme/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/Scheme/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,9 +17,7 @@
       <pubDate>Wed, 12 Nov 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/11/12/sicp5/</guid>
-      <description>&lt;p&gt;5.4 の積極制御評価器の C による実装、というあたりの検討を。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;5.4 の積極制御評価器の C による実装、というあたりの検討を。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -30,9 +28,7 @@
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/11/09/sicp5/</guid>
       <description>&lt;p&gt;金曜に実装を写経して正常動作を確認後、make-machine 以降のナニを纏めたのですが scrach buffer に残したままになってて OSX がフリーズしました。見事に消失。&lt;/p&gt;
 
-&lt;p&gt;記録としては自分用に有益なので再度エントリを起こすことにしました。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;記録としては自分用に有益なので再度エントリを起こすことにしました。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -47,9 +43,7 @@
 &lt;li&gt;extend-subst で symbol を term に置換する subst なオブジェクトが戻される&lt;/li&gt;
 &lt;li&gt;var-term が term な何かと置換 (constant-ter または app-term という理解)&lt;/li&gt;
 &lt;li&gt;extend が戻す手続きは基本的に sym と i が eqv? なら t を戻せば良いの?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -67,9 +61,7 @@
         (cons
           (subst-in-symbol-expression new old (car slist))
           (subst new old (cdr subst))))))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -78,9 +70,7 @@
       <pubDate>Tue, 26 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/26/eopl-ex-2-23/</guid>
-      <description>&lt;p&gt;ちょろっと直した。以下、差分。# rib ではなくてリストになっていたので。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;ちょろっと直した。以下、差分。# rib ではなくてリストになっていたので。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -99,9 +89,7 @@
 &lt;li&gt;list-index&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;single pair of ribs が前提なのであれば (sim val) なリストのリストで良いのか。これで作るとして試験を先に考えます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;single pair of ribs が前提なのであれば (sim val) なリストのリストで良いのか。これで作るとして試験を先に考えます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -110,9 +98,7 @@
       <pubDate>Mon, 18 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/18/eopl-ex-2-22/</guid>
-      <description>&lt;p&gt;なんとなくやってみたらなんとなくできた。流石☆一つ。試験とか Ex.2.20 のソレをまんま流用してるので微妙です。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;なんとなくやってみたらなんとなくできた。流石☆一つ。試験とか Ex.2.20 のソレをまんま流用してるので微妙です。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -131,9 +117,7 @@
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/15/eopl-ex-2-19/</guid>
       <description>&lt;p&gt;微妙にハマった。つうか試験が微妙だったんですが 2.14 って本当に終わったのだろうかと思うなど。
-手続き定義の本体と試験を以下に。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+手続き定義の本体と試験を以下に。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -142,9 +126,7 @@
       <pubDate>Fri, 15 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/15/eopl-ex-2-20/</guid>
-      <description>&lt;p&gt;なんかゲンジツトウヒ気味に手を付けてみたらさくっとできたので。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;なんかゲンジツトウヒ気味に手を付けてみたらさくっとできたので。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -162,9 +144,7 @@
 &lt;li&gt;constructor は abstract syntax tree を戻して apply-* ではその型によって必要な手続きを適用する方式&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;という形になってます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;という形になってます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -175,9 +155,7 @@
       <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/14/eopl-ex-2-18/</guid>
       <description>&lt;p&gt;2.3.3 節で empty-env と extend-env が environment という abstract syntax で抽象化されてしまいます。これは凄い。実際に評価されるのは apply-env の時点、という事になってしまいました。こうなれば、と思ってたところだったので笑いました。&lt;/p&gt;
 
-&lt;p&gt;で、こうした事で中身の検査ができるようになってます。練習問題はその実装をせよ、という設問になっております。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;で、こうした事で中身の検査ができるようになってます。練習問題はその実装をせよ、という設問になっております。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -214,9 +192,7 @@
     (env sym #t)))
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;試験書けるのかな。とりあえず試験から書いてみます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;試験書けるのかな。とりあえず試験から書いてみます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -231,9 +207,7 @@
 &lt;li&gt;list-find-position が #f を戻す場合、その場所から以降末端まで sym は無い&lt;/li&gt;
 &lt;li&gt;最初の呼び出しで #f が戻ったら #f で良い&lt;/li&gt;
 &lt;li&gt;list-find-position の戻りが number? な場合は位置を覚えといて再度 list-find-position すりゃ良いのかどうか&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -252,9 +226,7 @@
 &lt;li&gt;extend は stack を戻すはずなので戻るのは手続きオブジェクト&lt;/li&gt;
 &lt;li&gt;引数に &amp;lsquo;pop あるいは &amp;lsquo;push なシンボルをもらうのかな&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -277,9 +249,7 @@
        (pop (push 1 (empty-stack))))
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;ということで実装書く。つうか書いてみたら試験も色々駄目でした。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ということで実装書く。つうか書いてみたら試験も色々駄目でした。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -301,9 +271,7 @@ unparse が以下なのかどうか。&lt;/p&gt;
           (if (null? terms)
               (reverse ret)
               (app-term-unparse (cdr terms) (cons (unparse-expression (car terms)) ret))))))))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -322,9 +290,7 @@ unparse が以下なのかどうか。&lt;/p&gt;
 &lt;li&gt;empty-stack?&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;この節の記述によれば top と empty-stack? が ovservers でそれ以外は constructors ってことで良いのかどうか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;この節の記述によれば top と empty-stack? が ovservers でそれ以外は constructors ってことで良いのかどうか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -343,9 +309,7 @@ unparse が以下なのかどうか。&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;(lambda-calculus-subst &#39;((lambda (x) E1) E2) E2 x)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;で良いのかどうか。なんか微妙な気もします。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;で良いのかどうか。なんか微妙な気もします。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -365,9 +329,7 @@ unparse が以下なのかどうか。&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;(lambda (p) (+ (p (* p 3))))
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;ただ、置換自体はその通りでその外側にある p な束縛を p0 とかに変更しなきゃ、なのか。これ、自分で定義する解釈系 (?) の文法はけっこう単純になっているので無理矢理な方法で何とかなるのかどうなのか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ただ、置換自体はその通りでその外側にある p な束縛を p0 とかに変更しなきゃ、なのか。これ、自分で定義する解釈系 (?) の文法はけっこう単純になっているので無理矢理な方法で何とかなるのかどうなのか。&lt;/p&gt;</description>
     </item>
     
   </channel>

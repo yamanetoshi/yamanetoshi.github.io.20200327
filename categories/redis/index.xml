@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Redis on /var/log/messages</title>
-    <link>https://weblog.metacircular-evaluator.org/categories/redis/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/Redis/</link>
     <description>Recent content in Redis on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Sun, 26 Jan 2014 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://weblog.metacircular-evaluator.org/categories/redis/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/Redis/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,9 +17,7 @@
       <pubDate>Sun, 26 Jan 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/26/operation-check/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://robots.thoughtbot.com/redis-set-intersection-using-sets-to-filter-data&#34;&gt;Redis Set Intersection - Using Sets to Filter Data&lt;/a&gt; にて例示されている動作を確認しておきます。手元に Redis 使うプロジェクトがあるので redis-server 動かしておいて rails c で確認。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;a href=&#34;http://robots.thoughtbot.com/redis-set-intersection-using-sets-to-filter-data&#34;&gt;Redis Set Intersection - Using Sets to Filter Data&lt;/a&gt; にて例示されている動作を確認しておきます。手元に Redis 使うプロジェクトがあるので redis-server 動かしておいて rails c で確認。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -34,9 +32,7 @@
 &lt;li&gt;&lt;a href=&#34;http://robots.thoughtbot.com/redis-set-intersection-using-sets-to-filter-data&#34;&gt;Redis Set Intersection - Using Sets to Filter Data&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;いやはや。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;いやはや。&lt;/p&gt;</description>
     </item>
     
   </channel>

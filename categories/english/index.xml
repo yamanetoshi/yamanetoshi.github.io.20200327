@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>English on /var/log/messages</title>
+    <title>english on /var/log/messages</title>
     <link>https://weblog.metacircular-evaluator.org/categories/english/</link>
-    <description>Recent content in English on /var/log/messages</description>
+    <description>Recent content in english on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 04 Sep 2019 21:16:40 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 05 Sep 2019 21:25:06 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/english/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Modal verbs (3)</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/09/05/modal-verbs/</link>
+      <pubDate>Thu, 05 Sep 2019 21:25:06 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/09/05/modal-verbs/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/0521189063/yamanertoshi-22&#34;&gt;English Grammer in Use&lt;/a&gt; の Appendix 4 節。&lt;/p&gt;
+
+&lt;p&gt;今日も付け焼刃。&lt;/p&gt;
+
+&lt;h2 id=&#34;継続は&#34;&gt;継続は&lt;/h2&gt;
+
+&lt;p&gt;27 な模様。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Modal verbs (2)</title>
@@ -23,9 +38,7 @@
 
 &lt;h2 id=&#34;継続&#34;&gt;継続&lt;/h2&gt;
 
-&lt;p&gt;24 から、ということで。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;24 から、ということで。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -38,9 +51,7 @@
 
 &lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
 
-&lt;p&gt;21 から 41 というあたりをナナメに確認してみます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;21 から 41 というあたりをナナメに確認してみます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -51,9 +62,7 @@
       <guid>https://weblog.metacircular-evaluator.org/blog/2019/08/13/the-future/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/0521189063/yamanertoshi-22&#34;&gt;English Grammer in Use&lt;/a&gt; の Appendix 3 節。&lt;/p&gt;
 
-&lt;p&gt;ちなみに Future な括りは 19 から 25 のあたりな模様。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ちなみに Future な括りは 19 から 25 のあたりな模様。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -66,9 +75,7 @@
 
 &lt;h2 id=&#34;ひさびさだ&#34;&gt;ひさびさだ&lt;/h2&gt;
 
-&lt;p&gt;継続は Unit 15-16 とのことで順に確認します。過去完了、と過去完了進行?&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;継続は Unit 15-16 とのことで順に確認します。過去完了、と過去完了進行?&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -83,9 +90,7 @@
 
 &lt;h2 id=&#34;過去形&#34;&gt;過去形&lt;/h2&gt;
 
-&lt;p&gt;Unit 5, 6 については特記事項はありません。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;Unit 5, 6 については特記事項はありません。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -105,9 +110,7 @@
 &lt;li&gt;know, have, live, like, believe などは進行形では使われない&lt;/li&gt;
 &lt;li&gt;と、言いつつ live とか work では使われる、とありますね (どちらでも大丈夫?)&lt;/li&gt;
 &lt;li&gt;I haven&amp;rsquo;t done something since/for という形&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -122,9 +125,7 @@
 
 &lt;h2 id=&#34;present-perfect-continuous&#34;&gt;present perfect continuous&lt;/h2&gt;
 
-&lt;p&gt;ちょうど今終わった何か、な時に使うとのこと。丁度今まで続いていた、なのかどうか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ちょうど今終わった何か、な時に使うとのこと。丁度今まで続いていた、なのかどうか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -142,9 +143,7 @@
 &lt;ul&gt;
 &lt;li&gt;Units 7-8, 10-14 (present perfect simple)&lt;/li&gt;
 &lt;li&gt;Units 9-11 (present perfect continuous)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -153,9 +152,7 @@
       <pubDate>Fri, 05 Jul 2019 21:58:03 +0900</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2019/07/05/install-high-sierra/</guid>
-      <description>&lt;p&gt;色々ハマッたので自分メモを以下に。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;色々ハマッたので自分メモを以下に。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -168,9 +165,7 @@
 
 &lt;h2 id=&#34;present-simple&#34;&gt;present simple&lt;/h2&gt;
 
-&lt;p&gt;現在形は Unit 2 - 4 とのこと。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;現在形は Unit 2 - 4 とのこと。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -191,9 +186,7 @@
 &lt;li&gt;Passive 3&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;順に確認を。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;順に確認を。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -222,9 +215,7 @@
 
 &lt;pre&gt;&lt;code&gt;Tom is looking for his key. He can&#39;t find it.
 He has lost his key.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -245,9 +236,7 @@ He has lost his key.
 &lt;li&gt;完了形は Unit 7-8 (過去完了は Unit 15)&lt;/li&gt;
 &lt;li&gt;受け身は Unit 42-44&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -270,9 +259,7 @@ He has lost his key.
 &lt;li&gt;American English&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;American との対比、というのもなかなかアレです。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;American との対比、というのもなかなかアレです。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -287,9 +274,7 @@ He has lost his key.
 
 &lt;h2 id=&#34;up-2&#34;&gt;up (2)&lt;/h2&gt;
 
-&lt;p&gt;以下に列挙。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;以下に列挙。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -306,9 +291,7 @@ He has lost his key.
 &lt;li&gt;go up / come up / walk up (to &amp;hellip;) : approach&lt;/li&gt;
 &lt;li&gt;catch up (with somebody), catch somebody up : move faster than somebody in front of you so that you reach them&lt;/li&gt;
 &lt;li&gt;keep up (with somebody) : continue at the same speed or level&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -329,9 +312,7 @@ He has lost his key.
 &lt;li&gt;go on / carry on &lt;em&gt;doing something&lt;/em&gt; : continue doing something&lt;/li&gt;
 &lt;li&gt;go on with / carry on with &lt;em&gt;something&lt;/em&gt; : also&lt;/li&gt;
 &lt;li&gt;keep on &lt;em&gt;doing something&lt;/em&gt; : do it continuously or repeatedly&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -353,9 +334,7 @@ He has lost his key.
 &lt;li&gt;turn out &lt;em&gt;a light&lt;/em&gt;&lt;/li&gt;
 &lt;li&gt;blow out &lt;em&gt;a candle&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -364,9 +343,7 @@ He has lost his key.
       <pubDate>Mon, 10 Jun 2019 20:15:40 +0900</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2019/06/10/write-to-remember/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/0521189063/yamanertoshi-22&#34;&gt;English Grammer in Use&lt;/a&gt; の Phrasal verbs な節、控えを取ってみます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/0521189063/yamanertoshi-22&#34;&gt;English Grammer in Use&lt;/a&gt; の Phrasal verbs な節、控えを取ってみます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -381,9 +358,7 @@ He has lost his key.
 &lt;li&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/B019WTGKTY/&#34;&gt;第二言語習得論に基づく、もっとも効率的な英語学習法&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;以下に自分メモを。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;以下に自分メモを。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -396,9 +371,7 @@ He has lost his key.
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://twitter.com/touya_huji/status/939769000543756289&#34;&gt;https://twitter.com/touya_huji/status/939769000543756289&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -409,9 +382,7 @@ He has lost his key.
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/06/08/rough-note-english-grammer/</guid>
       <description>&lt;h2 id=&#34;when-i-do-when-i-ve-done&#34;&gt;when I do / When I&amp;rsquo;ve done&lt;/h2&gt;
 
-&lt;p&gt;When and if についても記述あり。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;When and if についても記述あり。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -433,9 +404,7 @@ He has lost his key.
 &lt;li&gt;未来の予測?&lt;/li&gt;
 &lt;li&gt;どちらでも良いらしい (予測なら?&lt;/li&gt;
 &lt;li&gt;確度の高い予測は will 使っては駄目な模様&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -444,9 +413,7 @@ He has lost his key.
       <pubDate>Wed, 01 Jun 2016 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/06/01/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;リアルな状況が色々と微妙で超サボッてましたが、こちら方面から何となく再開してみます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;リアルな状況が色々と微妙で超サボッてましたが、こちら方面から何となく再開してみます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -455,9 +422,7 @@ He has lost his key.
       <pubDate>Mon, 04 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/04/04/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;なんか色々やらなきゃな事が満載みたいなのですがそれぞれ膠着状態。仕方がないので英語の勉強をすすめます。他にも勉強ネタが滞ってます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;なんか色々やらなきゃな事が満載みたいなのですがそれぞれ膠着状態。仕方がないので英語の勉強をすすめます。他にも勉強ネタが滞ってます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -468,9 +433,7 @@ He has lost his key.
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/24/rough-note-english-grammer/</guid>
       <description>&lt;p&gt;タマゴのお尻に穴を開けるソレを探しているのですがなかなか見つかりません。タマゴの台、みたいのでも良いのですが。&lt;/p&gt;
 
-&lt;p&gt;ということで続きを。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ということで続きを。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -479,9 +442,7 @@ He has lost his key.
       <pubDate>Sat, 19 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/19/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;当分サボッてました。というか忙しく (ry&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;当分サボッてました。というか忙しく (ry&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -508,9 +469,7 @@ He has lost his key.
 &lt;li&gt;や、でも地面は濡れてるな&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;ということで丁度今終わった、という状況で使うのかどうか。あるいは、ある期間続けてた、ということも表現できる模様。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ということで丁度今終わった、という状況で使うのかどうか。あるいは、ある期間続けてた、ということも表現できる模様。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -519,9 +478,7 @@ He has lost his key.
       <pubDate>Mon, 15 Feb 2016 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/15/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;日曜将棋をバックに確認着手。ちょっとエントリとタイムラグありますがそこはスルーしてくださひ。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;日曜将棋をバックに確認着手。ちょっとエントリとタイムラグありますがそこはスルーしてくださひ。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -530,9 +487,7 @@ He has lost his key.
       <pubDate>Fri, 12 Feb 2016 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/12/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;しまった。テキスト開いてみるに継続は Unit 140 でした。なんか見たことあると思ったら。ということで残りをぐわっとヤッツケて最初から頑張ります。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;しまった。テキスト開いてみるに継続は Unit 140 でした。なんか見たことあると思ったら。ということで残りをぐわっとヤッツケて最初から頑張ります。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -541,9 +496,7 @@ He has lost his key.
       <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/02/09/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;どうも継続が Phrasal verbs 4 (Unit 67) らしい。もの凄くハンパなところですが頑張ります。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;どうも継続が Phrasal verbs 4 (Unit 67) らしい。もの凄くハンパなところですが頑張ります。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -561,9 +514,7 @@ He has lost his key.
       <pubDate>Fri, 10 Apr 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/04/10/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;Phrasal verbs 3 は out な Phrasal verbs とのこと。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Phrasal verbs 3 は out な Phrasal verbs とのこと。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -572,9 +523,7 @@ He has lost his key.
       <pubDate>Thu, 09 Apr 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/04/09/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;Phrasal verbs 2 は in/out な Phrasal verbs とのこと。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Phrasal verbs 2 は in/out な Phrasal verbs とのこと。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -585,9 +534,7 @@ He has lost his key.
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/04/07/rough-note-english-grammer/</guid>
       <description>&lt;p&gt;最近、IRO で英語な HO が開設されていて、そいえばこっちの勉強スルー状態だなと (何&lt;/p&gt;
 
-&lt;p&gt;Phrasal verbs 1 が最後の単元です。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;Phrasal verbs 1 が最後の単元です。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -596,9 +543,7 @@ He has lost his key.
       <pubDate>Thu, 19 Mar 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/03/19/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;verb + preposition 5 は in/into/with/to/on とのこと。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;verb + preposition 5 は in/into/with/to/on とのこと。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -607,9 +552,7 @@ He has lost his key.
       <pubDate>Wed, 18 Mar 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/03/18/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;verb + preposition 3 は of/for/from/on とのこと。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;verb + preposition 3 は of/for/from/on とのこと。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -618,9 +561,7 @@ He has lost his key.
       <pubDate>Mon, 16 Mar 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/03/16/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;verb + preposition 3 は about と of。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;verb + preposition 3 は about と of。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -629,9 +570,7 @@ He has lost his key.
       <pubDate>Sat, 28 Feb 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/02/28/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;verb + preposition 2 は about と for になっています。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;verb + preposition 2 は about と for になっています。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -640,9 +579,7 @@ He has lost his key.
       <pubDate>Fri, 27 Feb 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/02/27/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;verb + preposition 1 は to と at とのこと。諸々以下にて自分メモを列挙。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;verb + preposition 1 は to と at とのこと。諸々以下にて自分メモを列挙。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -651,9 +588,7 @@ He has lost his key.
       <pubDate>Tue, 24 Feb 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/02/24/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;adjective + preposition (2) です。基本的には of が付くヤツ。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;adjective + preposition (2) です。基本的には of が付くヤツ。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -662,9 +597,7 @@ He has lost his key.
       <pubDate>Mon, 23 Feb 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/02/23/rough-note-english-grammer/</guid>
-      <description>&lt;p&gt;adjective + preposition な項から。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;adjective + preposition な項から。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -708,9 +641,7 @@ He has lost his key.
 
 &lt;p&gt;明日はぼっちそんな方向。&lt;/p&gt;
 
-&lt;p&gt;# 仕事しているとも言うorz&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;# 仕事しているとも言うorz&lt;/p&gt;</description>
     </item>
     
   </channel>

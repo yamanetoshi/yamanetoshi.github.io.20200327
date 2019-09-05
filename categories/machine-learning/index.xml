@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Machine Learning on /var/log/messages</title>
+    <title>machine-learning on /var/log/messages</title>
     <link>https://weblog.metacircular-evaluator.org/categories/machine-learning/</link>
-    <description>Recent content in Machine Learning on /var/log/messages</description>
+    <description>Recent content in machine-learning on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Wed, 26 Jul 2017 00:00:00 +0000</lastBuildDate>
@@ -26,9 +26,7 @@
       <pubDate>Sun, 18 Jun 2017 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2017/06/18/cloud-mle-memo/</guid>
-      <description>&lt;p&gt;メモです。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;メモです。&lt;/p&gt;</description>
     </item>
     
     <item>

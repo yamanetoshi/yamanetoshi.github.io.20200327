@@ -1,81 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Machinelearning on /var/log/messages</title>
+    <title>machinelearning on /var/log/messages</title>
     <link>https://weblog.metacircular-evaluator.org/categories/machinelearning/</link>
-    <description>Recent content in Machinelearning on /var/log/messages</description>
+    <description>Recent content in machinelearning on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 02 Feb 2019 21:08:31 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 24 Oct 2018 18:59:49 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/machinelearning/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Stanford Nlp</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2019/02/02/stanford-nlp/</link>
-      <pubDate>Sat, 02 Feb 2019 21:08:31 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/blog/2019/02/02/stanford-nlp/</guid>
-      <description>&lt;p&gt;下なナニがリリースされた、という話を聞き、早速確認させて頂く次第です。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://stanfordnlp.github.io/stanfordnlp/&#34;&gt;StanfordNLP&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;もくもくな時間が確保できたので以下に確認メモを。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Doc2Vec で wikipedia なモデルを作成</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2018/11/13/create-wikipedia-model-by-doc2vec/</link>
-      <pubDate>Tue, 13 Nov 2018 22:07:18 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/blog/2018/11/13/create-wikipedia-model-by-doc2vec/</guid>
-      <description>&lt;p&gt;以下なエントリに沿ってモデル作成してみたら、結構イイカンジー、なナニが出てきました。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://tadaoyamaoka.hatenablog.com/entry/2017/04/29/122128&#34;&gt;http://tadaoyamaoka.hatenablog.com/entry/2017/04/29/122128&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>japanese-word2vec-model-builder 実装確認メモ</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/31/japanese-word2vec-model-builder/</link>
-      <pubDate>Wed, 31 Oct 2018 21:31:36 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/31/japanese-word2vec-model-builder/</guid>
-      <description>&lt;p&gt;以下にて公開されている&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/shiroyagicorp/japanese-word2vec-model-builder&#34;&gt;https://github.com/shiroyagicorp/japanese-word2vec-model-builder&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Japanese Word2Vec Model Builder の実装について確認を行ないましたので、以下にメモを羅列します。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>word2vec の学習済みモデル</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/30/word2vec-learned-model/</link>
-      <pubDate>Tue, 30 Oct 2018 20:41:09 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/30/word2vec-learned-model/</guid>
-      <description>&lt;p&gt;当初、Doc2Vec なナニを探してて全然見当たらなかったのですが Word2Vec であれば配布なさっている方がいらっしゃることを先日発見。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://aial.shiroyagi.co.jp/2017/02/japanese-word2vec-model-builder/&#34;&gt;word2vecの学習済み日本語モデルを公開します&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;素晴しす。早速 download して色々試している次第。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
     
     <item>
       <title>How to Build a Simple Text Classifier With Tf-Hub</title>
@@ -87,82 +21,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.tensorflow.org/hub/tutorials/text_classification_with_tf_hub&#34;&gt;How to build a simple text classifier with TF-Hub&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Building a Text Classification Model With Tensorflow Hub and Estimators</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/21/building-a-text-classification-model-with-tensorflow-hub-and-estimators/</link>
-      <pubDate>Sun, 21 Oct 2018 17:33:35 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/21/building-a-text-classification-model-with-tensorflow-hub-and-estimators/</guid>
-      <description>&lt;p&gt;以下なドキュメントを機械翻訳したので以下に控えを。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://medium.com/tensorflow/building-a-text-classification-model-with-tensorflow-hub-and-estimators-3169e7aa568&#34;&gt;Building a text classification model with TensorFlow Hub and Estimators&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;あと、gist が以下です。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://gist.github.com/yamanetoshi/007442f101d13c0c0b68db2495eb9adb&#34;&gt;Building a text classification model with TF Hub&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Introducing TnsorFlow Hub</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2018/10/20/introducing-tensorlow-hub/</link>
-      <pubDate>Sat, 20 Oct 2018 10:24:52 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/blog/2018/10/20/introducing-tensorlow-hub/</guid>
-      <description>&lt;p&gt;以下なドキュメントを機械翻訳したので以下に控えを。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://medium.com/tensorflow/introducing-tensorflow-hub-a-library-for-reusable-machine-learning-modules-in-tensorflow-cdee41fa18f9&#34;&gt;Introducing TensorFlow Hub: A Library for Reusable Machine Learning Modules in TensorFlow&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>fastFM 0.2.10 Guide</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/30/fastfm-0-2-10-guide/</link>
-      <pubDate>Mon, 30 Jul 2018 20:58:06 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/30/fastfm-0-2-10-guide/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://ibayer.github.io/fastFM/guide.html&#34;&gt;Guide&lt;/a&gt; なナニを ipynb にしてみました。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://gist.github.com/yamanetoshi/3416e0d5f3fafad7e0b99983948caf1c&#34;&gt;fastFM 0.2.10 Guide&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>仕事で始める機械学習 (2)</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/22/machine-learning-to-start-with-work/</link>
-      <pubDate>Sun, 22 Jul 2018 16:56:42 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/22/machine-learning-to-start-with-work/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://gist.github.com/yamanetoshi/3fed0094e6cafc56d881dedf41d4e445&#34;&gt;7.4 な ipynb&lt;/a&gt; を確認しつつ、控えを以下に。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>仕事で始める機械学習 (1)</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2018/07/19/machine-learning-to-start-with-work/</link>
-      <pubDate>Thu, 19 Jul 2018 20:47:19 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/blog/2018/07/19/machine-learning-to-start-with-work/</guid>
-      <description>&lt;p&gt;7.3 MovieLens のデータの傾向を見る、という節を云々してる記録が残っていたので以下に控えを列挙します。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
   </channel>

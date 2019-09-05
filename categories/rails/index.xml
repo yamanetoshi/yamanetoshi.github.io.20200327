@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Rails on /var/log/messages</title>
+    <title>rails on /var/log/messages</title>
     <link>https://weblog.metacircular-evaluator.org/categories/rails/</link>
-    <description>Recent content in Rails on /var/log/messages</description>
+    <description>Recent content in rails on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Tue, 26 May 2015 00:00:00 +0000</lastBuildDate>
@@ -17,9 +17,7 @@
       <pubDate>Tue, 26 May 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/05/26/did-gcm-in-rails/</guid>
-      <description>&lt;p&gt;とりあえず &lt;code&gt;gem i rails&lt;/code&gt; かららしい。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;とりあえず &lt;code&gt;gem i rails&lt;/code&gt; かららしい。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -44,9 +42,7 @@ $ bundle install --without production
 $ bundle exec rake db:migrate
 $ bundle exec rake db:test:prepare
 $ bundle exec rspec spec/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -84,9 +80,7 @@ $ bundle exec rspec spec/
 &lt;pre&gt;&lt;code&gt;$ sudo docker.io run -d -p 3000:3000 -v /home/fuga/rails_projects/hoge:/app --link redis:redis --link postgres:db rails:latest bash -c &amp;quot;cd /app &amp;amp;&amp;amp; RAILS_ENV=production bundle exec unicorn -p 3000&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;ぶっちゃけこのあたりも script だか alias だかにすべきですね。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ぶっちゃけこのあたりも script だか alias だかにすべきですね。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -110,9 +104,7 @@ $ bundle exec rspec spec/
     mail to: to, subject: &amp;quot;mission complete&amp;quot;
   end
 end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -135,9 +127,7 @@ end
 &lt;li&gt;hook なスクリプト作って投入&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;つうかこれやっぱ最初のソレを自動化できないと色々微妙ですね。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;つうかこれやっぱ最初のソレを自動化できないと色々微妙ですね。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -148,9 +138,7 @@ end
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/06/19/consider-git-push-deploying/</guid>
       <description>&lt;p&gt;pull request が merge された後にそれを開発機側に反映して push で deploy するにあたってサーバ側でどんな処理が必要かを控えておくことに。&lt;/p&gt;
 
-&lt;p&gt;まだ諸々のソレは手動です。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;まだ諸々のソレは手動です。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -187,9 +175,7 @@ end
 &lt;pre&gt;&lt;code&gt;Less::Error: &#39;twitter/bootstrap/bootstrap.less&#39; wasn&#39;t found
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;どうしたものか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;どうしたものか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -198,9 +184,7 @@ end
       <pubDate>Thu, 05 Jun 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/06/05/another-rails-in-nginx-unicorn-env/</guid>
-      <description>&lt;p&gt;ステージングな環境でもひとつアプリを動かすことに。面倒なので 80 でないポートを listen する形をとってみることにします。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;ステージングな環境でもひとつアプリを動かすことに。面倒なので 80 でないポートを listen する形をとってみることにします。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -209,9 +193,7 @@ end
       <pubDate>Tue, 03 Jun 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/06/03/rails-memo/</guid>
-      <description>&lt;p&gt;4 で云々してます。自分メモってことで。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;4 で云々してます。自分メモってことで。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -227,9 +209,7 @@ end
 &lt;pre&gt;&lt;code&gt;Resque.enqueue(Hoge, ....
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;て形で Hoge.perform に渡す引数を二番目の引数以降で羅列してあげればそれで OK らしいです。とは言え、いくつか足をすくわれた事があり、以降で控えておきたいと思います。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;て形で Hoge.perform に渡す引数を二番目の引数以降で羅列してあげればそれで OK らしいです。とは言え、いくつか足をすくわれた事があり、以降で控えておきたいと思います。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -240,9 +220,7 @@ end
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/05/21/making-development-environment-of-rails/</guid>
       <description>&lt;p&gt;自分メモです。Dockerfile 転記用、ってことで。&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://github.com/DevelopmentPractice201308/material/blob/master/installation.md&#34;&gt;ここ&lt;/a&gt;も見つつ、ってことで以下。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;a href=&#34;https://github.com/DevelopmentPractice201308/material/blob/master/installation.md&#34;&gt;ここ&lt;/a&gt;も見つつ、ってことで以下。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -261,9 +239,7 @@ end
 &lt;pre&gt;&lt;code&gt;$ rails g rspec:controller hoge
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;と思ったら rails g controller で追加されてたorz&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;と思ったら rails g controller で追加されてたorz&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -276,20 +252,7 @@ end
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://qiita.com/corona6@github/items/cfac19432532d261912d&#34;&gt;UbuntuでNginxとUnicornを使いRailsアプリを動かす&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Railstutorial のすすめかた</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2014/04/04/how-to-do-railstutorial/</link>
-      <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/blog/2014/04/04/how-to-do-railstutorial/</guid>
-      <description>&lt;p&gt;何故か備忘をこちらに残すなど。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -299,6 +262,15 @@ end
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/04/04/start-manually-redis-server-in-ios/</guid>
       <description>iOS にあるプロジェクトをリポジトリから pull して最新にして rspec してみるに一部の試験が動かない。リモートリポジトリとの同期はできているみたい。 新規に clone</description>
+    </item>
+    
+    <item>
+      <title>Railstutorial のすすめかた</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2014/04/04/how-to-do-railstutorial/</link>
+      <pubDate>Fri, 04 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2014/04/04/how-to-do-railstutorial/</guid>
+      <description>&lt;p&gt;何故か備忘をこちらに残すなど。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -331,9 +303,7 @@ end
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://blog.sudobits.com/2012/05/02/how-to-install-ruby-on-rails-in-ubuntu-12-04-lts/&#34;&gt;HOW TO INSTALL RUBY ON RAILS IN UBUNTU 12.04 LTS&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -351,9 +321,7 @@ end
       <pubDate>Tue, 18 Mar 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/03/18/everyday-rails/</guid>
-      <description>&lt;p&gt;昨晩、Ust にて勉強会が開催されてました。電子書籍も手元にあるしってことで中身を確認しつつ手も動かしてみる方向で考えてます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;昨晩、Ust にて勉強会が開催されてました。電子書籍も手元にあるしってことで中身を確認しつつ手も動かしてみる方向で考えてます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -371,9 +339,7 @@ end
 &lt;li&gt;del も getset もあるので CRUD 全部実装するか&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;ということでサーバサイド実装に着手。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ということでサーバサイド実装に着手。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -406,9 +372,7 @@ end
 &lt;li&gt;&lt;a href=&#34;https://www.relishapp.com/rspec/rspec-core/v/2-0/docs/filtering/exclusion-filters&#34;&gt;Exclusion filters&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;盛り込んでみます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;盛り込んでみます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -417,9 +381,7 @@ end
       <pubDate>Tue, 21 Jan 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/21/about-rails-api/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://matthewlehner.net/rails-api-testing-guidelines/&#34;&gt;Rails API Testing Best Practice with RSpec&lt;/a&gt; を見つつ試験修正。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;a href=&#34;http://matthewlehner.net/rails-api-testing-guidelines/&#34;&gt;Rails API Testing Best Practice with RSpec&lt;/a&gt; を見つつ試験修正。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -432,9 +394,7 @@ end
 
 &lt;p&gt;例外 raise しなきゃ 500 にならないのが完全に忘却の彼方でした。しかも before_filter 書いたのは良いのだけれど、if の書き方が微妙で昨晩からハマッていたというorz&lt;/p&gt;
 
-&lt;p&gt;とりあえずあと一時間あるので試験をがっつり書いて commit しておきたい。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とりあえずあと一時間あるので試験をがっつり書いて commit しておきたい。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -450,9 +410,7 @@ end
 &lt;pre&gt;&lt;code&gt;rails g rspec:response
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;とかになるのかな。とりあえず導入から。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とかになるのかな。とりあえず導入から。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -461,9 +419,7 @@ end
       <pubDate>Sat, 11 Jan 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/11/redis/</guid>
-      <description>&lt;p&gt;以下、試してみた。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;以下、試してみた。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -472,9 +428,7 @@ end
       <pubDate>Thu, 09 Jan 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/09/managing-survey-responses/</guid>
-      <description>&lt;p&gt;とりあえず、ある設問に 5 種類程度の回答がある、を前提にして検討してみる。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;とりあえず、ある設問に 5 種類程度の回答がある、を前提にして検討してみる。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -494,9 +448,7 @@ end
 &lt;li&gt;&lt;a href=&#34;http://morizyun.github.io/blog/redis-coloud-heroku-rails4-redis-object/&#34;&gt;【Redis Cloud無料25MB】Rails4 × Heroku × Redisを超簡単セットアップ！&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;をなぞってみます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;をなぞってみます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -505,9 +457,7 @@ end
       <pubDate>Mon, 06 Jan 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/01/06/redis/</guid>
-      <description>&lt;p&gt;AR で集計、とかってダウトで Redis 使えってことなんだろうな、と言いつつ色々確認中。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;AR で集計、とかってダウトで Redis 使えってことなんだろうな、と言いつつ色々確認中。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -528,9 +478,7 @@ end
 =&amp;gt; {&amp;quot;4&amp;quot;=&amp;gt;2, &amp;quot;0&amp;quot;=&amp;gt;1, &amp;quot;1&amp;quot;=&amp;gt;2}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;とは言えこれってどこかの時点でクエリだと駄目になるはずですね。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とは言えこれってどこかの時点でクエリだと駄目になるはずですね。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -546,9 +494,7 @@ end
 &lt;pre&gt;&lt;code&gt;$ gem install rails -v 3.2.13
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;何故か今使ってるバージョンで rails が入ってなかった。4 にするか迷いましたがこちらチョイスで。つうか端末固まってるカンジなんスけど大丈夫なのか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;何故か今使ってるバージョンで rails が入ってなかった。4 にするか迷いましたがこちらチョイスで。つうか端末固まってるカンジなんスけど大丈夫なのか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -569,9 +515,7 @@ end
 &lt;li&gt;VM の id&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;を持っているので list するスクリプトはその一覧な文字列を出力すれば良いのかどうか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;を持っているので list するスクリプトはその一覧な文字列を出力すれば良いのかどうか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -582,9 +526,7 @@ end
       <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/06/reproduction-test/</guid>
       <description>&lt;p&gt;某仮想リソースに現状を deploy して動かしてみましたが、やはりここでも session が初期化されていることを確認。ようやくこれが heroku 固有の問題ではないことが明らかになった訳で (遅&lt;/p&gt;
 
-&lt;p&gt;ブラウザでは session store は初期化されないのですが、API 経由してると初期化されてしまいます。session store には Redis が使われているはず (これも要調査) です。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ブラウザでは session store は初期化されないのですが、API 経由してると初期化されてしまいます。session store には Redis が使われているはず (これも要調査) です。&lt;/p&gt;</description>
     </item>
     
   </channel>

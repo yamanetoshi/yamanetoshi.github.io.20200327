@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
   
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
 
   
@@ -36,20 +33,18 @@
   
   
 
-  <meta name="description" content="">
+  <meta name="description" content="" />
   <meta name="keywords" content="">
-
   <meta name="author" content="">
 
   
-  <meta name="generator" content="Hugo 0.50" />
+  <meta name="generator" content="Hugo 0.58.0" />
 
   
   
 
   
   
-
 </head>
 <body>
 
@@ -79,7 +74,6 @@
 
 <ul class="subscription">
   
-
 </ul>
 
 
@@ -95,18 +89,18 @@
         
 
 <header>
-    <p class="meta">Oct 31, 2018
-         - 3 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/10/31/japanese-word2vec-model-builder/#disqus_thread">Comments</a>
+  <p class="meta">Oct 31, 2018
+     - 3 minute read 
+     - <a href="https://weblog.metacircular-evaluator.org/blog/2018/10/31/japanese-word2vec-model-builder/#disqus_thread">Comments</a>
 
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/machinelearning/">MachineLearning </a>
-        
-    </p>
-    <h1 class="entry-title">
-         japanese-word2vec-model-builder 実装確認メモ 
-    </h1>
+    
+    
+      - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/machinelearning/">MachineLearning </a>
+    
+  </p>
+  <h1 class="entry-title">
+     japanese-word2vec-model-builder 実装確認メモ 
+  </h1>
 </header>
 
 
@@ -121,8 +115,6 @@
 </ul>
 
 <p>Japanese Word2Vec Model Builder の実装について確認を行ないましたので、以下にメモを羅列します。</p>
-
-<p></p>
 
 <p>導入及び実行の方法などについては上記リポジトリの README.md を確認すれば十分と思われます。</p>
 
@@ -143,17 +135,18 @@
 <li>コマンドラインからの実行時のエントリポイントは main 手続き</li>
 <li><code>--download-neologd</code> オプション指定時には <code>tokenizer.py</code> の <code>download_neologd</code> 手続きが呼び出されます</li>
 <li><code>--download-wikipedia-dump</code> オプション指定時には <code>wikipedia.py</code> の <code>download_dump</code> 手続きが呼び出されます</li>
-<li><code>--build-gensim-model</code> オプション指定時に行なわれる処理として以下の記述があります</li>
-</ul>
 
-<pre><code>        with tempfile.TemporaryDirectory() as temp_dir:
-            iter_docs = partial(wikipedia.iter_docs,
-                                wikipedia_dump_path, temp_dir)
-            iter_tokens = get_tokens_iterator(tokenizer.get_tagger(dic_path),
-                                              iter_docs)
-            word2vec.build_gensim_w2v_model(output_model_path, iter_tokens,
-                                            size, window, min_count)
-</code></pre>
+<li><p><code>--build-gensim-model</code> オプション指定時に行なわれる処理として以下の記述があります</p>
+
+<pre><code>    with tempfile.TemporaryDirectory() as temp_dir:
+        iter_docs = partial(wikipedia.iter_docs,
+                            wikipedia_dump_path, temp_dir)
+        iter_tokens = get_tokens_iterator(tokenizer.get_tagger(dic_path),
+                                          iter_docs)
+        word2vec.build_gensim_w2v_model(output_model_path, iter_tokens,
+                                        size, window, min_count)
+</code></pre></li>
+</ul>
 
 <p>以下に、指定可能なオプションとそれぞれのオプションにおける処理について補足します。</p>
 
@@ -252,58 +245,60 @@
 
 <ul>
 <li>これは Word2Vec オブジェクトの <code>train</code> や <code>build_vocab</code> などに渡される形となっており、繰り返しの中で以下が呼び出されて要素を戻す形となっています</li>
-<li>下記の手続きオブジェクトが渡されて tokenize の戻りが順に取り出される形となります</li>
+
+<li><p>下記の手続きオブジェクトが渡されて tokenize の戻りが順に取り出される形となります</p>
+
+<pre><code>def iter_tokens():
+for doc in iter_docs():
+    yield tokenize(doc)
+</code></pre></li>
 </ul></li>
 </ul>
-
-<pre><code>    def iter_tokens():
-        for doc in iter_docs():
-            yield tokenize(doc)
-</code></pre>
 
 <h2 id="word2vec-py">word2vec.py</h2>
 
 <ul>
 <li>Word2Vec オブジェクトを生成して訓練を行ないます</li>
 <li><code>build_gensim_w2v_model</code> のみが定義されています</li>
-<li>定義は以下</li>
-</ul>
+
+<li><p>定義は以下</p>
 
 <pre><code>def build_gensim_w2v_model(model_path, iter_tokens, size, window, min_count):
-    &quot;&quot;&quot;
-    Parameters
-    ----------
-    model_path : string
-        Path of Word2Vec model
-    iter_tokens : iterator
-        Iterator of documents, which are lists of words
-    &quot;&quot;&quot;
-    model = Word2Vec(
-        size=size,
-        window=window,
-        min_count=min_count,
-        workers=multiprocessing.cpu_count()
-    )
-    model.build_vocab(iter_tokens())
-    model.train(iter_tokens())
-    model.init_sims(replace=True)
-    model.save(model_path)
-</code></pre>
+&quot;&quot;&quot;
+Parameters
+----------
+model_path : string
+    Path of Word2Vec model
+iter_tokens : iterator
+    Iterator of documents, which are lists of words
+&quot;&quot;&quot;
+model = Word2Vec(
+    size=size,
+    window=window,
+    min_count=min_count,
+    workers=multiprocessing.cpu_count()
+)
+model.build_vocab(iter_tokens())
+model.train(iter_tokens())
+model.init_sims(replace=True)
+model.save(model_path)
+</code></pre></li>
 
-<ul>
-<li>build_vocab
+<li><p>build_vocab</p>
 
 <ul>
 <li>Build vocabulary from a sequence of sentences (can be a once-only generator stream).</li>
 <li>一連の文から語彙を構築する（一度だけのジェネレータストリームにすることができます）。</li>
 </ul></li>
-<li>train
+
+<li><p>train</p>
 
 <ul>
 <li>Update the model’s neural weights from a sequence of sentences.</li>
 <li>一連の文からモデルの神経の重みを更新します。</li>
 </ul></li>
-<li>init_sims
+
+<li><p>init_sims</p>
 
 <ul>
 <li>deprecated とのこと</li>
@@ -354,18 +349,19 @@
 
 <ul>
 <li>mecab オブジェクトで parse して解析された語を配列に追加してそれを戻しています</li>
-<li>定義が以下</li>
-</ul>
+
+<li><p>定義が以下</p>
 
 <pre><code>def tokenize(text, tagger):
-    tokens = []
-    for line in tagger.parse(text).split('\n'):
-        if line == 'EOS':
-            break
-        surface = line.split('\t')[0]
-        tokens.append(surface)
-    return tokens
-</code></pre>
+tokens = []
+for line in tagger.parse(text).split('\n'):
+    if line == 'EOS':
+        break
+    surface = line.split('\t')[0]
+    tokens.append(surface)
+return tokens
+</code></pre></li>
+</ul>
 
 <h2 id="wikipedia-py">wikipedia.py</h2>
 
@@ -430,32 +426,21 @@
     
   </p>
   
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
- <ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-5885095939968393"
-     data-ad-slot="3213323462"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
- </script>
-
-  
     
       <div id="disqus_thread"></div>
 <script type="text/javascript">
+  (function() {
+      
+      
+      
+      if (window.location.hostname == "localhost")
+          return;
 
-(function() {
-    
-    
-    
-    if (window.location.hostname == "localhost")
-        return;
-
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    var disqus_shortname = 'yamanetoshi';
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yamanetoshi';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
@@ -530,6 +515,14 @@
           
             
               <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
               </li>
             
@@ -576,86 +569,33 @@
               </li>
             
           
-            
-              <li class="post">
-                <a href="/blog/2019/08/21/judgement/">死活判定</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/16/event-guide-of-urasoe-go-kaikan/">浦添囲碁会館イベント</a>
-              </li>
-            
-          
         </ul>
       </section>
     
-  
-
-<section>
-    <h1>Books</h1>
- <ul>
-<li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
-</li>
-</ul>
- </section>
- <section>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
- <ins class="adsbygoogle"
-     style="display:inline-block;width:120px;height:600px"
-     data-ad-client="ca-pub-5885095939968393"
-     data-ad-slot="7922724663"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-</section>
   
 </aside>
 
   </div>
 </div>
 
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
 
+    
+    
+    
 
-<footer role="contentinfo">
-  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
-  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
-</p>
-
-</footer>
-
-
-
-
-
-
-<script>
-  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
-  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-  s.parentNode.insertBefore(g,s)}(document,'script'));
-</script>
-
-</body>
+    
+      <script>
+        var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+      </script>
+    
+  </body>
 </html>
 

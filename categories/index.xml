@@ -6,301 +6,22 @@
     <description>Recent content in Categories on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 26 Feb 2019 19:58:14 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 05 Sep 2019 21:25:06 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Android</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/android/</link>
-      <pubDate>Tue, 26 Feb 2019 19:58:14 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/android/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Angular</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/angular/</link>
-      <pubDate>Thu, 21 Jun 2018 20:17:28 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/angular/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Arm</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/arm/</link>
-      <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/arm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Aws</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/aws/</link>
-      <pubDate>Tue, 18 Sep 2018 22:46:12 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/aws/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ci</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/ci/</link>
-      <pubDate>Thu, 28 Apr 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/ci/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cloud</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/cloud/</link>
-      <pubDate>Wed, 06 Feb 2019 20:57:03 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/cloud/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cloudnative</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/cloudnative/</link>
-      <pubDate>Sun, 12 May 2019 13:10:45 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/cloudnative/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Debian</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/debian/</link>
-      <pubDate>Mon, 26 Nov 2018 20:46:36 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/debian/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Devops</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/devops/</link>
-      <pubDate>Wed, 29 Aug 2018 21:13:09 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/devops/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Docker</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/docker/</link>
-      <pubDate>Tue, 26 Dec 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Emacs</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/emacs/</link>
-      <pubDate>Wed, 06 Jan 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/emacs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>English</title>
+      <title>english</title>
       <link>https://weblog.metacircular-evaluator.org/categories/english/</link>
-      <pubDate>Wed, 04 Sep 2019 21:16:40 +0900</pubDate>
+      <pubDate>Thu, 05 Sep 2019 21:25:06 +0900</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/categories/english/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Eopl</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/eopl/</link>
-      <pubDate>Sun, 01 Dec 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/eopl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Fab</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/fab/</link>
-      <pubDate>Sun, 24 Dec 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/fab/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Fpga</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/fpga/</link>
-      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/fpga/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Freesoftware</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/freesoftware/</link>
-      <pubDate>Fri, 20 Dec 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/freesoftware/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Gails</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/gails/</link>
-      <pubDate>Fri, 29 May 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/gails/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Git</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/git/</link>
-      <pubDate>Thu, 28 Mar 2019 19:37:01 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/git/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Github</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/github/</link>
-      <pubDate>Wed, 18 Jul 2018 20:09:05 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/github/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Go</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/go/</link>
-      <pubDate>Mon, 19 Nov 2018 20:00:58 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/go/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Golang</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/golang/</link>
-      <pubDate>Tue, 14 Aug 2018 19:23:07 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Html5</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/html5/</link>
-      <pubDate>Thu, 05 Dec 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/html5/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Hubot</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/hubot/</link>
-      <pubDate>Tue, 12 Apr 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/hubot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ingress</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/ingress/</link>
-      <pubDate>Sun, 17 Dec 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/ingress/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Jenkins</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/jenkins/</link>
-      <pubDate>Fri, 16 Oct 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/jenkins/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Kernel</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/kernel/</link>
-      <pubDate>Thu, 12 Oct 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/kernel/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Kotlin</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/kotlin/</link>
-      <pubDate>Fri, 01 Jun 2018 09:15:22 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/kotlin/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Linux</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/linux/</link>
-      <pubDate>Tue, 06 Mar 2018 21:33:35 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Machine Learning</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/machine-learning/</link>
-      <pubDate>Wed, 26 Jul 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/machine-learning/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Machinelearning</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/machinelearning/</link>
-      <pubDate>Sat, 02 Feb 2019 21:08:31 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/machinelearning/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Make</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/make/</link>
-      <pubDate>Sun, 02 Sep 2018 16:59:40 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/make/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Memo</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/memo/</link>
-      <pubDate>Fri, 24 Aug 2018 21:32:49 +0900</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/categories/memo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Misc</title>
+      <title>misc</title>
       <link>https://weblog.metacircular-evaluator.org/categories/misc/</link>
       <pubDate>Mon, 02 Sep 2019 21:15:51 +0900</pubDate>
       
@@ -309,16 +30,79 @@
     </item>
     
     <item>
-      <title>Nand2tetris</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/nand2tetris/</link>
-      <pubDate>Sun, 02 Jul 2017 00:00:00 +0000</pubDate>
+      <title>programming</title>
+      <link></link>
+      <pubDate>Mon, 26 Aug 2019 22:00:53 +0900</pubDate>
       
-      <guid>https://weblog.metacircular-evaluator.org/categories/nand2tetris/</guid>
+      <guid></guid>
       <description></description>
     </item>
     
     <item>
-      <title>Nodejs</title>
+      <title>cloudnative</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/cloudnative/</link>
+      <pubDate>Sun, 12 May 2019 13:10:45 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/cloudnative/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/git/</link>
+      <pubDate>Thu, 28 Mar 2019 19:37:01 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ruby</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/Ruby/</link>
+      <pubDate>Thu, 28 Feb 2019 20:38:25 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/Ruby/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>android</title>
+      <link></link>
+      <pubDate>Tue, 26 Feb 2019 19:58:14 +0900</pubDate>
+      
+      <guid></guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cloud</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/cloud/</link>
+      <pubDate>Wed, 06 Feb 2019 20:57:03 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MachineLearning</title>
+      <link></link>
+      <pubDate>Sat, 02 Feb 2019 21:08:31 +0900</pubDate>
+      
+      <guid></guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Android</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/Android/</link>
+      <pubDate>Thu, 06 Dec 2018 20:34:27 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/Android/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nodejs</title>
       <link>https://weblog.metacircular-evaluator.org/categories/nodejs/</link>
       <pubDate>Fri, 30 Nov 2018 22:58:16 +0900</pubDate>
       
@@ -327,43 +111,61 @@
     </item>
     
     <item>
-      <title>Octopress</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/octopress/</link>
-      <pubDate>Thu, 27 Mar 2014 00:00:00 +0000</pubDate>
+      <title>debian</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/debian/</link>
+      <pubDate>Mon, 26 Nov 2018 20:46:36 +0900</pubDate>
       
-      <guid>https://weblog.metacircular-evaluator.org/categories/octopress/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/categories/debian/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Programming</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/programming/</link>
-      <pubDate>Mon, 26 Aug 2019 22:00:53 +0900</pubDate>
+      <title>go</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/go/</link>
+      <pubDate>Mon, 19 Nov 2018 20:00:58 +0900</pubDate>
       
-      <guid>https://weblog.metacircular-evaluator.org/categories/programming/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/categories/go/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Python</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/python/</link>
+      <link></link>
       <pubDate>Sat, 27 Oct 2018 15:07:21 +0900</pubDate>
       
-      <guid>https://weblog.metacircular-evaluator.org/categories/python/</guid>
+      <guid></guid>
       <description></description>
     </item>
     
     <item>
-      <title>Rails</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/rails/</link>
-      <pubDate>Tue, 26 May 2015 00:00:00 +0000</pubDate>
+      <title>machinelearning</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/machinelearning/</link>
+      <pubDate>Wed, 24 Oct 2018 18:59:49 +0900</pubDate>
       
-      <guid>https://weblog.metacircular-evaluator.org/categories/rails/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/categories/machinelearning/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Recommend</title>
+      <title>Go</title>
+      <link></link>
+      <pubDate>Fri, 21 Sep 2018 20:47:30 +0900</pubDate>
+      
+      <guid></guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>aws</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/aws/</link>
+      <pubDate>Tue, 18 Sep 2018 22:46:12 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/aws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>recommend</title>
       <link>https://weblog.metacircular-evaluator.org/categories/recommend/</link>
       <pubDate>Sat, 15 Sep 2018 18:52:32 +0900</pubDate>
       
@@ -372,56 +174,362 @@
     </item>
     
     <item>
-      <title>Recommendation</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/recommendation/</link>
+      <title>make</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/make/</link>
+      <pubDate>Sun, 02 Sep 2018 16:59:40 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/make/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>devops</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/devops/</link>
+      <pubDate>Wed, 29 Aug 2018 21:13:09 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/devops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>memo</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/memo/</link>
+      <pubDate>Fri, 24 Aug 2018 21:32:49 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/memo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>recommendation</title>
+      <link></link>
       <pubDate>Tue, 21 Aug 2018 20:31:52 +0900</pubDate>
       
-      <guid>https://weblog.metacircular-evaluator.org/categories/recommendation/</guid>
+      <guid></guid>
       <description></description>
     </item>
     
     <item>
-      <title>Redis</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/redis/</link>
-      <pubDate>Sun, 26 Jan 2014 00:00:00 +0000</pubDate>
+      <title>golang</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/golang/</link>
+      <pubDate>Tue, 14 Aug 2018 19:23:07 +0900</pubDate>
       
-      <guid>https://weblog.metacircular-evaluator.org/categories/redis/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/categories/golang/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Ruby</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/ruby/</link>
-      <pubDate>Thu, 28 Feb 2019 20:38:25 +0900</pubDate>
+      <title>shogi</title>
+      <link></link>
+      <pubDate>Wed, 08 Aug 2018 20:33:43 +0900</pubDate>
       
-      <guid>https://weblog.metacircular-evaluator.org/categories/ruby/</guid>
+      <guid></guid>
       <description></description>
     </item>
     
     <item>
-      <title>Scheme</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/scheme/</link>
-      <pubDate>Wed, 12 Nov 2014 00:00:00 +0000</pubDate>
+      <title>Programming</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/Programming/</link>
+      <pubDate>Wed, 01 Aug 2018 21:15:54 +0900</pubDate>
       
-      <guid>https://weblog.metacircular-evaluator.org/categories/scheme/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/categories/Programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Recommendation</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/Recommendation/</link>
+      <pubDate>Sat, 28 Jul 2018 15:31:13 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/Recommendation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Debian</title>
+      <link></link>
+      <pubDate>Thu, 26 Jul 2018 20:49:43 +0900</pubDate>
+      
+      <guid></guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Github</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/Github/</link>
+      <pubDate>Wed, 18 Jul 2018 20:09:05 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/Github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link></link>
+      <pubDate>Sat, 07 Jul 2018 10:43:24 +0900</pubDate>
+      
+      <guid></guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Angular</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/Angular/</link>
+      <pubDate>Thu, 21 Jun 2018 20:17:28 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/Angular/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kotlin</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/kotlin/</link>
+      <pubDate>Fri, 01 Jun 2018 09:15:22 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/kotlin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>angular</title>
+      <link></link>
+      <pubDate>Tue, 08 May 2018 14:01:49 +0900</pubDate>
+      
+      <guid></guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/Linux/</link>
+      <pubDate>Tue, 06 Mar 2018 21:33:35 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/Linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/python/</link>
+      <pubDate>Sat, 27 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/docker/</link>
+      <pubDate>Tue, 26 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fab</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/Fab/</link>
+      <pubDate>Sun, 24 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/Fab/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ingress</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/ingress/</link>
+      <pubDate>Sun, 17 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/ingress/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Shogi</title>
-      <link>https://weblog.metacircular-evaluator.org/categories/shogi/</link>
-      <pubDate>Wed, 08 Aug 2018 20:33:43 +0900</pubDate>
+      <link>https://weblog.metacircular-evaluator.org/categories/Shogi/</link>
+      <pubDate>Thu, 09 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://weblog.metacircular-evaluator.org/categories/shogi/</guid>
+      <guid>https://weblog.metacircular-evaluator.org/categories/Shogi/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Statistics</title>
+      <title>kernel</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/kernel/</link>
+      <pubDate>Thu, 12 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/kernel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>machine-learning</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/machine-learning/</link>
+      <pubDate>Wed, 26 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nand2tetris</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/nand2tetris/</link>
+      <pubDate>Sun, 02 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/nand2tetris/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cloud</title>
+      <link></link>
+      <pubDate>Thu, 27 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid></guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>FPGA</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/FPGA/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/FPGA/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>statistics</title>
       <link>https://weblog.metacircular-evaluator.org/categories/statistics/</link>
       <pubDate>Sat, 27 Aug 2016 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/categories/statistics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ci</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/ci/</link>
+      <pubDate>Thu, 28 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/ci/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hubot</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/hubot/</link>
+      <pubDate>Tue, 12 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/hubot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>emacs</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/emacs/</link>
+      <pubDate>Wed, 06 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/emacs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jenkins</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/jenkins/</link>
+      <pubDate>Fri, 16 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/jenkins/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gails</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/gails/</link>
+      <pubDate>Fri, 29 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/gails/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rails</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/rails/</link>
+      <pubDate>Tue, 26 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/rails/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Scheme</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/Scheme/</link>
+      <pubDate>Wed, 12 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/Scheme/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DevOps</title>
+      <link></link>
+      <pubDate>Wed, 08 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid></guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>octopress</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/octopress/</link>
+      <pubDate>Thu, 27 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/octopress/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Redis</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/Redis/</link>
+      <pubDate>Sun, 26 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/Redis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>freesoftware</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/freesoftware/</link>
+      <pubDate>Fri, 20 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/freesoftware/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HTML5</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/HTML5/</link>
+      <pubDate>Thu, 05 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/HTML5/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>EoPL</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/EoPL/</link>
+      <pubDate>Sun, 01 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/EoPL/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ARM</title>
+      <link>https://weblog.metacircular-evaluator.org/categories/ARM/</link>
+      <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/categories/ARM/</guid>
       <description></description>
     </item>
     

@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on /var/log/messages</title>
-    <link>https://weblog.metacircular-evaluator.org/categories/linux/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/Linux/</link>
     <description>Recent content in Linux on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Tue, 06 Mar 2018 21:33:35 +0900</lastBuildDate>
     
-	<atom:link href="https://weblog.metacircular-evaluator.org/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,9 +17,7 @@
       <pubDate>Tue, 06 Mar 2018 21:33:35 +0900</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2018/03/06/output-of-strace/</guid>
-      <description>&lt;p&gt;なんとなくハロワを比べてみました。&lt;code&gt;golang&lt;/code&gt; と &lt;code&gt;python&lt;/code&gt; のハロワで。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;なんとなくハロワを比べてみました。&lt;code&gt;golang&lt;/code&gt; と &lt;code&gt;python&lt;/code&gt; のハロワで。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -28,9 +26,7 @@
       <pubDate>Mon, 05 Mar 2018 21:25:48 +0900</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2018/03/05/how-linux-works/</guid>
-      <description>&lt;p&gt;111p の_&lt;i&gt;適当な Python スクリプトを、strace によってトレースしながら実行&lt;/i&gt;_というナニを最近作ったナニで試してみました。詳細確認するリキが無いのですがとりあえずざっくり見てみることに。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;111p の_&lt;i&gt;適当な Python スクリプトを、strace によってトレースしながら実行&lt;/i&gt;_というナニを最近作ったナニで試してみました。詳細確認するリキが無いのですがとりあえずざっくり見てみることに。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -39,9 +35,7 @@
       <pubDate>Sun, 04 Mar 2018 18:37:40 +0900</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2018/03/04/how-linux-works/</guid>
-      <description>&lt;p&gt;実験云々は別としてざくっと読了したいという意向のもと、確認ちう。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;実験云々は別としてざくっと読了したいという意向のもと、確認ちう。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -55,9 +49,7 @@
 &lt;pre&gt;&lt;code&gt;$ sar -P ALL 1
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;で &lt;code&gt;command not found&lt;/code&gt; と言われてしまったので sysstat を導入するなど。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;で &lt;code&gt;command not found&lt;/code&gt; と言われてしまったので sysstat を導入するなど。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -70,9 +62,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://blog.cloudflare.com/using-go-as-a-scripting-language-in-linux/&#34;&gt;Using Go as a scripting language in Linux&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -105,9 +95,7 @@
 &lt;pre&gt;&lt;code&gt;$ docker pull ubuntu
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;で良いのかな。回線帯域がアレなので時間かかってるな (準備してから来いorz&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;で良いのかな。回線帯域がアレなので時間かかってるな (準備してから来いorz&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -132,9 +120,7 @@
 &lt;li&gt;Thunderbolt Ehternet げと&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;な必要がある模様。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;な必要がある模様。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -143,9 +129,7 @@
       <pubDate>Mon, 14 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2017/08/14/core-dump/</guid>
-      <description>&lt;p&gt;こんなの初めて見る。何がどうなっているのかと。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;こんなの初めて見る。何がどうなっているのかと。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -158,9 +142,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://takuya-1st.hatenablog.jp/entry/2016/12/03/011022&#34;&gt;MacBook をEFIブートするUSBディスク作成してubuntuを起動する&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -175,9 +157,7 @@
 &lt;li&gt;&lt;a href=&#34;http://qiita.com/ykshr/items/6c8cff881a200a781dc3&#34;&gt;FPGAでDeep Learningしてみる&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;を見つつ云々してみます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;を見つつ云々してみます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -190,9 +170,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://goo.gl/dtpk5X&#34;&gt;(RHEL) HOWTO configure the auditing of the system (auditd)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -201,9 +179,7 @@
       <pubDate>Thu, 21 Jan 2016 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/01/21/start-automatically-during-system-boot/</guid>
-      <description>&lt;p&gt;今、ネット越しで中国の人の面倒をながらで見てて、bitbucket で作成されたドキュメントをレビュしていたのですが、起動時に何かを、という所で &lt;code&gt;/etc/rc.local&lt;/code&gt; ではなくて cron 使う方法があるのですね。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;今、ネット越しで中国の人の面倒をながらで見てて、bitbucket で作成されたドキュメントをレビュしていたのですが、起動時に何かを、という所で &lt;code&gt;/etc/rc.local&lt;/code&gt; ではなくて cron 使う方法があるのですね。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -212,9 +188,7 @@
       <pubDate>Fri, 18 Dec 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/12/18/shutdown-script/</guid>
-      <description>&lt;p&gt;自動で起動して何かのお仕事をするホストにて作業のためにログインした場合、その何かの仕事を kill するスクリプトを書きました。あるプロセスが所属するプロセスグループにいらっしゃるナニを全員、というやつです。備忘まで。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;自動で起動して何かのお仕事をするホストにて作業のためにログインした場合、その何かの仕事を kill するスクリプトを書きました。あるプロセスが所属するプロセスグループにいらっしゃるナニを全員、というやつです。備忘まで。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -238,9 +212,7 @@
 /sbin/shutdown -h +30
 &lt;/code&gt;`&lt;/p&gt;
 
-&lt;p&gt;とかしようね、という事らしい。あと &lt;code&gt;/sbin/shutdown -c&lt;/code&gt; というものがあることも学びました。とほほほ。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とかしようね、という事らしい。あと &lt;code&gt;/sbin/shutdown -c&lt;/code&gt; というものがあることも学びました。とほほほ。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -268,9 +240,7 @@
 &lt;li&gt;memory.json.20151124003715.bak&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;とりあえずログを何とかしないといかんのですが、&lt;code&gt;logrotate&lt;/code&gt; は入っているな。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とりあえずログを何とかしないといかんのですが、&lt;code&gt;logrotate&lt;/code&gt; は入っているな。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -294,9 +264,7 @@
 &lt;li&gt;&lt;a href=&#34;https://github.com/ystk/meta-debian&#34;&gt;ystk/meta-debian&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;そういった意味では poky の作法みたいのもきちんと確認しとく必要ありますね。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;そういった意味では poky の作法みたいのもきちんと確認しとく必要ありますね。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -307,9 +275,7 @@
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/04/07/edison-initializeing-memo/</guid>
       <description>&lt;p&gt;どうも以前初期化していたと思い込んでいたのは間違いだったようで、完全に初期化してから再度設定の確認をすることに。&lt;/p&gt;
 
-&lt;p&gt;記録が微妙にしか残っていなので、なるべく詳細に残そうとしてみようと思います。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;記録が微妙にしか残っていなので、なるべく詳細に残そうとしてみようと思います。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -336,9 +302,7 @@
       <pubDate>Fri, 20 Mar 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/03/20/notes-for-i2c/</guid>
-      <description>&lt;p&gt;諸々のドキュメントを確認しつつ、つらつらと列挙。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;諸々のドキュメントを確認しつつ、つらつらと列挙。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -365,9 +329,7 @@
 &lt;li&gt;&lt;a href=&#34;http://tamaxyo.hatenablog.com/entry/2014/11/25/004344&#34;&gt;Intel EdisonでBluetoothを使う&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;Intel Edisonを動かす（7）　BluetoothとUSBサウンドアダプタを関連付ける編&#34;&gt;Intel Edisonを動かす（7）　BluetoothとUSBサウンドアダプタを関連付ける編&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://ameblo.jp/new3bon/entry-11537535045.html&#34;&gt;Raspberry piでbluetoothスピーカー&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -380,9 +342,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://blog.mamemomonga.com/2015/02/edison.html&#34;&gt;Edison(ubilinux)のカーネル再構築&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -395,9 +355,7 @@
 
 &lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
 
-&lt;p&gt;TP なでびあんにて BT な sound デバイスの認識あたりの手順を確認。以下に諸々を列挙しておきます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;TP なでびあんにて BT な sound デバイスの認識あたりの手順を確認。以下に諸々を列挙しておきます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -415,9 +373,7 @@
 
 &lt;pre&gt;&lt;code&gt;$ sudo docker run -i -t 09c0c850c2f4 /bin/bash
 root@7875f0db0b6b:/#
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -435,9 +391,7 @@ root@7875f0db0b6b:/#
 &lt;li&gt;step 0x8190&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;で kernel の最初の命令に、とのこと。次に gdb 起動か。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;で kernel の最初の命令に、とのこと。次に gdb 起動か。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -454,9 +408,7 @@ root@7875f0db0b6b:/#
 &lt;li&gt;&lt;a href=&#34;https://wiki.aalto.fi/display/EmbeddedLinux/Debugging+Raspberry+Pi+Linux+kernel+with+JTAG=and+GDB&#34;&gt;Debugging Raspberry Pi Linux kernel with JTAG and GDB&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.raspberrypi.org/documentation/linux/kernel/building.md&#34;&gt;KERNEL BUILDING&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://qiita.com/konnyakmannan/items/37f18ddd815fea96b84d&#34;&gt;Raspberry Piのカーネルをクロスコンパイルする&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -475,9 +427,7 @@ root@7875f0db0b6b:/#
 
 &lt;p&gt;flashall する時は母艦から Edison の電源な usb に接続すること。あと &lt;code&gt;sudo flashall.sh&lt;/code&gt; した後に (挿せ、って言われてから) usb な接続をする必要がありことをよく覚えておいて下さい &amp;lt; 自分&lt;/p&gt;
 
-&lt;p&gt;こないだメモったのを見てさえもナチュラルをカマシてしまいましたorz&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;こないだメモったのを見てさえもナチュラルをカマシてしまいましたorz&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -486,9 +436,7 @@ root@7875f0db0b6b:/#
       <pubDate>Tue, 11 Nov 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/11/11/intel-edison/</guid>
-      <description>&lt;p&gt;とりあえず初期設定ができた、ということで BT なスピーカを認識しようとしてみます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;とりあえず初期設定ができた、ということで BT なスピーカを認識しようとしてみます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -499,9 +447,7 @@ root@7875f0db0b6b:/#
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/10/30/intel-edison/</guid>
       <description>&lt;p&gt;火を入れて接続してみました。&lt;/p&gt;
 
-&lt;iframe src=&#34;https://www.flickr.com/photos/yamane-toshiaki/15478455507/player/&#34; width=&#34;375&#34; height=&#34;500&#34; frameborder=&#34;0&#34; allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen&gt;&lt;/iframe&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;iframe src=&#34;https://www.flickr.com/photos/yamane-toshiaki/15478455507/player/&#34; width=&#34;375&#34; height=&#34;500&#34; frameborder=&#34;0&#34; allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen&gt;&lt;/iframe&gt;</description>
     </item>
     
     <item>
@@ -541,9 +487,7 @@ root@7875f0db0b6b:/#
 
 &lt;p&gt;{% gist f08a8f89bae8e0be0d72 %}&lt;/p&gt;
 
-&lt;p&gt;このへんは BCM2835 ARM Peripherals にある通りの記述なのかどうなのか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;このへんは BCM2835 ARM Peripherals にある通りの記述なのかどうなのか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -554,9 +498,7 @@ root@7875f0db0b6b:/#
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/10/02/bcm2708-gpio-probe/</guid>
       <description>&lt;p&gt;drivers/base/init.c から再度掘削着手。driver_init という手続きから platform_bus_init に向かって、というカンジです。&lt;/p&gt;
 
-&lt;p&gt;{% gist f10cad6ad9ed45e9f169 %}&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;{% gist f10cad6ad9ed45e9f169 %}&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -580,9 +522,7 @@ root@7875f0db0b6b:/#
 &lt;li&gt;struct device_private オブジェクトの device 属性を戻す&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;形になっています。container_of 使って struct device_private なオブジェクトのアドレスを引っ張ってきて、なのか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;形になっています。container_of 使って struct device_private なオブジェクトのアドレスを引っ張ってきて、なのか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -602,9 +542,7 @@ root@7875f0db0b6b:/#
 &lt;li&gt;gpiochip_add 手続き呼び出し&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;となっている模様。丁寧気味に確認してみます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;となっている模様。丁寧気味に確認してみます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -615,9 +553,7 @@ root@7875f0db0b6b:/#
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/09/28/forge-bcm2708-gpio-dot-c/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://github.com/raspberrypi/linux.git&#34;&gt;ここ&lt;/a&gt;に RasPI な GPIO のドライバがあると見て git clone してみました。ありますね。何故か driver 配下ではなくて arch/arm/mach-bcm2708/bcm2708_gpio.c な模様。&lt;/p&gt;
 
-&lt;p&gt;とり急ぎではありますが諸々確認を。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とり急ぎではありますが諸々確認を。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -633,9 +569,7 @@ root@7875f0db0b6b:/#
 &lt;pre&gt;&lt;code&gt; * device_create_file - create sysfs attribute file for device.
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;ここから sysfs_create_file という手続きを呼び出していますね。どんどん掘ります。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ここから sysfs_create_file という手続きを呼び出していますね。どんどん掘ります。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -660,9 +594,7 @@ root@7875f0db0b6b:/#
 &lt;li&gt;ktype という struct kobj_type 型の属性が sysfs 関連の情報を管理しているのかどうか&lt;/li&gt;
 &lt;li&gt;struct kernfs_node 型の sd という属性が若干謎&lt;/li&gt;
 &lt;li&gt;reference count の操作は kobject_get および kobject_put を使う&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -677,9 +609,7 @@ root@7875f0db0b6b:/#
 &lt;p&gt;GPIOだったらGPIOの共通部分見るのがいいと思います。どうやったらsysfsに出せるか見るのであれば。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;との事にて drivers/gpio/gpiolib*.c あたりと見て確認開始。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;との事にて drivers/gpio/gpiolib*.c あたりと見て確認開始。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -697,9 +627,7 @@ root@7875f0db0b6b:/#
 
 &lt;p&gt;とりあえず sysfs について確認してみました。まず抵抗とか LED なんかをブレッドボードに取り付けて #1 な PIN と GND を接続しておきます。&lt;/p&gt;
 
-&lt;p&gt;あとは以下で LED が点灯。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;あとは以下で LED が点灯。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -721,9 +649,7 @@ root@7875f0db0b6b:/#
 &lt;li&gt;clone な system call&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;なのかどうか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;なのかどうか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -753,9 +679,7 @@ root@7875f0db0b6b:/#
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://linux-biyori.sakura.ne.jp/program/pr_signal02.php&#34;&gt;シグナルとタイマー２&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -764,9 +688,7 @@ root@7875f0db0b6b:/#
       <pubDate>Tue, 16 Sep 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/09/16/check-arecord-output-with-pipeline/</guid>
-      <description>&lt;p&gt;od -x に渡してヘッダを確認してみました。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;od -x に渡してヘッダを確認してみました。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -790,9 +712,7 @@ root@7875f0db0b6b:/#
 &lt;li&gt;alloc_pid に渡されている struct pid_namespace 型について&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;確認をしています。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;確認をしています。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -816,9 +736,7 @@ root@7875f0db0b6b:/#
 
 &lt;p&gt;クロスでコンパイルした方が良さげなカンジがし始めています。以下を参考にやってみます。&lt;/p&gt;
 
-&lt;p&gt;-&lt;a href=&#34;http://goo.gl/umLUOb&#34;&gt;UbuntuにRaspberry Pi向けのC++クロスビルド環境をつくる&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;-&lt;a href=&#34;http://goo.gl/umLUOb&#34;&gt;UbuntuにRaspberry Pi向けのC++クロスビルド環境をつくる&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -835,9 +753,7 @@ root@7875f0db0b6b:/#
 &lt;li&gt;コピィの親は init になる&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;おそらく他にも色々ヤッてくれてるのだろうな。標準入出力とか何とか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;おそらく他にも色々ヤッてくれてるのだろうな。標準入出力とか何とか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -846,9 +762,7 @@ root@7875f0db0b6b:/#
       <pubDate>Fri, 05 Sep 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/09/05/gstreamer-manual/</guid>
-      <description>&lt;p&gt;自分メモ、ということで控えを以下に。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;自分メモ、ということで控えを以下に。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -869,9 +783,7 @@ root@7875f0db0b6b:/#
 &lt;ul&gt;
 &lt;li&gt;gstreamer-tools&lt;/li&gt;
 &lt;li&gt;libgstreamer0.10-dev&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -893,9 +805,7 @@ root@7875f0db0b6b:/#
 &lt;li&gt;時刻が微妙&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;ということでこちらの問題解決から。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ということでこちらの問題解決から。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -904,9 +814,7 @@ root@7875f0db0b6b:/#
       <pubDate>Tue, 20 May 2014 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/05/20/aplay-memo/</guid>
-      <description>&lt;p&gt;RasPI に持ってた USB な DAC を挿して云々してみたメモを備忘まで。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;RasPI に持ってた USB な DAC を挿して云々してみたメモを備忘まで。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -929,9 +837,7 @@ root@7875f0db0b6b:/#
 &lt;p&gt;I Have Usb Sound Card that uses cmedia chipset and im uses wheezy raspbian image, its not work properly, then im switch to Arch linux and my usb sound card work flawlessly :)&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;とのことですが何故に Arch linux なら大丈夫で raspbian なら微妙なのかが謎。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とのことですが何故に Arch linux なら大丈夫で raspbian なら微妙なのかが謎。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -950,9 +856,7 @@ root@7875f0db0b6b:/#
 
 &lt;h2 id=&#34;追記&#34;&gt;追記&lt;/h2&gt;
 
-&lt;p&gt;hostapd を /etc/rc.local で、というのはダウトではありませんでした。あと、これが悪いかも、と言っていた ntpd も今はサービス起動するよう戻しています。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;hostapd を /etc/rc.local で、というのはダウトではありませんでした。あと、これが悪いかも、と言っていた ntpd も今はサービス起動するよう戻しています。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -967,9 +871,7 @@ root@7875f0db0b6b:/#
 &lt;li&gt;&lt;a href=&#34;http://www.adafruit.com/blog/2013/02/01/raspberry-pi-gpio-resource-piday-raspberrypi-raspberry_pi/&#34;&gt;Raspberry Pi GPIO Resource&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;とりあえず以前アレしたエントリに貼ったリンクを読む。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とりあえず以前アレしたエントリに貼ったリンクを読む。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -980,9 +882,7 @@ root@7875f0db0b6b:/#
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/04/05/sendmail-in-ubuntu-1204/</guid>
       <description>&lt;p&gt;なんかこれ系なこと当分スルーしてたらワケワカ状態になっててorz&lt;/p&gt;
 
-&lt;p&gt;とりあえず FQDN もらうの必須です。で、うぶんつ 12.04 な postfix の /etc/postfix/main.cf のデフォが以下のはずなんですが&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とりあえず FQDN もらうの必須です。で、うぶんつ 12.04 な postfix の /etc/postfix/main.cf のデフォが以下のはずなんですが&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1009,9 +909,7 @@ root@7875f0db0b6b:/#
 &lt;li&gt;&lt;a href=&#34;http://blog.apokalyptik.com/2007/10/24/bash-tip-closing-file-descriptors/&#34;&gt;Bash Tip:Closing File Descriptors&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;また、ブレイスでカレントシェルの環境で実行、ってのも知りませんでした。10 云年前は csh 全盛だったみたい (?) ですが Linux のお陰で bourne shell というか bourne again shell が復活して最近は zsh 全盛なんですよね。ぼくは未だに bash ですがorz&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;また、ブレイスでカレントシェルの環境で実行、ってのも知りませんでした。10 云年前は csh 全盛だったみたい (?) ですが Linux のお陰で bourne shell というか bourne again shell が復活して最近は zsh 全盛なんですよね。ぼくは未だに bash ですがorz&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1028,9 +926,7 @@ root@7875f0db0b6b:/#
 &lt;li&gt;&lt;a href=&#34;https://github.com/yamanetoshi/BashSelfStudyText&#34;&gt;yamanetoshi/BashSelfStudyText&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;一応 copyright を持ってる方に連絡させて頂かねば、と思ったもののリンクが無い。どうしたものやら、と困ってる次第です。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;一応 copyright を持ってる方に連絡させて頂かねば、と思ったもののリンクが無い。どうしたものやら、と困ってる次第です。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1058,9 +954,7 @@ MIRACLE LINUXエンジニア。
 最近、コメントのtypo修正で念願のカーネルコミュニティーデビューを果たしました。
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;昨晩同様、メモを以下に。幸運なことに上の wifi 繋がったままだw&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;昨晩同様、メモを以下に。幸運なことに上の wifi 繋がったままだw&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1088,9 +982,7 @@ $ pactl list short sources
 
 &lt;p&gt;出力略。認識できてるみたいです。つうか RasPI は USB がポート二つしかなくてキーボードとマイク繋ぐとマウスががが状態。困ってたら alsamixer は端末で表示できちゃうんですね。&lt;/p&gt;
 
-&lt;p&gt;なんかワケワカんねぇ、と言いつつ alsamixier で、とか alsa-oss 入れて、とかやっていたのですがよくよく見てみるに /dev/snd というディレクトリを発見。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;なんかワケワカんねぇ、と言いつつ alsamixier で、とか alsa-oss 入れて、とかやっていたのですがよくよく見てみるに /dev/snd というディレクトリを発見。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1121,9 +1013,7 @@ E: linux-tools-3.10 is not installed.
 &lt;pre&gt;&lt;code&gt;$ perf report
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;すれば良いみたい。あと perf stat とかが time よりも上等とかありますね。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;すれば良いみたい。あと perf stat とかが time よりも上等とかありますね。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1157,9 +1047,7 @@ $ sudo apt-get update
 $ sudo apt-get install ia32-libs libgtk2.0-0:i386
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;久しぶりに apt-get update とかしたのですが apt-line に docker だの heroku の toolbelt とか入っててアレですね。ともあれ、これで crosstool-NG の導入準備は OK とのこと。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;久しぶりに apt-get update とかしたのですが apt-line に docker だの heroku の toolbelt とか入っててアレですね。ともあれ、これで crosstool-NG の導入準備は OK とのこと。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1203,9 +1091,7 @@ ruby-build - tool to compile and install different versions of Ruby
 ruby-switch - switch between different Ruby interpreters
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;とのことで、ruby-build も入れてしまえ。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とのことで、ruby-build も入れてしまえ。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1240,9 +1126,7 @@ ruby-switch - switch between different Ruby interpreters
 
 &lt;p&gt;その後、メモリスティックを挿して起動。F12 で起動デバイスのリストが出るのね。起動後に iwlwifi-6000-4.ucode という firmware を起動ディスクに入れれ、と指示が入る。&lt;/p&gt;
 
-&lt;p&gt;がしかしこれ、ファイルを直接入手することができないのでやっぱでびあん断念。と思ったけど有線で継いで (Ubuntu installer は download しつつ) firmware-iwlwifi パケジがあるかどうかを確認、まではヤッてみることに。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;がしかしこれ、ファイルを直接入手することができないのでやっぱでびあん断念。と思ったけど有線で継いで (Ubuntu installer は download しつつ) firmware-iwlwifi パケジがあるかどうかを確認、まではヤッてみることに。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1274,9 +1158,7 @@ ruby-switch - switch between different Ruby interpreters
 &lt;li&gt;プロミスキャスモードの設定&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;このあたり、おもしろそうなので確認してみます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;このあたり、おもしろそうなので確認してみます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1292,9 +1174,7 @@ ruby-switch - switch between different Ruby interpreters
 &lt;li&gt;hostapd サーバ&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;が自動で起動される形になっていないはず。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;が自動で起動される形になっていないはず。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1312,9 +1192,7 @@ ruby-switch - switch between different Ruby interpreters
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://obdnmagazine.blogspot.jp/2013/03/tested-lan-w150nu2-hostapdwifi-ax3.html&#34;&gt;LAN-W150NU2 / hostapdによるWifiアクセスポイントの構築&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -1330,9 +1208,7 @@ ruby-switch - switch between different Ruby interpreters
 &lt;pre&gt;&lt;code&gt;rt2x00usb              11492  1 rt2800usb
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;も認識できてて wlan0 もある。これをもう一つのにも dd でコピィして DAC が認識できるかを確認してみたいと思います。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;も認識できてて wlan0 もある。これをもう一つのにも dd でコピィして DAC が認識できるかを確認してみたいと思います。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1350,9 +1226,7 @@ ruby-switch - switch between different Ruby interpreters
 &lt;pre&gt;&lt;code&gt;$ wget http://downloads.raspberrypi.org/raspbian_latest    
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;して unzip して dd で SD に書けば良いはず。どこまでヤレるか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;して unzip して dd で SD に書けば良いはず。どこまでヤレるか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1375,9 +1249,7 @@ ruby-switch - switch between different Ruby interpreters
 &lt;li&gt;&lt;a href=&#34;http://ja.wikipedia.org/wiki/Arch_Linux&#34;&gt;Arch Linux&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;む、初期設定済みな Raspbian とか無いのかな。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;む、初期設定済みな Raspbian とか無いのかな。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1401,9 +1273,7 @@ ruby-switch - switch between different Ruby interpreters
 &lt;li&gt;&lt;a href=&#34;http://yamanetoshi.github.io/blog/2013/12/12/compilation-was-done-safely/&#34;&gt;コンパイルは無事終わっていたので&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;全然無事には終わっていないことが判明。modules install したディレクトリには .ko なファイルが一つも無い。これはイチからヤり直しですね。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;全然無事には終わっていないことが判明。modules install したディレクトリには .ko なファイルが一つも無い。これはイチからヤり直しですね。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1414,9 +1284,7 @@ ruby-switch - switch between different Ruby interpreters
       <guid>https://weblog.metacircular-evaluator.org/blog/2013/12/17/understanding-arm-linux/</guid>
       <description>&lt;p&gt;昨晩、某所でそんな話題になっていたり。&lt;/p&gt;
 
-&lt;p&gt;つうか本題としては、ばたばたしてて潜行できてないよね、ってアレだったりしたかも (ぇ&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;つうか本題としては、ばたばたしてて潜行できてないよね、ってアレだったりしたかも (ぇ&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1431,9 +1299,7 @@ ruby-switch - switch between different Ruby interpreters
 &lt;li&gt;&lt;a href=&#34;http://www.kerneltravel.net/downloads/tester_guide.pdf&#34;&gt;Linux Kernel Tester&amp;rsquo;s Guide&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;月曜朝イチからアレなのですが、ちょっと色々確認入れつつ中身のメモを控えておこうと思います。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;月曜朝イチからアレなのですが、ちょっと色々確認入れつつ中身のメモを控えておこうと思います。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1453,9 +1319,7 @@ ruby-switch - switch between different Ruby interpreters
 
 &lt;pre&gt;&lt;code&gt;$ cd ../linux
 $ ARCH=arm CROSS_COMPILE=${CCPREFIX} INSTALL_MOD_PATH=../modules make modules_install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -1488,9 +1352,7 @@ $ ARCH=arm CROSS_COMPILE=${CCPREFIX} INSTALL_MOD_PATH=../modules make modules_in
 &lt;li&gt;&lt;a href=&#34;http://elinux.org/RPi_Kernel_Compilation&#34;&gt;RPi Kernel Compilation&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;手順に沿って云々してみます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;手順に沿って云々してみます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1517,9 +1379,7 @@ Linux raspberrypi 3.6.11+ #474 PREEMPT Thu Jun 13 17:14:42 BST 2013 armv6l GNU/L
 &lt;p&gt;ソースパケジを取得。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ sudo apt-get install linux-source-3.6
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -1534,9 +1394,7 @@ Linux raspberrypi 3.6.11+ #474 PREEMPT Thu Jun 13 17:14:42 BST 2013 armv6l GNU/L
 &lt;li&gt;&lt;a href=&#34;http://www.kickstarter.com/projects/alexklein/kano-a-computer-anyone-can-make?ref=live&#34;&gt;Kano: A computer anyone can make&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;つうか駄目かなぁ。同じことをたくらんで USB なキーボードとマウスを購入してたりする件orz&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;つうか駄目かなぁ。同じことをたくらんで USB なキーボードとマウスを購入してたりする件orz&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1555,9 +1413,7 @@ ANDROID_HOME=/usr/local/adt-bundle-linux-x86_64-20131030/sdk
 
 &lt;pre&gt;&lt;code&gt;sudo apt-get install lib32stdc++6
 sudo apt-get install lib32z1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -1576,9 +1432,7 @@ sudo apt-get install lib32z1
 &lt;ul&gt;
 &lt;li&gt;sshd_config の パスワード認証を no にしてサービス再起動&lt;/li&gt;
 &lt;li&gt;root 権限で gpasswd -a ユーザ sudo して sudo が使えるように&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
   </channel>

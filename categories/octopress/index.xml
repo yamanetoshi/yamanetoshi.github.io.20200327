@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Octopress on /var/log/messages</title>
+    <title>octopress on /var/log/messages</title>
     <link>https://weblog.metacircular-evaluator.org/categories/octopress/</link>
-    <description>Recent content in Octopress on /var/log/messages</description>
+    <description>Recent content in octopress on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Thu, 27 Mar 2014 00:00:00 +0000</lastBuildDate>
@@ -22,9 +22,7 @@
 &lt;pre&gt;&lt;code&gt;gem &#39;ruby-oembed&#39;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;bundle install してエントリ下書き確認。あら、development に追加ってあるな。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;bundle install してエントリ下書き確認。あら、development に追加ってあるな。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -35,9 +33,7 @@
       <guid>https://weblog.metacircular-evaluator.org/blog/2014/02/23/share-octopress-with-multiple-terminals/</guid>
       <description>&lt;p&gt;エントリ作ってプレビュー見たら最近のエントリが無い。あら? なんかオペミスして消しちゃった? と思ったら git fetch; git merge してないだけでした。&lt;/p&gt;
 
-&lt;p&gt;つい共有してる事忘れてしまいます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;つい共有してる事忘れてしまいます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -50,9 +46,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://springaki.github.io/blog/2013/02/05/add-amazon-plugin-for-octopress/&#34;&gt;Amazon Plugin を追加する&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -81,9 +75,7 @@
 &lt;li&gt;_include/post/sharing.html が壊れている&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;とりあえず構造てきな部分が全然理解できてないのでそのあたり掘削しつつ、という事で。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とりあえず構造てきな部分が全然理解できてないのでそのあたり掘削しつつ、という事で。&lt;/p&gt;</description>
     </item>
     
     <item>

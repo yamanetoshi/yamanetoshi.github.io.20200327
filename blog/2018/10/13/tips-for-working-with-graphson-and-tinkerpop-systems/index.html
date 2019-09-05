@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
   
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
 
   
@@ -36,20 +33,18 @@
   
   
 
-  <meta name="description" content="">
+  <meta name="description" content="" />
   <meta name="keywords" content="">
-
   <meta name="author" content="">
 
   
-  <meta name="generator" content="Hugo 0.50" />
+  <meta name="generator" content="Hugo 0.58.0" />
 
   
   
 
   
   
-
 </head>
 <body>
 
@@ -79,7 +74,6 @@
 
 <ul class="subscription">
   
-
 </ul>
 
 
@@ -95,18 +89,18 @@
         
 
 <header>
-    <p class="meta">Oct 13, 2018
-         - 10 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/10/13/tips-for-working-with-graphson-and-tinkerpop-systems/#disqus_thread">Comments</a>
+  <p class="meta">Oct 13, 2018
+     - 10 minute read 
+     - <a href="https://weblog.metacircular-evaluator.org/blog/2018/10/13/tips-for-working-with-graphson-and-tinkerpop-systems/#disqus_thread">Comments</a>
 
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-         Tips for Working With Graphson and Tinkerpop Systems 
-    </h1>
+    
+    
+      - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+    
+  </p>
+  <h1 class="entry-title">
+     Tips for Working With Graphson and Tinkerpop Systems 
+  </h1>
 </header>
 
 
@@ -119,8 +113,6 @@
 <ul>
 <li><a href="https://developer.ibm.com/dwblog/2017/tips-help-graphson-tinkerpop/">Tips for Working With Graphson and Tinkerpop Systems</a></li>
 </ul>
-
-<p></p>
 
 <p>If you are working with the Apache TinkerPopTM framework for graph computing, you might want to produce, edit, and save graphs, or parts of graphs, outside the graph database. To accomplish this, you might want a standardized format for a graph representation that is both machine- and human-readable. You might want features for easily moving between that format and the graph database itself. You might want to consider using GraphSON.</p>
 
@@ -160,13 +152,17 @@ The graph or its elements need to be consumed by code that is not JVM-based (e.g
 
 <ul>
 <li>The file consists of a list of vertices, where each vertex is a dictionary that maps property names to property values, or sub-dictionaries with property values. Each line of the file contains exactly one vertex. The vertices are listed in order of unique ID, which, by convention, starts at 1 and increases sequentially.</li>
-<li>Each vertex has the following structure:
-<code>
-{&quot;id&quot;:int, &quot;label&quot;:&quot;&quot;, &quot;inE&quot;:{&quot;edge_label1&quot;:[{edge}, {edge}, ...], &quot;edge_label2&quot;:[{edge}, {edge}, ...]}, &quot;outE&quot;:{&quot;edge_label1&quot;:[{edge}, {edge}, ...], &quot;edge_label2&quot;:[{edge}, {edge}, ...]}, &quot;properties&quot;:{}}
-</code></li>
-<li>“id” maps to a unique integer id (starting at 1, by convention, and increasing sequentially)</li>
-<li>“label” maps to a string that represents the label associated with that vertex (think of this being like the vertex’s type, e.g. “person”)</li>
-<li>“inE” and “outE” map to dictionaries that map the label (again, think type, e.g. “knows” may be a label between two people) of an edge to a list of edges of that type that involve the vertex of which these are sub-dictionaries. “inE” and “outE” encode directionality of the edges as the names suggest (“inE” contains the edges that terminate at the vertex, “outE” contains the edges that originate at the vertex). If a vertex has only one type of edge associated with it (e.g. only in edges), then the other key-value pair (e.g. “outE”:{}) may be omitted from this vertex.</li>
+
+<li><p>Each vertex has the following structure:</p>
+
+<pre><code>{&quot;id&quot;:int, &quot;label&quot;:&quot;&quot;, &quot;inE&quot;:{&quot;edge_label1&quot;:[{edge}, {edge}, ...], &quot;edge_label2&quot;:[{edge}, {edge}, ...]}, &quot;outE&quot;:{&quot;edge_label1&quot;:[{edge}, {edge}, ...], &quot;edge_label2&quot;:[{edge}, {edge}, ...]}, &quot;properties&quot;:{}}
+</code></pre></li>
+
+<li><p>“id” maps to a unique integer id (starting at 1, by convention, and increasing sequentially)</p></li>
+
+<li><p>“label” maps to a string that represents the label associated with that vertex (think of this being like the vertex’s type, e.g. “person”)</p></li>
+
+<li><p>“inE” and “outE” map to dictionaries that map the label (again, think type, e.g. “knows” may be a label between two people) of an edge to a list of edges of that type that involve the vertex of which these are sub-dictionaries. “inE” and “outE” encode directionality of the edges as the names suggest (“inE” contains the edges that terminate at the vertex, “outE” contains the edges that originate at the vertex). If a vertex has only one type of edge associated with it (e.g. only in edges), then the other key-value pair (e.g. “outE”:{}) may be omitted from this vertex.</p></li>
 
 <li><p>“properties” maps to a dictionary where the keys are the labels of the properties and the values are dictionaries that contain the key “id” mapping to an integer ID for that property value (used for indexing) and the key “value” mapping to a value for that property. Every property value needs to have an ID (separate from the IDs for vertices and edges, these can start at 0), otherwise an error will occur in the GraphSON reader (“Error: property value cannot be null”). Example: &ldquo;properties&rdquo;:{&ldquo;name&rdquo;:{&ldquo;id&rdquo;: 0, &ldquo;value&rdquo;:&ldquo;marko&rdquo;}, &ldquo;age&rdquo;:{&ldquo;id&rdquo;:1, &ldquo;value&rdquo;:29}}. The IDs are unique, and by convention, start at 0 and increase sequentially.</p></li>
 
@@ -189,13 +185,16 @@ The graph or its elements need to be consumed by code that is not JVM-based (e.g
 <h3 id="edge-rules-and-conventions">Edge Rules and Conventions</h3>
 
 <ul>
-<li>Edges have the following structure:
-<code>
-{&quot;id&quot;:int, &quot;outV&quot;: int, &quot;inV&quot;: int, &quot;properties&quot;:{&quot;property_name&quot;:value}}
-</code></li>
-<li>“id” maps to a unique integer ID. By convention, the edge IDs start immediately after the greatest vertex ID and increase sequentially, so if a graph has 6 vertices and 6 edges, the vertex IDs would be 1-6 and the edge IDs would be 7-12.</li>
-<li>“inV” and “outV” map to the vertex IDs on each side of the edge. “outV” maps to the ID of the vertex from which the edge originates and “inV” maps to the ID of the vertex at which the edge terminates. For example, the edge 1-knows-&gt;2 would look like this: {&ldquo;outV&rdquo;:1, &ldquo;inV&rdquo;:2, &ldquo;properties&rdquo;:{}}. Since in a GraphSON format, the edges are all listed as a property of vertices, and nowhere else, one of “outV” or “inV” is already implicit based on whether it is in the list mapped to by “inE” or “outE” and the ID of the vertex on that line, and, thus, may be omitted. For example, with the edge described above, in the dictionary that describes vertex 1, the edge would be present in the list of edges mapped to by “outE”, so “outV”:1 is implicit and may be omitted. It need not be omitted though, and is convenient to leave in some cases.</li>
-<li>“properties” maps to a dictionary which maps the label of a property to its value. For example, properties:{&ldquo;weight&rdquo;:0.5}. These properties are not indexed, and each edge has only one property associated to it.</li>
+<li><p>Edges have the following structure:</p>
+
+<pre><code>{&quot;id&quot;:int, &quot;outV&quot;: int, &quot;inV&quot;: int, &quot;properties&quot;:{&quot;property_name&quot;:value}}
+</code></pre></li>
+
+<li><p>“id” maps to a unique integer ID. By convention, the edge IDs start immediately after the greatest vertex ID and increase sequentially, so if a graph has 6 vertices and 6 edges, the vertex IDs would be 1-6 and the edge IDs would be 7-12.</p></li>
+
+<li><p>“inV” and “outV” map to the vertex IDs on each side of the edge. “outV” maps to the ID of the vertex from which the edge originates and “inV” maps to the ID of the vertex at which the edge terminates. For example, the edge 1-knows-&gt;2 would look like this: {&ldquo;outV&rdquo;:1, &ldquo;inV&rdquo;:2, &ldquo;properties&rdquo;:{}}. Since in a GraphSON format, the edges are all listed as a property of vertices, and nowhere else, one of “outV” or “inV” is already implicit based on whether it is in the list mapped to by “inE” or “outE” and the ID of the vertex on that line, and, thus, may be omitted. For example, with the edge described above, in the dictionary that describes vertex 1, the edge would be present in the list of edges mapped to by “outE”, so “outV”:1 is implicit and may be omitted. It need not be omitted though, and is convenient to leave in some cases.</p></li>
+
+<li><p>“properties” maps to a dictionary which maps the label of a property to its value. For example, properties:{&ldquo;weight&rdquo;:0.5}. These properties are not indexed, and each edge has only one property associated to it.</p></li>
 
 <li><p>Because of the redundancy of encoding the same edge in both the “outE” field of the vertex from which it emanates and in the “inE” field of the vertex at which it terminates, each edge will appear twice in the GraphSON format; the two instances of the edge should be identical, since both instances represent the same edge.</p></li>
 
@@ -250,32 +249,21 @@ The graph or its elements need to be consumed by code that is not JVM-based (e.g
     
   </p>
   
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
- <ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-5885095939968393"
-     data-ad-slot="3213323462"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
- </script>
-
-  
     
       <div id="disqus_thread"></div>
 <script type="text/javascript">
+  (function() {
+      
+      
+      
+      if (window.location.hostname == "localhost")
+          return;
 
-(function() {
-    
-    
-    
-    if (window.location.hostname == "localhost")
-        return;
-
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    var disqus_shortname = 'yamanetoshi';
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yamanetoshi';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
@@ -350,6 +338,14 @@ The graph or its elements need to be consumed by code that is not JVM-based (e.g
           
             
               <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
               </li>
             
@@ -396,86 +392,33 @@ The graph or its elements need to be consumed by code that is not JVM-based (e.g
               </li>
             
           
-            
-              <li class="post">
-                <a href="/blog/2019/08/21/judgement/">死活判定</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/16/event-guide-of-urasoe-go-kaikan/">浦添囲碁会館イベント</a>
-              </li>
-            
-          
         </ul>
       </section>
     
-  
-
-<section>
-    <h1>Books</h1>
- <ul>
-<li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
-</li>
- <li>
-<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
-</li>
-</ul>
- </section>
- <section>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
- <ins class="adsbygoogle"
-     style="display:inline-block;width:120px;height:600px"
-     data-ad-client="ca-pub-5885095939968393"
-     data-ad-slot="7922724663"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-</section>
   
 </aside>
 
   </div>
 </div>
 
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
 
+    
+    
+    
 
-<footer role="contentinfo">
-  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
-  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
-</p>
-
-</footer>
-
-
-
-
-
-
-<script>
-  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
-  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-  s.parentNode.insertBefore(g,s)}(document,'script'));
-</script>
-
-</body>
+    
+      <script>
+        var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+      </script>
+    
+  </body>
 </html>
 

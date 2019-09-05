@@ -3,6 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/</loc>
+    <lastmod>2019-09-05T21:25:06+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/</loc>
+    <lastmod>2019-09-05T21:25:06+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/english/</loc>
+    <lastmod>2019-09-05T21:25:06+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/09/05/modal-verbs/</loc>
+    <lastmod>2019-09-05T21:25:06+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/post/</loc>
+    <lastmod>2019-09-05T21:25:06+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/09/04/modal-verbs/</loc>
     <lastmod>2019-09-04T21:16:40+09:00</lastmod>
   </url>
@@ -10,6 +35,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/09/03/modal-verbs/</loc>
     <lastmod>2019-09-03T20:13:49+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/misc/</loc>
+    <lastmod>2019-09-02T21:15:51+09:00</lastmod>
   </url>
   
   <url>
@@ -463,6 +493,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/cloudnative/</loc>
+    <lastmod>2019-05-12T13:10:45+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/05/12/gke-elixir-cluster/</loc>
     <lastmod>2019-05-12T13:10:45+09:00</lastmod>
   </url>
@@ -678,6 +713,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/git/</loc>
+    <lastmod>2019-03-28T19:37:01+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/03/28/tesuji-dictionary/</loc>
     <lastmod>2019-03-28T19:37:01+09:00</lastmod>
   </url>
@@ -838,6 +878,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/Ruby/</loc>
+    <lastmod>2019-02-28T20:38:25+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/02/27/programming-elixir/</loc>
     <lastmod>2019-02-27T19:53:49+09:00</lastmod>
   </url>
@@ -955,6 +1000,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/02/07/issues-to-be-resolved-over-this-weekent/</loc>
     <lastmod>2019-02-07T20:13:55+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/cloud/</loc>
+    <lastmod>2019-02-06T20:57:03+09:00</lastmod>
   </url>
   
   <url>
@@ -1213,6 +1263,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/Android/</loc>
+    <lastmod>2018-12-06T20:34:27+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/12/06/android-codelab-courses/</loc>
     <lastmod>2018-12-06T20:34:27+09:00</lastmod>
   </url>
@@ -1248,6 +1303,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/nodejs/</loc>
+    <lastmod>2018-11-30T22:58:16+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/11/29/data-extraction/</loc>
     <lastmod>2018-11-29T21:28:03+09:00</lastmod>
   </url>
@@ -1260,6 +1320,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/11/27/korian-go-drill/</loc>
     <lastmod>2018-11-27T22:34:40+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/debian/</loc>
+    <lastmod>2018-11-26T20:46:36+09:00</lastmod>
   </url>
   
   <url>
@@ -1299,6 +1364,11 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/11/19/chikun-toramaru-nhk/</loc>
+    <lastmod>2018-11-19T20:00:58+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/go/</loc>
     <lastmod>2018-11-19T20:00:58+09:00</lastmod>
   </url>
   
@@ -1419,6 +1489,11 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/10/24/how-to-build-a-simple-text-classifier-with-tf-hub/</loc>
+    <lastmod>2018-10-24T18:59:49+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/machinelearning/</loc>
     <lastmod>2018-10-24T18:59:49+09:00</lastmod>
   </url>
   
@@ -1578,6 +1653,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/aws/</loc>
+    <lastmod>2018-09-18T22:46:12+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/09/18/aws-sam-cli/</loc>
     <lastmod>2018-09-18T22:46:12+09:00</lastmod>
   </url>
@@ -1589,6 +1669,11 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/09/15/query-recommendation-based-on-query-relevance-graph/</loc>
+    <lastmod>2018-09-15T18:52:32+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/recommend/</loc>
     <lastmod>2018-09-15T18:52:32+09:00</lastmod>
   </url>
   
@@ -1618,6 +1703,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/make/</loc>
+    <lastmod>2018-09-02T16:59:40+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/09/02/production-of-tube-amp/</loc>
     <lastmod>2018-09-02T16:59:40+09:00</lastmod>
   </url>
@@ -1625,6 +1715,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/09/01/connecting-to-aws-neptune-from-local-environment/</loc>
     <lastmod>2018-09-01T11:40:30+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/devops/</loc>
+    <lastmod>2018-08-29T21:13:09+09:00</lastmod>
   </url>
   
   <url>
@@ -1639,6 +1734,11 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/08/24/asciidoc/</loc>
+    <lastmod>2018-08-24T21:32:49+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/memo/</loc>
     <lastmod>2018-08-24T21:32:49+09:00</lastmod>
   </url>
   
@@ -1674,6 +1774,11 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/08/14/dlv/</loc>
+    <lastmod>2018-08-14T19:23:07+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/golang/</loc>
     <lastmod>2018-08-14T19:23:07+09:00</lastmod>
   </url>
   
@@ -1728,6 +1833,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/Programming/</loc>
+    <lastmod>2018-08-01T21:15:54+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/08/01/remote-moku-moku/</loc>
     <lastmod>2018-08-01T21:15:54+09:00</lastmod>
   </url>
@@ -1745,6 +1855,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/29/sim-change/</loc>
     <lastmod>2018-07-29T17:54:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/Recommendation/</loc>
+    <lastmod>2018-07-28T15:31:13+09:00</lastmod>
   </url>
   
   <url>
@@ -1795,6 +1910,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/07/19/machine-learning-to-start-with-work/</loc>
     <lastmod>2018-07-19T20:47:19+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/Github/</loc>
+    <lastmod>2018-07-18T20:09:05+09:00</lastmod>
   </url>
   
   <url>
@@ -1928,6 +2048,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/Angular/</loc>
+    <lastmod>2018-06-21T20:17:28+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/06/21/wrapping-up/</loc>
     <lastmod>2018-06-21T20:17:28+09:00</lastmod>
   </url>
@@ -1985,6 +2110,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/06/04/testing-with-mocks-and-spies/</loc>
     <lastmod>2018-06-04T19:22:09+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/kotlin/</loc>
+    <lastmod>2018-06-01T09:15:22+09:00</lastmod>
   </url>
   
   <url>
@@ -2125,6 +2255,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/03/07/reading-rss-feed-in-slack/</loc>
     <lastmod>2018-03-07T20:13:46+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/Linux/</loc>
+    <lastmod>2018-03-06T21:33:35+09:00</lastmod>
   </url>
   
   <url>
@@ -2278,6 +2413,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/python/</loc>
+    <lastmod>2018-01-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2018/01/27/python-obd/</loc>
     <lastmod>2018-01-27T00:00:00+00:00</lastmod>
   </url>
@@ -2373,12 +2513,22 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/docker/</loc>
+    <lastmod>2017-12-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2017/12/26/elasticsearch-and-kibana-verification/</loc>
     <lastmod>2017-12-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2017/12/24/google-aiy-voice-kit/</loc>
+    <lastmod>2017-12-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/Fab/</loc>
     <lastmod>2017-12-24T00:00:00+00:00</lastmod>
   </url>
   
@@ -2405,6 +2555,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2017/12/18/docker-ce/</loc>
     <lastmod>2017-12-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/ingress/</loc>
+    <lastmod>2017-12-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -2563,6 +2718,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/Shogi/</loc>
+    <lastmod>2017-11-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2017/11/09/naka-bisya-series/</loc>
     <lastmod>2017-11-09T00:00:00+00:00</lastmod>
   </url>
@@ -2655,6 +2815,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2017/10/14/ai-speaker-self-made-kit/</loc>
     <lastmod>2017-10-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/kernel/</loc>
+    <lastmod>2017-10-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -2913,6 +3078,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/machine-learning/</loc>
+    <lastmod>2017-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2017/07/26/delta-go/</loc>
     <lastmod>2017-07-26T00:00:00+00:00</lastmod>
   </url>
@@ -2970,6 +3140,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2017/07/04/shogi/</loc>
     <lastmod>2017-07-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/nand2tetris/</loc>
+    <lastmod>2017-07-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -3053,12 +3228,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2017/05/05/configuration-memo/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2017/05/05/unittest-main-in-jupyter-notebook/</loc>
     <lastmod>2017-05-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2017/05/05/unittest-main-in-jupyter-notebook/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2017/05/05/configuration-memo/</loc>
     <lastmod>2017-05-05T00:00:00+00:00</lastmod>
   </url>
   
@@ -3129,6 +3304,11 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2017/04/12/bnn-pynq-operation-check/</loc>
+    <lastmod>2017-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/FPGA/</loc>
     <lastmod>2017-04-12T00:00:00+00:00</lastmod>
   </url>
   
@@ -3453,6 +3633,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/statistics/</loc>
+    <lastmod>2016-08-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2016/08/27/2016-08-27-derivative-works-of-the-normal-distribution/</loc>
     <lastmod>2016-08-27T00:00:00+00:00</lastmod>
   </url>
@@ -3578,6 +3763,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/ci/</loc>
+    <lastmod>2016-04-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2016/04/28/memo/</loc>
     <lastmod>2016-04-28T00:00:00+00:00</lastmod>
   </url>
@@ -3653,6 +3843,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/hubot/</loc>
+    <lastmod>2016-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2016/04/12/in-hubot-cron/</loc>
     <lastmod>2016-04-12T00:00:00+00:00</lastmod>
   </url>
@@ -3718,12 +3913,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2016/03/30/sideci/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2016/03/30/pep8-memo/</loc>
     <lastmod>2016-03-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2016/03/30/pep8-memo/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2016/03/30/sideci/</loc>
     <lastmod>2016-03-30T00:00:00+00:00</lastmod>
   </url>
   
@@ -3893,12 +4088,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2016/02/29/circleci/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2016/02/29/blacklabelops-jenkins-swarm-reading/</loc>
     <lastmod>2016-02-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2016/02/29/blacklabelops-jenkins-swarm-reading/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2016/02/29/circleci/</loc>
     <lastmod>2016-02-29T00:00:00+00:00</lastmod>
   </url>
   
@@ -4180,6 +4375,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2016/01/07/kotlin-android-example/</loc>
     <lastmod>2016-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/emacs/</loc>
+    <lastmod>2016-01-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -4635,6 +4835,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2015/10/19/consideration-about-opening/</loc>
     <lastmod>2015-10-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/jenkins/</loc>
+    <lastmod>2015-10-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -5353,12 +5558,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2015/06/11/change-item-on-viewpager/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2015/06/11/onshowfilechooser-method/</loc>
     <lastmod>2015-06-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2015/06/11/onshowfilechooser-method/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2015/06/11/change-item-on-viewpager/</loc>
     <lastmod>2015-06-11T00:00:00+00:00</lastmod>
   </url>
   
@@ -5438,6 +5643,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/gails/</loc>
+    <lastmod>2015-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2015/05/29/did-gcm-in-rails/</loc>
     <lastmod>2015-05-29T00:00:00+00:00</lastmod>
   </url>
@@ -5455,6 +5665,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2015/05/27/order-n5-iquid-crystal-panel/</loc>
     <lastmod>2015-05-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/rails/</loc>
+    <lastmod>2015-05-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -5713,12 +5928,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2015/04/07/rough-note-english-grammer/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2015/04/07/edison-initializeing-memo/</loc>
     <lastmod>2015-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2015/04/07/edison-initializeing-memo/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2015/04/07/rough-note-english-grammer/</loc>
     <lastmod>2015-04-07T00:00:00+00:00</lastmod>
   </url>
   
@@ -5878,6 +6093,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2015/03/18/execute-apery-in-debian/</loc>
+    <lastmod>2015-03-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2015/03/18/rough-note-english-grammer/</loc>
     <lastmod>2015-03-18T00:00:00+00:00</lastmod>
   </url>
@@ -5889,11 +6109,6 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2015/03/18/change-lowercase-preferencecategory-title/</loc>
-    <lastmod>2015-03-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2015/03/18/execute-apery-in-debian/</loc>
     <lastmod>2015-03-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -6548,12 +6763,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/11/18/level-10-in-ingress/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/11/18/crashing-eclipse-when-i-export-apk/</loc>
     <lastmod>2014-11-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/11/18/crashing-eclipse-when-i-export-apk/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/11/18/level-10-in-ingress/</loc>
     <lastmod>2014-11-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -6580,6 +6795,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2014/11/13/labs-online-net/</loc>
     <lastmod>2014-11-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/Scheme/</loc>
+    <lastmod>2014-11-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -7728,12 +7948,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/04/19/github-pull-request-howto/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/04/19/md2review-reading/</loc>
     <lastmod>2014-04-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/04/19/md2review-reading/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/04/19/github-pull-request-howto/</loc>
     <lastmod>2014-04-19T00:00:00+00:00</lastmod>
   </url>
   
@@ -7858,22 +8078,22 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/04/05/sendmail-in-ubuntu-1204/</loc>
-    <lastmod>2014-04-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2014/04/05/make-rails-environment/</loc>
     <lastmod>2014-04-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/04/04/how-to-do-railstutorial/</loc>
-    <lastmod>2014-04-04T00:00:00+00:00</lastmod>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/04/05/sendmail-in-ubuntu-1204/</loc>
+    <lastmod>2014-04-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2014/04/04/start-manually-redis-server-in-ios/</loc>
+    <lastmod>2014-04-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/04/04/how-to-do-railstutorial/</loc>
     <lastmod>2014-04-04T00:00:00+00:00</lastmod>
   </url>
   
@@ -7993,6 +8213,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/octopress/</loc>
+    <lastmod>2014-03-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2014/03/27/install-ruby-oembed/</loc>
     <lastmod>2014-03-27T00:00:00+00:00</lastmod>
   </url>
@@ -8078,12 +8303,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/03/17/wireless-access-point-in-taipei/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/03/17/string-compare-in-bash/</loc>
     <lastmod>2014-03-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/03/17/string-compare-in-bash/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/03/17/wireless-access-point-in-taipei/</loc>
     <lastmod>2014-03-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -8103,12 +8328,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/03/15/a-variety-of-ways-to-contribute-to-debian/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/03/15/merge-espresso-tests/</loc>
     <lastmod>2014-03-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/03/15/merge-espresso-tests/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/03/15/a-variety-of-ways-to-contribute-to-debian/</loc>
     <lastmod>2014-03-15T00:00:00+00:00</lastmod>
   </url>
   
@@ -8413,12 +8638,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/02/17/octopress-migration/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/02/17/natural-bomb/</loc>
     <lastmod>2014-02-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/02/17/natural-bomb/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/02/17/octopress-migration/</loc>
     <lastmod>2014-02-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -8473,17 +8698,17 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/02/12/add-string-in-emacs/</loc>
+    <lastmod>2014-02-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2014/02/12/plotly/</loc>
     <lastmod>2014-02-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2014/02/12/thinkpad-x201-and-debian-7/</loc>
-    <lastmod>2014-02-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/02/12/add-string-in-emacs/</loc>
     <lastmod>2014-02-12T00:00:00+00:00</lastmod>
   </url>
   
@@ -8533,12 +8758,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/02/04/sort-array-in-ruby/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/02/04/git-dot-git-workflow-memo/</loc>
     <lastmod>2014-02-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/02/04/git-dot-git-workflow-memo/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/02/04/sort-array-in-ruby/</loc>
     <lastmod>2014-02-04T00:00:00+00:00</lastmod>
   </url>
   
@@ -8568,12 +8793,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/01/31/naha-wifi-ap/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/01/31/websocket-game/</loc>
     <lastmod>2014-01-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/01/31/websocket-game/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/01/31/naha-wifi-ap/</loc>
     <lastmod>2014-01-31T00:00:00+00:00</lastmod>
   </url>
   
@@ -8588,12 +8813,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/01/29/listview-in-scrollview/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/01/29/indentation-in-emacs/</loc>
     <lastmod>2014-01-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/01/29/indentation-in-emacs/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/01/29/listview-in-scrollview/</loc>
     <lastmod>2014-01-29T00:00:00+00:00</lastmod>
   </url>
   
@@ -8605,6 +8830,11 @@
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2014/01/27/how-to-finish-android-application/</loc>
     <lastmod>2014-01-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/Redis/</loc>
+    <lastmod>2014-01-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -8683,12 +8913,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/01/19/rspec-rails/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/01/19/curl-json-parameter/</loc>
     <lastmod>2014-01-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2014/01/19/curl-json-parameter/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2014/01/19/rspec-rails/</loc>
     <lastmod>2014-01-19T00:00:00+00:00</lastmod>
   </url>
   
@@ -8963,17 +9193,22 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2013/12/20/adb-command/</loc>
+    <lastmod>2013-12-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/categories/freesoftware/</loc>
+    <lastmod>2013-12-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2013/12/20/i-want-to-buy-gluglug-x60-laptop/</loc>
     <lastmod>2013-12-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2013/12/20/make-linux-kernel-for-raspi/</loc>
-    <lastmod>2013-12-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2013/12/20/adb-command/</loc>
     <lastmod>2013-12-20T00:00:00+00:00</lastmod>
   </url>
   
@@ -9098,12 +9333,17 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2013/12/05/html5-caraban/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2013/12/05/about-gradlew/</loc>
     <lastmod>2013-12-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2013/12/05/about-gradlew/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/categories/HTML5/</loc>
+    <lastmod>2013-12-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2013/12/05/html5-caraban/</loc>
     <lastmod>2013-12-05T00:00:00+00:00</lastmod>
   </url>
   
@@ -9158,13 +9398,18 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2013/12/02/gradle-wrapper/</loc>
+    <lastmod>2013-12-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2013/12/02/gradle-in-mavericks/</loc>
     <lastmod>2013-12-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2013/12/02/gradle-wrapper/</loc>
-    <lastmod>2013-12-02T00:00:00+00:00</lastmod>
+    <loc>https://weblog.metacircular-evaluator.org/categories/EoPL/</loc>
+    <lastmod>2013-12-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -9193,17 +9438,17 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/29/raspberry-pi/</loc>
-    <lastmod>2013-11-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/29/could-make-package-by-gradle/</loc>
     <lastmod>2013-11-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/29/make-android-icon/</loc>
+    <lastmod>2013-11-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/29/raspberry-pi/</loc>
     <lastmod>2013-11-29T00:00:00+00:00</lastmod>
   </url>
   
@@ -9288,17 +9533,17 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/23/devopsokinawa-number-1/</loc>
+    <lastmod>2013-11-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/23/think-about-fog-abstraction/</loc>
     <lastmod>2013-11-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/23/cannot-bundle-install-in-mavericks/</loc>
-    <lastmod>2013-11-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/23/devopsokinawa-number-1/</loc>
     <lastmod>2013-11-23T00:00:00+00:00</lastmod>
   </url>
   
@@ -9383,17 +9628,17 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/18/search-chef-cookbook/</loc>
+    <lastmod>2013-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/18/android-edittext-insert-comma/</loc>
     <lastmod>2013-11-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/18/eopl-ex-2-22/</loc>
-    <lastmod>2013-11-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/18/search-chef-cookbook/</loc>
     <lastmod>2013-11-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -9468,6 +9713,11 @@
   </url>
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/14/emacs-dired/</loc>
+    <lastmod>2013-11-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/14/eopl-note/</loc>
     <lastmod>2013-11-14T00:00:00+00:00</lastmod>
   </url>
@@ -9478,8 +9728,8 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/14/emacs-dired/</loc>
-    <lastmod>2013-11-14T00:00:00+00:00</lastmod>
+    <loc>https://weblog.metacircular-evaluator.org/categories/ARM/</loc>
+    <lastmod>2013-11-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -9553,12 +9803,12 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/09/testing-helloworld-by-espresso/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/09/bigshotcamera-arrival/</loc>
     <lastmod>2013-11-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/09/bigshotcamera-arrival/</loc>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2013/11/09/testing-helloworld-by-espresso/</loc>
     <lastmod>2013-11-09T00:00:00+00:00</lastmod>
   </url>
   
@@ -9703,302 +9953,7 @@
   </url>
   
   <url>
-    <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-09-04T21:16:40+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/android/</loc>
-    <lastmod>2019-02-26T19:58:14+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/angular/</loc>
-    <lastmod>2018-06-21T20:17:28+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/arm/</loc>
-    <lastmod>2013-11-13T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/aws/</loc>
-    <lastmod>2018-09-18T22:46:12+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/</loc>
-    <lastmod>2019-02-26T19:58:14+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/ci/</loc>
-    <lastmod>2016-04-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/cloud/</loc>
-    <lastmod>2019-02-06T20:57:03+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/cloudnative/</loc>
-    <lastmod>2019-05-12T13:10:45+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/debian/</loc>
-    <lastmod>2018-11-26T20:46:36+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/devops/</loc>
-    <lastmod>2018-08-29T21:13:09+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/docker/</loc>
-    <lastmod>2017-12-26T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/emacs/</loc>
-    <lastmod>2016-01-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/english/</loc>
-    <lastmod>2019-09-04T21:16:40+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/eopl/</loc>
-    <lastmod>2013-12-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/fab/</loc>
-    <lastmod>2017-12-24T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/fpga/</loc>
-    <lastmod>2017-04-12T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/freesoftware/</loc>
-    <lastmod>2013-12-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/gails/</loc>
-    <lastmod>2015-05-29T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/git/</loc>
-    <lastmod>2019-03-28T19:37:01+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/github/</loc>
-    <lastmod>2018-07-18T20:09:05+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/go/</loc>
-    <lastmod>2018-11-19T20:00:58+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/golang/</loc>
-    <lastmod>2018-08-14T19:23:07+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/html5/</loc>
-    <lastmod>2013-12-05T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/hubot/</loc>
-    <lastmod>2016-04-12T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/ingress/</loc>
-    <lastmod>2017-12-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/jenkins/</loc>
-    <lastmod>2015-10-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/kernel/</loc>
-    <lastmod>2017-10-12T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/kotlin/</loc>
-    <lastmod>2018-06-01T09:15:22+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/linux/</loc>
-    <lastmod>2018-03-06T21:33:35+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/machine-learning/</loc>
-    <lastmod>2017-07-26T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/machinelearning/</loc>
-    <lastmod>2019-02-02T21:08:31+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/make/</loc>
-    <lastmod>2018-09-02T16:59:40+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/memo/</loc>
-    <lastmod>2018-08-24T21:32:49+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/misc/</loc>
-    <lastmod>2019-09-02T21:15:51+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/nand2tetris/</loc>
-    <lastmod>2017-07-02T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/nodejs/</loc>
-    <lastmod>2018-11-30T22:58:16+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/octopress/</loc>
-    <lastmod>2014-03-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-09-04T21:16:40+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/programming/</loc>
-    <lastmod>2019-08-26T22:00:53+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/python/</loc>
-    <lastmod>2018-10-27T15:07:21+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/rails/</loc>
-    <lastmod>2015-05-26T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/recommend/</loc>
-    <lastmod>2018-09-15T18:52:32+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/recommendation/</loc>
-    <lastmod>2018-08-21T20:31:52+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/redis/</loc>
-    <lastmod>2014-01-26T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/ruby/</loc>
-    <lastmod>2019-02-28T20:38:25+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/scheme/</loc>
-    <lastmod>2014-11-12T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/shogi/</loc>
-    <lastmod>2018-08-08T20:33:43+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://weblog.metacircular-evaluator.org/categories/statistics/</loc>
-    <lastmod>2016-08-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://weblog.metacircular-evaluator.org/tags/</loc>
-    <priority>0</priority>
   </url>
   
 </urlset>

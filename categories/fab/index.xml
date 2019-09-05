@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Fab on /var/log/messages</title>
-    <link>https://weblog.metacircular-evaluator.org/categories/fab/</link>
+    <link>https://weblog.metacircular-evaluator.org/categories/Fab/</link>
     <description>Recent content in Fab on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Sun, 24 Dec 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://weblog.metacircular-evaluator.org/categories/fab/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/Fab/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -31,9 +31,7 @@
 &lt;p&gt;CLI な道具を入手しはしたのですが dd で何とかならんかな、と言いつつ xz で展開している次第です。展開終わったらどうなるんだろ。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ xz -d aiyprojects-2017-09-11.img.xz
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -60,9 +58,7 @@
 &lt;li&gt;USB ケーブル&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;なのかどうか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;なのかどうか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -71,9 +67,7 @@
       <pubDate>Mon, 28 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/28/webrtc-in-iot/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://nttcom.github.io/skyway/&#34;&gt;SkyWay&lt;/a&gt; に乗っかる、を前提に考えてみる。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;a href=&#34;http://nttcom.github.io/skyway/&#34;&gt;SkyWay&lt;/a&gt; に乗っかる、を前提に考えてみる。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -82,9 +76,7 @@
       <pubDate>Tue, 17 Mar 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/03/17/moku-moku-record/</guid>
-      <description>&lt;p&gt;どうも PR が merge されない雰囲気なのでこちらにも転載。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;どうも PR が merge されない雰囲気なのでこちらにも転載。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -104,9 +96,7 @@
 &lt;li&gt;Adafruit_BMP085.py&lt;/li&gt;
 &lt;li&gt;Adafruit_I2C.py&lt;/li&gt;
 &lt;li&gt;Adafriut_BMP085_example.py&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -140,9 +130,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://akizukidenshi.com/catalog/g/gM-08764/&#34;&gt;BMP085 使用気圧センサモジュール&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -166,9 +154,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://t.co/drtB9g2aOt&#34;&gt;Enclosure for Intel Edison Breakout Board&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -192,9 +178,7 @@
 &lt;li&gt;&lt;a href=&#34;http://makerclub.org&#34;&gt;MakerClub&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;とりあえず、59 ユーロで必要なパーツはげとできる模様。約 9K 円ですか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とりあえず、59 ユーロで必要なパーツはげとできる模様。約 9K 円ですか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -245,9 +229,7 @@
 &lt;li&gt;&lt;a href=&#34;http://japanese.engadget.com/2014/01/07/sd-pc-edison-cpu-wifi/&#34;&gt;インテル、SD カードサイズの超小型PC 『Edison』 発表。デュアルコアCPU、WiFi 搭載のウェアラブル端末用&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Wifi と Bluetooth モジュール内蔵とあります。Bluetooth か。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;Wifi と Bluetooth モジュール内蔵とあります。Bluetooth か。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -262,9 +244,7 @@
 
 &lt;p&gt;&lt;a href=&#34;http://www.flickr.com/photos/yamane-toshiaki/11435407604/&#34; title=&#34;IMG_20131218_194651 by yamane.toshiaki, on Flickr&#34;&gt;&lt;img src=&#34;http://farm6.staticflickr.com/5481/11435407604_0b76af4dac.jpg&#34; width=&#34;375&#34; height=&#34;500&#34; alt=&#34;IMG_20131218_194651&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;超盛り上がっててこちらとしては嬉しい限り。某所とは違った意味で沖縄がモノづくりの特別な場所になってくれることを願いつつ。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;超盛り上がっててこちらとしては嬉しい限り。某所とは違った意味で沖縄がモノづくりの特別な場所になってくれることを願いつつ。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -286,9 +266,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.judepullen.com/designmodelling/raspberry-pi-case/&#34;&gt;How to make a Raspberry Pi Case&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -314,9 +292,7 @@
 &lt;li&gt;USB なケーブル&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;を確保すれば何とかなるのかどうか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;を確保すれば何とかなるのかどうか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -331,9 +307,7 @@
 &lt;li&gt;&lt;a href=&#34;http://www.kickstarter.com/projects/alexklein/kano-a-computer-anyone-can-make?ref=live&#34;&gt;Kano: A computer anyone can make&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;つうか駄目かなぁ。同じことをたくらんで USB なキーボードとマウスを購入してたりする件orz&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;つうか駄目かなぁ。同じことをたくらんで USB なキーボードとマウスを購入してたりする件orz&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -346,9 +320,7 @@
 
 &lt;p&gt;&lt;a href=&#34;http://www.flickr.com/photos/yamane-toshiaki/11148979755&#34; title=&#34;ブツ到着 by yamane.toshiaki, on Flickr&#34;&gt;&lt;img src=&#34;http://farm6.staticflickr.com/5474/11148979755_6907858898.jpg&#34; width=&#34;375&#34; height=&#34;500&#34; alt=&#34;ブツ到着&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;早くパーツげとして音鳴らしてみたい。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;早くパーツげとして音鳴らしてみたい。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -369,9 +341,7 @@
 
 &lt;p&gt;S3 からメモリスティックに転送する仕組みが必要なのか。つうかこの機器自体が常時ネト接続な必要があるのかというあたりも検討必要なのかどうか。&lt;/p&gt;
 
-&lt;p&gt;できれば small start で自分でメモリスティックの中を云々な方式にしたいかも。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;できれば small start で自分でメモリスティックの中を云々な方式にしたいかも。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -390,9 +360,7 @@
 &lt;li&gt;RC&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;なナニをげとしたくなるな。あるいは NAS てきなソレなのか、あるいは Dropbox なのか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;なナニをげとしたくなるな。あるいは NAS てきなソレなのか、あるいは Dropbox なのか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -403,9 +371,7 @@
       <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/24/lazer-cutter/</guid>
       <description>&lt;p&gt;#gFab にてレーザーカッターを使ってコップ敷きを作ろう、なワークショップが開催とのことでレクチャのみ、ってアレで顔を出させて頂きました。&lt;/p&gt;
 
-&lt;p&gt;以下、レクチャ聞きつつとったメモの列挙です。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;以下、レクチャ聞きつつとったメモの列挙です。&lt;/p&gt;</description>
     </item>
     
   </channel>

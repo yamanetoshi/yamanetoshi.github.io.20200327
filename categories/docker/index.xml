@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Docker on /var/log/messages</title>
+    <title>docker on /var/log/messages</title>
     <link>https://weblog.metacircular-evaluator.org/categories/docker/</link>
-    <description>Recent content in Docker on /var/log/messages</description>
+    <description>Recent content in docker on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Tue, 26 Dec 2017 00:00:00 +0000</lastBuildDate>
@@ -17,9 +17,7 @@
       <pubDate>Tue, 26 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2017/12/26/elasticsearch-and-kibana-verification/</guid>
-      <description>&lt;p&gt;色々ハマッていたのですがちょっとずつ前に進みはじめているのでメモを控え。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;色々ハマッていたのですがちょっとずつ前に進みはじめているのでメモを控え。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -43,9 +41,7 @@
 docker-engine                                   install
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;とのことだったのですが、新規導入な debian9 には見当らず。色々探してみるに &lt;code&gt;Docker-CE&lt;/code&gt; なるソレを、という情報あり。CE は community edition とのこと。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とのことだったのですが、新規導入な debian9 には見当らず。色々探してみるに &lt;code&gt;Docker-CE&lt;/code&gt; なるソレを、という情報あり。CE は community edition とのこと。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -60,9 +56,7 @@ docker-engine                                   install
 &lt;li&gt;&lt;a href=&#34;https://github.com/efkbook/blog-sample&#34;&gt;efkbook/blog-sample&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;の環境を作ってみました。docker-compose 初体験だったのですがすごいすね。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;の環境を作ってみました。docker-compose 初体験だったのですがすごいすね。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -80,9 +74,7 @@ docker-engine                                   install
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://ncsforum.movidius.com/discussion/98/latest-version-movidius-neural-compute-sdk&#34;&gt;Latest version: Movidius™ Neural Compute SDK&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -96,9 +88,7 @@ docker-engine                                   install
 &lt;pre&gt;&lt;code&gt;$ docker run -t -i -v ~/Documents/mvncsdk/:/opt yamanetoshi/ubuntu /bin/bash
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;これで &lt;code&gt;setup.sh&lt;/code&gt; 実行したらどうなるのか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;これで &lt;code&gt;setup.sh&lt;/code&gt; 実行したらどうなるのか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -107,9 +97,7 @@ docker-engine                                   install
       <pubDate>Tue, 11 Oct 2016 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/10/11/python-programming-environment/</guid>
-      <description>&lt;p&gt;自分メモ、という事にて以下。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;自分メモ、という事にて以下。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -146,9 +134,7 @@ MAINTAINER yamanetoshi &amp;lt;yamanetoshi@gmail.com&amp;gt;
 
 &lt;pre&gt;&lt;code&gt;$ sudo docker -v
 Docker version 1.10.2 build c3959b1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -163,9 +149,7 @@ Docker version 1.10.2 build c3959b1
 &lt;li&gt;&lt;code&gt;docker logs&lt;/code&gt; というコマンドがある&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;という情報を入手。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;という情報を入手。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -179,9 +163,7 @@ Docker version 1.10.2 build c3959b1
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://docs.docker.com/registry/deploying/&#34;&gt;Deploy a registry server&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://qiita.com/sparkgene/items/8633733d8b0a9dc9b8f4&#34;&gt;Docker Registry 2.0 を使ってみる&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -205,9 +187,7 @@ Docker version 1.10.2 build c3959b1
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://inokara.hateblo.jp/entry/2014/01/26/102059&#34;&gt;docker-registry と Amazon S3 で作る自分だけのコンテナ倉庫 (リポジトリ)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -220,9 +200,7 @@ Docker version 1.10.2 build c3959b1
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/yamanetoshi/ubuntu1404_azure_cli_dockerfile&#34;&gt;yamanetoshi/ubuntu1404_azure_cli_dockerfile&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -231,9 +209,7 @@ Docker version 1.10.2 build c3959b1
       <pubDate>Fri, 04 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/03/04/docker-swarm/</guid>
-      <description>&lt;p&gt;ええと、blacklabelops/jenkins は Docker Compose で、なのですがこれを Docker Swarm 使って云々、にしようと思ったらどうすりゃいいのかな、ということで検討着手。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;ええと、blacklabelops/jenkins は Docker Compose で、なのですがこれを Docker Swarm 使って云々、にしようと思ったらどうすりゃいいのかな、ということで検討着手。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -248,9 +224,7 @@ Docker version 1.10.2 build c3959b1
 &lt;li&gt;&lt;a href=&#34;https://github.com/blacklabelops/jenkins-swarm&#34;&gt;blacklabelops/jenkins-swarm&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Dockerfile 見ていきます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;Dockerfile 見ていきます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -263,9 +237,7 @@ Docker version 1.10.2 build c3959b1
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/blacklabelops/jenkins-swarm&#34;&gt;blacklabelops/jenkins-swarm&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -280,9 +252,7 @@ Docker version 1.10.2 build c3959b1
 &lt;li&gt;&lt;a href=&#34;https://github.com/blacklabelops/jenkins&#34;&gt;blacklabelops/jenkins&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;とりあえず &lt;code&gt;docker-compose.yml&lt;/code&gt; から確認開始。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とりあえず &lt;code&gt;docker-compose.yml&lt;/code&gt; から確認開始。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -300,9 +270,7 @@ Docker version 1.10.2 build c3959b1
       <pubDate>Fri, 25 Dec 2015 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2015/12/25/docker-memo/</guid>
-      <description>&lt;p&gt;とりあえず dockerhub にイメージを置いて云々、というあたりの備忘。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;とりあえず dockerhub にイメージを置いて云々、というあたりの備忘。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -329,9 +297,7 @@ Docker version 1.10.2 build c3959b1
 
 &lt;pre&gt;&lt;code&gt;$ sudo docker run -i -t 09c0c850c2f4 /bin/bash
 root@7875f0db0b6b:/#
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -349,9 +315,7 @@ root@7875f0db0b6b:/#
 &lt;li&gt;libffi-dev&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;そしてその後、再度違うイメージでコンテナ起動して確認してみたら不具合は出ず。開発環境なイメージで試験してみたら不具合解消されていた。マシン再起動したんだったかどうかも記憶にない。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;そしてその後、再度違うイメージでコンテナ起動して確認してみたら不具合は出ず。開発環境なイメージで試験してみたら不具合解消されていた。マシン再起動したんだったかどうかも記憶にない。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -366,9 +330,7 @@ root@7875f0db0b6b:/#
 $ sudo apt-get upgrade -y
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;む、MBA からだと locale なナニが出ますね。確認してみるに locales パケジが入っておりませなんだ。これ、この時点でスナップショット取得したいのですが (ぇ&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;む、MBA からだと locale なナニが出ますね。確認してみるに locales パケジが入っておりませなんだ。これ、この時点でスナップショット取得したいのですが (ぇ&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -397,9 +359,7 @@ $ sudo apt-get upgrade -y
 &lt;pre&gt;&lt;code&gt;$ sudo docker.io run -d -p 3000:3000 -v /home/fuga/rails_projects/hoge:/app --link redis:redis --link postgres:db rails:latest bash -c &amp;quot;cd /app &amp;amp;&amp;amp; RAILS_ENV=production bundle exec unicorn -p 3000&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;ぶっちゃけこのあたりも script だか alias だかにすべきですね。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ぶっちゃけこのあたりも script だか alias だかにすべきですね。&lt;/p&gt;</description>
     </item>
     
     <item>

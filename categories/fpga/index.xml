@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Fpga on /var/log/messages</title>
-    <link>https://weblog.metacircular-evaluator.org/categories/fpga/</link>
-    <description>Recent content in Fpga on /var/log/messages</description>
+    <title>FPGA on /var/log/messages</title>
+    <link>https://weblog.metacircular-evaluator.org/categories/FPGA/</link>
+    <description>Recent content in FPGA on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Wed, 12 Apr 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://weblog.metacircular-evaluator.org/categories/fpga/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weblog.metacircular-evaluator.org/categories/FPGA/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -29,9 +29,7 @@
 &lt;pre&gt;&lt;code&gt;$ sudo /etc/init.d/resolvconf restart
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;してみたのですが外と通信できんぞorz&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;してみたのですが外と通信できんぞorz&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -46,9 +44,7 @@
 &lt;li&gt;&lt;a href=&#34;http://qiita.com/ykshr/items/6c8cff881a200a781dc3&#34;&gt;FPGAでDeep Learningしてみる&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;を見つつ云々してみます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;を見つつ云々してみます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -93,9 +89,7 @@
       <pubDate>Tue, 07 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2017/03/07/deep-learning-from-scratch/</guid>
-      <description>&lt;p&gt;そゆ意味では numpy みたいのを実装しないとなのだなぁ、という事に気づいている次第です。とは言え、全体だととんでもな規模なはずなので件の書籍にて使われているものを確認してみようと思います。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;そゆ意味では numpy みたいのを実装しないとなのだなぁ、という事に気づいている次第です。とは言え、全体だととんでもな規模なはずなので件の書籍にて使われているものを確認してみようと思います。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -119,9 +113,7 @@
 &lt;li&gt;&lt;a href=&#34;https://goo.gl/be1YIb&#34;&gt;https://goo.gl/be1YIb&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;とりあえず帰宅して速攻導入。あと 2016.4 は削除します。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とりあえず帰宅して速攻導入。あと 2016.4 は削除します。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -154,9 +146,7 @@
 &lt;li&gt;&lt;a href=&#34;https://pynq.readthedocs.io/en/latest/10_creating_overlays.html&#34;&gt;Creating Overlays&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;確認メモを投入してみます。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;確認メモを投入してみます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -189,9 +179,7 @@
 &lt;li&gt;&lt;a href=&#34;http://goo.gl/jEuE5p&#34;&gt;Vivado Design Suite 評価版および WebPACK&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://goo.gl/hfmD0e&#34;&gt;チュートリアル&lt;/a&gt;もあるみたいなので、暫くこちら方面でもごもごしてみる方向。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;a href=&#34;http://goo.gl/hfmD0e&#34;&gt;チュートリアル&lt;/a&gt;もあるみたいなので、暫くこちら方面でもごもごしてみる方向。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -204,9 +192,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.pynq.io/&#34;&gt;PYNQ: PYTHON PRODUCTIVITY FOR ZYNQ&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Memo on /var/log/messages</title>
+    <title>memo on /var/log/messages</title>
     <link>https://weblog.metacircular-evaluator.org/categories/memo/</link>
-    <description>Recent content in Memo on /var/log/messages</description>
+    <description>Recent content in memo on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Fri, 24 Aug 2018 21:32:49 +0900</lastBuildDate>
@@ -17,9 +17,7 @@
       <pubDate>Fri, 24 Aug 2018 21:32:49 +0900</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2018/08/24/asciidoc/</guid>
-      <description>&lt;p&gt;今日、ひょんなタイミングでこんなのがあるのを知った次第です。来週のもくもくでチュートリアルを云々してみたいのですが github がどこまでこれに追従してるのか、が謎。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;今日、ひょんなタイミングでこんなのがあるのを知った次第です。来週のもくもくでチュートリアルを云々してみたいのですが github がどこまでこれに追従してるのか、が謎。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -28,9 +26,7 @@
       <pubDate>Thu, 23 Aug 2018 22:52:03 +0900</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2018/08/23/memo/</guid>
-      <description>&lt;p&gt;S 式、は以下な形?&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;S 式、は以下な形?&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -43,9 +39,7 @@
 
 &lt;pre&gt;&lt;code&gt;$ apt-cache search eirenv
 direnv - Utility to set directory specific environment variables
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -54,9 +48,7 @@ direnv - Utility to set directory specific environment variables
       <pubDate>Sun, 12 Aug 2018 19:18:48 +0900</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2018/08/12/memo/</guid>
-      <description>&lt;p&gt;週明け三日ほどお休み頂いているので諸々倒さねば。以下、控えを。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;週明け三日ほどお休み頂いているので諸々倒さねば。以下、控えを。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -65,9 +57,7 @@ direnv - Utility to set directory specific environment variables
       <pubDate>Thu, 17 May 2018 09:33:11 +0900</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2018/05/17/sakae-machi/</guid>
-      <description>&lt;p&gt;週末呑み会の方向なのですが栄町だとすると以下をはしごな方向?&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;週末呑み会の方向なのですが栄町だとすると以下をはしごな方向?&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -76,9 +66,7 @@ direnv - Utility to set directory specific environment variables
       <pubDate>Tue, 15 May 2018 14:32:36 +0900</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2018/05/15/memo/</guid>
-      <description>&lt;p&gt;自転車のタイヤがパンク状態 (というかむしろバースト) で徒歩移動している次第。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;自転車のタイヤがパンク状態 (というかむしろバースト) で徒歩移動している次第。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -129,9 +117,7 @@ direnv - Utility to set directory specific environment variables
 
 &lt;p&gt;これ、良書ですね。序盤、中盤と終盤についての記載があり、色々と参考になります。というか何故に美濃囲い派閥に所属しているはずなのにこれを読んでいるのかという。&lt;/p&gt;
 
-&lt;p&gt;とりあえず纏め作成してそれを確認しつつ再読の方向にて。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;とりあえず纏め作成してそれを確認しつつ再読の方向にて。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -147,9 +133,7 @@ direnv - Utility to set directory specific environment variables
 &lt;li&gt;OBD2 の分岐ケーブル&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;を調達してしまうなど。&lt;a href=&#34;https://github.com/brendan-w/python-OBD&#34;&gt;python-OBD&lt;/a&gt; という pip な道具があるようなのでそれを使って OBD なナニが ELM327 によってどんな CAN メセジに変換されているのか、が確認できるのかどうか。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;を調達してしまうなど。&lt;a href=&#34;https://github.com/brendan-w/python-OBD&#34;&gt;python-OBD&lt;/a&gt; という pip な道具があるようなのでそれを使って OBD なナニが ELM327 によってどんな CAN メセジに変換されているのか、が確認できるのかどうか。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -158,9 +142,7 @@ direnv - Utility to set directory specific environment variables
       <pubDate>Wed, 27 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2017/12/27/memo/</guid>
-      <description>&lt;p&gt;買わねば、とか出金を伴なう諸々。年内中に何とかしたいものを以下に。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;買わねば、とか出金を伴なう諸々。年内中に何とかしたいものを以下に。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -173,9 +155,7 @@ direnv - Utility to set directory specific environment variables
 
 &lt;h2 id=&#34;その後&#34;&gt;その後&lt;/h2&gt;
 
-&lt;p&gt;1800 に知人が栄町にてライブやるとのことで見に行ってきます。その後行ければ将棋部に、なんですがポンコツと化している可能性大なのでどうするかと。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;1800 に知人が栄町にてライブやるとのことで見に行ってきます。その後行ければ将棋部に、なんですがポンコツと化している可能性大なのでどうするかと。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -184,9 +164,7 @@ direnv - Utility to set directory specific environment variables
       <pubDate>Thu, 26 Oct 2017 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2017/10/26/memo/</guid>
-      <description>&lt;p&gt;なんかタブに買わなきゃなナニが残っているのでこちらに控えを。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;なんかタブに買わなきゃなナニが残っているのでこちらに控えを。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -195,9 +173,7 @@ direnv - Utility to set directory specific environment variables
       <pubDate>Tue, 24 Oct 2017 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2017/10/24/memo/</guid>
-      <description>&lt;p&gt;買わねば、を何度も控えててアレですがorz&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;買わねば、を何度も控えててアレですがorz&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -215,9 +191,7 @@ direnv - Utility to set directory specific environment variables
 &lt;li&gt;&lt;a href=&#34;https://codezine.jp/article/detail/10228&#34;&gt;Androidアプリの新レイアウト「ConstraintLayout」をCheck It Out！&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;あと、ビットコイン関連、宿題で調べてきてプレゼンしてみるとかいいかも。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;あと、ビットコイン関連、宿題で調べてきてプレゼンしてみるとかいいかも。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -236,9 +210,7 @@ direnv - Utility to set directory specific environment variables
 
 &lt;h2 id=&#34;囲碁の参考書&#34;&gt;囲碁の参考書&lt;/h2&gt;
 
-&lt;p&gt;良さげなの探しちう。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;良さげなの探しちう。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -251,9 +223,7 @@ direnv - Utility to set directory specific environment variables
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/4820759566/yamanetoshi-22&#34;&gt;これなら通じる技術英語ライティングの基本&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -278,9 +248,7 @@ direnv - Utility to set directory specific environment variables
 &lt;li&gt;Jupyter Notebook&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;てのがトレンドなのかどうか。とりあえず標題の件、控えを以下にて。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;てのがトレンドなのかどうか。とりあえず標題の件、控えを以下にて。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -294,9 +262,7 @@ direnv - Utility to set directory specific environment variables
 &lt;pre&gt;&lt;code&gt;/etc/php/7.0/apache2/php.ini
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;知りませんでした。自分メモ。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;知りませんでした。自分メモ。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -305,9 +271,7 @@ direnv - Utility to set directory specific environment variables
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2017/03/01/memo/</guid>
-      <description>&lt;p&gt;諸々、自分メモということで控えを。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;諸々、自分メモということで控えを。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -318,9 +282,7 @@ direnv - Utility to set directory specific environment variables
       <guid>https://weblog.metacircular-evaluator.org/blog/2017/01/06/recipe-memorandum/</guid>
       <description>&lt;p&gt;年が明け、ようやく冷蔵庫モディファイの日が明日。&lt;/p&gt;
 
-&lt;p&gt;備忘まで貼ってあった手書きレシピは汚ないので処分、て事でこちらに控えを残すことに。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;備忘まで貼ってあった手書きレシピは汚ないので処分、て事でこちらに控えを残すことに。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -329,9 +291,7 @@ direnv - Utility to set directory specific environment variables
       <pubDate>Fri, 08 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/04/08/hubot-memo/</guid>
-      <description>&lt;p&gt;自分メモ。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;自分メモ。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -340,9 +300,7 @@ direnv - Utility to set directory specific environment variables
       <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/04/06/memo/</guid>
-      <description>&lt;p&gt;標題の件、いくつか自分メモ。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;標題の件、いくつか自分メモ。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -351,9 +309,7 @@ direnv - Utility to set directory specific environment variables
       <pubDate>Sat, 02 Jan 2016 00:00:00 +0000</pubDate>
       
       <guid>https://weblog.metacircular-evaluator.org/blog/2016/01/02/migration-memo/</guid>
-      <description>&lt;p&gt;N5 の代替が届いたので移行します。メモを以下に。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;N5 の代替が届いたので移行します。メモを以下に。&lt;/p&gt;</description>
     </item>
     
   </channel>

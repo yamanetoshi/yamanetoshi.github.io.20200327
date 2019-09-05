@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Cloud on /var/log/messages</title>
+    <title>cloud on /var/log/messages</title>
     <link>https://weblog.metacircular-evaluator.org/categories/cloud/</link>
-    <description>Recent content in Cloud on /var/log/messages</description>
+    <description>Recent content in cloud on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Wed, 06 Feb 2019 20:57:03 +0900</lastBuildDate>
@@ -21,49 +21,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://cnjp.connpass.com/event/119241/&#34;&gt;Cloud Native Hiroshima #02&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>問い合せフォーム</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2017/04/27/inquiry-form/</link>
-      <pubDate>Thu, 27 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/blog/2017/04/27/inquiry-form/</guid>
-      <description>&lt;p&gt;以下を参考にしつつ。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://qiita.com/toguma/items/a30dc43f6bfad7088bcd&#34;&gt;問い合わせフォームもサーバレスでDevOps!&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;や、DevOps では作ってません。自分メモということでハマッた部分をメモ。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Network JukeBox の導入にあたって</title>
-      <link>https://weblog.metacircular-evaluator.org/blog/2013/11/28/in-introducing-network-jukebox/</link>
-      <pubDate>Thu, 28 Nov 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://weblog.metacircular-evaluator.org/blog/2013/11/28/in-introducing-network-jukebox/</guid>
-      <description>&lt;p&gt;導入にあたり、音源をどこに置くか、がアレ。S3 かな、とか思っていたり。そいえば自宅の外付け HDD にある画像も S3 に転送しないと微妙。&lt;/p&gt;
-
-&lt;p&gt;以下で構築するとして&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;RasPI&lt;/li&gt;
-&lt;li&gt;USB DAC&lt;/li&gt;
-&lt;li&gt;USB メモリスティック&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;S3 からメモリスティックに転送する仕組みが必要なのか。つうかこの機器自体が常時ネト接続な必要があるのかというあたりも検討必要なのかどうか。&lt;/p&gt;
-
-&lt;p&gt;できれば small start で自分でメモリスティックの中を云々な方式にしたいかも。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
   </channel>
