@@ -94,6 +94,35 @@
         
 
 <header>
+  <p class="meta">Jan 29, 2014
+     - 1 minute read 
+     - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/29/listview-in-scrollview/#disqus_thread">Comments</a>
+
+    
+    
+      - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+    
+  </p>
+  <h1 class="entry-title">
+    <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/29/listview-in-scrollview/">ScrollView の中の ListView</a>
+  </h1>
+</header>
+
+        
+          <p>動作が微妙なのでリストにせずに LinearLayout に addView してしまうことに。 とは言え アダプタの getView の中でしてた処理を持ってきて LayoutInflater#inflate でレイアウトな View を生成して 中を埋めて</p>
+          
+            <footer>
+              <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/29/listview-in-scrollview/" rel="full-article">Read On &rarr;</a>
+            </footer>
+          
+        
+      </article>
+      
+      <article>
+        
+        
+
+<header>
   <p class="meta">Jan 28, 2014
      - 1 minute read 
      - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/28/error-addview-in-android-linearlayout/#disqus_thread">Comments</a>
@@ -388,42 +417,6 @@
           
             <footer>
               <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/git/" rel="full-article">Read On &rarr;</a>
-            </footer>
-          
-        
-      </article>
-      
-      <article>
-        
-        
-
-<header>
-  <p class="meta">Jan 22, 2014
-     - 1 minute read 
-     - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/22/android-dialog-dismiss/#disqus_thread">Comments</a>
-
-    
-    
-      - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-    
-  </p>
-  <h1 class="entry-title">
-    <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/22/android-dialog-dismiss/">Dialog から設定値入力させて Alert 表示後に両方 dismiss</a>
-  </h1>
-</header>
-
-        
-          <p><p>DialogFragment から DialogFragment 表示するような真似をしてまして、一つは dismiss できるけどもう一つが、な現象が出てしまいハマってました。</p>
-
-<p><a href="http://eggdev.mobaegg.com/2012/08/blog-post_4.html">ダイアログが重ならないように制御する</a> にて以下な対処が紹介されており、これでイケました。</p>
-
-<pre><code>FragmentManager manager = getFragmentManager();
-final HogeDialogFragment prev = (HogeDialogFragment)manager.findFragmentByTag(&quot;hoge_dialog&quot;);
-prev.dismiss();
-</code></pre></p>
-          
-            <footer>
-              <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/22/android-dialog-dismiss/" rel="full-article">Read On &rarr;</a>
             </footer>
           
         
@@ -921,10 +914,16 @@ prev.dismiss();
           
             
               <li class="post">
-                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
               </li>
             
           
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
             
           
             
@@ -966,12 +965,6 @@ prev.dismiss();
             
               <li class="post">
                 <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/23/css-loader-invalid-options/">Css Loader Invalid Options</a>
               </li>
             
           
