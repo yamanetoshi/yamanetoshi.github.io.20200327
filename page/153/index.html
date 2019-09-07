@@ -94,6 +94,40 @@
         
 
 <header>
+  <p class="meta">May 10, 2014
+     - 1 minute read 
+     - <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/10/modify-makefile-for-linux/#disqus_thread">Comments</a>
+
+    
+    
+      - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+    
+  </p>
+  <h1 class="entry-title">
+    <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/10/modify-makefile-for-linux/">Makefile を Linux 向けに修正してみるなど</a>
+  </h1>
+</header>
+
+        
+          <p><p>とりあえず fork したリポジトリから clone したディレクトリで branch 作成。</p>
+
+<pre><code>$ git checkout -b linux
+</code></pre>
+
+<p>で、Makefile を修正。完全に自分向け。</p></p>
+          
+            <footer>
+              <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/10/modify-makefile-for-linux/" rel="full-article">Read On &rarr;</a>
+            </footer>
+          
+        
+      </article>
+      
+      <article>
+        
+        
+
+<header>
   <p class="meta">May 8, 2014
      - 1 minute read 
      - <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/08/interrupt-vector-table/#disqus_thread">Comments</a>
@@ -388,46 +422,6 @@ make
           
             <footer>
               <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/03/english-japanese-dictionary/" rel="full-article">Read On &rarr;</a>
-            </footer>
-          
-        
-      </article>
-      
-      <article>
-        
-        
-
-<header>
-  <p class="meta">May 2, 2014
-     - 1 minute read 
-     - <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/02/pull-request-in-fog/#disqus_thread">Comments</a>
-
-    
-    
-      - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
-    
-  </p>
-  <h1 class="entry-title">
-    <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/02/pull-request-in-fog/">Fog な PR</a>
-  </h1>
-</header>
-
-        
-          <p><p>以下なコメントが入っていたけど当分対応できなかった。</p>
-
-<blockquote>
-<p>will that test work in non-mock mode as well? I just ask since it manipulates the mocks there.</p>
-</blockquote>
-
-<p>確かに</p>
-
-<pre><code>$ export FOG_MOCK=true &amp;&amp; bundle exec shindont
-</code></pre>
-
-<p>で試験してますね。とりあえず FOG_MOCK は何もせずに試験を実行してみます。</p></p>
-          
-            <footer>
-              <a href="https://weblog.metacircular-evaluator.org/blog/2014/05/02/pull-request-in-fog/" rel="full-article">Read On &rarr;</a>
             </footer>
           
         
@@ -925,10 +919,16 @@ make
           
             
               <li class="post">
-                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+                <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
               </li>
             
           
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+              </li>
             
           
             
@@ -970,12 +970,6 @@ make
             
               <li class="post">
                 <a href="/blog/2019/08/29/go-tournament/">ステップアップ囲碁大会</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
               </li>
             
           

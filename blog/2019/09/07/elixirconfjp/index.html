@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>ElixirConfJP</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.58.0" />
+
+  
+  
+
+  
+  
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Sep 7, 2019
+     - 5 minute read 
+     - <a href="https://weblog.metacircular-evaluator.org/blog/2019/09/07/elixirconfjp/#disqus_thread">Comments</a>
+
+    
+    
+      - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+    
+  </p>
+  <h1 class="entry-title">
+     ElixirConfJP 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>参加してきました。</p>
+
+<ul>
+<li><a href="https://fukuokaex.connpass.com/event/138846/">ElixirConfJP 2019 小倉城</a></li>
+</ul>
+
+<h2 id="とりあえず">とりあえず</h2>
+
+<p>以下あたりのチェック必要。</p>
+
+<ul>
+<li>Nerves</li>
+<li>あと個人的には組織に導入するために、なナニを共有して欲しいです</li>
+<li>@TheErlEF をフォローの件</li>
+<li><a href="https://erlef.org/">https://erlef.org/</a> 参加の件</li>
+<li>手持ちの FPGA デバイス、cockatris 対応してるのか確認のこと</li>
+</ul>
+
+<p>そして以下にて、採取したメモを列挙。</p>
+
+<h2 id="hastega">Hastega</h2>
+
+<ul>
+<li>Data は増えたが CPU power の向上は止まっている (from 2003)</li>
+<li>コアの数は増えている</li>
+<li>it requires parallel computing to us</li>
+<li>but we have no effective parallel programming languages</li>
+<li>The world with destuctive updates is &hellip; Dystopia</li>
+<li>Elixir is a drastic solution</li>
+<li>Elixir is immutable</li>
+<li>Flow にインスパイアされて作りました</li>
+<li>like a berserk samurai てww</li>
+<li>プログラミングの本質はデータ変換</li>
+<li>Hastega 改名らしい</li>
+<li>The Penta (Five) Elemental Way -&gt; Pelemay</li>
+</ul>
+
+<h2 id="flow">Flow</h2>
+
+<ul>
+<li>今日は入門編に近いカンジの話</li>
+<li>そうか、Enum とか map とかパイプからの Flow なのか</li>
+<li><code>&amp;1</code> というナニをすっかり忘れてる件orz</li>
+<li>例の 2h な処理時間を 6m30s で、というやつ</li>
+<li>Broadway SQS とかに対応 (たいしょうがいせい)</li>
+</ul>
+
+<h2 id="現在の進化まで">現在の進化まで</h2>
+
+<ul>
+<li>shinjuku.ex の方の発信</li>
+<li>昔話を、とのこと</li>
+<li>バージョンダウンてw</li>
+<li>iex 二つでメセジそうしんなデモ</li>
+<li>sigil て何だろう</li>
+<li>iex 実行しつつ GETTING STARTED を読みすすめる方式</li>
+<li>try-elixir.herokuapp.com</li>
+<li>erlang-mruby?</li>
+<li>v1 でたのいつだろ</li>
+<li>Broadway 確認してみよう</li>
+</ul>
+
+<h2 id="仮想発電所">仮想発電所</h2>
+
+<ul>
+<li>きくちさんだ!</li>
+<li>small hydropower</li>
+<li>RasPi x3</li>
+<li>RasPi 壊れるので自作</li>
+<li>VPP という考え方 (発電クラウド)</li>
+<li>PLC 文化と IoT、クラウドの文化を融合させたい</li>
+<li>RasPi を工場で活用</li>
+<li>なんで Elixir なのか</li>
+<li>へいこう、へいれつ (軽量スレッド)</li>
+<li>たいしょうがいせい (死んだらいきかえる)</li>
+<li>Ladder Logic Diagram</li>
+<li>デバイスをプロセスとして表現できる</li>
+<li>メッセージドリブンな形にすることで無限ループ使わなくて良い</li>
+<li>要素を supervisor で監視</li>
+<li>IoT/CLoud と FA の世界の深い谷</li>
+<li>Elixir で谷を埋める</li>
+<li>Ladder 図を Elixir プログラムに</li>
+<li>PLC を Elixir 箱で痴漢</li>
+</ul>
+
+<h2 id="何故に製品の質が上がるのか">何故に製品の質が上がるのか</h2>
+
+<ul>
+<li>なぜ、Elixir で製品開発するのか</li>
+<li>Japan Elixir Association</li>
+<li>阻害要因、がある (あります)</li>
+<li>業界/組織/チームの監修やルール、こじんのすきるやかんがえ、きげん、よさん</li>
+<li>信頼と教官、そして論理</li>
+<li>何を探求すべきか</li>
+<li>利用者に価値を提供する製品を生む</li>
+<li>製品リリース時の事故をさけたい</li>
+<li>夜は寝たい (現実は寝れない事例が多そう)</li>
+<li>なぜ寝れない事例が多いのか (機能が増えて品質も上がる)</li>
+<li>機能追加による構成の肥大化,機能の密結合</li>
+<li>技術にも品質がある、という書籍</li>
+<li>複雑さの増加に共なう技術品質の低下</li>
+<li>技術品質の問題で事故すると価値はゼロになる</li>
+<li>技術品質を保つ活動</li>
+<li>プロトタイプ作ると一旦ステる</li>
+<li>未然ぼうし、さいはつぼうし、もんだいけんち</li>
+<li>技術品質を保つために安全なものを使う</li>
+<li>安全が特徴の言語</li>
+<li>Erlang</li>
+<li>Stop the World が無い</li>
+<li>Java, NOde &gt; erlang &gt; ruby, php</li>
+<li>複数 CPU を効率的につかえるので効率的</li>
+<li>安全 &gt; 速度</li>
+<li>Erlang VM はバージョンアップで性能が上がる</li>
+<li>バージョンアプも簡易</li>
+<li>OTP チームブログ</li>
+<li>SSA て何</li>
+<li>Socket ライブラリを作っているとのこと</li>
+<li>プロセスかんで共有できるかうんた</li>
+<li>Clojure の影響 (部分的にシンプル)</li>
+<li>シンプルさは信頼性の前提条件</li>
+</ul>
+
+<h2 id="導入したきっかけとこれまでのふりかえり">導入したきっかけとこれまでのふりかえり</h2>
+
+<ul>
+<li>導入のきっかけはあるプロダクト</li>
+<li>大量データ、中身が微妙</li>
+<li><a href="https://goad.io/">https://goad.io/</a> でふかしけん</li>
+<li>ライブラリの不足がネックだった</li>
+<li>採用云々、twitter してみると意外にいいかも</li>
+</ul>
+
+<h2 id="erlang-ecosystem-foundation">ERLANG ECOSYSTEM FOUNDATION</h2>
+
+<ul>
+<li><a href="http://erlef.org">http://erlef.org</a></li>
+<li>カリフォルニアにある non-profit な団体</li>
+<li>erlang otp で動く滑ての言語</li>
+<li>いくつかの working group がある</li>
+<li>Grant Proposal (目的と貢献と結果をまとめて活動を支援)</li>
+<li>@TheErlEF をフォローしましょう</li>
+</ul>
+
+<h2 id="優秀な人が土木には必要">優秀な人が土木には必要</h2>
+
+<ul>
+<li>環境土木の話</li>
+<li>葉隠</li>
+<li>技術が身につくソフトウェアとは</li>
+<li>図面の間違いを見つける</li>
+<li>地形データ、計画 3D、用地境界の自動操作</li>
+<li>九州北部豪雨の災害査定</li>
+<li>どろーんにれーざーすきゃなをつけて地形データを取得 (UAV)</li>
+</ul>
+
+<h2 id="導入事例紹介">導入事例紹介</h2>
+
+<ul>
+<li>2.5 年運用した事例など紹介</li>
+<li>登山者向けオフライン地図</li>
+<li>メインは RoR でサブが Phoenix</li>
+<li>Upload と Suggest な API を Phoenix で提供</li>
+<li>Phoenix が ElasticSearch を叩いている (Suggest)</li>
+<li>2.5 年でトラブルなし</li>
+<li>安定しすぎで存在を忘れる</li>
+<li>レスポンス 10ms</li>
+<li>リソース、t2.small x 2 で最初の 2 年</li>
+<li>CPU usage 10% 以下</li>
+<li>安定しててレスポンスも早くてリソース消費も低い</li>
+<li>upload API について</li>
+<li>upload が遅い、upload が重くなると他に影響していた</li>
+<li>アドバンテージが無い状態</li>
+<li>しゃしんの変換が遅い</li>
+<li>メモリ消費 150MB 程度</li>
+<li>その分 ImageMagick が使えるメモリが増えた</li>
+<li>トラブル : Elixir が RO な filesystem に云々で disk full だったために出てた不具合</li>
+</ul>
+
+<h2 id="cockatrice">Cockatrice</h2>
+
+<ul>
+<li>FPGA サボッてる &lt; わし</li>
+<li>data flow procesing</li>
+<li>作るの面倒</li>
+<li>こういごうせい (HDL 書くの面倒)</li>
+<li>いろいろな HLS</li>
+<li>Elixir で書けたらいいよね</li>
+<li>Cockatrice</li>
+<li>石化 == ハードウェア化</li>
+<li>直感的に書ける</li>
+<li>超並列</li>
+<li>defcockatrice</li>
+<li>DMA 転送による通信 i/f</li>
+<li>Zynq がターゲット</li>
+<li>Avnet Ultra96-V2</li>
+<li>Nerves</li>
+</ul>
+
+<h2 id="alchemist-and-d-ox">Alchemist and D/OX</h2>
+
+<ul>
+<li>DX, OX?</li>
+<li>deployment な情報 (悩みどころ、らしい)</li>
+<li>developer experience</li>
+<li>operation experience</li>
+<li>good d/ox, bad d/ox</li>
+<li>技術的負債が多いか少ないか</li>
+<li>自動化、マニュアルオペレーション</li>
+<li>development cycle について</li>
+<li>自動化、良いアーキテクチャの選択</li>
+<li>レガシーコード改善ガイド</li>
+<li>delivery/scaling (Good OX?)</li>
+<li>mix new の次でテスト入れる</li>
+<li>&ldquo;stress&rdquo; という MIX_ENV</li>
+<li>2, 3 ヶ月ごとで負荷試験</li>
+<li>簡単に試験できる、が大切</li>
+<li>モニタリング BEAM metrics 取れるように (負荷試験で見る)</li>
+<li>deploy について (k8s)</li>
+<li>impedance mismatch</li>
+<li>k8s とか違う文化?</li>
+<li>k8s と世界観が異なる</li>
+<li>DON&rsquo;T GUESS, MEASURE</li>
+<li>hot code swap は辛い</li>
+<li>daemonize</li>
+<li>mix release</li>
+<li>CI 化</li>
+<li>multi server (build server からサーバへ)</li>
+<li>depoy w/autoscale</li>
+<li>k8s cluster</li>
+<li>deployment is big automation issue</li>
+</ul>
+
+<h2 id="ヤマザキさん">ヤマザキさん</h2>
+
+<ul>
+<li>何故 Jastin-san を呼んだのか</li>
+<li>第二次徴収征伐って 1866 夏なんだ</li>
+<li>Nerves 確認必要だな</li>
+</ul>
+
+<h2 id="nerves-project">Nerves Project</h2>
+
+<ul>
+<li>product modeling</li>
+<li>embedded and web programming share the same problems</li>
+<li>resilient (しなやかな堅牢性)</li>
+<li>reproducible (高い再生産性)</li>
+<li>Reasonable</li>
+<li>How do we build maintainable embedded systems?</li>
+<li>長期にわたる保守性</li>
+<li>Linux Kernel / Elixir / Nerves (Application Logic)</li>
+<li>working towards reproducible builds (tedious)</li>
+<li>Whitelist approach (最小構成)</li>
+<li>distributed computing demo</li>
+<li>RasPi3 1.4GHz quad core + RasPi0 x9 -&gt; 13 cores 5.5Gb Ram</li>
+<li>独立したコンピュータが連携</li>
+<li>NerversHub?</li>
+<li>Phoenix CHannel はリアルタイム通信得意</li>
+<li>NervesHub</li>
+<li>無線だけでリアルタイムなナニ</li>
+<li>scale できる (resilient につながる)</li>
+<li>NervesHub Update Demo</li>
+<li>firmware update server</li>
+<li>ネットワークごしで firmware の更新が可能</li>
+<li>動かしながら update できる</li>
+<li>再起動必要 (当たり前)</li>
+<li>Elixir and Nerves give your company a competitive advantage</li>
+<li>Embedded Linux が動けば OK</li>
+<li>Elixir Circuits (github.com/elixir-circuits/circuits_)</li>
+<li>CryptoAuthentication chip</li>
+<li>ATECC508/608A (RasPi に実装可能)</li>
+<li><a href="http://docs.nerves-hub.org">http://docs.nerves-hub.org</a></li>
+<li>nerves-key 使って沿革操作もできる</li>
+<li>Dockerfile ある模様</li>
+<li>elixirforum.com/c/nerves-forum</li>
+<li>elisir-slackin.herokuapp.com</li>
+<li>nerves のコミュニティ作りたいね</li>
+</ul>
+
+<h2 id="elixir-for-iot">Elixir for IoT</h2>
+
+<ul>
+<li><a href="https://github.com/shaga/NervesaddonBoard">https://github.com/shaga/NervesaddonBoard</a></li>
+<li>NervesKey socket 付き</li>
+<li>データ中心開発パラダイム</li>
+<li>edge server や cloud でも疲るランタイムとしての Nerves</li>
+</ul>
+
+<h2 id="最後">最後</h2>
+
+<ul>
+<li>今あるものが成熟した姿を描く</li>
+<li>12 年先の IoT</li>
+<li>IoT で何をするのか</li>
+<li>Lumen?</li>
+<li>FPGA の方が GPU よりも早い (予測の性能)</li>
+</ul>
+
+<h2 id="懇親会">懇親会</h2>
+
+<p>たかせさんにお声かけ頂き、Justin-san とちょっとだけ話ができて嬉しかったです。Elixir 活動頑張ろう。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Sep 7, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/09/06/build-hugo-octopress-on-another-device/" title="Hugo-Octopress を別端末で">Hugo-Octopress を別端末で</a>
+    
+
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function() {
+      
+      
+      
+      if (window.location.hostname == "localhost")
+          return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'yamanetoshi';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
+              </li>
+            
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/03/modal-verbs/">Modal verbs</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/02/made-tsukemen/">つけ麺製造</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/08/31/weak-heart/">結局、心が弱いのである</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/08/30/sed/">sed で微妙にハメられた件</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/08/29/go-tournament/">ステップアップ囲碁大会</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+    
+
+    
+      <script>
+        var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+      </script>
+    
+  </body>
+</html>
+

@@ -94,6 +94,43 @@
         
 
 <header>
+  <p class="meta">Jan 23, 2014
+     - 2 minute read 
+     - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/git/#disqus_thread">Comments</a>
+
+    
+    
+      - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a>
+    
+  </p>
+  <h1 class="entry-title">
+    <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/git/">直近ではない remote に push してる commit の取り消し</a>
+  </h1>
+</header>
+
+        
+          <p><p>公開している歴史を rebase とかで変更してはいけない。</p>
+
+<p>ので、どうするかというとバージョン (commit) を特定してその時点の状態にファイルを巻戻してしまえば良いはず。git checkout で良いのかどうか。</p>
+
+<pre><code>$ git checkout &lt;commit object の id&gt; path
+</code></pre>
+
+<p>で、そのまま commit を作ってしまえば良いはず。
+ # そんな対応をした訳ではないのでこんな書き方になっててスミマセン (誰</p></p>
+          
+            <footer>
+              <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/git/" rel="full-article">Read On &rarr;</a>
+            </footer>
+          
+        
+      </article>
+      
+      <article>
+        
+        
+
+<header>
   <p class="meta">Jan 22, 2014
      - 1 minute read 
      - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/22/android-dialog-dismiss/#disqus_thread">Comments</a>
@@ -355,42 +392,6 @@ prev.dismiss();
 
         
           <p>curl に -X POST 指定して -d で JSON なパラメータを渡そうとして &quot;{'security':{'part':'1','rating':'4'}}&quot; って指定してて軽くハマるなど。正しくは以下でしたorz '{&quot;security&quot;:{&quot;part&quot;:&quot;1&quot;,&quot;rating&quot;:&quot;4&quot;}}' いけません。</p>
-          
-        
-      </article>
-      
-      <article>
-        
-        
-
-<header>
-  <p class="meta">Jan 19, 2014
-     - 2 minute read 
-     - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/19/rspec-rails/#disqus_thread">Comments</a>
-
-    
-    
-      - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/rails/">rails </a>
-    
-  </p>
-  <h1 class="entry-title">
-    <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/19/rspec-rails/">Rspec 後付けで書く</a>
-  </h1>
-</header>
-
-        
-          <p><p><a href="http://matthewlehner.net/rails-api-testing-guidelines/">Rails API Testing Best Practices</a> によれば Request Spec で HTTP Status および Response Body を、とあります。これで試しに作成してみることに。</p>
-
-<p>スデに実装は書いてしまっているので</p>
-
-<pre><code>rails g rspec:response
-</code></pre>
-
-<p>とかになるのかな。とりあえず導入から。</p></p>
-          
-            <footer>
-              <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/19/rspec-rails/" rel="full-article">Read On &rarr;</a>
-            </footer>
           
         
       </article>
@@ -887,10 +888,16 @@ prev.dismiss();
           
             
               <li class="post">
-                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+                <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
               </li>
             
           
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+              </li>
             
           
             
@@ -932,12 +939,6 @@ prev.dismiss();
             
               <li class="post">
                 <a href="/blog/2019/08/29/go-tournament/">ステップアップ囲碁大会</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
               </li>
             
           
