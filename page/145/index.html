@@ -97,6 +97,149 @@
         
 
 <header>
+    <p class="meta">Jul 24, 2014
+         - 3 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/24/memo-for-ansible-playbook/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/docker/">docker </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/24/memo-for-ansible-playbook/">ansible な playbook のための環境設定メモ</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえず仮想リソースをいっこ確保して</p>
+
+<pre><code>$ sudo apt-get update
+$ sudo apt-get upgrade -y
+</code></pre>
+
+<p>む、MBA からだと locale なナニが出ますね。確認してみるに locales パケジが入っておりませなんだ。これ、この時点でスナップショット取得したいのですが (ぇ</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/24/memo-for-ansible-playbook/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jul 23, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/rails/">rails </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/docker/">docker </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/">docker な Rails 環境にて assets:precompile</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>やはり、container は再起動しないと反映されませんでした。当り前ですね。手順的に</p>
+
+<pre><code>$ sudo docker.io stop `sudo docker.io ps -a|grep 'rails:latest'|awk '{print $1;}'`
+</code></pre>
+
+<p>で止めて</p>
+
+<pre><code>$ sudo docker.io rm `sudo docker.io ps -a|grep 'rails:latest'|awk '{print $1;}'`
+</code></pre>
+
+<p>で container を削除してから以下で</p>
+
+<pre><code>$ sudo docker.io run -i -t -v /home/fuga/rails_projects/hoge:/app --link redis:redis --link postgres:db --rm rails:latest bash -c &quot;cd /app &amp;&amp; RAILS_ENV=production bundle exec rake assets:precompile&quot;
+</code></pre>
+
+<p>asset pipeline をアレして以下で起動、で反映されてることを確認してます。</p>
+
+<pre><code>$ sudo docker.io run -d -p 3000:3000 -v /home/fuga/rails_projects/hoge:/app --link redis:redis --link postgres:db rails:latest bash -c &quot;cd /app &amp;&amp; RAILS_ENV=production bundle exec unicorn -p 3000&quot;
+</code></pre>
+
+<p>ぶっちゃけこのあたりも script だか alias だかにすべきですね。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/23/rale-assets-precompile-in-docker-rails-environment/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jul 22, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/22/make-development-environment-of-rails4/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/22/make-development-environment-of-rails4/">Rails4 開発環境作ってみます (2)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえず三つの container が動いた。</p>
+
+<pre><code>$ sudo docker.io ps -a
+CONTAINER ID        IMAGE                    COMMAND                CREATED             STATUS              PORTS                     NAMES
+7fbe569f3fbf        rails:latest             /start-server.sh       10 seconds ago      Up 10 seconds       0.0.0.0:3000-&gt;3000/tcp    rails                
+c49233f54278        postgres:latest          /usr/local/bin/run     20 hours ago        Up 20 hours         5432/tcp                  postgres,rails/db    
+ed4809b7d731        johncosta/redis:latest   /usr/bin/redis-serve   21 hours ago        Up 21 hours         0.0.0.0:49153-&gt;6379/tcp   rails/redis,redis    
+</code></pre>
+
+<p>netstat 見ると 3000 をリスンしています。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/22/make-development-environment-of-rails4/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jul 22, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/22/noma-dong/#disqus_thread">Comments</a>
@@ -336,123 +479,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jul 14, 2014
-         - 3 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/14/pi-baremetal/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/14/pi-baremetal/">pi-baremetal</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>とりあえず README から確認。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/14/pi-baremetal/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jul 13, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/13/make-jam-and-sangria/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/13/make-jam-and-sangria/">サングリアとジャム製造してみた</a>
-    </h1>
-</header>
-
-
-        
-          <p>kiwi とモンキーバナナを入れました、正確に 24h ではなかったのですが、瓶から取り出して砂糖を投入して煮詰めてみました。 サングリアは当分を一切追加して</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/13/make-jam-and-sangria/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jul 12, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/12/implement-mvc-android/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/12/implement-mvc-android/">Model の Android コンテンツアプリへの導入検討</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>Activity (presentation layer) と疎結合な model なのか。問題になってくるのは Model Locator なソレをどうやって実装するか、なのかどうか。</p>
-
-<p>要件てきには以下らしい。</p>
-
-<ul>
-<li>データの提供、取得、更新の責任者</li>
-<li>機能やデータグループ毎に存在</li>
-<li>基本 Singleton 的な非常に長寿命な Object</li>
-<li>データの更新があれば「通知」で変更を伝える</li>
-</ul>
-
-<p>Model Locator は Model を保持するためのコンポーネント、とのこと。Locator は singleton なオブジェクトで Model の Getter/Setter しかない、と思って良い模様。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/07/12/implement-mvc-android/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -482,7 +508,7 @@
 
     
     
-        <a href="/page/194/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/195/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -555,6 +581,24 @@
           
             
               <li class="post">
+                <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
               </li>
             
@@ -592,24 +636,6 @@
             
               <li class="post">
                 <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/23/css-loader-invalid-options/">Css Loader Invalid Options</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/21/judgement/">死活判定</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/16/event-guide-of-urasoe-go-kaikan/">浦添囲碁会館イベント</a>
               </li>
             
           

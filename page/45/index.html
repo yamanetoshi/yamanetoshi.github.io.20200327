@@ -97,6 +97,169 @@
         
 
 <header>
+    <p class="meta">Feb 21, 2018
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/21/architecture-pattern/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/21/architecture-pattern/">Android アプリ設計パターン入門</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>以下の書籍、情報発信からのタイムラグが相当少くて限りなく最新の情報が盛り込まれています。早め購入おすすめです。</p>
+
+<ul>
+<li><a href="https://peaks.cc/yamanetoshi/architecture_patterns">Android アプリ設計パターン入門</a></li>
+</ul>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/21/architecture-pattern/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Feb 21, 2018
+         - 3 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/shogi/">shogi </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/memo/">memo </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/">石田流メモ</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>何故か最近振り飛車の本ばっか見てる感。なんとなく纏めを作成してみます。見てるのは Kindle Unlimited で見ることができる_<a href="https://www.amazon.com/dp/B01COJUH5W/yamanetoshi-22">石田流を破るための9つの鉄則と15の技術</a>_です。</p>
+
+<p>鉄則と技術、は以下らしく。</p>
+
+<ul>
+<li><p>鉄則</p>
+
+<ul>
+<li>石田流の怖さを知ろう</li>
+<li>棒金を狙おう</li>
+<li>▲56銀型は△63金へ</li>
+<li>速攻の是非</li>
+<li>右四間飛車を狙おう</li>
+<li>戦術としての千日手</li>
+<li>穴熊には後手石田あり</li>
+<li>相手の理想形を阻もう</li>
+<li>警戒すべき後手の作戦</li>
+</ul></li>
+
+<li><p>技術</p>
+
+<ul>
+<li>駒の効率</li>
+<li>▲79銀型の脅威</li>
+<li>▲79銀型に対応しよう</li>
+<li>△73角の対処法</li>
+<li>△53角 - △52金左の対抗策</li>
+<li>△53角 - △32金の対抗策</li>
+<li>中盤の入口</li>
+<li>隙を狙ってみよう</li>
+<li>攻めの手筋</li>
+<li>7筋から攻めてみよう</li>
+<li>8筋から攻めてみよう</li>
+<li>端を攻めてみよう</li>
+<li>美濃崩し - 大技</li>
+<li>手を稼ぐ手筋を覚えよう</li>
+<li>相手の狙いを見破れ</li>
+</ul></li>
+</ul>
+
+<p>これ、良書ですね。序盤、中盤と終盤についての記載があり、色々と参考になります。というか何故に美濃囲い派閥に所属しているはずなのにこれを読んでいるのかという。</p>
+
+<p>とりあえず纏め作成してそれを確認しつつ再読の方向にて。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/21/shogi-memo/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Feb 19, 2018
+         - 7 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/19/unit-test-hands-on/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/19/unit-test-hands-on/">DroidKaigi2018UnitTestHandsOn 実装掘削メモ</a>
+    </h1>
+</header>
+
+
+        
+          <p><h2 id="要確認事項について">要確認事項について</h2>
+
+<p>以下、順に確認してみます。</p>
+
+<ul>
+<li>onViewCreated にて呼び出されている bindView について　(unbinder 属性に戻り値設定)</li>
+<li>onResume にて呼び出されている BusProvider のメソッドについて</li>
+<li>onPause にて呼び出されている BusProvider のメソッドについて</li>
+<li>onDestroyView でも　unbinder 属性が使われている</li>
+</ul>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/19/unit-test-hands-on/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Feb 18, 2018
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/18/hugo-octopress/#disqus_thread">Comments</a>
@@ -390,146 +553,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 5, 2018
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/05/slug/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/05/slug/">slug な yaml を追加する方法</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>手順てきには以下?</p>
-
-<pre><code>import frontmatter
-
-with open(&quot;2013-11-02-book-purchase.markdown&quot;) as f:
-    post = frontmatter.loads(f.read())
-
-post.metadata.update({'slug' : &quot;xxxx-xxx-xxx&quot;})
-print(frontmatter.dumps(post))
-</code></pre>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/05/slug/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 4, 2018
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/04/hugo/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/04/hugo/">Hugo 導入</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>apt で導入した <code>golang</code> はバージョン古いらしくて /usr/local 配下に 1.9.3 を導入しました。それを使って以下。</p>
-
-<pre><code>$ go get github.com/kardianos/govendor
-$ govendor get github.com/gohugoio/hugo
-% go install github.com/gohugoio/hugo
-</code></pre>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/04/hugo/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 3, 2018
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/03/octopress/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/03/octopress/">octopress</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>とりあえず、ソースを入手して <code>bundle install</code> してみるに <code>yajl-ruby</code> の導入に失敗しているとのこと。<code>ruby</code> のバージョンを <code>1.9.3-p448</code> して確認してみる方向。</p>
-
-<h2 id="rbenv-で云々">rbenv で云々</h2>
-
-<p>とりあえず以下にトライ。</p>
-
-<pre><code>$ rbenv install 1.9.3-p448
-$ rbenv local 1.3.8-p448
-</code></pre>
-
-<p>でいいのかな。BUILD FAILED って叱られていたのですが、どうも必要なパケジの導入が足りていなかったようです。でも 2.4.2 って導入できてたのですが何かが違うのだろうな。。</p>
-
-<p>とりあえず以下を導入してリトライ。</p>
-
-<pre><code>sudo apt-get install build-essential bison openssl libreadline7 \
-    libreadline-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev \
-    libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf \
-    libc6-dev libncurses6-dev
-</code></pre>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/02/03/octopress/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -559,7 +582,7 @@ $ rbenv local 1.3.8-p448
 
     
     
-        <a href="/page/194/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/195/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -632,6 +655,24 @@ $ rbenv local 1.3.8-p448
           
             
               <li class="post">
+                <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
               </li>
             
@@ -669,24 +710,6 @@ $ rbenv local 1.3.8-p448
             
               <li class="post">
                 <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/23/css-loader-invalid-options/">Css Loader Invalid Options</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/21/judgement/">死活判定</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/16/event-guide-of-urasoe-go-kaikan/">浦添囲碁会館イベント</a>
               </li>
             
           

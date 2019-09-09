@@ -97,6 +97,126 @@
         
 
 <header>
+    <p class="meta">Dec 12, 2018
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/12/ruby-one-liner/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/12/ruby-one-liner/">ruby のワンライナー</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>の中でバッククォートな展開させると例えば</p>
+
+<pre><code>$ echo '$Gcid$'|ruby -e &quot;puts STDIN.read.gsub('$Gcid$', '$Gcid: ' + `git rev-parse HEAD`.strip + '$')&quot;
+-e:1: syntax error, unexpected tIDENTIFIER, expecting ')'
+53c4e21fbe6816fa424c18dc674e81.strip + '$')
+</code></pre>
+
+<p>みたいになるの、何なのか。シェルの展開になってて文字列として認識されないのかな。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/12/ruby-one-liner/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Dec 11, 2018
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/11/preparation/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/11/preparation/">終活?</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>HO で繋っている在広島な知人より、共通の旧知な知人が大動脈瘤解離で亡くなった、という報せが入る。年も年なので仕方が無いのですが、自分もそろそろ突然こんなことになっても良いような準備をしておかないとな、と思った次第です。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/11/preparation/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Dec 10, 2018
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/10/material/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/10/material/">材料</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>nuxt.js な PWA にて以下なリクエストが。</p>
+
+<ul>
+<li>タブで表示コンテンツ切り替えたい</li>
+<li>自動で遷移するスライド的なナニがないか</li>
+</ul>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/10/material/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Dec 9, 2018
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/09/how-to-start-nuxt-project/#disqus_thread">Comments</a>
@@ -363,120 +483,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Dec 1, 2018
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/01/after-data-extraction/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/01/after-data-extraction/">データ吸い出し後</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>ドリのナニを云々してて</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/12/01/after-data-extraction/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 30, 2018
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/11/30/nodejs/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/nodejs/">nodejs </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2018/11/30/nodejs/">Node.js</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>使って云々してるんですが、微妙な挙動でくっそハマッたので控えを (後々役に立つのかどうかわからない程度なナニです)。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/11/30/nodejs/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 29, 2018
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2018/11/29/data-extraction/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2018/11/29/data-extraction/">HDD からデータ吸出し</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>以前使ってた NAS からええ加減データ復旧しないと、と思いつつ数年が経過。安い usb 変換なケーブル (600 円) を見つけて入手。</p>
-
-<h2 id="電源">電源</h2>
-
-<p>ない? って思ったのですが無理矢理 NAS なデバイスからアレしてみたら</p>
-
-<p><a data-flickr-embed="true"  href="https://www.flickr.com/photos/yamane-toshiaki/32230117748/in/dateposted-public/" title="データ吸い出し"><img src="https://farm5.staticflickr.com/4813/32230117748_9315a292b1_z.jpg" width="640" height="640" alt="データ吸い出し"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script></p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2018/11/29/data-extraction/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -506,7 +512,7 @@
 
     
     
-        <a href="/page/194/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/195/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -579,6 +585,24 @@
           
             
               <li class="post">
+                <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
               </li>
             
@@ -616,24 +640,6 @@
             
               <li class="post">
                 <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/23/css-loader-invalid-options/">Css Loader Invalid Options</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/21/judgement/">死活判定</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/16/event-guide-of-urasoe-go-kaikan/">浦添囲碁会館イベント</a>
               </li>
             
           

@@ -97,6 +97,114 @@
         
 
 <header>
+    <p class="meta">Apr 5, 2015
+         - 4 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/05/nand2tetris6/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/05/nand2tetris6/">加算器の実装など (nand to tetris(6))</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえず 02 なディレクトリに 01/*.hdl をコピィして <code>git init</code> したり Github に push したりしておいて実装着手。</p>
+
+<p>要件見てみるに sum は Xor の出力、carry は And の出力で良いのかな。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/05/nand2tetris6/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Apr 4, 2015
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/04/nand2tetris5/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/04/nand2tetris5/">マルチビットバージョン (nand to tetris(5))</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>16 ビット並列なゲートも作れとのこと。繰り返しって使えるのかな、と思い <code>for</code> とか使ってみましたが、どうも実装されていないようで .hdl が読みこめませんでした。仕方が無いのでコピペでアレしましたが、これはなかなかに辛みのあるナニですな (何</p>
+
+<p>とりあえずここまでの時点で作ってる部品は使って良いとのことなのでそのまんま使ってしまい multi-bit なソレは実装できました。</p>
+
+<p>また、この HDL では変数の使いまわしはできないみたいなので Or8Way もちょっと工夫が必要らしい。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/04/nand2tetris5/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Apr 3, 2015
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/03/android-5-dot-1-at-nexues5/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/03/android-5-dot-1-at-nexues5/">Nexus5 に 5.1 が降りてきた</a>
+    </h1>
+</header>
+
+
+        
+          <p>朝起きて見てみたら更新通知が着信してましたので早速更新。とりあえずクイック設定から wifi および bluetooth の詳細設定ができることを確認しています。</p>
+
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Apr 3, 2015
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2015/04/03/nand2tetris4/#disqus_thread">Comments</a>
@@ -364,146 +472,6 @@ array([-0.83486486,  0.85220863, -0.96179815,  1.25632517, -2.10143098,
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Mar 30, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/03/30/gpuimage-for-android/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/03/30/gpuimage-for-android/">GPUImage for Android</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>とりあえず以下リポジトリから <code>git clone</code> して <code>./gradlew</code> してみました。</p>
-
-<ul>
-<li><a href="https://github.com/CyberAgent/android-gpuimage">android-gpuimage</a></li>
-</ul>
-
-<p>ANDROID_HOME 未定義と言われたので指定してリトライ。NDK な build が動くのだとすると OSX ではマズいのかどうか。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/03/30/gpuimage-for-android/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Mar 29, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/03/29/iro-syogi-club/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/ingress/">ingress </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/03/29/iro-syogi-club/">IRO 将棋部</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>何故か毎週土曜は将棋の日になりつつあります。今週も那覇市古波蔵にある八町というヤキトリ屋さんでアヤシい集いが開催されました。</p>
-
-<iframe src="https://www.flickr.com/photos/yamane-toshiaki/16332630473/in/photostream/player/" width="375" height="500" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-
-<p>そして角交換四間飛車に棒銀で対抗して憤死。</p>
-
-<iframe src="https://www.flickr.com/photos/yamane-toshiaki/16344115643/in/photostream/player/" width="375" height="500" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/03/29/iro-syogi-club/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Mar 29, 2015
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/03/29/installing-scipy-at-osx/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/python/">Python </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/03/29/installing-scipy-at-osx/">SciPy を OSX に導入</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>ええと、以下なスクリプトを取得して実行してみます。</p>
-
-<ul>
-<li><a href="https://gist.github.com/goldsmith/7262122">How to install Numpy and Scipy on Mac OS X Mavericks (10.9) using Pip.</a></li>
-</ul>
-
-<h2 id="む">む</h2>
-
-<p>pip が無いと叱られた。ので以下。</p>
-
-<pre><code>$ sudo easy_install pip
-</code></pre>
-
-<p>で、リトライしてみます。</p>
-
-<pre><code>$ sudo sh ./numpy_os_x_10_9.sh
-</code></pre>
-
-<h2 id="失敗">失敗</h2>
-
-<p><code>RuntimeError: Running cythonize failed!</code> とのこと。ええと、Cython なるソレを導入せねば、なのかどうか。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/03/29/installing-scipy-at-osx/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -533,7 +501,7 @@ array([-0.83486486,  0.85220863, -0.96179815,  1.25632517, -2.10143098,
 
     
     
-        <a href="/page/194/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/195/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -606,6 +574,24 @@ array([-0.83486486,  0.85220863, -0.96179815,  1.25632517, -2.10143098,
           
             
               <li class="post">
+                <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
               </li>
             
@@ -643,24 +629,6 @@ array([-0.83486486,  0.85220863, -0.96179815,  1.25632517, -2.10143098,
             
               <li class="post">
                 <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/23/css-loader-invalid-options/">Css Loader Invalid Options</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/21/judgement/">死活判定</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/16/event-guide-of-urasoe-go-kaikan/">浦添囲碁会館イベント</a>
               </li>
             
           

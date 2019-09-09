@@ -6,10 +6,40 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 26 Aug 2019 22:00:53 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 07 Sep 2019 22:16:18 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ElixirConfJP</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/09/07/elixirconfjp/</link>
+      <pubDate>Sat, 07 Sep 2019 22:16:18 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/09/07/elixirconfjp/</guid>
+      <description>&lt;p&gt;参加してきました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://fukuokaex.connpass.com/event/138846/&#34;&gt;ElixirConfJP 2019 小倉城&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;とりあえず&#34;&gt;とりあえず&lt;/h2&gt;
+
+&lt;p&gt;以下あたりのチェック必要。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Nerves&lt;/li&gt;
+&lt;li&gt;あと個人的には組織に導入するために、なナニを共有して欲しいです&lt;/li&gt;
+&lt;li&gt;@TheErlEF をフォローの件&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://erlef.org/&#34;&gt;https://erlef.org/&lt;/a&gt; 参加の件&lt;/li&gt;
+&lt;li&gt;手持ちの FPGA デバイス、cockatris 対応してるのか確認のこと&lt;/li&gt;
+&lt;li&gt;Broadway&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;そして以下にて、採取したメモを列挙。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>firebase なナニを独自ドメインで公開</title>

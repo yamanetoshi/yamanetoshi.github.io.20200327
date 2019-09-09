@@ -97,6 +97,131 @@
         
 
 <header>
+    <p class="meta">Apr 18, 2014
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/18/add-function-of-cloudstack-api/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/18/add-function-of-cloudstack-api/">fog の extractTemplate API なナニ</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>pull request をアレしたらテストも付けてくんない? って言われている件。travis なナニに失敗、ってあるけど追加機能に関する試験が無い場合も ci てきに失敗になるのかな。なかなか凄い。</p>
+
+<h2 id="てか">てか</h2>
+
+<p>試験書け、って話なので諸々検討を。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/18/add-function-of-cloudstack-api/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Apr 18, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/18/test-of-fog/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/18/test-of-fog/">fog の試験</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>commit 作って push してやれ、と思って念のために試験してみたらパスしてない。</p>
+
+<p>どうも self.data の</p>
+
+<pre><code>        def self.data
+          @data ||= begin
+</code></pre>
+
+<p>な記述で</p>
+
+<pre><code>      class Mock
+        def extract_template(options={})
+          Fog.credentials[:cloudstack_zone_id] = 1105
+</code></pre>
+
+<p>なことしてる影響が他に及んでいる模様。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/18/test-of-fog/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Apr 17, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/17/devops-conference-in-okinawa/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/17/devops-conference-in-okinawa/">DevOps Okinawa #3</a>
+    </h1>
+</header>
+
+
+        
+          <p>とは言え、基本もくもく会です。 DevOps Okinawa #3 若い方々が継続開催を希望なさっているので、こぢんまり続けていければ良いな。 ちなみにわしは今回 ansible の Tutorial をもく</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/17/devops-conference-in-okinawa/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Apr 17, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/17/test-jatag-connector/#disqus_thread">Comments</a>
@@ -347,134 +472,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Apr 14, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/14/rake-memo/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/14/rake-memo/">rake 備忘</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>いいもの見つけた。<a href="https://github.com/TechBooster/FirstStepReVIEW">FirstStepReVIEW</a> の article/Rakefile がすばら。</p>
-
-<p>これに加えて md を re に変換するナニを加えれば良いのかどうか。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/14/rake-memo/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Apr 13, 2014
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/13/bare-metal/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/13/bare-metal/">bare-metal 着手</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>根性無くって #gFab に行けず、フテていても仕方がないので諸々着手。</p>
-
-<p><a href="http://wiki.osdev.org/ARM_RaspberryPi_Tutorial_C">ARM RaspberryPi Tutorial C</a> からファイルを作って make してみると以下な出力が。</p>
-
-<pre><code>arm-unknown-eabi-gcc: error: fomit-frame-pointer: No such file or directory
-</code></pre>
-
-<p>これ、Makefile に以下な記述があるのが原因らしい。</p>
-
-<pre><code>Makefile:BASEFLAGS   += -ffreestanding fomit-frame-pointer -mcpu=arm1176jzf-s
-</code></pre>
-
-<p>あら、これってもしかして &ldquo;-&rdquo; が無いだけかな。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/13/bare-metal/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Apr 12, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/12/serial-connection-with-raspbian/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/12/serial-connection-with-raspbian/">raspbian シリアル接続の件</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>最新の 2014-01-07-wheezy-raspbian.zip を落として SD に dd してリトライしたらログインできました。後天性記憶不全なので gpio なピンアサインのナニを以下に。</p>
-
-<ul>
-<li><a href="http://www.adafruit.com/blog/2013/02/01/raspberry-pi-gpio-resource-piday-raspberrypi-raspberry_pi/">Raspberry Pi GPIO Resource</a></li>
-</ul>
-
-<p>とりあえず以前アレしたエントリに貼ったリンクを読む。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/12/serial-connection-with-raspbian/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -504,7 +501,7 @@
 
     
     
-        <a href="/page/194/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/195/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -577,6 +574,24 @@
           
             
               <li class="post">
+                <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
               </li>
             
@@ -614,24 +629,6 @@
             
               <li class="post">
                 <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/23/css-loader-invalid-options/">Css Loader Invalid Options</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/21/judgement/">死活判定</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/16/event-guide-of-urasoe-go-kaikan/">浦添囲碁会館イベント</a>
               </li>
             
           

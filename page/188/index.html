@@ -97,6 +97,147 @@
         
 
 <header>
+    <p class="meta">Nov 21, 2013
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/21/ruby-re-install/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/21/ruby-re-install/">ruby 再導入の件</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>昨晩色々ハマッてるログが残っているのですが大変だった模様。とりあえず</p>
+
+<ul>
+<li>sudo で Chef-Solo 云々するのに一般ユーザの $HOME に rbenv 入れてたorz</li>
+</ul>
+
+<p>という大失敗をしてて /usr/local 配下に再導入しようとしてハマッていた。sudo でパスが /etc/sudoers に記述されてるものに限定される、というあたりでまず駄目だったのですが、その後、rbenv install できない、という挙動が出てた記憶あり。</p>
+
+<p>ともあれ再度仮想リソースを kickoff して再開。</p>
+
+<p># さくっと Running になってくれないあたりが若干アレだったり</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/21/ruby-re-install/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 21, 2013
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/21/laziness/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/21/laziness/">もうすこし楽できんかな</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>現状、ツールで云々できるのが以下。</p>
+
+<ul>
+<li>仮想リソースの起動 (名前を付ける必要があるが一意でなくても良い)</li>
+<li>仮想リソースの破棄 (破棄するリソースの ID が必要)</li>
+<li>既に取得している GIP について port forward なオブジェクトの割当てができる</li>
+<li>GIP に割当てられている port forward なオブジェクトの削除ができる</li>
+<li>仮想リソースの一覧が確認できる</li>
+<li>port forward なオブジェクトの一覧が確認できる</li>
+<li>GIP の一覧が確認できる</li>
+</ul>
+
+<p>どうしたものやら。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/21/laziness/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 20, 2013
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/20/devopsokinawa-plan/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/20/devopsokinawa-plan/">勉強会当日の運用の作戦</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえずペアプロなセッションが三発。度毎にリセットしなければならないはず。スナップショットは取らない方向なので都度肝心なファイルは吸いあげて下さいね、誰となく。</p>
+
+<p># て案内しないとマズいですね</p>
+
+<p>とりあえずこちらマターの手順を検討しつつ上のような注意事項が事前発信できれば良いのかどうか。とりあえず事前準備としては以下か。</p>
+
+<ul>
+<li>GIP は手動で事前確保 (参加人数の <sup>1</sup>&frasl;<sub>2</sub> なのかどうか)</li>
+<li>確保したら ssh 接続用の public port を解放しておく (手動)</li>
+<li>必要数分仮想リソース確保して接続試験実施しておく</li>
+<li>メイルで鍵配布</li>
+</ul>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/20/devopsokinawa-plan/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Nov 20, 2013
          - 3 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/20/preparation-of-conference/#disqus_thread">Comments</a>
@@ -364,136 +505,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 18, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/18/eopl-ex-2-22/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/eopl/">EoPL </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/scheme/">Scheme </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/18/eopl-ex-2-22/">EoPL の Exercise 2.22</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>なんとなくやってみたらなんとなくできた。流石☆一つ。試験とか Ex.2.20 のソレをまんま流用してるので微妙です。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/18/eopl-ex-2-22/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 18, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/18/search-chef-cookbook/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/18/search-chef-cookbook/">cookbook 探すなど</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>以下な要件?</p>
-
-<ul>
-<li>ユーザ追加必要なのか</li>
-<li>そのユーザはパスワードなしで sudo できること</li>
-<li>~/.ssh/authorized_keys 追加</li>
-</ul>
-
-<p>つうかこれらを盛り込んで rbenv を導入したソレを作成して関係方面に連絡入れることに。昔 CloudStack のテンプレ作ったことあるんだけれど、スデに忘却の彼方に去ってらっしゃいます。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/18/search-chef-cookbook/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 18, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/18/interesting-tools/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/18/interesting-tools/">sed とか ruby とか</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>とあるプログラムが出力した文字列を云々、なツールを云々。</p>
-
-<p>ある目印までを削除とか。</p>
-
-<pre><code>cat log.txt | sed -e  '1,/hogefuga/d'
-</code></pre>
-
-<p>標準入力から読み込んで複数区切文字で split な ruby とか。</p>
-
-<pre><code>while line = gets
-    array = line.split(/[: ]/)
-end
-</code></pre>
-
-<p>微妙なスクリプトしかでっち上げれなくてアレな今日この頃なのかどうかorz</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/18/interesting-tools/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -523,7 +534,7 @@ end
 
     
     
-        <a href="/page/194/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/195/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -596,6 +607,24 @@ end
           
             
               <li class="post">
+                <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
               </li>
             
@@ -633,24 +662,6 @@ end
             
               <li class="post">
                 <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/23/css-loader-invalid-options/">Css Loader Invalid Options</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/21/judgement/">死活判定</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/16/event-guide-of-urasoe-go-kaikan/">浦添囲碁会館イベント</a>
               </li>
             
           

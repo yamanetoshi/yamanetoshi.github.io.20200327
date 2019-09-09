@@ -97,6 +97,134 @@
         
 
 <header>
+    <p class="meta">Apr 14, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/14/rake-memo/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/14/rake-memo/">rake 備忘</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>いいもの見つけた。<a href="https://github.com/TechBooster/FirstStepReVIEW">FirstStepReVIEW</a> の article/Rakefile がすばら。</p>
+
+<p>これに加えて md を re に変換するナニを加えれば良いのかどうか。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/14/rake-memo/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Apr 13, 2014
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/13/bare-metal/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/13/bare-metal/">bare-metal 着手</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>根性無くって #gFab に行けず、フテていても仕方がないので諸々着手。</p>
+
+<p><a href="http://wiki.osdev.org/ARM_RaspberryPi_Tutorial_C">ARM RaspberryPi Tutorial C</a> からファイルを作って make してみると以下な出力が。</p>
+
+<pre><code>arm-unknown-eabi-gcc: error: fomit-frame-pointer: No such file or directory
+</code></pre>
+
+<p>これ、Makefile に以下な記述があるのが原因らしい。</p>
+
+<pre><code>Makefile:BASEFLAGS   += -ffreestanding fomit-frame-pointer -mcpu=arm1176jzf-s
+</code></pre>
+
+<p>あら、これってもしかして &ldquo;-&rdquo; が無いだけかな。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/13/bare-metal/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Apr 12, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/12/serial-connection-with-raspbian/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/12/serial-connection-with-raspbian/">raspbian シリアル接続の件</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>最新の 2014-01-07-wheezy-raspbian.zip を落として SD に dd してリトライしたらログインできました。後天性記憶不全なので gpio なピンアサインのナニを以下に。</p>
+
+<ul>
+<li><a href="http://www.adafruit.com/blog/2013/02/01/raspberry-pi-gpio-resource-piday-raspberrypi-raspberry_pi/">Raspberry Pi GPIO Resource</a></li>
+</ul>
+
+<p>とりあえず以前アレしたエントリに貼ったリンクを読む。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/12/serial-connection-with-raspbian/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Apr 10, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/10/playing-with-baremetal/#disqus_thread">Comments</a>
@@ -390,132 +518,6 @@ $ cd hoge
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Apr 7, 2014
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/07/gitbook/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/07/gitbook/">GitBook</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>ドキュメントを markdown で、って言いつつも見る人どーすんだ、という話があったりしていたのですが、ちょっとこれを使ってみようかな、とか思っていたり。</p>
-
-<p>ちょろっと前に何かのタイミングでチェック入ってはいたのですがスルー状態でした。</p>
-
-<ul>
-<li><a href="http://www.gitbook.io/">GitBook</a></li>
-</ul>
-
-<p>その後、Sphinx? とか言ってたりしたのですが、とりあえずこちらを試してみることに。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/07/gitbook/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Apr 7, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/07/try-build-gitbook-sample/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/07/try-build-gitbook-sample/">GitBook のサンプルを云々してみるなど</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>以下を clone して云々してみます。</p>
-
-<ul>
-<li><a href="https://github.com/GitbookIO/javascript">GitbookIO/javascript</a></li>
-</ul>
-
-<p>とりあえず clone してみて</p>
-
-<pre><code>$ git clone https://github.com/GitbookIO/javascript
-</code></pre>
-
-<p>build してみます。</p>
-
-<pre><code>$ gitbook build
-Starting build ...
-Successfuly built !
-</code></pre>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/07/try-build-gitbook-sample/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Apr 7, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/07/python-tutorial/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/python/">Python </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/07/python-tutorial/">備忘という訳ではないのですが</a>
-    </h1>
-</header>
-
-
-        
-          <p>以下、ちゃんと確認しとくこと。 Python チュートリアル</p>
-
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -545,7 +547,7 @@ Successfuly built !
 
     
     
-        <a href="/page/194/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/195/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -618,6 +620,24 @@ Successfuly built !
           
             
               <li class="post">
+                <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
               </li>
             
@@ -655,24 +675,6 @@ Successfuly built !
             
               <li class="post">
                 <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/23/css-loader-invalid-options/">Css Loader Invalid Options</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/21/judgement/">死活判定</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/16/event-guide-of-urasoe-go-kaikan/">浦添囲碁会館イベント</a>
               </li>
             
           

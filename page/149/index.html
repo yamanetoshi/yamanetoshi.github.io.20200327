@@ -97,6 +97,131 @@
         
 
 <header>
+    <p class="meta">Jun 13, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/13/moff/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/13/moff/">Moff</a>
+    </h1>
+</header>
+
+
+        
+          <p>以前 FB で発信を見てて覚えてたんですが、これ面白そうですね。 ウェアラブルなおもちゃ「Moff」のユニークな開発プロセス（Maker Pro Jp） 似た</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/13/moff/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jun 12, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/12/volley-response-listener/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/12/volley-response-listener/">com.android.volley.Response.Listener の import</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>画像を取得する以下な処理を書いたのですが</p>
+
+<pre><code>    ImageRequest request = new ImageRequest(mUrl,
+        new com.android.volley.Response.Listener&lt;Bitmap&gt;() {
+
+            @Override
+            public void onResponse(Bitmap response) {
+                setBackgroundImage(findViewById(R.id.image), response);
+            }
+
+        }, 0, 0, Config.ARGB_8888, 
+        new ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(&quot;HogeActivity&quot;, error.getMessage());
+            }
+    });
+    mQueue.add(request);
+</code></pre>
+
+<p>何故か ErrorListener は自動で import されてて Listener はそうではなかった。何故だろう。つうか手書きで import しろよ &lt; わし</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/12/volley-response-listener/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jun 12, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/12/cooking-for-getting-away/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/12/cooking-for-getting-away/">ゲンジツトウヒな調理</a>
+    </h1>
+</header>
+
+
+        
+          <p>ヤバいカンジな大根菜を炒めて明日の弁当のおかずに製造。それに加えて常備菜の ピーマンいりこ炒め 高菜漬物 を混ぜてつまみに。 大根菜のみ温かいという</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/12/cooking-for-getting-away/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jun 11, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/11/tmux-memo/#disqus_thread">Comments</a>
@@ -348,130 +473,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jun 6, 2014
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/06/check-pi-baremetal/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/06/check-pi-baremetal/">initsys.c 確認 (pi-baremetal 確認)</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>ええとコメントに以下な記述があります。</p>
-
-<pre><code> * The memory is divided in to 4096 1MB sections. Most of these are
- * unmapped (resulting in prefetch/data aborts), except
- * 0x8000000-0xa1000000, which are mapped to 0x00000000-0x2a000000
- * (physical memory and peripherals), and the kernel code and data
-</code></pre>
-
-<p>何故に 2048 を引いてるのか問題について引き続き確認を。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/06/check-pi-baremetal/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jun 5, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/05/abnormal-termination/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/rails/">rails </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/05/abnormal-termination/">assets:precompile でオチる件</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>ええと</p>
-
-<pre><code>$ bundle exec rake assets:precompile RAILS_ENV=production
-</code></pre>
-
-<p>で以下のメセジが出力されて異常終了。</p>
-
-<pre><code>Less::Error: 'twitter/bootstrap/bootstrap.less' wasn't found
-</code></pre>
-
-<p>どうしたものか。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/05/abnormal-termination/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jun 5, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/05/rewind-master-branch/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/05/rewind-master-branch/">master の巻き戻し</a>
-    </h1>
-</header>
-
-
-        
-          <p>保険でバックアップ取得して remote に push しといて $ git checkout master $ git checkout -b master_backup $ git ehcckout master 巻き戻し。 $ git reset --hard 01234567 そして push。 $ git push -f origin HEAD:master 作業するときは branch して作業し</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/05/rewind-master-branch/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -501,7 +502,7 @@
 
     
     
-        <a href="/page/194/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/195/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -574,6 +575,24 @@
           
             
               <li class="post">
+                <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
               </li>
             
@@ -611,24 +630,6 @@
             
               <li class="post">
                 <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/23/css-loader-invalid-options/">Css Loader Invalid Options</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/21/judgement/">死活判定</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/16/event-guide-of-urasoe-go-kaikan/">浦添囲碁会館イベント</a>
               </li>
             
           

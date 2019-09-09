@@ -97,6 +97,104 @@
         
 
 <header>
+    <p class="meta">Oct 7, 2015
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/07/problem-in-android-4-dot-4/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/07/problem-in-android-4-dot-4/">4.4 な端末不具合</a>
+    </h1>
+</header>
+
+
+        
+          <p>Notification から画面が開かない、という不具合。以下を参照して対処を盛り込むなど。 Notification Click not launch the given Activity on Nexus Phones 知らないことばっかだなぁ、と。</p>
+
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Oct 6, 2015
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/06/hiyamikachi-naha-walk-2015/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/06/hiyamikachi-naha-walk-2015/">ひやみかち なはウォーク2015</a>
+    </h1>
+</header>
+
+
+        
+          <p>ムスコ君が学校で配布されたらしい紙を持って戻ってきた。那覇市のサイトが以下とのこと。 ひやみかち なはウォーク2015 20km 歩けるのかなぁ。スキャナ</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/06/hiyamikachi-naha-walk-2015/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Oct 5, 2015
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/05/java-1-dot-8/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/05/java-1-dot-8/">java 1.8</a>
+    </h1>
+</header>
+
+
+        
+          <p>どうも Jenkins な plugin 作るためには 1.8 必須らしい。Android はどうなのかな、と思って確認してみるに、Android Studio であれば以下なファイルの /Applications/Android\ Studio.app/Contents/Info.plist の以</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/05/java-1-dot-8/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Oct 4, 2015
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2015/10/04/a14-ingress/#disqus_thread">Comments</a>
@@ -342,128 +440,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Sep 27, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/27/poke-roast/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/27/poke-roast/">ぐーやーぬーじーのロースト</a>
-    </h1>
-</header>
-
-
-        
-          <p>今日、220 度で 12 分でトライしてみましたがまだ中が赤かった。その後煮込んだのでまぁいいか、だったのですが、この具合だと 220 度で 20 分くらいオーブ</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/27/poke-roast/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Sep 25, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/25/err-cache-miss-error/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/25/err-cache-miss-error/">戻る、で net::ERR_CACHE_MISS</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>最初、WebViewClient#onErrorReceive で再表示、とかしてたのですが、一旦エラー画面表示されて reload されてしまうなぁ、と思っていたら</p>
-
-<pre><code>    WebView#getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-</code></pre>
-
-<p>という解があり、こちら採用。こちらの方がスコアが低いのは何故だろう。</p>
-
-<ul>
-<li><a href="http://stackoverflow.com/questions/25664146/android-4-4-giving-err-cache-miss-error-in-onreceivederror-for-webview-back">Android 4.4 giving ERR_CACHE_MISS error in onReceivedError for WebView back</a></li>
-</ul>
-
-<p>つうか戻る時に cache エラーってどう考えてもサーバサイドだろ、と思っていたのですが、色々な事情があるらしいのかどうか。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/25/err-cache-miss-error/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Sep 24, 2015
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/24/godeb/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/go/">Go </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/24/godeb/">godeb</a>
-    </h1>
-</header>
-
-
-        
-          <p><p><a href="https://godeb.s3.amazonaws.com/godeb-amd64.tar.gz">x86 64-bit binary</a> から godeb-amd64.tar.gz を落として</p>
-
-<pre><code>./godeb install
-</code></pre>
-
-<p>を実行。どうなるか。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2015/09/24/godeb/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -493,7 +469,7 @@
 
     
     
-        <a href="/page/194/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/195/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -566,6 +542,24 @@
           
             
               <li class="post">
+                <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
               </li>
             
@@ -603,24 +597,6 @@
             
               <li class="post">
                 <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/23/css-loader-invalid-options/">Css Loader Invalid Options</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/21/judgement/">死活判定</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/16/event-guide-of-urasoe-go-kaikan/">浦添囲碁会館イベント</a>
               </li>
             
           

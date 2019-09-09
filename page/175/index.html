@@ -97,6 +97,133 @@
         
 
 <header>
+    <p class="meta">Jan 19, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/19/curl-json-parameter/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/19/curl-json-parameter/">curl に JSON パラメータ渡そうとしてハマった</a>
+    </h1>
+</header>
+
+
+        
+          <p>curl に -X POST 指定して -d で JSON なパラメータを渡そうとして &quot;{'security':{'part':'1','rating':'4'}}&quot; って指定してて軽くハマるなど。正しくは以下でしたorz '{&quot;security&quot;:{&quot;part&quot;:&quot;1&quot;,&quot;rating&quot;:&quot;4&quot;}}' いけません。</p>
+
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jan 19, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/19/oyster-rice/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/19/oyster-rice/">牡蠣御飯</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>作ってみた。牡蠣は広島産の冷凍で。レシピは以下を参考にさせて頂きました。</p>
+
+<ul>
+<li><a href="http://orecipe.hatenablog.com/entry/2014/01/16/152600">カキ出汁が最高にウマイ。土鍋で炊いた「牡蠣めし」</a></li>
+</ul>
+
+<p>今回、土鍋でこげ無しでできました。判断てきとーだったのですが流石第六感デバッガだな (ぇ</p>
+
+<iframe src="https://www.flickr.com/photos/yamane-toshiaki/12026570614/player/0c2fe2a549" height="500" width="375"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/19/oyster-rice/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jan 18, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/18/trip-to-okinawa/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/18/trip-to-okinawa/">沖縄旅行</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>2 月第一週の週末に妹夫婦が父母を沖縄旅行に連れてくることが決まったとのこと。曰く</p>
+
+<ul>
+<li>海中道路に行きたい</li>
+<li>ジンベエ給餌が再び見たい</li>
+<li>うまんちゅ市場はハズせない</li>
+<li>最低晩メシ付き合え</li>
+</ul>
+
+<p>とのこと。なんとなく気分てきに</p>
+
+<ul>
+<li>首里散策は結構良さげ</li>
+<li>橋って言うのであれば古宇利島でしょ</li>
+<li>本部の桜祭りはその頃ではないか</li>
+</ul>
+
+<p>ついでに古宇利島の例のポイントもチェック入れたいてそれは (ry</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/18/trip-to-okinawa/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jan 18, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/18/weekend-cooking/#disqus_thread">Comments</a>
@@ -353,115 +480,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 16, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/16/network-connection-trouble/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/16/network-connection-trouble/">自宅内 LAN で同じサブネットなホストに接続できない件</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>とりあえず、OSX (つうか BSD か) で route コマンドが経路情報を出力してくれない、ということを知らなくてハマる。</p>
-
-<pre><code>$ netstat -r
-</code></pre>
-
-<p>でした。そして接続先への経路情報は cache されていることを確認。そして何故かは分からんのですが Ubuntu な接続先の経路情報に所属するサブネットな情報が無い。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/16/network-connection-trouble/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 15, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/15/use-gimp-to-make-android-icon/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/15/use-gimp-to-make-android-icon/">Gimp で android なアイコン作る備忘録</a>
-    </h1>
-</header>
-
-
-        
-          <p>48dip のアイコンを云々な用件が発生。とりあえず hdpi と xhdpi ってことで hdpi は 72px xhdpi は 96px ってことで適当なフリー素材を取得して gimp の image -&gt; scale image で上記な寸法を設定して</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/15/use-gimp-to-make-android-icon/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 15, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/15/conflict-binary-file/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/15/conflict-binary-file/">バイナリが conflict した件</a>
-    </h1>
-</header>
-
-
-        
-          <p>どーすんだ、って思ったら普通に CONFLICT なご指摘の入ったファイルを add して commit したら解決しました。 ご指摘の入ったソレは Android の drawable リソースなファイルでした。 フ</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/15/conflict-binary-file/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -491,7 +509,7 @@
 
     
     
-        <a href="/page/194/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/195/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -564,6 +582,24 @@
           
             
               <li class="post">
+                <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
               </li>
             
@@ -601,24 +637,6 @@
             
               <li class="post">
                 <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/23/css-loader-invalid-options/">Css Loader Invalid Options</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/21/judgement/">死活判定</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/16/event-guide-of-urasoe-go-kaikan/">浦添囲碁会館イベント</a>
               </li>
             
           

@@ -97,6 +97,108 @@
         
 
 <header>
+    <p class="meta">Jan 29, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/29/listview-in-scrollview/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/29/listview-in-scrollview/">ScrollView の中の ListView</a>
+    </h1>
+</header>
+
+
+        
+          <p>動作が微妙なのでリストにせずに LinearLayout に addView してしまうことに。 とは言え アダプタの getView の中でしてた処理を持ってきて LayoutInflater#inflate でレイアウトな View を生成して 中を埋めて</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/29/listview-in-scrollview/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jan 29, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/29/indentation-in-emacs/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/emacs/">emacs </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/29/indentation-in-emacs/">emacs でまとめて字下げ修正</a>
+    </h1>
+</header>
+
+
+        
+          <p>C+M+¥ とのこと。あるいは M-x indent-region わし的には M-x の方がアレ (何 長年 emacs 使ってますが、あまり肝心なコマンドを知らない。つうか覚えないだけなのかどうか</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/29/indentation-in-emacs/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jan 28, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/28/error-addview-in-android-linearlayout/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/28/error-addview-in-android-linearlayout/">LinearLayout に addView しても出力されぬ</a>
+    </h1>
+</header>
+
+
+        
+          <p>単純に LayoutInflater#inflate で生成したレイアウトを LinearLayout に addView してただけ、なんですが表示されない。諸々確認してみたのですが方法自体は間違えていない模様。 むむむ、と言い</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/28/error-addview-in-android-linearlayout/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jan 27, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/27/how-to-finish-android-application/#disqus_thread">Comments</a>
@@ -374,131 +476,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 23, 2014
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/git/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/git/">直近ではない remote に push してる commit の取り消し</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>公開している歴史を rebase とかで変更してはいけない。</p>
-
-<p>ので、どうするかというとバージョン (commit) を特定してその時点の状態にファイルを巻戻してしまえば良いはず。git checkout で良いのかどうか。</p>
-
-<pre><code>$ git checkout &lt;commit object の id&gt; path
-</code></pre>
-
-<p>で、そのまま commit を作ってしまえば良いはず。
- # そんな対応をした訳ではないのでこんな書き方になっててスミマセン (誰</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/23/git/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 22, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/22/android-dialog-dismiss/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/22/android-dialog-dismiss/">Dialog から設定値入力させて Alert 表示後に両方 dismiss</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>DialogFragment から DialogFragment 表示するような真似をしてまして、一つは dismiss できるけどもう一つが、な現象が出てしまいハマってました。</p>
-
-<p><a href="http://eggdev.mobaegg.com/2012/08/blog-post_4.html">ダイアログが重ならないように制御する</a> にて以下な対処が紹介されており、これでイケました。</p>
-
-<pre><code>FragmentManager manager = getFragmentManager();
-final HogeDialogFragment prev = (HogeDialogFragment)manager.findFragmentByTag(&quot;hoge_dialog&quot;);
-prev.dismiss();
-</code></pre>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/22/android-dialog-dismiss/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jan 22, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/22/operation-of-revision-in-svn/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/22/operation-of-revision-in-svn/">subversion でリビジョンの巻戻し</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>TortoiseSVN 限定で。</p>
-
-<p>リビジョンを巻戻すのは Windows Explore から右クリックで TortoiseSVN -&gt; Show log から巻戻す revision を選択して Revert changes from {this, these} revision で巻き戻せるのは分かったのですが、それをさらに戻す、という操作がアレだったので確認。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/01/22/operation-of-revision-in-svn/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -528,7 +505,7 @@ prev.dismiss();
 
     
     
-        <a href="/page/194/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
+        <a href="/page/195/" aria-label="Last"><i class="fa fa-angle-double-right fa-lg"></i></a>
     
 
 </div>
@@ -601,6 +578,24 @@ prev.dismiss();
           
             
               <li class="post">
+                <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/06/build-hugo-octopress-on-another-device/">Hugo-Octopress を別端末で</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/09/05/modal-verbs/">Modal verbs (3)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
               </li>
             
@@ -638,24 +633,6 @@ prev.dismiss();
             
               <li class="post">
                 <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/23/css-loader-invalid-options/">Css Loader Invalid Options</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/21/judgement/">死活判定</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/16/event-guide-of-urasoe-go-kaikan/">浦添囲碁会館イベント</a>
               </li>
             
           
