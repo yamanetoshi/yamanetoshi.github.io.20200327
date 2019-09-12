@@ -97,6 +97,80 @@
         
 
 <header>
+    <p class="meta">May 17, 2019
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/05/17/programming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2019/05/17/programming-elixir/">プログラミング Elixir (30)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>別場所にあった queue な課題をパクッて実装。</p>
+
+<p>以下なカンジで動きました。</p>
+
+<pre><code>$ iex Stack.ex
+Erlang/OTP 21 [erts-10.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+Interactive Elixir (1.7.3) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)&gt; Stack.start_link
+{:ok, #PID&lt;0.106.0&gt;}
+iex(2)&gt; Stack.stack
+[]
+iex(3)&gt; Stack.push(1)
+:ok
+iex(4)&gt; Stack.stack  
+[1]
+iex(5)&gt; Stack.push(2)
+:ok
+iex(6)&gt; Stack.stack  
+[2, 1]
+iex(7)&gt; Stack.push(3)
+:ok
+iex(8)&gt; Stack.stack
+[3, 2, 1]
+iex(9)&gt; Stack.pop
+3
+iex(10)&gt; Stack.stack
+[2, 1]
+iex(11)&gt; Stack.pop  
+2
+iex(12)&gt; Stack.stack
+[1]
+iex(13)&gt; Stack.pop  
+1
+iex(14)&gt; Stack.stack
+[]
+iex(15)&gt; Stack.pop  
+nil
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2019/05/17/programming-elixir/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">May 16, 2019
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2019/05/16/weekend-cooking/#disqus_thread">Comments</a>
@@ -507,50 +581,6 @@ end
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">May 7, 2019
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/05/07/parenthesis-nesting/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/cloudnative/">cloudnative </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2019/05/07/parenthesis-nesting/">Rancher</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>今日は Cloud Native Okinawa でした。</p>
-
-<ul>
-<li><a href="https://cnjp.connpass.com/event/126877/">Cloud Native Okinawa #01</a></li>
-</ul>
-
-<h2 id="rancherjp">rancherjp</h2>
-
-<p>な slack に参加してみたりしています。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2019/05/07/parenthesis-nesting/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -653,6 +683,12 @@ end
           
             
               <li class="post">
+                <a href="/blog/2019/09/12/modal-verbs/">Modal Verbs</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/09/07/elixirconfjp/">ElixirConfJP</a>
               </li>
             
@@ -702,12 +738,6 @@ end
             
               <li class="post">
                 <a href="/blog/2019/08/29/go-tournament/">ステップアップ囲碁大会</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/08/26/publish-firebase-hosting-in-my-own-domain/">firebase なナニを独自ドメインで公開</a>
               </li>
             
           

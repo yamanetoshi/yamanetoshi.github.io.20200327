@@ -6,10 +6,27 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 07 Sep 2019 22:16:18 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 12 Sep 2019 20:05:19 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Modal Verbs</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/09/12/modal-verbs/</link>
+      <pubDate>Thu, 12 Sep 2019 20:05:19 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/09/12/modal-verbs/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/0521189063/yamanertoshi-22&#34;&gt;English Grammer in Use&lt;/a&gt; の Appendix 4 節。&lt;/p&gt;
+
+&lt;p&gt;付け焼刃、はあまり役に立たなかったのかどうか (何&lt;/p&gt;
+
+&lt;h2 id=&#34;継続&#34;&gt;継続&lt;/h2&gt;
+
+&lt;p&gt;28 からです。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>ElixirConfJP</title>

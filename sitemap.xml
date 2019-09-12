@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/09/12/modal-verbs/</loc>
+    <lastmod>2019-09-12T20:05:19+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/09/07/elixirconfjp/</loc>
     <lastmod>2019-09-07T22:16:18+09:00</lastmod>
   </url>
@@ -9719,7 +9724,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-09-07T22:16:18+09:00</lastmod>
+    <lastmod>2019-09-12T20:05:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9797,7 +9802,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/english/</loc>
-    <lastmod>2019-09-05T21:25:06+09:00</lastmod>
+    <lastmod>2019-09-12T20:05:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -9947,7 +9952,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-09-07T22:16:18+09:00</lastmod>
+    <lastmod>2019-09-12T20:05:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
