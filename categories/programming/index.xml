@@ -6,10 +6,26 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 07 Sep 2019 22:16:18 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 03 Oct 2019 21:49:12 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>修行ネタ</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/10/03/neta/</link>
+      <pubDate>Thu, 03 Oct 2019 21:49:12 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/10/03/neta/</guid>
+      <description>&lt;p&gt;囲碁に注力しすぎててスルーが多いorz&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;FPGA で RISC-V&lt;/li&gt;
+&lt;li&gt;Nerves&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>ElixirConfJP</title>
