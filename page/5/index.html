@@ -97,6 +97,73 @@
         
 
 <header>
+    <p class="meta">Jul 21, 2019
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/07/21/game-of-life-implementation/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2019/07/21/game-of-life-implementation/">Game of Life の実装 (2)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>気になっていた以下な記述、Cell なプロセス単位で位置情報も保持、ということなのか。</p>
+
+<pre><code>  # Start a generic server process for the Cell. The process 
+  # is named according to the position with a Registry as index
+  def start_link(position) do
+    GenServer.start_link(__MODULE__, position, name: {
+      :via, Registry, {Cell.Registry, position}
+    })
+  end
+</code></pre>
+
+<p>これを使ってこんなことしています。</p>
+
+<pre><code>  # Translate the Cell position {x, y} into the process
+  # ID if the Cell is alive (avoid ghost neighbours)
+  def lookup(position) do
+    Cell.Registry
+    |&gt; Registry.lookup(position)
+    |&gt; Enum.map(fn
+      {pid, _valid} -&gt; pid
+      nil -&gt; nil
+    end)
+    |&gt; Enum.filter(&amp;Process.alive?/1)
+    |&gt; List.first
+  end
+</code></pre>
+
+<p>ある位置の Cell は生存状態かどうか、な判定ができるのかどうか。参考にしたのは以下です。</p>
+
+<ul>
+<li><a href="https://github.com/elixir-lang/elixir/blob/master/lib/elixir/lib/registry.ex">lib/exlicir/lib/registry.ex</a></li>
+</ul>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2019/07/21/game-of-life-implementation/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Jul 20, 2019
          - 2 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2019/07/20/game-of-life-implementation/#disqus_thread">Comments</a>
@@ -487,48 +554,6 @@ sudo apt-get install elixir -fy
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jul 10, 2019
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/07/10/present-and-past-tenses/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/english/">english </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2019/07/10/present-and-past-tenses/">Present and Past Tenses (3)</a>
-    </h1>
-</header>
-
-
-        
-          <p><p><a href="https://www.amazon.co.jp/dp/0521189063/yamanertoshi-22">English Grammer in Use</a> の Appendix から辿れる動詞のあたりの節について。</p>
-
-<p>継続は Unit 9-14 とのことで順に確認します。</p>
-
-<h2 id="present-perfect-continuous">present perfect continuous</h2>
-
-<p>ちょうど今終わった何か、な時に使うとのこと。丁度今まで続いていた、なのかどうか。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2019/07/10/present-and-past-tenses/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -631,6 +656,12 @@ sudo apt-get install elixir -fy
           
             
               <li class="post">
+                <a href="/blog/2019/10/09/m5stack/">M5stack</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/10/08/igo-memo/">囲碁メモ</a>
               </li>
             
@@ -680,12 +711,6 @@ sudo apt-get install elixir -fy
             
               <li class="post">
                 <a href="/blog/2019/09/04/modal-verbs/">Modal verbs (2)</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/09/03/modal-verbs/">Modal verbs</a>
               </li>
             
           
