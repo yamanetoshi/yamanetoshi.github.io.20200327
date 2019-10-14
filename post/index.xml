@@ -6,10 +6,36 @@
     <description>Recent content in Posts on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 09 Oct 2019 20:51:10 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 14 Oct 2019 12:46:30 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>PyCon mini Hiroshima 2019</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/10/14/m5stack/</link>
+      <pubDate>Mon, 14 Oct 2019 12:46:30 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/10/14/m5stack/</guid>
+      <description>&lt;p&gt;参加してきました。色々な意味でおもしろかったです。やまね的には&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;lisp で DSL&lt;/li&gt;
+&lt;li&gt;アルゴレイヴ&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;というあたり継続してもごもごしてみたかったりしております。&lt;/p&gt;
+
+&lt;h2 id=&#34;懇親会&#34;&gt;懇親会&lt;/h2&gt;
+
+&lt;p&gt;何故か、ムスコくんと同じ位の年の頃な方々と同席。とても楽しかったです。Elixir も宣伝。&lt;/p&gt;
+
+&lt;h2 id=&#34;メモ&#34;&gt;メモ&lt;/h2&gt;
+
+&lt;p&gt;以下にてメモを列挙します。モノによってばらつきがありますが、つだりつつメモ採取していたもので、薄いセッションはつだり中心だったと思って頂ければと存じます (何&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>M5stack</title>
