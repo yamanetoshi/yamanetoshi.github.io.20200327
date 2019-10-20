@@ -6,10 +6,33 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 15 Oct 2019 20:19:34 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 20 Oct 2019 18:43:19 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>9 路、中国ルール</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/10/20/9-ro-china-rule/</link>
+      <pubDate>Sun, 20 Oct 2019 18:43:19 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/10/20/9-ro-china-rule/</guid>
+      <description>&lt;p&gt;ええと、囲碁クエストな中国ルールだとコミ 7 目持碁あり (黒の盤面 6、および 7 目勝ちが持碁)、で考えるとするとどうなるか。というか以下サイトだと 7.5 目ってなってるな。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://igokuesuto9.blogspot.com/2014/10/9.html&#34;&gt;囲碁クエ9路の簡単目算法&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;あるいは以下によれば 7 目、となっていますね。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://wars.fm/android_help_go9-ja.html&#34;&gt;囲碁クエストヘルプ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とりあえずそんなことなのだろうとしておきます (こら&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>眼鏡調達</title>
