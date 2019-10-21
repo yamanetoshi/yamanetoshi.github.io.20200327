@@ -6,10 +6,29 @@
     <description>Recent content in Misc on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 20 Oct 2019 18:43:19 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 21 Oct 2019 20:31:09 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>先週の日曜囲碁</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/10/21/sunday-baduk-last-week/</link>
+      <pubDate>Mon, 21 Oct 2019 20:31:09 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/10/21/sunday-baduk-last-week/</guid>
+      <description>&lt;p&gt;最後まで確認してみました。最後黒半目勝ちでタマゲたのです。sgf は以下に保存。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/yamanetoshi/sgf-sharing/blob/master/other/yoda-hane-2019-10-20.sgf&#34;&gt;sgf-sharing/other/yoda-hane-2019-10-20.sgf&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;流れてきに&#34;&gt;流れてきに&lt;/h2&gt;
+
+&lt;p&gt;以下なカンジ?&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>9 路、中国ルール</title>
