@@ -6,10 +6,25 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 30 Oct 2019 22:39:51 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 01 Nov 2019 15:07:18 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TensorFlowとKerasで動かしながら学ぶ ディープラーニングの仕組み</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/11/01/training/</link>
+      <pubDate>Fri, 01 Nov 2019 15:07:18 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/11/01/training/</guid>
+      <description>&lt;p&gt;備忘。以下、購入してもくもくな方向。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/4839970270/yamanetoshi-22&#34;&gt;TensorFlowとKerasで動かしながら学ぶ ディープラーニングの仕組み ~畳み込みニューラルネットワーク徹底解説~&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>トレーニング</title>
