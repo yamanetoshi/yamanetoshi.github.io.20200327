@@ -97,6 +97,54 @@
         
 
 <header>
+    <p class="meta">Apr 28, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/28/newline-code/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/28/newline-code/">UART 入力とか出力とか (2)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>どうも enter が &lsquo;\r&rsquo; (0x0d) なのが微妙、という話になっていたり。</p>
+
+<p>文字列を入力して改行契機で出力、な例がありまして</p>
+
+<pre><code>    do {
+        while(*UART0_FR &amp; (1 &lt;&lt; 4));
+            c = * UART0_DR ;
+            echo[length] = c &amp; 0xff ;
+            length ++;
+    } while(c != '\n' &amp;&amp; i &lt; 256);
+</code></pre>
+
+<p>ここで改行を &lsquo;\n&rsquo; (0x0a) としてますが自分が使ってる環境だと screen でも minicom でも &lsquo;\r&rsquo; (0x0d) になってました。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/28/newline-code/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Apr 27, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/27/uart-input-output-in-raspi/#disqus_thread">Comments</a>
@@ -444,54 +492,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Apr 21, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/21/modify-jtag-function-in-assembler/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/21/modify-jtag-function-in-assembler/">昨晩の件 (JTAG 接続なソレを書き換えてみる)</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>何が悪いのか、と言いつつ空き稼動で再度確認してみたところ、C で書いてる kernel_main 手続き先頭にある</p>
-
-<pre><code>void kernel_main(uint32_t r0, uint32_t r1, uint32_t atags) {
-    init_gpio();
-</code></pre>
-
-<p>がコメントアウトされておりませんでした。そりゃ駄目だわな。</p>
-
-<h2 id="とりあえず">とりあえず</h2>
-
-<p>JTAG 初期化な bootstrap な手続きができたのでソースを綺麗にして commit を作っておこうと思ってます。</p>
-
-<p>続きがあれば追記するかもしれません。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/04/21/modify-jtag-function-in-assembler/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -594,6 +594,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/11/04/stone-direction/">石の向き</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/11/01/training/">TensorFlowとKerasで動かしながら学ぶ ディープラーニングの仕組み</a>
               </li>
             
@@ -643,12 +649,6 @@
             
               <li class="post">
                 <a href="/blog/2019/10/09/m5stack/">M5stack</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/10/08/igo-memo/">囲碁メモ</a>
               </li>
             
           

@@ -98,6 +98,55 @@
 
 <header>
     <p class="meta">Nov 25, 2013
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/25/test-chef-prototype/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/25/test-chef-prototype/">GitHub に登録したプロトタイプを使ってみる</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえず手元の Mavericks な MBA では無理なので某仮想リソースで。起動できたら clone します。</p>
+
+<pre><code>$ git clone https://github.com/yamanetoshi/knife-solo-prototype.git
+</code></pre>
+
+<p>で、~/.ssh/config を以下にしておいて</p>
+
+<pre><code>Host melody
+  HostName 10.1.3.5
+  User devops
+  identityfile ~/.ssh/devopsOkinawa.key
+</code></pre>
+
+<p>Hostname は適宜読み換えてください。あと、鍵もコピィ必要。これで ssh devops@melody で接続できれば準備は OK です。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/25/test-chef-prototype/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 25, 2013
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/25/reminder-todo/#disqus_thread">Comments</a>
 
@@ -504,40 +553,6 @@ $ rbenv global 1.9.3-p448
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 22, 2013
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/22/make-makefile/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/22/make-makefile/">make で云々</a>
-    </h1>
-</header>
-
-
-        
-          <p>あるスクリプトが出力するファイルにあるコマンドが依存している場合、どのように Makefile を書くべきか、なお題。しかもよくよく見てみるに、あるスクリプト</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/22/make-makefile/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -640,6 +655,12 @@ $ rbenv global 1.9.3-p448
           
             
               <li class="post">
+                <a href="/blog/2019/11/04/stone-direction/">石の向き</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/11/01/training/">TensorFlowとKerasで動かしながら学ぶ ディープラーニングの仕組み</a>
               </li>
             
@@ -689,12 +710,6 @@ $ rbenv global 1.9.3-p448
             
               <li class="post">
                 <a href="/blog/2019/10/09/m5stack/">M5stack</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/10/08/igo-memo/">囲碁メモ</a>
               </li>
             
           

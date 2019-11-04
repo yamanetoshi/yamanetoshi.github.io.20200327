@@ -98,6 +98,57 @@
 
 <header>
     <p class="meta">Mar 28, 2014
+         - 2 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/28/preparation-railstutorial/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/rails/">rails </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/28/preparation-railstutorial/">Railstutorial の準備</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>うぶんつ 12.04 を virtualbox に導入。昨日某所でぐにぐにしてたのですが timeup してしまってます。今日も負荷が高いようであれば止め、な方向。</p>
+
+<p>導入終わったので以下の順でツール導入、なのかな。</p>
+
+<ul>
+<li>Git</li>
+<li>Ruby</li>
+<li>RubyGems</li>
+<li>Rails</li>
+</ul>
+
+<p>以下に沿ってすすめてみます。</p>
+
+<ul>
+<li><a href="http://blog.sudobits.com/2012/05/02/how-to-install-ruby-on-rails-in-ubuntu-12-04-lts/">HOW TO INSTALL RUBY ON RAILS IN UBUNTU 12.04 LTS</a></li>
+</ul>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/28/preparation-railstutorial/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Mar 28, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/28/sed-osx-linux/#disqus_thread">Comments</a>
 
@@ -472,58 +523,6 @@ $ pactl list short sources
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Mar 23, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/23/how-to-test-program-using-volley/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/23/how-to-test-program-using-volley/">volley を使ってる実装の試験の方法</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>HttpStack を継承した FakeHttpStack を作っておいて</p>
-
-<pre><code>    mRequestQueue = Volley.newRequestQueue(getActivity());
-</code></pre>
-
-<p>みたいな事してる箇所のソレを mockito で云々すれば良いのかな。例えば詳細略で以下なソレをでっちあげておいて</p>
-
-<pre><code>public class FakeRequestQueue extends RequestQueue {
-    public FakeRequestQueue(Context context) {
-        super(new NoCache(), new BasicNetwork(new FakeHttpStack(context)));
-    }
-}
-</code></pre>
-
-<p>mRequestQueue は setter なメソド作っておいて以下で良いのかどうか。</p>
-
-<p>あ、違うな。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/23/how-to-test-program-using-volley/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -626,6 +625,12 @@ $ pactl list short sources
           
             
               <li class="post">
+                <a href="/blog/2019/11/04/stone-direction/">石の向き</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/11/01/training/">TensorFlowとKerasで動かしながら学ぶ ディープラーニングの仕組み</a>
               </li>
             
@@ -675,12 +680,6 @@ $ pactl list short sources
             
               <li class="post">
                 <a href="/blog/2019/10/09/m5stack/">M5stack</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/10/08/igo-memo/">囲碁メモ</a>
               </li>
             
           
