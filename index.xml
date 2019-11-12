@@ -6,10 +6,27 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 06 Nov 2019 22:03:15 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 12 Nov 2019 20:03:03 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>川口ルール</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/11/12/kawaguchi-rule/</link>
+      <pubDate>Tue, 12 Nov 2019 20:03:03 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/11/12/kawaguchi-rule/</guid>
+      <description>&lt;p&gt;囲碁のルールをシンプルにして、30 秒で覚えて楽しめる、とのこと。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.tandkinc.co.jp/?page_id=1092&#34;&gt;すぐ打てる! 囲碁 &amp;ldquo;川口ルール&amp;rdquo;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;これは良いですね。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>コスミツケのある三々</title>
