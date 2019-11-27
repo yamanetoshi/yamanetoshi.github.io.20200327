@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/11/27/python-book/</loc>
+    <lastmod>2019-11-27T20:02:15+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/11/23/misc/</loc>
     <lastmod>2019-11-23T19:11:54+09:00</lastmod>
   </url>
@@ -9809,7 +9814,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-11-23T19:11:54+09:00</lastmod>
+    <lastmod>2019-11-27T20:02:15+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -10043,13 +10048,13 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-11-23T19:11:54+09:00</lastmod>
+    <lastmod>2019-11-27T20:02:15+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/programming/</loc>
-    <lastmod>2019-10-03T21:49:12+09:00</lastmod>
+    <lastmod>2019-11-27T20:02:15+09:00</lastmod>
     <priority>0</priority>
   </url>
   
