@@ -99,6 +99,61 @@
 <header>
     <p class="meta">Nov 23, 2013
          - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/23/think-about-fog-abstraction/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/devops/">DevOps </a><a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/23/think-about-fog-abstraction/">Fog 抽象化に関する冥想</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>とりあえず command line tools が導入できないのでこちら方面でアレ。</p>
+
+<p>エントリポイントとしては以下なのかどうか。</p>
+
+<pre><code>@compute = Fog::Compute.new(
+</code></pre>
+
+<p>で、引数として渡してる辞書に provider というソレを持たしておいて if 文orz</p>
+
+<p>とは言え、処理系の特殊形式と同様でこれ以上云々できないアトミックなオブジェクトなのかどうなのか。fog の実装見てみるに lib/fog/compute.rb でこの provider な値を元に分岐な記述が入ってます。</p>
+
+<ul>
+<li>gogrid</li>
+<li>new_servers (?)</li>
+<li>baremetalcloud</li>
+<li>rackspace</li>
+<li>stormondemand</li>
+<li>vloud</li>
+<li>その他</li>
+</ul>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/23/think-about-fog-abstraction/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Nov 23, 2013
+         - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/23/cannot-bundle-install-in-mavericks/#disqus_thread">Comments</a>
 
         
@@ -498,52 +553,6 @@ end
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Nov 21, 2013
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/21/ruby-re-install/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/ruby/">Ruby </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/21/ruby-re-install/">ruby 再導入の件</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>昨晩色々ハマッてるログが残っているのですが大変だった模様。とりあえず</p>
-
-<ul>
-<li>sudo で Chef-Solo 云々するのに一般ユーザの $HOME に rbenv 入れてたorz</li>
-</ul>
-
-<p>という大失敗をしてて /usr/local 配下に再導入しようとしてハマッていた。sudo でパスが /etc/sudoers に記述されてるものに限定される、というあたりでまず駄目だったのですが、その後、rbenv install できない、という挙動が出てた記憶あり。</p>
-
-<p>ともあれ再度仮想リソースを kickoff して再開。</p>
-
-<p># さくっと Running になってくれないあたりが若干アレだったり</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2013/11/21/ruby-re-install/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -646,6 +655,12 @@ end
           
             
               <li class="post">
+                <a href="/blog/2019/11/29/wrapping-up/">スッキリわかる Python 入門要約</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/11/27/python-book/">プログラミング書籍</a>
               </li>
             
@@ -695,12 +710,6 @@ end
             
               <li class="post">
                 <a href="/blog/2019/10/23/training/">トレーニング</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/10/21/sunday-baduk-last-week/">先週の日曜囲碁</a>
               </li>
             
           

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>スッキリわかる Python 入門要約</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://weblog.metacircular-evaluator.org/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="author" content="">
+
+  
+  <meta name="generator" content="Hugo 0.50" />
+
+  
+  
+
+  
+  
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://weblog.metacircular-evaluator.org/">/var/log/messages</a></h1>
+    <h2></h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+</ul>
+
+<ul class="subscription">
+  
+
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+    <p class="meta">Nov 29, 2019
+         - 3 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/11/29/wrapping-up/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+         スッキリわかる Python 入門要約 
+    </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p><a href="https://www.amazon.co.jp/dp/4295006327/yamanetoshi-22">スッキリわかる Python 入門</a>に目を通しておくこと、という指令が下り、書籍も到着したのですが囲碁大会前ってことで練習対応で時間を使っていたのですが、ちょっと時間が確保できたので確認がてら、まとめも作成してみることに。</p>
+
+<p></p>
+
+<h2 id="まえがき">まえがき</h2>
+
+<p>Python エンジニアを本気で目指す人の 1 冊目として自信を持って勧められる本を作ってしまおう、と生まれた本とのこと。以下を意識しているとの記載があります。</p>
+
+<ul>
+<li>基礎を学べる</li>
+<li>楽しく学べる</li>
+<li>ひとりでも学べる</li>
+</ul>
+
+<p>また、見方の頁においていくつかのポイントが列挙されています。</p>
+
+<ul>
+<li>重要な用語や注意すべき部分に色をつけている</li>
+<li>以下なアイコンが用意されている
+
+<ul>
+<li>構文紹介 (構文の記述ルールと文法上の留意点などの紹介)</li>
+<li>コラム</li>
+<li>ポイント紹介 (特に重要なポイント)</li>
+</ul></li>
+<li>コード部分について<br />
+
+<ul>
+<li>予約語には色つきで表す</li>
+<li>注目すべきコードは吹き出しで説明付き</li>
+<li>グレーの部分はコメント</li>
+</ul></li>
+<li>本の中で一緒に学ぶ方々の会話</li>
+<li>各章ごと、まとめがある</li>
+<li>章末で練習問題がある</li>
+</ul>
+
+<p>とりあえず 0 章からざっくり確認着手します。</p>
+
+<h2 id="0-章">0 章</h2>
+
+<p>一緒に学ぶ方々、以下三名とのこと。</p>
+
+<ul>
+<li>先生役</li>
+<li>生徒 A (男子)</li>
+<li>生徒 B (女子) (できれば眼鏡希望)</li>
+</ul>
+
+<p>三名で授業してる形ですすめる模様。0.2 ではハロワとそれを改造。使う道具のフォローなど。とりあえず Jupyter を使ってはじめてプログラムしてみました、が 0 章のようですね。そして 0 が終わったら 1、2 章のロードマップな漫画が挿入されています。</p>
+
+<h2 id="1-部-python-の基礎を学ぼう">1 部 (Python の基礎を学ぼう)</h2>
+
+<p>章立てとしては以下。</p>
+
+<ul>
+<li>変数とデータ型
+
+<ul>
+<li>式と演算</li>
+<li>変数</li>
+<li>データ型</li>
+</ul></li>
+<li>コレクション
+
+<ul>
+<li>データの集り</li>
+<li>リスト</li>
+<li>ディクショナリ</li>
+<li>タプルとセット</li>
+<li>コレクションの応用</li>
+</ul></li>
+<li>条件分岐
+
+<ul>
+<li>プログラムの流れ</li>
+<li>条件分岐の基本構造</li>
+<li>条件式</li>
+<li>分岐構文のバリエーション</li>
+</ul></li>
+<li>繰り返し
+
+<ul>
+<li>繰り返しの基本構造</li>
+<li>for 文</li>
+<li>繰り返しの制御</li>
+</ul></li>
+</ul>
+
+<p>これ、学び、という部分で微妙に間違えながらすすんでいく、という形になっているあたりが良いですね。</p>
+
+<h2 id="練習問題">練習問題?</h2>
+
+<p>隣の頁に解答があるのってどうなんだろうかと。</p>
+
+<h2 id="2-章-コレクション">2 章 コレクション</h2>
+
+<p>これ、よくよく見たら登場人物の表情にいくつかのバリエーションがあるのですね。ちょっと目を通しながら気づきを列挙する方式にします。</p>
+
+<ul>
+<li><code>{</code> て波かっこ、って言うのね (ブレイス、と呼んでいる)</li>
+<li>主要なよっつのコレクションの紹介</li>
+<li>セット、て集合演算ができるのね</li>
+</ul>
+
+<h2 id="3-章-条件分岐">3 章 条件分岐</h2>
+
+<ul>
+<li>基本的な制御構造の紹介 (アルゴリズムの基本要素?)</li>
+<li>インデントの話が出てこないな、と思ったら出てきた (これもエラーの例)</li>
+<li>boolean が出てくる (当たり前)</li>
+<li>True と False の読み方、必要なのではないかしら</li>
+<li>False 判定されるものが紹介されている</li>
+<li>input という手続きを使ってますね、どこで出てきたのか別途確認</li>
+</ul>
+
+<h2 id="4-章-繰り返し">4 章 繰り返し</h2>
+
+<ul>
+<li>ここまでで基本的な事項がおさらいできているはず</li>
+<li>JupyterLab でのループの停め方</li>
+<li>while が先で for が次に出てくる</li>
+</ul>
+
+<h2 id="input">input</h2>
+
+<p>1 章でいきなり出てきていますね。初出は 1.2.7 か。標準入力云々、てのはトピ違いなので完全スルーしている模様。</p>
+
+<h2 id="第二部">第二部</h2>
+
+<p>については週明け以降で確認して控え出力の方向です。</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn"></span></span>
+    
+    <time>Nov 29, 2019</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://weblog.metacircular-evaluator.org/blog/2019/11/27/python-book/" title="プログラミング書籍">プログラミング書籍</a>
+    
+
+    
+  </p>
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="3213323462"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+ </script>
+
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'yamanetoshi';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About Me</h1>
+    
+
+    <p>
+      
+        <p><a href="https://about.me/yamanetoshi"><img src="/images/glider.png" alt="glider.png"/></a></p><p><strong>YAMANE Toshiaki</strong>(<a href="https://twitter.com/yamanetoshi">@yamanetoshi</a>)</p>
+
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/yamanetoshi" title="https://github.com/yamanetoshi"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/yamanetoshi" title="https://twitter.com/yamanetoshi"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      
+      
+      
+      
+      
+      <a target="_blank" href="https://www.instagram.com/yamanetoshi" title="https://www.instagram.com/yamanetoshi"><i class="fa fa-instagram fa-3x"></i></a>
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019/11/29/wrapping-up/">スッキリわかる Python 入門要約</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/11/27/python-book/">プログラミング書籍</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/11/23/misc/">色々</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/11/12/kawaguchi-rule/">川口ルール</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/11/06/stone-direction/">コスミツケのある三々</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/11/04/stone-direction/">石の向き</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/11/01/training/">TensorFlowとKerasで動かしながら学ぶ ディープラーニングの仕組み</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/10/30/training/">トレーニング</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/10/29/training/">トレーニング</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2019/10/23/training/">トレーニング</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+
+<section>
+    <h1>Books</h1>
+ <ul>
+<li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873117127/yamanetoshi-22/' target='_blank'><img src='/images/514ifs4Y5bL._SL160_.jpg' width='113' height='160' alt='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' title='コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873116309/yamanetoshi-22/' target='_blank'><img src='/images/41SlY0zvpKL._SL160_.jpg' width='113' height='160' alt='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' title='Team Geek ―Googleのギークたちはいかにしてチームを作るのか' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4873114535/yamanetoshi-22/' target='_blank'><img src='/images/51NDW60LBQL._SL160_.jpg' width='125' height='160' alt='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' title='Prototyping Lab ―「作りながら考える」ためのArduino実践レシピ (Make:PROJECTS)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/B0054RGYNQ/yamanetoshi-22/' target='_blank'><img src='/images/51F7PJ0KzYL._SL160_.jpg' width='124' height='160' alt='Fearless Change: Patterns for Introducing New Ideas' title='Fearless Change: Patterns for Introducing New Ideas' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4774145211/yamanetoshi-22/' target='_blank'><img src='/images/515WitVr5lL._SL160_.jpg' width='112' height='160' alt='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' title='プロセッサを支える技術　　－－果てしなくスピードを追求する世界 (WEB+DB PRESS plus)' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/489471163X/yamanetoshi-22/' target='_blank'><img src='/images/51ZSMEJ9Y2L._SL160_.jpg' width='112' height='160' alt='計算機プログラムの構造と解釈' title='計算機プログラムの構造と解釈' /></a>
+</li>
+ <li>
+<a href='https://www.amazon.co.jp/exec/obidos/ASIN/4798023809/yamanetoshi-22/' target='_blank'><img src='/images/41R5gj5VRFL._SL160_.jpg' width='113' height='160' alt='入門Git' title='入門Git' /></a>
+</li>
+</ul>
+ </section>
+ <section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-5885095939968393"
+     data-ad-slot="7922724663"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</section>
+  
+</aside>
+
+  </div>
+</div>
+
+
+
+<footer role="contentinfo">
+  <p>Copyright &copy; 2019  - <a href="https://weblog.metacircular-evaluator.org/license/">License</a> -
+  <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+</p>
+
+</footer>
+
+
+
+
+
+
+<script>
+  var _gaq=[['_setAccount','UA-45385426-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
