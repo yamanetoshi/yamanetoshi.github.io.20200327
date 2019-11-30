@@ -97,6 +97,62 @@
         
 
 <header>
+    <p class="meta">Mar 6, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/06/revert-remote-repository/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/git/">Git </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/06/revert-remote-repository/">リモートリポジトリの巻き戻し</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>ヤッてしまった。とりあえず誰も見てないはずなので巻き戻す。</p>
+
+<pre><code>$ git reset --hard HEAD~2
+</code></pre>
+
+<p>これで</p>
+
+<pre><code>$ git push origin master
+</code></pre>
+
+<p>するとどうなるんかな。あ、reject された。</p>
+
+<pre><code>! [rejected]    master -&gt; master (non-fast-forward)
+</code></pre>
+
+<p>これ、一度 branch を削除するのか。</p>
+
+<pre><code>$ git push origin :master
+</code></pre>
+
+<p>これも駄目。</p>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/06/revert-remote-repository/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Mar 5, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/05/make-gae-python-development-environment/#disqus_thread">Comments</a>
@@ -408,51 +464,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Mar 1, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/01/todo/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/misc/">misc </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/01/todo/">TODO</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>今日、以下をアレ。</p>
-
-<ul>
-<li>マネーフォワード For BUSINESS</li>
-<li>Dropbox</li>
-<li>Everyday Rails - RSpecによるRailsテスト入門</li>
-<li>amazon なカートに二冊くらい入ってるソレ</li>
-</ul>
-
-<p>合わせていくらなんだろ (ぇ</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/03/01/todo/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -555,6 +566,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/11/30/go-tournament/">囲碁大会</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/11/29/wrapping-up/">スッキリわかる Python 入門要約</a>
               </li>
             
@@ -604,12 +621,6 @@
             
               <li class="post">
                 <a href="/blog/2019/10/29/training/">トレーニング</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/10/23/training/">トレーニング</a>
               </li>
             
           

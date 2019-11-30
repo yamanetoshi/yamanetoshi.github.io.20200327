@@ -98,6 +98,40 @@
 
 <header>
     <p class="meta">Jun 6, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/06/forbidden-attributes-error-in-rails4/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/rails/">rails </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/06/forbidden-attributes-error-in-rails4/">ActiveModel::ForbiddenAttributesError</a>
+    </h1>
+</header>
+
+
+        
+          <p>ヤられました。devise 導入したので @hoge = Hoge.new(conn_params) ってなってる所を @hoge = current_user.hoges.build(params[:hoge]) って修正してしまって ActiveModel::ForbiddenAttributesError が出てしまい、困り果てていたのですが、そもそも以下に</p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/06/forbidden-attributes-error-in-rails4/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
+    <p class="meta">Jun 6, 2014
          - 2 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/06/check-pi-baremetal/#disqus_thread">Comments</a>
 
@@ -437,49 +471,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Jun 1, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/01/use-resque-in-rails/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/rails/">rails </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/01/use-resque-in-rails/">Resque 使ってバッチ処理を記述</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>あるアクションで API タタいて云々、みたいな時間がかかる処理の記述が必要になったので使ってみました。</p>
-
-<p>ぶっちゃけ実装としては kickoff するアクションで Hoge という app/worker 配下に定義されてるクラスを、という事であれば</p>
-
-<pre><code>Resque.enqueue(Hoge, ....
-</code></pre>
-
-<p>て形で Hoge.perform に渡す引数を二番目の引数以降で羅列してあげればそれで OK らしいです。とは言え、いくつか足をすくわれた事があり、以降で控えておきたいと思います。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/06/01/use-resque-in-rails/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -582,6 +573,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/11/30/go-tournament/">囲碁大会</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/11/29/wrapping-up/">スッキリわかる Python 入門要約</a>
               </li>
             
@@ -631,12 +628,6 @@
             
               <li class="post">
                 <a href="/blog/2019/10/29/training/">トレーニング</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/10/23/training/">トレーニング</a>
               </li>
             
           
