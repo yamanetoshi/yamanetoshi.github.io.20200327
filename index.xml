@@ -6,10 +6,21 @@
     <description>Recent content on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 30 Nov 2019 21:40:27 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 05 Dec 2019 20:04:56 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>スッキリわかる Python 入門要約</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2019/12/05/wrapping-up/</link>
+      <pubDate>Thu, 05 Dec 2019 20:04:56 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2019/12/05/wrapping-up/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/4295006327/yamanetoshi-22&#34;&gt;スッキリわかる Python 入門&lt;/a&gt;に目を通しておくこと、という指令が下り、囲碁大会も終わったので確認続行しつつでまとめも作成な続きです。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>囲碁大会</title>
