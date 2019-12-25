@@ -97,6 +97,52 @@
         
 
 <header>
+    <p class="meta">Oct 30, 2014
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/30/made-a-mistake-that-describe-sendbroadcast/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/android/">android </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/30/made-a-mistake-that-describe-sendbroadcast/">sendBroadcast の action でハマった件</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>こうしてエントリにしようとして文字にしてみると馬鹿なことしてるな、と痛感する次第です。</p>
+
+<p>ええと、AndroidManifest で以下な記述にしておりまして</p>
+
+<pre><code>&lt;receiver android:name=&quot;com.example.hoge.fuga&quot;
+    android:exported=&quot;false&quot; /&gt;
+    &lt;intent-filter&gt;
+       &lt;action android:name=&quot;com.example.hoge.Fuga.piyo&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/30/made-a-mistake-that-describe-sendbroadcast/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Oct 29, 2014
          - 1 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/29/gstreamer-tutorial/#disqus_thread">Comments</a>
@@ -437,40 +483,6 @@
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Oct 21, 2014
-         - 1 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/21/pepperflashplugin-nonfree/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/linux/">Linux </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/21/pepperflashplugin-nonfree/">chromium 更新したら flash が見れなくなった件</a>
-    </h1>
-</header>
-
-
-        
-          <p>将棋が見れないのが痛くて対応調査。pepperflashplugin-nonfree を入れれば OK って記述が沢山あるのですが apt-cache search しても出てこな</p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2014/10/21/pepperflashplugin-nonfree/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -573,6 +585,12 @@
           
             
               <li class="post">
+                <a href="/blog/2019/12/25/year-end-todo/">年末年始の TODO</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2019/12/05/wrapping-up/">スッキリわかる Python 入門要約</a>
               </li>
             
@@ -622,12 +640,6 @@
             
               <li class="post">
                 <a href="/blog/2019/11/01/training/">TensorFlowとKerasで動かしながら学ぶ ディープラーニングの仕組み</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/10/30/training/">トレーニング</a>
               </li>
             
           

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weblog.metacircular-evaluator.org/blog/2019/12/25/year-end-todo/</loc>
+    <lastmod>2019-12-25T20:19:58+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weblog.metacircular-evaluator.org/blog/2019/12/05/wrapping-up/</loc>
     <lastmod>2019-12-05T20:04:56+09:00</lastmod>
   </url>
@@ -9829,7 +9834,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/</loc>
-    <lastmod>2019-12-05T20:04:56+09:00</lastmod>
+    <lastmod>2019-12-25T20:19:58+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -10039,7 +10044,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/categories/misc/</loc>
-    <lastmod>2019-11-30T21:40:27+09:00</lastmod>
+    <lastmod>2019-12-25T20:19:58+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -10063,7 +10068,7 @@
   
   <url>
     <loc>https://weblog.metacircular-evaluator.org/post/</loc>
-    <lastmod>2019-12-05T20:04:56+09:00</lastmod>
+    <lastmod>2019-12-25T20:19:58+09:00</lastmod>
     <priority>0</priority>
   </url>
   
