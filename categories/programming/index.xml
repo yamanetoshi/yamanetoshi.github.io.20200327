@@ -6,10 +6,25 @@
     <description>Recent content in Programming on /var/log/messages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 05 Dec 2019 20:04:56 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jan 2020 22:53:26 +0900</lastBuildDate>
     
 	<atom:link href="https://weblog.metacircular-evaluator.org/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>リーダブルコード</title>
+      <link>https://weblog.metacircular-evaluator.org/blog/2020/01/27/readable-code/</link>
+      <pubDate>Mon, 27 Jan 2020 22:53:26 +0900</pubDate>
+      
+      <guid>https://weblog.metacircular-evaluator.org/blog/2020/01/27/readable-code/</guid>
+      <description>&lt;p&gt;一緒に仕事させて頂いている方から、読むようにという指導が入ったので購入。メモを以下に列挙してみます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.amazon.co.jp/dp/4873115655/yamanetoshi-22&#34;&gt;リーダブルコード ―より良いコードを書くためのシンプルで実践的なテクニック (Theory in practice)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>スッキリわかる Python 入門要約</title>
