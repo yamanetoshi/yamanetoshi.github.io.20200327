@@ -97,6 +97,58 @@
         
 
 <header>
+    <p class="meta">Feb 19, 2019
+         - 1 minute read 
+         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/19/metaprogramming-elixir/#disqus_thread">Comments</a>
+
+        
+        
+            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
+        
+    </p>
+    <h1 class="entry-title">
+        <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/19/metaprogramming-elixir/">Metaprogramming Elixir (8)</a>
+    </h1>
+</header>
+
+
+        
+          <p><p>Macro.to_string で生成されたコードを理解、という小休憩てきな節。Translator module に以下な修正を、とのこと。</p>
+
+<pre><code>  def compile(translations) do
+    translations_ast = for {locale, mappings} &lt;- translations do
+      deftranslations(locale, &quot;&quot;, mappings)
+    end
+
+    final_ast = quote do
+      def t(locale, path, binding \\ [])
+      unquote(translations-ast)
+      def t(_locale, _path, _bindings), do: {:error, :no_translation}
+    end
+
+    IO.puts Macro.to_string(final_ast)
+    final_ast
+  end
+</code></pre>
+
+<p></p></p>
+
+          
+              <footer>
+                  <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/19/metaprogramming-elixir/" rel="full-article">Read On &rarr;</a>
+              </footer>
+          
+
+        
+
+    </article>
+    
+    <article>
+
+        
+        
+
+<header>
     <p class="meta">Feb 18, 2019
          - 4 minute read 
          - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/18/metaprogramming-elixir/#disqus_thread">Comments</a>
@@ -508,42 +560,6 @@ iex(5)&gt; quote do: 1 + 2
 
     </article>
     
-    <article>
-
-        
-        
-
-<header>
-    <p class="meta">Feb 9, 2019
-         - 2 minute read 
-         - <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/09/programming-elixir/#disqus_thread">Comments</a>
-
-        
-        
-            - <a class="label" href="https://weblog.metacircular-evaluator.org/categories/programming/">programming </a>
-        
-    </p>
-    <h1 class="entry-title">
-        <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/09/programming-elixir/">プログラミング Elixir (17)</a>
-    </h1>
-</header>
-
-
-        
-          <p><p>12 章の制御フローはスルーして 13 章確認着手。OrganizingAProject-1 をテキスト確認しつつすすめてみます。</p>
-
-<p></p></p>
-
-          
-              <footer>
-                  <a href="https://weblog.metacircular-evaluator.org/blog/2019/02/09/programming-elixir/" rel="full-article">Read On &rarr;</a>
-              </footer>
-          
-
-        
-
-    </article>
-    
     
     
 
@@ -646,6 +662,12 @@ iex(5)&gt; quote do: 1 + 2
           
             
               <li class="post">
+                <a href="/blog/2020/02/10/go-pattern/">隅のカタチ</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="/blog/2020/01/27/readable-code/">リーダブルコード</a>
               </li>
             
@@ -695,12 +717,6 @@ iex(5)&gt; quote do: 1 + 2
             
               <li class="post">
                 <a href="/blog/2019/11/29/wrapping-up/">スッキリわかる Python 入門要約</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2019/11/27/python-book/">プログラミング書籍</a>
               </li>
             
           
